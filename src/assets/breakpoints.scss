@@ -1,0 +1,36 @@
+$screen-small: 480px;
+$screen-medium: 1000px;
+$screen-large: 1200px;
+
+// Small devices
+@mixin sm {
+  @media (max-width: #{$screen-small}) {
+      @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (max-width: #{$screen-medium}) {
+      @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (max-width: #{$screen-large}) {
+      @content;
+  }
+}
+.lg-max {
+  max-width: $screen-large;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// Custom devices
+@mixin rwd($screen) {
+  @media (max-width: $screen + 'px') {
+      @content;
+  }
+}

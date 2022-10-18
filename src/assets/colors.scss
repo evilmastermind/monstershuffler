@@ -1,0 +1,144 @@
+
+
+$dark-theme: "dark-theme";
+$light-theme: "light-theme";
+
+
+$base: #7a000a;
+$base-hue: hue($base);
+$base-saturation: saturation($base);
+$color: hsl($base-hue,$base-saturation,50%);
+$primary-color: 'primary-color';
+$primary-50: 'primary-50';
+$primary-100: 'primary-100';
+$primary-200: 'primary-200';
+$primary-300: 'primary-300';
+$primary-400: 'primary-400';
+$primary-500: 'primary-500';
+$primary-600: 'primary-600';
+$primary-700: 'primary-700';
+$primary-750: 'primary-750';
+$primary-800: 'primary-800';
+$primary-900: 'primary-900';
+$complementary-50: 'complementary-50';
+$complementary-100: 'complementary-100';
+$complementary-200: 'complementary-200';
+$complementary-300: 'complementary-300';
+$complementary-400: 'complementary-400';
+$complementary-500: 'complementary-500';
+$complementary-600: 'complementary-600';
+$complementary-700: 'complementary-700';
+$complementary-800: 'complementary-800';
+$complementary-900: 'complementary-900';
+
+$text: "primary-text-color";
+$text-2: "secondary-text-color";
+$background: "general-background";
+$background-light: "general-background-light";
+/* ...other color keys... */
+
+$themes: (
+        light: (
+          $primary-color: $color,
+          $primary-50:  lighten($color,90),
+          $primary-100: lighten($color,80),
+          $primary-200: lighten($color,60),
+          $primary-300: lighten($color,40),
+          $primary-400: lighten($color,20),
+          $primary-500: $color,
+          $primary-600: darken($color,20),
+          $primary-700: darken($color,40),
+          $primary-750: darken($color,50),
+          $primary-800: darken($color,60),
+          $primary-900: darken($color,80),
+          $complementary-50: complement(lighten($color,90)),
+          $complementary-100: complement(lighten($color,80)),
+          $complementary-200: complement(lighten($color,70)),
+          $complementary-300: complement(lighten($color,60)),
+          $complementary-400: complement(lighten($color,50)),
+          $complementary-500: complement($color),
+          $complementary-600: complement(darken($color,20)),
+          $complementary-700: complement(darken($color,40)),
+          $complementary-800: complement(darken($color,60)),
+          $complementary-900: complement(darken($color,80)),
+          
+          $text: #000,
+          $text-2: #444,
+          $background: #f5f5f6,
+          $background-light: #FFF,
+        ),
+        dark: (
+          $primary-color: invert(complement($color)),
+          $primary-50: darken(invert(complement($color)),90),
+          $primary-100: darken(invert(complement($color)),80),
+          $primary-200: darken(invert(complement($color)),60),
+          $primary-300: darken(invert(complement($color)),40),
+          $primary-400: darken(invert(complement($color)),20),
+          $primary-500: invert(complement($color)),
+          $primary-600: lighten(invert(complement($color)),20),
+          $primary-700: lighten(invert(complement($color)),40),
+          $primary-750: lighten(invert(complement($color)),50),
+          $primary-800: lighten(invert(complement($color)),60),
+          $primary-900: lighten(invert(complement($color)),80),
+          $complementary-50: darken(invert($color),90),
+          $complementary-100: darken(invert($color),80),
+          $complementary-200: darken(invert($color),60),
+          $complementary-300: darken(invert($color),40),
+          $complementary-400: darken(invert($color),20),
+          $complementary-500: invert($color),
+          $complementary-600: lighten(invert($color),20),
+          $complementary-700: lighten(invert($color),40),
+          $complementary-800: lighten(invert($color),60),
+          $complementary-900: lighten(invert($color),80),
+          
+          $text: #FFF,
+          $text-2: #DDD,
+          $background: #000,
+          $background-light: #050505,
+        )
+);
+
+// Dark Mode mixin by Katie McTigue
+// https://github.com/kaitlinmctigue/kaitlinmctigue.github.io/blob/source/src/styles/_color-themes.scss
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}
+
+
+// Dark Mode mixin by Fabrizio Durioni
+// https://www.fabrizioduroni.it/2020/05/20/dark-mode-css-sass-scss/
+// Not the best solution, since you can't toggle themes manually with it
+
+// @mixin themeProperty($theme, $property, $color, $additionalPropertiesPositionIsFront, $additionalProperties) {
+//   @if $additionalPropertiesPositionIsFront {
+//     #{$property}: unquote($additionalProperties + ' ' + map-get($theme, $color));
+//   } @else {
+//     #{$property}: unquote(map-get($theme, $color) + ' ' + $additionalProperties);
+//   }
+// }
+
+// @mixin theme($property, $color, $additionalPropertiesPositionIsFront: false, $additionalProperties: '') {
+//   $light: map-get($themes, $light-theme);
+//   $dark: map-get($themes, $dark-theme);
+
+//   @include themeProperty($light, $property, $color, $additionalPropertiesPositionIsFront, $additionalProperties);
+
+//   @media (prefers-color-scheme: dark) {
+//     @include themeProperty($dark, $property, $color, $additionalPropertiesPositionIsFront, $additionalProperties);
+//   }
+// }
