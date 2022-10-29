@@ -31,6 +31,21 @@ module.exports = {
       "error",
       2
     ],
+    "vue/max-len": ["error", {
+      "code": 100,
+      "template": 100,
+      "tabWidth": 2,
+      "comments": 100,
+      "ignorePattern": "",
+      "ignoreComments": false,
+      "ignoreTrailingComments": false,
+      "ignoreUrls": false,
+      "ignoreStrings": false,
+      "ignoreTemplateLiterals": false,
+      "ignoreRegExpLiterals": false,
+      "ignoreHTMLAttributeValues": false,
+      "ignoreHTMLTextContents": false,
+    }],
     "linebreak-style": [
       "error",
       "unix"

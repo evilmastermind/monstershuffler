@@ -2,6 +2,8 @@
 @import "@/assets/colors.scss";
 @import "@/assets/breakpoints.scss";
 @import "@/assets/units.scss";
+@import "@/assets/utilityclasses.scss";
+@import "@/assets/fonts.scss";
 
 :root {
   font-size: 17px;
@@ -11,6 +13,6 @@
     color: t($text);
     background-color: t($background);
   }
-  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  //font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   min-height: 100vh;
 }

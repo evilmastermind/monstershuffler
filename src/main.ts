@@ -9,11 +9,15 @@ import "@/assets/css-reset.css";
 // import "@/assets/tailwind.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faDiceD20,faUserEdit,faUser,faUsers,faCog } from "@fortawesome/free-solid-svg-icons";
-//import "bulma/css/bulma.css";
-//import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { 
+  faDiceD20,faDragon,faUserEdit,faUser,faUsers,faCog,faSun,faMoon,faCloud,faCircle,faBookOpen 
+} from "@fortawesome/free-solid-svg-icons";
+import { faRedditAlien,faPatreon,faGithubAlt,faGithub } from "@fortawesome/free-brands-svg-icons";
 
-library.add(faDiceD20,faUserEdit,faUser,faUsers,faCog);
+library.add(
+  faDiceD20,faDragon,faBookOpen,faUserEdit,faUser,faUsers,
+  faCog,faSun,faMoon,faCloud,faRedditAlien,faPatreon,faCircle,faGithubAlt,faGithub
+);
 
 type MessageSchema = typeof en; 
 const i18n = createI18n<[MessageSchema], "en" | "it">({
