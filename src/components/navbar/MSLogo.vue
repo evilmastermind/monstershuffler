@@ -55,6 +55,16 @@
   flex-basis: 100px;
   margin-right: $s-6;
 }
+@media (max-width: 700px) {
+  .ms-logo {
+    flex-basis: 50px;
+  }
+}
+@media (max-width: 575px) {
+  .ms-logo {
+    margin-right: 0;
+  }
+}
 .ms-logo:hover .ms-logo-fill {
   @include themed() {
     fill: t($text-accent);
@@ -66,6 +76,7 @@
   }
 }
 .ms-logo-icon {
+  min-width: 30px;
   width: 60%;
 }
 .ms-logo-fill {

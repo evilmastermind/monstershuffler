@@ -1,12 +1,15 @@
 <template>
   <div class="test">
-    <div class="title">
-      The most powerful monster editor in the world
-    </div>
-    <img
-      class="image"
-      src="@/assets/images/pony.png"
-    >
+    <!-- <div class="lg-max flexo">
+      <div class="title">
+        Some catchy phrase. 
+      </div>
+      <img
+        class="image"
+        src="@/assets/images/pony.png"
+      >
+    </div> -->
+    <div class="gradient" />
   </div>
 </template>
 
@@ -15,11 +18,15 @@
 </script>
 
 <style lang="scss" scoped>
-.test {
+.flexo {
   display: flex;
   align-items: center;
   padding-top: 10rem;
   justify-content: space-between;
+}
+.test {
+  position: relative;
+  z-index: 0;
   width: 100%;
   height: 90vh;
   background-image: url("@/assets/images/background.png");
@@ -33,7 +40,16 @@
   font-size: 5em;
 }
 .image {
-  max-width: 450px;
-  margin: 2em;
+  max-width: 450px; 
 }
+// test gradient at the bottom of the image
+// .gradient {
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
+//   height: 6rem;
+//   @include themed() {
+//     background: linear-gradient(180deg,transparent 0,t($background) 100%);
+//   }
+// }
 </style>

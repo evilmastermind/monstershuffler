@@ -173,9 +173,9 @@ function  startTimer () {
   position:absolute;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  justify-content: center;
   width: 300px;
-  align-items: stretch;
+  align-items: center;
   left: 0;
   @include themed() {
     background-color: t($background);

@@ -70,6 +70,9 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   position: relative;
   overflow: visible;
 }
+.dropdown-menu > * {
+  padding: $s-1 $s-2;
+}
 .dropdown-menu {
   position:absolute;
   display: flex;
@@ -79,9 +82,9 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   align-items: stretch;
   border-radius: 5px;
   @include themed() {
-    background-color: t($background);
-    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+    background-color: t($primary-50);
   }
+  @include shadow-2;
 }
 .dropdown-menu-hidden {
   display: none;

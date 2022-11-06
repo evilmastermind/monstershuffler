@@ -7,3 +7,45 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
+
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.justify-center {
+  justify-content: left;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+.column-gap-s1 {
+  column-gap: $s-1;
+}
+.column-gap-s3 {
+  column-gap: $s-3;
+}
+.column-gap-s4 {
+  column-gap: $s-4;
+}
+
+.column-gap-s5 {
+  column-gap: $s-5;
+}
+.column-gap-s8 {
+  column-gap: $s-8;
+}
+.column-gap-s12 {
+  column-gap: $s-12;
+}
+.py-2 {
+  padding: $s-2 0;
+}

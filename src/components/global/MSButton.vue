@@ -28,9 +28,8 @@ const props = defineProps({
   padding: $s-1 $s-2;
   border-radius: 5px;
   cursor:pointer;
-  @include themed() {
-    box-shadow: 0 2px 3px 0 rgba(#000, 0.35), 0 1px 2px -1px rgba(#000, 0.15);
-  }
+  @include shadow-2;
+  //@include shadow-1;
 }
 .color-primary {
   @include themed() {

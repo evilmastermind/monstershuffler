@@ -19,10 +19,36 @@
     <template #dropdown>
       <a href="#something"><span>Span</span> Do something</a>
       <a href="#something">Something else</a>
+      <a class="user-links-mobile">Login</a>
+      <a class="user-links-mobile">Register</a>
+      <span id="button-theme-mobile">Change theme: <span class="inline-block"><ButtonTheme /></span></span>
+      <LinksSupport id="links-support-mobile" />
     </template>
   </DropdownMenu>
 </template>
 
 <script setup lang="ts">
+import ButtonTheme from "@/components/navbar/ButtonTheme.vue";
 import DropdownMenu from "@/components/global/Menu.vue";
+import LinksSupport from "@/components/navbar/LinksSupport.vue";
 </script>
+
+<style lang="scss">
+#button-theme-mobile, #links-support-mobile, .user-links-mobile {
+  display: none;
+}
+@media (max-width: 1100px) {
+  #button-theme-mobile {
+    display: inline-block;
+  }
+  #links-support-mobile {
+    display: flex;
+    margin: $s-1 auto 0 auto;
+  }
+}
+.user-links-mobile {
+  @include md {
+    display: inline-block;
+  }
+}
+</style>

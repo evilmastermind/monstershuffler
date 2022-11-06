@@ -77,10 +77,6 @@ function setTheme(themeName?: string) {
   min-height:35px;
   min-width:35px;
   cursor: pointer;
-  @include themed() {
-    //background-color: t($primary-100);
-    //box-shadow: 0 1px 3px 0 rgba(#000, 0.15), 0 1px 2px -1px rgba(#000, 0.15);
-  }
 }
 .button-theme:hover .button-theme-icon {
   @include themed() {

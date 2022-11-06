@@ -73,4 +73,18 @@ console.log(currentRoute.value);
   font-weight: 600;
   // text-transform: uppercase;
 }
+@media (max-width: 700px) {
+  .navbar-icon {
+    font-size: $s-6;
+    margin-right: 0;
+  }
+  .navbar-link {
+    flex-flow: column nowrap;
+  }
+}
+@media (max-width: 575px) {
+  .navbar-link-name {
+    display: none;
+  }
+}
 </style>
