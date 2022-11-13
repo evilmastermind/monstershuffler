@@ -1,44 +1,16 @@
 <template>
   <div id="nav-gradient" />
   <nav id="navbar">
-    <div
-      class="lg-max flex-row py-2 justify-space-between"
-    >
-      <div
-        id="navbar-menu"
-        class="lg-max flex-row justify-center   column-gap-s5"
-      >
-        <MSLogo
-          name="Home"
-          route="Home"
-          icon="fa-user"
-        />
-        <LinkNavbar
-          name="Generator"
-          route="NPC Generator"
-          icon="fa-dice-d20"
-        />
-        <LinkNavbar
-          name="Editor"
-          route="Monster Editor"
-          icon="fa-user-edit"
-        />
-        <LinkNavbar
-          name="DM Screen"
-          route="Your Creations"
-          icon="fa-book-open"
-        />
-        <LinkNavbar
-          name="Monsters"
-          route="Community Creations"
-          icon="fa-dragon"
-        />
+    <div class="lg-max flex-row py-2 justify-space-between">
+      <div id="navbar-menu" class="lg-max flex-row justify-center column-gap-s5">
+        <MSLogo name="Home" route="Home" icon="fa-user" />
+        <LinkNavbar name="Generator" route="NPC Generator" icon="fa-dice-d20" />
+        <LinkNavbar name="Editor" route="Monster Editor" icon="fa-user-edit" />
+        <LinkNavbar name="DM Screen" route="Your Creations" icon="fa-book-open" />
+        <LinkNavbar name="Monsters" route="Community Creations" icon="fa-dragon" />
         <ButtonSettings />
       </div>
-      <div
-        id="navbar-other"
-        class="flex-row justify-space-between column-gap-s12"
-      >
+      <div id="navbar-other" class="flex-row justify-space-between column-gap-s12">
         <ButtonTheme id="button-theme-desktop" />
         <LinksSupport id="links-support-desktop" />
         <ButtonLogin id="button-login-desktop" />
@@ -54,7 +26,6 @@ import LinksSupport from "@/components/navbar/LinksSupport.vue";
 import ButtonSettings from "@/components/navbar/ButtonSettings.vue";
 import ButtonTheme from "@/components/navbar/ButtonTheme.vue";
 import ButtonLogin from "@/components/navbar/ButtonLogin.vue";
-
 </script>
 
 <style lang="scss" scoped>
@@ -62,19 +33,26 @@ import ButtonLogin from "@/components/navbar/ButtonLogin.vue";
   position: absolute;
   //height: 100%;
   width: 100%;
-  height: 6rem;
+  height: 4rem;
   z-index: 1;
+  backdrop-filter: blur(5px);
   @include themed() {
-    background: linear-gradient(180deg,t($background) 0,transparent 100%);
+    background: linear-gradient(
+      180deg,
+      t($background-light) 0,
+      rgb(t($background-light), 0.3) 100%
+    );
+    // background: rgb(t($background-light), 0.5);
   }
 }
 #navbar {
   position: absolute;
-  z-index: 1;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   font-size: $s-4;
   padding: 0 $s-1;
+  z-index: 1;
+  //@include shadow-2;
 }
 
 #navbar-menu {
@@ -84,7 +62,8 @@ import ButtonLogin from "@/components/navbar/ButtonLogin.vue";
 }
 
 @media (max-width: 1100px) {
-  #button-theme-desktop, #links-support-desktop {
+  #button-theme-desktop,
+  #links-support-desktop {
     display: none;
   }
 }

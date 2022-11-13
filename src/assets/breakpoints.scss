@@ -1,6 +1,7 @@
 $screen-small: 480px;
 $screen-medium: 1000px;
 $screen-large: 1200px;
+$mobile-navbar: 575px;
 
 // Small devices
 @mixin sm {
@@ -26,6 +27,12 @@ $screen-large: 1200px;
   max-width: $screen-large;
   width: 100%;
   margin: 0 auto;
+}
+
+.sm-only {
+  @media (min-width: #{$mobile-navbar}) {
+    display: none;
+  }
 }
 
 // Custom devices

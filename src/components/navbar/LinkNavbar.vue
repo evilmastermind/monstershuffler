@@ -5,11 +5,7 @@
       :class="currentRoute == route ? 'navbar-link-active' : 'navbar-link-inactive'"
       :to="{ name: route }"
     >
-      <font-awesome-icon
-        :icon="`fas fa-solid ${icon}`"
-        fixed-width
-        class="navbar-icon"
-      />
+      <font-awesome-icon :icon="`fas fa-solid ${icon}`" fixed-width class="navbar-icon" />
       <span class="navbar-link-name">{{ name }}</span>
     </router-link>
   </div>
@@ -82,7 +78,7 @@ console.log(currentRoute.value);
     flex-flow: column nowrap;
   }
 }
-@media (max-width: 575px) {
+@media (max-width: #{$mobile-navbar}) {
   .navbar-link-name {
     display: none;
   }

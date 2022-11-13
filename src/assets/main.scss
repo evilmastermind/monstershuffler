@@ -7,13 +7,19 @@
 @import "@/assets/shadows.scss";
 
 :root {
-  font-size: 17px;
+  font-size: 16px;
 }
 #app {
   @include themed() {
     color: t($text);
-    background-color: t($background);
   }
   //font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  min-height: 100vh;
+}
+form, fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+select:focus {
+  outline: 1px solid #000;  
 }

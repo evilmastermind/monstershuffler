@@ -1,27 +1,19 @@
 <template>
-  <DropdownMenu
-    :hover="true"
-    direction="bottomleft"
-    class="navbar-link-container"
-  >
+  <DropdownMenu :hover="true" direction="bottomleft" class="navbar-link-container">
     <div>
-      <div
-        class="navbar-link navbar-link-inactive"
-      >
-        <font-awesome-icon
-          icon="fas fa-solid fa-cog"
-          fixed-width
-          class="navbar-icon"
-        />
+      <div class="navbar-link navbar-link-inactive">
+        <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width class="navbar-icon" />
         <span class="navbar-link-name">Settings</span>
       </div>
     </div>
     <template #dropdown>
-      <a href="#something"><span>Span</span> Do something</a>
-      <a href="#something">Something else</a>
-      <a class="user-links-mobile">Login</a>
-      <a class="user-links-mobile">Register</a>
-      <span id="button-theme-mobile">Change theme: <span class="inline-block"><ButtonTheme /></span></span>
+      <a href="#something" class="dropdown-link"><span>Span</span> Do something</a>
+      <a href="#something" class="dropdown-link">Something else</a>
+      <a class="user-links-mobile dropdown-link">Login</a>
+      <a class="user-links-mobile dropdown-link">Register</a>
+      <span id="button-theme-mobile"
+        >Change theme: <span class="inline-block"><ButtonTheme /></span
+      ></span>
       <LinksSupport id="links-support-mobile" />
     </template>
   </DropdownMenu>
@@ -34,7 +26,26 @@ import LinksSupport from "@/components/navbar/LinksSupport.vue";
 </script>
 
 <style lang="scss">
-#button-theme-mobile, #links-support-mobile, .user-links-mobile {
+.dropdown-link {
+  @include themed {
+    color: t($text);
+  }
+  text-decoration: none;
+}
+.dropdown-link:hover,
+.dropdown-link:active {
+  @include themed {
+    background: t($text);
+    color: t($background);
+  }
+}
+.dropdown-link:visited {
+  color: inherit;
+}
+
+#button-theme-mobile,
+#links-support-mobile,
+.user-links-mobile {
   display: none;
 }
 @media (max-width: 1100px) {

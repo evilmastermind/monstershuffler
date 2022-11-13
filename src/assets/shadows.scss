@@ -12,7 +12,7 @@
   }
 }
 @mixin shadow-2 {
-  box-shadow: 0 2px 3px 0 rgba(black, 35%), 0 1px 2px -1px rgba(black, 15%);
+  box-shadow: 0 2px 3px 0 rgba(black, 5%), 0 0px 5px rgba(black, 5%);
 }
 
 @mixin shadow-3-themed {
@@ -21,5 +21,5 @@
   }
 }
 @mixin shadow-3 {
-  box-shadow: 0 8px 16px 0 rgb(black, 60%);
+  box-shadow: 0 8px 16px 0 rgb(black, 10%);
 }

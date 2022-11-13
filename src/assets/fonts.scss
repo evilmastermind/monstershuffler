@@ -14,9 +14,27 @@
 }
 
 @font-face {
+  font-family: Domine;
+  src: url("@/assets/fonts/Domine-Regular.woff2") ;
+}
+
+@font-face {
+  font-family: Domine-Bold;
+  src: url("@/assets/fonts/Domine-Bold.woff2") ;
+}
+
+@font-face {
+  font-family: Domine-Italic;
+  src: url("@/assets/fonts/Domine-Regular.ttf");
+  font-style: italic;
+}
+
+
+@font-face {
   font-family: ScalaSansOffc;
   src: url("@/assets/fonts/ScalaSansOffc.woff") ;
 }
+
 
 @font-face {
   font-family: ScalaSansOffc;
@@ -48,9 +66,24 @@
 }
 
 html {
-  font-family: OpenSans, sans-serif;
+  font-family: Domine, sans-serif;
   font-size:16px;
 }
 
 b   {font-family: inherit; font-weight: bold;}
 i   {font-family: inherit; font-style: italic;}
+
+h1 {
+  font-size: 32px;
+  font-family: MrsEavesSmallCaps;
+  text-align: center;
+  letter-spacing: 0.15rem;
+  @include themed {
+    color: t($primary-700);
+  }
+}
+
+p {
+  margin: 0.5rem 0;
+  line-height: 1.5rem;
+}

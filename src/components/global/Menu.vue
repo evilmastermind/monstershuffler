@@ -1,15 +1,8 @@
 <template>
-  <div
-    class="dropdown"
-    @mouseover="mouseOver"
-    @mouseleave="mouseLeave"
-  >
+  <div class="dropdown" @mouseover="mouseOver" @mouseleave="mouseLeave">
     <slot />
     <transition :name="transition">
-      <div
-        class="dropdown-menu"
-        :class="dropdownMenuClass"
-      >
+      <div class="dropdown-menu" :class="dropdownMenuClass">
         <slot name="dropdown" />
       </div>
     </transition>
@@ -33,21 +26,29 @@ const props = defineProps({
   direction: {
     type: String,
     default: "bottomleft",
-  }
+  },
 });
-const directionsAllowed = ["rightup", "rightdown", "leftup", "leftdown", "bottomright", "bottomleft", "topright", "topleft"];
+const directionsAllowed = [
+  "rightup",
+  "rightdown",
+  "leftup",
+  "leftdown",
+  "bottomright",
+  "bottomleft",
+  "topright",
+  "topleft",
+];
 
-if(directionsAllowed.includes(props.direction)) {
+if (directionsAllowed.includes(props.direction)) {
   dropdownMenuClass.push(props.direction);
-}
-else {
+} else {
   dropdownMenuClass.push("bottomleft");
 }
 
 function mouseOver() {
   console.log("poop");
   if (props.hover === true) {
-    removeItem(dropdownMenuClass,"dropdown-menu-hidden");
+    removeItem(dropdownMenuClass, "dropdown-menu-hidden");
   }
 }
 function mouseLeave() {
@@ -58,8 +59,8 @@ function mouseLeave() {
 
 function removeItem<T>(anArray: Array<T>, aClass: T) {
   const index = anArray.indexOf(aClass);
-  if( index > -1) {
-    anArray.splice(index,1);
+  if (index > -1) {
+    anArray.splice(index, 1);
   }
   return anArray;
 }
@@ -71,20 +72,23 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   overflow: visible;
 }
 .dropdown-menu > * {
+  display: block;
   padding: $s-1 $s-2;
 }
 .dropdown-menu {
-  position:absolute;
+  position: absolute;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   width: 200px;
   align-items: stretch;
-  border-radius: 5px;
+  // border-radius: 5px;
   @include themed() {
-    background-color: t($primary-50);
+    background-color: t($background);
   }
   @include shadow-2;
+  transform-origin: top center;
+  animation: rotateX 200ms ease-in-out forwards;
 }
 .dropdown-menu-hidden {
   display: none;
@@ -122,5 +126,17 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   left: 0;
 }
 
-
+@keyframes rotateX {
+  0% {
+    opacity: 0;
+    transform: rotateX(-90deg);
+  }
+  50% {
+    transform: rotateX(-20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}
 </style>
