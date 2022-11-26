@@ -24,28 +24,49 @@ let bgDiceArray = $ref([]);
 let bgD6Array = $ref([]);
 const bgDiceNumber = 15;
 const bgD6Number = 20;
+const incrementStart = 0.9;
+const bgDiceXIncrement = 100 / bgDiceNumber;
+const bgD6XIncrement = 100 / bgD6Number;
 
+let x = 0;
+let incrementDifference = (incrementStart * 2) / bgDiceNumber;
 for (let i = 0; i < bgDiceNumber; i++) {
-  const x = (100 / bgDiceNumber) * i + (Math.random() - 0.5) * 2;
-  const radial = (360 / bgDiceNumber) * i + (Math.random() - 0.5) * 2;
+  const increment = incrementStart - incrementDifference * i + 1;
+  const radial = (360 / bgDiceNumber) * i + (Math.random() - 0.5) * 1;
+  const size = 15 - 14 * (i / bgDiceNumber);
+  if (i) {
+    x = x + bgDiceXIncrement * increment;
+  }
+  console.log(`D20 x ${x}`);
 
   let d20 = {
     // left: `${Math.random() * 100}%`,
     left: `${x}%`,
-    top: `${50 + Math.sin(radial) * 10}%`,
+    top: `${50 + Math.sin(radial) * 10 * increment}%`,
     color: `hsla(${Math.random() * 360} 100% 50% / .2)`,
+    fontSize: `${size}rem`,
   };
   bgDiceArray.push(d20);
 }
+
+x = 0;
+incrementDifference = (incrementStart * 2) / bgD6Number;
 for (let i = 0; i < bgD6Number; i++) {
-  const x = (100 / bgD6Number) * i + (Math.random() - 0.5) * 2;
-  const radial = (360 / bgD6Number) * i + (Math.random() - 0.5) * 2;
+  const increment = incrementStart - incrementDifference * i + 1;
+  let radial = (360 / bgD6Number) * i + (Math.random() - 0.5) * 1;
+  const size = 8 - 6.5 * (i / bgD6Number);
+  if (i) {
+    x = x + bgD6XIncrement * increment;
+  }
+  console.log(`D6 x ${x}`);
+  console.warn(increment);
 
   let d6 = {
     // left: `${Math.random() * 100}%`,
     left: `${x}%`,
-    top: `${50 + Math.sin(radial) * 10}%`,
+    top: `${50 + Math.sin(radial) * 10 * increment}%`,
     color: `hsla(${Math.random() * 360} 100% 50% / .2)`,
+    fontSize: `${size}rem`,
   };
   bgD6Array.push(d6);
 }
@@ -54,11 +75,9 @@ for (let i = 0; i < bgD6Number; i++) {
 <style scoped lang="scss">
 .d20-bg {
   position: absolute;
-  font-size: 5rem;
 }
 .d6-bg {
   position: absolute;
-  font-size: 3rem;
 }
 .background-navbar-padding {
   width: calc(100vw - (100vw - 100%));
