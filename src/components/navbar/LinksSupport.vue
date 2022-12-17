@@ -25,6 +25,6 @@ import LinkSupport from "@/components/navbar/LinkSupport.vue";
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

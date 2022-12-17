@@ -142,7 +142,7 @@
 <script setup>
 // import { $ref } from "vue/macros";
 import Button from "@/components/global/MSButton.vue";
-import PageBackgroundDice from "@/components/global/PageBackgroundDice.vue";
+import PageBackgroundDice from "@/components/global/pages/PageBackgroundDice.vue";
 import Card from "@/components/global/Card.vue";
 
 let form = $ref({

@@ -1,5 +1,8 @@
 <template>
-  <button class="button" :class="`color-${color}`">
+  <button
+    class="button"
+    :class="`color-${color}`"
+  >
     <span class="button-text">{{ text }}</span>
   </button>
 </template>
@@ -28,9 +31,10 @@ const props = defineProps({
   font-weight: bold;
   @include shadow-2;
   //@include shadow-1;
+  transition: transform 0.05s;
 }
 .button:active {
-  transform: translateY(2px);
+  transform: translateY(2px) scale(0.95);
 }
 .color-primary {
   @include themed() {
@@ -43,6 +47,7 @@ const props = defineProps({
 .color-primary:active {
   @include themed() {
     background-color: t($primary-700);
+    border: 1px solid darken(t($primary-700), 20);
   }
 }
 .color-complementary {
@@ -56,6 +61,7 @@ const props = defineProps({
 .color-complementary:active {
   @include themed() {
     background-color: t($complementary-750);
+    border: 1px solid darken(t($complementary-750), 40);
   }
 }
 .color-light {
@@ -69,6 +75,7 @@ const props = defineProps({
 .color-light:active {
   @include themed() {
     background-color: lighten(t($background-light), 40);
+    border: 1px solid darken(t($background-light), 40);
   }
 }
 .color-dark {
@@ -82,6 +89,7 @@ const props = defineProps({
 .color-dark:active {
   @include themed() {
     background-color: lighten(t($text-2), 20);
+    border: 1px solid darken(t($text-2), 40);
   }
 }
 </style>

@@ -96,7 +96,7 @@ $themes: (
           $text-2: desaturate(lighten(invert(complement($color)),50),90),
           $text-accent: lighten(invert(complement($color)),50),
           $background: #000,
-          $background-light: #1f1f1f,
+          $background-light: #2f2f2f,
         ),
         solarized: (
           $primary-color: $color,

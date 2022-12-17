@@ -15,7 +15,7 @@
 import Button from "@/components/global/MSButton.vue";
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .button-user-container {
   display: flex;
   flex-flow: row nowrap;

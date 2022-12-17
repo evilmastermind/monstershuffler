@@ -1,4 +1,11 @@
 module.exports = {
+  "globals": {
+    "$ref": 'readonly',
+    "$computed": 'readonly',
+    "$shallowRef": 'readonly',
+    "$customRef": 'readonly',
+    "$toRef": 'readonly'
+  },
   "env": {
     "browser": true,
     "es2021": true
