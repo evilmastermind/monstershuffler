@@ -1,14 +1,12 @@
 @import "@/assets/functions.scss";
 @import "@/assets/colors.scss";
 @import "@/assets/breakpoints.scss";
-@import "@/assets/units.scss";
+@import "@/assets/spaces.scss";
 @import "@/assets/utilityclasses.scss";
 @import "@/assets/fonts.scss";
 @import "@/assets/shadows.scss";
+@import "@/assets/effects.scss";
 
-:root {
-  font-size: 16px;
-}
 #app {
   @include themed() {
     color: t($text);

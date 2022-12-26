@@ -74,8 +74,8 @@ function setTheme(themeName?: string) {
   align-items:center;
   padding: $s-1;
   border-radius:50%;
-  min-height:35px;
-  min-width:35px;
+  min-height:$s-6;
+  min-width:$s-6;
   cursor: pointer;
 }
 .button-theme:hover .button-theme-icon {

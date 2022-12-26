@@ -1,12 +1,22 @@
 <template>
-  <div class="dropdown" @mouseover="mouseOver" @mouseleave="mouseLeave">
+  <!-- TODO: I transformed this into a button to make it accessible, but it's not enough: 
+    @click should be a toggle for instance -->
+  <button
+    class="dropdown"
+    @mouseover="mouseOver"
+    @mouseleave="mouseLeave"
+    @click="mouseOver"
+  >
     <slot />
     <transition :name="transition">
-      <div class="dropdown-menu" :class="dropdownMenuClass">
+      <div
+        class="dropdown-menu"
+        :class="dropdownMenuClass"
+      >
         <slot name="dropdown" />
       </div>
     </transition>
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -70,6 +80,8 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
 .dropdown {
   position: relative;
   overflow: visible;
+  border: 0px solid transparent;
+  background-color: transparent;
 }
 .dropdown-menu > * {
   display: block;
@@ -80,7 +92,7 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  width: 200px;
+  width: $s-11;
   align-items: stretch;
   // border-radius: 5px;
   @include themed() {

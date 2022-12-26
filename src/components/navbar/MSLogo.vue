@@ -27,7 +27,9 @@
           <path
             class="ms-logo-fill"
             fill="#000"
-            d="M90 110c0 11.598-9.402 21-21 21s-21-9.402-21-21 9.402-21 21-21 21 9.402 21 21Zm85.5 0c0 11.598-9.402 21-21 21s-21-9.402-21-21 9.402-21 21-21 21 9.402 21 21Z"
+            d="M90 110c0 11.598-9.402 21-21 21s-21-9.402-21-21 9.402-21
+            21-21 21 9.402 21 21Zm85.5 0c0 11.598-9.402 21-21 21s-21-9.402-21-21
+            9.402-21 21-21 21 9.402 21 21Z"
           />
         </g>
         <defs>
@@ -52,12 +54,12 @@
   display:flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 100px;
-  margin-right: $s-6;
+  flex-basis: $s-9;
+  margin-right: $s-5;
 }
 @media (max-width: 700px) {
   .ms-logo {
-    flex-basis: 50px;
+    flex-basis: $s-7;
   }
 }
 @media (max-width: 575px) {
@@ -76,7 +78,7 @@
   }
 }
 .ms-logo-icon {
-  min-width: 30px;
+  min-width: $s-6;
   width: 60%;
 }
 .ms-logo-fill {

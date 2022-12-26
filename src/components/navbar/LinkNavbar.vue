@@ -5,7 +5,11 @@
       :class="currentRoute == route ? 'navbar-link-active' : 'navbar-link-inactive'"
       :to="{ name: route }"
     >
-      <font-awesome-icon :icon="`fas fa-solid ${icon}`" fixed-width class="navbar-icon" />
+      <font-awesome-icon
+        :icon="`fas fa-solid ${icon}`"
+        fixed-width
+        class="navbar-icon"
+      />
       <span class="navbar-link-name">{{ name }}</span>
     </router-link>
   </div>
@@ -66,12 +70,12 @@ console.log(currentRoute.value);
   text-decoration: none;
 }
 .navbar-link-name {
-  font-weight: 600;
+  font-weight: 400;
   // text-transform: uppercase;
 }
 @media (max-width: 700px) {
   .navbar-icon {
-    font-size: $s-6;
+    font-size: $s-5;
     margin-right: 0;
   }
   .navbar-link {

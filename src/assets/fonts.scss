@@ -65,25 +65,37 @@
   src: url("@/assets/fonts/AusweisHollow.ttf") ;
 }
 
-html {
+$f-1: 12px;
+$f-2: 14px;
+$f-3: 16px;
+$f-4: 18px;
+$f-5: 20px;
+$f-6: 24px;
+$f-7: 30px;
+$f-8: 36px;
+$f-9: 48px;
+$f-10: 60px;
+$f-11: 72px;
+
+:root {
   font-family: Domine, sans-serif;
-  font-size:16px;
+  font-size: $f-3;
 }
 
 b   {font-family: inherit; font-weight: bold;}
 i   {font-family: inherit; font-style: italic;}
 
 h1 {
-  font-size: 32px;
+  font-size: $f-7;
   font-family: MrsEavesSmallCaps;
   text-align: center;
-  letter-spacing: 0.15rem;
+  letter-spacing: 2px;
   @include themed {
     color: t($primary-700);
   }
 }
 
 p {
-  margin: 0.5rem 0;
-  line-height: 1.5rem;
+  margin: $s-2 0;
+  line-height: $s-5;
 }

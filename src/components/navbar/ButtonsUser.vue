@@ -2,7 +2,7 @@
   <div class="button-user-container">
     <Button
       text="Login"
-      color="dark"
+      color="complementary"
     />
     <Button
       text="Register"
@@ -20,7 +20,7 @@ import Button from "@/components/global/MSButton.vue";
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  column-gap: 1rem;
+  column-gap: $s-4;
   justify-content: space-between;
 }
 </style>

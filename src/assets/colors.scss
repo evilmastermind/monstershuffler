@@ -1,5 +1,5 @@
-// $base: #7a000a;
-$base: #7a000a;
+// $base: hsl(355,100%,24%);
+$base: hsl(355,100%,24%);
 $base-hue: hue($base);
 $base-saturation: saturation($base);
 $color: hsl($base-hue,$base-saturation,50%);
@@ -64,7 +64,7 @@ $themes: (
           $text-2: desaturate(darken($color,50),90),
           $text-accent: darken($color,50),
           $background: #FFF,
-          $background-light: rgb(232,232,232),
+          $background-light: rgb(238, 223, 223),
           // $background-light: #f5f5f6,
         ),
         dark: (

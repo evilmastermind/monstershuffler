@@ -26,44 +26,69 @@ const props = defineProps({
 .button {
   display: inline-block;
   padding: $s-2 $s-4;
-  border-radius: $s-4;
+  border-radius: $s-1;
   cursor: pointer;
   font-weight: bold;
   @include shadow-2;
   //@include shadow-1;
-  transition: transform 0.05s;
+  transition: transform 0.03s;
 }
 .button:active {
-  transform: translateY(2px) scale(0.95);
+  transform: translateY(2px) scale(0.97);
 }
 .color-primary {
   @include themed() {
     background-color: t($primary-750);
-    border: 1px solid darken(t($primary-750), 20);
+    border-top: 2px solid t($primary-700);
+    border-left: 2px solid t($primary-700);
+    border-right: 2px solid t($primary-700);
+    border-bottom: 2px solid t($primary-800);
+    border-image-slice: 1;
     color: t($background);
   }
 }
-.color-primary:hover,
-.color-primary:active {
+.color-primary:hover {
   @include themed() {
     background-color: t($primary-700);
-    border: 1px solid darken(t($primary-700), 20);
   }
 }
+
+.color-primary:active {
+  @include themed() {
+    background-color: t($primary-750);
+    border-top: 2px solid t($primary-800);
+    border-left: 2px solid t($primary-700);
+    border-right: 2px solid t($primary-700);
+    border-bottom: 2px solid t($primary-700);
+  }
+}
+
 .color-complementary {
   @include themed() {
-    background-color: t($complementary-800);
-    border: 1px solid darken(t($complementary-800), 40);
+    background-color: t($complementary-750);
+    border-top: 2px solid t($complementary-700);
+    border-left: 2px solid t($complementary-700);
+    border-right: 2px solid t($complementary-700);
+    border-bottom: 2px solid t($complementary-800);
     color: t($background);
   }
 }
-.color-complementary:hover,
+.color-complementary:hover {
+  @include themed() {
+    background-color: t($complementary-700);
+  }
+}
+
 .color-complementary:active {
   @include themed() {
     background-color: t($complementary-750);
-    border: 1px solid darken(t($complementary-750), 40);
+    border-top: 2px solid t($complementary-800);
+    border-left: 2px solid t($complementary-700);
+    border-right: 2px solid t($complementary-700);
+    border-bottom: 2px solid t($complementary-700);
   }
 }
+
 .color-light {
   @include themed() {
     background-color: t($background);

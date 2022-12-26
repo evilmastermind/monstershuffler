@@ -29,6 +29,7 @@ type DiceStyle = {
   top: string;
   color: string;
   fontSize: string;
+  transform: string;
 }
 
 const incrementStart = 0.9;
@@ -74,8 +75,9 @@ function generateBackground() {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
       top: `${Math.floor(50 + Math.sin(radial) * 10 * increment)}%`,
-      color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .2)`,
+      color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
+      transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
     };
     bgDiceArrayTemp.push(d20);
   }
@@ -98,8 +100,9 @@ function generateBackground() {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
       top: `${Math.floor(50 + Math.sin(radial) * 10 * increment)}%`,
-      color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .2)`,
+      color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
+      transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
     };
     bgD6ArrayTemp.push(d6);
   }
@@ -119,7 +122,7 @@ function generateBackground() {
 }
 .background-navbar-padding {
   width: calc(100vw - (100vw - 100%));
-  height: 6rem;
+  height: $s-9;
 }
 .background-dice-container {
   position: fixed;
@@ -131,14 +134,14 @@ function generateBackground() {
   overflow: hidden;
 }
 .background-dice {
-  backdrop-filter: blur(5px);
   position: absolute;
   z-index: 0;
   width: calc(100vw - (100vw - 100%));
   min-height: 100vh;
+  //@include blurred();
   @include themed() {
-    background: radial-gradient(ellipse at left, rgb(t($primary-color), 0.3), transparent),
-      radial-gradient(ellipse at right, rgb(t($complementary-500), 0.2), transparent);
+    background: radial-gradient(ellipse at left, rgb(t($primary-color), 0.2), transparent),
+      radial-gradient(ellipse at right, rgb(t($complementary-500), 0.1), transparent);
   }
 }
 </style>

@@ -38,8 +38,8 @@ const props = defineProps({
   align-items:center;
   padding: $s-1;
   border-radius:50%;
-  height:$s-8;
-  width:$s-8;
+  height:$s-4;
+  width:$s-6;
   cursor: pointer;
 }
 .link-support-icon {
