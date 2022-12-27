@@ -60,7 +60,12 @@ console.log(currentRoute.value);
   }
 }
 .navbar-icon {
-  margin-right: $s-1;
+  margin-right: $s-2;
+  font-size: $f-3;
+  display: none;
+  @include themed() {
+    color: t($text);
+  }
 }
 .navbar-link {
   display: flex;
@@ -85,6 +90,9 @@ console.log(currentRoute.value);
 @media (max-width: #{$mobile-navbar}) {
   .navbar-link-name {
     display: none;
+  }
+  .navbar-icon {
+    display: inline-block;
   }
 }
 </style>

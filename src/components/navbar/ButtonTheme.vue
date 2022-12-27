@@ -85,7 +85,8 @@ function setTheme(themeName?: string) {
 }
 .button-theme-icon {
   @include themed() {
-    color: t($text);
+    color: lighten(t($text),50);
+    font-size: $f-5;
   }
 }
 </style>
