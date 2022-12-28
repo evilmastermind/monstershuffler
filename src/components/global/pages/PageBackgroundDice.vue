@@ -140,8 +140,8 @@ function generateBackground() {
   min-height: 100vh;
   //@include blurred();
   @include themed() {
-    background: radial-gradient(ellipse at left, rgb(t($primary-color), 0.2), transparent),
-      radial-gradient(ellipse at right, rgb(t($complementary-500), 0.1), transparent);
+    background: radial-gradient(ellipse at left, rgb(t($primary-600), 0.2), transparent),
+      radial-gradient(ellipse at right, rgb(t($complementary-600), 0.1), transparent);
   }
 }
 </style>

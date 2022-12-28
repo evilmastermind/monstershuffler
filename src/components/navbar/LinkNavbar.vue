@@ -56,7 +56,7 @@ console.log(currentRoute.value);
 .navbar-link-active,
 .navbar-link:hover {
   @include themed() {
-    color: t($text-accent);
+    color: t($primary-700);
   }
 }
 .navbar-icon {

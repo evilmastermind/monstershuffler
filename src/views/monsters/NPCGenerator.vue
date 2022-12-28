@@ -204,12 +204,12 @@ let form = $ref({
   border-radius: $s-1;
   height: $s-6;
   @include themed() {
-    background-color: rgb(t($background-light),0.5);
-    border-top: 1px solid rgb(t($background-light),1);
-    border-left: 1px solid rgb(t($background-light),0.5);
-    border-right: 1px solid rgb(t($background-light),0.5);
-    border-bottom: 1px solid rgb(t($background-light),0.5);
-    box-shadow: inset 0px 3px 5px rgb(t($background-light),0.5);
+    background-color: t($background-card);
+    border-top: 1px solid t($background-card);
+    border-left: 1px solid t($background-card);
+    border-right: 1px solid t($background-card);
+    border-bottom: 1px solid t($background-card);
+    box-shadow: inset 0px 3px 5px t($background-card);
     color: t($text);
   }
 }
@@ -251,7 +251,7 @@ let form = $ref({
   -webkit-transition: 0.4s;
   transition: 0.4s;
   @include themed() {
-    background-color: t($background-light);
+    background-color: t($background-card);
   }
 }
 

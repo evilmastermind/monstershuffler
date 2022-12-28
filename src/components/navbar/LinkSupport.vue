@@ -45,12 +45,12 @@ const props = defineProps({
 .link-support-icon {
   @include themed() {
     font-size: $f-5;
-    color: lighten(t($text),50);
+    color: t($text-icons);
   }
 }
 .link-support-icon:hover {
   @include themed() {
-    color: t($text-accent);
+    color: t($primary-700);
   }
 }
 </style>

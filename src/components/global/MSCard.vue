@@ -12,7 +12,7 @@
   border-radius: $s-1;
   
   @include themed {
-    background: rgb(t($background), 0.7);
+    background: t($background-card);
   }
   @include blurred();
   @include shadow-2;

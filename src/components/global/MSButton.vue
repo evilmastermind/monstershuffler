@@ -38,10 +38,10 @@ const props = defineProps({
 }
 .color-primary {
   @include themed() {
-    background-color: t($primary-750);
-    border-top: 2px solid t($primary-700);
-    border-left: 2px solid t($primary-700);
-    border-right: 2px solid t($primary-700);
+    background-color: t($primary-700);
+    border-top: 2px solid t($primary-600);
+    border-left: 2px solid t($primary-600);
+    border-right: 2px solid t($primary-600);
     border-bottom: 2px solid t($primary-800);
     border-image-slice: 1;
     color: t($background);
@@ -49,72 +49,111 @@ const props = defineProps({
 }
 .color-primary:hover {
   @include themed() {
-    background-color: t($primary-700);
+    background-color: t($primary-600);
+    border-top: 2px solid t($primary-500);
+    border-left: 2px solid t($primary-500);
+    border-right: 2px solid t($primary-500);
+    border-bottom: 2px solid t($primary-700);
   }
 }
 
 .color-primary:active {
   @include themed() {
-    background-color: t($primary-750);
+    background-color: t($primary-700);
     border-top: 2px solid t($primary-800);
-    border-left: 2px solid t($primary-700);
-    border-right: 2px solid t($primary-700);
-    border-bottom: 2px solid t($primary-700);
+    border-left: 2px solid t($primary-600);
+    border-right: 2px solid t($primary-600);
+    border-bottom: 2px solid t($primary-600);
   }
 }
 
 .color-complementary {
   @include themed() {
-    background-color: t($complementary-750);
-    border-top: 2px solid t($complementary-700);
-    border-left: 2px solid t($complementary-700);
-    border-right: 2px solid t($complementary-700);
+    background-color: t($complementary-700);
+    border-top: 2px solid t($complementary-600);
+    border-left: 2px solid t($complementary-600);
+    border-right: 2px solid t($complementary-600);
     border-bottom: 2px solid t($complementary-800);
     color: t($background);
   }
 }
 .color-complementary:hover {
   @include themed() {
-    background-color: t($complementary-700);
+    background-color: t($complementary-600);
+    border-top: 2px solid t($complementary-500);
+    border-left: 2px solid t($complementary-500);
+    border-right: 2px solid t($complementary-500);
+    border-bottom: 2px solid t($complementary-700);
+
   }
 }
 
 .color-complementary:active {
   @include themed() {
-    background-color: t($complementary-750);
-    border-top: 2px solid t($complementary-800);
-    border-left: 2px solid t($complementary-700);
-    border-right: 2px solid t($complementary-700);
-    border-bottom: 2px solid t($complementary-700);
+    background-color: t($complementary-700);
+    border-top: 2px solid t($complementary-600);
+    border-left: 2px solid t($complementary-600);
+    border-right: 2px solid t($complementary-600);
+    border-bottom: 2px solid t($complementary-800);
   }
 }
 
 .color-light {
   @include themed() {
-    background-color: t($background);
-    border: 1px solid darken(t($background), 40);
+    background-color: t($grey-200);
+    border-top: 2px solid t($grey-100);
+    border-left: 2px solid t($grey-100);
+    border-right: 2px solid t($grey-100);
+    border-bottom: 2px solid t($grey-300);
     color: t($text);
   }
 }
-.color-light:hover,
+.color-light:hover {
+  @include themed() {
+    background-color: t($grey-100);
+    border-top: 2px solid t($grey-50);
+    border-left: 2px solid t($grey-50);
+    border-right: 2px solid t($grey-50);
+    border-bottom: 2px solid t($grey-200);
+
+  }
+}
+
 .color-light:active {
   @include themed() {
-    background-color: lighten(t($background-light), 40);
-    border: 1px solid darken(t($background-light), 40);
+    background-color: t($grey-200);
+    border-top: 2px solid t($grey-300);
+    border-left: 2px solid t($grey-100);
+    border-right: 2px solid t($grey-100);
+    border-bottom: 2px solid t($grey-100);
   }
 }
 .color-dark {
   @include themed() {
-    background-color: t($text);
-    border: 1px solid darken(t($text), 40);
-    color: t($background);
+    background-color: t($grey-800);
+    border-top: 2px solid t($grey-700);
+    border-left: 2px solid t($grey-700);
+    border-right: 2px solid t($grey-700);
+    border-bottom: 2px solid t($grey-900);
+    color: t($text-inverse);
   }
 }
-.color-dark:hover,
+.color-dark:hover {
+  @include themed() {
+    background-color: t($grey-700);
+    border-top: 2px solid t($grey-600);
+    border-left: 2px solid t($grey-600);
+    border-right: 2px solid t($grey-600);
+    border-bottom: 2px solid t($grey-700);
+  }
+}
 .color-dark:active {
   @include themed() {
-    background-color: lighten(t($text-2), 20);
-    border: 1px solid darken(t($text-2), 40);
+    background-color: t($grey-800);
+    border-top: 2px solid t($grey-900);
+    border-left: 2px solid t($grey-700);
+    border-right: 2px solid t($grey-700);
+    border-bottom: 2px solid t($grey-700);
   }
 }
 </style>

@@ -80,12 +80,12 @@ function setTheme(themeName?: string) {
 }
 .button-theme:hover .button-theme-icon {
   @include themed() {
-    color: t($text-accent);
+    color: t($primary-700);
   }
 }
 .button-theme-icon {
   @include themed() {
-    color: lighten(t($text),50);
+    color: t($text-icons);
     font-size: $f-5;
   }
 }

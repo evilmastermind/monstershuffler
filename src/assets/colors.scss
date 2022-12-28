@@ -36,6 +36,7 @@ $background-card: 'background-card';
 $background-inset: 'background-inset';
 $text: 'text';
 $text-inverse: 'text-inverse';
+$text-icons: 'text-icons';
 
 
 $themes: (
@@ -46,7 +47,7 @@ $themes: (
           $primary-400: hsl(355, 45%, 66%),
           $primary-500: hsl(355, 43%, 56%),
           $primary-600: hsl(355, 60%, 39%),
-          $primary-700: hsl(355, 100%, 24%),
+          $primary-700: hsl(355, 100%, 24%), //7a000a
           $primary-800: hsl(355, 100%, 17%),
           $primary-900: hsl(355, 100%, 10%),
           $complementary-100: hsl(175, 100%, 93%),
@@ -111,6 +112,7 @@ $themes: (
           $background-inset: hsl(355, 100%, 97%,0.5),
           
           $text: $grey-900,
+          $text-icons: $grey-400,
           $text-inverse: $grey-100,
         ),
         solarized: (

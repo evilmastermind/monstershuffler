@@ -69,12 +69,12 @@
 }
 .ms-logo:hover .ms-logo-fill {
   @include themed() {
-    fill: t($text-accent);
+    fill: t($primary-700);
   }
 }
 .ms-logo:hover .ms-logo-stroke {
   @include themed() {
-    stroke: t($text-accent);
+    stroke: t($primary-700);
   }
 }
 .ms-logo-icon {

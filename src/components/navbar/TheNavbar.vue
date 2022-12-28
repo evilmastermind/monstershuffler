@@ -66,7 +66,7 @@ import ButtonLogin from "@/components/navbar/ButtonsUser.vue";
     background: linear-gradient(
       180deg,
       t($background) 0,
-      rgb(t($background), 0.3) 100%
+      t($background-card) 100%
     );
     // background: rgb(t($background-light), 0.5);
   }
