@@ -8,7 +8,7 @@
 
 <style lang="scss">
 .card {
-  padding: $s-3 $s-4;
+  padding: $s-5 $s-5;
   border-radius: $s-1;
   
   @include themed {

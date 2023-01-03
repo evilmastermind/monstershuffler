@@ -44,8 +44,8 @@ const props = defineProps({
 }
 .link-support-icon {
   @include themed() {
-    font-size: $f-5;
-    color: t($text-icons);
+    font-size: $f-3;
+    color: t($text-secondary);
   }
 }
 .link-support-icon:hover {

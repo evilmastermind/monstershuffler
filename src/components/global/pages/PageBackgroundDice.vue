@@ -74,7 +74,7 @@ function generateBackground() {
     let d20: DiceStyle = {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
-      top: `${Math.floor(50 + Math.sin(radial) * 10 * increment)}%`,
+      top: `${Math.floor(50 + Math.sin(radial) * 25 * increment)}%`,
       color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
       transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
@@ -99,7 +99,7 @@ function generateBackground() {
     let d6: DiceStyle = {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
-      top: `${Math.floor(50 + Math.sin(radial) * 10 * increment)}%`,
+      top: `${Math.floor(50 + Math.sin(radial) * 25 * increment)}%`,
       color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
       transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
@@ -132,16 +132,18 @@ function generateBackground() {
   width: calc(100vw - (100vw - 100%));
   height: 100vh;
   overflow: hidden;
+  @include themed() {
+    background: radial-gradient(ellipse at 50% 20%, t($primary-100), transparent),
+      radial-gradient(ellipse at 70% 80%, t($background), transparent),
+      radial-gradient(ellipse at 30% 80%, t($complementary-200), transparent),
+      ;
+  }
 }
 .background-dice {
   position: absolute;
   z-index: 0;
   width: calc(100vw - (100vw - 100%));
   min-height: 100vh;
-  //@include blurred();
-  @include themed() {
-    background: radial-gradient(ellipse at left, rgb(t($primary-600), 0.2), transparent),
-      radial-gradient(ellipse at right, rgb(t($complementary-600), 0.1), transparent);
-  }
+  // @include blurred();
 }
 </style>

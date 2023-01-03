@@ -2,7 +2,7 @@
   <div class="button-user-container">
     <Button
       text="Login"
-      color="complementary"
+      color="light"
     />
     <Button
       text="Register"

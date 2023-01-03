@@ -204,12 +204,12 @@ let form = $ref({
   border-radius: $s-1;
   height: $s-6;
   @include themed() {
-    background-color: t($background-card);
-    border-top: 1px solid t($background-card);
-    border-left: 1px solid t($background-card);
-    border-right: 1px solid t($background-card);
-    border-bottom: 1px solid t($background-card);
-    box-shadow: inset 0px 3px 5px t($background-card);
+    background-color: t($background-inset);
+    border-top: 1px solid darken(t($background-inset),5);
+    border-left: 1px solid darken(t($background-inset),3);
+    border-right: 1px solid darken(t($background-inset),3);
+    border-bottom: 1px solid lighten(t($background-inset),3);
+    box-shadow: inset 0px 3px 5px darken(t($background-inset),3);
     color: t($text);
   }
 }
