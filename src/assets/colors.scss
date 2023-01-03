@@ -76,7 +76,7 @@ $themes: (
     $background-inset: hsla(355, 100%, 97%,0.7), //primary-100 0.5
     
     $text: hsl(240, 30%, 7%), // grey-900
-    $text-secondary: hsl(240, 0%, 55%),
+    $text-secondary: hsl(355, 20%, 55%),
     $text-inverse: hsl(240, 0%, 93%), // grey-100
   ),
   dark: (
@@ -114,7 +114,7 @@ $themes: (
     $background-inset: hsla(0, 0%, 10%,0.7), //primary-100 0.5
     
     $text: hsl(240, 0%, 95%), // grey-900
-    $text-secondary: hsl(240, 0%, 66%),
+    $text-secondary: hsl(355, 20%, 66%),
     $text-inverse: hsl(240, 0%, 3%), // grey-100
   ),
   solarized: (
