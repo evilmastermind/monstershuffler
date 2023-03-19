@@ -1,0 +1,179 @@
+// $base: hsl(355,100%,24%);
+$base: hsl(355,100%,24%);
+$base-hue: hue($base);
+$base-saturation: saturation($base);
+$color: hsl($base-hue,$base-saturation,50%);
+$primary-100: 'primary-100';
+$primary-200: 'primary-200';
+$primary-300: 'primary-300';
+$primary-400: 'primary-400';
+$primary-500: 'primary-500';
+$primary-600: 'primary-600';
+$primary-700: 'primary-700';
+$primary-800: 'primary-800';
+$primary-900: 'primary-900';
+$complementary-100: 'complementary-100';
+$complementary-200: 'complementary-200';
+$complementary-300: 'complementary-300';
+$complementary-400: 'complementary-400';
+$complementary-500: 'complementary-500';
+$complementary-600: 'complementary-600';
+$complementary-700: 'complementary-700';
+$complementary-800: 'complementary-800';
+$complementary-900: 'complementary-900';
+$grey-50:  'grey-50';
+$grey-100: 'grey-100';
+$grey-200: 'grey-200';
+$grey-300: 'grey-300';
+$grey-400: 'grey-400';
+$grey-500: 'grey-500';
+$grey-600: 'grey-600';
+$grey-700: 'grey-700';
+$grey-800: 'grey-800';
+$grey-900: 'grey-900';
+$background: 'background';
+$background-card: 'background-card';
+$background-inset: 'background-inset';
+$text: 'text';
+$text-secondary: 'text-secondary';
+$text-inverse: 'text-inverse';
+$text-icons: 'text-icons';
+
+
+$themes: (
+  light: (
+    $primary-100: hsl(355, 100%, 97%),
+    $primary-200: hsl(355, 57%, 86%),
+    $primary-300: hsl(355, 49%, 76%),
+    $primary-400: hsl(355, 45%, 66%),
+    $primary-500: hsl(355, 43%, 56%),
+    $primary-600: hsl(355, 60%, 39%),
+    $primary-700: hsl(355, 100%, 24%), //7a000a
+    $primary-800: hsl(355, 100%, 17%),
+    $primary-900: hsl(355, 100%, 10%),
+    $complementary-100: hsl(175, 100%, 93%),
+    $complementary-200: hsl(175, 64%, 85%),
+    $complementary-300: hsl(175, 46%, 76%),
+    $complementary-400: hsl(175, 41%, 66%),
+    $complementary-500: hsl(175, 35%, 55%),
+    $complementary-600: hsl(175, 63%, 35%),
+    $complementary-700: hsl(175, 100%, 21%),
+    $complementary-800: hsl(175, 100%, 14%),
+    $complementary-900: hsl(175, 100%, 7%),
+    $grey-50:  hsl(240, 0%, 97%),
+    $grey-100: hsl(240, 0%, 93%),
+    $grey-200: hsl(240, 0%, 85%),
+    $grey-300: hsl(240, 0%, 76%),
+    $grey-400: hsl(240, 0%, 66%),
+    $grey-500: hsl(240, 0%, 55%),
+    $grey-600: hsl(240, 0%, 35%),
+    $grey-700: hsl(240, 0%, 21%),
+    $grey-800: hsl(240, 0%, 14%),
+    $grey-900: hsl(240, 0%, 7%),
+
+    $background: hsl(47, 41%, 93%), // grey-100
+    $background-card: hsla(47,30%,90%,0.7), // white 0.7
+    $background-inset: hsla(47, 30%, 87%,0.7), //primary-100 0.5
+    
+    $text: hsl(240, 30%, 7%), // grey-900
+    $text-secondary: hsl(240, 0%, 55%),
+    $text-inverse: hsl(240, 0%, 93%), // grey-100
+  ),
+  // light: (
+  //   $primary-100: hsl(355, 100%, 97%),
+  //   $primary-200: hsl(355, 57%, 86%),
+  //   $primary-300: hsl(355, 49%, 76%),
+  //   $primary-400: hsl(355, 45%, 66%),
+  //   $primary-500: hsl(355, 43%, 56%),
+  //   $primary-600: hsl(355, 60%, 39%),
+  //   $primary-700: hsl(355, 100%, 24%), //7a000a
+  //   $primary-800: hsl(355, 100%, 17%),
+  //   $primary-900: hsl(355, 100%, 10%),
+  //   $complementary-100: hsl(175, 100%, 93%),
+  //   $complementary-200: hsl(175, 64%, 85%),
+  //   $complementary-300: hsl(175, 46%, 76%),
+  //   $complementary-400: hsl(175, 41%, 66%),
+  //   $complementary-500: hsl(175, 35%, 55%),
+  //   $complementary-600: hsl(175, 63%, 35%),
+  //   $complementary-700: hsl(175, 100%, 21%),
+  //   $complementary-800: hsl(175, 100%, 14%),
+  //   $complementary-900: hsl(175, 100%, 7%),
+  //   $grey-50:  hsl(240, 0%, 97%),
+  //   $grey-100: hsl(240, 0%, 93%),
+  //   $grey-200: hsl(240, 0%, 85%),
+  //   $grey-300: hsl(240, 0%, 76%),
+  //   $grey-400: hsl(240, 0%, 66%),
+  //   $grey-500: hsl(240, 0%, 55%),
+  //   $grey-600: hsl(240, 0%, 35%),
+  //   $grey-700: hsl(240, 0%, 21%),
+  //   $grey-800: hsl(240, 0%, 14%),
+  //   $grey-900: hsl(240, 0%, 7%),
+
+  //   $background: #FFF, // grey-100
+  //   $background-card: hsla(0,100%,100%,0.7), // white 0.7
+  //   $background-inset: hsla(355, 100%, 97%,0.7), //primary-100 0.5
+    
+  //   $text: hsl(240, 30%, 7%), // grey-900
+  //   $text-secondary: hsl(355, 20%, 55%),
+  //   $text-inverse: hsl(240, 0%, 93%), // grey-100
+  // ),
+  dark: (
+    $primary-900: hsl(355, 100%, 97%),
+    $primary-800: hsl(355, 57%, 86%),
+    $primary-700: hsl(355, 49%, 76%),
+    $primary-600: hsl(355, 45%, 66%),
+    $primary-500: hsl(355, 43%, 56%),
+    $primary-400: hsl(355, 60%, 39%),
+    $primary-300: hsl(355, 100%, 24%), //7a000a
+    $primary-200: hsl(355, 100%, 17%),
+    $primary-100: hsl(355, 100%, 10%),
+    $complementary-900: hsl(175, 100%, 93%),
+    $complementary-800: hsl(175, 64%, 85%),
+    $complementary-700: hsl(175, 46%, 76%),
+    $complementary-600: hsl(175, 41%, 66%),
+    $complementary-500: hsl(175, 35%, 55%),
+    $complementary-400: hsl(175, 63%, 35%),
+    $complementary-300: hsl(175, 100%, 21%),
+    $complementary-200: hsl(175, 100%, 14%),
+    $complementary-100: hsl(175, 100%, 7%),
+    $grey-900: hsl(240, 0%, 93%),
+    $grey-800: hsl(240, 0%, 85%),
+    $grey-700: hsl(240, 0%, 76%),
+    $grey-600: hsl(240, 0%, 66%),
+    $grey-500: hsl(240, 0%, 55%),
+    $grey-400: hsl(240, 0%, 35%),
+    $grey-300: hsl(240, 0%, 21%),
+    $grey-200: hsl(240, 0%, 14%),
+    $grey-100: hsl(240, 0%, 7%),
+    $grey-50:  hsl(240, 0%, 3%),
+
+    $background: hsl(0,0%,20%), 
+    $background-card: hsla(0,0%,20%,0.7), // white 0.7
+    $background-inset: hsla(0, 0%, 10%,0.7), //primary-100 0.5
+    
+    $text: hsl(240, 0%, 95%), // grey-900
+    $text-secondary: hsl(240, 0%, 55%),
+    $text-inverse: hsl(240, 0%, 3%), // grey-100
+  )
+);
+
+// Dark Mode mixin by Katie McTigue
+// https://github.com/kaitlinmctigue/kaitlinmctigue.github.io/blob/source/src/styles/_color-themes.scss
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

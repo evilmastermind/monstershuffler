@@ -1,36 +1,35 @@
 {
-  "name": "monstershuffler",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "serve": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.0",
-    "@fortawesome/free-brands-svg-icons": "^6.2.0",
-    "@fortawesome/free-regular-svg-icons": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
-    "@fortawesome/vue-fontawesome": "^3.0.1",
-    "pinia": "^2.0.23",
-    "sass": "^1.55.0",
-    "sass-loader": "^13.1.0",
-    "vite": "^3.1.7",
-    "vue": "^3.2.37",
-    "vue-i18n": "^9.2.2",
-    "vue-router": "^4.1.5"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "serve": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@types/node": "^18.8.0",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "eslint": "^8.24.0",
-    "eslint-plugin-vue": "^9.5.1",
-    "typescript": "^4.6.4",
-    "vue-tsc": "^0.40.4"
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "@vue-macros/nuxt": "^1.2.3",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-nuxt": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.9.0",
+    "install": "^0.13.0",
+    "npm": "^9.6.2",
+    "nuxt": "^3.3.1",
+    "prettier": "^2.8.4"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "sass": "^1.59.3",
+    "sass-loader": "^13.2.0",
+    "vue-i18n": "^9.2.2"
   }
 }

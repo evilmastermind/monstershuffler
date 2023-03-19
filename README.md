@@ -1,11 +1,42 @@
-# Monstershuffler
-New frontend application for [monstershuffler.com](https://www.monstershuffler.com) 
+# Nuxt 3 Minimal Starter
 
-The purpose of this new version is to create a repository which is easy to understand, maintain and improve by me and other developers.
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-( this project is still very incomplete, but you can check its progress if you want to )
+## Setup
 
-## Dependencies and tools used
-- [Vue 3](https://vuejs.org/) a well-rounded frontend JavaScript framework
-- [**TypeScript**](https://www.typescriptlang.org/): a strongly typed programming language that builds on JavaScript
-- [Sass](https://sass-lang.com/) an CSS extension language
+Make sure to install the dependencies:
+
+```bash
+# yarn
+yarn install
+
+# npm
+npm install
+
+# pnpm
+pnpm install
+```
+
+## Development Server
+
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
