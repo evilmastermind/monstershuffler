@@ -1,11 +1,14 @@
+@import "@/assets/spaces.scss";
 @import "@/assets/functions.scss";
 @import "@/assets/colors.scss";
 @import "@/assets/breakpoints.scss";
-@import "@/assets/spaces.scss";
 @import "@/assets/utilityclasses.scss";
 @import "@/assets/fonts.scss";
 @import "@/assets/shadows.scss";
 @import "@/assets/effects.scss";
+@import "@/assets/forms.scss";
+@import "@/assets/transitions.scss";
+
 
 #__nuxt {
   @include themed() {

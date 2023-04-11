@@ -2,7 +2,7 @@
   <div class="navbar-link">
     <NuxtLink
       class="ms-logo"
-      to="/"
+      :to="localePath('/')"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-
+const localePath = useLocalePath();
 </script>
 
 <style scoped lang="scss">

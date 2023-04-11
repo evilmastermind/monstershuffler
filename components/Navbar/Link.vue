@@ -3,7 +3,7 @@
     <NuxtLink
       class="navbar-link"
       :class="currentRoute == route ? 'navbar-link-active' : 'navbar-link-inactive'"
-      :to="{name: route}"
+      :to="localePath({name: route})"
     >
       <font-awesome-icon
         :icon="`fas fa-solid ${icon}`"
@@ -16,8 +16,8 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
 
+const localePath = useLocalePath();
 const nuxtRoute = useRoute();
 const props = defineProps({
   name: {

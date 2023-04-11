@@ -36,7 +36,7 @@ const incrementStart = 0.9;
 let bgDiceArray: DiceStyle[] = $ref([]);
 let bgD6Array: DiceStyle[]  = $ref([]);
 let windowWidth = $ref(window.innerWidth);
-let generateBackgroundDebounce = debounce(() => generateBackground(), 100 );
+let generateBackgroundDebounce = debounce(() => generateBackground(), 300 );
 
 const bgDiceNumber = $computed(() => Math.ceil(windowWidth/100));
 const bgD6Number = $computed(() => Math.ceil(windowWidth/130));
@@ -75,7 +75,7 @@ function generateBackground() {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
       top: `${Math.floor(50 + Math.sin(radial) * 25 * increment)}%`,
-      color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .1)`,
+      color: `hsla(${360/bgDiceNumber*i} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
       transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
     };
@@ -100,7 +100,7 @@ function generateBackground() {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
       top: `${Math.floor(50 + Math.sin(radial) * 25 * increment)}%`,
-      color: `hsla(${Math.floor(Math.random() * 360)} 100% 50% / .1)`,
+      color: `hsla(${360/bgD6Number*i} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
       transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
     };
@@ -133,6 +133,10 @@ function generateBackground() {
   height: 100vh;
   overflow: hidden;
   @include themed() {
+    background-color: #e5e5f7;
+    background-size: 10px 10px;
+    // background-image: repeating-linear-gradient(45deg, t($background) 0, t($background) 1px, t($background2) 0, t($background2) 50%);
+    background-color:t($background2);
     background: radial-gradient(ellipse at 50% 20%, t($primary-100), transparent),
       radial-gradient(ellipse at 70% 80%, t($background), transparent),
       radial-gradient(ellipse at 30% 80%, t($complementary-200), transparent),

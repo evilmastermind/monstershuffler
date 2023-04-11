@@ -32,6 +32,7 @@ $grey-700: 'grey-700';
 $grey-800: 'grey-800';
 $grey-900: 'grey-900';
 $background: 'background';
+$background2: 'background2';
 $background-card: 'background-card';
 $background-inset: 'background-inset';
 $text: 'text';
@@ -72,6 +73,7 @@ $themes: (
     $grey-900: hsl(240, 0%, 7%),
 
     $background: hsl(47, 41%, 93%), // grey-100
+    $background2: hsl(0, 0%, 100%), // white
     $background-card: hsla(47,30%,90%,0.7), // white 0.7
     $background-inset: hsla(47, 30%, 87%,0.7), //primary-100 0.5
     
@@ -148,6 +150,7 @@ $themes: (
     $grey-50:  hsl(240, 0%, 3%),
 
     $background: hsl(0,0%,20%), 
+    $background2: hsl(0, 0%, 0%), // white
     $background-card: hsla(0,0%,20%,0.7), // white 0.7
     $background-inset: hsla(0, 0%, 10%,0.7), //primary-100 0.5
     

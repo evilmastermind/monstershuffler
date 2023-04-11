@@ -27,6 +27,8 @@ $mobile-navbar: 575px;
   max-width: $screen-large;
   width: 100%;
   margin: 0 auto;
+  padding-left: $s-2;
+  padding-right: $s-2;
 }
 
 .sm-only {

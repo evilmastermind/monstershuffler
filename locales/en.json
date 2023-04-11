@@ -1,0 +1,27 @@
+{
+  "generator": {
+    "title": "NPC Generator",
+    "formModeTitle": "Form mode",
+    "formModeDescription": "Choose the most appropriate options for your adventure and generate a random character.",
+    "promptModeTitle": "Prompt mode",
+    "promptModeDescription": "Type keywords like \"human\", \"barbarian\" or \"cr 5\" to generate a random character of that type.",
+    "form": {
+      "primaryRace": "Primary Race",
+      "secondaryRace": "Secondary Race",
+      "class": "Class",
+      "classSpecific": "Specific Class",
+      "classRandom": "Random Class",
+      "classAndProfession": "Random Class and Profession",
+      "classProfessionMostly": "Random Profession 95%, Class 5%",
+      "professionRandom": "Random Profession",
+      "professionSpecific": "Specific Profession",
+      "level": "Level",
+      "levelRandom": "Random Level",
+      "levelLowMostly": "Random (mostly low-level)",
+      "generate": "Generate NPC"
+    },
+    "prompt": {
+      "placeholder": "human barbarian cr 5"
+    }
+  }
+}

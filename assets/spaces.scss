@@ -14,3 +14,125 @@ $s-13: 24.00rem;
 $s-14: 32.00rem;
 $s-15: 40.00rem;
 $s-16: 48.00rem;
+
+$spacing-map: (
+  1:   $s-1,
+  2:   $s-2,
+  3:   $s-3,
+  4:   $s-4, 
+  5:   $s-5, 
+  6:   $s-6,
+  7:   $s-7,
+  8:   $s-8,
+  9:   $s-9,
+  10:  $s-10,
+  11:  $s-11,
+  12:  $s-12,
+  13:  $s-13,
+  14:  $s-14,
+  15:  $s-15,
+  16:  $s-16
+);
+
+//////////////////////////////////////////
+// M A R G I N    A N D   P A D D I N G
+//////////////////////////////////////////
+
+@each $key, $value in $spacing-map {
+  .py-#{$key} {
+    padding-top: map-get($spacing-map, $key);
+    padding-bottom: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .px-#{$key} {
+    padding-left: map-get($spacing-map, $key);
+    padding-right: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .pt-#{$key} {
+    padding-top: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .pb-#{$key} {
+    padding-bottom: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .pl-#{$key} {
+    padding-left: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .pr-#{$key} {
+    padding-right: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .pa-#{$key} {
+    padding: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .my-#{$key} {
+    margin-top: map-get($spacing-map, $key);
+    margin-bottom: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .mx-#{$key} {
+    margin-left: map-get($spacing-map, $key);
+    margin-right: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .mt-#{$key} {
+    margin-top: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .mb-#{$key} {
+    margin-bottom: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .ml-#{$key} {
+    margin-left: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .mr-#{$key} {
+    margin-right: map-get($spacing-map, $key);
+  }
+}
+
+@each $key, $value in $spacing-map {
+  .ma-#{$key} {
+    margin: map-get($spacing-map, $key);
+  }
+}
+
+
+//////////////////////////////////////////
+// C O L U M N - G A P
+//////////////////////////////////////////
+
+@each $key, $value in $spacing-map {
+  .column-gap-s#{$key} {
+    column-gap: map-get($spacing-map, $key);
+  }
+}

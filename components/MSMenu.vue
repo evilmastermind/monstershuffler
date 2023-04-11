@@ -9,10 +9,7 @@
   >
     <slot />
     <transition :name="transition">
-      <div
-        class="dropdown-menu"
-        :class="dropdownMenuClass"
-      >
+      <div class="dropdown-menu" :class="dropdownMenuClass">
         <slot name="dropdown" />
       </div>
     </transition>
@@ -22,7 +19,7 @@
 <script setup lang="ts">
 import { $ref } from "vue/macros";
 
-let dropdownMenuClass = $ref(["dropdown-menu-hidden"]);
+const dropdownMenuClass = $ref(["dropdown-menu-hidden"]);
 
 const props = defineProps({
   transition: {
@@ -56,7 +53,6 @@ if (directionsAllowed.includes(props.direction)) {
 }
 
 function mouseOver() {
-  console.log("poop");
   if (props.hover === true) {
     removeItem(dropdownMenuClass, "dropdown-menu-hidden");
   }
@@ -92,6 +88,7 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
+  border-radius: $s-1;
   width: $s-11;
   align-items: stretch;
   // border-radius: 5px;

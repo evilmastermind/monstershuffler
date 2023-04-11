@@ -2,10 +2,6 @@
   <div />
 </template>
 
-<script setup>
+<script setup lang="ts"></script>
 
-</script>
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
