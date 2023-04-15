@@ -1,0 +1,2437 @@
+openapi: 3.0.3
+info:
+  title: Monstershuffler API
+  description: REST API for monstershuffler.com
+  version: 0.0.1
+components:
+  schemas:
+    classSchemas:
+      type: object
+      properties:
+        updateClassSchema:
+          type: object
+          properties:
+            object:
+              type: object
+              properties:
+                name:
+                  type: string
+                armor:
+                  type: array
+                  items:
+                    anyOf:
+                      - type: object
+                        properties:
+                          AC:
+                            type: string
+                          name:
+                            type: string
+                            minLength: 2
+                          cost:
+                            type: string
+                          type:
+                            type: string
+                            enum:
+                              - light
+                              - medium
+                              - heavy
+                          maxDex:
+                            type: string
+                          minStr:
+                            type: string
+                          weight:
+                            type: string
+                          stealthDis:
+                            type: string
+                            enum:
+                              - "0"
+                              - "1"
+                        required:
+                          - AC
+                          - name
+                        additionalProperties: false
+                      - type: object
+                        properties:
+                          choice:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              field:
+                                type: string
+                              number:
+                                type: number
+                              result:
+                                type: string
+                              source:
+                                type: string
+                                enum:
+                                  - actions
+                                  - armor
+                                  - backgrounds
+                                  - bases
+                                  - damagetypes
+                                  - languages
+                                  - names
+                                  - professions
+                                  - skills
+                                  - spells
+                                  - traits
+                                  - voices
+                                  - weapons
+                              filtersObject:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    keyName:
+                                      type: string
+                                    keyValues:
+                                      type: array
+                                      items:
+                                        type: string
+                                  required:
+                                    - keyName
+                                    - keyValues
+                                  additionalProperties: false
+                            required:
+                              - type
+                              - field
+                              - number
+                              - result
+                            additionalProperties: false
+                        required:
+                          - choice
+                        additionalProperties: false
+                subtypes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                      levelMin:
+                        type: string
+                    required:
+                      - value
+                    additionalProperties: false
+                speeds:
+                  type: object
+                  properties:
+                    base:
+                      type: string
+                    burrow:
+                      type: string
+                    climb:
+                      type: string
+                    fly:
+                      type: string
+                    hover:
+                      type: string
+                    swim:
+                      type: string
+                  additionalProperties: false
+                savingThrows:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                      s/object/properties/subtypes/items"
+                skills:
+                  anyOf:
+                    - type: array
+                      items:
+                        $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                          s/object/properties/subtypes/items"
+                    - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/armor/items/anyOf/1"
+                    - type: object
+                      properties:
+                        choice:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                            number:
+                              type: number
+                            list:
+                              type: array
+                              items:
+                                type: string
+                            repeatable:
+                              type: boolean
+                            chosenAlready:
+                              type: array
+                              items:
+                                type: string
+                          required:
+                            - type
+                            - number
+                            - list
+                          additionalProperties: false
+                      required:
+                        - choice
+                      additionalProperties: false
+                resistances:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                      s/object/properties/subtypes/items"
+                immunities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                      s/object/properties/subtypes/items"
+                vulnerabilities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                      s/object/properties/subtypes/items"
+                conditionImmunities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                      s/object/properties/subtypes/items"
+                senses:
+                  type: object
+                  properties:
+                    blindsight:
+                      type: string
+                    darkvision:
+                      type: string
+                    tremorsense:
+                      type: string
+                    truesight:
+                      type: string
+                  additionalProperties: false
+                blind:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                canspeak:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                telepathy:
+                  type: string
+                languages:
+                  anyOf:
+                    - type: array
+                      items:
+                        $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                          s/object/properties/subtypes/items"
+                    - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/armor/items/anyOf/1"
+                    - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/skills/anyOf/2"
+                actions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tag:
+                        type: string
+                      priority:
+                        type: number
+                      variants:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            type:
+                              type: string
+                              enum:
+                                - trait
+                                - legendary
+                                - action
+                                - reaction
+                                - bonus
+                                - attack
+                                - multiattack
+                                - mythic
+                                - lair
+                            levelMin:
+                              type: number
+                            levelMax:
+                              type: number
+                            ability:
+                              type: string
+                              enum:
+                                - STR
+                                - DEX
+                                - CON
+                                - INT
+                                - WIS
+                                - CHA
+                            charges:
+                              type: string
+                            recharge:
+                              type: string
+                            cost:
+                              type: string
+                            description:
+                              type: string
+                            values:
+                              type: array
+                              items:
+                                anyOf:
+                                  - type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      expression:
+                                        type: string
+                                    required:
+                                      - name
+                                      - type
+                                    additionalProperties: false
+                                  - type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      expression:
+                                        type: string
+                                      dice:
+                                        type: object
+                                        properties:
+                                          die:
+                                            type: string
+                                          diceNumber:
+                                            type: string
+                                          diceIncrement:
+                                            type: string
+                                          levelMin:
+                                            type: string
+                                          levelMax:
+                                            type: string
+                                          levelInterval:
+                                            type: string
+                                        required:
+                                          - die
+                                          - diceNumber
+                                          - diceIncrement
+                                          - levelMin
+                                          - levelMax
+                                          - levelInterval
+                                        additionalProperties: false
+                                    required:
+                                      - name
+                                      - type
+                                    additionalProperties: false
+                                  - type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      incrProgression:
+                                        type: object
+                                        properties:
+                                          levelInterval:
+                                            type: string
+                                          levelIncrement:
+                                            type: string
+                                          levelMin:
+                                            type: string
+                                          base:
+                                            type: string
+                                          increment:
+                                            type: string
+                                        required:
+                                          - levelInterval
+                                          - levelIncrement
+                                          - levelMin
+                                          - base
+                                          - increment
+                                        additionalProperties: false
+                                    required:
+                                      - name
+                                      - type
+                                    additionalProperties: false
+                            attacks:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  replaceName:
+                                    type: boolean
+                                  attributes:
+                                    anyOf:
+                                      - type: object
+                                        properties:
+                                          die:
+                                            type: string
+                                          diceNumber:
+                                            type: string
+                                          reach:
+                                            type: string
+                                          targets:
+                                            type: string
+                                          damageType:
+                                            type: string
+                                          properties:
+                                            type: array
+                                            items:
+                                              type: string
+                                        required:
+                                          - die
+                                          - diceNumber
+                                          - reach
+                                          - targets
+                                          - damageType
+                                          - properties
+                                        additionalProperties: false
+                                      - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                          s/object/properties/armor/items/anyOf\
+                                          /1"
+                                  enchantment:
+                                    type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                      dice:
+                                        $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                          s/object/properties/actions/items/pro\
+                                          perties/variants/items/properties/val\
+                                          ues/items/anyOf/1/properties/dice"
+                                      expression:
+                                        type: string
+                                    required:
+                                      - type
+                                    additionalProperties: false
+                                required:
+                                  - name
+                                  - attributes
+                                additionalProperties: false
+                          required:
+                            - name
+                            - type
+                            - ability
+                            - description
+                          additionalProperties: false
+                    required:
+                      - tag
+                      - variants
+                    additionalProperties: false
+                bonuses:
+                  type: object
+                  properties:
+                    HPBonus:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                        - name
+                        - value
+                      additionalProperties: false
+                    ACBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    sizeBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    speedBaseBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    speedBurrowBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    speedClimbBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    speedFlyBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    speedHoverBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    speedSwimBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    STRBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    DEXBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    CONBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    INTBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    WISBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    CHABonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    STRSaveBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    DEXSaveBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    CONSaveBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    INTSaveBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    WISSaveBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    CHASaveBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    AthleticsBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    AcrobaticsBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    SleightOfHandBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    StealthBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    ArcanaBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    HistoryBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    InvestigationBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    NatureBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    ReligionBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    AnimalHandlingBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    InsightBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    MedicineBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    PerceptionBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    SurvivalBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    DeceptionBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    IntimidationBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    PerformanceBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    PersuasionBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    blindsightBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    darkvisionBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    tremorsenseBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    truesightBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    rangedAttackBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    rangedDamageBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    meleeAttackBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    meleeDamageBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    spellAttackBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    spellDamageBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    weaponAttackBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                    weaponDamageBonus:
+                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                        s/object/properties/bonuses/properties/HPBonus"
+                  additionalProperties: false
+                spellCasting:
+                  $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                    s/object/properties/actions/items/properties/variants/items\
+                    /properties/ability"
+                spellSlots:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tag:
+                        type: string
+                      levelMin:
+                        type: string
+                      timesDay:
+                        type: string
+                      timesDayMax:
+                        type: string
+                      spells:
+                        anyOf:
+                          - type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                                - id
+                                - name
+                              additionalProperties: false
+                          - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                              s/object/properties/armor/items/anyOf/1"
+                          - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                              s/object/properties/skills/anyOf/2"
+                    required:
+                      - tag
+                      - levelMin
+                      - timesDay
+                      - timesDayMax
+                      - spells
+                    additionalProperties: false
+                enableGenerator:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                image:
+                  type: object
+                  properties:
+                    imgdir:
+                      type: string
+                    lastedited:
+                      type: number
+                  required:
+                    - imgdir
+                    - lastedited
+                  additionalProperties: false
+                searchTags:
+                  type: array
+                  items:
+                    type: string
+                environments:
+                  type: array
+                  items:
+                    type: string
+                backgroundImage:
+                  type: string
+                background:
+                  type: object
+                  properties: {}
+                  additionalProperties: true
+              required:
+                - name
+                - image
+                - background
+              additionalProperties: false
+            game:
+              type: number
+          required:
+            - object
+            - game
+          additionalProperties: false
+        createClassSchema:
+          type: object
+          properties:
+            game:
+              $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                s/game"
+            object:
+              $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                s/object"
+          required:
+            - game
+            - object
+          additionalProperties: false
+        getClassWithVariantsListResponseSchema:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  userid:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 2
+                  other_objects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                            ponseSchema/properties/list/items/properties/id"
+                        name:
+                          $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                            ponseSchema/properties/list/items/properties/name"
+                        userid:
+                          $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                            ponseSchema/properties/list/items/properties/userid"
+                      required:
+                        - id
+                        - name
+                        - userid
+                      additionalProperties: false
+                required:
+                  - id
+                  - userid
+                  - name
+                  - other_objects
+                additionalProperties: false
+          required:
+            - list
+          additionalProperties: false
+        getClassListResponseSchema:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                      ponseSchema/properties/list/items/properties/id"
+                  userid:
+                    $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                      ponseSchema/properties/list/items/properties/userid"
+                  name:
+                    $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                      ponseSchema/properties/list/items/properties/name"
+                required:
+                  - id
+                  - userid
+                  - name
+                additionalProperties: false
+          required:
+            - list
+          additionalProperties: false
+        getClassResponseSchema:
+          type: object
+          properties:
+            object:
+              $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                s/object"
+          required:
+            - object
+          additionalProperties: false
+      required:
+        - updateClassSchema
+        - createClassSchema
+        - getClassWithVariantsListResponseSchema
+        - getClassListResponseSchema
+        - getClassResponseSchema
+      additionalProperties: false
+    professionSchemas:
+      type: object
+      properties:
+        createProfessionSchema:
+          type: object
+          properties:
+            object:
+              type: object
+              properties:
+                name:
+                  type: string
+                femaleName:
+                  type: string
+                workplace:
+                  type: string
+                armor:
+                  type: array
+                  items:
+                    anyOf:
+                      - type: object
+                        properties:
+                          AC:
+                            type: string
+                          name:
+                            type: string
+                            minLength: 2
+                          cost:
+                            type: string
+                          type:
+                            type: string
+                            enum:
+                              - light
+                              - medium
+                              - heavy
+                          maxDex:
+                            type: string
+                          minStr:
+                            type: string
+                          weight:
+                            type: string
+                          stealthDis:
+                            type: string
+                            enum:
+                              - "0"
+                              - "1"
+                        required:
+                          - AC
+                          - name
+                        additionalProperties: false
+                      - type: object
+                        properties:
+                          choice:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              field:
+                                type: string
+                              number:
+                                type: number
+                              result:
+                                type: string
+                              source:
+                                type: string
+                                enum:
+                                  - actions
+                                  - armor
+                                  - backgrounds
+                                  - bases
+                                  - damagetypes
+                                  - languages
+                                  - names
+                                  - professions
+                                  - skills
+                                  - spells
+                                  - traits
+                                  - voices
+                                  - weapons
+                              filtersObject:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    keyName:
+                                      type: string
+                                    keyValues:
+                                      type: array
+                                      items:
+                                        type: string
+                                  required:
+                                    - keyName
+                                    - keyValues
+                                  additionalProperties: false
+                            required:
+                              - type
+                              - field
+                              - number
+                              - result
+                            additionalProperties: false
+                        required:
+                          - choice
+                        additionalProperties: false
+                subtypes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                      levelMin:
+                        type: string
+                    required:
+                      - value
+                    additionalProperties: false
+                speeds:
+                  type: object
+                  properties:
+                    base:
+                      type: string
+                    burrow:
+                      type: string
+                    climb:
+                      type: string
+                    fly:
+                      type: string
+                    hover:
+                      type: string
+                    swim:
+                      type: string
+                  additionalProperties: false
+                savingThrows:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                      /properties/object/properties/subtypes/items"
+                skills:
+                  anyOf:
+                    - type: array
+                      items:
+                        $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                          /properties/object/properties/subtypes/items"
+                    - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/armor/items/anyOf/1"
+                    - type: object
+                      properties:
+                        choice:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                            number:
+                              type: number
+                            list:
+                              type: array
+                              items:
+                                type: string
+                            repeatable:
+                              type: boolean
+                            chosenAlready:
+                              type: array
+                              items:
+                                type: string
+                          required:
+                            - type
+                            - number
+                            - list
+                          additionalProperties: false
+                      required:
+                        - choice
+                      additionalProperties: false
+                resistances:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                      /properties/object/properties/subtypes/items"
+                immunities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                      /properties/object/properties/subtypes/items"
+                vulnerabilities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                      /properties/object/properties/subtypes/items"
+                conditionImmunities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                      /properties/object/properties/subtypes/items"
+                senses:
+                  type: object
+                  properties:
+                    blindsight:
+                      type: string
+                    darkvision:
+                      type: string
+                    tremorsense:
+                      type: string
+                    truesight:
+                      type: string
+                  additionalProperties: false
+                blind:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                canspeak:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                telepathy:
+                  type: string
+                languages:
+                  anyOf:
+                    - type: array
+                      items:
+                        $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                          /properties/object/properties/subtypes/items"
+                    - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/armor/items/anyOf/1"
+                    - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/skills/anyOf/2"
+                actions:
+                  type: array
+                  items:
+                    anyOf:
+                      - type: object
+                        properties:
+                          tag:
+                            type: string
+                          priority:
+                            type: number
+                          variants:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                type:
+                                  type: string
+                                  enum:
+                                    - trait
+                                    - legendary
+                                    - action
+                                    - reaction
+                                    - bonus
+                                    - attack
+                                    - multiattack
+                                    - mythic
+                                    - lair
+                                levelMin:
+                                  type: number
+                                levelMax:
+                                  type: number
+                                ability:
+                                  type: string
+                                  enum:
+                                    - STR
+                                    - DEX
+                                    - CON
+                                    - INT
+                                    - WIS
+                                    - CHA
+                                charges:
+                                  type: string
+                                recharge:
+                                  type: string
+                                cost:
+                                  type: string
+                                description:
+                                  type: string
+                                values:
+                                  type: array
+                                  items:
+                                    anyOf:
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          expression:
+                                            type: string
+                                        required:
+                                          - name
+                                          - type
+                                        additionalProperties: false
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          expression:
+                                            type: string
+                                          dice:
+                                            type: object
+                                            properties:
+                                              die:
+                                                type: string
+                                              diceNumber:
+                                                type: string
+                                              diceIncrement:
+                                                type: string
+                                              levelMin:
+                                                type: string
+                                              levelMax:
+                                                type: string
+                                              levelInterval:
+                                                type: string
+                                            required:
+                                              - die
+                                              - diceNumber
+                                              - diceIncrement
+                                              - levelMin
+                                              - levelMax
+                                              - levelInterval
+                                            additionalProperties: false
+                                        required:
+                                          - name
+                                          - type
+                                        additionalProperties: false
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          incrProgression:
+                                            type: object
+                                            properties:
+                                              levelInterval:
+                                                type: string
+                                              levelIncrement:
+                                                type: string
+                                              levelMin:
+                                                type: string
+                                              base:
+                                                type: string
+                                              increment:
+                                                type: string
+                                            required:
+                                              - levelInterval
+                                              - levelIncrement
+                                              - levelMin
+                                              - base
+                                              - increment
+                                            additionalProperties: false
+                                        required:
+                                          - name
+                                          - type
+                                        additionalProperties: false
+                                attacks:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      replaceName:
+                                        type: boolean
+                                      attributes:
+                                        anyOf:
+                                          - type: object
+                                            properties:
+                                              die:
+                                                type: string
+                                              diceNumber:
+                                                type: string
+                                              reach:
+                                                type: string
+                                              targets:
+                                                type: string
+                                              damageType:
+                                                type: string
+                                              properties:
+                                                type: array
+                                                items:
+                                                  type: string
+                                            required:
+                                              - die
+                                              - diceNumber
+                                              - reach
+                                              - targets
+                                              - damageType
+                                              - properties
+                                            additionalProperties: false
+                                          - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                              /properties/object/properties/arm\
+                                              or/items/anyOf/1"
+                                      enchantment:
+                                        type: object
+                                        properties:
+                                          type:
+                                            type: string
+                                          dice:
+                                            $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                              /properties/object/properties/act\
+                                              ions/items/anyOf/0/properties/var\
+                                              iants/items/properties/values/ite\
+                                              ms/anyOf/1/properties/dice"
+                                          expression:
+                                            type: string
+                                        required:
+                                          - type
+                                        additionalProperties: false
+                                    required:
+                                      - name
+                                      - attributes
+                                    additionalProperties: false
+                              required:
+                                - name
+                                - type
+                                - ability
+                                - description
+                              additionalProperties: false
+                        required:
+                          - tag
+                          - variants
+                        additionalProperties: false
+                      - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                          /properties/object/properties/armor/items/anyOf/1"
+                bonuses:
+                  type: object
+                  properties:
+                    HPBonus:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                        - name
+                        - value
+                      additionalProperties: false
+                    ACBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    sizeBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    speedBaseBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    speedBurrowBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    speedClimbBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    speedFlyBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    speedHoverBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    speedSwimBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    STRBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    DEXBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    CONBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    INTBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    WISBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    CHABonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    STRSaveBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    DEXSaveBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    CONSaveBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    INTSaveBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    WISSaveBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    CHASaveBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    AthleticsBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    AcrobaticsBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    SleightOfHandBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    StealthBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    ArcanaBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    HistoryBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    InvestigationBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    NatureBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    ReligionBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    AnimalHandlingBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    InsightBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    MedicineBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    PerceptionBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    SurvivalBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    DeceptionBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    IntimidationBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    PerformanceBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    PersuasionBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    blindsightBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    darkvisionBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    tremorsenseBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    truesightBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    rangedAttackBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    rangedDamageBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    meleeAttackBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    meleeDamageBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    spellAttackBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    spellDamageBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    weaponAttackBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                    weaponDamageBonus:
+                      $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                        /properties/object/properties/bonuses/properties/HPBonu\
+                        s"
+                  additionalProperties: false
+                spellCasting:
+                  $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                    /properties/object/properties/actions/items/anyOf/0/propert\
+                    ies/variants/items/properties/ability"
+                spellSlots:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tag:
+                        type: string
+                      levelMin:
+                        type: string
+                      timesDay:
+                        type: string
+                      timesDayMax:
+                        type: string
+                      spells:
+                        anyOf:
+                          - type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                                - id
+                                - name
+                              additionalProperties: false
+                          - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                              /properties/object/properties/armor/items/anyOf/1"
+                          - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                              /properties/object/properties/skills/anyOf/2"
+                    required:
+                      - tag
+                      - levelMin
+                      - timesDay
+                      - timesDayMax
+                      - spells
+                    additionalProperties: false
+                enableGenerator:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+              required:
+                - name
+                - femaleName
+                - workplace
+              additionalProperties: false
+            age:
+              type: string
+              enum:
+                - medieval
+                - fantasy
+                - renaissance
+                - modern
+                - future
+                - space
+                - other
+            description:
+              type: string
+          required:
+            - object
+            - age
+            - description
+          additionalProperties: false
+        getProfessionListResponseSchema:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  userid:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 2
+                required:
+                  - id
+                  - userid
+                  - name
+                additionalProperties: false
+          required:
+            - list
+          additionalProperties: false
+        getProfessionResponseSchema:
+          type: object
+          properties:
+            object:
+              $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                /properties/object"
+          required:
+            - object
+          additionalProperties: false
+      required:
+        - createProfessionSchema
+        - getProfessionListResponseSchema
+        - getProfessionResponseSchema
+      additionalProperties: false
+    raceSchemas:
+      type: object
+      properties:
+        createRaceSchema:
+          type: object
+          properties:
+            game:
+              type: number
+            object:
+              type: object
+              properties:
+                name:
+                  type: string
+                gender:
+                  type: string
+                  enum:
+                    - male
+                    - female
+                    - neutral
+                    - thing
+                size:
+                  type: string
+                type:
+                  type: string
+                swarm:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                swarmSize:
+                  type: string
+                subtypes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                      levelMin:
+                        type: string
+                    required:
+                      - value
+                    additionalProperties: false
+                alignment:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    - type: string
+                    - type: string
+                armor:
+                  type: array
+                  items:
+                    anyOf:
+                      - type: object
+                        properties:
+                          AC:
+                            type: string
+                          name:
+                            type: string
+                            minLength: 2
+                          cost:
+                            type: string
+                          type:
+                            type: string
+                            enum:
+                              - light
+                              - medium
+                              - heavy
+                          maxDex:
+                            type: string
+                          minStr:
+                            type: string
+                          weight:
+                            type: string
+                          stealthDis:
+                            type: string
+                            enum:
+                              - "0"
+                              - "1"
+                        required:
+                          - AC
+                          - name
+                        additionalProperties: false
+                      - type: object
+                        properties:
+                          choice:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              field:
+                                type: string
+                              number:
+                                type: number
+                              result:
+                                type: string
+                              source:
+                                type: string
+                                enum:
+                                  - actions
+                                  - armor
+                                  - backgrounds
+                                  - bases
+                                  - damagetypes
+                                  - languages
+                                  - names
+                                  - professions
+                                  - skills
+                                  - spells
+                                  - traits
+                                  - voices
+                                  - weapons
+                              filtersObject:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    keyName:
+                                      type: string
+                                    keyValues:
+                                      type: array
+                                      items:
+                                        type: string
+                                  required:
+                                    - keyName
+                                    - keyValues
+                                  additionalProperties: false
+                            required:
+                              - type
+                              - field
+                              - number
+                              - result
+                            additionalProperties: false
+                        required:
+                          - choice
+                        additionalProperties: false
+                HD:
+                  type: number
+                abilitiesLimit:
+                  type: string
+                speeds:
+                  type: object
+                  properties:
+                    base:
+                      type: string
+                    burrow:
+                      type: string
+                    climb:
+                      type: string
+                    fly:
+                      type: string
+                    hover:
+                      type: string
+                    swim:
+                      type: string
+                  additionalProperties: false
+                savingThrows:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                      object/properties/subtypes/items"
+                skills:
+                  anyOf:
+                    - type: array
+                      items:
+                        $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                          object/properties/subtypes/items"
+                    - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/armor/items/anyOf/1"
+                    - type: object
+                      properties:
+                        choice:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                            number:
+                              type: number
+                            list:
+                              type: array
+                              items:
+                                type: string
+                            repeatable:
+                              type: boolean
+                            chosenAlready:
+                              type: array
+                              items:
+                                type: string
+                          required:
+                            - type
+                            - number
+                            - list
+                          additionalProperties: false
+                      required:
+                        - choice
+                      additionalProperties: false
+                resistances:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                      object/properties/subtypes/items"
+                immunities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                      object/properties/subtypes/items"
+                vulnerabilities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                      object/properties/subtypes/items"
+                conditionImmunities:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                      object/properties/subtypes/items"
+                senses:
+                  type: object
+                  properties:
+                    blindsight:
+                      type: string
+                    darkvision:
+                      type: string
+                    tremorsense:
+                      type: string
+                    truesight:
+                      type: string
+                  additionalProperties: false
+                blind:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                canspeak:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                telepathy:
+                  type: string
+                languages:
+                  anyOf:
+                    - type: array
+                      items:
+                        $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                          object/properties/subtypes/items"
+                    - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/armor/items/anyOf/1"
+                    - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/skills/anyOf/2"
+                actions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tag:
+                        type: string
+                      priority:
+                        type: number
+                      variants:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            type:
+                              type: string
+                              enum:
+                                - trait
+                                - legendary
+                                - action
+                                - reaction
+                                - bonus
+                                - attack
+                                - multiattack
+                                - mythic
+                                - lair
+                            levelMin:
+                              type: number
+                            levelMax:
+                              type: number
+                            ability:
+                              type: string
+                              enum:
+                                - STR
+                                - DEX
+                                - CON
+                                - INT
+                                - WIS
+                                - CHA
+                            charges:
+                              type: string
+                            recharge:
+                              type: string
+                            cost:
+                              type: string
+                            description:
+                              type: string
+                            values:
+                              type: array
+                              items:
+                                anyOf:
+                                  - type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      expression:
+                                        type: string
+                                    required:
+                                      - name
+                                      - type
+                                    additionalProperties: false
+                                  - type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      expression:
+                                        type: string
+                                      dice:
+                                        type: object
+                                        properties:
+                                          die:
+                                            type: string
+                                          diceNumber:
+                                            type: string
+                                          diceIncrement:
+                                            type: string
+                                          levelMin:
+                                            type: string
+                                          levelMax:
+                                            type: string
+                                          levelInterval:
+                                            type: string
+                                        required:
+                                          - die
+                                          - diceNumber
+                                          - diceIncrement
+                                          - levelMin
+                                          - levelMax
+                                          - levelInterval
+                                        additionalProperties: false
+                                    required:
+                                      - name
+                                      - type
+                                    additionalProperties: false
+                                  - type: object
+                                    properties:
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      incrProgression:
+                                        type: object
+                                        properties:
+                                          levelInterval:
+                                            type: string
+                                          levelIncrement:
+                                            type: string
+                                          levelMin:
+                                            type: string
+                                          base:
+                                            type: string
+                                          increment:
+                                            type: string
+                                        required:
+                                          - levelInterval
+                                          - levelIncrement
+                                          - levelMin
+                                          - base
+                                          - increment
+                                        additionalProperties: false
+                                    required:
+                                      - name
+                                      - type
+                                    additionalProperties: false
+                            attacks:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  replaceName:
+                                    type: boolean
+                                  attributes:
+                                    anyOf:
+                                      - type: object
+                                        properties:
+                                          die:
+                                            type: string
+                                          diceNumber:
+                                            type: string
+                                          reach:
+                                            type: string
+                                          targets:
+                                            type: string
+                                          damageType:
+                                            type: string
+                                          properties:
+                                            type: array
+                                            items:
+                                              type: string
+                                        required:
+                                          - die
+                                          - diceNumber
+                                          - reach
+                                          - targets
+                                          - damageType
+                                          - properties
+                                        additionalProperties: false
+                                      - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                          object/properties/armor/items/anyOf/1"
+                                  enchantment:
+                                    type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                      dice:
+                                        $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                          object/properties/actions/items/prope\
+                                          rties/variants/items/properties/value\
+                                          s/items/anyOf/1/properties/dice"
+                                      expression:
+                                        type: string
+                                    required:
+                                      - type
+                                    additionalProperties: false
+                                required:
+                                  - name
+                                  - attributes
+                                additionalProperties: false
+                          required:
+                            - name
+                            - type
+                            - ability
+                            - description
+                          additionalProperties: false
+                    required:
+                      - tag
+                      - variants
+                    additionalProperties: false
+                bonuses:
+                  type: object
+                  properties:
+                    HPBonus:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                        - name
+                        - value
+                      additionalProperties: false
+                    ACBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    sizeBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    speedBaseBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    speedBurrowBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    speedClimbBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    speedFlyBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    speedHoverBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    speedSwimBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    STRBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    DEXBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    CONBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    INTBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    WISBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    CHABonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    STRSaveBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    DEXSaveBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    CONSaveBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    INTSaveBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    WISSaveBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    CHASaveBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    AthleticsBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    AcrobaticsBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    SleightOfHandBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    StealthBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    ArcanaBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    HistoryBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    InvestigationBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    NatureBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    ReligionBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    AnimalHandlingBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    InsightBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    MedicineBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    PerceptionBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    SurvivalBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    DeceptionBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    IntimidationBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    PerformanceBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    PersuasionBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    blindsightBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    darkvisionBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    tremorsenseBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    truesightBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    rangedAttackBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    rangedDamageBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    meleeAttackBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    meleeDamageBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    spellAttackBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    spellDamageBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    weaponAttackBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                    weaponDamageBonus:
+                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                        object/properties/bonuses/properties/HPBonus"
+                  additionalProperties: false
+                spellCasting:
+                  $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                    object/properties/actions/items/properties/variants/items/p\
+                    roperties/ability"
+                spellSlots:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tag:
+                        type: string
+                      levelMin:
+                        type: string
+                      timesDay:
+                        type: string
+                      timesDayMax:
+                        type: string
+                      spells:
+                        anyOf:
+                          - type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                                - id
+                                - name
+                              additionalProperties: false
+                          - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                              object/properties/armor/items/anyOf/1"
+                          - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                              object/properties/skills/anyOf/2"
+                    required:
+                      - tag
+                      - levelMin
+                      - timesDay
+                      - timesDayMax
+                      - spells
+                    additionalProperties: false
+                enableGenerator:
+                  type: string
+                  enum:
+                    - "1"
+                    - "0"
+                ageAdult:
+                  type: string
+                ageMax:
+                  type: string
+                heightMin:
+                  type: number
+                heightMax:
+                  type: number
+                nameType:
+                  type: array
+                  items:
+                    type: string
+                addSurname:
+                  type: number
+                image:
+                  type: object
+                  properties:
+                    imgdir:
+                      type: string
+                    lastedited:
+                      type: number
+                  required:
+                    - imgdir
+                    - lastedited
+                  additionalProperties: false
+                searchTags:
+                  type: array
+                  items:
+                    type: string
+                environments:
+                  type: array
+                  items:
+                    type: string
+                backgroundImage:
+                  type: string
+                background:
+                  type: object
+                  properties: {}
+                  additionalProperties: true
+              required:
+                - name
+                - image
+                - background
+              additionalProperties: false
+          required:
+            - game
+            - object
+          additionalProperties: false
+        updateRaceSchema:
+          type: object
+          properties:
+            object:
+              $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                object"
+            game:
+              $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                game"
+          required:
+            - object
+            - game
+          additionalProperties: false
+        getRaceWithVariantsListResponseSchema:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  userid:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 2
+                  other_objects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                            nseSchema/properties/list/items/properties/id"
+                        name:
+                          $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                            nseSchema/properties/list/items/properties/name"
+                        userid:
+                          $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                            nseSchema/properties/list/items/properties/userid"
+                      required:
+                        - id
+                        - name
+                        - userid
+                      additionalProperties: false
+                required:
+                  - id
+                  - userid
+                  - name
+                  - other_objects
+                additionalProperties: false
+          required:
+            - list
+          additionalProperties: false
+        getRaceListResponseSchema:
+          type: object
+          properties:
+            list:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                      nseSchema/properties/list/items/properties/id"
+                  userid:
+                    $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                      nseSchema/properties/list/items/properties/userid"
+                  name:
+                    $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                      nseSchema/properties/list/items/properties/name"
+                required:
+                  - id
+                  - userid
+                  - name
+                additionalProperties: false
+          required:
+            - list
+          additionalProperties: false
+        getRaceResponseSchema:
+          type: object
+          properties:
+            object:
+              $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                object"
+          required:
+            - object
+          additionalProperties: false
+      required:
+        - createRaceSchema
+        - updateRaceSchema
+        - getRaceWithVariantsListResponseSchema
+        - getRaceListResponseSchema
+        - getRaceResponseSchema
+      additionalProperties: false
+paths:
+  /api/classes/:
+    get:
+      summary: Returns a list of all available classes in the db.
+      tags:
+        - classes
+      description: Returns a list of all available classes in the db. If
+        authenticated, also returns the classes created by the user.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/classSchemas/properties/getClassListResponseSchema"
+  /api/classes/withvariants:
+    get:
+      summary: Returns a list of all available combinations of classes and variants in
+        the db.
+      tags:
+        - classes
+      description: Returns a list of all available combinations of classes and
+        variants in the db. If authenticated, also returns the classes created
+        by the user.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
+                  ponseSchema"
+  /api/professions/:
+    get:
+      summary: Returns a list of all available professions in the db.
+      tags:
+        - professions
+      description: Returns a list of all available professions in the db. If
+        authenticated, also returns the list of professions created by the user.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/professionSchemas/properties/getProfessionListRespo\
+                  nseSchema"
+  /api/races/:
+    get:
+      summary: Returns a list of all available races in the db.
+      tags:
+        - races
+      description: Returns a list of all available races in the db. If authenticated,
+        also returns the races created by the user.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/raceSchemas/properties/getRaceListResponseSchema"
+  /api/races/withvariants:
+    get:
+      summary: Returns a list of all available combinations of races and variants in
+        the db.
+      tags:
+        - races
+      description: Returns a list of all available combinations of races and variants
+        in the db. If authenticated, also returns the races created by the user.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
+                  nseSchema"
+tags:
+  - name: classes
+    description: Classes are the main way to define a character's role in the game.
+      They define what abilities the character has and how they can use them.
+  - name: professions
+    description: Professions are a way to define a character's occupation, like a
+      soldier, a merchant, a priest, etc. and give them minor abilities related
+      to that occupation. They are usually given to NPCs in place of classes.
+  - name: races
+    description: A race defines the innate abilities derived from a character's
+      fantasy ancestry.

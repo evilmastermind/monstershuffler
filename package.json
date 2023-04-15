@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "types": "npx openapi-typescript swagger.yaml --output types/backend.d.ts",
+    "typeswhenthebackendispublished": "npx openapi-typescript https://thebackend/openapi.yaml --output types/backend.d.ts",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "serve": "nuxt dev",
@@ -31,6 +33,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@pinia/nuxt": "^0.4.7",
+    "openapi-typescript": "^6.2.1",
     "pinia": "^2.0.33",
     "sass": "^1.59.3",
     "sass-loader": "^13.2.0"

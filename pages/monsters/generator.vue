@@ -42,27 +42,13 @@
                     v-model="primaryRacePercentage"
                     class="ms-select ms-select-20"
                   >
-                    <option value="0">0%</option>
-                    <option value="5">5%</option>
-                    <option value="10">10%</option>
-                    <option value="15">15%</option>
-                    <option value="20">20%</option>
-                    <option value="25">25%</option>
-                    <option value="30">30%</option>
-                    <option value="35">35%</option>
-                    <option value="40">40%</option>
-                    <option value="45">45%</option>
-                    <option value="50" selected>50%</option>
-                    <option value="55">55%</option>
-                    <option value="60">60%</option>
-                    <option value="65">65%</option>
-                    <option value="70">70%</option>
-                    <option value="75">75%</option>
-                    <option value="80">80%</option>
-                    <option value="85">85%</option>
-                    <option value="90">90%</option>
-                    <option value="95">95%</option>
-                    <option value="100">100%</option>
+                    <option
+                      v-for="index in 21"
+                      :key="index"
+                      :value="(index - 1) * 5"
+                    >
+                      {{ `${(index - 1) * 5}%` }}
+                    </option>
                   </select>
                 </div>
               </span>
@@ -83,27 +69,13 @@
                     v-model="secondaryRacePercentage"
                     class="ms-select ms-select-20"
                   >
-                    <option value="0">0%</option>
-                    <option value="5">5%</option>
-                    <option value="10">10%</option>
-                    <option value="15">15%</option>
-                    <option value="20">20%</option>
-                    <option value="25">25%</option>
-                    <option value="30">30%</option>
-                    <option value="35">35%</option>
-                    <option value="40">40%</option>
-                    <option value="45" selected>45%</option>
-                    <option value="50">50%</option>
-                    <option value="55">55%</option>
-                    <option value="60">60%</option>
-                    <option value="65">65%</option>
-                    <option value="70">70%</option>
-                    <option value="75">75%</option>
-                    <option value="80">80%</option>
-                    <option value="85">85%</option>
-                    <option value="90">90%</option>
-                    <option value="95">95%</option>
-                    <option value="100">100%</option>
+                    <option
+                      v-for="index in 21"
+                      :key="index"
+                      :value="(index - 1) * 5"
+                    >
+                      {{ `${(index - 1) * 5}%` }}
+                    </option>
                   </select>
                 </div>
               </span>
@@ -143,9 +115,24 @@
                   v-model="classIdChosen"
                   class="ms-select ms-select-100 mt-1"
                 >
-                  <option v-for="(aClass, i) in classList" :key="i" :value="i">
+                  <option v-for="(aClass, i) in classes" :key="i" :value="i">
                     {{ aClass.name }}
                     {{ aClass.variantName ? ` (${aClass.variantName})` : "" }}
+                  </option>
+                </select>
+              </span>
+              <span v-if="classType === 'specificProfession'" class="form-line">
+                <select
+                  id="gen-professions"
+                  v-model="professionIdChosen"
+                  class="ms-select ms-select-100 mt-1"
+                >
+                  <option
+                    v-for="(profession, i) in professions"
+                    :key="i"
+                    :value="i"
+                  >
+                    {{ capitalizeFirst(profession.name) }}
                   </option>
                 </select>
               </span>
@@ -181,12 +168,15 @@
 </template>
 
 <script setup lang="ts">
-import { useApiStore } from "@/stores/api";
+import { capitalizeFirst } from "@/utils/functions";
+import { useGeneratorStore } from "@/stores/generator.js";
+import { ObjectOrVariant, Profession } from "@/types/generator";
 
 const modeBoolean = ref(true);
 const mode = computed(() => (modeBoolean.value ? "form" : "prompt"));
 const { t } = useI18n();
-const { getClasses } = useApiStore();
+const { getRacesWithVariants, getClassesWithVariants, getProfessions } =
+  useGeneratorStore();
 
 const prompt = ref("");
 const primaryRace = ref("");
@@ -195,17 +185,19 @@ const secondaryRace = ref("");
 const secondaryRacePercentage = ref(0);
 const classType = ref("randomClass");
 const classIdChosen = ref(0);
+const professionIdChosen = ref(0);
+
+const races = ref<ObjectOrVariant[]>([]);
+const classes = ref<ObjectOrVariant[]>([]);
+const professions = ref<Profession[]>([]);
 // const levelType = ref("randomPeasantsMostly");
 // const raceList = ref([]);
-const classList = ref([]);
+
 // const professionList = ref([]);
 
-// TODO : 0) fix ts inside .vue files
 // TODO: 1) handle login
 // TODO: 2) test api/classes
 // TODO: 3) link it to the frontend
-// TODO: 3.5) find why the classes' names are returned between quotes
-// TODO: 4) find a way to export the types from the API
 // TODO: 5) save settings in localstorage
 // TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
 
@@ -217,30 +209,9 @@ const classList = ref([]);
 // } = await getClasses();
 
 onMounted(async () => {
-  const classes = await getClasses();
-  classes.forEach((aClass) => {
-    if (
-      Object.hasOwn(aClass, "other_objects") &&
-      aClass.other_objects.length > 0
-    ) {
-      aClass.other_objects.forEach((otherObject) => {
-        classList.value.push({
-          id: aClass.id,
-          name: aClass.name,
-          userId: aClass.userid,
-          variantId: otherObject.id,
-          variantName: otherObject.name,
-          variantUserId: otherObject.userid,
-        });
-      });
-    } else {
-      classList.value.push({
-        id: aClass.id,
-        name: aClass.name,
-        userId: aClass.userid,
-      });
-    }
-  });
+  races.value = await getRacesWithVariants();
+  classes.value = await getClassesWithVariants();
+  professions.value = await getProfessions();
 });
 </script>
 
