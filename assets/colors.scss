@@ -35,6 +35,7 @@ $background: 'background';
 $background2: 'background2';
 $background-card: 'background-card';
 $background-inset: 'background-inset';
+$background-blend-mode: 'background-blend-mode';
 $text: 'text';
 $text-secondary: 'text-secondary';
 $text-inverse: 'text-inverse';
@@ -75,7 +76,8 @@ $themes: (
     $background: hsl(47, 41%, 93%), // grey-100
     $background2: hsl(0, 0%, 100%), // white
     $background-card: hsla(47,30%,90%,0.7), // white 0.7
-    $background-inset: hsla(47, 30%, 87%,0.7), //primary-100 0.5
+    $background-inset: hsla(46, 22%, 84%, 0.7), //primary-100 0.5
+    $background-blend-mode: lighten,
     
     $text: hsl(240, 30%, 7%), // grey-900
     $text-secondary: hsl(240, 0%, 55%),
@@ -153,7 +155,8 @@ $themes: (
     $background2: hsl(0, 0%, 0%), // white
     $background-card: hsla(0,0%,20%,0.7), // white 0.7
     $background-inset: hsla(0, 0%, 10%,0.7), //primary-100 0.5
-    
+    $background-blend-mode: darken,
+
     $text: hsl(240, 0%, 95%), // grey-900
     $text-secondary: hsl(240, 0%, 55%),
     $text-inverse: hsl(240, 0%, 3%), // grey-100

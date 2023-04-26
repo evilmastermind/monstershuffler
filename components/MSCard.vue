@@ -9,8 +9,8 @@
 <style lang="scss">
 .card {
   padding: $s-5 $s-5;
-  border-radius: $s-1;
-  
+  border-radius: 0px;
+
   @include themed {
     background: t($background-card);
   }

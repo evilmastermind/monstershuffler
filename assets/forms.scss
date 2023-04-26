@@ -22,6 +22,7 @@
   box-sizing: border-box;
   border-radius: $s-1;
   height: $s-6;
+  text-overflow: ellipsis;
   @include themed() {
     background-color: t($background-inset);
     border-top: 1px solid darken(t($background-inset),5);

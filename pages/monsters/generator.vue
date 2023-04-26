@@ -1,10 +1,18 @@
 <template>
-  <BackgroundDice />
+  <!-- <BackgroundDice /> -->
+  <div class="bg-test">
+    <div class="bg-test-image" />
+  </div>
   <div class="lg-max">
-    <h1 class="sm-only mb-4">
+    <div class="background-navbar-padding" />
+    <h1 class="mb-4 text-shadow">
       {{ $t("generator.title") }}
     </h1>
-    <div class="mode-toggler mb-4">
+    <!-- <div class="text-shadow text-max">
+      <p v-html="t('generator.description1')" />
+      <p v-html="t('generator.description2')" />
+    </div> -->
+    <div class="mode-toggler mt-6 my-4">
       <label class="cursor-pointer">
         <MSSlider2 v-model:is-enabled="modeBoolean" />
         <h4 class="ml-2 inline">{{ $t(`generator.${mode}ModeTitle`) }}</h4>
@@ -32,10 +40,13 @@
                 <div class="flex-row justify-space-between">
                   <select
                     id="gen-prace"
-                    v-model="primaryRace"
+                    v-model="primaryRaceIndex"
                     class="ms-select ms-select-75"
                   >
-                    <option selected>An option.</option>
+                    <option v-for="(race, i) in races" :key="i" :value="i">
+                      {{ race.name }}
+                      {{ race.variantName ? ` (${race.variantName})` : "" }}
+                    </option>
                   </select>
                   <select
                     id="gen-prace-perc"
@@ -59,10 +70,13 @@
                 <div class="flex-row justify-space-between">
                   <select
                     id="gen-srace"
-                    v-model="secondaryRace"
+                    v-model="secondaryRaceIndex"
                     class="ms-select ms-select-75"
                   >
-                    <option selected>An option.</option>
+                    <option v-for="(race, i) in races" :key="i" :value="i">
+                      {{ race.name }}
+                      {{ race.variantName ? ` (${race.variantName})` : "" }}
+                    </option>
                   </select>
                   <select
                     id="gen-srace-perc"
@@ -112,7 +126,7 @@
               <span v-if="classType === 'specificClass'" class="form-line">
                 <select
                   id="gen-classes"
-                  v-model="classIdChosen"
+                  v-model="classIndex"
                   class="ms-select ms-select-100 mt-1"
                 >
                   <option v-for="(aClass, i) in classes" :key="i" :value="i">
@@ -124,7 +138,7 @@
               <span v-if="classType === 'specificProfession'" class="form-line">
                 <select
                   id="gen-professions"
-                  v-model="professionIdChosen"
+                  v-model="professionIndex"
                   class="ms-select ms-select-100 mt-1"
                 >
                   <option
@@ -179,17 +193,19 @@ const { getRacesWithVariants, getClassesWithVariants, getProfessions } =
   useGeneratorStore();
 
 const prompt = ref("");
-const primaryRace = ref("");
-const primaryRacePercentage = ref(100);
-const secondaryRace = ref("");
-const secondaryRacePercentage = ref(0);
-const classType = ref("randomClass");
-const classIdChosen = ref(0);
-const professionIdChosen = ref(0);
 
 const races = ref<ObjectOrVariant[]>([]);
 const classes = ref<ObjectOrVariant[]>([]);
 const professions = ref<Profession[]>([]);
+
+const primaryRaceIndex = ref(0);
+const secondaryRaceIndex = ref(0);
+const classIndex = ref(0);
+const professionIndex = ref(0);
+
+const primaryRacePercentage = ref(100);
+const secondaryRacePercentage = ref(0);
+const classType = ref("randomClass");
 // const levelType = ref("randomPeasantsMostly");
 // const raceList = ref([]);
 
@@ -216,6 +232,26 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.background-navbar-padding {
+  width: calc(100vw - (100vw - 100%));
+  height: $s-9;
+}
+.bg-test {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  @include themed() {
+    background-color: t($background2);
+    background: rgba(t($background2), 0.7)
+      url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
+    background-blend-mode: t($background-blend-mode);
+  }
+  //  ;
+  z-index: -2;
+}
+
 .box {
   max-width: $s-13;
   // background-color: rgb(red, 0.2);

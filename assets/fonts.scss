@@ -67,7 +67,7 @@
 
 $f-1: 12px;
 $f-2: 14px;
-$f-3: 16px;
+$f-3: 15px;
 $f-4: 18px;
 $f-5: 20px;
 $f-6: 24px;
@@ -98,4 +98,23 @@ h1 {
 p {
   margin: $s-2 0;
   line-height: $s-5;
+}
+
+a {
+  font-weight: 600;
+  text-decoration: none;
+  @include themed {
+    color: t($primary-700);
+  }
+}
+
+.text-shadow {
+  @include themed { 
+    text-shadow: 0 0 10px t($background);
+  }
+}
+
+.text-max { 
+  max-width: 700px;
+  margin: 0 auto;
 }
