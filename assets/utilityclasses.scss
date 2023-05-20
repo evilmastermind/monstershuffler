@@ -15,8 +15,12 @@
   display: inline-block;
 }
 
-.center {
+.text-centered {
   text-align: center;
+}
+.centered {
+  display: grid;
+  place-items: center;
 }
 
 .flex-row {

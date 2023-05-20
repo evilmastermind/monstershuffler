@@ -11,6 +11,9 @@ export type getClassWithVariantsListResponseSchema =
 
 export type Profession = getProfessionListResponseSchema["list"][number];
 
+export type createRandomNpcInputSchema = components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
+export type createRandomNpcResponseSchema = components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
+
 export type ObjectOrVariant = {
   id: number;
   name: string;

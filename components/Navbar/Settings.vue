@@ -1,9 +1,5 @@
 <template>
-  <MSMenu
-    :hover="true"
-    direction="bottomleft"
-    class="navbar-link-container"
-  >
+  <MSMenu :hover="true" direction="bottomleft" class="navbar-link-container">
     <div>
       <div class="navbar-link navbar-link-inactive">
         <font-awesome-icon
@@ -15,14 +11,10 @@
       </div>
     </div>
     <template #dropdown>
-      <a
-        href="#something"
-        class="dropdown-link"
-      ><span>Span</span> Do something</a>
-      <a
-        href="#something"
-        class="dropdown-link"
-      >Something else</a>
+      <a href="#something" class="dropdown-link"
+        ><span>Span</span> Do something</a
+      >
+      <a href="#something" class="dropdown-link">Something else</a>
       <a class="user-links-mobile dropdown-link">Login</a>
       <a class="user-links-mobile dropdown-link">Register</a>
       <span id="button-theme-mobile">
@@ -54,7 +46,7 @@
 #button-theme-mobile,
 #links-support-mobile,
 .user-links-mobile {
-  display: none;
+  display: inline-block;
 }
 @media (max-width: 1100px) {
   #button-theme-mobile {
@@ -67,7 +59,7 @@
 }
 .user-links-mobile {
   @include md {
-    display: inline-block;
+    display: none;
   }
 }
 </style>

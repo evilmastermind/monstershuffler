@@ -1,9 +1,6 @@
 <template>
   <div class="navbar-link">
-    <NuxtLink
-      class="ms-logo"
-      :to="localePath('/')"
-    >
+    <NuxtLink class="ms-logo" :to="localePath('/')">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="50"
@@ -34,10 +31,7 @@
         </g>
         <defs>
           <clipPath id="a">
-            <path
-              fill="#fff"
-              d="M0 0h222v227H0z"
-            />
+            <path fill="#fff" d="M0 0h222v227H0z" />
           </clipPath>
         </defs>
       </svg>
@@ -51,7 +45,7 @@ const localePath = useLocalePath();
 
 <style scoped lang="scss">
 .ms-logo {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-basis: $s-9;
@@ -91,5 +85,4 @@ const localePath = useLocalePath();
     stroke: t($text);
   }
 }
-
 </style>

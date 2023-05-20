@@ -30,19 +30,18 @@ type DiceStyle = {
   color: string;
   fontSize: string;
   transform: string;
-}
+};
 
 const incrementStart = 0.9;
 let bgDiceArray: DiceStyle[] = $ref([]);
-let bgD6Array: DiceStyle[]  = $ref([]);
+let bgD6Array: DiceStyle[] = $ref([]);
 let windowWidth = $ref(window.innerWidth);
-let generateBackgroundDebounce = debounce(() => generateBackground(), 300 );
+const generateBackgroundDebounce = debounce(() => generateBackground(), 300);
 
-const bgDiceNumber = $computed(() => Math.ceil(windowWidth/100));
-const bgD6Number = $computed(() => Math.ceil(windowWidth/130));
+const bgDiceNumber = $computed(() => Math.ceil(windowWidth / 100));
+const bgD6Number = $computed(() => Math.ceil(windowWidth / 130));
 const bgDiceXIncrement = $computed(() => 100 / bgDiceNumber);
 const bgD6XIncrement = $computed(() => 100 / bgD6Number);
-
 
 onMounted(async () => {
   await nextTick();
@@ -51,7 +50,7 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", onResize); 
+  window.removeEventListener("resize", onResize);
 });
 
 function onResize() {
@@ -60,57 +59,55 @@ function onResize() {
 
 function generateBackground() {
   windowWidth = window.innerWidth;
-  let bgDiceArrayTemp: DiceStyle[] = [];
+  const bgDiceArrayTemp: DiceStyle[] = [];
   let x = 0;
   let incrementDifference = (incrementStart * 2) / bgDiceNumber;
   for (let i = 0; i < bgDiceNumber; i++) {
     const increment = incrementStart - incrementDifference * i + 1;
-    const radial = ( 18 / bgDiceNumber + Math.random()/5) * i;
+    const radial = (18 / bgDiceNumber + Math.random() / 5) * i;
     const size = 15 - 14 * (i / bgDiceNumber);
     if (i) {
-      x = x + bgDiceXIncrement * increment * (1 + Math.random()/50);
+      x = x + bgDiceXIncrement * increment * (1 + Math.random() / 50);
     }
 
-    let d20: DiceStyle = {
+    const d20: DiceStyle = {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
       top: `${Math.floor(50 + Math.sin(radial) * 25 * increment)}%`,
-      color: `hsla(${360/bgDiceNumber*i} 100% 50% / .1)`,
+      color: `hsla(${(360 / bgDiceNumber) * i} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
       transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
     };
     bgDiceArrayTemp.push(d20);
   }
 
-  bgDiceArray = [ ...bgDiceArrayTemp];
-  
-  let bgD6ArrayTemp: DiceStyle[] = [];
+  bgDiceArray = [...bgDiceArrayTemp];
+
+  const bgD6ArrayTemp: DiceStyle[] = [];
 
   x = 0;
   incrementDifference = (incrementStart * 2) / bgD6Number;
   for (let i = 0; i < bgD6Number; i++) {
     const increment = incrementStart - incrementDifference * i + 1;
-    const radial = ( 18 / bgD6Number + Math.random()/5) * i ;
+    const radial = (18 / bgD6Number + Math.random() / 5) * i;
     const size = 8 - 6.5 * (i / bgD6Number);
     if (i) {
-      x = x + bgD6XIncrement * increment * (1 + Math.random()/50);
+      x = x + bgD6XIncrement * increment * (1 + Math.random() / 50);
     }
 
-    let d6: DiceStyle = {
+    const d6: DiceStyle = {
       // left: `${Math.random() * 100}%`,
       left: `${Math.floor(x)}%`,
       top: `${Math.floor(50 + Math.sin(radial) * 25 * increment)}%`,
-      color: `hsla(${360/bgD6Number*i} 100% 50% / .1)`,
+      color: `hsla(${(360 / bgD6Number) * i} 100% 50% / .1)`,
       fontSize: `${Math.floor(size)}rem`,
       transform: `rotate(${Math.floor(Math.random() * 360)}deg)`,
     };
     bgD6ArrayTemp.push(d6);
   }
 
-  bgD6Array = [ ...bgD6ArrayTemp];
+  bgD6Array = [...bgD6ArrayTemp];
 }
-
-
 </script>
 
 <style scoped lang="scss">
@@ -136,11 +133,14 @@ function generateBackground() {
     background-color: #e5e5f7;
     background-size: 10px 10px;
     // background-image: repeating-linear-gradient(45deg, t($background) 0, t($background) 1px, t($background2) 0, t($background2) 50%);
-    background-color:t($background2);
-    background: radial-gradient(ellipse at 50% 20%, t($primary-100), transparent),
+    background-color: t($background2);
+    background: radial-gradient(
+        ellipse at 50% 20%,
+        t($primary-100),
+        transparent
+      ),
       radial-gradient(ellipse at 70% 80%, t($background), transparent),
-      radial-gradient(ellipse at 30% 80%, t($complementary-200), transparent),
-      ;
+      radial-gradient(ellipse at 30% 80%, t($complementary-200), transparent);
   }
 }
 .background-dice {

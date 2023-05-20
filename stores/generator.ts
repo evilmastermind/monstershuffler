@@ -3,12 +3,36 @@ import {
   getRaceWithVariantsListResponseSchema,
   getClassWithVariantsListResponseSchema,
   getProfessionListResponseSchema,
-} from "@/types/generator";
+  createRandomNpcInputSchema,
+  createRandomNpcResponseSchema,
+} from "./generator.d";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
 
 export const useGeneratorStore = defineStore("generator", () => {
+  async function getRandomNpc(
+    object: createRandomNpcInputSchema
+  ): Promise<createRandomNpcResponseSchema["npc"] | false> {
+    const {
+      data,
+      // pending,
+      // error,
+      // refresh,
+    } = await useAsyncData<createRandomNpcResponseSchema>("npc", () =>
+      $fetch(`${api}/npcs`, {
+        method: "POST",
+        body: object,
+      })
+    );
+
+    if (data?.value?.npc) {
+      return data.value.npc;
+    } else {
+      return false;
+    }
+  }
+
   async function getRacesWithVariants() {
     const {
       data: races,
@@ -103,5 +127,6 @@ export const useGeneratorStore = defineStore("generator", () => {
     getRacesWithVariants,
     getClassesWithVariants,
     getProfessions,
+    getRandomNpc,
   };
 });

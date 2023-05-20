@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="button"
-    :class="`color-${color}`"
-  >
+  <button class="button" :class="[`color-${color}`, block ? 'is-block' : '']">
     <span class="button-text">{{ text }}</span>
   </button>
 </template>
@@ -19,6 +16,11 @@ const props = defineProps({
     required: true,
     default: "complementary",
   },
+  block: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 </script>
 
@@ -27,7 +29,7 @@ const props = defineProps({
   display: inline-block;
   padding: $s-2 $s-4;
   border: none;
-  border-radius: $s-1;  
+  border-radius: $s-1;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 0.875rem;
@@ -39,6 +41,10 @@ const props = defineProps({
 }
 .button:active {
   transform: translateY(2px) scale(0.97);
+}
+.is-block {
+  display: block;
+  width: 100%;
 }
 
 .color-primary {
@@ -82,7 +88,7 @@ const props = defineProps({
   }
 }
 .color-light:hover {
-  @include themed() { 
+  @include themed() {
     background-color: t($grey-200);
   }
 }

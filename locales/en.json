@@ -7,6 +7,7 @@
     "formModeDescription": "Choose the most appropriate options for your adventure and generate a random character.",
     "promptModeTitle": "Prompt mode",
     "promptModeDescription": "Type keywords like \"human\", \"barbarian\" or \"cr 5\" to generate a random character of that type.",
+    "showSettings": "Show Settings",
     "form": {
       "primaryRace": "Primary Race",
       "secondaryRace": "Secondary Race",

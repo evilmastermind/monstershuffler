@@ -1,26 +1,15 @@
 <template>
-  <div id="nav-gradient" />
-  <nav id="navbar">
-    <div class="lg-max flex-row py-2 justify-space-between">
-      <div
-        id="navbar-menu"
-        class="lg-max flex-row justify-center column-gap-s5"
-      >
-        <NavbarLogo
-          name="Home"
-          route="Home"
-          icon="fa-user"
-        />
+  <div class="nav-gradient" />
+  <nav class="navbar">
+    <div class="navbar-menu-container lg-max py-2">
+      <div class="navbar-menu lg-max">
+        <NavbarLogo name="Home" route="Home" icon="fa-user" />
         <NavbarLink
           name="Generator"
           route="monsters-generator"
           icon="fa-dice-d20"
         />
-        <NavbarLink
-          name="Editor"
-          route="monsters-editor"
-          icon="fa-user-edit"
-        />
+        <NavbarLink name="Editor" route="monsters-editor" icon="fa-user-edit" />
         <NavbarLink
           name="DM Screen"
           route="monsters-your-creations"
@@ -31,23 +20,19 @@
           route="monsters-community-creations"
           icon="fa-dragon"
         />
-        <NavbarSettings />
+        <NavbarSettings class="settings" />
       </div>
-      <div
-        id="navbar-other"
-        class="flex-row justify-space-between column-gap-s6"
-      >
-        <NavbarTheme id="button-theme-desktop" />
-        <NavbarSupport id="links-support-desktop" />
-        <NavbarUser id="button-login-desktop" />
+      <div class="navbar-other">
+        <NavbarTheme class="button-theme-desktop" />
+        <NavbarSupport class="links-support-desktop" />
+        <NavbarUser class="button-login-desktop" />
       </div>
     </div>
   </nav>
 </template>
 
-
 <style lang="scss" scoped>
-#nav-gradient {
+.nav-gradient {
   position: absolute;
   //height: 100%;
   width: 100%;
@@ -63,7 +48,7 @@
     // background: rgb(t($background-light), 0.5);
   }
 }
-#navbar {
+.navbar {
   position: absolute;
   width: 100%;
   height: $s-8;
@@ -72,22 +57,33 @@
   z-index: 1;
   //@include shadow-2;
 }
-
-#navbar-menu {
-  @include md {
-    justify-content: center;
-  }
+.navbar-menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-@media (max-width: 1170px) {
-  #button-theme-desktop,
-  #links-support-desktop {
+.settings {
+  @include md {
     display: none;
   }
 }
-#button-login-desktop {
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $s-5;
   @include md {
-    display: none;
+    justify-content: flex-start;
+  }
+}
+
+.navbar-other {
+  display: none;
+
+  @include md {
+    display: flex;
+    flex-direction: row;
+    gap: $s-5;
   }
 }
 </style>

@@ -1,25 +1,26 @@
 $screen-small: 480px;
 $screen-medium: 1000px;
 $screen-large: 1200px;
+$background-large: 1600px;
 $mobile-navbar: 575px;
 
 // Small devices
 @mixin sm {
-  @media (max-width: #{$screen-small}) {
+  @media (min-width: #{$screen-small}) {
       @content;
   }
 }
 
 // Medium devices
 @mixin md {
-  @media (max-width: #{$screen-medium}) {
+  @media (min-width: #{$screen-medium}) {
       @content;
   }
 }
 
 // Large devices
 @mixin lg {
-  @media (max-width: #{$screen-large}) {
+  @media (min-width: #{$screen-large}) {
       @content;
   }
 }
@@ -27,8 +28,19 @@ $mobile-navbar: 575px;
   max-width: $screen-large;
   width: 100%;
   margin: 0 auto;
+  padding-left: $s-4;
+  padding-right: $s-4;
+}
+.bg-max {
+  max-width: $background-large;
+  width: 100%;
+  margin: 0 auto;
   padding-left: $s-2;
   padding-right: $s-2;
+
+}
+.text-max {
+  max-width: 60ch;
 }
 
 .sm-only {
@@ -39,7 +51,7 @@ $mobile-navbar: 575px;
 
 // Custom devices
 @mixin rwd($screen) {
-  @media (max-width: $screen + 'px') {
+  @media (max-width: ($screen + 'px')) {
       @content;
   }
 }

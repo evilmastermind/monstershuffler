@@ -26,6 +26,27 @@ export interface paths {
       };
     };
   };
+  "/api/classes/random": {
+    /**
+     * Returns the details of a random class in the database. 
+     * @description Returns the details of a random class from list of classes available to the user in the database.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["classSchemas"]["getClassResponseSchema"];
+          };
+        };
+      };
+    };
+  };
   "/api/classes/withvariants": {
     /**
      * Returns a list of all available combinations of classes and variants in the db. 
@@ -47,6 +68,53 @@ export interface paths {
       };
     };
   };
+  "/api/classes/{classId}": {
+    /**
+     * Returns the details of the class corresponding to the given id. 
+     * @description Returns the details of the class corresponding to the given id.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["classSchemas"]["getClassResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/npcs/": {
+    /**
+     * Creates a new random npc using the settings provided. 
+     * @description Creates a new random npc using the settings provided.
+     */
+    post: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
+          };
+        };
+      };
+    };
+  };
   "/api/professions/": {
     /**
      * Returns a list of all available professions in the db. 
@@ -63,6 +131,48 @@ export interface paths {
         200: {
           content: {
             "application/json": components["schemas"]["professionSchemas"]["getProfessionListResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/professions/{professionId}": {
+    /**
+     * Returns the details of the profession corresponding to the given id. 
+     * @description Returns the details of the profession corresponding to the given id.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["professionSchemas"]["getProfessionResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/professions/random": {
+    /**
+     * Returns the details of a random profession from the database. 
+     * @description Returns the details of a random profession from list of professions available to the user in the database.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["professionSchemas"]["getProfessionResponseSchema"];
           };
         };
       };
@@ -110,6 +220,84 @@ export interface paths {
       };
     };
   };
+  "/api/races/{raceId}": {
+    /**
+     * Returns the details of the race corresponding to the given id. 
+     * @description Returns the details of the race corresponding to the given id.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["raceSchemas"]["getRaceResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/races/random": {
+    /**
+     * Returns the details of a random race from the database. 
+     * @description Returns the details of a random race from list of races available to the user in the database.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["raceSchemas"]["getRaceResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/users/login": {
+    /**
+     * Logs in a user and returns an access token. 
+     * @description Logs in a user and returns an access token. Logged users can then receive their creations through other routes, and access other protected routes.
+     */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["userSchemas"]["loginSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["userSchemas"]["loginResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/converter/converter": {
+    /**
+     * Converts objects from the old monstershuffler format to the new one. 
+     * @description Converts objects from the old monstershuffler format to the new one.
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization: string;
+        };
+      };
+      responses: {
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -120,31 +308,37 @@ export interface components {
       updateClassSchema: {
         object: {
           name: string;
-          armor?: (({
-              AC: string;
-              name: string;
-              cost?: string;
+          armor?: ({
+            AC: string;
+            name: string;
+            cost?: string;
+            /** @enum {string} */
+            type?: "light" | "medium" | "heavy";
+            maxDex?: string;
+            minStr?: string;
+            weight?: string;
+            /** @enum {string} */
+            stealthDis?: "0" | "1";
+          }) | ({
+            choice: {
               /** @enum {string} */
-              type?: "light" | "medium" | "heavy";
-              maxDex?: string;
-              minStr?: string;
-              weight?: string;
+              type: "list" | "random";
+              field: string;
+              number: number;
+              result: string;
               /** @enum {string} */
-              stealthDis?: "0" | "1";
-            }) | ({
-              choice: {
-                type: string;
-                field: string;
-                number: number;
-                result: string;
-                /** @enum {string} */
-                source?: "actions" | "armor" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "professions" | "skills" | "spells" | "traits" | "voices" | "weapons";
-                filtersObject?: ({
-                    keyName: string;
-                    keyValues: (string)[];
-                  })[];
-              };
-            }))[];
+              source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+              objectType?: number;
+              filters?: ({
+                  keyName: string;
+                  keyValues: (string)[];
+                })[];
+              chosenAlready?: ({
+                  id?: number;
+                  name: string;
+                })[];
+            };
+          });
           subtypes?: ({
               value: string;
               levelMin?: string;
@@ -158,15 +352,18 @@ export interface components {
             swim?: string;
           };
           savingThrows?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[];
-          skills?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | {
+          skills?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | ({
             choice: {
-              type: string;
+              /** @enum {string} */
+              type: "list" | "random";
               number: number;
-              list: (string)[];
-              repeatable?: boolean;
-              chosenAlready?: (string)[];
+              /** @enum {string} */
+              source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+              objectType?: number;
+              list: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+              isRepeatable?: boolean;
             };
-          };
+          });
           resistances?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[];
           immunities?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[];
           vulnerabilities?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[];
@@ -177,12 +374,10 @@ export interface components {
             tremorsense?: string;
             truesight?: string;
           };
-          /** @enum {string} */
-          blind?: "1" | "0";
-          /** @enum {string} */
-          canspeak?: "1" | "0";
+          isBlind?: boolean;
+          canSpeak?: boolean;
           telepathy?: string;
-          languages?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
+          languages?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
           actions?: ({
               tag: string;
               priority?: number;
@@ -235,7 +430,7 @@ export interface components {
                         targets: string;
                         damageType: string;
                         properties: (string)[];
-                      } | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["items"]["anyOf"]["1"];
+                      } | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
                         dice?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["variants"]["items"]["values"]["items"]["anyOf"]["1"]["dice"];
@@ -300,19 +495,21 @@ export interface components {
             weaponAttackBonus?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["bonuses"]["HPBonus"];
             weaponDamageBonus?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["bonuses"]["HPBonus"];
           };
-          spellCasting?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["variants"]["items"]["ability"];
-          spellSlots?: ({
-              tag: string;
-              levelMin: string;
-              timesDay: string;
-              timesDayMax: string;
-              spells: ({
-                  id: string;
-                  name: string;
-                })[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
-            })[];
-          /** @enum {string} */
-          enableGenerator?: "1" | "0";
+          spells?: {
+            hasSlots?: boolean;
+            ability?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["variants"]["items"]["ability"];
+            groups?: ({
+                tag: string;
+                levelMin: string;
+                timesDay: string;
+                timesDayMax: string;
+                spells: ({
+                    id: string;
+                    name: string;
+                  })[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
+              })[];
+          };
+          enableGenerator?: boolean;
           image: {
             imgdir: string;
             lastedited: number;
@@ -351,6 +548,482 @@ export interface components {
       };
       getClassResponseSchema: {
         object: components["schemas"]["classSchemas"]["updateClassSchema"]["object"];
+        id: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["id"];
+      };
+    };
+    npcSchemas: {
+      createRandomNpcInputSchema: {
+        /** @enum {string} */
+        levelType?: "random" | "randomPeasantsMostly";
+        /** @enum {string} */
+        classType?: "specificClass" | "randomClass" | "randomClassProfession" | "randomProfessionMostly" | "randomProfession" | "specificProfession";
+        classId?: number;
+        classvariantId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
+        professionId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
+        primaryRaceId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
+        secondaryRaceId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
+        primaryRacevariantId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
+        secondaryRacevariantId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
+        primaryRacePercentage?: number;
+        secondaryRacePercentage?: number;
+      };
+      createRandomNpcResponseSchema: {
+        npc: {
+          character: {
+            name: string;
+            prename?: string;
+            surname?: string;
+            generic?: boolean;
+            /** @enum {string} */
+            pronouns?: "male" | "female" | "neutral" | "thing";
+            race?: {
+              name: string;
+              /** @enum {string} */
+              pronouns?: "male" | "female" | "neutral" | "thing";
+              size?: string;
+              type?: string;
+              isSwarm?: boolean;
+              swarmSize?: string;
+              subtypes?: ({
+                  value: string;
+                  levelMin?: string;
+                })[];
+              alignment?: ([[object Object], [object Object], [object Object]])[];
+              armor?: ({
+                AC: string;
+                name: string;
+                cost?: string;
+                /** @enum {string} */
+                type?: "light" | "medium" | "heavy";
+                maxDex?: string;
+                minStr?: string;
+                weight?: string;
+                /** @enum {string} */
+                stealthDis?: "0" | "1";
+              }) | ({
+                choice: {
+                  /** @enum {string} */
+                  type: "list" | "random";
+                  field: string;
+                  number: number;
+                  result: string;
+                  /** @enum {string} */
+                  source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+                  objectType?: number;
+                  filters?: ({
+                      keyName: string;
+                      keyValues: (string)[];
+                    })[];
+                  chosenAlready?: ({
+                      id?: number;
+                      name: string;
+                    })[];
+                };
+              });
+              HD?: number;
+              abilitiesLimit?: string;
+              speeds?: {
+                base?: string;
+                burrow?: string;
+                climb?: string;
+                fly?: string;
+                hover?: string;
+                swim?: string;
+              };
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | ({
+                choice: {
+                  /** @enum {string} */
+                  type: "list" | "random";
+                  number: number;
+                  /** @enum {string} */
+                  source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+                  objectType?: number;
+                  list: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+                  isRepeatable?: boolean;
+                };
+              });
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: {
+                blindsight?: string;
+                darkvision?: string;
+                tremorsense?: string;
+                truesight?: string;
+              };
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: ({
+                  tag: string;
+                  priority?: number;
+                  variants: ({
+                      name: string;
+                      /** @enum {string} */
+                      type: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
+                      levelMin?: number;
+                      levelMax?: number;
+                      /** @enum {string} */
+                      ability: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
+                      charges?: string;
+                      recharge?: string;
+                      cost?: string;
+                      description: string;
+                      values?: ({
+                          name: string;
+                          type: string;
+                          expression?: string;
+                        } | {
+                          name: string;
+                          type: string;
+                          expression?: string;
+                          dice?: {
+                            die: string;
+                            diceNumber: string;
+                            diceIncrement: string;
+                            levelMin: string;
+                            levelMax: string;
+                            levelInterval: string;
+                          };
+                        } | {
+                          name: string;
+                          type: string;
+                          incrProgression?: {
+                            levelInterval: string;
+                            levelIncrement: string;
+                            levelMin: string;
+                            base: string;
+                            increment: string;
+                          };
+                        })[];
+                      attacks?: ({
+                          name: string;
+                          replaceName?: boolean;
+                          attributes: {
+                            die: string;
+                            diceNumber: string;
+                            reach: string;
+                            targets: string;
+                            damageType: string;
+                            properties: (string)[];
+                          } | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+                          enchantment?: {
+                            type: string;
+                            dice?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["variants"]["items"]["values"]["items"]["anyOf"]["1"]["dice"];
+                            expression?: string;
+                          };
+                        })[];
+                    })[];
+                })[];
+              bonuses?: {
+                HPBonus?: {
+                  name: string;
+                  value: string;
+                };
+                ACBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                sizeBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                speedBaseBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                speedBurrowBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                speedClimbBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                speedFlyBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                speedHoverBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                speedSwimBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                STRBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                DEXBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                CONBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                INTBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                WISBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                CHABonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                STRSaveBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                DEXSaveBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                CONSaveBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                INTSaveBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                WISSaveBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                CHASaveBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                AthleticsBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                AcrobaticsBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                SleightOfHandBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                StealthBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                ArcanaBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                HistoryBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                InvestigationBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                NatureBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                ReligionBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                AnimalHandlingBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                InsightBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                MedicineBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                PerceptionBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                SurvivalBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                DeceptionBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                IntimidationBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                PerformanceBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                PersuasionBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                blindsightBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                darkvisionBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                tremorsenseBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                truesightBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                rangedAttackBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                rangedDamageBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                meleeAttackBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                meleeDamageBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                spellAttackBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                spellDamageBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                weaponAttackBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+                weaponDamageBonus?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"]["HPBonus"];
+              };
+              spells?: {
+                hasSlots?: boolean;
+                ability?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["variants"]["items"]["ability"];
+                groups?: ({
+                    tag: string;
+                    levelMin: string;
+                    timesDay: string;
+                    timesDayMax: string;
+                    spells: ({
+                        id: string;
+                        name: string;
+                      })[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+                  })[];
+              };
+              enableGenerator?: boolean;
+              ageAdult?: string;
+              ageMax?: string;
+              heightMin?: number;
+              heightMax?: number;
+              nameType?: (string)[];
+              addSurname?: number;
+              image: {
+                imgdir: string;
+                lastedited: number;
+              };
+              searchTags?: (string)[];
+              environments?: (string)[];
+              backgroundImage?: string;
+              background: {
+                [key: string]: unknown | undefined;
+              };
+            };
+            racevariant?: {
+              name: string;
+              /** @enum {string} */
+              pronouns?: "male" | "female" | "neutral" | "thing";
+              armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+              subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["senses"];
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"])[];
+              spells?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["spells"];
+              enableGenerator?: boolean;
+              image: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["image"];
+              searchTags?: (string)[];
+              environments?: (string)[];
+              backgroundImage?: string;
+              background: {
+                [key: string]: unknown | undefined;
+              };
+            };
+            class?: {
+              name: string;
+              armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+              subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["senses"];
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"])[];
+              bonuses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"];
+              spells?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["spells"];
+              enableGenerator?: boolean;
+              image: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["image"];
+              searchTags?: (string)[];
+              environments?: (string)[];
+              backgroundImage?: string;
+              background: {
+                [key: string]: unknown | undefined;
+              };
+            };
+            classvariant?: {
+              name: string;
+              armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+              subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["senses"];
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"])[];
+              bonuses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"];
+              spells?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["spells"];
+              enableGenerator?: boolean;
+              image: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["image"];
+              searchTags?: (string)[];
+              environments?: (string)[];
+              backgroundImage?: string;
+              background: {
+                [key: string]: unknown | undefined;
+              };
+            };
+            profession?: {
+              name: string;
+              femaleName: string;
+              workplace: string;
+              armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+              alignment?: ([[object Object], [object Object], [object Object]])[];
+              subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["senses"];
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"])[];
+              bonuses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"];
+              spells?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["spells"];
+              enableGenerator?: boolean;
+            };
+            template?: {
+              name: string;
+              /** @enum {string} */
+              pronouns?: "male" | "female" | "neutral" | "thing";
+              size?: string;
+              type?: string;
+              isSwarm?: boolean;
+              swarmSize?: string;
+              subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              alignment?: ([[object Object], [object Object], [object Object]])[];
+              armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+              HD?: number;
+              speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              abilitiesBase?: {
+                STR?: string;
+                DEX?: string;
+                CON?: string;
+                INT?: string;
+                WIS?: string;
+                CHA?: string;
+              };
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["senses"];
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"])[];
+              bonuses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"];
+              spellCasting?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["variants"]["items"]["ability"];
+              spells?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["spells"];
+              image: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["image"];
+              searchTags?: (string)[];
+              environments?: (string)[];
+              backgroundImage?: string;
+              background: {
+                [key: string]: unknown | undefined;
+              };
+            };
+            user?: {
+              name: string;
+              /** @enum {string} */
+              gender?: "male" | "female" | "neutral" | "thing";
+              size?: string;
+              type?: string;
+              isSwarm?: boolean;
+              swarmSize?: string;
+              subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
+              HD?: number;
+              speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              abilitiesBase?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilitiesBase"];
+              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              senses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["senses"];
+              isBlind?: boolean;
+              canSpeak?: boolean;
+              telepathy?: string;
+              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              actions?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"])[];
+              bonuses?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["bonuses"];
+              spells?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["spells"];
+              image: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["image"];
+              searchTags?: (string)[];
+              environments?: (string)[];
+              backgroundImage?: string;
+              background: {
+                [key: string]: unknown | undefined;
+              };
+              smallbackground?: string;
+              trait?: string;
+            };
+            abilitiesBase?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilitiesBase"];
+            alignment?: ([[object Object], [object Object], [object Object]])[];
+            /** @enum {string} */
+            alignmentMoral?: "Good" | "Neutral" | "Evil" | "Any" | "Unaligned";
+            /** @enum {string} */
+            alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any";
+            smallbackground?: string;
+            trait?: string;
+            feeling?: string;
+            CRCalculation?: {
+              x1: string;
+              x2: string;
+              y1: string;
+              y2: string;
+              /** @enum {string} */
+              name: "twopoints";
+            } | {
+              /** @enum {string} */
+              name: "npcstandard";
+            } | {
+              /** @enum {string} */
+              name: "estimated";
+            };
+          };
+          statistics?: {
+            [key: string]: unknown | undefined;
+          };
+        };
       };
     };
     professionSchemas: {
@@ -359,31 +1032,38 @@ export interface components {
           name: string;
           femaleName: string;
           workplace: string;
-          armor?: (({
-              AC: string;
-              name: string;
-              cost?: string;
+          armor?: ({
+            AC: string;
+            name: string;
+            cost?: string;
+            /** @enum {string} */
+            type?: "light" | "medium" | "heavy";
+            maxDex?: string;
+            minStr?: string;
+            weight?: string;
+            /** @enum {string} */
+            stealthDis?: "0" | "1";
+          }) | ({
+            choice: {
               /** @enum {string} */
-              type?: "light" | "medium" | "heavy";
-              maxDex?: string;
-              minStr?: string;
-              weight?: string;
+              type: "list" | "random";
+              field: string;
+              number: number;
+              result: string;
               /** @enum {string} */
-              stealthDis?: "0" | "1";
-            }) | ({
-              choice: {
-                type: string;
-                field: string;
-                number: number;
-                result: string;
-                /** @enum {string} */
-                source?: "actions" | "armor" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "professions" | "skills" | "spells" | "traits" | "voices" | "weapons";
-                filtersObject?: ({
-                    keyName: string;
-                    keyValues: (string)[];
-                  })[];
-              };
-            }))[];
+              source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+              objectType?: number;
+              filters?: ({
+                  keyName: string;
+                  keyValues: (string)[];
+                })[];
+              chosenAlready?: ({
+                  id?: number;
+                  name: string;
+                })[];
+            };
+          });
+          alignment?: ([[object Object], [object Object], [object Object]])[];
           subtypes?: ({
               value: string;
               levelMin?: string;
@@ -397,15 +1077,18 @@ export interface components {
             swim?: string;
           };
           savingThrows?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[];
-          skills?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | {
+          skills?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"] | ({
             choice: {
-              type: string;
+              /** @enum {string} */
+              type: "list" | "random";
               number: number;
-              list: (string)[];
-              repeatable?: boolean;
-              chosenAlready?: (string)[];
+              /** @enum {string} */
+              source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+              objectType?: number;
+              list: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+              isRepeatable?: boolean;
             };
-          };
+          });
           resistances?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[];
           immunities?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[];
           vulnerabilities?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[];
@@ -416,12 +1099,10 @@ export interface components {
             tremorsense?: string;
             truesight?: string;
           };
-          /** @enum {string} */
-          blind?: "1" | "0";
-          /** @enum {string} */
-          canspeak?: "1" | "0";
+          isBlind?: boolean;
+          canSpeak?: boolean;
           telepathy?: string;
-          languages?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["skills"]["anyOf"]["2"];
+          languages?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["skills"]["anyOf"]["2"];
           actions?: (({
               tag: string;
               priority?: number;
@@ -474,7 +1155,7 @@ export interface components {
                         targets: string;
                         damageType: string;
                         properties: (string)[];
-                      } | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["items"]["anyOf"]["1"];
+                      } | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
                         dice?: components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["values"]["items"]["anyOf"]["1"]["dice"];
@@ -482,7 +1163,7 @@ export interface components {
                       };
                     })[];
                 })[];
-            }) | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["items"]["anyOf"]["1"])[];
+            }) | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"])[];
           bonuses?: {
             HPBonus?: {
               name: string;
@@ -539,23 +1220,26 @@ export interface components {
             weaponAttackBonus?: components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["bonuses"]["HPBonus"];
             weaponDamageBonus?: components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["bonuses"]["HPBonus"];
           };
-          spellCasting?: components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["ability"];
-          spellSlots?: ({
-              tag: string;
-              levelMin: string;
-              timesDay: string;
-              timesDayMax: string;
-              spells: ({
-                  id: string;
-                  name: string;
-                })[] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["skills"]["anyOf"]["2"];
-            })[];
-          /** @enum {string} */
-          enableGenerator?: "1" | "0";
+          spells?: {
+            hasSlots?: boolean;
+            ability?: components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["ability"];
+            groups?: ({
+                tag: string;
+                levelMin: string;
+                timesDay: string;
+                timesDayMax: string;
+                spells: ({
+                    id: string;
+                    name: string;
+                  })[] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["skills"]["anyOf"]["2"];
+              })[];
+          };
+          enableGenerator?: boolean;
         };
         /** @enum {string} */
         age: "medieval" | "fantasy" | "renaissance" | "modern" | "future" | "space" | "other";
         description: string;
+        game: number;
       };
       getProfessionListResponseSchema: {
         list: ({
@@ -566,6 +1250,7 @@ export interface components {
       };
       getProfessionResponseSchema: {
         object: components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"];
+        id: components["schemas"]["professionSchemas"]["getProfessionListResponseSchema"]["list"]["items"]["id"];
       };
     };
     raceSchemas: {
@@ -574,42 +1259,47 @@ export interface components {
         object: {
           name: string;
           /** @enum {string} */
-          gender?: "male" | "female" | "neutral" | "thing";
+          pronouns?: "male" | "female" | "neutral" | "thing";
           size?: string;
           type?: string;
-          /** @enum {string} */
-          swarm?: "1" | "0";
+          isSwarm?: boolean;
           swarmSize?: string;
           subtypes?: ({
               value: string;
               levelMin?: string;
             })[];
-          alignment?: ([[object Object], [object Object]])[];
-          armor?: (({
-              AC: string;
-              name: string;
-              cost?: string;
+          alignment?: ([[object Object], [object Object], [object Object]])[];
+          armor?: ({
+            AC: string;
+            name: string;
+            cost?: string;
+            /** @enum {string} */
+            type?: "light" | "medium" | "heavy";
+            maxDex?: string;
+            minStr?: string;
+            weight?: string;
+            /** @enum {string} */
+            stealthDis?: "0" | "1";
+          }) | ({
+            choice: {
               /** @enum {string} */
-              type?: "light" | "medium" | "heavy";
-              maxDex?: string;
-              minStr?: string;
-              weight?: string;
+              type: "list" | "random";
+              field: string;
+              number: number;
+              result: string;
               /** @enum {string} */
-              stealthDis?: "0" | "1";
-            }) | ({
-              choice: {
-                type: string;
-                field: string;
-                number: number;
-                result: string;
-                /** @enum {string} */
-                source?: "actions" | "armor" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "professions" | "skills" | "spells" | "traits" | "voices" | "weapons";
-                filtersObject?: ({
-                    keyName: string;
-                    keyValues: (string)[];
-                  })[];
-              };
-            }))[];
+              source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+              objectType?: number;
+              filters?: ({
+                  keyName: string;
+                  keyValues: (string)[];
+                })[];
+              chosenAlready?: ({
+                  id?: number;
+                  name: string;
+                })[];
+            };
+          });
           HD?: number;
           abilitiesLimit?: string;
           speeds?: {
@@ -621,15 +1311,18 @@ export interface components {
             swim?: string;
           };
           savingThrows?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
-          skills?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | {
+          skills?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | ({
             choice: {
-              type: string;
+              /** @enum {string} */
+              type: "list" | "random";
               number: number;
-              list: (string)[];
-              repeatable?: boolean;
-              chosenAlready?: (string)[];
+              /** @enum {string} */
+              source: "objects" | "backgrounds" | "bases" | "damagetypes" | "languages" | "names" | "skills" | "traits" | "voices";
+              objectType?: number;
+              list: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+              isRepeatable?: boolean;
             };
-          };
+          });
           resistances?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
           immunities?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
           vulnerabilities?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
@@ -640,12 +1333,10 @@ export interface components {
             tremorsense?: string;
             truesight?: string;
           };
-          /** @enum {string} */
-          blind?: "1" | "0";
-          /** @enum {string} */
-          canspeak?: "1" | "0";
+          isBlind?: boolean;
+          canSpeak?: boolean;
           telepathy?: string;
-          languages?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
+          languages?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
           actions?: ({
               tag: string;
               priority?: number;
@@ -698,7 +1389,7 @@ export interface components {
                         targets: string;
                         damageType: string;
                         properties: (string)[];
-                      } | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["items"]["anyOf"]["1"];
+                      } | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
                         dice?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["variants"]["items"]["values"]["items"]["anyOf"]["1"]["dice"];
@@ -763,19 +1454,21 @@ export interface components {
             weaponAttackBonus?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["bonuses"]["HPBonus"];
             weaponDamageBonus?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["bonuses"]["HPBonus"];
           };
-          spellCasting?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["variants"]["items"]["ability"];
-          spellSlots?: ({
-              tag: string;
-              levelMin: string;
-              timesDay: string;
-              timesDayMax: string;
-              spells: ({
-                  id: string;
-                  name: string;
-                })[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["items"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
-            })[];
-          /** @enum {string} */
-          enableGenerator?: "1" | "0";
+          spells?: {
+            hasSlots?: boolean;
+            ability?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["variants"]["items"]["ability"];
+            groups?: ({
+                tag: string;
+                levelMin: string;
+                timesDay: string;
+                timesDayMax: string;
+                spells: ({
+                    id: string;
+                    name: string;
+                  })[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
+              })[];
+          };
+          enableGenerator?: boolean;
           ageAdult?: string;
           ageMax?: string;
           heightMin?: number;
@@ -819,6 +1512,43 @@ export interface components {
       };
       getRaceResponseSchema: {
         object: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"];
+        id: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["id"];
+      };
+    };
+    userSchemas: {
+      createUserSchema: {
+        /** Format: email */
+        email: string;
+        username: string;
+        password: string;
+      };
+      createUserResponseSchema: {
+        email: components["schemas"]["userSchemas"]["createUserSchema"]["email"];
+        username: components["schemas"]["userSchemas"]["createUserSchema"]["username"];
+        id: number;
+      };
+      loginSchema: {
+        /** Format: email */
+        email: string;
+        password: string;
+      };
+      loginResponseSchema: {
+        accessToken: string;
+      };
+      getUserResponseSchema: {
+        id: number;
+        email: components["schemas"]["userSchemas"]["createUserSchema"]["email"];
+        username: components["schemas"]["userSchemas"]["createUserSchema"]["username"];
+        level: number;
+        /** Format: date-time */
+        created: string;
+        /** Format: date-time */
+        publishsuspension: string;
+        avatar: string;
+      };
+      updateUserSchema: {
+        username: string;
+        avatar: string;
       };
     };
   };

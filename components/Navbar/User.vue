@@ -1,16 +1,9 @@
 <template>
   <div class="MSButton-user-container">
-    <MSButton
-      text="Login"
-      color="dark"
-    />
-    <MSButton
-      text="Register"
-      color="primary"
-    />
+    <MSButton text="Login" color="dark" />
+    <MSButton text="Register" color="primary" />
   </div>
 </template>
-
 
 <style lang="scss" scoped>
 .MSButton-user-container {

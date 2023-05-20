@@ -14,5 +14,9 @@ module.exports = {
   plugins: [],
   rules: {
     "vue/no-multiple-template-root": "off",
+    "vue/script-setup-uses-vars": "warn",
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "vue/multi-word-component-names": "off",
   },
 };
