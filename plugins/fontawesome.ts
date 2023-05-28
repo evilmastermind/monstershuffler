@@ -1,16 +1,47 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { 
-  faDiceD20,faDiceD6,faDragon,faUserEdit,faUser,
-  faUsers,faCog,faSun,faMoon,faCloud,faCircle,faBookOpen 
+import {
+  faBookOpen,
+  faCircle,
+  faCloud,
+  faCog,
+  faDiceD20,
+  faDiceD6,
+  faDragon,
+  faMoon,
+  faSun,
+  faUser,
+  faUserEdit,
+  faUsers,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { faRedditAlien,faPatreon,faGithubAlt,faGithub } from "@fortawesome/free-brands-svg-icons";
+import {
+  faGithub,
+  faGithubAlt,
+  faPatreon,
+  faRedditAlien,
+} from "@fortawesome/free-brands-svg-icons";
 
 library.add(
-  faDiceD20,faDiceD6,faDragon,faBookOpen,faUserEdit,faUser,faUsers,
-  faCog,faSun,faMoon,faCloud,faRedditAlien,faPatreon,faCircle,faGithubAlt,faGithub
+  faBookOpen,
+  faCircle,
+  faCloud,
+  faCog,
+  faDiceD20,
+  faDiceD6,
+  faDragon,
+  faGithub,
+  faGithubAlt,
+  faMoon,
+  faPatreon,
+  faRedditAlien,
+  faSun,
+  faUser,
+  faUserEdit,
+  faUsers,
+  faXmark
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.component('font-awesome-icon', FontAwesomeIcon, {})
-})
+  nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon, {});
+});

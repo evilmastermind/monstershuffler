@@ -18,19 +18,29 @@
           @click="isFormShownOnMobile = !isFormShownOnMobile"
         >
           <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
-          {{ $t("generator.showSettings") }}
+          {{ $t("generator.options") }}
         </button>
         <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
       </div>
       <div class="grid">
-        <Transition name="scroll-right" mode="out-in">
-          <GeneratorForm
-            v-if="mode === 'form'"
-            v-model="isFormShownOnMobile"
-            class="form mb-4"
+        <GeneratorForm
+          v-show="mode === 'form' && isFormShownOnMobile"
+          ref="form"
+          class="form mb-4"
+          :generate="generate"
+          @close="isFormShownOnMobile = false"
+        />
+        <GeneratorPrompt
+          v-show="mode === 'prompt'"
+          class="prompt text-max mb-4"
+        />
+        <div class="generate-button text-centered my-6">
+          <MSButton
+            color="primary"
+            :text="t('generator.form.generate')"
+            @click.prevent="generate = !generate"
           />
-          <GeneratorPrompt v-else class="prompt text-max mb-4" />
-        </Transition>
+        </div>
         <div class="npcs">
           <GeneratorIntro />
         </div>
@@ -40,11 +50,42 @@
 </template>
 
 <script setup lang="ts">
+import { Console } from "console";
+import { useScreen } from "@/composables/screen";
+
 const { t } = useI18n();
+
+const { width, medium } = useScreen();
+const form = ref(null);
 
 const isFormShownOnMobile = ref(true);
 const modeBoolean = ref(true);
 const mode = computed(() => (modeBoolean.value ? "form" : "prompt"));
+const generate = ref(false);
+
+watch(width, (newWidth, oldWidth) => {
+  if (newWidth >= medium.value && oldWidth < medium.value) {
+    isFormShownOnMobile.value = true;
+  } else if (newWidth < medium.value && oldWidth >= medium.value) {
+    isFormShownOnMobile.value = false;
+  }
+});
+
+watch(
+  medium,
+  (newMedium) => {
+    if (width.value) {
+      if (width.value >= newMedium) {
+        isFormShownOnMobile.value = true;
+        console.log(" form shown");
+      } else if (width.value < newMedium) {
+        isFormShownOnMobile.value = false;
+        console.log(" form hidden");
+      }
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -85,6 +126,12 @@ const mode = computed(() => (modeBoolean.value ? "form" : "prompt"));
 .button-show-settings {
   display: block;
   font-weight: bold;
+  @include md {
+    display: none;
+  }
+}
+.generate-button {
+  display: block;
   @include md {
     display: none;
   }

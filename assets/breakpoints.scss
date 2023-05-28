@@ -4,6 +4,14 @@ $screen-large: 1200px;
 $background-large: 1600px;
 $mobile-navbar: 575px;
 
+:root {
+  --screen-small: #{$screen-small};
+  --screen-medium: #{$screen-medium};
+  --screen-large: #{$screen-large};
+  --background-large: #{$background-large};
+  --mobile-navbar: #{$mobile-navbar};
+}
+
 // Small devices
 @mixin sm {
   @media (min-width: #{$screen-small}) {
@@ -54,4 +62,12 @@ $mobile-navbar: 575px;
   @media (max-width: ($screen + 'px')) {
       @content;
   }
+}
+
+:export {
+  screenSmall: $screen-small;
+  screenMedium: $screen-medium;
+  screenLarge: $screen-large;
+  backgroundLarge: $background-large;
+  mobileNavbar: $mobile-navbar;
 }

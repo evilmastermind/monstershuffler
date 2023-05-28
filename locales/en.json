@@ -1,4 +1,5 @@
 {
+  "closeLabel": "Close",
   "generator": {
     "title": "NPC Generator",
     "description1": "This generator creates <b>fully-editable</b> Non-Player Characters (NPCs) for Dungeons & Dragons 5th Edition.",
@@ -7,7 +8,7 @@
     "formModeDescription": "Choose the most appropriate options for your adventure and generate a random character.",
     "promptModeTitle": "Prompt mode",
     "promptModeDescription": "Type keywords like \"human\", \"barbarian\" or \"cr 5\" to generate a random character of that type.",
-    "showSettings": "Show Settings",
+    "options": "Options",
     "form": {
       "primaryRace": "Primary Race",
       "secondaryRace": "Secondary Race",

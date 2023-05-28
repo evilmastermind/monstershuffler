@@ -9,6 +9,7 @@
     "types": [
       "@nuxt/types",
       "@nuxtjs/i18n",
-    ]
+    ],
+    "resolveJsonModule": true
   },
 }

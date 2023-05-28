@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import en from "./locales/en.json";
 import eslintPlugin from "vite-plugin-eslint";
 
-export default {
+export default defineNuxtConfig({
   routeRules: {
     "/": { ssr: false },
     "/monsters/generator": { ssr: false },
@@ -21,38 +20,24 @@ export default {
     someServerSideVariable: "some value",
     public: {
       apiUrl: process.env.API_URL,
-    }
-  },
-  modules: [
-    "@vue-macros/nuxt",
-    "@nuxtjs/i18n",
-    "@pinia/nuxt",
-    "nuxt-purgecss",
-  ],
-  i18n: {
-    locales: ["en"], 
-    defaultLocale: "en",
-    vueI18n: {
-      legacy: false,
-      locale: "en",
-      messages: {
-        en,
-      }
     },
   },
+  modules: ["@vue-macros/nuxt", "@nuxtjs/i18n", "@pinia/nuxt", "nuxt-purgecss"],
+  i18n: {
+    vueI18n: "./plugins/i18n.config.ts",
+    precompile: { strictMessage: false, escapeHtml: false },
+  },
   pinia: {
-    autoImports: [
-      "defineStore",
-    ]
+    autoImports: ["defineStore"],
   },
   css: ["@/assets/css-reset.css"],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: "@import '@/assets/main.scss';"
-        }
-      }
+          additionalData: "@import '@/assets/main.scss';",
+        },
+      },
     },
-  }
-};
+  },
+});

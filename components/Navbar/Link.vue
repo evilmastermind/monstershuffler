@@ -2,8 +2,10 @@
   <div class="navbar-link-container">
     <NuxtLink
       class="navbar-link"
-      :class="currentRoute == route ? 'navbar-link-active' : 'navbar-link-inactive'"
-      :to="localePath({name: route})"
+      :class="
+        currentRoute == route ? 'navbar-link-active' : 'navbar-link-inactive'
+      "
+      :to="localePath({ name: route })"
     >
       <font-awesome-icon
         :icon="`fas fa-solid ${icon}`"
@@ -16,7 +18,6 @@
 </template>
 
 <script setup>
-
 const localePath = useLocalePath();
 const nuxtRoute = useRoute();
 const props = defineProps({
@@ -37,7 +38,6 @@ const props = defineProps({
 const currentRoute = computed(() => {
   return nuxtRoute.name;
 });
-
 </script>
 
 <style lang="scss">

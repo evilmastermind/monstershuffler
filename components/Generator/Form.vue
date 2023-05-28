@@ -2,6 +2,18 @@
   <div class="form-container">
     <form class="generator-form">
       <fieldset>
+        <button
+          class="close-button cursor-pointer"
+          type="button"
+          @click="e('close')"
+        >
+          <font-awesome-icon
+            :icon="['fas', 'xmark']"
+            size="lg"
+            aria-hidden="true"
+          />
+          <span class="sr-only">{{ $t("closeLabel") }}</span>
+        </button>
         <!-- PRIMARY AND SECONDARY RACES -->
         <span class="form-line">
           <label class="ms-label" for="gen-prace"
@@ -131,7 +143,7 @@
         </span>
       </fieldset>
       <!-- GENERATE MSButton -->
-      <div class="text-centered pt-5">
+      <div class="generate-button text-centered mt-5">
         <MSButton
           block
           color="primary"
@@ -153,6 +165,14 @@ import {
 import { capitalizeFirst } from "@/utils/functions";
 import { useGeneratorStore } from "@/stores/generator.js";
 
+const e = defineEmits(["close"]);
+const p = defineProps({
+  generate: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const { t } = useI18n();
 const {
   getRacesWithVariants,
@@ -160,8 +180,6 @@ const {
   getProfessions,
   getRandomNpc,
 } = useGeneratorStore();
-
-const modelValue = defineModel();
 
 const races = ref<ObjectOrVariant[]>([]);
 const classes = ref<ObjectOrVariant[]>([]);
@@ -224,12 +242,12 @@ function prepareOptions() {
 // TODO: 5) save settings in localstorage
 // TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
 
-// const {
-//   data: classes,
-//   pending,
-//   error,
-//   refresh,
-// } = await getClasses();
+watch(
+  () => p.generate,
+  () => {
+    generateNpc();
+  }
+);
 
 onMounted(async () => {
   races.value = await getRacesWithVariants();
@@ -249,9 +267,9 @@ form-container {
   }
 }
 .generator-form {
-  display: none;
   position: fixed;
   padding: $s-4;
+  margin-right: $s-4;
   border-radius: $s-1;
   @include themed {
     background-color: t($background);
@@ -260,13 +278,26 @@ form-container {
   @include md {
     position: relative;
     display: block;
-    margin-right: $s-4;
     padding: 0;
     border-radius: 0;
     box-shadow: none;
     @include themed {
       background-color: transparent;
     }
+  }
+}
+.close-button {
+  position: absolute;
+  top: $s-4;
+  right: $s-4;
+  @include md {
+    display: none;
+  }
+}
+.generate-button {
+  display: none;
+  @include md {
+    display: block;
   }
 }
 </style>
