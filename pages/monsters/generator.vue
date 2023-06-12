@@ -77,10 +77,8 @@ watch(
     if (width.value) {
       if (width.value >= newMedium) {
         isFormShownOnMobile.value = true;
-        console.log(" form shown");
       } else if (width.value < newMedium) {
         isFormShownOnMobile.value = false;
-        console.log(" form hidden");
       }
     }
   },
@@ -113,7 +111,10 @@ watch(
 }
 .form {
   float: left;
-  max-width: 300px;
+  @include md {
+    float: left;
+    max-width: 300px;
+  }
 }
 .options {
   display: flex;

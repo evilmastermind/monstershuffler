@@ -201,7 +201,7 @@ async function generateNpc() {
   prepareOptions();
   const response = await getRandomNpc(options.value);
   if (response) {
-    alert(JSON.stringify(response, null, 2));
+    // alert(JSON.stringify(response, null, 2));
   }
 }
 
@@ -280,7 +280,7 @@ form-container {
     display: block;
     padding: 0;
     border-radius: 0;
-    box-shadow: none;
+    @include shadow-0;
     @include themed {
       background-color: transparent;
     }

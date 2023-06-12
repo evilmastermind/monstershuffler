@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import eslintPlugin from "vite-plugin-eslint";
 
 export default defineNuxtConfig({
   routeRules: {
@@ -24,6 +23,8 @@ export default defineNuxtConfig({
   },
   modules: ["@vue-macros/nuxt", "@nuxtjs/i18n", "@pinia/nuxt", "nuxt-purgecss"],
   i18n: {
+    locales: ["en"], // used in URL path prefix
+    defaultLocale: "en",
     vueI18n: "./plugins/i18n.config.ts",
     precompile: { strictMessage: false, escapeHtml: false },
   },
