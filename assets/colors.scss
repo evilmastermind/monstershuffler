@@ -41,6 +41,12 @@ $text-secondary: 'text-secondary';
 $text-inverse: 'text-inverse';
 $text-icons: 'text-icons';
 
+$patreon: 'patreon';
+
+$danger: 'danger';
+$warning: 'warning';
+$success: 'success';
+$info: 'info';
 
 $themes: (
   light: (
@@ -82,6 +88,13 @@ $themes: (
     $text: hsl(240, 30%, 7%), // grey-900
     $text-secondary: hsl(240, 0%, 55%),
     $text-inverse: hsl(240, 0%, 93%), // grey-100
+
+    $patreon: hsl(7, 93%, 65%),
+
+    $danger: hsl(0, 100%, 40%),
+    $warning: hsl(45, 100%, 40%),
+    $success: hsl(120, 100%, 30%),
+    $info: hsl(210, 100%, 35%),
   ),
   // light: (
   //   $primary-100: hsl(355, 100%, 97%),
@@ -160,6 +173,13 @@ $themes: (
     $text: hsl(240, 0%, 95%), // grey-900
     $text-secondary: hsl(240, 0%, 55%),
     $text-inverse: hsl(240, 0%, 3%), // grey-100
+
+    $patreon: hsl(7, 93%, 65%),
+
+    $danger: hsl(0, 70%, 70%),
+    $warning: hsl(45, 70%, 60%),
+    $success: hsl(120, 50%, 70%),
+    $info: hsl(210, 50%, 65%),
   )
 );
 

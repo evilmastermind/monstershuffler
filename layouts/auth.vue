@@ -1,11 +1,10 @@
 <template>
   <div>
     <div class="background" />
-    <TheNavbar />
     <slot />
   </div>
 </template>
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .background {
   position: absolute;
   z-index: -3;

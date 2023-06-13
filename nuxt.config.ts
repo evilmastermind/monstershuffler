@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { ssr: false },
     "/monsters/generator": { ssr: false },
+    "/login": { ssr: false },
+    "/registration": { ssr: false },
+    "/user-activation": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
   // nitro: {

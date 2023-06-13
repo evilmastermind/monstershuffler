@@ -1,6 +1,6 @@
 <template>
   <div class="navbar-link">
-    <NuxtLink class="ms-logo" to="/">
+    <NuxtLink class="ms-logo" :to="localePath('/')">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="50"
@@ -25,8 +25,8 @@
             class="ms-logo-fill"
             fill="#000"
             d="M90 110c0 11.598-9.402 21-21 21s-21-9.402-21-21 9.402-21
-            21-21 21 9.402 21 21Zm85.5 0c0 11.598-9.402 21-21 21s-21-9.402-21-21
-            9.402-21 21-21 21 9.402 21 21Z"
+      21-21 21 9.402 21 21Zm85.5 0c0 11.598-9.402 21-21 21s-21-9.402-21-21
+      9.402-21 21-21 21 9.402 21 21Z"
           />
         </g>
         <defs>

@@ -95,9 +95,20 @@ h1 {
   }
 }
 
+h4 {
+  font-size: $f-5;
+  text-align: center;
+}
+
 p {
   margin: $s-2 0;
   line-height: $s-5;
+}
+
+q {
+  font-family: ScalaSansOffc;
+  font-style: italic;
+  font-size: 1.1em;
 }
 
 a {
@@ -106,6 +117,10 @@ a {
   @include themed {
     color: t($primary-700);
   }
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .text-shadow {
@@ -117,4 +132,10 @@ a {
 .text-max { 
   max-width: 700px;
   margin: 0 auto;
+}
+
+.text-danger {
+  @include themed {
+    color: t($danger);
+  }
 }

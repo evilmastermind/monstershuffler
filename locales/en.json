@@ -27,5 +27,27 @@
     "prompt": {
       "placeholder": "human barbarian cr 5"
     }
-  }
+  },
+  "login": {
+    "login": "Login",
+    "loginWithPatreon": "Login with Patreon",
+    "failed": "Login failed. Check your credentials try again.",
+    "greetings1": "Ah, my old nemesis. I see you've finally crawled out of your hole.",
+    "greetings2": "Greetings, fellow genius. I trust you have a plan worthy of our intellects.",
+    "greetings3": "Well, well, well. If it isn't the most notorious villain in the world. How do you do?",
+    "greetings4": "Hello, my dear friend. I'm so glad you could join me for this little… experiment.",
+    "greetings5": "Salutations, esteemed colleague.",
+    "greetings6": "Good day, sir. I must say, you look rather dashing in that suit. Did you make it yourself?",
+    "greetings7": "Welcome, welcome. I've been expecting you. Please, make yourself comfortable.",
+    "greetings8": "How nice to see you again...",
+    "greetings9": "Greetings, my fellow genius. I trust you have been busy with your nefarious schemes.",
+    "greetings10": "Ah, the infamous master of mayhem. It is an honor to have you back in my lair. I have admired your work from afar.",
+    "greetings11": "Well, well, well. Look who decided to show up. The most feared villain in the world. Or so you claim.",
+    "greetings12": "Hello, old friend. It has been a long time since we last crossed paths. How have you been keeping yourself entertained?",
+    "greetings13": "Salutations, esteemed colleague. I am delighted to see you again. I hope you are ready for some fun and chaos.",
+    "greetings14": "Bonjour, mon ami. You look ravishing as always. Have you come to join me in my latest conquest?",
+    "greetings15": "Hail, mighty lord of darkness. I bow before your greatness. I am here to offer you my loyalty and service."
+  },
+  "email": "Email",
+  "password": "Password"
 }

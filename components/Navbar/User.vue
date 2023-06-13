@@ -1,9 +1,12 @@
 <template>
   <div class="MSButton-user-container">
-    <MSButton text="Login" color="dark" />
-    <MSButton text="Register" color="primary" />
+    <MSButton text="Login" color="dark" to="login" />
+    <MSButton text="Register" color="primary" to="registration" />
   </div>
 </template>
+<script setup lang="ts">
+const localePath = useLocalePath();
+</script>
 
 <style lang="scss" scoped>
 .MSButton-user-container {

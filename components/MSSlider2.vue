@@ -1,7 +1,11 @@
 <template>
   <label class="switch">
     <div class="slider-container">
-      <input type="checkbox" v-model="currentValue" @change="emit('update:isEnabled', currentValue)">
+      <input
+        v-model="currentValue"
+        type="checkbox"
+        @change="emit('update:isEnabled', currentValue)"
+      />
       <span class="slider round"></span>
     </div>
   </label>
@@ -13,25 +17,24 @@ const p = defineProps({
   isEnabled: {
     type: Boolean,
     default: false,
-  }
+  },
 });
 
 let currentValue = $ref(false);
-
 
 onMounted(() => {
   currentValue = p.isEnabled;
 });
 
-watch(() => p.isEnabled, () => {
-  currentValue = p.isEnabled;
-});
-
-
+watch(
+  () => p.isEnabled,
+  () => {
+    currentValue = p.isEnabled;
+  }
+);
 </script>
 
 <style lang="scss" scoped>
-
 /* The switch - the box around the slider */
 .switch {
   cursor: pointer;
@@ -59,10 +62,10 @@ watch(() => p.isEnabled, () => {
   left: 0;
   right: 0;
   bottom: 0;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   @include themed() {
-    background-color: desaturate(lighten(t($primary-700),30),100);
+    background-color: desaturate(lighten(t($primary-700), 30), 100);
   }
 }
 
@@ -74,16 +77,16 @@ watch(() => p.isEnabled, () => {
   left: 4px;
   bottom: -4px;
   border-radius: 4px;
-  -webkit-transition: ease-out .2s;
-  transition: ease-out .15s;
+  -webkit-transition: ease-out 0.2s;
+  transition: ease-out 0.15s;
   @include themed() {
-    background: desaturate(t($primary-700),100);
+    background: desaturate(t($primary-700), 100);
   }
 }
 
 input:checked + .slider {
   @include themed() {
-    background-color: lighten(t($primary-700),10);
+    background-color: lighten(t($primary-700), 10);
   }
 }
 input:checked + .slider:before {
@@ -94,7 +97,7 @@ input:checked + .slider:before {
 
 input:focus + .slider {
   @include themed() {
-    box-shadow: 0 0 1px lighten(t($primary-700),10);
+    box-shadow: 0 0 1px lighten(t($primary-700), 10);
   }
 }
 
