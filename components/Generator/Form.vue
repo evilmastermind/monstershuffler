@@ -163,7 +163,6 @@ import {
 } from "@/stores/generator.d";
 
 import { capitalizeFirst } from "@/utils/functions";
-import { useGeneratorStore } from "@/stores/generator.js";
 
 const e = defineEmits(["close"]);
 const p = defineProps({
