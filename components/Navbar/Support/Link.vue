@@ -1,14 +1,10 @@
 <template>
-  <div class="link-support-container">
-    <a
-      :href="link"
-      class="link-support"
-      :title="name"
-    >
+  <div class="link-support-container p-1">
+    <a :href="link" class="link-support" :title="name">
       <font-awesome-icon
         :icon="`fa-brands ${icon}`"
         class="link-support-icon"
-        fixed-width 
+        fixed-width
       />
     </a>
   </div>
@@ -33,24 +29,20 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .link-support-container {
-  display:flex;
+  display: flex;
   justify-content: center;
-  align-items:center;
-  padding: $s-1;
-  border-radius:50%;
-  height:$s-4;
-  width:$s-6;
+  align-items: center;
+
+  border-radius: 50%;
+  height: theme("spacing.4");
+  width: theme("spacing.6");
   cursor: pointer;
 }
 .link-support-icon {
-  @include themed() {
-    font-size: $f-3;
-    color: t($text-secondary);
-  }
+  font-size: theme("spacing.3");
+  color: theme("colors.text-secondary");
 }
 .link-support-icon:hover {
-  @include themed() {
-    color: t($primary-700);
-  }
+  color: theme("colors.primary.700");
 }
 </style>

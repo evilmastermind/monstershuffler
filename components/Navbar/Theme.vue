@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="button-theme noselect"
-    @click="setTheme()"
-  >
+  <div class="button-theme p-1 noselect" @click="setTheme()">
     <font-awesome-icon
       :icon="`fas fa-solid ${icon}`"
       class="button-theme-icon"
@@ -22,11 +19,11 @@ interface Theme {
 const themes: Theme[] = [
   {
     name: "light",
-    icon: "fa-sun"
+    icon: "fa-sun",
   },
   {
     name: "dark",
-    icon: "fa-moon"
+    icon: "fa-moon",
   },
   // {
   //   name: "solarized",
@@ -34,14 +31,18 @@ const themes: Theme[] = [
   // },
 ];
 
-let icon: Ref<string> = ref("fa-sun");
-let currentTheme: Ref<string | null>  = ref(localStorage.getItem("appTheme")) || null;
+const icon: Ref<string> = ref("fa-sun");
+const currentTheme: Ref<string | null> =
+  ref(localStorage.getItem("appTheme")) || null;
 
 // setting initial theme
 const setInitialTheme = () => {
-  if(currentTheme.value) {
+  if (currentTheme.value) {
     setTheme(currentTheme.value);
-  } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  } else if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
     setTheme("dark");
   } else {
     setTheme("light");
@@ -50,43 +51,40 @@ const setInitialTheme = () => {
 setInitialTheme();
 
 function setTheme(themeName?: string) {
-  if(themeName) {
-    const index = themes.findIndex(theme => theme.name === themeName) || 0;
+  if (themeName) {
+    const index = themes.findIndex((theme) => theme.name === themeName) || 0;
     assignTheme(index);
   } else {
-    let index = themes.findIndex(theme => theme.name === (currentTheme.value || "light")) || 0;
-    if (index === themes.length-1) index = -1;
+    let index =
+      themes.findIndex(
+        (theme) => theme.name === (currentTheme.value || "light")
+      ) || 0;
+    if (index === themes.length - 1) index = -1;
     assignTheme(index + 1);
   }
   function assignTheme(index: number) {
-    currentTheme.value =  themes[index]?.name || themes[0].name;
-    document.body.classList.value = `theme--${currentTheme.value}`;
+    currentTheme.value = themes[index]?.name || themes[0].name;
+    document.body.classList.value = `${currentTheme.value}-mode`;
     icon.value = themes[index]?.icon || themes[0].icon;
-    localStorage.setItem("appTheme",currentTheme.value);
+    localStorage.setItem("appTheme", currentTheme.value);
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .button-theme {
-  display:flex;
+  display: flex;
   justify-content: center;
-  align-items:center;
-  padding: $s-1;
-  border-radius:50%;
-  min-height:$s-6;
-  min-width:$s-6;
+  align-items: center;
+  border-radius: 50%;
+  min-height: theme("spacing.6");
+  min-width: theme("spacing.6");
   cursor: pointer;
 }
 .button-theme:hover .button-theme-icon {
-  @include themed() {
-    color: t($primary-700);
-  }
+  color: theme("colors.primary.700");
 }
 .button-theme-icon {
-  @include themed() {
-    color: t($text-secondary);
-    font-size: $f-3;
-  }
+  color: theme("colors.text-secondary");
+  font-size: theme("spacing.4");
 }
 </style>

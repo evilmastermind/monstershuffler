@@ -7,6 +7,6 @@
 <style scoped lang="scss">
 .navbar-padding {
   width: calc(100vw - (100vw - 100%));
-  height: $s-9;
+  height: theme("spacing.9");
 }
 </style>

@@ -3,7 +3,7 @@
     <input
       v-model="prompt"
       type="text"
-      class="ms-input w-100 mb-4"
+      class="ms-input w-full mb-4"
       :placeholder="t('generator.prompt.placeholder')"
     />
   </div>

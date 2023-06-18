@@ -1,8 +1,8 @@
 <template>
-  <div class="nav-gradient" />
-  <nav class="navbar">
+  <div class="nav-gradient h-8" />
+  <nav class="navbar h-8 py-1">
     <div class="navbar-menu-container lg-max py-2">
-      <div class="navbar-menu lg-max">
+      <div class="navbar-menu gap-5 lg-max md:justify-start">
         <NavbarLogo name="Home" route="Home" icon="fa-user" />
         <NavbarLink
           name="Generator"
@@ -20,12 +20,12 @@
           route="monsters-community-creations"
           icon="fa-dragon"
         />
-        <NavbarSettings class="settings" />
+        <NavbarSettings class="md:hidden" />
       </div>
-      <div class="navbar-other">
-        <NavbarTheme class="button-theme-desktop" />
-        <NavbarSupport class="links-support-desktop" />
-        <NavbarUser class="button-login-desktop" />
+      <div class="navbar-other md:flex gap-5">
+        <NavbarTheme />
+        <NavbarSupport />
+        <NavbarUser />
       </div>
     </div>
   </nav>
@@ -34,56 +34,33 @@
 <style lang="scss" scoped>
 .nav-gradient {
   position: absolute;
-  //height: 100%;
   width: 100%;
-  height: $s-8;
   z-index: 1;
-  @include blurred();
-  @include themed() {
-    background: linear-gradient(
-      180deg,
-      t($background) 0,
-      t($background-card) 100%
-    );
-    // background: rgb(t($background-light), 0.5);
-  }
+  backdrop-filter: blur(5px);
+  background: linear-gradient(
+    180deg,
+    theme("colors.background") 0,
+    theme("colors.background-card") 100%
+  );
 }
 .navbar {
   position: absolute;
   width: 100%;
-  height: $s-8;
-  font-size: $s-4;
-  padding: 0 $s-1;
   z-index: 1;
-  //@include shadow-2;
 }
 .navbar-menu-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.settings {
-  @include md {
-    display: none;
-  }
-}
 .navbar-menu {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: $s-5;
-  @include md {
-    justify-content: flex-start;
-  }
 }
 
 .navbar-other {
   display: none;
-
-  @include md {
-    display: flex;
-    flex-direction: row;
-    gap: $s-5;
-  }
+  flex-direction: row;
 }
 </style>

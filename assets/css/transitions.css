@@ -1,12 +1,11 @@
 
-$quick: 0.1s;
+:root {
+  --quick: 0.1s;
+}
 
-///////////////////////////////////////
-// S C R O L L  
-///////////////////////////////////////
 .scroll-left-enter-active,
 .scroll-left-leave-active {
-  transition: all $quick ease;
+  transition: all var(--quick) ease;
 }
 .scroll-left-enter-from,
 .scroll-left-leave-to {
@@ -16,7 +15,7 @@ $quick: 0.1s;
 
 .scroll-right-enter-active,
 .scroll-right-leave-active {
-  transition: all $quick ease;
+  transition: all var(--quick) ease;
 }
 .scroll-right-enter-from,
 .scroll-right-leave-to {

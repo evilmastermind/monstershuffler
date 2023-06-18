@@ -14,7 +14,7 @@
         </label>
         <button
           v-if="mode === 'form'"
-          class="button-show-settings cursor-pointer"
+          class="button-show-settings md:hidden cursor-pointer"
           @click="isFormShownOnMobile = !isFormShownOnMobile"
         >
           <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
@@ -34,7 +34,7 @@
           v-show="mode === 'prompt'"
           class="prompt text-max mb-4"
         />
-        <div class="generate-button text-centered my-6">
+        <div class="generate-button text-center my-6">
           <MSButton
             color="primary"
             :text="t('generator.form.generate')"
@@ -93,25 +93,23 @@ watch(
   left: 0;
   width: 100%;
   height: 100%;
-  @include themed() {
-    background: linear-gradient(
-        to bottom,
-        t($primary-200) 0,
-        t($background) 10em,
-        rgba(t($background), 0.5) 100%
-      ),
-      url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
-    // background-color: t($background2);
-    // background: rgba(t($background2), 0.7)
-    //   url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
-    // background-blend-mode: t($background-blend-mode);
-  }
+  background: linear-gradient(
+      to bottom,
+      theme("colors.primary.200") 0,
+      theme("colors.background") 10em,
+      rgba(var(--colors-background), 0.5) 100%
+    ),
+    url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
+  // background-color: t($background2);
+  // background: rgba(t($background2), 0.7)
+  //   url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
+  // background-blend-mode: t($background-blend-mode);
   //  ;
   z-index: -2;
 }
 .form {
   float: left;
-  @include md {
+  @media (min-width: theme("screens.md")) {
     float: left;
     max-width: 300px;
   }
@@ -119,7 +117,7 @@ watch(
 .options {
   display: flex;
   justify-content: center;
-  gap: $s-6;
+  gap: theme("spacing.6");
 }
 .overflow-hidden {
   overflow: hidden;
@@ -127,13 +125,13 @@ watch(
 .button-show-settings {
   display: block;
   font-weight: bold;
-  @include md {
+  @media (min-width: theme("screens.md")) {
     display: none;
   }
 }
 .generate-button {
   display: block;
-  @include md {
+  @media (min-width: theme("screens.md")) {
     display: none;
   }
 }

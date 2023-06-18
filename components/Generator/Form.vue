@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form class="generator-form">
+    <form class="generator-form p-4 mr-4 rounded shadow-md md:shadow-none">
       <fieldset>
         <button
           class="close-button cursor-pointer"
@@ -19,7 +19,7 @@
           <label class="ms-label" for="gen-prace"
             >{{ $t("generator.form.primaryRace") }}:</label
           >
-          <div class="flex-row justify-space-between">
+          <div class="flex items-center justify-between">
             <select
               id="gen-prace"
               v-model="primaryRaceIndex"
@@ -45,7 +45,7 @@
           <label class="ms-label" for="gen-srace"
             >{{ $t("generator.form.secondaryRace") }}:</label
           >
-          <div class="flex-row justify-space-between">
+          <div class="flex items-center justify-between">
             <select
               id="gen-srace"
               v-model="secondaryRaceIndex"
@@ -143,7 +143,7 @@
         </span>
       </fieldset>
       <!-- GENERATE MSButton -->
-      <div class="generate-button text-centered mt-5">
+      <div class="generate-button text-center mt-5">
         <MSButton
           block
           color="primary"
@@ -261,41 +261,29 @@ form-container {
 }
 .button-settings {
   position: fixed;
-  @include md {
-    display: none;
-  }
 }
 .generator-form {
   position: fixed;
-  padding: $s-4;
-  margin-right: $s-4;
-  border-radius: $s-1;
-  @include themed {
-    background-color: t($background);
-  }
-  @include shadow-3;
-  @include md {
+  background-color: theme("colors.background");
+  @media (min-width: theme("screens.md")) {
     position: relative;
     display: block;
     padding: 0;
     border-radius: 0;
-    @include shadow-0;
-    @include themed {
-      background-color: transparent;
-    }
+    background-color: transparent;
   }
 }
 .close-button {
   position: absolute;
-  top: $s-4;
-  right: $s-4;
-  @include md {
+  top: theme("spacing.4");
+  right: theme("spacing.4");
+  @media (min-width: theme("screens.md")) {
     display: none;
   }
 }
 .generate-button {
   display: none;
-  @include md {
+  @media (min-width: theme("screens.md")) {
     display: block;
   }
 }

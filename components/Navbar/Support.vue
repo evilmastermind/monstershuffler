@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex-row justify-center column-gap-s1"
-  >
+  <div class="flex items-center justify-center column-gap-s1">
     <NavbarSupportLink
       name="Patreon"
       link="https://www.patreon.com/monstershuffler"
@@ -20,7 +18,4 @@
   </div>
 </template>
 
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

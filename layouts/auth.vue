@@ -10,8 +10,6 @@
   z-index: -3;
   min-width: 100%;
   min-height: 100%;
-  @include themed {
-    background-color: t($background);
-  }
+  background-color: theme("colors.background");
 }
 </style>

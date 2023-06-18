@@ -68,30 +68,20 @@ const innerSize = computed(() => {
 }
 
 .color-primary {
-  @include themed() {
-    border-color: t($background) transparent transparent transparent;
-  }
+  border-color: theme("colors.background") transparent transparent transparent;
 }
 .color-complementary {
-  @include themed() {
-    border-color: t($background) transparent transparent transparent;
-  }
+  border-color: theme("colors.background") transparent transparent transparent;
 }
 
 .color-light {
-  @include themed() {
-    border-color: t($text) transparent transparent transparent;
-  }
+  border-color: theme("colors.text") transparent transparent transparent;
 }
 
 .color-dark {
-  @include themed() {
-    border-color: t($text-inverse) transparent transparent transparent;
-  }
+  border-color: theme("colors.text-inverse") transparent transparent transparent;
 }
 .color-patreon {
-  @include themed() {
-    border-color: hsl(240, 0%, 3%) transparent transparent transparent;
-  }
+  border-color: hsl(240, 0%, 3%) transparent transparent transparent;
 }
 </style>

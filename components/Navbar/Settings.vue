@@ -15,8 +15,8 @@
         ><span>Span</span> Do something</a
       >
       <a href="#something" class="dropdown-link">Something else</a>
-      <a class="user-links-mobile dropdown-link">Login</a>
-      <a class="user-links-mobile dropdown-link">Register</a>
+      <a href="/login" class="md:hidden dropdown-link">Login</a>
+      <a href="/registration" class="md:hidden dropdown-link">Register</a>
       <span id="button-theme-mobile">
         Change theme: <span class="inline-block"><NavbarTheme /></span>
       </span>
@@ -25,24 +25,19 @@
   </MSMenu>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dropdown-link {
-  @include themed {
-    color: t($text);
-  }
+  color: theme("colors.text");
   text-decoration: none;
 }
 .dropdown-link:hover,
 .dropdown-link:active {
-  @include themed {
-    background: t($text);
-    color: t($background);
-  }
+  background: theme("colors.text");
+  color: theme("colors.background") !important;
 }
 .dropdown-link:visited {
   color: inherit;
 }
-
 #button-theme-mobile,
 #links-support-mobile,
 .user-links-mobile {
@@ -54,12 +49,7 @@
   }
   #links-support-mobile {
     display: flex;
-    margin: $s-1 auto 0 auto;
-  }
-}
-.user-links-mobile {
-  @include md {
-    display: none;
+    margin: theme("spacing.1") auto 0 auto;
   }
 }
 </style>

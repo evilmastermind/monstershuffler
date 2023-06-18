@@ -3,17 +3,17 @@
     <div class="logo mt-4">
       <LogoStatic :size="30" class="logo-m" />onstershuffler
     </div>
-    <div class="my-5 text-centered">
+    <div class="my-5 text-center">
       <q>{{ greetings }}</q>
     </div>
-    <h4 class="text-centered">{{ $t("login.login") }}</h4>
+    <h4 class="text-center">{{ $t("login.login") }}</h4>
     <form class="centered" @submit.prevent="login">
       <label class="ms-label">
         {{ $t("email") }}
         <input
           v-model="credentials.email"
           type="email"
-          class="ms-input w-100"
+          class="ms-input w-full"
           required
         />
       </label>
@@ -22,7 +22,7 @@
         <input
           v-model="credentials.password"
           type="password"
-          class="ms-input w-100"
+          class="ms-input w-full"
           required
         />
       </label>
@@ -76,7 +76,7 @@ async function login() {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  font-size: $s-4;
+  font-size: 1rem;
   font-weight: bold;
   gap: 0.125em;
   line-height: 1;

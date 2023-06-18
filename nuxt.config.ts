@@ -24,7 +24,13 @@ export default defineNuxtConfig({
       apiUrl: process.env.API_URL,
     },
   },
-  modules: ["@vue-macros/nuxt", "@nuxtjs/i18n", "@pinia/nuxt", "nuxt-purgecss"],
+  modules: [
+    "@vue-macros/nuxt",
+    "@nuxtjs/i18n",
+    "@pinia/nuxt",
+    "nuxt-purgecss",
+    "@nuxtjs/tailwindcss",
+  ],
   i18n: {
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
@@ -34,18 +40,27 @@ export default defineNuxtConfig({
   pinia: {
     autoImports: ["defineStore"],
   },
-  css: ["@/assets/css-reset.css"],
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: "@import '@/assets/main.scss';",
-        },
-      },
-    },
-  },
+  // css: ["@/assets/css-reset.css"],
+  // vite: {
+  //   css: {
+  //     preprocessorOptions: {
+  //       scss: {
+  //         additionalData: "@import '@/assets/main.scss';",
+  //       },
+  //     },
+  //   },
+  // },
   imports: {
     // Auto-import pinia stores defined in `~/stores`
     dirs: ["stores"],
   },
+  // Defaults options
+  // tailwindcss: {
+  //   cssPath: "~/assets/css/tailwind.css",
+  //   configPath: "tailwind.config",
+  //   exposeConfig: false,
+  //   exposeLevel: 2,
+  //   injectPosition: "first",
+  //   viewer: true,
+  // },
 });

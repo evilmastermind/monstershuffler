@@ -1,0 +1,53 @@
+.form-line {
+  display: block;
+  margin: theme("spacing.2") 0;
+}
+
+
+.ms-label {
+  color: theme("colors.text");
+  font-weight: bold;
+  display: block;
+  width: 100%;
+}
+
+
+.ms-select {
+  padding: 0 theme("spacing.1");
+  border-radius: theme("spacing.1"); 
+  box-sizing: border-box;
+  height: theme("spacing.7");
+  text-overflow: ellipsis;
+  background-color: theme("colors.background-inset.500");
+  border-top: 1px solid theme("colors.background-inset.700");
+  border-left: 1px solid theme("colors.background-inset.600");
+  border-right: 1px solid theme("colors.background-inset.600");
+  border-bottom: 1px solid theme("colors.background-inset.400");
+  box-shadow: inset 0px 3px 5px theme("colors.background-inset.600");
+  color: theme("colors.text");
+}
+.ms-select-75 {
+  width: 74%;
+}
+.ms-select-20 {
+  width: 25%;
+}
+.ms-select-100 {
+  display: block;
+  width: 100%;
+}
+
+
+.ms-input {
+  padding: 0 theme("spacing.1");
+  border-radius: theme("spacing.1"); 
+  box-sizing: border-box;
+  height: theme("spacing.7");
+  background-color: theme("colors.background-inset.500");
+  border-top: 1px solid theme("colors.background-inset.700");
+  border-left: 1px solid theme("colors.background-inset.600");
+  border-right: 1px solid theme("colors.background-inset.600");
+  border-bottom: 1px solid theme("colors.background-inset.400");
+  box-shadow: inset 0px 3px 5px theme("colors.background-inset.600");
+  color: theme("colors.text");
+}

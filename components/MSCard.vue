@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card shadow-md p-5">
     <slot />
   </div>
 </template>
@@ -8,13 +8,6 @@
 
 <style scoped lang="scss">
 .card {
-  padding: $s-5 $s-5;
   border-radius: 0px;
-
-  @include themed {
-    background: t($background);
-  }
-  // @include blurred();
-  @include shadow-2;
 }
 </style>

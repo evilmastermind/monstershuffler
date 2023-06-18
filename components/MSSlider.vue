@@ -1,16 +1,11 @@
 <template>
-<label class="switch">
-    <input
-      class="slider-checkbox"
-      type="checkbox"
-    />
+  <label class="switch">
+    <input class="slider-checkbox" type="checkbox" />
     <span class="slider round" />
-</label>
+  </label>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 //----------------------------------
@@ -39,9 +34,7 @@
   bottom: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  @include themed() {
-    background-color: t($background-card);
-  }
+  background-color: theme("colors.background-card");
 }
 
 .slider:before {
@@ -77,9 +70,5 @@
 
 .slider.round:before {
   border-radius: 50%;
-}
-.section-text {
-  max-width: 800px;
-  margin: $s-8 auto;
 }
 </style>

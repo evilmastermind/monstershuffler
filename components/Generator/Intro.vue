@@ -1,5 +1,5 @@
 <template>
-  <div class="text-max centered">
+  <div class="max-w-3xl centered">
     <p v-html="$t('generator.description1')" />
     <p v-html="$t('generator.description2')" />
   </div>

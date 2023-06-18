@@ -1,3 +1,21 @@
+@import "@/assets/css/fonts.css";
+@import "@/assets/css/breakpoints.css";
+@import "@/assets/css/forms.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+form, fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+select:focus {
+  outline: 1px solid #000;  
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -8,42 +26,9 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.inline {
-  display: inline;
-}
-.inline-block {
-  display: inline-block;
-}
-
-.text-centered {
-  text-align: center;
-}
 .centered {
   display: grid;
   place-items: center;
-}
-
-.flex-row {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-.justify-center {
-  justify-content: left;
-}
-.justify-space-between {
-  justify-content: space-between;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.w-100 {
-  width: 100%;
-}
-.h-100 {
-  height: 100%;
 }
 
 .sr-only {

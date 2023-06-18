@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button centered"
+    class="button shadow rounded py-2 px-4 centered"
     :class="[`color-${color}`, block ? 'is-block' : '']"
     :disabled="isDisabled"
     @click="goToURL"
@@ -71,16 +71,12 @@ function goToURL() {
 .button {
   position: relative;
   display: inline-block;
-  padding: $s-2 $s-4;
   border: none;
-  border-radius: $s-1;
   cursor: pointer;
   text-transform: uppercase;
   text-align: center;
   font-size: 0.875rem;
   letter-spacing: 0.05em;
-
-  @include shadow-2;
   //@include shadow-1;
   transition: transform 0.03s;
 }
@@ -109,86 +105,56 @@ function goToURL() {
 }
 
 .color-primary {
-  @include themed() {
-    background-color: t($primary-700);
-    color: t($background);
-  }
+  background-color: theme("colors.primary.700");
+  color: theme("colors.background");
 }
 .color-primary:hover {
-  @include themed() {
-    background-color: t($primary-600);
-  }
+  background-color: theme("colors.primary.600");
 }
 .color-primary:active {
-  @include themed() {
-    background-color: t($primary-700);
-  }
+  background-color: theme("colors.primary.700");
 }
 .color-complementary {
-  @include themed() {
-    background-color: t($complementary-700);
-    color: t($background);
-  }
+  background-color: theme("colors.complementary.700");
+  color: theme("colors.background");
 }
 .color-complementary:hover {
-  @include themed() {
-    background-color: t($complementary-600);
-  }
+  background-color: theme("colors.complementary.600");
 }
 .color-complementary:active {
-  @include themed() {
-    background-color: t($complementary-700);
-  }
+  background-color: theme("colors.complementary.700");
 }
 
 .color-light {
-  @include themed() {
-    background-color: t($grey-100);
-    color: t($text);
-  }
+  background-color: theme("colors.grey.100");
+  color: theme("colors.text");
 }
 .color-light:hover {
-  @include themed() {
-    background-color: t($grey-200);
-  }
+  background-color: theme("colors.grey.200");
 }
 .color-light:active {
-  @include themed() {
-    background-color: t($grey-50);
-  }
+  background-color: theme("colors.grey.50");
 }
 
 .color-dark {
-  @include themed() {
-    background-color: t($grey-800);
-    color: t($text-inverse);
-  }
+  background-color: theme("colors.grey.800");
+  color: theme("colors.text-inverse");
 }
 .color-dark:hover {
-  @include themed() {
-    background-color: t($grey-700);
-  }
+  background-color: theme("colors.grey.700");
 }
 .color-dark:active {
-  @include themed() {
-    background-color: t($grey-800);
-  }
+  background-color: theme("colors.grey.800");
 }
 
 .color-patreon {
-  @include themed() {
-    background-color: t($patreon);
-    color: hsl(240, 0%, 3%);
-  }
+  background-color: theme("colors.patreon");
+  color: hsl(240, 0%, 3%);
 }
 .color-patreon:hover {
-  @include themed() {
-    background-color: t($patreon);
-  }
+  background-color: theme("colors.patreon");
 }
 .color-patreon:active {
-  @include themed() {
-    background-color: t($patreon);
-  }
+  background-color: theme("colors.patreon");
 }
 </style>

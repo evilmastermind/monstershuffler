@@ -9,7 +9,7 @@
   >
     <slot />
     <transition :name="transition">
-      <div class="dropdown-menu" :class="dropdownMenuClass">
+      <div class="dropdown-menu rounded shadow-md" :class="dropdownMenuClass">
         <slot name="dropdown" />
       </div>
     </transition>
@@ -81,21 +81,17 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
 }
 .dropdown-menu > * {
   display: block;
-  padding: $s-1 $s-2;
+  padding: theme("spacing.1") theme("spacing.2");
 }
 .dropdown-menu {
   position: absolute;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  border-radius: $s-1;
-  width: $s-11;
+  width: theme("spacing.11");
   align-items: stretch;
   // border-radius: 5px;
-  @include themed() {
-    background-color: t($background);
-  }
-  @include shadow-2;
+  background-color: theme("colors.background");
   transform-origin: top center;
   animation: rotateX 200ms ease-in-out forwards;
 }

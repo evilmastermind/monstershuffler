@@ -64,9 +64,7 @@ watch(
   bottom: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  @include themed() {
-    background-color: desaturate(lighten(t($primary-700), 30), 100);
-  }
+  background-color: theme("colors.complementary.600");
 }
 
 .slider:before {
@@ -79,26 +77,18 @@ watch(
   border-radius: 4px;
   -webkit-transition: ease-out 0.2s;
   transition: ease-out 0.15s;
-  @include themed() {
-    background: desaturate(t($primary-700), 100);
-  }
+  background: theme("colors.complementary.700");
 }
 
 input:checked + .slider {
-  @include themed() {
-    background-color: lighten(t($primary-700), 10);
-  }
+  background-color: theme("colors.primary.600");
 }
 input:checked + .slider:before {
-  @include themed() {
-    background: t($primary-700);
-  }
+  background: theme("colors.primary.700");
 }
 
 input:focus + .slider {
-  @include themed() {
-    box-shadow: 0 0 1px lighten(t($primary-700), 10);
-  }
+  box-shadow: 0 0 1px theme("colors.primary.600");
 }
 
 input:checked + .slider:before {

@@ -119,7 +119,7 @@ function generateBackground() {
 }
 .background-navbar-padding {
   width: calc(100vw - (100vw - 100%));
-  height: $s-9;
+  height: theme("spacing.9");
 }
 .background-dice-container {
   position: fixed;
@@ -129,19 +129,21 @@ function generateBackground() {
   width: calc(100vw - (100vw - 100%));
   height: 100vh;
   overflow: hidden;
-  @include themed() {
-    background-color: #e5e5f7;
-    background-size: 10px 10px;
-    // background-image: repeating-linear-gradient(45deg, t($background) 0, t($background) 1px, t($background2) 0, t($background2) 50%);
-    background-color: t($background2);
-    background: radial-gradient(
-        ellipse at 50% 20%,
-        t($primary-100),
-        transparent
-      ),
-      radial-gradient(ellipse at 70% 80%, t($background), transparent),
-      radial-gradient(ellipse at 30% 80%, t($complementary-200), transparent);
-  }
+  background-color: #e5e5f7;
+  background-size: 10px 10px;
+  // background-image: repeating-linear-gradient(45deg, t($background) 0, t($background) 1px, t($background2) 0, t($background2) 50%);
+  background-color: theme("colors.background2");
+  background: radial-gradient(
+      ellipse at 50% 20%,
+      theme("colors.primary.100"),
+      transparent
+    ),
+    radial-gradient(ellipse at 70% 80%, theme("colors.background"), transparent),
+    radial-gradient(
+      ellipse at 30% 80%,
+      theme("colors.complementary.200"),
+      transparent
+    );
 }
 .background-dice {
   position: absolute;

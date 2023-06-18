@@ -10,7 +10,7 @@
       <font-awesome-icon
         :icon="`fas fa-solid ${icon}`"
         fixed-width
-        class="navbar-icon"
+        class="navbar-icon mr-2"
       />
       <span class="navbar-link-name">{{ name }}</span>
     </NuxtLink>
@@ -39,33 +39,23 @@ const currentRoute = computed(() => {
   return nuxtRoute.name;
 });
 </script>
-
-<style lang="scss">
+<style lang="scss" scoped>
 .navbar-link-container {
   display: inline-block;
   overflow: hidden;
-  //flex-basis: 100px;
   flex-grow: 0;
   flex-shrink: 0;
 }
 .navbar-link-inactive {
-  @include themed() {
-    color: t($text);
-  }
+  color: theme("colors.text");
 }
 .navbar-link-active,
 .navbar-link:hover {
-  @include themed() {
-    color: t($primary-700);
-  }
+  color: theme("colors.primary.700");
 }
 .navbar-icon {
-  margin-right: $s-2;
-  font-size: $f-3;
+  font-size: theme("spacing.3");
   display: none;
-  @include themed() {
-    color: t($text);
-  }
 }
 .navbar-link {
   display: flex;
@@ -80,14 +70,14 @@ const currentRoute = computed(() => {
 }
 @media (max-width: 700px) {
   .navbar-icon {
-    font-size: $s-5;
+    font-size: theme("spacing.5");
     margin-right: 0;
   }
   .navbar-link {
     flex-flow: column nowrap;
   }
 }
-@media (max-width: #{$mobile-navbar}) {
+@media (max-width: theme("screens.nav")) {
   .navbar-link-name {
     display: none;
   }

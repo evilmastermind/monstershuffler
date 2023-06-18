@@ -13,28 +13,10 @@
   src: url("@/assets/fonts/OpenSans-Italic.ttf");
 }
 
-// @font-face {
-//   font-family: Domine;
-//   src: url("@/assets/fonts/Domine-Regular.woff2") ;
-// }
-
-// @font-face {
-//   font-family: Domine-Bold;
-//   src: url("@/assets/fonts/Domine-Bold.woff2") ;
-// }
-
-// @font-face {
-//   font-family: Domine-Italic;
-//   src: url("@/assets/fonts/Domine-Regular.ttf");
-//   font-style: italic;
-// }
-
-
 @font-face {
   font-family: ScalaSansOffc;
   src: url("@/assets/fonts/ScalaSansOffc.woff") ;
 }
-
 
 @font-face {
   font-family: ScalaSansOffc;
@@ -65,44 +47,27 @@
   src: url("@/assets/fonts/AusweisHollow.ttf") ;
 }
 
-$f-1: 12px;
-$f-2: 14px;
-$f-3: 15px;
-$f-4: 18px;
-$f-5: 20px;
-$f-6: 24px;
-$f-7: 30px;
-$f-8: 36px;
-$f-9: 48px;
-$f-10: 60px;
-$f-11: 72px;
-
-:root {
-  font-family: OpenSans, sans-serif;
-  font-size: $f-3;
-}
 
 b   {font-family: inherit; font-weight: bold;}
 i   {font-family: inherit; font-style: italic;}
 
 h1 {
-  font-size: $f-7;
+  font-size: theme("fontSize.8") !important;
+  font-weight: bold !important;
   font-family: MrsEavesSmallCaps;
   text-align: center;
   letter-spacing: 2px;
-  @include themed {
-    color: t($primary-700);
-  }
+  color: theme("colors.primary.700");
 }
 
 h4 {
-  font-size: $f-5;
+  font-weight: bold !important;
   text-align: center;
 }
 
 p {
-  margin: $s-2 0;
-  line-height: $s-5;
+  margin: theme("spacing.2") 0;
+  line-height: theme("spacing.5");
 }
 
 q {
@@ -114,9 +79,7 @@ q {
 a {
   font-weight: 600;
   text-decoration: none;
-  @include themed {
-    color: t($primary-700);
-  }
+    color: theme("colors.primary.700");
 }
 
 .bold {
@@ -124,18 +87,10 @@ a {
 }
 
 .text-shadow {
-  @include themed { 
-    text-shadow: 0 0 10px t($background);
-  }
+  text-shadow: 0 0 10px theme("colors.background");
 }
 
 .text-max { 
   max-width: 700px;
   margin: 0 auto;
-}
-
-.text-danger {
-  @include themed {
-    color: t($danger);
-  }
 }

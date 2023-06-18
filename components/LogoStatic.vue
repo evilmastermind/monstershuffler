@@ -50,27 +50,23 @@ const p = defineProps({
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-basis: $s-9;
-  margin-right: $s-5;
+  flex-basis: theme("spacing.9");
+  margin-right: theme("spacing.5");
 }
 @media (max-width: 700px) {
   .ms-logo {
-    flex-basis: $s-7;
+    flex-basis: theme("spacing.7");
   }
 }
 @media (max-width: 575px) {
   .ms-logo {
-    margin-right: 0;
+    margin-right: theme("spacing.0");
   }
 }
 .ms-logo-fill {
-  @include themed() {
-    fill: t($text);
-  }
+  fill: theme("colors.text");
 }
 .ms-logo-stroke {
-  @include themed() {
-    stroke: t($text);
-  }
+  stroke: theme("colors.text");
 }
 </style>
