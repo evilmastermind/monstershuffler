@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form class="generator-form p-4 mr-4 rounded shadow-md md:shadow-none">
+    <form class="generator-form p-4 md:mr-4 rounded shadow-md md:shadow-none">
       <fieldset>
         <button
           class="close-button cursor-pointer"
@@ -19,7 +19,7 @@
           <label class="ms-label" for="gen-prace"
             >{{ $t("generator.form.primaryRace") }}:</label
           >
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between gap-1">
             <select
               id="gen-prace"
               v-model="primaryRaceIndex"
@@ -45,7 +45,7 @@
           <label class="ms-label" for="gen-srace"
             >{{ $t("generator.form.secondaryRace") }}:</label
           >
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between gap-1">
             <select
               id="gen-srace"
               v-model="secondaryRaceIndex"
@@ -264,7 +264,12 @@ form-container {
 }
 .generator-form {
   position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: theme("colors.background");
+  width: 100%;
+  max-width: 400px;
+  z-index: 100;
   @media (min-width: theme("screens.md")) {
     position: relative;
     display: block;

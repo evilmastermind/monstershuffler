@@ -1,8 +1,8 @@
 <template>
   <div class="nav-gradient h-8" />
-  <nav class="navbar h-8 py-1">
-    <div class="navbar-menu-container lg-max py-2">
-      <div class="navbar-menu gap-5 lg-max md:justify-start">
+  <nav class="navbar centered h-8">
+    <div class="navbar-menu-container lg-max">
+      <div class="navbar-menu gap-5 justify-center md:justify-start">
         <NavbarLogo name="Home" route="Home" icon="fa-user" />
         <NavbarLink
           name="Generator"
@@ -22,7 +22,7 @@
         />
         <NavbarSettings class="md:hidden" />
       </div>
-      <div class="navbar-other md:flex gap-5">
+      <div class="navbar-other hidden md:flex gap-5">
         <NavbarTheme />
         <NavbarSupport />
         <NavbarUser />
@@ -54,13 +54,12 @@
   align-items: center;
 }
 .navbar-menu {
+  max-width: theme("screens.lg");
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .navbar-other {
-  display: none;
   flex-direction: row;
 }
 </style>

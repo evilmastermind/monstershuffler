@@ -8,6 +8,6 @@
 
 <style scoped lang="scss">
 .card {
-  border-radius: 0px;
+  background-color: theme("colors.background");
 }
 </style>

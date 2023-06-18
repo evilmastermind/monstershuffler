@@ -1,11 +1,10 @@
-// import { ref, onMounted, onUnmounted } from "vue";
-
 export function useScreen() {
   const width = ref(window.innerWidth);
   const height = ref(window.innerHeight);
   const small = ref(0);
   const medium = ref(0);
   const large = ref(0);
+  const xLarge = ref(0);
 
   function update() {
     width.value = window.innerWidth;
@@ -21,9 +20,10 @@ export function useScreen() {
 
   onMounted(() => {
     window.addEventListener("resize", update);
-    small.value = readCssVariable("--screen-small");
-    medium.value = readCssVariable("--screen-medium");
-    large.value = readCssVariable("--screen-large");
+    small.value = 480;
+    medium.value = 1000;
+    large.value = 1200;
+    xLarge.value = 1600;
   });
   onUnmounted(() => window.removeEventListener("resize", update));
 

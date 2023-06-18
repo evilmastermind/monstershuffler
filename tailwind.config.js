@@ -3,16 +3,18 @@ const srcDir = ".";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  theme: {},
+  theme: {
+    screens: {
+      sm: "480px",
+      md: "1000px",
+      lg: "1200px",
+      xl: "1600px",
+      nav: "575px",
+    },
+  },
   plugins: [
     require("tailwindcss-themer")({
       defaultTheme: {
-        screens: {
-          sm: "480px",
-          md: "1000px",
-          lg: "1200px",
-          xl: "1600px",
-        },
         extend: {
           spacing: {
             0: "0",
@@ -33,9 +35,6 @@ export default {
             14: "32.00rem",
             15: "40.00rem",
             16: "48.00rem",
-          },
-          screens: {
-            nav: "575px",
           },
           fontSize: {
             1: "10px",

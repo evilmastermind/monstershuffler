@@ -39,7 +39,7 @@ const props = defineProps({
   cursor: pointer;
 }
 .link-support-icon {
-  font-size: theme("spacing.3");
+  font-size: theme("spacing.4");
   color: theme("colors.text-secondary");
 }
 .link-support-icon:hover {

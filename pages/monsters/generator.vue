@@ -9,8 +9,10 @@
       </h1>
       <div class="options centered mt-6 my-4">
         <label class="cursor-pointer">
-          <MSSlider2 v-model:is-enabled="modeBoolean" />
-          <h4 class="ml-2 inline">{{ $t(`generator.${mode}ModeTitle`) }}</h4>
+          <MSSlider v-model:is-enabled="modeBoolean" />
+          <span class="bold ml-2 inline">
+            {{ $t(`generator.${mode}ModeTitle`) }}
+          </span>
         </label>
         <button
           v-if="mode === 'form'"
@@ -22,17 +24,17 @@
         </button>
         <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
       </div>
-      <div class="grid">
+      <div>
         <GeneratorForm
           v-show="mode === 'form' && isFormShownOnMobile"
           ref="form"
-          class="form mb-4"
+          class="form mb-4 md:mr-4"
           :generate="generate"
           @close="isFormShownOnMobile = false"
         />
         <GeneratorPrompt
           v-show="mode === 'prompt'"
-          class="prompt text-max mb-4"
+          class="prompt text-max mb-4 w-full"
         />
         <div class="generate-button text-center my-6">
           <MSButton
@@ -41,7 +43,7 @@
             @click.prevent="generate = !generate"
           />
         </div>
-        <div class="npcs">
+        <div class="npcs centered pt-4">
           <GeneratorIntro />
         </div>
       </div>
@@ -95,7 +97,7 @@ watch(
   height: 100%;
   background: linear-gradient(
       to bottom,
-      theme("colors.primary.200") 0,
+      theme("colors.background2") 0,
       theme("colors.background") 10em,
       rgba(var(--colors-background), 0.5) 100%
     ),

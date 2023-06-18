@@ -39,3 +39,7 @@ select:focus {
   height:1px;
   overflow:hidden;
 }
+
+body {
+  @apply text-text;
+}

@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button shadow rounded py-2 px-4 centered"
+    class="button shadow-md rounded py-2 px-4 centered"
     :class="[`color-${color}`, block ? 'is-block' : '']"
     :disabled="isDisabled"
     @click="goToURL"
