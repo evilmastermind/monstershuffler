@@ -1,5 +1,5 @@
 <template>
-  <div class="card shadow-md p-5">
+  <div class="card shadow-xl p-5">
     <slot />
   </div>
 </template>
@@ -8,6 +8,7 @@
 
 <style scoped lang="scss">
 .card {
-  background-color: theme("colors.background");
+  background: theme("colors.background");
+  backdrop-filter: blur(4px);
 }
 </style>

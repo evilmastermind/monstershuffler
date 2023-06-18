@@ -133,7 +133,7 @@ function goToURL() {
   background-color: theme("colors.grey.200");
 }
 .color-light:active {
-  background-color: theme("colors.grey.50");
+  background-color: theme("colors.grey.100");
 }
 
 .color-dark {
@@ -144,17 +144,17 @@ function goToURL() {
   background-color: theme("colors.grey.700");
 }
 .color-dark:active {
-  background-color: theme("colors.grey.800");
+  background-color: theme("colors.grey.700");
 }
 
 .color-patreon {
-  background-color: theme("colors.patreon");
+  background-color: theme("colors.patreon.500");
   color: hsl(240, 0%, 3%);
 }
 .color-patreon:hover {
-  background-color: theme("colors.patreon");
+  background-color: theme("colors.patreon.400");
 }
 .color-patreon:active {
-  background-color: theme("colors.patreon");
+  background-color: theme("colors.patreon.500");
 }
 </style>

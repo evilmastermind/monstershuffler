@@ -18,8 +18,12 @@ definePageMeta({
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("@/assets/images/generator-bg-1.jpg") no-repeat center
-    center/cover;
+  background: linear-gradient(
+      to bottom,
+      theme("colors.background-inset.500") 0,
+      rgba(var(--colors-background), 0.2) 100%
+    ),
+    url("@/assets/images/login-bg-1.jpg") no-repeat center center/cover;
   // background-color: t($background2);
   // background: rgba(t($background2), 0.7)
   //   url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;

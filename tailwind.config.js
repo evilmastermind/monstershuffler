@@ -97,7 +97,11 @@ export default {
             text: "hsl(240, 30%, 7%)",
             "text-secondary": "hsl(240, 0%, 55%)",
             "text-inverse": "hsl(240, 0%, 93%)",
-            patreon: "hsl(7, 93%, 65%)",
+            patreon: {
+              400: "hsl(7, 93%, 70%)",
+              500: "hsl(7, 93%, 65%)",
+              600: "hsl(7, 93%, 60%)",
+            },
             danger: "hsl(0, 100%, 40%)",
             warning: "hsl(45, 100%, 40%)",
             success: "hsl(120, 100%, 30%)",
