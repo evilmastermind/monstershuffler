@@ -5,6 +5,12 @@
     <slot />
   </div>
 </template>
+<script setupl lang="ts">
+import { defaultHead } from "@/utils/seo";
+useHead({
+  meta: [...defaultHead],
+});
+</script>
 <style lang="scss" scoped>
 .background {
   position: absolute;

@@ -24,7 +24,6 @@ components:
                           type: string
                         name:
                           type: string
-                          minLength: 2
                         cost:
                           type: string
                         type:
@@ -56,26 +55,20 @@ components:
                             type:
                               type: string
                               enum:
-                                - list
                                 - random
-                            field:
-                              type: string
                             number:
                               type: number
-                            result:
+                            resultType:
                               type: string
+                              enum:
+                                - object
+                                - nameId
                             source:
                               type: string
                               enum:
                                 - objects
-                                - backgrounds
-                                - bases
-                                - damagetypes
                                 - languages
-                                - names
                                 - skills
-                                - traits
-                                - voices
                             objectType:
                               type: number
                             filters:
@@ -100,16 +93,16 @@ components:
                                 properties:
                                   id:
                                     type: number
-                                  name:
+                                  value:
+                                    type: string
+                                  levelMin:
                                     type: string
                                 required:
-                                  - name
+                                  - value
                                 additionalProperties: false
                           required:
                             - type
-                            - field
-                            - number
-                            - result
+                            - resultType
                             - source
                           additionalProperties: false
                       required:
@@ -118,15 +111,9 @@ components:
                 subtypes:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      value:
-                        type: string
-                      levelMin:
-                        type: string
-                    required:
-                      - value
-                    additionalProperties: false
+                    $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                      s/object/properties/armor/anyOf/1/properties/choice/prope\
+                      rties/chosenAlready/items"
                 speeds:
                   type: object
                   properties:
@@ -147,13 +134,15 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                      s/object/properties/subtypes/items"
+                      s/object/properties/armor/anyOf/1/properties/choice/prope\
+                      rties/chosenAlready/items"
                 skills:
                   anyOf:
                     - type: array
                       items:
                         $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                          s/object/properties/subtypes/items"
+                          s/object/properties/armor/anyOf/1/properties/choice/p\
+                          roperties/chosenAlready/items"
                     - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                         s/object/properties/armor/anyOf/1"
                     - type: object
@@ -165,22 +154,7 @@ components:
                               type: string
                               enum:
                                 - list
-                                - random
                             number:
-                              type: number
-                            source:
-                              type: string
-                              enum:
-                                - objects
-                                - backgrounds
-                                - bases
-                                - damagetypes
-                                - languages
-                                - names
-                                - skills
-                                - traits
-                                - voices
-                            objectType:
                               type: number
                             list:
                               type: array
@@ -193,7 +167,6 @@ components:
                           required:
                             - type
                             - number
-                            - source
                             - list
                           additionalProperties: false
                       required:
@@ -203,22 +176,26 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                      s/object/properties/subtypes/items"
+                      s/object/properties/armor/anyOf/1/properties/choice/prope\
+                      rties/chosenAlready/items"
                 immunities:
                   type: array
                   items:
                     $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                      s/object/properties/subtypes/items"
+                      s/object/properties/armor/anyOf/1/properties/choice/prope\
+                      rties/chosenAlready/items"
                 vulnerabilities:
                   type: array
                   items:
                     $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                      s/object/properties/subtypes/items"
+                      s/object/properties/armor/anyOf/1/properties/choice/prope\
+                      rties/chosenAlready/items"
                 conditionImmunities:
                   type: array
                   items:
                     $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                      s/object/properties/subtypes/items"
+                      s/object/properties/armor/anyOf/1/properties/choice/prope\
+                      rties/chosenAlready/items"
                 senses:
                   type: object
                   properties:
@@ -242,7 +219,8 @@ components:
                     - type: array
                       items:
                         $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                          s/object/properties/subtypes/items"
+                          s/object/properties/armor/anyOf/1/properties/choice/p\
+                          roperties/chosenAlready/items"
                     - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                         s/object/properties/armor/anyOf/1"
                     - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
@@ -254,191 +232,228 @@ components:
                     properties:
                       tag:
                         type: string
+                      actionType:
+                        type: string
+                        enum:
+                          - trait
+                          - legendary
+                          - action
+                          - reaction
+                          - bonus
+                          - attack
+                          - multiattack
+                          - mythic
+                          - lair
+                      subType:
+                        type: string
+                      source:
+                        type: string
+                      tags:
+                        type: array
+                        items:
+                          type: string
                       priority:
                         type: number
                       variants:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            type:
-                              type: string
-                              enum:
-                                - trait
-                                - legendary
-                                - action
-                                - reaction
-                                - bonus
-                                - attack
-                                - multiattack
-                                - mythic
-                                - lair
-                            levelMin:
-                              type: number
-                            levelMax:
-                              type: number
-                            ability:
-                              type: string
-                              enum:
-                                - STR
-                                - DEX
-                                - CON
-                                - INT
-                                - WIS
-                                - CHA
-                            charges:
-                              type: string
-                            recharge:
-                              type: string
-                            cost:
-                              type: string
-                            description:
-                              type: string
-                            values:
-                              type: array
-                              items:
-                                anyOf:
-                                  - type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      type:
-                                        type: string
-                                      expression:
-                                        type: string
-                                    required:
-                                      - name
-                                      - type
-                                    additionalProperties: false
-                                  - type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      type:
-                                        type: string
-                                      expression:
-                                        type: string
-                                      dice:
-                                        type: object
-                                        properties:
-                                          die:
-                                            type: string
-                                          diceNumber:
-                                            type: string
-                                          diceIncrement:
-                                            type: string
-                                          levelMin:
-                                            type: string
-                                          levelMax:
-                                            type: string
-                                          levelInterval:
-                                            type: string
-                                        required:
-                                          - die
-                                          - diceNumber
-                                          - diceIncrement
-                                          - levelMin
-                                          - levelMax
-                                          - levelInterval
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - type
-                                    additionalProperties: false
-                                  - type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      type:
-                                        type: string
-                                      incrProgression:
-                                        type: object
-                                        properties:
-                                          levelInterval:
-                                            type: string
-                                          levelIncrement:
-                                            type: string
-                                          levelMin:
-                                            type: string
-                                          base:
-                                            type: string
-                                          increment:
-                                            type: string
-                                        required:
-                                          - levelInterval
-                                          - levelIncrement
-                                          - levelMin
-                                          - base
-                                          - increment
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - type
-                                    additionalProperties: false
-                            attacks:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  name:
-                                    type: string
-                                  replaceName:
-                                    type: boolean
-                                  attributes:
+                          anyOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                description:
+                                  type: string
+                                type:
+                                  type: string
+                                  enum:
+                                    - trait
+                                    - legendary
+                                    - action
+                                    - reaction
+                                    - bonus
+                                    - attack
+                                    - multiattack
+                                    - mythic
+                                    - lair
+                                levelMin:
+                                  type: number
+                                levelMax:
+                                  type: number
+                                ability:
+                                  type: string
+                                  enum:
+                                    - STR
+                                    - DEX
+                                    - CON
+                                    - INT
+                                    - WIS
+                                    - CHA
+                                charges:
+                                  type: string
+                                recharge:
+                                  type: string
+                                cost:
+                                  type: string
+                                values:
+                                  type: array
+                                  items:
                                     anyOf:
                                       - type: object
                                         properties:
-                                          die:
+                                          name:
                                             type: string
-                                          diceNumber:
+                                          type:
                                             type: string
-                                          reach:
+                                          expression:
                                             type: string
-                                          targets:
-                                            type: string
-                                          damageType:
-                                            type: string
-                                          properties:
-                                            type: array
-                                            items:
-                                              type: string
                                         required:
-                                          - die
-                                          - diceNumber
-                                          - reach
-                                          - targets
-                                          - damageType
-                                          - properties
+                                          - name
+                                          - expression
                                         additionalProperties: false
-                                      - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                          s/object/properties/armor/anyOf/1"
-                                  enchantment:
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          expression:
+                                            type: string
+                                          dice:
+                                            type: object
+                                            properties:
+                                              die:
+                                                type: string
+                                              diceNumber:
+                                                type: string
+                                              diceIncrement:
+                                                type: string
+                                              levelMin:
+                                                type: string
+                                              levelMax:
+                                                type: string
+                                              levelInterval:
+                                                type: string
+                                            required:
+                                              - die
+                                              - diceNumber
+                                              - diceIncrement
+                                              - levelMin
+                                              - levelMax
+                                              - levelInterval
+                                            additionalProperties: false
+                                        required:
+                                          - name
+                                          - dice
+                                        additionalProperties: false
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          incrProgression:
+                                            type: object
+                                            properties:
+                                              levelInterval:
+                                                type: string
+                                              levelIncrement:
+                                                type: string
+                                              levelMin:
+                                                type: string
+                                              base:
+                                                type: string
+                                              increment:
+                                                type: string
+                                            required:
+                                              - levelInterval
+                                              - levelIncrement
+                                              - levelMin
+                                              - base
+                                              - increment
+                                            additionalProperties: false
+                                        required:
+                                          - name
+                                          - incrProgression
+                                        additionalProperties: false
+                                attacks:
+                                  type: array
+                                  items:
                                     type: object
                                     properties:
-                                      type:
+                                      name:
                                         type: string
-                                      dice:
-                                        $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                          s/object/properties/actions/items/pro\
-                                          perties/variants/items/properties/val\
-                                          ues/items/anyOf/1/properties/dice"
-                                      expression:
-                                        type: string
+                                      replaceName:
+                                        type: boolean
+                                      attributes:
+                                        anyOf:
+                                          - type: object
+                                            properties:
+                                              reach:
+                                                type: string
+                                              targets:
+                                                type: string
+                                              name:
+                                                type: string
+                                              cost:
+                                                type: string
+                                              weight:
+                                                type: string
+                                              damageType:
+                                                type: string
+                                              special:
+                                                type: string
+                                              die:
+                                                type: string
+                                              diceNumber:
+                                                type: string
+                                              dieV:
+                                                type: string
+                                              diceNumberV:
+                                                type: string
+                                              range:
+                                                type: string
+                                              rangeMax:
+                                                type: string
+                                              properties:
+                                                type: array
+                                                items:
+                                                  type: string
+                                            required:
+                                              - damageType
+                                              - properties
+                                            additionalProperties: false
+                                          - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                              s/object/properties/armor/anyOf/1"
+                                      enchantment:
+                                        type: object
+                                        properties:
+                                          type:
+                                            type: string
+                                          dice:
+                                            $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                              s/object/properties/actions/items\
+                                              /properties/variants/items/anyOf/\
+                                              0/properties/values/items/anyOf/1\
+                                              /properties/dice"
+                                          expression:
+                                            type: string
+                                        required:
+                                          - type
+                                        additionalProperties: false
                                     required:
-                                      - type
+                                      - name
+                                      - attributes
                                     additionalProperties: false
-                                required:
-                                  - name
-                                  - attributes
-                                additionalProperties: false
-                          required:
-                            - name
-                            - type
-                            - ability
-                            - description
-                          additionalProperties: false
+                              required:
+                                - name
+                                - description
+                                - type
+                              additionalProperties: false
+                            - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                s/object/properties/armor/anyOf/1"
+                            - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                s/object/properties/skills/anyOf/2"
                     required:
                       - tag
                       - variants
@@ -454,7 +469,6 @@ components:
                         value:
                           type: string
                       required:
-                        - name
                         - value
                       additionalProperties: false
                     ACBonus:
@@ -616,7 +630,7 @@ components:
                     ability:
                       $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                         s/object/properties/actions/items/properties/variants/i\
-                        tems/properties/ability"
+                        tems/anyOf/0/properties/ability"
                     groups:
                       type: array
                       items:
@@ -634,25 +648,15 @@ components:
                             anyOf:
                               - type: array
                                 items:
-                                  type: object
-                                  properties:
-                                    id:
-                                      type: string
-                                    name:
-                                      type: string
-                                  required:
-                                    - id
-                                    - name
-                                  additionalProperties: false
+                                  $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                    s/object/properties/armor/anyOf/1/propertie\
+                                    s/choice/properties/chosenAlready/items"
                               - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                                   s/object/properties/armor/anyOf/1"
                               - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                                   s/object/properties/skills/anyOf/2"
                         required:
                           - tag
-                          - levelMin
-                          - timesDay
-                          - timesDayMax
                           - spells
                         additionalProperties: false
                   additionalProperties: false
@@ -685,8 +689,6 @@ components:
                   additionalProperties: true
               required:
                 - name
-                - image
-                - background
               additionalProperties: false
             game:
               type: number
@@ -893,6 +895,8 @@ components:
                           items:
                             type: object
                             properties:
+                              id:
+                                type: number
                               value:
                                 type: string
                               levelMin:
@@ -916,7 +920,6 @@ components:
                                   type: string
                                 name:
                                   type: string
-                                  minLength: 2
                                 cost:
                                   type: string
                                 type:
@@ -948,26 +951,20 @@ components:
                                     type:
                                       type: string
                                       enum:
-                                        - list
                                         - random
-                                    field:
-                                      type: string
                                     number:
                                       type: number
-                                    result:
+                                    resultType:
                                       type: string
+                                      enum:
+                                        - object
+                                        - nameId
                                     source:
                                       type: string
                                       enum:
                                         - objects
-                                        - backgrounds
-                                        - bases
-                                        - damagetypes
                                         - languages
-                                        - names
                                         - skills
-                                        - traits
-                                        - voices
                                     objectType:
                                       type: number
                                     filters:
@@ -988,20 +985,13 @@ components:
                                     chosenAlready:
                                       type: array
                                       items:
-                                        type: object
-                                        properties:
-                                          id:
-                                            type: number
-                                          name:
-                                            type: string
-                                        required:
-                                          - name
-                                        additionalProperties: false
+                                        $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                          /properties/npc/properties/character/\
+                                          properties/race/properties/subtypes/i\
+                                          tems"
                                   required:
                                     - type
-                                    - field
-                                    - number
-                                    - result
+                                    - resultType
                                     - source
                                   additionalProperties: false
                               required:
@@ -1052,37 +1042,20 @@ components:
                                       type: string
                                       enum:
                                         - list
-                                        - random
                                     number:
-                                      type: number
-                                    source:
-                                      type: string
-                                      enum:
-                                        - objects
-                                        - backgrounds
-                                        - bases
-                                        - damagetypes
-                                        - languages
-                                        - names
-                                        - skills
-                                        - traits
-                                        - voices
-                                    objectType:
                                       type: number
                                     list:
                                       type: array
                                       items:
                                         $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                                           /properties/npc/properties/character/\
-                                          properties/race/properties/armor/anyO\
-                                          f/1/properties/choice/properties/chos\
-                                          enAlready/items"
+                                          properties/race/properties/subtypes/i\
+                                          tems"
                                     isRepeatable:
                                       type: boolean
                                   required:
                                     - type
                                     - number
-                                    - source
                                     - list
                                   additionalProperties: false
                               required:
@@ -1150,196 +1123,236 @@ components:
                             properties:
                               tag:
                                 type: string
+                              actionType:
+                                type: string
+                                enum:
+                                  - trait
+                                  - legendary
+                                  - action
+                                  - reaction
+                                  - bonus
+                                  - attack
+                                  - multiattack
+                                  - mythic
+                                  - lair
+                              subType:
+                                type: string
+                              source:
+                                type: string
+                              tags:
+                                type: array
+                                items:
+                                  type: string
                               priority:
                                 type: number
                               variants:
                                 type: array
                                 items:
-                                  type: object
-                                  properties:
-                                    name:
-                                      type: string
-                                    type:
-                                      type: string
-                                      enum:
-                                        - trait
-                                        - legendary
-                                        - action
-                                        - reaction
-                                        - bonus
-                                        - attack
-                                        - multiattack
-                                        - mythic
-                                        - lair
-                                    levelMin:
-                                      type: number
-                                    levelMax:
-                                      type: number
-                                    ability:
-                                      type: string
-                                      enum:
-                                        - STR
-                                        - DEX
-                                        - CON
-                                        - INT
-                                        - WIS
-                                        - CHA
-                                    charges:
-                                      type: string
-                                    recharge:
-                                      type: string
-                                    cost:
-                                      type: string
-                                    description:
-                                      type: string
-                                    values:
-                                      type: array
-                                      items:
-                                        anyOf:
-                                          - type: object
-                                            properties:
-                                              name:
-                                                type: string
-                                              type:
-                                                type: string
-                                              expression:
-                                                type: string
-                                            required:
-                                              - name
-                                              - type
-                                            additionalProperties: false
-                                          - type: object
-                                            properties:
-                                              name:
-                                                type: string
-                                              type:
-                                                type: string
-                                              expression:
-                                                type: string
-                                              dice:
-                                                type: object
-                                                properties:
-                                                  die:
-                                                    type: string
-                                                  diceNumber:
-                                                    type: string
-                                                  diceIncrement:
-                                                    type: string
-                                                  levelMin:
-                                                    type: string
-                                                  levelMax:
-                                                    type: string
-                                                  levelInterval:
-                                                    type: string
-                                                required:
-                                                  - die
-                                                  - diceNumber
-                                                  - diceIncrement
-                                                  - levelMin
-                                                  - levelMax
-                                                  - levelInterval
-                                                additionalProperties: false
-                                            required:
-                                              - name
-                                              - type
-                                            additionalProperties: false
-                                          - type: object
-                                            properties:
-                                              name:
-                                                type: string
-                                              type:
-                                                type: string
-                                              incrProgression:
-                                                type: object
-                                                properties:
-                                                  levelInterval:
-                                                    type: string
-                                                  levelIncrement:
-                                                    type: string
-                                                  levelMin:
-                                                    type: string
-                                                  base:
-                                                    type: string
-                                                  increment:
-                                                    type: string
-                                                required:
-                                                  - levelInterval
-                                                  - levelIncrement
-                                                  - levelMin
-                                                  - base
-                                                  - increment
-                                                additionalProperties: false
-                                            required:
-                                              - name
-                                              - type
-                                            additionalProperties: false
-                                    attacks:
-                                      type: array
-                                      items:
-                                        type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          replaceName:
-                                            type: boolean
-                                          attributes:
+                                  anyOf:
+                                    - type: object
+                                      properties:
+                                        name:
+                                          type: string
+                                        description:
+                                          type: string
+                                        type:
+                                          type: string
+                                          enum:
+                                            - trait
+                                            - legendary
+                                            - action
+                                            - reaction
+                                            - bonus
+                                            - attack
+                                            - multiattack
+                                            - mythic
+                                            - lair
+                                        levelMin:
+                                          type: number
+                                        levelMax:
+                                          type: number
+                                        ability:
+                                          type: string
+                                          enum:
+                                            - STR
+                                            - DEX
+                                            - CON
+                                            - INT
+                                            - WIS
+                                            - CHA
+                                        charges:
+                                          type: string
+                                        recharge:
+                                          type: string
+                                        cost:
+                                          type: string
+                                        values:
+                                          type: array
+                                          items:
                                             anyOf:
                                               - type: object
                                                 properties:
-                                                  die:
+                                                  name:
                                                     type: string
-                                                  diceNumber:
+                                                  type:
                                                     type: string
-                                                  reach:
+                                                  expression:
                                                     type: string
-                                                  targets:
-                                                    type: string
-                                                  damageType:
-                                                    type: string
-                                                  properties:
-                                                    type: array
-                                                    items:
-                                                      type: string
                                                 required:
-                                                  - die
-                                                  - diceNumber
-                                                  - reach
-                                                  - targets
-                                                  - damageType
-                                                  - properties
+                                                  - name
+                                                  - expression
                                                 additionalProperties: false
-                                              - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                                  /properties/npc/properties/ch\
-                                                  aracter/properties/race/prope\
-                                                  rties/armor/anyOf/1"
-                                          enchantment:
+                                              - type: object
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  type:
+                                                    type: string
+                                                  expression:
+                                                    type: string
+                                                  dice:
+                                                    type: object
+                                                    properties:
+                                                      die:
+                                                        type: string
+                                                      diceNumber:
+                                                        type: string
+                                                      diceIncrement:
+                                                        type: string
+                                                      levelMin:
+                                                        type: string
+                                                      levelMax:
+                                                        type: string
+                                                      levelInterval:
+                                                        type: string
+                                                    required:
+                                                      - die
+                                                      - diceNumber
+                                                      - diceIncrement
+                                                      - levelMin
+                                                      - levelMax
+                                                      - levelInterval
+                                                    additionalProperties: false
+                                                required:
+                                                  - name
+                                                  - dice
+                                                additionalProperties: false
+                                              - type: object
+                                                properties:
+                                                  name:
+                                                    type: string
+                                                  type:
+                                                    type: string
+                                                  incrProgression:
+                                                    type: object
+                                                    properties:
+                                                      levelInterval:
+                                                        type: string
+                                                      levelIncrement:
+                                                        type: string
+                                                      levelMin:
+                                                        type: string
+                                                      base:
+                                                        type: string
+                                                      increment:
+                                                        type: string
+                                                    required:
+                                                      - levelInterval
+                                                      - levelIncrement
+                                                      - levelMin
+                                                      - base
+                                                      - increment
+                                                    additionalProperties: false
+                                                required:
+                                                  - name
+                                                  - incrProgression
+                                                additionalProperties: false
+                                        attacks:
+                                          type: array
+                                          items:
                                             type: object
                                             properties:
-                                              type:
+                                              name:
                                                 type: string
-                                              dice:
-                                                $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                                  /properties/npc/properties/ch\
-                                                  aracter/properties/race/prope\
-                                                  rties/actions/items/propertie\
-                                                  s/variants/items/properties/v\
-                                                  alues/items/anyOf/1/propertie\
-                                                  s/dice"
-                                              expression:
-                                                type: string
+                                              replaceName:
+                                                type: boolean
+                                              attributes:
+                                                anyOf:
+                                                  - type: object
+                                                    properties:
+                                                      reach:
+                                                        type: string
+                                                      targets:
+                                                        type: string
+                                                      name:
+                                                        type: string
+                                                      cost:
+                                                        type: string
+                                                      weight:
+                                                        type: string
+                                                      damageType:
+                                                        type: string
+                                                      special:
+                                                        type: string
+                                                      die:
+                                                        type: string
+                                                      diceNumber:
+                                                        type: string
+                                                      dieV:
+                                                        type: string
+                                                      diceNumberV:
+                                                        type: string
+                                                      range:
+                                                        type: string
+                                                      rangeMax:
+                                                        type: string
+                                                      properties:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                    required:
+                                                      - damageType
+                                                      - properties
+                                                    additionalProperties: false
+                                                  - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                                      /properties/npc/propertie\
+                                                      s/character/properties/ra\
+                                                      ce/properties/armor/anyOf\
+                                                      /1"
+                                              enchantment:
+                                                type: object
+                                                properties:
+                                                  type:
+                                                    type: string
+                                                  dice:
+                                                    $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                                      /properties/npc/propertie\
+                                                      s/character/properties/ra\
+                                                      ce/properties/actions/ite\
+                                                      ms/properties/variants/it\
+                                                      ems/anyOf/0/properties/va\
+                                                      lues/items/anyOf/1/proper\
+                                                      ties/dice"
+                                                  expression:
+                                                    type: string
+                                                required:
+                                                  - type
+                                                additionalProperties: false
                                             required:
-                                              - type
+                                              - name
+                                              - attributes
                                             additionalProperties: false
-                                        required:
-                                          - name
-                                          - attributes
-                                        additionalProperties: false
-                                  required:
-                                    - name
-                                    - type
-                                    - ability
-                                    - description
-                                  additionalProperties: false
+                                      required:
+                                        - name
+                                        - description
+                                        - type
+                                      additionalProperties: false
+                                    - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                        /properties/npc/properties/character/pr\
+                                        operties/race/properties/armor/anyOf/1"
+                                    - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                        /properties/npc/properties/character/pr\
+                                        operties/race/properties/skills/anyOf/2"
                             required:
                               - tag
                               - variants
@@ -1355,7 +1368,6 @@ components:
                                 value:
                                   type: string
                               required:
-                                - name
                                 - value
                               additionalProperties: false
                             ACBonus:
@@ -1568,7 +1580,7 @@ components:
                               $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                                 /properties/npc/properties/character/properties\
                                 /race/properties/actions/items/properties/varia\
-                                nts/items/properties/ability"
+                                nts/items/anyOf/0/properties/ability"
                             groups:
                               type: array
                               items:
@@ -1586,16 +1598,10 @@ components:
                                     anyOf:
                                       - type: array
                                         items:
-                                          type: object
-                                          properties:
-                                            id:
-                                              type: string
-                                            name:
-                                              type: string
-                                          required:
-                                            - id
-                                            - name
-                                          additionalProperties: false
+                                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                            /properties/npc/properties/characte\
+                                            r/properties/race/properties/subtyp\
+                                            es/items"
                                       - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                                           /properties/npc/properties/character/\
                                           properties/race/properties/armor/anyO\
@@ -1606,9 +1612,6 @@ components:
                                           Of/2"
                                 required:
                                   - tag
-                                  - levelMin
-                                  - timesDay
-                                  - timesDayMax
                                   - spells
                                 additionalProperties: false
                           additionalProperties: false
@@ -1655,8 +1658,6 @@ components:
                           additionalProperties: true
                       required:
                         - name
-                        - image
-                        - background
                       additionalProperties: false
                     racevariant:
                       type: object
@@ -1786,8 +1787,6 @@ components:
                           additionalProperties: true
                       required:
                         - name
-                        - image
-                        - background
                       additionalProperties: false
                     class:
                       type: object
@@ -1914,8 +1913,6 @@ components:
                           additionalProperties: true
                       required:
                         - name
-                        - image
-                        - background
                       additionalProperties: false
                     classvariant:
                       type: object
@@ -2042,8 +2039,6 @@ components:
                           additionalProperties: true
                       required:
                         - name
-                        - image
-                        - background
                       additionalProperties: false
                     profession:
                       type: object
@@ -2315,7 +2310,7 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/actions/items/properties/variants/item\
-                            s/properties/ability"
+                            s/anyOf/0/properties/ability"
                         spells:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -2340,8 +2335,6 @@ components:
                           additionalProperties: true
                       required:
                         - name
-                        - image
-                        - background
                       additionalProperties: false
                     user:
                       type: object
@@ -2491,8 +2484,6 @@ components:
                           type: string
                       required:
                         - name
-                        - image
-                        - background
                       additionalProperties: false
                     abilitiesBase:
                       $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
@@ -2608,7 +2599,6 @@ components:
                           type: string
                         name:
                           type: string
-                          minLength: 2
                         cost:
                           type: string
                         type:
@@ -2640,26 +2630,20 @@ components:
                             type:
                               type: string
                               enum:
-                                - list
                                 - random
-                            field:
-                              type: string
                             number:
                               type: number
-                            result:
+                            resultType:
                               type: string
+                              enum:
+                                - object
+                                - nameId
                             source:
                               type: string
                               enum:
                                 - objects
-                                - backgrounds
-                                - bases
-                                - damagetypes
                                 - languages
-                                - names
                                 - skills
-                                - traits
-                                - voices
                             objectType:
                               type: number
                             filters:
@@ -2684,16 +2668,16 @@ components:
                                 properties:
                                   id:
                                     type: number
-                                  name:
+                                  value:
+                                    type: string
+                                  levelMin:
                                     type: string
                                 required:
-                                  - name
+                                  - value
                                 additionalProperties: false
                           required:
                             - type
-                            - field
-                            - number
-                            - result
+                            - resultType
                             - source
                           additionalProperties: false
                       required:
@@ -2710,15 +2694,9 @@ components:
                 subtypes:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      value:
-                        type: string
-                      levelMin:
-                        type: string
-                    required:
-                      - value
-                    additionalProperties: false
+                    $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                      /properties/object/properties/armor/anyOf/1/properties/ch\
+                      oice/properties/chosenAlready/items"
                 speeds:
                   type: object
                   properties:
@@ -2739,13 +2717,15 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                      /properties/object/properties/subtypes/items"
+                      /properties/object/properties/armor/anyOf/1/properties/ch\
+                      oice/properties/chosenAlready/items"
                 skills:
                   anyOf:
                     - type: array
                       items:
                         $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                          /properties/object/properties/subtypes/items"
+                          /properties/object/properties/armor/anyOf/1/propertie\
+                          s/choice/properties/chosenAlready/items"
                     - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
                         /properties/object/properties/armor/anyOf/1"
                     - type: object
@@ -2757,22 +2737,7 @@ components:
                               type: string
                               enum:
                                 - list
-                                - random
                             number:
-                              type: number
-                            source:
-                              type: string
-                              enum:
-                                - objects
-                                - backgrounds
-                                - bases
-                                - damagetypes
-                                - languages
-                                - names
-                                - skills
-                                - traits
-                                - voices
-                            objectType:
                               type: number
                             list:
                               type: array
@@ -2786,7 +2751,6 @@ components:
                           required:
                             - type
                             - number
-                            - source
                             - list
                           additionalProperties: false
                       required:
@@ -2796,22 +2760,26 @@ components:
                   type: array
                   items:
                     $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                      /properties/object/properties/subtypes/items"
+                      /properties/object/properties/armor/anyOf/1/properties/ch\
+                      oice/properties/chosenAlready/items"
                 immunities:
                   type: array
                   items:
                     $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                      /properties/object/properties/subtypes/items"
+                      /properties/object/properties/armor/anyOf/1/properties/ch\
+                      oice/properties/chosenAlready/items"
                 vulnerabilities:
                   type: array
                   items:
                     $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                      /properties/object/properties/subtypes/items"
+                      /properties/object/properties/armor/anyOf/1/properties/ch\
+                      oice/properties/chosenAlready/items"
                 conditionImmunities:
                   type: array
                   items:
                     $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                      /properties/object/properties/subtypes/items"
+                      /properties/object/properties/armor/anyOf/1/properties/ch\
+                      oice/properties/chosenAlready/items"
                 senses:
                   type: object
                   properties:
@@ -2835,7 +2803,8 @@ components:
                     - type: array
                       items:
                         $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                          /properties/object/properties/subtypes/items"
+                          /properties/object/properties/armor/anyOf/1/propertie\
+                          s/choice/properties/chosenAlready/items"
                     - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
                         /properties/object/properties/armor/anyOf/1"
                     - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
@@ -2848,193 +2817,231 @@ components:
                         properties:
                           tag:
                             type: string
+                          actionType:
+                            type: string
+                            enum:
+                              - trait
+                              - legendary
+                              - action
+                              - reaction
+                              - bonus
+                              - attack
+                              - multiattack
+                              - mythic
+                              - lair
+                          subType:
+                            type: string
+                          source:
+                            type: string
+                          tags:
+                            type: array
+                            items:
+                              type: string
                           priority:
                             type: number
                           variants:
                             type: array
                             items:
-                              type: object
-                              properties:
-                                name:
-                                  type: string
-                                type:
-                                  type: string
-                                  enum:
-                                    - trait
-                                    - legendary
-                                    - action
-                                    - reaction
-                                    - bonus
-                                    - attack
-                                    - multiattack
-                                    - mythic
-                                    - lair
-                                levelMin:
-                                  type: number
-                                levelMax:
-                                  type: number
-                                ability:
-                                  type: string
-                                  enum:
-                                    - STR
-                                    - DEX
-                                    - CON
-                                    - INT
-                                    - WIS
-                                    - CHA
-                                charges:
-                                  type: string
-                                recharge:
-                                  type: string
-                                cost:
-                                  type: string
-                                description:
-                                  type: string
-                                values:
-                                  type: array
-                                  items:
-                                    anyOf:
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                        required:
-                                          - name
-                                          - type
-                                        additionalProperties: false
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              diceIncrement:
-                                                type: string
-                                              levelMin:
-                                                type: string
-                                              levelMax:
-                                                type: string
-                                              levelInterval:
-                                                type: string
-                                            required:
-                                              - die
-                                              - diceNumber
-                                              - diceIncrement
-                                              - levelMin
-                                              - levelMax
-                                              - levelInterval
-                                            additionalProperties: false
-                                        required:
-                                          - name
-                                          - type
-                                        additionalProperties: false
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          incrProgression:
-                                            type: object
-                                            properties:
-                                              levelInterval:
-                                                type: string
-                                              levelIncrement:
-                                                type: string
-                                              levelMin:
-                                                type: string
-                                              base:
-                                                type: string
-                                              increment:
-                                                type: string
-                                            required:
-                                              - levelInterval
-                                              - levelIncrement
-                                              - levelMin
-                                              - base
-                                              - increment
-                                            additionalProperties: false
-                                        required:
-                                          - name
-                                          - type
-                                        additionalProperties: false
-                                attacks:
-                                  type: array
-                                  items:
-                                    type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      replaceName:
-                                        type: boolean
-                                      attributes:
+                              anyOf:
+                                - type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    description:
+                                      type: string
+                                    type:
+                                      type: string
+                                      enum:
+                                        - trait
+                                        - legendary
+                                        - action
+                                        - reaction
+                                        - bonus
+                                        - attack
+                                        - multiattack
+                                        - mythic
+                                        - lair
+                                    levelMin:
+                                      type: number
+                                    levelMax:
+                                      type: number
+                                    ability:
+                                      type: string
+                                      enum:
+                                        - STR
+                                        - DEX
+                                        - CON
+                                        - INT
+                                        - WIS
+                                        - CHA
+                                    charges:
+                                      type: string
+                                    recharge:
+                                      type: string
+                                    cost:
+                                      type: string
+                                    values:
+                                      type: array
+                                      items:
                                         anyOf:
                                           - type: object
                                             properties:
-                                              die:
+                                              name:
                                                 type: string
-                                              diceNumber:
+                                              type:
                                                 type: string
-                                              reach:
+                                              expression:
                                                 type: string
-                                              targets:
-                                                type: string
-                                              damageType:
-                                                type: string
-                                              properties:
-                                                type: array
-                                                items:
-                                                  type: string
                                             required:
-                                              - die
-                                              - diceNumber
-                                              - reach
-                                              - targets
-                                              - damageType
-                                              - properties
+                                              - name
+                                              - expression
                                             additionalProperties: false
-                                          - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                                              /properties/object/properties/arm\
-                                              or/anyOf/1"
-                                      enchantment:
+                                          - type: object
+                                            properties:
+                                              name:
+                                                type: string
+                                              type:
+                                                type: string
+                                              expression:
+                                                type: string
+                                              dice:
+                                                type: object
+                                                properties:
+                                                  die:
+                                                    type: string
+                                                  diceNumber:
+                                                    type: string
+                                                  diceIncrement:
+                                                    type: string
+                                                  levelMin:
+                                                    type: string
+                                                  levelMax:
+                                                    type: string
+                                                  levelInterval:
+                                                    type: string
+                                                required:
+                                                  - die
+                                                  - diceNumber
+                                                  - diceIncrement
+                                                  - levelMin
+                                                  - levelMax
+                                                  - levelInterval
+                                                additionalProperties: false
+                                            required:
+                                              - name
+                                              - dice
+                                            additionalProperties: false
+                                          - type: object
+                                            properties:
+                                              name:
+                                                type: string
+                                              type:
+                                                type: string
+                                              incrProgression:
+                                                type: object
+                                                properties:
+                                                  levelInterval:
+                                                    type: string
+                                                  levelIncrement:
+                                                    type: string
+                                                  levelMin:
+                                                    type: string
+                                                  base:
+                                                    type: string
+                                                  increment:
+                                                    type: string
+                                                required:
+                                                  - levelInterval
+                                                  - levelIncrement
+                                                  - levelMin
+                                                  - base
+                                                  - increment
+                                                additionalProperties: false
+                                            required:
+                                              - name
+                                              - incrProgression
+                                            additionalProperties: false
+                                    attacks:
+                                      type: array
+                                      items:
                                         type: object
                                         properties:
-                                          type:
+                                          name:
                                             type: string
-                                          dice:
-                                            $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
-                                              /properties/object/properties/act\
-                                              ions/items/anyOf/0/properties/var\
-                                              iants/items/properties/values/ite\
-                                              ms/anyOf/1/properties/dice"
-                                          expression:
-                                            type: string
+                                          replaceName:
+                                            type: boolean
+                                          attributes:
+                                            anyOf:
+                                              - type: object
+                                                properties:
+                                                  reach:
+                                                    type: string
+                                                  targets:
+                                                    type: string
+                                                  name:
+                                                    type: string
+                                                  cost:
+                                                    type: string
+                                                  weight:
+                                                    type: string
+                                                  damageType:
+                                                    type: string
+                                                  special:
+                                                    type: string
+                                                  die:
+                                                    type: string
+                                                  diceNumber:
+                                                    type: string
+                                                  dieV:
+                                                    type: string
+                                                  diceNumberV:
+                                                    type: string
+                                                  range:
+                                                    type: string
+                                                  rangeMax:
+                                                    type: string
+                                                  properties:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                                required:
+                                                  - damageType
+                                                  - properties
+                                                additionalProperties: false
+                                              - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                                  /properties/object/properties\
+                                                  /armor/anyOf/1"
+                                          enchantment:
+                                            type: object
+                                            properties:
+                                              type:
+                                                type: string
+                                              dice:
+                                                $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                                  /properties/object/properties\
+                                                  /actions/items/anyOf/0/proper\
+                                                  ties/variants/items/anyOf/0/p\
+                                                  roperties/values/items/anyOf/\
+                                                  1/properties/dice"
+                                              expression:
+                                                type: string
+                                            required:
+                                              - type
+                                            additionalProperties: false
                                         required:
-                                          - type
+                                          - name
+                                          - attributes
                                         additionalProperties: false
-                                    required:
-                                      - name
-                                      - attributes
-                                    additionalProperties: false
-                              required:
-                                - name
-                                - type
-                                - ability
-                                - description
-                              additionalProperties: false
+                                  required:
+                                    - name
+                                    - description
+                                    - type
+                                  additionalProperties: false
+                                - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                    /properties/object/properties/armor/anyOf/1"
+                                - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                    /properties/object/properties/skills/anyOf/\
+                                    2"
                         required:
                           - tag
                           - variants
@@ -3052,7 +3059,6 @@ components:
                         value:
                           type: string
                       required:
-                        - name
                         - value
                       additionalProperties: false
                     ACBonus:
@@ -3264,7 +3270,7 @@ components:
                     ability:
                       $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
                         /properties/object/properties/actions/items/anyOf/0/pro\
-                        perties/variants/items/properties/ability"
+                        perties/variants/items/anyOf/0/properties/ability"
                     groups:
                       type: array
                       items:
@@ -3282,25 +3288,16 @@ components:
                             anyOf:
                               - type: array
                                 items:
-                                  type: object
-                                  properties:
-                                    id:
-                                      type: string
-                                    name:
-                                      type: string
-                                  required:
-                                    - id
-                                    - name
-                                  additionalProperties: false
+                                  $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
+                                    /properties/object/properties/armor/anyOf/1\
+                                    /properties/choice/properties/chosenAlready\
+                                    /items"
                               - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
                                   /properties/object/properties/armor/anyOf/1"
                               - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
                                   /properties/object/properties/skills/anyOf/2"
                         required:
                           - tag
-                          - levelMin
-                          - timesDay
-                          - timesDayMax
                           - spells
                         additionalProperties: false
                   additionalProperties: false
@@ -3405,6 +3402,8 @@ components:
                   items:
                     type: object
                     properties:
+                      id:
+                        type: number
                       value:
                         type: string
                       levelMin:
@@ -3428,7 +3427,6 @@ components:
                           type: string
                         name:
                           type: string
-                          minLength: 2
                         cost:
                           type: string
                         type:
@@ -3460,26 +3458,20 @@ components:
                             type:
                               type: string
                               enum:
-                                - list
                                 - random
-                            field:
-                              type: string
                             number:
                               type: number
-                            result:
+                            resultType:
                               type: string
+                              enum:
+                                - object
+                                - nameId
                             source:
                               type: string
                               enum:
                                 - objects
-                                - backgrounds
-                                - bases
-                                - damagetypes
                                 - languages
-                                - names
                                 - skills
-                                - traits
-                                - voices
                             objectType:
                               type: number
                             filters:
@@ -3500,20 +3492,11 @@ components:
                             chosenAlready:
                               type: array
                               items:
-                                type: object
-                                properties:
-                                  id:
-                                    type: number
-                                  name:
-                                    type: string
-                                required:
-                                  - name
-                                additionalProperties: false
+                                $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                  object/properties/subtypes/items"
                           required:
                             - type
-                            - field
-                            - number
-                            - result
+                            - resultType
                             - source
                           additionalProperties: false
                       required:
@@ -3561,35 +3544,18 @@ components:
                               type: string
                               enum:
                                 - list
-                                - random
                             number:
-                              type: number
-                            source:
-                              type: string
-                              enum:
-                                - objects
-                                - backgrounds
-                                - bases
-                                - damagetypes
-                                - languages
-                                - names
-                                - skills
-                                - traits
-                                - voices
-                            objectType:
                               type: number
                             list:
                               type: array
                               items:
                                 $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                  object/properties/armor/anyOf/1/properties/ch\
-                                  oice/properties/chosenAlready/items"
+                                  object/properties/subtypes/items"
                             isRepeatable:
                               type: boolean
                           required:
                             - type
                             - number
-                            - source
                             - list
                           additionalProperties: false
                       required:
@@ -3650,191 +3616,228 @@ components:
                     properties:
                       tag:
                         type: string
+                      actionType:
+                        type: string
+                        enum:
+                          - trait
+                          - legendary
+                          - action
+                          - reaction
+                          - bonus
+                          - attack
+                          - multiattack
+                          - mythic
+                          - lair
+                      subType:
+                        type: string
+                      source:
+                        type: string
+                      tags:
+                        type: array
+                        items:
+                          type: string
                       priority:
                         type: number
                       variants:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            type:
-                              type: string
-                              enum:
-                                - trait
-                                - legendary
-                                - action
-                                - reaction
-                                - bonus
-                                - attack
-                                - multiattack
-                                - mythic
-                                - lair
-                            levelMin:
-                              type: number
-                            levelMax:
-                              type: number
-                            ability:
-                              type: string
-                              enum:
-                                - STR
-                                - DEX
-                                - CON
-                                - INT
-                                - WIS
-                                - CHA
-                            charges:
-                              type: string
-                            recharge:
-                              type: string
-                            cost:
-                              type: string
-                            description:
-                              type: string
-                            values:
-                              type: array
-                              items:
-                                anyOf:
-                                  - type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      type:
-                                        type: string
-                                      expression:
-                                        type: string
-                                    required:
-                                      - name
-                                      - type
-                                    additionalProperties: false
-                                  - type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      type:
-                                        type: string
-                                      expression:
-                                        type: string
-                                      dice:
-                                        type: object
-                                        properties:
-                                          die:
-                                            type: string
-                                          diceNumber:
-                                            type: string
-                                          diceIncrement:
-                                            type: string
-                                          levelMin:
-                                            type: string
-                                          levelMax:
-                                            type: string
-                                          levelInterval:
-                                            type: string
-                                        required:
-                                          - die
-                                          - diceNumber
-                                          - diceIncrement
-                                          - levelMin
-                                          - levelMax
-                                          - levelInterval
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - type
-                                    additionalProperties: false
-                                  - type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      type:
-                                        type: string
-                                      incrProgression:
-                                        type: object
-                                        properties:
-                                          levelInterval:
-                                            type: string
-                                          levelIncrement:
-                                            type: string
-                                          levelMin:
-                                            type: string
-                                          base:
-                                            type: string
-                                          increment:
-                                            type: string
-                                        required:
-                                          - levelInterval
-                                          - levelIncrement
-                                          - levelMin
-                                          - base
-                                          - increment
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - type
-                                    additionalProperties: false
-                            attacks:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  name:
-                                    type: string
-                                  replaceName:
-                                    type: boolean
-                                  attributes:
+                          anyOf:
+                            - type: object
+                              properties:
+                                name:
+                                  type: string
+                                description:
+                                  type: string
+                                type:
+                                  type: string
+                                  enum:
+                                    - trait
+                                    - legendary
+                                    - action
+                                    - reaction
+                                    - bonus
+                                    - attack
+                                    - multiattack
+                                    - mythic
+                                    - lair
+                                levelMin:
+                                  type: number
+                                levelMax:
+                                  type: number
+                                ability:
+                                  type: string
+                                  enum:
+                                    - STR
+                                    - DEX
+                                    - CON
+                                    - INT
+                                    - WIS
+                                    - CHA
+                                charges:
+                                  type: string
+                                recharge:
+                                  type: string
+                                cost:
+                                  type: string
+                                values:
+                                  type: array
+                                  items:
                                     anyOf:
                                       - type: object
                                         properties:
-                                          die:
+                                          name:
                                             type: string
-                                          diceNumber:
+                                          type:
                                             type: string
-                                          reach:
+                                          expression:
                                             type: string
-                                          targets:
-                                            type: string
-                                          damageType:
-                                            type: string
-                                          properties:
-                                            type: array
-                                            items:
-                                              type: string
                                         required:
-                                          - die
-                                          - diceNumber
-                                          - reach
-                                          - targets
-                                          - damageType
-                                          - properties
+                                          - name
+                                          - expression
                                         additionalProperties: false
-                                      - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                          object/properties/armor/anyOf/1"
-                                  enchantment:
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          expression:
+                                            type: string
+                                          dice:
+                                            type: object
+                                            properties:
+                                              die:
+                                                type: string
+                                              diceNumber:
+                                                type: string
+                                              diceIncrement:
+                                                type: string
+                                              levelMin:
+                                                type: string
+                                              levelMax:
+                                                type: string
+                                              levelInterval:
+                                                type: string
+                                            required:
+                                              - die
+                                              - diceNumber
+                                              - diceIncrement
+                                              - levelMin
+                                              - levelMax
+                                              - levelInterval
+                                            additionalProperties: false
+                                        required:
+                                          - name
+                                          - dice
+                                        additionalProperties: false
+                                      - type: object
+                                        properties:
+                                          name:
+                                            type: string
+                                          type:
+                                            type: string
+                                          incrProgression:
+                                            type: object
+                                            properties:
+                                              levelInterval:
+                                                type: string
+                                              levelIncrement:
+                                                type: string
+                                              levelMin:
+                                                type: string
+                                              base:
+                                                type: string
+                                              increment:
+                                                type: string
+                                            required:
+                                              - levelInterval
+                                              - levelIncrement
+                                              - levelMin
+                                              - base
+                                              - increment
+                                            additionalProperties: false
+                                        required:
+                                          - name
+                                          - incrProgression
+                                        additionalProperties: false
+                                attacks:
+                                  type: array
+                                  items:
                                     type: object
                                     properties:
-                                      type:
+                                      name:
                                         type: string
-                                      dice:
-                                        $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                          object/properties/actions/items/prope\
-                                          rties/variants/items/properties/value\
-                                          s/items/anyOf/1/properties/dice"
-                                      expression:
-                                        type: string
+                                      replaceName:
+                                        type: boolean
+                                      attributes:
+                                        anyOf:
+                                          - type: object
+                                            properties:
+                                              reach:
+                                                type: string
+                                              targets:
+                                                type: string
+                                              name:
+                                                type: string
+                                              cost:
+                                                type: string
+                                              weight:
+                                                type: string
+                                              damageType:
+                                                type: string
+                                              special:
+                                                type: string
+                                              die:
+                                                type: string
+                                              diceNumber:
+                                                type: string
+                                              dieV:
+                                                type: string
+                                              diceNumberV:
+                                                type: string
+                                              range:
+                                                type: string
+                                              rangeMax:
+                                                type: string
+                                              properties:
+                                                type: array
+                                                items:
+                                                  type: string
+                                            required:
+                                              - damageType
+                                              - properties
+                                            additionalProperties: false
+                                          - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                              object/properties/armor/anyOf/1"
+                                      enchantment:
+                                        type: object
+                                        properties:
+                                          type:
+                                            type: string
+                                          dice:
+                                            $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                              object/properties/actions/items/p\
+                                              roperties/variants/items/anyOf/0/\
+                                              properties/values/items/anyOf/1/p\
+                                              roperties/dice"
+                                          expression:
+                                            type: string
+                                        required:
+                                          - type
+                                        additionalProperties: false
                                     required:
-                                      - type
+                                      - name
+                                      - attributes
                                     additionalProperties: false
-                                required:
-                                  - name
-                                  - attributes
-                                additionalProperties: false
-                          required:
-                            - name
-                            - type
-                            - ability
-                            - description
-                          additionalProperties: false
+                              required:
+                                - name
+                                - description
+                                - type
+                              additionalProperties: false
+                            - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                object/properties/armor/anyOf/1"
+                            - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                object/properties/skills/anyOf/2"
                     required:
                       - tag
                       - variants
@@ -3850,7 +3853,6 @@ components:
                         value:
                           type: string
                       required:
-                        - name
                         - value
                       additionalProperties: false
                     ACBonus:
@@ -4012,7 +4014,7 @@ components:
                     ability:
                       $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
                         object/properties/actions/items/properties/variants/ite\
-                        ms/properties/ability"
+                        ms/anyOf/0/properties/ability"
                     groups:
                       type: array
                       items:
@@ -4030,25 +4032,14 @@ components:
                             anyOf:
                               - type: array
                                 items:
-                                  type: object
-                                  properties:
-                                    id:
-                                      type: string
-                                    name:
-                                      type: string
-                                  required:
-                                    - id
-                                    - name
-                                  additionalProperties: false
+                                  $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                    object/properties/subtypes/items"
                               - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
                                   object/properties/armor/anyOf/1"
                               - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
                                   object/properties/skills/anyOf/2"
                         required:
                           - tag
-                          - levelMin
-                          - timesDay
-                          - timesDayMax
                           - spells
                         additionalProperties: false
                   additionalProperties: false
@@ -4095,8 +4086,6 @@ components:
                   additionalProperties: true
               required:
                 - name
-                - image
-                - background
               additionalProperties: false
           required:
             - game
@@ -4398,7 +4387,7 @@ paths:
     post:
       summary: Creates a new random npc using the settings provided.
       tags:
-        - npc
+        - npcs
       description: Creates a new random npc using the settings provided.
       requestBody:
         content:
@@ -4581,6 +4570,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/userSchemas/properties/loginResponseSchema"
+  /api/users/:
+    post:
+      summary: "[MS ONLY] Registers a new user in the database."
+      tags:
+        - users
+      description: Registers a new user in the database. Only accessible through
+        monstershuffler.com
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/createUserSchema"
+      responses:
+        "201":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/createUserResponseSchema"
   /api/converter/converter:
     get:
       summary: Converts objects from the old monstershuffler format to the new one.

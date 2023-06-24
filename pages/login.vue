@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="background" />
-    <AuthLoginCard class="login-card" />
+    <div class="card-container">
+      <AuthLoginCard class="login-card" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
   layout: "auth",
+});
+useHead({
+  title: "Login - Monstershuffler.com",
 });
 </script>
 
@@ -31,16 +36,19 @@ definePageMeta({
   //  ;
   z-index: -2;
 }
+.card-container {
+  width: 100vw;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+}
 .login-card {
   width: 100vw;
   height: 100svh;
   @media (min-width: theme("screens.sm")) {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 400px;
-    height: fit-content;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
   }
 }
 </style>

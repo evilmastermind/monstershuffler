@@ -1,6 +1,7 @@
 @import "@/assets/css/fonts.css";
 @import "@/assets/css/breakpoints.css";
 @import "@/assets/css/forms.css";
+@import "@/assets/css/utility.css";
 
 @tailwind base;
 @tailwind components;
@@ -42,4 +43,8 @@ select:focus {
 
 body {
   @apply text-text;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; /* For WebKit-based browsers like Chrome and Safari */
+  -moz-osx-font-smoothing: grayscale; /* For Firefox on macOS */
+  font-smoothing: antialiased; /* For modern browsers */
 }

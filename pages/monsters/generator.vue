@@ -52,8 +52,18 @@
 </template>
 
 <script setup lang="ts">
-import { Console } from "console";
 import { useScreen } from "@/composables/screen";
+useHead({
+  title: "NPC Generator - Monstershuffler.com",
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content:
+        "NPC Generator for Dungeons & Dragons (D&D) 5th Edition, complete with fully-editable stat blocks.",
+    },
+  ],
+});
 
 const { t } = useI18n();
 

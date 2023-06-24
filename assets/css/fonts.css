@@ -60,6 +60,12 @@ h1 {
   color: theme("colors.primary.700");
 }
 
+h2 {
+  font-size: theme("fontSize.7") !important;
+  font-weight: bold !important;
+  text-align: center;
+}
+
 h4 {
   font-weight: bold !important;
   text-align: center;

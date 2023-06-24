@@ -32,6 +32,7 @@
     "login": "Login",
     "loginWithPatreon": "Login with Patreon",
     "failed": "Login failed. Check your credentials try again.",
+    "notYetActivated": "Your account has not been activated yet. Check your email for the activation link, or click the link below to resend it.",
     "notRegisteredYet": "Don't have an account yet?",
     "registerHere": "Register here!",
     "forgotPassword": "Forgot your password?",
@@ -53,6 +54,21 @@
     "greetings14": "Bonjour, mon ami. You look ravishing as always. Have you come to join me in my latest conquest?",
     "greetings15": "Hail, mighty lord of darkness. I bow before your greatness. I am here to offer you my loyalty and service."
   },
+  "registration": {
+    "accountCreation": "Account Creation",
+    "createAccount": "Create Account",
+    "signUpWithPatreon": "Sign up with Patreon",
+    "alreadyRegistered": "Already have an account?",
+    "loginHere": "Log in here!",
+    "passwordsDontMatch": "Passwords don't match.",
+    "emailAlreadyExists": "That email already exists in our database! Check the links below to log in or reset your password.",
+    "unknownError": "Unknown error. Check if the format of your credentials is correct, or try again later.",
+    "successTitle": "Account created!",
+    "successMessage": "We sent an email to {email} with a link to activate your account. If you don't see it, check your spam folder.",
+    "backToHome": "Back to the Home Page"
+  },
+  "username": "Username",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "confirmPassword": "Confirm Password"
 }

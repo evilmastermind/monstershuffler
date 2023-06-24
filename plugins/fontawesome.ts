@@ -2,6 +2,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faBookOpen,
+  faCaretLeft,
+  faCheck,
   faCircle,
   faCloud,
   faCog,
@@ -24,7 +26,9 @@ import {
 
 library.add(
   faBookOpen,
+  faCaretLeft,
   faCircle,
+  faCheck,
   faCloud,
   faCog,
   faDiceD20,

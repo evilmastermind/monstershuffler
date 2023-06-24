@@ -2,7 +2,13 @@
   <HomeHero />
 </template>
 
-<script setup></script>
+<script setup>
+import { defaultHead, defaultDescription } from "@/utils/seo";
+useHead({
+  title: "Home - Monstershuffler.com",
+  meta: [...defaultHead, ...defaultDescription],
+});
+</script>
 
 <style lang="scss" scoped>
 // .flexo {

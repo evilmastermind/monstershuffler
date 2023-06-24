@@ -51,3 +51,10 @@
   box-shadow: inset 0px 3px 5px theme("colors.background-inset.600");
   color: theme("colors.text");
 }
+
+.ms-select:invalid, .ms-input:invalid {
+  color: theme("colors.danger");
+}
+.ms-label .ms-select:invalid, .ms-label .ms-input:invalid {
+  color: theme("colors.danger");
+}

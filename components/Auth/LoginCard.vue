@@ -1,12 +1,16 @@
 <template>
   <MSCard>
     <div class="logo mt-4">
-      <LogoStatic :size="30" class="logo-m" />onstershuffler
+      <NuxtLink :to="localePath({ name: 'index' })">
+        <div class="logo mt-4">
+          <LogoStatic :size="30" class="inline" />onstershuffler
+        </div>
+      </NuxtLink>
     </div>
+    <h2 class="text-center mt-5">{{ $t("login.login") }}</h2>
     <div class="my-5 text-center">
       <q>{{ greetings }}</q>
     </div>
-    <h4 class="text-center">{{ $t("login.login") }}</h4>
     <form class="centered" @submit.prevent="login">
       <label class="ms-label">
         {{ $t("email") }}
@@ -26,12 +30,14 @@
           required
         />
       </label>
-      <p v-if="hasLoginFailed" class="text-danger">{{ $t("login.failed") }}</p>
+      <p v-if="errorMessage" class="text-danger text-center mt-6">
+        {{ errorMessage }}
+      </p>
       <MSButton
         block
         class="mt-6"
         color="primary"
-        :text="t('login.login')"
+        :text="$t('login.login')"
         :loading="isButtonLoading"
       />
       <MSButton
@@ -40,7 +46,7 @@
         type="button"
         color="patreon"
         icon="fa-brands fa-patreon"
-        :text="t('login.loginWithPatreon')"
+        :text="$t('login.loginWithPatreon')"
       />
     </form>
     <div class="mt-6">
@@ -73,8 +79,6 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/stores/user";
-
 const { t } = useI18n();
 const localePath = useLocalePath();
 const router = useRouter();
@@ -83,19 +87,32 @@ const user = useUserStore();
 const credentials = ref({ email: "", password: "" });
 const greetings = t(`login.greetings${Math.ceil(Math.random() * 15)}`);
 const isButtonLoading = ref(false);
-const hasLoginFailed = ref(false);
+const errorMessage = ref("");
 
 async function login() {
   isButtonLoading.value = true;
   const res = await user.login(credentials.value);
   isButtonLoading.value = false;
-  if (res) {
-    hasLoginFailed.value = false;
-    router.push({ path: "/" });
-  } else {
-    hasLoginFailed.value = true;
+  switch (res.status) {
+    case 200:
+      router.push({ path: "/" });
+      break;
+    case 403:
+      errorMessage.value = t("login.notYetActivated");
+      break;
+    default:
+      errorMessage.value = t("login.failed");
+      break;
   }
 }
+
+watch(
+  credentials,
+  () => {
+    errorMessage.value = "";
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped lang="scss">
@@ -107,8 +124,5 @@ async function login() {
   font-weight: bold;
   gap: 0.125em;
   line-height: 1;
-}
-.logo-m {
-  display: inline;
 }
 </style>
