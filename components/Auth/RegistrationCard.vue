@@ -1,22 +1,51 @@
 <template>
   <MSCard>
     <div v-if="!isRegistrationSuccessful" class="registration">
-      <NuxtLink :to="localePath({ name: 'index' })">
+      <!-- <NuxtLink :to="localePath({ name: 'index' })">
         <div class="logo mt-4">
           <LogoStatic :size="30" class="inline" />onstershuffler
         </div>
-      </NuxtLink>
-      <h2 class="text-center my-5">{{ $t("registration.accountCreation") }}</h2>
+      </NuxtLink> -->
+      <h1 class="text-center mt-2">{{ $t("registration.accountCreation") }}</h1>
+      <p class="text-sm mt-4 mb-6">
+        {{ $t("registration.termsAndConditions1") }}
+        <NuxtLink
+          :to="localePath({ name: 'terms-of-service' })"
+          class="underline"
+        >
+          {{ $t("registration.termsAndConditions2") }}
+        </NuxtLink>
+        {{ $t("registration.termsAndConditions3") }}
+        <NuxtLink
+          :to="localePath({ name: 'privacy-policy' })"
+          class="underline"
+        >
+          {{ $t("registration.termsAndConditions4") }}
+        </NuxtLink>
+      </p>
       <MSButton
+        v-if="mode !== 'normalAccount'"
         block
-        class="mt-4 mb-4"
+        class="mt-5"
         type="button"
         color="patreon"
         icon="fa-brands fa-patreon"
         :text="$t('registration.signUpWithPatreon')"
       />
-      <h4 class="mt-5 mb-4">or create an account:</h4>
-      <form class="centered" @submit.prevent="register">
+      <MSButton
+        v-if="mode !== 'normalAccount'"
+        block
+        class="mt-4"
+        type="button"
+        color="primary"
+        :text="$t('registration.orCreateAccount')"
+        @click="mode = 'normalAccount'"
+      />
+      <form
+        v-if="mode === 'normalAccount'"
+        class="centered"
+        @submit.prevent="register"
+      >
         <label class="ms-label">
           {{ $t("username") }}
           <input
@@ -128,6 +157,7 @@ const credentials = ref({
   email: "",
   password: "",
 });
+const mode = ref("choice");
 const confirmPassword = ref("");
 const isButtonLoading = ref(false);
 const isButtonDisabled = ref(false);
@@ -145,6 +175,7 @@ async function register() {
     switch (res.status) {
       case 201:
         isRegistrationSuccessful.value = true;
+        errorMessage.value = "";
         break;
       case 409:
         errorMessage.value = t("registration.emailAlreadyExists");
@@ -157,7 +188,7 @@ async function register() {
 }
 
 watch(
-  credentials,
+  [credentials, confirmPassword],
   () => {
     errorMessage.value = "";
   },

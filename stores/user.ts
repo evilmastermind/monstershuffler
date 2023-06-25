@@ -40,6 +40,17 @@ export const useUserStore = defineStore("user", () => {
         })
       );
     // @ts-ignore: TODO: (nuxt bug?) error is not actually of type Error, and I can't access error.statusCode
+    return handleResponse(data.value, error.value, 201);
+  }
+
+  async function verifyEmail(token: string) {
+    const { data, pending, error } = await useAsyncData("verify", () =>
+      $fetch(`${api}/users/verify`, {
+        method: "GET",
+        body: { token },
+      })
+    );
+    // @ts-ignore: TODO: (nuxt bug?) error is not actually of type Error, and I can't access error.statusCode
     return handleResponse(data.value, error.value, 200);
   }
 
@@ -47,5 +58,6 @@ export const useUserStore = defineStore("user", () => {
     test,
     login,
     register,
+    verifyEmail,
   };
 });

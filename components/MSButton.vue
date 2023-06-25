@@ -157,4 +157,14 @@ function goToURL() {
 .color-patreon:active {
   background-color: theme("colors.patreon.500");
 }
+.color-success {
+  background-color: theme("colors.success");
+  color: theme("colors.background");
+}
+.color-success:hover {
+  background-color: theme("colors.success");
+}
+.color-success:active {
+  background-color: theme("colors.success");
+}
 </style>

@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-import { defaultHead, defaultDescription } from "@/utils/seo";
 useHead({
   title: "Home - Monstershuffler.com",
   meta: [...defaultHead, ...defaultDescription],

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <MSCard>
     <!-- <div class="logo mt-4">
       <NuxtLink :to="localePath({ name: 'index' })">
         <div class="logo mt-4">
@@ -29,17 +29,10 @@
         :loading="isButtonLoading"
       />
     </form>
-  </div>
+  </MSCard>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: "auth",
-});
-useHead({
-  title: "User Reactivation - Monstershuffler.com",
-});
-
 const { t } = useI18n();
 const localePath = useLocalePath();
 const router = useRouter();

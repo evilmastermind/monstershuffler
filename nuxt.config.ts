@@ -6,7 +6,10 @@ export default defineNuxtConfig({
     "/monsters/generator": { ssr: false },
     "/login": { ssr: false },
     "/registration": { ssr: false },
-    "/user-activation": { ssr: false },
+    "/user-reactivation": { ssr: false },
+    "/verify-email": { ssr: false },
+    "/terms-of-service": { ssr: false },
+    "/privacy-policy": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
   // nitro: {

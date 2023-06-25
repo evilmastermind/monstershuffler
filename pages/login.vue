@@ -1,8 +1,79 @@
 <template>
   <div>
-    <div class="background" />
-    <div class="card-container">
-      <AuthLoginCard class="login-card" />
+    <!-- <div class="logo mt-4">
+      <NuxtLink :to="localePath({ name: 'index' })">
+        <div class="logo mt-4">
+          <LogoStatic :size="30" class="inline" />onstershuffler
+        </div>
+      </NuxtLink>
+    </div> -->
+    <h1 class="text-center mt-2">{{ $t("login.login") }}</h1>
+    <div class="mt-2 mb-6 text-center">
+      <q>{{ greetings }}</q>
+    </div>
+    <form class="centered" @submit.prevent="login">
+      <label class="ms-label">
+        {{ $t("email") }}
+        <input
+          v-model="credentials.email"
+          type="email"
+          class="ms-input w-full"
+          required
+        />
+      </label>
+      <label class="ms-label mt-2">
+        {{ $t("password") }}
+        <input
+          v-model="credentials.password"
+          type="password"
+          class="ms-input w-full"
+          required
+        />
+      </label>
+      <p v-if="errorMessage" class="text-danger text-center mt-6">
+        {{ errorMessage }}
+      </p>
+      <MSButton
+        block
+        class="mt-6"
+        color="primary"
+        :text="$t('login.login')"
+        :loading="isButtonLoading"
+      />
+      <MSButton
+        block
+        class="mt-4 mb-4"
+        type="button"
+        color="patreon"
+        icon="fa-brands fa-patreon"
+        :text="$t('login.loginWithPatreon')"
+      />
+    </form>
+    <div class="mt-6">
+      <p class="text-center">
+        {{ $t("login.notRegisteredYet") }}
+        <NuxtLink :to="localePath({ name: 'registration' })" class="underline">
+          {{ $t("login.registerHere") }}
+        </NuxtLink>
+      </p>
+      <p class="text-center mt-6 text-sm">
+        {{ $t("login.forgotPassword") }}
+        <NuxtLink
+          :to="localePath({ name: 'user-reactivation' })"
+          class="underline"
+        >
+          {{ $t("login.clickHere") }}
+        </NuxtLink>
+      </p>
+      <p class="text-center mt-2 text-sm">
+        {{ $t("login.needActivation") }}
+        <NuxtLink
+          :to="localePath({ name: 'user-reactivation' })"
+          class="underline"
+        >
+          {{ $t("login.clickHere") }}
+        </NuxtLink>
+      </p>
     </div>
   </div>
 </template>
@@ -14,41 +85,33 @@ definePageMeta({
 useHead({
   title: "Login - Monstershuffler.com",
 });
-</script>
 
-<style scoped lang="scss">
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-      to bottom,
-      theme("colors.background-inset.500") 0,
-      rgba(var(--colors-background), 0.2) 100%
-    ),
-    url("@/assets/images/login-bg-1.jpg") no-repeat center center/cover;
-  // background-color: t($background2);
-  // background: rgba(t($background2), 0.7)
-  //   url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
-  // background-blend-mode: t($background-blend-mode);
-  //  ;
-  z-index: -2;
-}
-.card-container {
-  width: 100vw;
-  height: 100svh;
-  display: grid;
-  place-items: center;
-}
-.login-card {
-  width: 100vw;
-  height: 100svh;
-  @media (min-width: theme("screens.sm")) {
-    width: 100%;
-    max-width: 450px;
-    height: auto;
+const { t } = useI18n();
+const localePath = useLocalePath();
+const router = useRouter();
+const user = useUserStore();
+
+const credentials = ref({ email: "", password: "" });
+const greetings = t(`login.greetings${Math.ceil(Math.random() * 15)}`);
+const isButtonLoading = ref(false);
+const errorMessage = ref("");
+
+async function login() {
+  isButtonLoading.value = true;
+  const res = await user.login(credentials.value);
+  isButtonLoading.value = false;
+  switch (res.status) {
+    case 200:
+      router.push({ path: "/" });
+      break;
+    case 403:
+      errorMessage.value = t("login.notYetActivated");
+      break;
+    default:
+      errorMessage.value = t("login.failed");
+      break;
   }
 }
-</style>
+</script>
+
+<style scoped lang="scss"></style>

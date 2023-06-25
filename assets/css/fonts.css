@@ -66,6 +66,11 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  font-size: theme("fontSize.6") !important;
+  font-weight: bold !important;
+}
+
 h4 {
   font-weight: bold !important;
   text-align: center;

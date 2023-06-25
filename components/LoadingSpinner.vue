@@ -68,10 +68,10 @@ const innerSize = computed(() => {
 }
 
 .color-primary {
-  border-color: theme("colors.background") transparent transparent transparent;
+  border-color: theme("colors.primary[700]") transparent transparent transparent;
 }
 .color-complementary {
-  border-color: theme("colors.background") transparent transparent transparent;
+  border-color: theme("colors.primary[700]") transparent transparent transparent;
 }
 
 .color-light {

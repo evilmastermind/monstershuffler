@@ -32,7 +32,7 @@
     "login": "Login",
     "loginWithPatreon": "Login with Patreon",
     "failed": "Login failed. Check your credentials try again.",
-    "notYetActivated": "Your account has not been activated yet. Check your email for the activation link, or click the link below to resend it.",
+    "notYetActivated": "Your account has not been activated yet. Check your email for the activation link, or click on the link below to resend it.",
     "notRegisteredYet": "Don't have an account yet?",
     "registerHere": "Register here!",
     "forgotPassword": "Forgot your password?",
@@ -58,6 +58,7 @@
     "accountCreation": "Account Creation",
     "createAccount": "Create Account",
     "signUpWithPatreon": "Sign up with Patreon",
+    "orCreateAccount": "Or create an account",
     "alreadyRegistered": "Already have an account?",
     "loginHere": "Log in here!",
     "passwordsDontMatch": "Passwords don't match.",
@@ -65,7 +66,16 @@
     "unknownError": "Unknown error. Check if the format of your credentials is correct, or try again later.",
     "successTitle": "Account created!",
     "successMessage": "We sent an email to {email} with a link to activate your account. If you don't see it, check your spam folder.",
-    "backToHome": "Back to the Home Page"
+    "backToHome": "Back to the Home Page",
+    "termsAndConditions1": "By creating an account, you agree to our",
+    "termsAndConditions2": "Terms of Service",
+    "termsAndConditions3": "and",
+    "termsAndConditions4": "Privacy Policy"
+  },
+  "reactivation": {
+    "title": "Account reactivation",
+    "message": "Insert your email address and we'll send you a link to activate your account and set up a new password.",
+    "sendEmail": "Send email"
   },
   "username": "Username",
   "email": "Email",
