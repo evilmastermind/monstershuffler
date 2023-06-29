@@ -23,8 +23,9 @@
       </label>
       <MSButton
         block
-        class="mt-6 mb-4"
+        class="mt-4 mb-4"
         color="primary"
+        icon="fa-envelope"
         :text="$t('reactivation.sendEmail')"
         :loading="isButtonLoading"
       />
@@ -33,14 +34,15 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 definePageMeta({
   layout: "auth",
 });
 useHead({
-  title: "User Reactivation - Monstershuffler.com",
+  title: `${t("reactivation.pageTitle")} - Monstershuffler.com`,
 });
 
-const { t } = useI18n();
 const localePath = useLocalePath();
 const router = useRouter();
 const user = useUserStore();

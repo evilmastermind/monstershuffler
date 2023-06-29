@@ -148,6 +148,7 @@
           block
           color="primary"
           :text="t('generator.form.generate')"
+          icon="fa-shuffle"
           @click.prevent="generateNpc"
         />
       </div>

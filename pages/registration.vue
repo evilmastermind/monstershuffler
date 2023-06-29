@@ -148,15 +148,16 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 definePageMeta({
   layout: "auth",
 });
 useHead({
-  title: "Registration - Monstershuffler.com",
+  title: `${t("registration.pageTitle")} - Monstershuffler.com`,
 });
 
 const localePath = useLocalePath();
-const { t } = useI18n();
 const user = useUserStore();
 
 const credentials = ref({

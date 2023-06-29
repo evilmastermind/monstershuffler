@@ -3,7 +3,7 @@
     <div v-if="result !== 'pending'">
       <h4 class="text-primary-700 text-center my-4">
         <font-awesome-icon icon="fa-solid fa-spinner-third" />
-        Verifying your email address...
+        {{ $t("verification.verifying") }}
       </h4>
       <LoadingSpinner :size="4" color="primary" class="mb-8" />
     </div>

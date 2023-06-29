@@ -1,6 +1,14 @@
 {
   "closeLabel": "Close",
+  "home": {
+    "pageTitle": "Home"
+  },
+  "seo": {
+    "pageDescription": "Monstershuffler is a Monster Editor and NPC Generator for Dungeons & Dragons (D&D) 5th Edition."
+  },
   "generator": {
+    "pageTitle": "NPC Generator",
+    "pageDescription": "NPC Generator for Dungeons & Dragons (D&D) 5th Edition, complete with fully-editable stat blocks.", 
     "title": "NPC Generator",
     "description1": "This generator creates <b>fully-editable</b> Non-Player Characters (NPCs) for Dungeons & Dragons 5th Edition.",
     "description2": "Click on the \"cog\" icon  at the bottom-right of each character's Stat Block to edit it or add it to your collection. You can find more Races and Classes in <a href=\"/monsters/community-creations/\">Community Creations</a>, or you can use the <a href=\"/monsters/editor/\">editor</a> to make your own.",
@@ -29,6 +37,7 @@
     }
   },
   "login": {
+    "pageTitle": "Login",
     "login": "Login",
     "loginWithPatreon": "Login with Patreon",
     "failed": "Login failed. Check your credentials try again.",
@@ -55,6 +64,7 @@
     "greetings15": "Hail, mighty lord of darkness. I bow before your greatness. I am here to offer you my loyalty and service."
   },
   "registration": {
+    "pageTitle": "Account Creation",
     "accountCreation": "Account Creation",
     "createAccount": "Create Account",
     "signUpWithPatreon": "Sign up with Patreon",
@@ -73,9 +83,16 @@
     "termsAndConditions4": "Privacy Policy"
   },
   "reactivation": {
+    "pageTitle": "Account Reactivation",
     "title": "Account reactivation",
     "message": "Insert your email address and we'll send you a link to activate your account and set up a new password.",
     "sendEmail": "Send email"
+  },
+  "verification": {
+    "verifying": "Verifying your email address...",
+    "title": "Account verification",
+    "message": "Your account has been successfully activated. You can now log in with your credentials.",
+    "backToLogin": "Back to Login"
   },
   "username": "Username",
   "email": "Email",

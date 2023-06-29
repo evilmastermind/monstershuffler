@@ -304,6 +304,54 @@ export interface paths {
       };
     };
   };
+  "/api/users/verify": {
+    /**
+     * [MS ONLY] Verifies the user's email and activates the account. 
+     * @description Activates an account by providing the validation token sent via email. Only accessible through monstershuffler.com
+     */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["userSchemas"]["activateUserSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["userSchemas"]["loginResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/users/reactivation": {
+    /**
+     * [MS ONLY] Resends the activation email to the user. 
+     * @description Resends the activation email to the user. The user will have to reset their password as well. Only accessible through monstershuffler.com
+     */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["userSchemas"]["reactivateUserSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": string;
+          };
+        };
+        /** @description Default Response */
+        404: {
+          content: {
+            "application/json": string;
+          };
+        };
+      };
+    };
+  };
   "/api/converter/converter": {
     /**
      * Converts objects from the old monstershuffler format to the new one. 
@@ -1567,6 +1615,13 @@ export interface components {
         email: components["schemas"]["userSchemas"]["createUserSchema"]["email"];
         username: components["schemas"]["userSchemas"]["createUserSchema"]["username"];
         id: number;
+      };
+      activateUserSchema: {
+        token: string;
+      };
+      reactivateUserSchema: {
+        /** Format: email */
+        email: string;
       };
       loginSchema: {
         /** Format: email */

@@ -79,14 +79,15 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 definePageMeta({
   layout: "auth",
 });
 useHead({
-  title: "Login - Monstershuffler.com",
+  title: `${t("login.pageTitle")} - Monstershuffler.com`,
 });
 
-const { t } = useI18n();
 const localePath = useLocalePath();
 const router = useRouter();
 const user = useUserStore();
