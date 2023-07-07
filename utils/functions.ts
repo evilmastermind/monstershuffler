@@ -5,6 +5,7 @@ export function debounce(cb: Function, delay = 1000): Function {
   return (...args: string[]) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
+      // eslint-disable-next-line n/no-callback-literal
       cb(...args);
     }, delay);
   };
@@ -12,6 +13,20 @@ export function debounce(cb: Function, delay = 1000): Function {
 
 export function capitalizeFirst(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function hasDefined(object: any, key: string): boolean {
+  return (
+    Object.hasOwn(object, key) &&
+    object[key] !== undefined &&
+    object[key] !== null &&
+    object[key] !== ""
+  );
+}
+export function createKeyIfUndefined(object: any, key: string): void {
+  if (!Object.hasOwn(object, key)) {
+    object[key] = {};
+  }
 }
 
 export function handleResponse<T>(
@@ -30,4 +45,8 @@ export function handleResponse<T>(
       status,
     };
   }
+}
+
+export function random(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }

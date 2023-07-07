@@ -1,0 +1,25 @@
+<template>
+  <div class="logo mt-4">
+    <NuxtLink :to="localePath({ name: 'index' })">
+      <div class="logo mt-4">
+        <LogoStatic :size="30" class="inline" />onstershuffler
+      </div>
+    </NuxtLink>
+  </div>
+</template>
+
+<script setup lang="ts">
+const localePath = useLocalePath();
+</script>
+
+<style scoped lang="scss">
+.logo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  gap: 0.125em;
+  line-height: 1;
+}
+</style>

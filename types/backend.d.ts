@@ -115,6 +115,32 @@ export interface paths {
       };
     };
   };
+  "/api/npcs/four": {
+    /**
+     * [MS ONLY] Creates four new random npcs using the settings provided. 
+     * @description Creates four new random npcs using the settings provided. Only accessible through monstershuffler.com
+     */
+    post: {
+      parameters: {
+        header?: {
+          authorization?: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
+          };
+        };
+      };
+    };
+  };
   "/api/professions/": {
     /**
      * Returns a list of all available professions in the db. 
@@ -309,7 +335,7 @@ export interface paths {
      * [MS ONLY] Verifies the user's email and activates the account. 
      * @description Activates an account by providing the validation token sent via email. Only accessible through monstershuffler.com
      */
-    post: {
+    put: {
       requestBody?: {
         content: {
           "application/json": components["schemas"]["userSchemas"]["activateUserSchema"];
@@ -347,6 +373,54 @@ export interface paths {
         404: {
           content: {
             "application/json": string;
+          };
+        };
+      };
+    };
+  };
+  "/api/users/pwdreset": {
+    /**
+     * [MS ONLY] Resets the user's password. 
+     * @description Resets the user's password. Only accessible through monstershuffler.com
+     */
+    put: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["userSchemas"]["resetPasswordSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["userSchemas"]["loginResponseSchema"];
+          };
+        };
+        /** @description Default Response */
+        404: {
+          content: {
+            "application/json": string;
+          };
+        };
+      };
+    };
+  };
+  "/api/users/me": {
+    /**
+     * [MS ONLY] Returns the details of the user corresponding to the given token. 
+     * @description Returns the details of the user corresponding to the given token. Only accessible through monstershuffler.com
+     */
+    get: {
+      parameters: {
+        header: {
+          authorization: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["userSchemas"]["getUserResponseSchema"];
           };
         };
       };
@@ -498,7 +572,7 @@ export interface components {
                         name?: string;
                         cost?: string;
                         weight?: string;
-                        damageType: string;
+                        damageType?: string;
                         special?: string;
                         die?: string;
                         diceNumber?: string;
@@ -782,7 +856,7 @@ export interface components {
                             name?: string;
                             cost?: string;
                             weight?: string;
-                            damageType: string;
+                            damageType?: string;
                             special?: string;
                             die?: string;
                             diceNumber?: string;
@@ -889,6 +963,7 @@ export interface components {
               name: string;
               /** @enum {string} */
               pronouns?: "male" | "female" | "neutral" | "thing";
+              alignment?: [number,number,number];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
               subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
@@ -1078,9 +1153,9 @@ export interface components {
             abilitiesBase?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilitiesBase"];
             alignment?: [number,number,number];
             /** @enum {string} */
-            alignmentMoral?: "Good" | "Neutral" | "Evil" | "Any" | "Unaligned";
+            alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
             /** @enum {string} */
-            alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any";
+            alignmentMoral?: "Good" | "Neutral" | "Evil" | "Any";
             smallbackground?: string;
             trait?: string;
             feeling?: string;
@@ -1099,10 +1174,13 @@ export interface components {
               name: "estimated";
             };
           };
-          statistics?: {
-            [key: string]: unknown;
+          statistics: {
+            alignment: (string)[];
           };
         };
+      };
+      createFourRandomNpcsResponseSchema: {
+        npcs: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"])[];
       };
     };
     professionSchemas: {
@@ -1233,7 +1311,7 @@ export interface components {
                         name?: string;
                         cost?: string;
                         weight?: string;
-                        damageType: string;
+                        damageType?: string;
                         special?: string;
                         die?: string;
                         diceNumber?: string;
@@ -1472,7 +1550,7 @@ export interface components {
                         name?: string;
                         cost?: string;
                         weight?: string;
-                        damageType: string;
+                        damageType?: string;
                         special?: string;
                         die?: string;
                         diceNumber?: string;
@@ -1645,6 +1723,10 @@ export interface components {
       updateUserSchema: {
         username: string;
         avatar: string;
+      };
+      resetPasswordSchema: {
+        token: string;
+        password: string;
       };
     };
   };

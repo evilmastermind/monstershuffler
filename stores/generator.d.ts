@@ -6,13 +6,16 @@ export type getRaceWithVariantsListResponseSchema =
 export type getClassWithVariantsListResponseSchema =
   components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"];
 
-  export type getProfessionListResponseSchema =
+export type getProfessionListResponseSchema =
   components["schemas"]["professionSchemas"]["getProfessionListResponseSchema"];
 
 export type Profession = getProfessionListResponseSchema["list"][number];
 
 export type createRandomNpcInputSchema = components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
 export type createRandomNpcResponseSchema = components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
+export type createFourRandomNpcsResponseSchema = components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
+
+export type Character = createRandomNpcResponseSchema["npc"];
 
 export type ObjectOrVariant = {
   id: number;

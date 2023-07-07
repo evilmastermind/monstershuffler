@@ -9,7 +9,10 @@
   >
     <slot />
     <transition :name="transition">
-      <div class="dropdown-menu rounded shadow-md" :class="dropdownMenuClass">
+      <div
+        class="dropdown-menu rounded drop-shadow-lg py-2"
+        :class="dropdownMenuClass"
+      >
         <slot name="dropdown" />
       </div>
     </transition>
@@ -90,6 +93,7 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   justify-content: flex-start;
   width: theme("spacing.11");
   align-items: stretch;
+  text-align: left;
   // border-radius: 5px;
   background-color: theme("colors.background");
   transform-origin: top center;

@@ -420,7 +420,6 @@ components:
                                                 items:
                                                   type: string
                                             required:
-                                              - damageType
                                               - properties
                                             additionalProperties: false
                                           - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
@@ -1311,7 +1310,6 @@ components:
                                                         items:
                                                           type: string
                                                     required:
-                                                      - damageType
                                                       - properties
                                                     additionalProperties: false
                                                   - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
@@ -1671,6 +1669,14 @@ components:
                             - female
                             - neutral
                             - thing
+                        alignment:
+                          type: array
+                          minItems: 3
+                          maxItems: 3
+                          items:
+                            - type: number
+                            - type: number
+                            - type: number
                         armor:
                           anyOf:
                             - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
@@ -2497,20 +2503,20 @@ components:
                         - type: number
                         - type: number
                         - type: number
-                    alignmentMoral:
-                      type: string
-                      enum:
-                        - Good
-                        - Neutral
-                        - Evil
-                        - Any
-                        - Unaligned
                     alignmentEthical:
                       type: string
                       enum:
                         - Lawful
                         - Neutral
                         - Chaotic
+                        - Any
+                        - Unaligned
+                    alignmentMoral:
+                      type: string
+                      enum:
+                        - Good
+                        - Neutral
+                        - Evil
                         - Any
                     smallbackground:
                       type: string
@@ -2564,17 +2570,36 @@ components:
                   additionalProperties: false
                 statistics:
                   type: object
-                  properties: {}
-                  additionalProperties: true
+                  properties:
+                    alignment:
+                      type: array
+                      items:
+                        type: string
+                  required:
+                    - alignment
+                  additionalProperties: false
               required:
                 - character
+                - statistics
               additionalProperties: false
           required:
             - npc
           additionalProperties: false
+        createFourRandomNpcsResponseSchema:
+          type: object
+          properties:
+            npcs:
+              type: array
+              items:
+                $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                  /properties/npc"
+          required:
+            - npcs
+          additionalProperties: false
       required:
         - createRandomNpcInputSchema
         - createRandomNpcResponseSchema
+        - createFourRandomNpcsResponseSchema
       additionalProperties: false
     professionSchemas:
       type: object
@@ -3005,7 +3030,6 @@ components:
                                                     items:
                                                       type: string
                                                 required:
-                                                  - damageType
                                                   - properties
                                                 additionalProperties: false
                                               - $ref: "#/components/schemas/professionSchemas/properties/createProfessionSchema\
@@ -3804,7 +3828,6 @@ components:
                                                 items:
                                                   type: string
                                             required:
-                                              - damageType
                                               - properties
                                             additionalProperties: false
                                           - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
@@ -4309,6 +4332,18 @@ components:
             - username
             - avatar
           additionalProperties: false
+        resetPasswordSchema:
+          type: object
+          properties:
+            token:
+              type: string
+            password:
+              type: string
+              minLength: 8
+          required:
+            - token
+            - password
+          additionalProperties: false
       required:
         - createUserSchema
         - createUserResponseSchema
@@ -4318,6 +4353,7 @@ components:
         - loginResponseSchema
         - getUserResponseSchema
         - updateUserSchema
+        - resetPasswordSchema
       additionalProperties: false
 paths:
   /api/classes/:
@@ -4426,6 +4462,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema"
+  /api/npcs/four:
+    post:
+      summary: "[MS ONLY] Creates four new random npcs using the settings provided."
+      tags:
+        - npcs
+      description: Creates four new random npcs using the settings provided. Only
+        accessible through monstershuffler.com
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcInputSchema"
+      parameters:
+        - in: header
+          name: authorization
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/npcSchemas/properties/createFourRandomNpcsResponseS\
+                  chema"
   /api/professions/:
     get:
       summary: Returns a list of all available professions in the db.
@@ -4609,7 +4671,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/userSchemas/properties/createUserResponseSchema"
   /api/users/verify:
-    post:
+    put:
       summary: "[MS ONLY] Verifies the user's email and activates the account."
       tags:
         - users
@@ -4653,6 +4715,51 @@ paths:
             application/json:
               schema:
                 type: string
+  /api/users/pwdreset:
+    put:
+      summary: "[MS ONLY] Resets the user's password."
+      tags:
+        - users
+      description: Resets the user's password. Only accessible through monstershuffler.com
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userSchemas/properties/resetPasswordSchema"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/loginResponseSchema"
+        "404":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: string
+  /api/users/me:
+    get:
+      summary: "[MS ONLY] Returns the details of the user corresponding to the given
+        token."
+      tags:
+        - users
+      description: Returns the details of the user corresponding to the given token.
+        Only accessible through monstershuffler.com
+      parameters:
+        - in: header
+          name: authorization
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userSchemas/properties/getUserResponseSchema"
   /api/converter/converter:
     get:
       summary: Converts objects from the old monstershuffler format to the new one.

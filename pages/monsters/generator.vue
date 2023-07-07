@@ -44,7 +44,8 @@
           />
         </div>
         <div class="npcs centered pt-4">
-          <GeneratorIntro />
+          <GeneratorIntro v-if="!session.length" />
+          <GeneratorSession v-else />
         </div>
       </div>
     </div>
@@ -55,6 +56,7 @@
 import { useScreen } from "@/composables/screen";
 
 const { t } = useI18n();
+const generator = useGeneratorStore();
 
 useHead({
   title: `${t("generator.pageTitle")} - Monstershuffler.com`,
@@ -68,6 +70,7 @@ useHead({
 });
 
 const { width, medium } = useScreen();
+const { session } = storeToRefs(generator);
 const form = ref(null);
 
 const isFormShownOnMobile = ref(true);

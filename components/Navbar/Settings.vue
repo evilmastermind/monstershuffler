@@ -11,24 +11,43 @@
       </div>
     </div>
     <template #dropdown>
-      <a href="#something" class="dropdown-link"
-        ><span>Span</span> Do something</a
+      <NuxtLink
+        v-if="!user.token"
+        :to="localePath({ name: 'login' })"
+        class="md:hidden dropdown-link"
+        >{{ $t("navbar.login") }}</NuxtLink
       >
-      <a href="#something" class="dropdown-link">Something else</a>
-      <a href="/login" class="md:hidden dropdown-link">Login</a>
-      <a href="/registration" class="md:hidden dropdown-link">Register</a>
-      <span id="button-theme-mobile">
+      <NuxtLink
+        v-if="!user.token"
+        :to="localePath({ name: 'registration' })"
+        class="md:hidden dropdown-link"
+        >{{ $t("navbar.register") }}</NuxtLink
+      >
+      <button
+        v-if="user.token"
+        class="md:hidden dropdown-link text-left bold"
+        @click="user.logout()"
+      >
+        {{ $t("navbar.logout") }}
+      </button>
+      <p id="button-theme-mobile">
         Change theme: <span class="inline-block"><NavbarTheme /></span>
-      </span>
-      <NavbarSupport id="links-support-mobile" />
+      </p>
+      <div class="mt-4">
+        <NavbarSupport id="links-support-mobile" />
+      </div>
     </template>
   </MSMenu>
 </template>
-
+<script setup lang="ts">
+const localePath = useLocalePath();
+const user = useUserStore();
+</script>
 <style lang="scss" scoped>
 .dropdown-link {
   color: theme("colors.text");
   text-decoration: none;
+  @apply px-2;
 }
 .dropdown-link:hover,
 .dropdown-link:active {
@@ -45,7 +64,9 @@
 }
 @media (max-width: 1100px) {
   #button-theme-mobile {
-    display: inline-block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
   #links-support-mobile {
     display: flex;

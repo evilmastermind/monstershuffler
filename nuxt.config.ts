@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "/verify-email": { ssr: false },
     "/terms-of-service": { ssr: false },
     "/privacy-policy": { ssr: false },
+    "/reset-password": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
   // nitro: {
@@ -41,7 +42,7 @@ export default defineNuxtConfig({
     precompile: { strictMessage: false, escapeHtml: false },
   },
   pinia: {
-    autoImports: ["defineStore"],
+    autoImports: ["defineStore", "storeToRefs"],
   },
   // css: ["@/assets/css-reset.css"],
   // vite: {

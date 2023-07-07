@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- <div class="logo mt-4">
-      <NuxtLink :to="localePath({ name: 'index' })">
-        <div class="logo mt-4">
-          <LogoStatic :size="30" class="inline" />onstershuffler
-        </div>
-      </NuxtLink>
-    </div> -->
     <h1 class="text-center mt-2">{{ $t("login.login") }}</h1>
     <div class="mt-2 mb-6 text-center">
       <q>{{ greetings }}</q>
@@ -75,6 +68,7 @@
         </NuxtLink>
       </p>
     </div>
+    <AuthLogoFooter />
   </div>
 </template>
 

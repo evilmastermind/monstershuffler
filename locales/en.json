@@ -1,4 +1,19 @@
 {
+  "navbar": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "userSettings": "User Settings",
+    "changeTheme": "Change Theme",
+    "menu": {
+      "home": "Home",
+      "generator": "Generator",
+      "editor": "Editor",
+      "dmScreen": "DM Screen",
+      "monsters": "Monsters",
+      "settings": "Settings"
+    }
+  },
   "closeLabel": "Close",
   "home": {
     "pageTitle": "Home"
@@ -86,13 +101,24 @@
     "pageTitle": "Account Reactivation",
     "title": "Account reactivation",
     "message": "Insert your email address and we'll send you a link to activate your account and set up a new password.",
-    "sendEmail": "Send email"
+    "sendEmail": "Send email",
+    "emailSentMaybe": "If the email address you entered is correct, you should receive an email with a link to reactivate your account."
   },
   "verification": {
-    "verifying": "Verifying your email address...",
+    "pageTitle": "Account Verification",
     "title": "Account verification",
-    "message": "Your account has been successfully activated. You can now log in with your credentials.",
+    "verifying": "Verifying your email address...",
+    "success": "Your account has been successfully activated. Redirecting to the home page...",
+    "failure": "Account verification failed. Check if the link you clicked is correct.",
     "backToLogin": "Back to Login"
+  },
+  "resetPassword": {
+    "pageTitle": "Password Reset",
+    "title": "Password Reset",
+    "changePassword": "Change Password",
+    "success": "Your password has been successfully changed. Redirecting to the home page...",
+    "tokenNotFound": "Password reset token not found. Check if the link you clicked is correct.",
+    "unknownError": "Unknown error. Check if the format of your credentials is correct, or try again later."
   },
   "username": "Username",
   "email": "Email",

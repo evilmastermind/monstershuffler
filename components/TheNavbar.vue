@@ -1,7 +1,7 @@
 <template>
   <div class="nav-gradient h-8" />
   <nav class="navbar centered h-8">
-    <div class="navbar-menu-container lg-max">
+    <div class="navbar-menu-container justify-center md:justify-between lg-max">
       <div class="navbar-menu gap-5 justify-center md:justify-start">
         <NavbarLogo name="Home" route="Home" icon="fa-user" />
         <NavbarLink
@@ -50,7 +50,6 @@
 }
 .navbar-menu-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 .navbar-menu {

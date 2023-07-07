@@ -1,11 +1,11 @@
 <template>
-  <div class="button-theme p-1 noselect" @click="setTheme()">
+  <button class="button-theme p-1 noselect" @click="setTheme()">
     <font-awesome-icon
       :icon="`fas fa-solid ${icon}`"
       class="button-theme-icon"
       size="1x"
     />
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -32,8 +32,7 @@ const themes: Theme[] = [
 ];
 
 const icon: Ref<string> = ref("fa-sun");
-const currentTheme: Ref<string | null> =
-  ref(localStorage.getItem("appTheme")) || null;
+const currentTheme: Ref<string | null> = ref(null) || null;
 
 // setting initial theme
 const setInitialTheme = () => {
@@ -69,6 +68,14 @@ function setTheme(themeName?: string) {
     localStorage.setItem("appTheme", currentTheme.value);
   }
 }
+
+onMounted(() => {
+  const appTheme = localStorage.getItem("appTheme");
+  if (appTheme) {
+    currentTheme.value = appTheme;
+    setTheme(appTheme);
+  }
+});
 </script>
 <style lang="scss" scoped>
 .button-theme {

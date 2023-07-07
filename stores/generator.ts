@@ -1,33 +1,35 @@
 import {
+  Character,
   ObjectOrVariant,
   getRaceWithVariantsListResponseSchema,
   getClassWithVariantsListResponseSchema,
   getProfessionListResponseSchema,
   createRandomNpcInputSchema,
-  createRandomNpcResponseSchema,
-} from "./generator.d";
+  createFourRandomNpcsResponseSchema,
+} from "@/stores/generator.d";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
 
 export const useGeneratorStore = defineStore("generator", () => {
-  async function getRandomNpc(
-    object: createRandomNpcInputSchema
-  ): Promise<createRandomNpcResponseSchema["npc"] | false> {
+  const session: Ref<Character[][]> = ref([]);
+
+  async function getRandomNpcs(object: createRandomNpcInputSchema) {
     const {
       data,
       // pending,
       // error,
       // refresh,
-    } = await useAsyncData<createRandomNpcResponseSchema>("npc", () =>
-      $fetch(`${api}/npcs`, {
+    } = await useAsyncData<createFourRandomNpcsResponseSchema>("npc", () =>
+      $fetch(`${api}/npcs/four`, {
         method: "POST",
         body: object,
       })
     );
 
-    if (data?.value?.npc) {
-      return data.value.npc;
+    if (data?.value?.npcs) {
+      session.value.push(data.value.npcs);
+      return true;
     } else {
       return false;
     }
@@ -124,9 +126,10 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   return {
+    session,
     getRacesWithVariants,
     getClassesWithVariants,
     getProfessions,
-    getRandomNpc,
+    getRandomNpcs,
   };
 });

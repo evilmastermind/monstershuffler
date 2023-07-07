@@ -1,11 +1,6 @@
 <template>
   <div>
     <div v-if="!isRegistrationSuccessful" class="registration">
-      <!-- <NuxtLink :to="localePath({ name: 'index' })">
-        <div class="logo mt-4">
-          <LogoStatic :size="30" class="inline" />onstershuffler
-        </div>
-      </NuxtLink> -->
       <h1 class="text-center mt-2">{{ $t("registration.accountCreation") }}</h1>
       <p class="text-sm mt-4 mb-6">
         {{ $t("registration.termsAndConditions1") }}
@@ -98,7 +93,7 @@
           :disabled="isButtonDisabled"
         />
       </form>
-      <div class="mt-6">
+      <div class="mt-6 mb-4">
         <p class="text-center">
           {{ $t("registration.alreadyRegistered") }}
           <NuxtLink :to="localePath({ name: 'login' })" class="underline">
@@ -135,7 +130,7 @@
       </p>
       <MSButton
         block
-        class="mt-5"
+        class="mt-5 mb-4"
         color="primary"
         :text="$t('registration.backToHome')"
         :loading="isButtonLoading"
@@ -144,6 +139,7 @@
         to="index"
       />
     </div>
+    <AuthLogoFooter />
   </div>
 </template>
 
@@ -204,14 +200,4 @@ watch(
 );
 </script>
 
-<style scoped lang="scss">
-.logo {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: bold;
-  gap: 0.125em;
-  line-height: 1;
-}
-</style>
+<style scoped lang="scss"></style>

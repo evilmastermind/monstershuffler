@@ -178,7 +178,7 @@ const {
   getRacesWithVariants,
   getClassesWithVariants,
   getProfessions,
-  getRandomNpc,
+  getRandomNpcs,
 } = useGeneratorStore();
 
 const races = ref<ObjectOrVariant[]>([]);
@@ -199,7 +199,7 @@ const options = ref<createRandomNpcInputSchema>({
 
 async function generateNpc() {
   prepareOptions();
-  const response = await getRandomNpc(options.value);
+  const response = await getRandomNpcs(options.value);
   if (response) {
     // alert(JSON.stringify(response, null, 2));
   }

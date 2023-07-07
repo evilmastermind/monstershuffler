@@ -1,17 +1,15 @@
 <template>
   <div>
-    <!-- <div class="logo mt-4">
-      <NuxtLink :to="localePath({ name: 'index' })">
-        <div class="logo mt-4">
-          <LogoStatic :size="30" class="inline" />onstershuffler
-        </div>
-      </NuxtLink>
-    </div> -->
-    <h1 class="text-center mt-5">{{ $t("reactivation.title") }}</h1>
-    <p class="mt-2 mb-6 text-center">
-      {{ $t("reactivation.message") }}
-    </p>
-    <form class="centered" @submit.prevent="login">
+    <h1 class="text-center mt-2">{{ $t("reactivation.title") }}</h1>
+
+    <form
+      v-if="!hasRequestBeenSent"
+      class="centered"
+      @submit.prevent="reactivate"
+    >
+      <p class="mt-2 mb-6 text-center">
+        {{ $t("reactivation.message") }}
+      </p>
       <label class="ms-label">
         {{ $t("email") }}
         <input
@@ -30,6 +28,10 @@
         :loading="isButtonLoading"
       />
     </form>
+    <div v-else class="mt-6 mb-6 text-center">
+      <p>{{ $t("reactivation.emailSentMaybe") }}</p>
+    </div>
+    <AuthLogoFooter />
   </div>
 </template>
 
@@ -43,30 +45,22 @@ useHead({
   title: `${t("reactivation.pageTitle")} - Monstershuffler.com`,
 });
 
-const localePath = useLocalePath();
 const router = useRouter();
 const user = useUserStore();
 
-const credentials = ref({ email: "", password: "" });
-const greetings = t(`login.greetings${Math.ceil(Math.random() * 15)}`);
+const credentials = ref({ email: "" });
 const isButtonLoading = ref(false);
 const errorMessage = ref("");
+const hasRequestBeenSent = ref(false);
 
-async function login() {
+async function reactivate() {
   isButtonLoading.value = true;
-  const res = await user.login(credentials.value);
+  await user.reactivate(credentials.value.email);
   isButtonLoading.value = false;
-  switch (res.status) {
-    case 200:
-      router.push({ path: "/" });
-      break;
-    case 403:
-      errorMessage.value = t("login.notYetActivated");
-      break;
-    default:
-      errorMessage.value = t("login.failed");
-      break;
-  }
+  hasRequestBeenSent.value = true;
+  setTimeout(() => {
+    router.push({ path: "/" });
+  }, 5000);
 }
 
 watch(
@@ -78,14 +72,4 @@ watch(
 );
 </script>
 
-<style scoped lang="scss">
-.logo {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: bold;
-  gap: 0.125em;
-  line-height: 1;
-}
-</style>
+<style scoped lang="scss"></style>
