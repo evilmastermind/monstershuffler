@@ -77,9 +77,6 @@ const currentRoute = computed(() => {
   }
 }
 @media (max-width: theme("screens.nav")) {
-  .navbar-link-name {
-    display: none;
-  }
   .navbar-icon {
     display: inline-block;
   }

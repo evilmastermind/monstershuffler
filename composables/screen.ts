@@ -5,10 +5,24 @@ export function useScreen() {
   const medium = ref(0);
   const large = ref(0);
   const xLarge = ref(0);
+  const updateDebounce = debounce(() => update(), 20);
+
+  const smAndDown = computed(() => width.value <= small.value);
+  const smAndUp = computed(() => width.value >= small.value);
+  const mdAndDown = computed(() => width.value <= medium.value);
+  const mdAndUp = computed(() => width.value >= medium.value);
+  const lgAndDown = computed(() => width.value <= large.value);
+  const lgAndUp = computed(() => width.value >= large.value);
+  const xlAndDown = computed(() => width.value <= xLarge.value);
+  const xlAndUp = computed(() => width.value >= xLarge.value);
 
   function update() {
     width.value = window.innerWidth;
     height.value = window.innerHeight;
+  }
+
+  function callUpdateDebounce() {
+    updateDebounce();
   }
 
   function readCssVariable(variableName: string) {
@@ -19,7 +33,7 @@ export function useScreen() {
   }
 
   onMounted(() => {
-    window.addEventListener("resize", update);
+    window.addEventListener("resize", callUpdateDebounce);
     small.value = 480;
     medium.value = 1000;
     large.value = 1200;
@@ -27,5 +41,19 @@ export function useScreen() {
   });
   onUnmounted(() => window.removeEventListener("resize", update));
 
-  return { width, height, small, medium, large };
+  return {
+    width,
+    height,
+    small,
+    medium,
+    large,
+    smAndDown,
+    smAndUp,
+    mdAndDown,
+    mdAndUp,
+    lgAndDown,
+    lgAndUp,
+    xlAndDown,
+    xlAndUp,
+  };
 }

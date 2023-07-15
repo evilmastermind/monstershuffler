@@ -45,25 +45,19 @@
     <div class="mt-6">
       <p class="text-center">
         {{ $t("login.notRegisteredYet") }}
-        <NuxtLink :to="localePath({ name: 'registration' })" class="underline">
+        <NuxtLink :to="localePath({ name: 'registration' })">
           {{ $t("login.registerHere") }}
         </NuxtLink>
       </p>
       <p class="text-center mt-6 text-sm">
         {{ $t("login.forgotPassword") }}
-        <NuxtLink
-          :to="localePath({ name: 'user-reactivation' })"
-          class="underline"
-        >
+        <NuxtLink :to="localePath({ name: 'user-reactivation' })">
           {{ $t("login.clickHere") }}
         </NuxtLink>
       </p>
       <p class="text-center mt-2 text-sm">
         {{ $t("login.needActivation") }}
-        <NuxtLink
-          :to="localePath({ name: 'user-reactivation' })"
-          class="underline"
-        >
+        <NuxtLink :to="localePath({ name: 'user-reactivation' })">
           {{ $t("login.clickHere") }}
         </NuxtLink>
       </p>

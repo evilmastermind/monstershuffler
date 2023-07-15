@@ -9,7 +9,10 @@
       </h1>
       <div class="options centered mt-6 my-4">
         <label class="cursor-pointer">
-          <MSSlider v-model:is-enabled="modeBoolean" />
+          <MSSlider
+            v-model:is-enabled="modeBoolean"
+            :label="$t(`generator.${mode}ModeTitle`)"
+          />
           <span class="bold ml-2 inline">
             {{ $t(`generator.${mode}ModeTitle`) }}
           </span>

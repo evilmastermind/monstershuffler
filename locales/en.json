@@ -1,5 +1,6 @@
 {
   "navbar": {
+    "menu:": "Menu:",
     "login": "Login",
     "register": "Register",
     "logout": "Logout",

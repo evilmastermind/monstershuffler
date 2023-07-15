@@ -47,54 +47,8 @@
   src: url("@/assets/fonts/AusweisHollow.ttf") ;
 }
 
-
-b   {font-family: inherit; font-weight: bold;}
-i   {font-family: inherit; font-style: italic;}
-
-h1 {
-  font-size: theme("fontSize.8") !important;
-  font-weight: bold !important;
-  font-family: MrsEavesSmallCaps;
-  text-align: center;
-  letter-spacing: 2px;
-  color: theme("colors.primary.700");
-}
-
-h2 {
-  font-size: theme("fontSize.7") !important;
-  font-weight: bold !important;
-  text-align: center;
-}
-
-h3 {
-  font-size: theme("fontSize.6") !important;
-  font-weight: bold !important;
-}
-
-h4 {
-  font-weight: bold !important;
-  text-align: center;
-}
-
-p {
-  margin: theme("spacing.2") 0;
-  line-height: theme("spacing.5");
-}
-
-q {
-  font-family: ScalaSansOffc;
-  font-style: italic;
-  font-size: 1.1em;
-}
-
-a {
-  font-weight: 600;
-  text-decoration: none;
-    color: theme("colors.primary.700");
-}
-
 .bold {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .text-shadow {

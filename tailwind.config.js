@@ -3,6 +3,9 @@ const srcDir = ".";
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  // corePlugins: {
+  //   preflight: false,
+  // },
   theme: {
     screens: {
       sm: "480px",

@@ -4,17 +4,11 @@
       <h1 class="text-center mt-2">{{ $t("registration.accountCreation") }}</h1>
       <p class="text-sm mt-4 mb-6">
         {{ $t("registration.termsAndConditions1") }}
-        <NuxtLink
-          :to="localePath({ name: 'terms-of-service' })"
-          class="underline"
-        >
+        <NuxtLink :to="localePath({ name: 'terms-of-service' })">
           {{ $t("registration.termsAndConditions2") }}
         </NuxtLink>
         {{ $t("registration.termsAndConditions3") }}
-        <NuxtLink
-          :to="localePath({ name: 'privacy-policy' })"
-          class="underline"
-        >
+        <NuxtLink :to="localePath({ name: 'privacy-policy' })">
           {{ $t("registration.termsAndConditions4") }}
         </NuxtLink>
       </p>
@@ -96,25 +90,19 @@
       <div class="mt-6 mb-4">
         <p class="text-center">
           {{ $t("registration.alreadyRegistered") }}
-          <NuxtLink :to="localePath({ name: 'login' })" class="underline">
+          <NuxtLink :to="localePath({ name: 'login' })">
             {{ $t("registration.loginHere") }}
           </NuxtLink>
         </p>
         <p class="text-center mt-6 text-sm">
           {{ $t("login.forgotPassword") }}
-          <NuxtLink
-            :to="localePath({ name: 'user-reactivation' })"
-            class="underline"
-          >
+          <NuxtLink :to="localePath({ name: 'user-reactivation' })">
             {{ $t("login.clickHere") }}
           </NuxtLink>
         </p>
         <p class="text-center mt-2 text-sm">
           {{ $t("login.needActivation") }}
-          <NuxtLink
-            :to="localePath({ name: 'user-reactivation' })"
-            class="underline"
-          >
+          <NuxtLink :to="localePath({ name: 'user-reactivation' })">
             {{ $t("login.clickHere") }}
           </NuxtLink>
         </p>

@@ -4,6 +4,7 @@
       <input
         v-model="currentValue"
         type="checkbox"
+        :aria-label="label"
         @change="emit('update:isEnabled', currentValue)"
       />
       <span class="slider round"></span>
@@ -17,6 +18,10 @@ const p = defineProps({
   isEnabled: {
     type: Boolean,
     default: false,
+  },
+  label: {
+    type: String,
+    default: "",
   },
 });
 

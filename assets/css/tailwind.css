@@ -1,9 +1,58 @@
+@import "@/assets/css/normalize.css";
 @import "@/assets/css/fonts.css";
 @import "@/assets/css/breakpoints.css";
 @import "@/assets/css/forms.css";
 @import "@/assets/css/utility.css";
 
 @tailwind base;
+
+@layer base {
+  b   {font-family: inherit; font-weight: 500;}
+  i   {font-family: inherit; font-style: italic;}
+  
+  h1 {
+    font-weight: bold !important;
+    font-family: MrsEavesSmallCaps;
+    text-align: center;
+    letter-spacing: 2px;
+    @apply text-primary-700 text-8
+  }
+  
+  h2 {
+    font-size: theme("fontSize.7") !important;
+    font-weight: bold !important;
+    text-align: center;
+  }
+  
+  h3 {
+    font-size: theme("fontSize.6") !important;
+    font-weight: bold !important;
+  }
+  
+  h4 {
+    font-weight: bold !important;
+    text-align: center;
+  }
+  
+  p {
+    margin: theme("spacing.2") 0;
+    line-height: theme("spacing.5");
+  }
+  
+  q {
+    font-family: ScalaSansOffc;
+    font-style: italic;
+    font-size: 1.1em;
+  }
+  
+  a {
+    font-weight:800;
+    text-decoration: none;
+      color: theme("colors.text");
+  }
+}
+
+
 @tailwind components;
 @tailwind utilities;
 
@@ -42,7 +91,7 @@ select:focus {
 }
 
 body {
-  @apply text-text;
+  @apply text-text font-sans;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; /* For WebKit-based browsers like Chrome and Safari */
   -moz-osx-font-smoothing: grayscale; /* For Firefox on macOS */

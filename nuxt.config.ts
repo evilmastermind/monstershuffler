@@ -13,15 +13,16 @@ export default defineNuxtConfig({
     "/reset-password": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
-  // nitro: {
-  //   devProxy: {
-  //     "/api": {
-  //       target: process.env.API_URL,
-  //       changeOrigin: true,
-  //       prependPath: true,
-  //     }
-  //   }
-  // },
+  nitro: {
+    compressPublicAssets: true,
+    //   devProxy: {
+    //     "/api": {
+    //       target: process.env.API_URL,
+    //       changeOrigin: true,
+    //       prependPath: true,
+    //     }
+    //   }
+  },
   runtimeConfig: {
     someServerSideVariable: "some value",
     public: {
