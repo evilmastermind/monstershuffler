@@ -7,6 +7,7 @@ import {
   createRandomNpcInputSchema,
   createFourRandomNpcsResponseSchema,
 } from "@/stores/generator.d";
+import { calculateAlignment } from "@/utils/parsers/alignment";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
@@ -15,19 +16,17 @@ export const useGeneratorStore = defineStore("generator", () => {
   const session: Ref<Character[][]> = ref([]);
 
   async function getRandomNpcs(object: createRandomNpcInputSchema) {
-    const {
-      data,
-      // pending,
-      // error,
-      // refresh,
-    } = await useAsyncData<createFourRandomNpcsResponseSchema>("npc", () =>
-      $fetch(`${api}/npcs/four`, {
-        method: "POST",
-        body: object,
-      })
+    const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
+      "npc",
+      () =>
+        $fetch(`${api}/npcs/four`, {
+          method: "POST",
+          body: object,
+        })
     );
 
     if (data?.value?.npcs) {
+      data?.value?.npcs.forEach((npc) => calculateAlignment(npc));
       session.value.push(data.value.npcs);
       return true;
     } else {
@@ -36,18 +35,12 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   async function getRacesWithVariants() {
-    const {
-      data: races,
-      // pending,
-      // error,
-      // refresh,
-    } = await useAsyncData<getRaceWithVariantsListResponseSchema>("races", () =>
-      $fetch(`${api}/races/withvariants`)
+    const { data } = await useAsyncData<getRaceWithVariantsListResponseSchema>(
+      "races",
+      () => $fetch(`${api}/races/withvariants`)
     );
-
     const raceList: ObjectOrVariant[] = [];
-
-    races.value?.list.forEach((race) => {
+    data.value?.list.forEach((race) => {
       if (
         Object.hasOwn(race, "other_objects") &&
         race.other_objects.length > 0
@@ -74,19 +67,12 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   async function getClassesWithVariants() {
-    const {
-      data: classes,
-      // pending,
-      // error,
-      // refresh,
-    } = await useAsyncData<getClassWithVariantsListResponseSchema>(
+    const { data } = await useAsyncData<getClassWithVariantsListResponseSchema>(
       "classes",
       () => $fetch(`${api}/classes/withvariants`)
     );
-
     const classList: ObjectOrVariant[] = [];
-
-    classes.value?.list.forEach((aClass) => {
+    data.value?.list.forEach((aClass) => {
       if (
         Object.hasOwn(aClass, "other_objects") &&
         aClass.other_objects.length > 0
@@ -113,14 +99,10 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   async function getProfessions() {
-    const {
-      data: professions,
-      // pending,
-      // error,
-      // refresh,
-    } = await useAsyncData<getProfessionListResponseSchema>("professions", () =>
-      $fetch(`${api}/professions`)
-    );
+    const { data: professions } =
+      await useAsyncData<getProfessionListResponseSchema>("professions", () =>
+        $fetch(`${api}/professions`)
+      );
 
     return professions.value?.list || [];
   }

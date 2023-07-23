@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="generator">
     <!-- <BackgroundDice /> -->
     <div class="background" />
     <NavbarPadding />
-    <div class="lg-max overflow-hidden">
+    <div class="lg-max max-h-100 overflow-hidden">
       <h1 class="mb-4 text-shadow">
         {{ $t("generator.title") }}
       </h1>
@@ -106,7 +106,7 @@ watch(
 
 <style lang="scss" scoped>
 .background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -124,6 +124,10 @@ watch(
   // background-blend-mode: t($background-blend-mode);
   //  ;
   z-index: -2;
+}
+
+.generator {
+  max-height: 100svh;
 }
 .form {
   float: left;
@@ -152,5 +156,8 @@ watch(
   @media (min-width: theme("screens.md")) {
     display: none;
   }
+}
+.npcs {
+  max-height: 100%;
 }
 </style>

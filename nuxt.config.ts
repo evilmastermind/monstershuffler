@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: "fade-quick", mode: "out-in" },
+    layoutTransition: { name: "fade-quick", mode: "out-in" },
+  },
   routeRules: {
     "/": { ssr: false },
     "/monsters/generator": { ssr: false },
@@ -40,10 +44,15 @@ export default defineNuxtConfig({
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
     vueI18n: "./plugins/i18n.config.ts",
-    precompile: { strictMessage: false, escapeHtml: false },
   },
   pinia: {
     autoImports: ["defineStore", "storeToRefs"],
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   },
   // css: ["@/assets/css-reset.css"],
   // vite: {

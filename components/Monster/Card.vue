@@ -10,6 +10,9 @@
         </span>
         <span v-if="about" class="title-about">{{ `, ${about}` }}</span>
       </div>
+      <ul>
+        <li v-if="alignment">{{ alignment }}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -28,28 +31,30 @@ const character = computed(() => p.monster.character);
 const race = computed(() => p.monster.character.race);
 const about = computed(() => {
   let string = "";
-  if (["male", "female"].includes(character.value.pronouns || "")) {
-    string += `${character.value.pronouns} `;
-  }
   if (race.value !== undefined) {
+    if (["male", "female"].includes(character.value.pronouns || "")) {
+      string += `${character.value.pronouns} `;
+    }
     string += race.value.name;
   }
   // TODO: alignment
   return string;
+});
+const alignment = computed(() => {
+  if (p.monster.statistics?.alignment) {
+    return p.monster.statistics.alignment.join(" ");
+  }
 });
 </script>
 
 <style scoped lang="scss">
 .bordered {
   border-style: solid;
-  border-image-source: url("@/assets/images/border.gif");
-  border-image-slice: 3 8;
-  border-image-width: 3px 8px;
-  border-image-repeat: repeat;
-  box-sizing: border-box;
-  padding: 0px 7px;
-  background-clip: content-box;
-  @apply bg-background;
+  border-image: url("@/assets/images/card.png") 17 fill / 17px repeat;
+  padding: 1em;
+}
+.bordered:hover {
+  @apply text-text-secondary;
 }
 .title-name {
   font-family: MrsEavesSmallCaps;

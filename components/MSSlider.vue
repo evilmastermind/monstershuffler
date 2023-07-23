@@ -69,7 +69,7 @@ watch(
   bottom: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  background-color: theme("colors.grey.500");
+  @apply bg-grey-500;
 }
 
 .slider:before {
@@ -82,14 +82,14 @@ watch(
   border-radius: 4px;
   -webkit-transition: ease-out 0.2s;
   transition: ease-out 0.15s;
-  background: theme("colors.grey.700");
+  @apply bg-grey-700;
 }
 
 input:checked + .slider {
-  background-color: theme("colors.primary.500");
+  @apply bg-primary-500;
 }
 input:checked + .slider:before {
-  background: theme("colors.primary.700");
+  @apply bg-primary-700;
 }
 
 input:focus + .slider {

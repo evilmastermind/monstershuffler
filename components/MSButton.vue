@@ -105,66 +105,57 @@ function goToURL() {
 }
 
 .color-primary {
-  background-color: theme("colors.primary.700");
-  color: theme("colors.background");
+  @apply bg-primary-700 text-background;
 }
 .color-primary:hover {
-  background-color: theme("colors.primary.600");
+  @apply bg-primary-600;
 }
 .color-primary:active {
-  background-color: theme("colors.primary.700");
+  @apply bg-primary-700;
 }
 .color-complementary {
-  background-color: theme("colors.complementary.700");
-  color: theme("colors.background");
+  @apply bg-complementary-700 text-background;
 }
 .color-complementary:hover {
-  background-color: theme("colors.complementary.600");
+  @apply bg-complementary-600;
 }
 .color-complementary:active {
-  background-color: theme("colors.complementary.700");
+  @apply bg-complementary-700;
 }
 
 .color-light {
-  background-color: theme("colors.grey.100");
-  color: theme("colors.text");
+  @apply bg-grey-100 text-text;
 }
 .color-light:hover {
-  background-color: theme("colors.grey.200");
+  @apply bg-grey-200;
 }
 .color-light:active {
-  background-color: theme("colors.grey.100");
+  @apply bg-grey-100;
 }
 
 .color-dark {
-  background-color: theme("colors.grey.800");
-  color: theme("colors.text-inverse");
+  @apply bg-grey-800 text-text-inverse;
 }
 .color-dark:hover {
-  background-color: theme("colors.grey.700");
+  @apply bg-grey-700;
 }
 .color-dark:active {
-  background-color: theme("colors.grey.700");
+  @apply bg-grey-800;
 }
 
 .color-patreon {
-  background-color: theme("colors.patreon.500");
   color: hsl(240, 0%, 3%);
+  @apply bg-patreon-500 text-black;
 }
 .color-patreon:hover {
-  background-color: theme("colors.patreon.400");
+  @apply bg-patreon-400;
 }
 .color-patreon:active {
-  background-color: theme("colors.patreon.500");
+  @apply bg-patreon-500;
 }
 .color-success {
   background-color: theme("colors.success");
   color: theme("colors.background");
-}
-.color-success:hover {
-  background-color: theme("colors.success");
-}
-.color-success:active {
-  background-color: theme("colors.success");
+  @apply bg-success text-background;
 }
 </style>

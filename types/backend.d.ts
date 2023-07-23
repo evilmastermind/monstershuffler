@@ -737,7 +737,7 @@ export interface components {
                   value: string;
                   levelMin?: string;
                 })[];
-              alignment?: [number,number,number];
+              alignmentModifiers?: [[number,number,number],[number,number,number]];
               armor?: ({
                 AC: string;
                 name: string;
@@ -963,7 +963,7 @@ export interface components {
               name: string;
               /** @enum {string} */
               pronouns?: "male" | "female" | "neutral" | "thing";
-              alignment?: [number,number,number];
+              alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
               subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
@@ -1050,7 +1050,7 @@ export interface components {
               femaleName: string;
               workplace: string;
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
-              alignment?: [number,number,number];
+              alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
               savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
@@ -1078,7 +1078,7 @@ export interface components {
               isSwarm?: boolean;
               swarmSize?: string;
               subtypes?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
-              alignment?: [number,number,number];
+              alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["0"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
               HD?: number;
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
@@ -1151,7 +1151,7 @@ export interface components {
               trait?: string;
             };
             abilitiesBase?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilitiesBase"];
-            alignment?: [number,number,number];
+            alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
             /** @enum {string} */
             alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
             /** @enum {string} */
@@ -1174,7 +1174,7 @@ export interface components {
               name: "estimated";
             };
           };
-          statistics: {
+          statistics?: {
             alignment: (string)[];
           };
         };
@@ -1221,7 +1221,7 @@ export interface components {
                 })[];
             };
           });
-          alignment?: [number,number,number];
+          alignmentModifiers?: [[number,number,number],[number,number,number]];
           subtypes?: (components["schemas"]["professionSchemas"]["createProfessionSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
           speeds?: {
             base?: string;
@@ -1431,7 +1431,7 @@ export interface components {
               value: string;
               levelMin?: string;
             })[];
-          alignment?: [number,number,number];
+          alignmentModifiers?: [[number,number,number],[number,number,number]];
           armor?: ({
             AC: string;
             name: string;

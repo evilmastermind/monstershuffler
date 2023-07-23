@@ -267,10 +267,10 @@ form-container {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  background-color: theme("colors.background");
   width: 100%;
   max-width: 400px;
   z-index: 100;
+  @apply bg-background;
   @media (min-width: theme("screens.md")) {
     position: relative;
     display: block;
@@ -279,10 +279,10 @@ form-container {
     background-color: transparent;
   }
 }
+
 .close-button {
   position: absolute;
-  top: theme("spacing.4");
-  right: theme("spacing.4");
+  @apply top-4 right-4;
   @media (min-width: theme("screens.md")) {
     display: none;
   }

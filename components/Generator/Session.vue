@@ -1,16 +1,18 @@
 <template>
   <div class="session">
-    <div
-      v-for="(characters, generation) in session"
-      :key="generation"
-      class="generation"
-    >
-      <MonsterCard
-        v-for="(character, index) in characters"
-        :key="index"
-        :monster="character"
-      />
-    </div>
+    <TransitionGroup name="slidetransition" appear>
+      <div
+        v-for="(characters, generation) in session"
+        :key="generation"
+        class="generation"
+      >
+        <MonsterCard
+          v-for="(character, index) in characters"
+          :key="index"
+          :monster="character"
+        />
+      </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -22,7 +24,8 @@ const { session } = storeToRefs(generator);
 
 <style scoped lang="scss">
 .session {
-  @apply flex flex-col gap-6;
+  overflow-y: auto;
+  @apply flex flex-col-reverse gap-6;
 }
 .generation {
   @apply grid grid-cols-1 gap-2;

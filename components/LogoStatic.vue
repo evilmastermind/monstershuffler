@@ -46,27 +46,10 @@ const p = defineProps({
 </script>
 
 <style scoped lang="scss">
-.ms-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-basis: theme("spacing.9");
-  margin-right: theme("spacing.5");
-}
-@media (max-width: 700px) {
-  .ms-logo {
-    flex-basis: theme("spacing.7");
-  }
-}
-@media (max-width: 575px) {
-  .ms-logo {
-    margin-right: theme("spacing.0");
-  }
-}
 .ms-logo-fill {
-  fill: theme("colors.text");
+  @apply fill-text;
 }
 .ms-logo-stroke {
-  stroke: theme("colors.text");
+  @apply stroke-text;
 }
 </style>

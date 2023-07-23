@@ -903,14 +903,25 @@ components:
                             required:
                               - value
                             additionalProperties: false
-                        alignment:
+                        alignmentModifiers:
                           type: array
-                          minItems: 3
-                          maxItems: 3
+                          minItems: 2
+                          maxItems: 2
                           items:
-                            - type: number
-                            - type: number
-                            - type: number
+                            - type: array
+                              minItems: 3
+                              maxItems: 3
+                              items:
+                                - type: number
+                                - type: number
+                                - type: number
+                            - type: array
+                              minItems: 3
+                              maxItems: 3
+                              items:
+                                - type: number
+                                - type: number
+                                - type: number
                         armor:
                           anyOf:
                             - type: object
@@ -1669,14 +1680,10 @@ components:
                             - female
                             - neutral
                             - thing
-                        alignment:
-                          type: array
-                          minItems: 3
-                          maxItems: 3
-                          items:
-                            - type: number
-                            - type: number
-                            - type: number
+                        alignmentModifiers:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/alignmentModifiers"
                         armor:
                           anyOf:
                             - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
@@ -2063,14 +2070,10 @@ components:
                             - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                                 /properties/npc/properties/character/properties\
                                 /race/properties/armor/anyOf/1"
-                        alignment:
-                          type: array
-                          minItems: 3
-                          maxItems: 3
-                          items:
-                            - type: number
-                            - type: number
-                            - type: number
+                        alignmentModifiers:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/alignmentModifiers"
                         subtypes:
                           type: array
                           items:
@@ -2198,14 +2201,10 @@ components:
                             $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                               /properties/npc/properties/character/properties/r\
                               ace/properties/subtypes/items"
-                        alignment:
-                          type: array
-                          minItems: 3
-                          maxItems: 3
-                          items:
-                            - type: number
-                            - type: number
-                            - type: number
+                        alignmentModifiers:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/alignmentModifiers"
                         armor:
                           anyOf:
                             - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
@@ -2495,14 +2494,10 @@ components:
                       $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                         /properties/npc/properties/character/properties/templat\
                         e/properties/abilitiesBase"
-                    alignment:
-                      type: array
-                      minItems: 3
-                      maxItems: 3
-                      items:
-                        - type: number
-                        - type: number
-                        - type: number
+                    alignmentModifiers:
+                      $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                        /properties/npc/properties/character/properties/race/pr\
+                        operties/alignmentModifiers"
                     alignmentEthical:
                       type: string
                       enum:
@@ -2580,7 +2575,6 @@ components:
                   additionalProperties: false
               required:
                 - character
-                - statistics
               additionalProperties: false
           required:
             - npc
@@ -2708,14 +2702,25 @@ components:
                       required:
                         - choice
                       additionalProperties: false
-                alignment:
+                alignmentModifiers:
                   type: array
-                  minItems: 3
-                  maxItems: 3
+                  minItems: 2
+                  maxItems: 2
                   items:
-                    - type: number
-                    - type: number
-                    - type: number
+                    - type: array
+                      minItems: 3
+                      maxItems: 3
+                      items:
+                        - type: number
+                        - type: number
+                        - type: number
+                    - type: array
+                      minItems: 3
+                      maxItems: 3
+                      items:
+                        - type: number
+                        - type: number
+                        - type: number
                 subtypes:
                   type: array
                   items:
@@ -3435,14 +3440,25 @@ components:
                     required:
                       - value
                     additionalProperties: false
-                alignment:
+                alignmentModifiers:
                   type: array
-                  minItems: 3
-                  maxItems: 3
+                  minItems: 2
+                  maxItems: 2
                   items:
-                    - type: number
-                    - type: number
-                    - type: number
+                    - type: array
+                      minItems: 3
+                      maxItems: 3
+                      items:
+                        - type: number
+                        - type: number
+                        - type: number
+                    - type: array
+                      minItems: 3
+                      maxItems: 3
+                      items:
+                        - type: number
+                        - type: number
+                        - type: number
                 armor:
                   anyOf:
                     - type: object

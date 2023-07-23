@@ -119,7 +119,7 @@ function generateBackground() {
 }
 .background-navbar-padding {
   width: calc(100vw - (100vw - 100%));
-  height: theme("spacing.9");
+  @apply h-9;
 }
 .background-dice-container {
   position: fixed;

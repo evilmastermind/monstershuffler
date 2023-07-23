@@ -80,5 +80,8 @@ const currentRoute = computed(() => {
   .navbar-icon {
     display: inline-block;
   }
+  .navbar-link-name {
+    display: none;
+  }
 }
 </style>

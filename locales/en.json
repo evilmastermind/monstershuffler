@@ -1,4 +1,13 @@
 {
+  "alignment": {
+    "Neutral": "Neutral",
+    "Lawful": "Lawful",
+    "Chaotic": "Chaotic",
+    "Good": "Good",
+    "Evil": "Evil",
+    "Any": "Any",
+    "Unaligned": "Unaligned"
+  },
   "navbar": {
     "menu:": "Menu:",
     "login": "Login",

@@ -2,7 +2,7 @@
   <div class="logo mt-4">
     <NuxtLink :to="localePath({ name: 'index' })">
       <div class="logo mt-4">
-        <LogoStatic :size="30" class="inline" />onstershuffler
+        <LogoStatic :size="30" class="logo-static" />onstershuffler
       </div>
     </NuxtLink>
   </div>
@@ -21,5 +21,8 @@ const localePath = useLocalePath();
   font-weight: bold;
   gap: 0.125em;
   line-height: 1;
+}
+.logo-static {
+  @apply inline;
 }
 </style>
