@@ -6,10 +6,10 @@ export type getRaceWithVariantsListResponseSchema =
 export type getClassWithVariantsListResponseSchema =
   components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"];
 
-export type getProfessionListResponseSchema =
-  components["schemas"]["professionSchemas"]["getProfessionListResponseSchema"];
+export type getBackgroundListResponseSchema =
+  components["schemas"]["backgroundSchemas"]["getBackgroundListResponseSchema"];
 
-export type Profession = getProfessionListResponseSchema["list"][number];
+export type Background = getBackgroundListResponseSchema["list"][number];
 
 export type createRandomNpcInputSchema = components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
 export type createRandomNpcResponseSchema = components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];

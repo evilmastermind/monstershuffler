@@ -3,7 +3,7 @@ import {
   ObjectOrVariant,
   getRaceWithVariantsListResponseSchema,
   getClassWithVariantsListResponseSchema,
-  getProfessionListResponseSchema,
+  getBackgroundListResponseSchema,
   createRandomNpcInputSchema,
   createFourRandomNpcsResponseSchema,
 } from "@/stores/generator.d";
@@ -98,20 +98,20 @@ export const useGeneratorStore = defineStore("generator", () => {
     return classList;
   }
 
-  async function getProfessions() {
-    const { data: professions } =
-      await useAsyncData<getProfessionListResponseSchema>("professions", () =>
-        $fetch(`${api}/professions`)
-      );
+  async function getBackgrounds() {
+    const { data } = await useAsyncData<getBackgroundListResponseSchema>(
+      "backgrounds",
+      () => $fetch(`${api}/backgrounds`)
+    );
 
-    return professions.value?.list || [];
+    return data.value?.list || [];
   }
 
   return {
     session,
     getRacesWithVariants,
     getClassesWithVariants,
-    getProfessions,
+    getBackgrounds,
     getRandomNpcs,
   };
 });

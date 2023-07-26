@@ -77,27 +77,21 @@
             v-model="options.classType"
             class="ms-select ms-select-100"
           >
-            <option value="specificClass">
-              {{ $t("generator.form.classSpecific") }}
+            <option value="none">
+              {{ $t("generator.form.none") }}
             </option>
-            <option value="randomClass" selected>
-              {{ $t("generator.form.classRandom") }}
+            <option value="randomSometimes" selected>
+              {{ $t("generator.form.randomSometimes") }}
             </option>
-            <option value="randomClassProfession">
-              {{ $t("generator.form.classAndProfession") }}
+            <option value="randomAlways">
+              {{ $t("generator.form.randomAlways") }}
             </option>
-            <option value="randomProfessionMostly">
-              {{ $t("generator.form.classProfessionMostly") }}
-            </option>
-            <option value="randomProfession">
-              {{ $t("generator.form.professionRandom") }}
-            </option>
-            <option value="specificProfession">
-              {{ $t("generator.form.professionSpecific") }}
+            <option value="specific">
+              {{ $t("generator.form.specific") }}
             </option>
           </select>
         </span>
-        <span v-if="options.classType === 'specificClass'" class="form-line">
+        <span v-if="options.classType === 'specific'" class="form-line">
           <select
             id="gen-classes"
             v-model="classIndex"
@@ -109,17 +103,35 @@
             </option>
           </select>
         </span>
-        <span
-          v-if="options.classType === 'specificProfession'"
-          class="form-line"
-        >
+        <!-- BACKGROUND -->
+        <span class="form-line">
+          <label class="ms-label" for="gen-background"
+            >{{ $t("generator.form.background") }}:</label
+          >
           <select
-            id="gen-professions"
-            v-model="professionIndex"
+            id="gen-background"
+            v-model="options.backgroundType"
+            class="ms-select ms-select-100"
+          >
+            <option value="none">
+              {{ $t("generator.form.none") }}
+            </option>
+            <option value="random" selected>
+              {{ $t("generator.form.random") }}
+            </option>
+            <option value="specific">
+              {{ $t("generator.form.specific") }}
+            </option>
+          </select>
+        </span>
+        <span v-if="options.backgroundType === 'specific'" class="form-line">
+          <select
+            id="gen-backgrounds"
+            v-model="backgroundIndex"
             class="ms-select ms-select-100 mt-1"
           >
-            <option v-for="(profession, i) in professions" :key="i" :value="i">
-              {{ capitalizeFirst(profession.name) }}
+            <option v-for="(background, i) in backgrounds" :key="i" :value="i">
+              {{ capitalizeFirst(background.name) }}
             </option>
           </select>
         </span>
@@ -159,7 +171,7 @@
 <script setup lang="ts">
 import {
   ObjectOrVariant,
-  Profession,
+  Background,
   createRandomNpcInputSchema,
 } from "@/stores/generator.d";
 
@@ -177,23 +189,24 @@ const { t } = useI18n();
 const {
   getRacesWithVariants,
   getClassesWithVariants,
-  getProfessions,
+  getBackgrounds,
   getRandomNpcs,
 } = useGeneratorStore();
 
 const races = ref<ObjectOrVariant[]>([]);
 const classes = ref<ObjectOrVariant[]>([]);
-const professions = ref<Profession[]>([]);
+const backgrounds = ref<Background[]>([]);
 
 const primaryRaceIndex = ref(0);
 const secondaryRaceIndex = ref(0);
 const classIndex = ref(0);
-const professionIndex = ref(0);
+const backgroundIndex = ref(0);
 
 const primaryRacePercentage = ref(100);
 const secondaryRacePercentage = ref(0);
 const options = ref<createRandomNpcInputSchema>({
-  classType: "randomClass",
+  classType: "randomAlways",
+  backgroundType: "random",
   levelType: "randomPeasantsMostly",
 });
 
@@ -222,24 +235,18 @@ function prepareOptions() {
       options.value.secondaryRacevariantId = race.variantId;
     }
   }
-  if (options.value.classType === "specificClass") {
+  if (options.value.classType === "specific") {
     const classChosen = classes.value[classIndex.value];
     options.value.classId = classChosen.id;
     if (classes.value[classIndex.value].variantId) {
       options.value.classvariantId = classes.value[classIndex.value].variantId;
     }
   }
-  if (options.value.classType === "specificProfession") {
-    options.value.professionId = professions.value[professionIndex.value].id;
+  if (options.value.backgroundType === "specific") {
+    options.value.backgroundId = backgrounds.value[backgroundIndex.value].id;
   }
 }
 
-// const professionList = ref([]);
-
-// TODO: 1) handle login
-// TODO: 2) test api/classes
-// TODO: 3) link it to the frontend
-// TODO: 5) save settings in localstorage
 // TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
 
 watch(
@@ -252,7 +259,7 @@ watch(
 onMounted(async () => {
   races.value = await getRacesWithVariants();
   classes.value = await getClassesWithVariants();
-  professions.value = await getProfessions();
+  backgrounds.value = await getBackgrounds();
 });
 </script>
 
