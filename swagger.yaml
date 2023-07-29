@@ -2836,6 +2836,8 @@ components:
                     template:
                       type: object
                       properties:
+                        name:
+                          type: string
                         pronouns:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/pro\
@@ -2968,6 +2970,8 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/backstory"
+                      required:
+                        - name
                       additionalProperties: false
                     user:
                       type: object
@@ -3179,8 +3183,23 @@ components:
                       type: array
                       items:
                         type: string
+                    prename:
+                      type: string
+                    name:
+                      type: string
+                    surname:
+                      type: string
+                    fullName:
+                      type: string
+                    level:
+                      type: number
                   required:
                     - alignment
+                    - prename
+                    - name
+                    - surname
+                    - fullName
+                    - level
                   additionalProperties: false
               required:
                 - character
@@ -4311,6 +4330,56 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/classSchemas/properties/getClassResponseSchema"
+  /api/npcs/:
+    post:
+      summary: Creates a new random npc using the settings provided.
+      tags:
+        - npcs
+      description: Creates a new random npc using the settings provided.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcInputSchema"
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema"
+  /api/npcs/four:
+    post:
+      summary: "[MS ONLY] Creates four new random npcs using the settings provided."
+      tags:
+        - npcs
+      description: Creates four new random npcs using the settings provided. Only
+        accessible through monstershuffler.com
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcInputSchema"
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/npcSchemas/properties/createFourRandomNpcsResponseS\
+                  chema"
   /api/races/:
     get:
       summary: Returns a list of all available races in the db.

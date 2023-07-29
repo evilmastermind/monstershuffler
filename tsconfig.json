@@ -4,12 +4,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./*"]
     },
-    "types": [
-      "@nuxt/types",
-      "@nuxtjs/i18n",
-    ],
+    "types": ["@nuxt/types", "@nuxtjs/i18n"],
     "resolveJsonModule": true
-  },
+  }
 }

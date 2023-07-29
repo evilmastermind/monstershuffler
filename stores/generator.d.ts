@@ -11,9 +11,12 @@ export type getBackgroundListResponseSchema =
 
 export type Background = getBackgroundListResponseSchema["list"][number];
 
-export type createRandomNpcInputSchema = components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
-export type createRandomNpcResponseSchema = components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
-export type createFourRandomNpcsResponseSchema = components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
+export type createRandomNpcInputSchema =
+  components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
+export type createRandomNpcResponseSchema =
+  components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
+export type createFourRandomNpcsResponseSchema =
+  components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
 
 export type Character = createRandomNpcResponseSchema["npc"];
 

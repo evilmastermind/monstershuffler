@@ -161,7 +161,7 @@
           color="primary"
           :text="t('generator.form.generate')"
           icon="fa-shuffle"
-          @click.prevent="generateNpc"
+          @click.prevent="generateNpcThrottle"
         />
       </div>
     </form>
@@ -175,7 +175,7 @@ import {
   createRandomNpcInputSchema,
 } from "@/stores/generator.d";
 
-import { capitalizeFirst } from "@/utils/functions";
+import { capitalizeFirst, throttle } from "@/utils/functions";
 
 const e = defineEmits(["close"]);
 const p = defineProps({
@@ -210,31 +210,29 @@ const options = ref<createRandomNpcInputSchema>({
   levelType: "randomPeasantsMostly",
 });
 
+const generateNpcThrottle = throttle(generateNpc, 1000);
+
 async function generateNpc() {
   prepareOptions();
-  const response = await getRandomNpcs(options.value);
-  if (response) {
-    // alert(JSON.stringify(response, null, 2));
-  }
+  await getRandomNpcs(options.value);
 }
 
 function prepareOptions() {
-  if (primaryRacePercentage.value > 0) {
-    options.value.primaryRacePercentage = primaryRacePercentage.value;
-    const race = races.value[primaryRaceIndex.value];
-    options.value.primaryRaceId = race.id;
-    if (race.variantId) {
-      options.value.primaryRacevariantId = race.variantId;
-    }
+  // primary race
+  options.value.primaryRacePercentage = primaryRacePercentage.value;
+  const race = races.value[primaryRaceIndex.value];
+  options.value.primaryRaceId = race.id;
+  if (race.variantId) {
+    options.value.primaryRacevariantId = race.variantId;
   }
-  if (secondaryRacePercentage.value > 0) {
-    options.value.secondaryRacePercentage = secondaryRacePercentage.value;
-    const race = races.value[secondaryRaceIndex.value];
-    options.value.secondaryRaceId = race.id;
-    if (race.variantId) {
-      options.value.secondaryRacevariantId = race.variantId;
-    }
+  // secondary race
+  options.value.secondaryRacePercentage = secondaryRacePercentage.value;
+  const race2 = races.value[secondaryRaceIndex.value];
+  options.value.secondaryRaceId = race2.id;
+  if (race2.variantId) {
+    options.value.secondaryRacevariantId = race2.variantId;
   }
+  // class
   if (options.value.classType === "specific") {
     const classChosen = classes.value[classIndex.value];
     options.value.classId = classChosen.id;

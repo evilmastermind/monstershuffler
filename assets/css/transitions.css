@@ -1,4 +1,3 @@
-
 :root {
   --quick: 0.1s;
   --medium: 0.2s;
@@ -24,7 +23,6 @@
   opacity: 0;
 }
 
-
 .fade-quick-enter-active,
 .fade-quick-leave-active {
   transition: opacity var(--quick) ease-in-out;
@@ -41,7 +39,6 @@
 .fade-leave-to {
   opacity: 0;
 }
-
 
 .slidetransition-enter-active {
   transition: all 0.05s ease-out;

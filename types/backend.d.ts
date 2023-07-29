@@ -152,6 +152,58 @@ export interface paths {
       };
     };
   };
+  "/api/npcs/": {
+    /**
+     * Creates a new random npc using the settings provided. 
+     * @description Creates a new random npc using the settings provided.
+     */
+    post: {
+      parameters: {
+        header?: {
+          authorization?: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/npcs/four": {
+    /**
+     * [MS ONLY] Creates four new random npcs using the settings provided. 
+     * @description Creates four new random npcs using the settings provided. Only accessible through monstershuffler.com
+     */
+    post: {
+      parameters: {
+        header?: {
+          authorization?: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
+          };
+        };
+      };
+    };
+  };
   "/api/races/": {
     /**
      * Returns a list of all available races in the db. 
@@ -1107,6 +1159,7 @@ export interface components {
               enableGenerator?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["enableGenerator"];
             };
             template?: {
+              name: string;
               pronouns?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["pronouns"];
               size?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["size"];
               type?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["type"];
@@ -1205,6 +1258,11 @@ export interface components {
           };
           statistics?: {
             alignment: (string)[];
+            prename: string;
+            name: string;
+            surname: string;
+            fullName: string;
+            level: number;
           };
         };
       };

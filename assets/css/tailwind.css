@@ -8,72 +8,77 @@
 @tailwind base;
 
 @layer base {
-  b   {font-family: inherit; font-weight: 500;}
-  i   {font-family: inherit; font-style: italic;}
-  
+  b {
+    font-family: inherit;
+    font-weight: 500;
+  }
+  i {
+    font-family: inherit;
+    font-style: italic;
+  }
+
   h1 {
     font-weight: bold !important;
     font-family: MrsEavesSmallCaps;
     text-align: center;
     letter-spacing: 2px;
-    @apply text-primary-700 text-8
+    @apply text-primary-700 text-8;
   }
-  
+
   h2 {
     font-size: theme("fontSize.7") !important;
     font-weight: bold !important;
     text-align: center;
   }
-  
+
   h3 {
     font-size: theme("fontSize.6") !important;
     font-weight: bold !important;
   }
-  
+
   h4 {
     font-weight: bold !important;
     text-align: center;
   }
-  
+
   p {
     margin: theme("spacing.2") 0;
     line-height: theme("spacing.5");
   }
-  
+
   q {
     font-family: ScalaSansOffc;
     font-style: italic;
     font-size: 1.1em;
   }
-  
+
   a {
-    font-weight:800;
+    font-weight: 800;
     text-decoration: none;
-      color: theme("colors.text");
+    color: theme("colors.text");
   }
 }
-
 
 @tailwind components;
 @tailwind utilities;
 
-
-form, fieldset {
+form,
+fieldset {
   border: none;
   padding: 0;
   margin: 0;
 }
 select:focus {
-  outline: 1px solid #000;  
+  outline: 1px solid #000;
 }
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
@@ -83,12 +88,12 @@ select:focus {
 }
 
 .sr-only {
-  position:absolute;
-  left:-10000px;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 body {

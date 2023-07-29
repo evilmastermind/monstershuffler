@@ -1,11 +1,11 @@
 @font-face {
   font-family: OpenSans;
-  src: url("@/assets/fonts/OpenSans-Regular.ttf") ;
+  src: url("@/assets/fonts/OpenSans-Regular.ttf");
 }
 
 @font-face {
   font-family: OpenSans-Bold;
-  src: url("@/assets/fonts/OpenSans-Bold.ttf") ;
+  src: url("@/assets/fonts/OpenSans-Bold.ttf");
 }
 
 @font-face {
@@ -15,36 +15,37 @@
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc.woff") ;
+  src: url("@/assets/fonts/ScalaSansOffc.woff");
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc-Italic.woff") ;
+  src: url("@/assets/fonts/ScalaSansOffc-Italic.woff");
   font-style: italic;
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc-Bold.woff") ;
+  src: url("@/assets/fonts/ScalaSansOffc-Bold.woff");
   font-weight: bold;
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc-BoldItalic.woff") ;
+  src: url("@/assets/fonts/ScalaSansOffc-BoldItalic.woff");
   font-style: italic;
   font-weight: bold;
 }
 
 @font-face {
   font-family: MrsEavesSmallCaps;
-  src:  url("@/assets/fonts/MyMrsEavesSC.woff") format('woff');
-  font-weight:100;font-style:normal;
+  src: url("@/assets/fonts/MyMrsEavesSC.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
 }
 @font-face {
   font-family: AusweisHollow;
-  src: url("@/assets/fonts/AusweisHollow.ttf") ;
+  src: url("@/assets/fonts/AusweisHollow.ttf");
 }
 
 .bold {
@@ -55,7 +56,7 @@
   text-shadow: 0 0 10px theme("colors.background");
 }
 
-.text-max { 
+.text-max {
   max-width: 700px;
   margin: 0 auto;
 }

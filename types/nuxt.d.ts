@@ -3,7 +3,7 @@ export type NuxtError = {
   message: string;
   statusMessage: string;
   data: NuxtErrorData;
-}
+};
 
 export interface NuxtErrorData {
   message: string;

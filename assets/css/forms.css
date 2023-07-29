@@ -3,7 +3,6 @@
   margin: theme("spacing.2") 0;
 }
 
-
 .ms-label {
   color: theme("colors.text");
   font-weight: bold;
@@ -11,10 +10,9 @@
   width: 100%;
 }
 
-
 .ms-select {
   padding: 0 theme("spacing.1");
-  border-radius: theme("spacing.1"); 
+  border-radius: theme("spacing.1");
   box-sizing: border-box;
   height: theme("spacing.6");
   text-overflow: ellipsis;
@@ -37,10 +35,9 @@
   width: 100%;
 }
 
-
 .ms-input {
   padding: 0 theme("spacing.1");
-  border-radius: theme("spacing.1"); 
+  border-radius: theme("spacing.1");
   box-sizing: border-box;
   height: theme("spacing.6");
   background-color: theme("colors.background-inset.500");
@@ -52,9 +49,11 @@
   color: theme("colors.text");
 }
 
-.ms-select:invalid, .ms-input:invalid {
+.ms-select:invalid,
+.ms-input:invalid {
   color: theme("colors.danger");
 }
-.ms-label .ms-select:invalid, .ms-label .ms-input:invalid {
+.ms-label .ms-select:invalid,
+.ms-label .ms-input:invalid {
   color: theme("colors.danger");
 }

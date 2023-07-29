@@ -7,7 +7,7 @@ import {
   createRandomNpcInputSchema,
   createFourRandomNpcsResponseSchema,
 } from "@/stores/generator.d";
-import { calculateAlignment } from "@/utils/parsers/alignment";
+import { calculateAlignment } from "@/utils/parsers/character/alignment";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;

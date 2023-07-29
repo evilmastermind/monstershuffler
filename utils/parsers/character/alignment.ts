@@ -1,6 +1,7 @@
 import { Character } from "@/stores/generator.d";
-import { hasDefined, createKeyIfUndefined, random } from "@/utils/functions";
+import { hasDefined, random } from "@/utils/functions";
 import { objects } from "@/utils/constants";
+import { getStatArrayFromObjects } from "@/utils/parsers/functions";
 
 export function calculateAlignment(character: Character) {
   if (character?.statistics?.alignment?.length) {
@@ -9,7 +10,6 @@ export function calculateAlignment(character: Character) {
   const c = character.character;
   const generic = c?.generic || null;
   const typically = generic === true ? "Typically " : "";
-  createKeyIfUndefined(character, "statistics");
   character.statistics!.alignment = [];
 
   const alignmentNumber = 0;
@@ -59,25 +59,16 @@ export function calculateAlignment(character: Character) {
     No matter ho much the array makes the character lean towards a certain alignment,
     there will always be at least a 5% chance of the character being of a different alignment.
     */
-    const array: [[number, number, number], [number, number, number]][] = [];
+    type AlignmentArray = [[number, number, number], [number, number, number]];
+    const array: AlignmentArray[] = getStatArrayFromObjects<AlignmentArray>(
+      character,
+      "alignmentModifiers"
+    );
 
     const totalModifiers = [
       [0, 0, 0],
       [0, 0, 0],
     ];
-    // retrieving alignment arrays from objects
-    if (Object.hasOwn(c, "alignmentModifiers")) {
-      array.push(c.alignmentModifiers);
-    }
-    objects.forEach((raceOrClassEtc) => {
-      if (Object.hasOwn(c, raceOrClassEtc)) {
-        // @ts-ignore TODO: f*** you, TypeScript
-        if (Object.hasOwn(c[raceOrClassEtc], "alignmentModifiers")) {
-          // @ts-ignore
-          array.push(c[raceOrClassEtc].alignmentModifiers);
-        }
-      }
-    });
 
     // distributing the numbers
     array.forEach((modifiers) => {

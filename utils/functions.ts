@@ -11,6 +11,37 @@ export function debounce(cb: Function, delay = 1000): Function {
   };
 }
 
+export function throttle<T extends any[]>(
+  cb: (...args: T) => void,
+  delay = 1000
+) {
+  let shouldWait = false;
+  let waitingArgs: T | null;
+  const timeoutFunc = () => {
+    if (waitingArgs == null) {
+      shouldWait = false;
+    } else {
+      // eslint-disable-next-line n/no-callback-literal
+      cb(...waitingArgs);
+      waitingArgs = null;
+      setTimeout(timeoutFunc, delay);
+    }
+  };
+
+  return (...args: T) => {
+    if (shouldWait) {
+      waitingArgs = args;
+      return;
+    }
+
+    // eslint-disable-next-line n/no-callback-literal
+    cb(...args);
+    shouldWait = true;
+
+    setTimeout(timeoutFunc, delay);
+  };
+}
+
 export function capitalizeFirst(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
