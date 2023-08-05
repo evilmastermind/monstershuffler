@@ -37,6 +37,7 @@
   width: 100%;
   z-index: 1;
   backdrop-filter: blur(5px);
+  opacity: 0.95;
   background: linear-gradient(
     180deg,
     theme("colors.background") 0,

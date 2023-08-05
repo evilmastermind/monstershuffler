@@ -1,8 +1,9 @@
 export const objects = [
-  "race",
-  "racevariant",
-  "class",
-  "classvariant",
+  "user",
   "template",
-  "profession",
+  "classvariant",
+  "class",
+  "racevariant",
+  "race",
+  "background",
 ];

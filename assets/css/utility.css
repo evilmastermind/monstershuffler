@@ -14,3 +14,7 @@
   height: 1px;
   overflow: hidden;
 }
+
+.blurred {
+  backdrop-filter: blur(4px);
+}

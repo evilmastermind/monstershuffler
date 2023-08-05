@@ -1,6 +1,9 @@
-import { calculateAlignment } from "@/utils/parsers/character/alignment";
-import { calculateName } from "@/utils/parsers/character/name";
-import { calculateLevel } from "@/utils/parsers/character/level";
+import { calculateChallengeRating } from "./challengeRating";
+import { calculateAlignment } from "./alignment";
+import { calculateName } from "./name";
+import { calculateLevel } from "./level";
+import { calculateProficiency } from "./proficiency";
+import { calculateSize } from "./size";
 import { Character } from "@/types/objects";
 import { hasDefined, random } from "@/utils/functions";
 
@@ -10,5 +13,31 @@ export function createStats(character: Character) {
 
   calculateAlignment(character);
   calculateName(character);
-  calculateLevel(character);
+
+  const CRCalculation = character.character.CRCalculation?.name;
+  if (CRCalculation === "automatic") {
+    /* 
+      AUTOMATIC
+      The automatic calculation is "CR-Based": the initial CR, chosen by the user, determines
+      the hit points, the ability scores, and the size, with which we can calculate the number
+      of Hit Dice.
+    */
+    calculateChallengeRating(character);
+    // hit points
+    calculateSize(character);
+    // abilityScores
+    calculateLevel(character);
+    calculateProficiency(character);
+  } else {
+    /*
+      TWO-POINTS METHOD / NPC STANDARD
+      The other two calculations (two-points method and NPC standard) are "Level-Based":
+      we calculate the level first, then the CR, and everything else is calculated from there.
+    */
+    calculateLevel(character);
+    calculateChallengeRating(character);
+    calculateProficiency(character);
+    // abilityScores
+    calculateSize(character);
+  }
 }

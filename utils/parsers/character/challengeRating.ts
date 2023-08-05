@@ -29,11 +29,11 @@ export function calculateChallengeRating(character: Character) {
 
   if (c?.CRCalculation?.name === "twopoints") {
     // x = Level, y = CR
-    const x1 = parseFloat(c?.CRCalculation?.x1) || 1;
-    const y1 = parseFloat(c?.CRCalculation?.y1) || 0;
-    const x2 = parseFloat(c?.CRCalculation?.x2) || 20;
-    const y2 = parseFloat(c?.CRCalculation?.y2) || 12;
-    character.statistics.CR = ((level - x1) * (y2 - y1)) / (x2 - x1) + y1;
+    const x1 = parseFloat(c.CRCalculation.x1) || 1;
+    const y1 = parseFloat(c.CRCalculation.y1) || 0;
+    const x2 = parseFloat(c.CRCalculation.x2) || 20;
+    const y2 = parseFloat(c.CRCalculation.y2) || 12;
+    CR = ((level - x1) * (y2 - y1)) / (x2 - x1) + y1;
     CRString = getChallengeString(CR);
   } else if (c?.CRCalculation?.name === "npcstandard") {
     if (level === 0) {
@@ -48,5 +48,18 @@ export function calculateChallengeRating(character: Character) {
       CR = Math.floor((level / 5) * 3);
     }
     CRString = getChallengeString(CR);
+  } else if (c?.CRCalculation?.name === "automatic") {
+    CR = c.CRCalculation.cr;
+    CRString = getChallengeString(CR);
   }
+  // statistics
+  character.statistics!.CR = {
+    number: CR,
+    string: CRString,
+  };
+  // variables
+  character.statistics!.XP =
+    // @ts-ignore GODDAMNIT TYPESCRIPT WHY YOU DUMB FOOL
+    CR <= 30 ? challengeStats[CRString].xp.toString() : "???";
+  character.variables!.CR = CR;
 }

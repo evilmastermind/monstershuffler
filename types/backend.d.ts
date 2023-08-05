@@ -1253,8 +1253,11 @@ export interface components {
               name: "npcstandard";
             } | {
               /** @enum {string} */
-              name: "estimated";
+              name: "automatic";
+              cr: number;
             };
+            /** @enum {string} */
+            proficiencyCalculation?: "level" | "CR";
           };
           statistics?: {
             alignment: (string)[];
@@ -1263,6 +1266,27 @@ export interface components {
             surname: string;
             fullName: string;
             level: number;
+            CR: {
+              number: number;
+              string: string;
+            };
+            XP: string;
+            proficiency: number;
+            size: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
+          };
+          variables?: {
+            LVL: number;
+            CR: number;
+            PROF: number;
+            SIZE: number;
+            HD: number;
+          };
+          tags?: {
+            size: string;
+            sizegreater: string;
+            sizesmaller: string;
+            sizetwogreater: string;
+            sizetwosmaller: string;
           };
         };
       };

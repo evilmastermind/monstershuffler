@@ -50,3 +50,23 @@ export function getChallengeNumber(CR: string) {
   if (CR === "1/2") return 0;
   else return parseInt(CR);
 }
+
+export type Size = "1" | "2" | "3" | "4" | "5" | "6";
+
+export type SizeStats = {
+  [key in Size]: {
+    name: string;
+    space: number;
+    squares: number;
+    hitDice: number;
+  };
+};
+
+export const sizeStats: SizeStats = {
+  "1": { name: "Tiny", space: 2.5, squares: 0.5, hitDice: 4 },
+  "2": { name: "Small", space: 5, squares: 1, hitDice: 6 },
+  "3": { name: "Medium", space: 5, squares: 1, hitDice: 8 },
+  "4": { name: "Large", space: 10, squares: 4, hitDice: 10 },
+  "5": { name: "Huge", space: 15, squares: 9, hitDice: 12 },
+  "6": { name: "Gargantuan", space: 20, squares: 16, hitDice: 20 },
+};

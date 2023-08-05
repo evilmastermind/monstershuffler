@@ -13,6 +13,6 @@ export function calculateLevel(character: Character) {
     level = 1;
   }
 
-  character.statistics.level = level;
-  character.variables.LVL = level;
+  character.statistics!.level = level;
+  character.variables!.LVL = level;
 }
