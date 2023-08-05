@@ -362,6 +362,7 @@ export interface components {
             hover?: string;
             swim?: string;
           };
+          abilitiesLimit?: string;
           savingThrows?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
           skills?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | {
             choice: {
@@ -1060,6 +1061,7 @@ export interface components {
               alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
+              abilitiesLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilitiesLimit"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
               savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["savingThrows"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
@@ -1142,6 +1144,7 @@ export interface components {
               alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
+              abilitiesLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilitiesLimit"];
               savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["savingThrows"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
               resistances?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["resistances"];
@@ -1171,13 +1174,14 @@ export interface components {
               HD?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["HD"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
               abilitiesBase?: {
-                STR?: string;
-                DEX?: string;
-                CON?: string;
-                INT?: string;
-                WIS?: string;
-                CHA?: string;
+                STR?: number;
+                DEX?: number;
+                CON?: number;
+                INT?: number;
+                WIS?: number;
+                CHA?: number;
               };
+              abilitiesLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilitiesLimit"];
               savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["savingThrows"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
               resistances?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["resistances"];
@@ -1273,6 +1277,16 @@ export interface components {
             XP: string;
             proficiency: number;
             size: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
+            abilityScores: {
+              STR: number;
+              DEX: number;
+              CON: number;
+              INT: number;
+              WIS: number;
+              CHA: number;
+            };
+            abilityModifiers: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["abilityScores"];
+            HP: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
           };
           variables?: {
             LVL: number;
@@ -1280,6 +1294,19 @@ export interface components {
             PROF: number;
             SIZE: number;
             HD: number;
+            HP: number;
+            STR: number;
+            DEX: number;
+            CON: number;
+            INT: number;
+            WIS: number;
+            CHA: number;
+            STRVALUE: number;
+            DEXVALUE: number;
+            CONVALUE: number;
+            INTVALUE: number;
+            WISVALUE: number;
+            CHAVALUE: number;
           };
           tags?: {
             size: string;

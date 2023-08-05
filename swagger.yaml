@@ -150,6 +150,8 @@ components:
                     swim:
                       type: string
                   additionalProperties: false
+                abilitiesLimit:
+                  type: string
                 savingThrows:
                   type: array
                   items:
@@ -2456,6 +2458,10 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/subtypes"
+                        abilitiesLimit:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/abilitiesLimit"
                         speeds:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -2768,6 +2774,10 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/speeds"
+                        abilitiesLimit:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/abilitiesLimit"
                         savingThrows:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -2882,18 +2892,22 @@ components:
                           type: object
                           properties:
                             STR:
-                              type: string
+                              type: number
                             DEX:
-                              type: string
+                              type: number
                             CON:
-                              type: string
+                              type: number
                             INT:
-                              type: string
+                              type: number
                             WIS:
-                              type: string
+                              type: number
                             CHA:
-                              type: string
+                              type: number
                           additionalProperties: false
+                        abilitiesLimit:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/abilitiesLimit"
                         savingThrows:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -3219,6 +3233,36 @@ components:
                     size:
                       $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                         /properties/npc/properties/statistics/properties/CR"
+                    abilityScores:
+                      type: object
+                      properties:
+                        STR:
+                          type: number
+                        DEX:
+                          type: number
+                        CON:
+                          type: number
+                        INT:
+                          type: number
+                        WIS:
+                          type: number
+                        CHA:
+                          type: number
+                      required:
+                        - STR
+                        - DEX
+                        - CON
+                        - INT
+                        - WIS
+                        - CHA
+                      additionalProperties: false
+                    abilityModifiers:
+                      $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                        /properties/npc/properties/statistics/properties/abilit\
+                        yScores"
+                    HP:
+                      $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                        /properties/npc/properties/statistics/properties/CR"
                   required:
                     - alignment
                     - prename
@@ -3230,6 +3274,9 @@ components:
                     - XP
                     - proficiency
                     - size
+                    - abilityScores
+                    - abilityModifiers
+                    - HP
                   additionalProperties: false
                 variables:
                   type: object
@@ -3244,12 +3291,51 @@ components:
                       type: number
                     HD:
                       type: number
+                    HP:
+                      type: number
+                    STR:
+                      type: number
+                    DEX:
+                      type: number
+                    CON:
+                      type: number
+                    INT:
+                      type: number
+                    WIS:
+                      type: number
+                    CHA:
+                      type: number
+                    STRVALUE:
+                      type: number
+                    DEXVALUE:
+                      type: number
+                    CONVALUE:
+                      type: number
+                    INTVALUE:
+                      type: number
+                    WISVALUE:
+                      type: number
+                    CHAVALUE:
+                      type: number
                   required:
                     - LVL
                     - CR
                     - PROF
                     - SIZE
                     - HD
+                    - HP
+                    - STR
+                    - DEX
+                    - CON
+                    - INT
+                    - WIS
+                    - CHA
+                    - STRVALUE
+                    - DEXVALUE
+                    - CONVALUE
+                    - INTVALUE
+                    - WISVALUE
+                    - CHAVALUE
                   additionalProperties: false
                 tags:
                   type: object

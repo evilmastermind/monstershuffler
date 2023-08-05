@@ -4,6 +4,7 @@ import { calculateName } from "./name";
 import { calculateLevel } from "./level";
 import { calculateProficiency } from "./proficiency";
 import { calculateSize } from "./size";
+import { calculateAbilityScores } from "./abilityScores";
 import { Character } from "@/types/objects";
 import { hasDefined, random } from "@/utils/functions";
 
@@ -23,9 +24,9 @@ export function createStats(character: Character) {
       of Hit Dice.
     */
     calculateChallengeRating(character);
-    // hit points
     calculateSize(character);
-    // abilityScores
+    calculateAbilityScores(character);
+    // hit points
     calculateLevel(character);
     calculateProficiency(character);
   } else {
@@ -37,7 +38,7 @@ export function createStats(character: Character) {
     calculateLevel(character);
     calculateChallengeRating(character);
     calculateProficiency(character);
-    // abilityScores
+    calculateAbilityScores(character);
     calculateSize(character);
   }
 }

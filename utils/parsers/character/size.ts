@@ -1,20 +1,12 @@
 import { sizeStats, Size, parseExpressionNumeric } from "@/utils/parsers";
 import { Character } from "@/types/objects";
-import {
-  getBonusesForOneStatistic,
-  getPrioritizedStatistic,
-} from "@/utils/parsers/functions";
+import { getBonus, getPrioritizedStatistic } from "@/utils/parsers/functions";
 
 export function calculateSize(character: Character) {
   let size = 0;
 
   const baseSize = getPrioritizedStatistic<number>(character, "size") || 3;
-  const sizeModifiers = getBonusesForOneStatistic(character, "size");
-  let sizeBonus = 0;
-
-  sizeModifiers.forEach((bonus) => {
-    sizeBonus += parseExpressionNumeric(bonus.value, character.variables!);
-  });
+  const sizeBonus = getBonus(character, "size");
 
   size += sizeBonus;
 

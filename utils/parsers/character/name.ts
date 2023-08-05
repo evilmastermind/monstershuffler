@@ -6,8 +6,8 @@ export function calculateName(character: Character) {
   const name = c.name || "";
   const surname = c.surname || "";
 
-  character.statistics.name = name;
-  character.statistics.prename = prename;
-  character.statistics.surname = surname;
-  character.statistics.fullName = `${prename} ${name} ${surname}`.trim();
+  character.statistics!.name = name;
+  character.statistics!.prename = prename;
+  character.statistics!.surname = surname;
+  character.statistics!.fullName = `${prename} ${name} ${surname}`.trim();
 }

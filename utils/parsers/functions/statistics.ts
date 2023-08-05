@@ -1,5 +1,6 @@
-import { objects } from "@/utils/constants";
+import { parseExpressionNumeric } from "./expressions";
 import { Character, Bonus } from "@/types/objects";
+import { objects } from "@/utils/constants";
 
 export function getStatArrayFromObjects<T>(character: Character, stat: string) {
   const c = character.character;
@@ -40,6 +41,15 @@ export function getBonusesForOneStatistic(
     }
   });
   return bonuses;
+}
+
+export function getBonus(character: Character, stat: string): number {
+  const bonuses = getBonusesForOneStatistic(character, stat);
+  let bonus = 0;
+  bonuses.forEach((b) => {
+    bonus += parseExpressionNumeric(b.value, character.variables!);
+  });
+  return bonus;
 }
 
 export function getPrioritizedStatistic<T>(character: Character, key: string) {
