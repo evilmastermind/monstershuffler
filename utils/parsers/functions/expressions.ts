@@ -2,7 +2,7 @@
 ----------------------------------------------------------------
 Expression parser v1.1 by Ismael
 ----------------------------------------------------------------
-This is an enhanced version of the parser found here:
+This is an enhanced version of the parser I found here:
 https://medium.com/@stoopidguy1992/how-to-write-a-math-expression-parser-in-javascript-b5147bc9466b
 added features:
 - greater than, smaller than and equal (> < =)

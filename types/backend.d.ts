@@ -324,6 +324,7 @@ export interface components {
           armor?: ({
             AC: string;
             name: string;
+            isAutomaticCalcDisabled?: boolean;
             cost?: string;
             /** @enum {string} */
             type?: "light" | "medium" | "heavy";
@@ -362,7 +363,7 @@ export interface components {
             hover?: string;
             swim?: string;
           };
-          abilitiesLimit?: string;
+          abilityScoresLimit?: number;
           savingThrows?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
           skills?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | {
             choice: {
@@ -554,6 +555,7 @@ export interface components {
           armor?: ({
             AC: string;
             name: string;
+            isAutomaticCalcDisabled?: boolean;
             cost?: string;
             /** @enum {string} */
             type?: "light" | "medium" | "heavy";
@@ -846,6 +848,7 @@ export interface components {
               armor?: ({
                 AC: string;
                 name: string;
+                isAutomaticCalcDisabled?: boolean;
                 cost?: string;
                 /** @enum {string} */
                 type?: "light" | "medium" | "heavy";
@@ -871,7 +874,7 @@ export interface components {
                 };
               });
               HD?: number;
-              abilitiesLimit?: string;
+              abilityScoresLimit?: number;
               speeds?: {
                 base?: string;
                 burrow?: string;
@@ -1061,7 +1064,7 @@ export interface components {
               alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
-              abilitiesLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilitiesLimit"];
+              abilityScoresLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilityScoresLimit"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
               savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["savingThrows"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
@@ -1144,7 +1147,7 @@ export interface components {
               alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
-              abilitiesLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilitiesLimit"];
+              abilityScoresLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilityScoresLimit"];
               savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["savingThrows"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
               resistances?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["resistances"];
@@ -1173,15 +1176,18 @@ export interface components {
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
               HD?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["HD"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
-              abilitiesBase?: {
-                STR?: number;
-                DEX?: number;
-                CON?: number;
-                INT?: number;
-                WIS?: number;
-                CHA?: number;
+              abilityScores?: {
+                STR?: {
+                  value: number;
+                  isAutomaticCalcDisabled?: boolean;
+                };
+                DEX?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"]["STR"];
+                CON?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"]["STR"];
+                INT?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"]["STR"];
+                WIS?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"]["STR"];
+                CHA?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"]["STR"];
               };
-              abilitiesLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilitiesLimit"];
+              abilityScoresLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilityScoresLimit"];
               savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["savingThrows"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
               resistances?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["resistances"];
@@ -1212,7 +1218,8 @@ export interface components {
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
               HD?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["HD"];
-              abilitiesBase?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilitiesBase"];
+              abilityScores?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"];
+              abilityScoresLimit?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["abilityScoresLimit"];
               speeds?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["speeds"];
               skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
               resistances?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["resistances"];
@@ -1236,7 +1243,7 @@ export interface components {
               trait?: string;
               feeling?: string;
             };
-            abilitiesBase?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilitiesBase"];
+            abilityScores?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"];
             alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
             /** @enum {string} */
             alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
@@ -1258,7 +1265,7 @@ export interface components {
             } | {
               /** @enum {string} */
               name: "automatic";
-              cr: number;
+              CR: number;
             };
             /** @enum {string} */
             proficiencyCalculation?: "level" | "CR";
@@ -1291,6 +1298,7 @@ export interface components {
           variables?: {
             LVL: number;
             CR: number;
+            CRBASE: number;
             PROF: number;
             SIZE: number;
             HD: number;
@@ -1314,6 +1322,10 @@ export interface components {
             sizesmaller: string;
             sizetwogreater: string;
             sizetwosmaller: string;
+          };
+          variations?: {
+            currentCR?: number;
+            currentHD?: number;
           };
         };
       };
@@ -1348,6 +1360,7 @@ export interface components {
           armor?: ({
             AC: string;
             name: string;
+            isAutomaticCalcDisabled?: boolean;
             cost?: string;
             /** @enum {string} */
             type?: "light" | "medium" | "heavy";
@@ -1373,7 +1386,7 @@ export interface components {
             };
           });
           HD?: number;
-          abilitiesLimit?: string;
+          abilityScoresLimit?: number;
           speeds?: {
             base?: string;
             burrow?: string;

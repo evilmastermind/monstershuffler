@@ -1,34 +1,48 @@
-import { calculateChallengeRating } from "./challengeRating";
+import { create } from "domain";
+import {
+  calculateChallengeRating,
+  recalculateChallengeRatingAfterAutomaticHP,
+} from "./challengeRating";
 import { calculateAlignment } from "./alignment";
 import { calculateName } from "./name";
-import { calculateLevel } from "./level";
+import { calculateLevel, recalculateLevelAfterAutomaticHP } from "./level";
 import { calculateProficiency } from "./proficiency";
 import { calculateSize } from "./size";
 import { calculateAbilityScores } from "./abilityScores";
+import { calculateHitPoints } from "./hp";
 import { Character } from "@/types/objects";
-import { hasDefined, random } from "@/utils/functions";
 
 export function createStats(character: Character) {
   createKeyIfUndefined(character, "statistics");
   createKeyIfUndefined(character, "variables");
-
-  calculateAlignment(character);
+  createKeyIfUndefined(character, "tags");
+  createKeyIfUndefined(character, "variations");
+  /// /// ///
   calculateName(character);
-
+  calculateAlignment(character);
+  /// /// ///
   const CRCalculation = character.character.CRCalculation?.name;
   if (CRCalculation === "automatic") {
-    /* 
-      AUTOMATIC
-      The automatic calculation is "CR-Based": the initial CR, chosen by the user, determines
-      the hit points, the ability scores, and the size, with which we can calculate the number
-      of Hit Dice.
-    */
+    /**
+     * AUTOMATIC
+     * The automatic calculation is "CR-Based": the initial CR, chosen by the user, determines
+     * the hit points, the ability scores, and the size, with which we can calculate the number
+     * of Hit Dice.
+     *
+     */
+    // === this part uses the original CR to calculate the statistics needed to know the creature's HP
     calculateChallengeRating(character);
+    calculateLevel(character); // using the original CR
+    calculateSize(character); // original the original CR
+    calculateAbilityScores(character); // using the original CR
+    calculateHitPoints(character); // using original CR, then recalibrating with the new CR
+    // === now that we have the creature's HP, we can recalibrate it for the new CR and get the new level
+    recalculateChallengeRatingAfterAutomaticHP(character);
     calculateSize(character);
     calculateAbilityScores(character);
-    // hit points
-    calculateLevel(character);
+    recalculateLevelAfterAutomaticHP(character);
     calculateProficiency(character);
+    calculateHitPoints(character);
   } else {
     /*
       TWO-POINTS METHOD / NPC STANDARD
@@ -40,5 +54,7 @@ export function createStats(character: Character) {
     calculateProficiency(character);
     calculateAbilityScores(character);
     calculateSize(character);
+    calculateHitPoints(character);
   }
+  /// /// ///
 }

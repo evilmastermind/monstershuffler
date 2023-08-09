@@ -28,6 +28,8 @@ components:
                           type: string
                         name:
                           type: string
+                        isAutomaticCalcDisabled:
+                          type: boolean
                         cost:
                           type: string
                         type:
@@ -150,8 +152,8 @@ components:
                     swim:
                       type: string
                   additionalProperties: false
-                abilitiesLimit:
-                  type: string
+                abilityScoresLimit:
+                  type: number
                 savingThrows:
                   type: array
                   items:
@@ -815,6 +817,8 @@ components:
                           type: string
                         name:
                           type: string
+                        isAutomaticCalcDisabled:
+                          type: boolean
                         cost:
                           type: string
                         type:
@@ -1725,6 +1729,8 @@ components:
                                   type: string
                                 name:
                                   type: string
+                                isAutomaticCalcDisabled:
+                                  type: boolean
                                 cost:
                                   type: string
                                 type:
@@ -1801,8 +1807,8 @@ components:
                               additionalProperties: false
                         HD:
                           type: number
-                        abilitiesLimit:
-                          type: string
+                        abilityScoresLimit:
+                          type: number
                         speeds:
                           type: object
                           properties:
@@ -2458,10 +2464,10 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/subtypes"
-                        abilitiesLimit:
+                        abilityScoresLimit:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
-                            e/properties/abilitiesLimit"
+                            e/properties/abilityScoresLimit"
                         speeds:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -2774,10 +2780,10 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/speeds"
-                        abilitiesLimit:
+                        abilityScoresLimit:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
-                            e/properties/abilitiesLimit"
+                            e/properties/abilityScoresLimit"
                         savingThrows:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -2888,26 +2894,49 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/speeds"
-                        abilitiesBase:
+                        abilityScores:
                           type: object
                           properties:
                             STR:
-                              type: number
+                              type: object
+                              properties:
+                                value:
+                                  type: number
+                                isAutomaticCalcDisabled:
+                                  type: boolean
+                              required:
+                                - value
+                              additionalProperties: false
                             DEX:
-                              type: number
+                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                /properties/npc/properties/character/properties\
+                                /template/properties/abilityScores/properties/S\
+                                TR"
                             CON:
-                              type: number
+                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                /properties/npc/properties/character/properties\
+                                /template/properties/abilityScores/properties/S\
+                                TR"
                             INT:
-                              type: number
+                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                /properties/npc/properties/character/properties\
+                                /template/properties/abilityScores/properties/S\
+                                TR"
                             WIS:
-                              type: number
+                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                /properties/npc/properties/character/properties\
+                                /template/properties/abilityScores/properties/S\
+                                TR"
                             CHA:
-                              type: number
+                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                /properties/npc/properties/character/properties\
+                                /template/properties/abilityScores/properties/S\
+                                TR"
                           additionalProperties: false
-                        abilitiesLimit:
+                        abilityScoresLimit:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
-                            e/properties/abilitiesLimit"
+                            e/properties/abilityScoresLimit"
                         savingThrows:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -3024,10 +3053,14 @@ components:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
                             e/properties/HD"
-                        abilitiesBase:
+                        abilityScores:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/tem\
-                            plate/properties/abilitiesBase"
+                            plate/properties/abilityScores"
+                        abilityScoresLimit:
+                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                            /properties/npc/properties/character/properties/rac\
+                            e/properties/abilityScoresLimit"
                         speeds:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -3111,10 +3144,10 @@ components:
                         feeling:
                           type: string
                       additionalProperties: false
-                    abilitiesBase:
+                    abilityScores:
                       $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                         /properties/npc/properties/character/properties/templat\
-                        e/properties/abilitiesBase"
+                        e/properties/abilityScores"
                     alignmentModifiers:
                       $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                         /properties/npc/properties/character/properties/race/pr\
@@ -3184,11 +3217,11 @@ components:
                               type: string
                               enum:
                                 - automatic
-                            cr:
+                            CR:
                               type: number
                           required:
                             - name
-                            - cr
+                            - CR
                           additionalProperties: false
                     proficiencyCalculation:
                       type: string
@@ -3285,6 +3318,8 @@ components:
                       type: number
                     CR:
                       type: number
+                    CRBASE:
+                      type: number
                     PROF:
                       type: number
                     SIZE:
@@ -3320,6 +3355,7 @@ components:
                   required:
                     - LVL
                     - CR
+                    - CRBASE
                     - PROF
                     - SIZE
                     - HD
@@ -3356,6 +3392,14 @@ components:
                     - sizesmaller
                     - sizetwogreater
                     - sizetwosmaller
+                  additionalProperties: false
+                variations:
+                  type: object
+                  properties:
+                    currentCR:
+                      type: number
+                    currentHD:
+                      type: number
                   additionalProperties: false
               required:
                 - character
@@ -3464,6 +3508,8 @@ components:
                           type: string
                         name:
                           type: string
+                        isAutomaticCalcDisabled:
+                          type: boolean
                         cost:
                           type: string
                         type:
@@ -3538,8 +3584,8 @@ components:
                       additionalProperties: false
                 HD:
                   type: number
-                abilitiesLimit:
-                  type: string
+                abilityScoresLimit:
+                  type: number
                 speeds:
                   type: object
                   properties:

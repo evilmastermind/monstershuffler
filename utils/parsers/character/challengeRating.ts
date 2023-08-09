@@ -6,10 +6,17 @@ import {
 } from "@/utils/parsers/stats";
 
 export function calculateChallengeRating(character: Character) {
+  if (character?.variations?.currentCR) {
+    assignChallengeRating(
+      character,
+      character.variations.currentCR,
+      getChallengeString(character.variations.currentCR)
+    );
+    return;
+  }
   const c = character.character;
   const level = character.statistics!.level;
   let CR = 0;
-  let CRString = "0";
   // two-point calculation:
   // the cr of a creature is given by the user at two different levels
   //
@@ -34,7 +41,6 @@ export function calculateChallengeRating(character: Character) {
     const x2 = parseFloat(c.CRCalculation.x2) || 20;
     const y2 = parseFloat(c.CRCalculation.y2) || 12;
     CR = ((level - x1) * (y2 - y1)) / (x2 - x1) + y1;
-    CRString = getChallengeString(CR);
   } else if (c?.CRCalculation?.name === "npcstandard") {
     if (level === 0) {
       CR = -3;
@@ -47,11 +53,24 @@ export function calculateChallengeRating(character: Character) {
     } else {
       CR = Math.floor((level / 5) * 3);
     }
-    CRString = getChallengeString(CR);
   } else if (c?.CRCalculation?.name === "automatic") {
-    CR = c.CRCalculation.cr;
-    CRString = getChallengeString(CR);
+    CR = c.CRCalculation.CR || 0;
   }
+  assignChallengeRating(character, CR, getChallengeString(CR));
+}
+
+export function recalculateChallengeRatingAfterAutomaticHP(
+  character: Character
+) {
+  const CR = character?.variations?.currentCR || character.variables!.CR || 0;
+  assignChallengeRating(character, CR, getChallengeString(CR));
+}
+
+function assignChallengeRating(
+  character: Character,
+  CR: number,
+  CRString: string
+) {
   // statistics
   character.statistics!.CR = {
     number: CR,
@@ -59,7 +78,7 @@ export function calculateChallengeRating(character: Character) {
   };
   // variables
   character.statistics!.XP =
-    // @ts-ignore GODDAMNIT TYPESCRIPT WHY YOU DUMB FOOL
+    // @ts-expect-error CRString is a valid key
     CR <= 30 ? challengeStats[CRString].xp.toString() : "???";
   character.variables!.CR = CR;
 }
