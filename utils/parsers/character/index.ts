@@ -1,4 +1,3 @@
-import { create } from "domain";
 import {
   calculateChallengeRating,
   recalculateChallengeRatingAfterAutomaticHP,
@@ -10,6 +9,8 @@ import { calculateProficiency } from "./proficiency";
 import { calculateSize } from "./size";
 import { calculateAbilityScores } from "./abilityScores";
 import { calculateHitPoints } from "./hp";
+import { calculatePronouns } from "./pronouns";
+import { calculateCharacterHook } from "./characterHook";
 import { Character } from "@/types/objects";
 
 export function createStats(character: Character) {
@@ -20,6 +21,8 @@ export function createStats(character: Character) {
   /// /// ///
   calculateName(character);
   calculateAlignment(character);
+  calculatePronouns(character);
+  calculateCharacterHook(character);
   /// /// ///
   const CRCalculation = character.character.CRCalculation?.name;
   if (CRCalculation === "automatic") {
@@ -53,6 +56,7 @@ export function createStats(character: Character) {
     calculateChallengeRating(character);
     calculateProficiency(character);
     calculateAbilityScores(character);
+    console.log(character.statistics);
     calculateSize(character);
     calculateHitPoints(character);
   }

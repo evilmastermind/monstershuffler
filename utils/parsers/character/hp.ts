@@ -3,7 +3,7 @@ import { sizeStats, Size, getBonus, calibrateStatistic } from "@/utils/parsers";
 
 export function calculateHitPoints(character: Character) {
   const s = character.statistics!;
-  const size = s!.size;
+  const size = s!.size.number;
   const HitDice = s!.level;
 
   const die = sizeStats[size.toString() as Size].hitDice;

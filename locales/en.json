@@ -1,4 +1,7 @@
 {
+  "monsterCard": {
+    "alignment": "Alignment"
+  },
   "alignment": {
     "Neutral": "Neutral",
     "Lawful": "Lawful",
@@ -9,7 +12,7 @@
     "Unaligned": "Unaligned"
   },
   "navbar": {
-    "menu:": "Menu:",
+    "menuTitle": "Menu:",
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
@@ -55,6 +58,7 @@
       "level": "Level",
       "levelRandom": "Random Level",
       "levelLowMostly": "Random (mostly low-level)",
+      "voice": "Voice",
       "generate": "Generate NPC"
     },
     "prompt": {

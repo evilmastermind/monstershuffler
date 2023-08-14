@@ -26,10 +26,16 @@ export function calculateSize(character: Character) {
   if (size < 1) size = 1;
 
   // statistics
-  character.statistics!.size.string = isSwarm
-    ? sizeStats[baseSize.toString() as Size].name
-    : sizeStats[size.toString() as Size].name;
-  character.statistics!.size.number = isSwarm ? baseSize : size;
+  character.statistics!.size = {
+    string: sizeStats[size.toString() as Size].name,
+    number: size,
+  };
+  if (isSwarm) {
+    character.statistics!.sizeSwarmSingleEntity = {
+      string: sizeStats[baseSize.toString() as Size].name,
+      number: baseSize,
+    };
+  }
   // tags
   const sizegreater = size > 5 ? 6 : size + 1;
   const sizesmaller = size < 2 ? 1 : size - 1;

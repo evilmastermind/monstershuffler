@@ -17,6 +17,14 @@ export default defineNuxtConfig({
     "/reset-password": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
+  vite: {
+    vue: {
+      script: {
+        defineModel: true,
+        propsDestructure: true,
+      },
+    },
+  },
   nitro: {
     compressPublicAssets: true,
     //   devProxy: {

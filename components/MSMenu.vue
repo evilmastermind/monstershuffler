@@ -3,7 +3,7 @@
     @click should be a toggle for instance -->
   <button
     class="dropdown"
-    :aria-label="$t('navbar.menu')"
+    :aria-label="$t('navbar.menuTitle')"
     @mouseover="mouseOver"
     @mouseleave="mouseLeave"
     @click="mouseOver"

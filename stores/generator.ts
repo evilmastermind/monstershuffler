@@ -7,7 +7,7 @@ import {
   createRandomNpcInputSchema,
   createFourRandomNpcsResponseSchema,
 } from "@/stores/generator.d";
-import { calculateAlignment } from "@/utils/parsers/character/alignment";
+import { createStats } from "@/utils/parsers";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
@@ -26,7 +26,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     );
 
     if (data?.value?.npcs) {
-      data?.value?.npcs.forEach((npc) => calculateAlignment(npc));
+      data?.value?.npcs.forEach((npc) => createStats(npc));
       session.value.push(data.value.npcs);
       return true;
     } else {

@@ -3,7 +3,6 @@ import { Character } from "@/types/objects";
 import { getStatArrayFromObjects } from "@/utils/parsers/functions";
 
 export function calculateLevel(character: Character) {
-  const c = character.character;
   if (character?.variations?.currentHD !== undefined) {
     assignLevel(character, character.variations.currentHD);
     return;

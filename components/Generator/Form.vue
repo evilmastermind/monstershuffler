@@ -153,6 +153,13 @@
             </option>
           </select>
         </span>
+        <!-- MISC OPTIONS -->
+        <div class="mt-4">
+          <MSCheckbox
+            v-model="options.addVoice"
+            :label="$t('generator.form.voice')"
+          />
+        </div>
       </fieldset>
       <!-- GENERATE MSButton -->
       <div class="generate-button text-center mt-5">
@@ -208,6 +215,7 @@ const options = ref<createRandomNpcInputSchema>({
   classType: "randomAlways",
   backgroundType: "random",
   levelType: "randomPeasantsMostly",
+  addVoice: true,
 });
 
 const generateNpcThrottle = throttle(generateNpc, 1000);

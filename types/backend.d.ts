@@ -7,7 +7,7 @@
 export interface paths {
   "/api/backgrounds/": {
     /**
-     * Returns a list of all available backgrounds in the db. 
+     * Returns a list of all available backgrounds in the db.
      * @description Returns a list of all available backgrounds in the db. If authenticated, also returns the list of backgrounds created by the user.
      */
     get: {
@@ -28,7 +28,7 @@ export interface paths {
   };
   "/api/backgrounds/{backgroundId}": {
     /**
-     * Returns the details of the background corresponding to the given id. 
+     * Returns the details of the background corresponding to the given id.
      * @description Returns the details of the background corresponding to the given id.
      */
     get: {
@@ -49,7 +49,7 @@ export interface paths {
   };
   "/api/backgrounds/random": {
     /**
-     * Returns the details of a random background from the database. 
+     * Returns the details of a random background from the database.
      * @description Returns the details of a random background from list of backgrounds available to the user in the database.
      */
     get: {
@@ -70,7 +70,7 @@ export interface paths {
   };
   "/api/classes/": {
     /**
-     * Returns a list of all available classes in the db. 
+     * Returns a list of all available classes in the db.
      * @description Returns a list of all available classes in the db. If authenticated, also returns the classes created by the user.
      */
     get: {
@@ -91,7 +91,7 @@ export interface paths {
   };
   "/api/classes/random": {
     /**
-     * Returns the details of a random class in the database. 
+     * Returns the details of a random class in the database.
      * @description Returns the details of a random class from list of classes available to the user in the database.
      */
     get: {
@@ -112,7 +112,7 @@ export interface paths {
   };
   "/api/classes/withvariants": {
     /**
-     * Returns a list of all available combinations of classes and variants in the db. 
+     * Returns a list of all available combinations of classes and variants in the db.
      * @description Returns a list of all available combinations of classes and variants in the db. If authenticated, also returns the classes created by the user.
      */
     get: {
@@ -133,7 +133,7 @@ export interface paths {
   };
   "/api/classes/{classId}": {
     /**
-     * Returns the details of the class corresponding to the given id. 
+     * Returns the details of the class corresponding to the given id.
      * @description Returns the details of the class corresponding to the given id.
      */
     get: {
@@ -154,7 +154,7 @@ export interface paths {
   };
   "/api/npcs/": {
     /**
-     * Creates a new random npc using the settings provided. 
+     * Creates a new random npc using the settings provided.
      * @description Creates a new random npc using the settings provided.
      */
     post: {
@@ -180,7 +180,7 @@ export interface paths {
   };
   "/api/npcs/four": {
     /**
-     * [MS ONLY] Creates four new random npcs using the settings provided. 
+     * [MS ONLY] Creates four new random npcs using the settings provided.
      * @description Creates four new random npcs using the settings provided. Only accessible through monstershuffler.com
      */
     post: {
@@ -206,7 +206,7 @@ export interface paths {
   };
   "/api/races/": {
     /**
-     * Returns a list of all available races in the db. 
+     * Returns a list of all available races in the db.
      * @description Returns a list of all available races in the db. If authenticated, also returns the races created by the user.
      */
     get: {
@@ -227,7 +227,7 @@ export interface paths {
   };
   "/api/races/withvariants": {
     /**
-     * Returns a list of all available combinations of races and variants in the db. 
+     * Returns a list of all available combinations of races and variants in the db.
      * @description Returns a list of all available combinations of races and variants in the db. If authenticated, also returns the races created by the user.
      */
     get: {
@@ -248,7 +248,7 @@ export interface paths {
   };
   "/api/races/{raceId}": {
     /**
-     * Returns the details of the race corresponding to the given id. 
+     * Returns the details of the race corresponding to the given id.
      * @description Returns the details of the race corresponding to the given id.
      */
     get: {
@@ -269,7 +269,7 @@ export interface paths {
   };
   "/api/races/random": {
     /**
-     * Returns the details of a random race from the database. 
+     * Returns the details of a random race from the database.
      * @description Returns the details of a random race from list of races available to the user in the database.
      */
     get: {
@@ -290,7 +290,7 @@ export interface paths {
   };
   "/api/users/login": {
     /**
-     * Logs in a user and returns an access token. 
+     * Logs in a user and returns an access token.
      * @description Logs in a user and returns an access token. Logged users can then receive their creations through other routes, and access other protected routes.
      */
     post: {
@@ -342,19 +342,19 @@ export interface components {
               /** @enum {string} */
               source: "objects" | "languages" | "skills";
               objectType?: number;
-              filters?: ({
+              filters?: {
                   keyName: string;
-                  keyValues: (string)[];
-                })[];
-              chosenAlready?: ({
+                  keyValues: string[];
+                }[];
+              chosenAlready?: {
                   id?: number;
                   value: string;
                   levelMin?: string;
-                })[];
+                }[];
             };
           });
           alignmentModifiers?: [[number, number, number], [number, number, number]];
-          subtypes?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+          subtypes?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
           speeds?: {
             base?: string;
             burrow?: string;
@@ -364,20 +364,20 @@ export interface components {
             swim?: string;
           };
           abilityScoresLimit?: number;
-          savingThrows?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          skills?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | {
+          savingThrows?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          skills?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | {
             choice: {
               /** @enum {string} */
               type: "list";
               number: number;
-              list: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+              list: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
               isRepeatable?: boolean;
             };
           };
-          resistances?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          immunities?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          vulnerabilities?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          conditionImmunities?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+          resistances?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          immunities?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          vulnerabilities?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          conditionImmunities?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
           senses?: {
             blindsight?: string;
             darkvision?: string;
@@ -387,14 +387,14 @@ export interface components {
           isBlind?: boolean;
           canSpeak?: boolean;
           telepathy?: string;
-          languages?: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"];
+          languages?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"];
           actions?: ({
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
               subType?: string;
               source?: string;
-              tags?: (string)[];
+              tags?: string[];
               priority?: number;
               variants: (({
                   name: string;
@@ -451,7 +451,7 @@ export interface components {
                         diceNumberV?: string;
                         range?: string;
                         rangeMax?: string;
-                        properties: (string)[];
+                        properties: string[];
                       } | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
@@ -525,7 +525,7 @@ export interface components {
                 levelMin?: string;
                 timesDay?: string;
                 timesDayMax?: string;
-                spells: (components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"];
+                spells: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"];
               })[];
           };
           enableGenerator?: boolean;
@@ -536,11 +536,11 @@ export interface components {
         game: number;
       };
       getBackgroundListResponseSchema: {
-        list: ({
+        list: {
             id: number;
             userid: number;
             name: string;
-          })[];
+          }[];
       };
       getBackgroundResponseSchema: {
         object: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"];
@@ -573,18 +573,18 @@ export interface components {
               /** @enum {string} */
               source: "objects" | "languages" | "skills";
               objectType?: number;
-              filters?: ({
+              filters?: {
                   keyName: string;
-                  keyValues: (string)[];
-                })[];
-              chosenAlready?: ({
+                  keyValues: string[];
+                }[];
+              chosenAlready?: {
                   id?: number;
                   value: string;
                   levelMin?: string;
-                })[];
+                }[];
             };
           });
-          subtypes?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+          subtypes?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
           speeds?: {
             base?: string;
             burrow?: string;
@@ -593,20 +593,20 @@ export interface components {
             hover?: string;
             swim?: string;
           };
-          savingThrows?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          skills?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | {
+          savingThrows?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          skills?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | {
             choice: {
               /** @enum {string} */
               type: "list";
               number: number;
-              list: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+              list: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
               isRepeatable?: boolean;
             };
           };
-          resistances?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          immunities?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          vulnerabilities?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
-          conditionImmunities?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[];
+          resistances?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          immunities?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          vulnerabilities?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
+          conditionImmunities?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][];
           senses?: {
             blindsight?: string;
             darkvision?: string;
@@ -616,14 +616,14 @@ export interface components {
           isBlind?: boolean;
           canSpeak?: boolean;
           telepathy?: string;
-          languages?: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
+          languages?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
           actions?: ({
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
               subType?: string;
               source?: string;
-              tags?: (string)[];
+              tags?: string[];
               priority?: number;
               variants: (({
                   name: string;
@@ -680,7 +680,7 @@ export interface components {
                         diceNumberV?: string;
                         range?: string;
                         rangeMax?: string;
-                        properties: (string)[];
+                        properties: string[];
                       } | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
@@ -754,7 +754,7 @@ export interface components {
                 levelMin?: string;
                 timesDay?: string;
                 timesDayMax?: string;
-                spells: (components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"])[] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
+                spells: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
               })[];
           };
           image?: {
@@ -762,8 +762,8 @@ export interface components {
             lastedited: number;
           };
           imageBackground?: string;
-          searchTags?: (string)[];
-          environments?: (string)[];
+          searchTags?: string[];
+          environments?: string[];
           backstory?: {
             [key: string]: unknown;
           };
@@ -775,23 +775,23 @@ export interface components {
         object: components["schemas"]["classSchemas"]["updateClassSchema"]["object"];
       };
       getClassWithVariantsListResponseSchema: {
-        list: ({
+        list: {
             id: number;
             userid: number;
             name: string;
-            other_objects: ({
+            other_objects: {
                 id: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["id"];
                 name: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["name"];
                 userid: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["userid"];
-              })[];
-          })[];
+              }[];
+          }[];
       };
       getClassListResponseSchema: {
-        list: ({
+        list: {
             id: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["id"];
             userid: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["userid"];
             name: components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"]["list"]["items"]["name"];
-          })[];
+          }[];
       };
       getClassResponseSchema: {
         object: components["schemas"]["classSchemas"]["updateClassSchema"]["object"];
@@ -815,6 +815,7 @@ export interface components {
         secondaryRacevariantId?: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["classId"];
         primaryRacePercentage?: number;
         secondaryRacePercentage?: number;
+        addVoice?: boolean;
       };
       createRandomNpcResponseSchema: {
         npc: {
@@ -828,20 +829,20 @@ export interface components {
             race?: {
               name: string;
               enableGenerator?: boolean;
-              ageAdult?: string;
-              ageMax?: string;
+              ageAdult?: number;
+              ageMax?: number;
               heightMin?: number;
               heightMax?: number;
-              nameType?: (string)[];
+              nameType?: string[];
               addSurname?: number;
               pronouns?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["pronouns"];
-              size?: string;
+              size?: number;
               type?: string;
-              subtypes?: ({
+              subtypes?: {
                   id?: number;
                   value: string;
                   levelMin?: string;
-                })[];
+                }[];
               isSwarm?: boolean;
               swarmSize?: string;
               alignmentModifiers?: [[number, number, number], [number, number, number]];
@@ -866,11 +867,11 @@ export interface components {
                   /** @enum {string} */
                   source: "objects" | "languages" | "skills";
                   objectType?: number;
-                  filters?: ({
+                  filters?: {
                       keyName: string;
-                      keyValues: (string)[];
-                    })[];
-                  chosenAlready?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+                      keyValues: string[];
+                    }[];
+                  chosenAlready?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
                 };
               });
               HD?: number;
@@ -883,20 +884,20 @@ export interface components {
                 hover?: string;
                 swim?: string;
               };
-              savingThrows?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
-              skills?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | {
+              savingThrows?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
+              skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | {
                 choice: {
                   /** @enum {string} */
                   type: "list";
                   number: number;
-                  list: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+                  list: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
                   isRepeatable?: boolean;
                 };
               };
-              resistances?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
-              immunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
-              vulnerabilities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
-              conditionImmunities?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[];
+              resistances?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
+              immunities?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
+              vulnerabilities?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
+              conditionImmunities?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][];
               senses?: {
                 blindsight?: string;
                 darkvision?: string;
@@ -906,14 +907,14 @@ export interface components {
               isBlind?: boolean;
               canSpeak?: boolean;
               telepathy?: string;
-              languages?: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+              languages?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
               actions?: ({
                   tag: string;
                   /** @enum {string} */
                   actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
                   subType?: string;
                   source?: string;
-                  tags?: (string)[];
+                  tags?: string[];
                   priority?: number;
                   variants: (({
                       name: string;
@@ -970,7 +971,7 @@ export interface components {
                             diceNumberV?: string;
                             range?: string;
                             rangeMax?: string;
-                            properties: (string)[];
+                            properties: string[];
                           } | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
                           enchantment?: {
                             type: string;
@@ -1044,7 +1045,7 @@ export interface components {
                     levelMin?: string;
                     timesDay?: string;
                     timesDayMax?: string;
-                    spells: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"])[] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
+                    spells: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
                   })[];
               };
               image?: {
@@ -1052,8 +1053,8 @@ export interface components {
                 lastedited: number;
               };
               imageBackground?: string;
-              searchTags?: (string)[];
-              environments?: (string)[];
+              searchTags?: string[];
+              environments?: string[];
               backstory?: {
                 [key: string]: unknown;
               };
@@ -1242,6 +1243,20 @@ export interface components {
               characterHook?: string;
               trait?: string;
               feeling?: string;
+              age?: {
+                number: number;
+                /** @enum {string} */
+                string: "child" | "adolescent" | "young adult" | "adult" | "middle-aged" | "elderly" | "venerable";
+              };
+              height?: number;
+              /** @enum {string} */
+              weight?: "skinny" | "average" | "chubby" | "obese";
+              voice?: {
+                person: string;
+                character?: string;
+                production?: string;
+                filename: string;
+              };
             };
             abilityScores?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["template"]["abilityScores"];
             alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
@@ -1249,9 +1264,14 @@ export interface components {
             alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
             /** @enum {string} */
             alignmentMoral?: "Good" | "Neutral" | "Evil" | "Any";
+            skills?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"];
             characterHook?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["characterHook"];
             trait?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["trait"];
             feeling?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["feeling"];
+            age?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["age"];
+            height?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["height"];
+            weight?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["weight"];
+            voice?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["user"]["voice"];
             CRCalculation?: {
               x1: string;
               x2: string;
@@ -1271,11 +1291,12 @@ export interface components {
             proficiencyCalculation?: "level" | "CR";
           };
           statistics?: {
-            alignment: (string)[];
+            alignment: string[];
             prename: string;
             name: string;
             surname: string;
             fullName: string;
+            characterHook: string;
             level: number;
             CR: {
               number: number;
@@ -1284,6 +1305,7 @@ export interface components {
             XP: string;
             proficiency: number;
             size: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
+            sizeSwarmSingleEntity?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
             abilityScores: {
               STR: number;
               DEX: number;
@@ -1298,7 +1320,6 @@ export interface components {
           variables?: {
             LVL: number;
             CR: number;
-            CRBASE: number;
             PROF: number;
             SIZE: number;
             HD: number;
@@ -1317,6 +1338,30 @@ export interface components {
             CHAVALUE: number;
           };
           tags?: {
+            name: string;
+            Name: string;
+            he: string;
+            she: string;
+            his: string;
+            her: string;
+            him: string;
+            hers: string;
+            He: string;
+            His: string;
+            Him: string;
+            Hers: string;
+            they: string;
+            their: string;
+            them: string;
+            theirs: string;
+            They: string;
+            Their: string;
+            Them: string;
+            Theirs: string;
+            it: string;
+            its: string;
+            It: string;
+            Its: string;
             size: string;
             sizegreater: string;
             sizesmaller: string;
@@ -1330,7 +1375,7 @@ export interface components {
         };
       };
       createFourRandomNpcsResponseSchema: {
-        npcs: (components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"])[];
+        npcs: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"][];
       };
     };
     raceSchemas: {
@@ -1339,21 +1384,21 @@ export interface components {
         object: {
           name: string;
           enableGenerator?: boolean;
-          ageAdult?: string;
-          ageMax?: string;
+          ageAdult?: number;
+          ageMax?: number;
           heightMin?: number;
           heightMax?: number;
-          nameType?: (string)[];
+          nameType?: string[];
           addSurname?: number;
           /** @enum {string} */
           pronouns?: "male" | "female" | "neutral" | "thing";
-          size?: string;
+          size?: number;
           type?: string;
-          subtypes?: ({
+          subtypes?: {
               id?: number;
               value: string;
               levelMin?: string;
-            })[];
+            }[];
           isSwarm?: boolean;
           swarmSize?: string;
           alignmentModifiers?: [[number, number, number], [number, number, number]];
@@ -1378,11 +1423,11 @@ export interface components {
               /** @enum {string} */
               source: "objects" | "languages" | "skills";
               objectType?: number;
-              filters?: ({
+              filters?: {
                   keyName: string;
-                  keyValues: (string)[];
-                })[];
-              chosenAlready?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
+                  keyValues: string[];
+                }[];
+              chosenAlready?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
             };
           });
           HD?: number;
@@ -1395,20 +1440,20 @@ export interface components {
             hover?: string;
             swim?: string;
           };
-          savingThrows?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
-          skills?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | {
+          savingThrows?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
+          skills?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | {
             choice: {
               /** @enum {string} */
               type: "list";
               number: number;
-              list: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
+              list: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
               isRepeatable?: boolean;
             };
           };
-          resistances?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
-          immunities?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
-          vulnerabilities?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
-          conditionImmunities?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[];
+          resistances?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
+          immunities?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
+          vulnerabilities?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
+          conditionImmunities?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][];
           senses?: {
             blindsight?: string;
             darkvision?: string;
@@ -1418,14 +1463,14 @@ export interface components {
           isBlind?: boolean;
           canSpeak?: boolean;
           telepathy?: string;
-          languages?: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
+          languages?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
           actions?: ({
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
               subType?: string;
               source?: string;
-              tags?: (string)[];
+              tags?: string[];
               priority?: number;
               variants: (({
                   name: string;
@@ -1482,7 +1527,7 @@ export interface components {
                         diceNumberV?: string;
                         range?: string;
                         rangeMax?: string;
-                        properties: (string)[];
+                        properties: string[];
                       } | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
@@ -1556,7 +1601,7 @@ export interface components {
                 levelMin?: string;
                 timesDay?: string;
                 timesDayMax?: string;
-                spells: (components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"])[] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
+                spells: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
               })[];
           };
           image?: {
@@ -1564,8 +1609,8 @@ export interface components {
             lastedited: number;
           };
           imageBackground?: string;
-          searchTags?: (string)[];
-          environments?: (string)[];
+          searchTags?: string[];
+          environments?: string[];
           backstory?: {
             [key: string]: unknown;
           };
@@ -1576,23 +1621,23 @@ export interface components {
         game: components["schemas"]["raceSchemas"]["createRaceSchema"]["game"];
       };
       getRaceWithVariantsListResponseSchema: {
-        list: ({
+        list: {
             id: number;
             userid: number;
             name: string;
-            other_objects: ({
+            other_objects: {
                 id: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["id"];
                 name: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["name"];
                 userid: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["userid"];
-              })[];
-          })[];
+              }[];
+          }[];
       };
       getRaceListResponseSchema: {
-        list: ({
+        list: {
             id: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["id"];
             userid: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["userid"];
             name: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["name"];
-          })[];
+          }[];
       };
       getRaceResponseSchema: {
         object: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"];

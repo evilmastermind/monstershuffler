@@ -4,9 +4,6 @@ import { objects } from "@/utils/constants";
 import { getStatArrayFromObjects } from "@/utils/parsers/functions";
 
 export function calculateAlignment(character: Character) {
-  if (character?.statistics?.alignment?.length) {
-    return;
-  }
   const c = character.character;
   const generic = c?.generic || null;
   const typically = generic === true ? "Typically " : "";
