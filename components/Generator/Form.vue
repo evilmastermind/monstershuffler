@@ -232,6 +232,8 @@ function prepareOptions() {
   options.value.primaryRaceId = race.id;
   if (race.variantId) {
     options.value.primaryRacevariantId = race.variantId;
+  } else {
+    delete options.value.primaryRacevariantId;
   }
   // secondary race
   options.value.secondaryRacePercentage = secondaryRacePercentage.value;
@@ -239,6 +241,8 @@ function prepareOptions() {
   options.value.secondaryRaceId = race2.id;
   if (race2.variantId) {
     options.value.secondaryRacevariantId = race2.variantId;
+  } else {
+    delete options.value.secondaryRacevariantId;
   }
   // class
   if (options.value.classType === "specific") {

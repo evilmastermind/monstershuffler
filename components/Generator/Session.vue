@@ -6,11 +6,14 @@
         :key="generation"
         class="generation"
       >
-        <MonsterCard
-          v-for="(character, index) in characters"
-          :key="index"
-          :monster="character"
-        />
+        <template v-for="(character, index) in characters" :key="index">
+          <Transition name="fade-scroll-slow" appear>
+            <MonsterCard
+              :monster="character"
+              :style="{ transitionDelay: `${0.15 * index}s` }"
+            />
+          </Transition>
+        </template>
       </div>
     </TransitionGroup>
   </div>
@@ -25,10 +28,10 @@ const { session } = storeToRefs(generator);
 <style scoped lang="scss">
 .session {
   overflow-y: auto;
-  @apply flex flex-col-reverse gap-6;
+  @apply flex flex-col-reverse gap-6 w-full;
 }
 .generation {
-  @apply grid grid-cols-1 gap-2;
+  @apply grid grid-cols-1 gap-x-2 gap-y-2;
   @media (min-width: theme("screens.sm")) {
     @apply grid-cols-2;
   }

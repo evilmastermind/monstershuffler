@@ -14,6 +14,8 @@ components:
             object:
               type: object
               properties:
+                id:
+                  type: number
                 name:
                   type: string
                 femaleName:
@@ -98,8 +100,8 @@ components:
                                     type: number
                                   value:
                                     type: string
-                                  levelMin:
-                                    type: string
+                                  availableAt:
+                                    type: number
                                 required:
                                   - value
                                 additionalProperties: false
@@ -269,6 +271,15 @@ components:
                           - multiattack
                           - mythic
                           - lair
+                      priority:
+                        type: number
+                      availableUnit:
+                        type: string
+                        enum:
+                          - level
+                          - cr
+                      availableUntil:
+                        type: number
                       subType:
                         type: string
                       source:
@@ -277,8 +288,6 @@ components:
                         type: array
                         items:
                           type: string
-                      priority:
-                        type: number
                       variants:
                         type: array
                         items:
@@ -293,9 +302,7 @@ components:
                                   $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
                                     /properties/object/properties/actions/items\
                                     /properties/actionType"
-                                levelMin:
-                                  type: number
-                                levelMax:
+                                availableAt:
                                   type: number
                                 ability:
                                   type: string
@@ -316,53 +323,8 @@ components:
                                   type: array
                                   items:
                                     anyOf:
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                        required:
-                                          - name
-                                          - expression
-                                        additionalProperties: false
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              diceIncrement:
-                                                type: string
-                                              levelMin:
-                                                type: string
-                                              levelMax:
-                                                type: string
-                                              levelInterval:
-                                                type: string
-                                            required:
-                                              - die
-                                              - diceNumber
-                                              - diceIncrement
-                                              - levelMin
-                                              - levelMax
-                                              - levelInterval
-                                            additionalProperties: false
-                                        required:
-                                          - name
-                                          - dice
-                                        additionalProperties: false
+                                      - {}
+                                      - {}
                                       - type: object
                                         properties:
                                           name:
@@ -372,22 +334,27 @@ components:
                                           incrProgression:
                                             type: object
                                             properties:
-                                              levelInterval:
+                                              unitInterval:
                                                 type: string
-                                              levelIncrement:
+                                              unitIncrement:
                                                 type: string
-                                              levelMin:
+                                              availableAt:
                                                 type: string
-                                              base:
+                                              availableUnit:
                                                 type: string
-                                              increment:
+                                                enum:
+                                                  - level
+                                                  - cr
+                                              valueBase:
+                                                type: string
+                                              valueIncrement:
                                                 type: string
                                             required:
-                                              - levelInterval
-                                              - levelIncrement
-                                              - levelMin
-                                              - base
-                                              - increment
+                                              - unitInterval
+                                              - unitIncrement
+                                              - availableAt
+                                              - valueBase
+                                              - valueIncrement
                                             additionalProperties: false
                                         required:
                                           - name
@@ -448,11 +415,29 @@ components:
                                           type:
                                             type: string
                                           dice:
-                                            $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
-                                              /properties/object/properties/act\
-                                              ions/items/properties/variants/it\
-                                              ems/anyOf/0/properties/values/ite\
-                                              ms/anyOf/1/properties/dice"
+                                            type: object
+                                            properties:
+                                              die:
+                                                type: number
+                                              diceNumber:
+                                                type: number
+                                              diceIncrement:
+                                                type: number
+                                              availableAt:
+                                                type: number
+                                              availableUntil:
+                                                type: number
+                                              availableUnit:
+                                                type: string
+                                                enum:
+                                                  - level
+                                                  - cr
+                                              unitInterval:
+                                                type: number
+                                            required:
+                                              - die
+                                              - diceNumber
+                                            additionalProperties: false
                                           expression:
                                             type: string
                                         required:
@@ -465,7 +450,6 @@ components:
                               required:
                                 - name
                                 - description
-                                - type
                               additionalProperties: false
                             - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
                                 /properties/object/properties/armor/anyOf/1"
@@ -698,6 +682,11 @@ components:
                       $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
                         /properties/object/properties/actions/items/properties/\
                         variants/items/anyOf/0/properties/ability"
+                    availableUnit:
+                      type: string
+                      enum:
+                        - level
+                        - cr
                     groups:
                       type: array
                       items:
@@ -705,7 +694,7 @@ components:
                         properties:
                           tag:
                             type: string
-                          levelMin:
+                          availableAt:
                             type: string
                           timesDay:
                             type: string
@@ -805,6 +794,8 @@ components:
             object:
               type: object
               properties:
+                id:
+                  type: number
                 name:
                   type: string
                 enableGenerator:
@@ -887,8 +878,8 @@ components:
                                     type: number
                                   value:
                                     type: string
-                                  levelMin:
-                                    type: string
+                                  availableAt:
+                                    type: number
                                 required:
                                   - value
                                 additionalProperties: false
@@ -1036,6 +1027,15 @@ components:
                           - multiattack
                           - mythic
                           - lair
+                      priority:
+                        type: number
+                      availableUnit:
+                        type: string
+                        enum:
+                          - level
+                          - cr
+                      availableUntil:
+                        type: number
                       subType:
                         type: string
                       source:
@@ -1044,8 +1044,6 @@ components:
                         type: array
                         items:
                           type: string
-                      priority:
-                        type: number
                       variants:
                         type: array
                         items:
@@ -1060,9 +1058,7 @@ components:
                                   $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                                     s/object/properties/actions/items/propertie\
                                     s/actionType"
-                                levelMin:
-                                  type: number
-                                levelMax:
+                                availableAt:
                                   type: number
                                 ability:
                                   type: string
@@ -1083,53 +1079,8 @@ components:
                                   type: array
                                   items:
                                     anyOf:
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                        required:
-                                          - name
-                                          - expression
-                                        additionalProperties: false
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              diceIncrement:
-                                                type: string
-                                              levelMin:
-                                                type: string
-                                              levelMax:
-                                                type: string
-                                              levelInterval:
-                                                type: string
-                                            required:
-                                              - die
-                                              - diceNumber
-                                              - diceIncrement
-                                              - levelMin
-                                              - levelMax
-                                              - levelInterval
-                                            additionalProperties: false
-                                        required:
-                                          - name
-                                          - dice
-                                        additionalProperties: false
+                                      - {}
+                                      - {}
                                       - type: object
                                         properties:
                                           name:
@@ -1139,22 +1090,27 @@ components:
                                           incrProgression:
                                             type: object
                                             properties:
-                                              levelInterval:
+                                              unitInterval:
                                                 type: string
-                                              levelIncrement:
+                                              unitIncrement:
                                                 type: string
-                                              levelMin:
+                                              availableAt:
                                                 type: string
-                                              base:
+                                              availableUnit:
                                                 type: string
-                                              increment:
+                                                enum:
+                                                  - level
+                                                  - cr
+                                              valueBase:
+                                                type: string
+                                              valueIncrement:
                                                 type: string
                                             required:
-                                              - levelInterval
-                                              - levelIncrement
-                                              - levelMin
-                                              - base
-                                              - increment
+                                              - unitInterval
+                                              - unitIncrement
+                                              - availableAt
+                                              - valueBase
+                                              - valueIncrement
                                             additionalProperties: false
                                         required:
                                           - name
@@ -1214,11 +1170,29 @@ components:
                                           type:
                                             type: string
                                           dice:
-                                            $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                              s/object/properties/actions/items\
-                                              /properties/variants/items/anyOf/\
-                                              0/properties/values/items/anyOf/1\
-                                              /properties/dice"
+                                            type: object
+                                            properties:
+                                              die:
+                                                type: number
+                                              diceNumber:
+                                                type: number
+                                              diceIncrement:
+                                                type: number
+                                              availableAt:
+                                                type: number
+                                              availableUntil:
+                                                type: number
+                                              availableUnit:
+                                                type: string
+                                                enum:
+                                                  - level
+                                                  - cr
+                                              unitInterval:
+                                                type: number
+                                            required:
+                                              - die
+                                              - diceNumber
+                                            additionalProperties: false
                                           expression:
                                             type: string
                                         required:
@@ -1231,7 +1205,6 @@ components:
                               required:
                                 - name
                                 - description
-                                - type
                               additionalProperties: false
                             - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                                 s/object/properties/armor/anyOf/1"
@@ -1414,6 +1387,11 @@ components:
                       $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
                         s/object/properties/actions/items/properties/variants/i\
                         tems/anyOf/0/properties/ability"
+                    availableUnit:
+                      type: string
+                      enum:
+                        - level
+                        - cr
                     groups:
                       type: array
                       items:
@@ -1421,7 +1399,7 @@ components:
                         properties:
                           tag:
                             type: string
-                          levelMin:
+                          availableAt:
                             type: string
                           timesDay:
                             type: string
@@ -1639,6 +1617,8 @@ components:
             npc:
               type: object
               properties:
+                id:
+                  type: number
                 character:
                   type: object
                   properties:
@@ -1660,6 +1640,8 @@ components:
                     race:
                       type: object
                       properties:
+                        id:
+                          type: number
                         name:
                           type: string
                         enableGenerator:
@@ -1695,8 +1677,8 @@ components:
                                 type: number
                               value:
                                 type: string
-                              levelMin:
-                                type: string
+                              availableAt:
+                                type: number
                             required:
                               - value
                             additionalProperties: false
@@ -1945,6 +1927,15 @@ components:
                                   - multiattack
                                   - mythic
                                   - lair
+                              priority:
+                                type: number
+                              availableUnit:
+                                type: string
+                                enum:
+                                  - level
+                                  - cr
+                              availableUntil:
+                                type: number
                               subType:
                                 type: string
                               source:
@@ -1953,8 +1944,6 @@ components:
                                 type: array
                                 items:
                                   type: string
-                              priority:
-                                type: number
                               variants:
                                 type: array
                                 items:
@@ -1970,9 +1959,7 @@ components:
                                             /properties/npc/properties/characte\
                                             r/properties/race/properties/action\
                                             s/items/properties/actionType"
-                                        levelMin:
-                                          type: number
-                                        levelMax:
+                                        availableAt:
                                           type: number
                                         ability:
                                           type: string
@@ -1993,53 +1980,8 @@ components:
                                           type: array
                                           items:
                                             anyOf:
-                                              - type: object
-                                                properties:
-                                                  name:
-                                                    type: string
-                                                  type:
-                                                    type: string
-                                                  expression:
-                                                    type: string
-                                                required:
-                                                  - name
-                                                  - expression
-                                                additionalProperties: false
-                                              - type: object
-                                                properties:
-                                                  name:
-                                                    type: string
-                                                  type:
-                                                    type: string
-                                                  expression:
-                                                    type: string
-                                                  dice:
-                                                    type: object
-                                                    properties:
-                                                      die:
-                                                        type: string
-                                                      diceNumber:
-                                                        type: string
-                                                      diceIncrement:
-                                                        type: string
-                                                      levelMin:
-                                                        type: string
-                                                      levelMax:
-                                                        type: string
-                                                      levelInterval:
-                                                        type: string
-                                                    required:
-                                                      - die
-                                                      - diceNumber
-                                                      - diceIncrement
-                                                      - levelMin
-                                                      - levelMax
-                                                      - levelInterval
-                                                    additionalProperties: false
-                                                required:
-                                                  - name
-                                                  - dice
-                                                additionalProperties: false
+                                              - {}
+                                              - {}
                                               - type: object
                                                 properties:
                                                   name:
@@ -2049,22 +1991,27 @@ components:
                                                   incrProgression:
                                                     type: object
                                                     properties:
-                                                      levelInterval:
+                                                      unitInterval:
                                                         type: string
-                                                      levelIncrement:
+                                                      unitIncrement:
                                                         type: string
-                                                      levelMin:
+                                                      availableAt:
                                                         type: string
-                                                      base:
+                                                      availableUnit:
                                                         type: string
-                                                      increment:
+                                                        enum:
+                                                          - level
+                                                          - cr
+                                                      valueBase:
+                                                        type: string
+                                                      valueIncrement:
                                                         type: string
                                                     required:
-                                                      - levelInterval
-                                                      - levelIncrement
-                                                      - levelMin
-                                                      - base
-                                                      - increment
+                                                      - unitInterval
+                                                      - unitIncrement
+                                                      - availableAt
+                                                      - valueBase
+                                                      - valueIncrement
                                                     additionalProperties: false
                                                 required:
                                                   - name
@@ -2127,14 +2074,29 @@ components:
                                                   type:
                                                     type: string
                                                   dice:
-                                                    $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                                      /properties/npc/propertie\
-                                                      s/character/properties/ra\
-                                                      ce/properties/actions/ite\
-                                                      ms/properties/variants/it\
-                                                      ems/anyOf/0/properties/va\
-                                                      lues/items/anyOf/1/proper\
-                                                      ties/dice"
+                                                    type: object
+                                                    properties:
+                                                      die:
+                                                        type: number
+                                                      diceNumber:
+                                                        type: number
+                                                      diceIncrement:
+                                                        type: number
+                                                      availableAt:
+                                                        type: number
+                                                      availableUntil:
+                                                        type: number
+                                                      availableUnit:
+                                                        type: string
+                                                        enum:
+                                                          - level
+                                                          - cr
+                                                      unitInterval:
+                                                        type: number
+                                                    required:
+                                                      - die
+                                                      - diceNumber
+                                                    additionalProperties: false
                                                   expression:
                                                     type: string
                                                 required:
@@ -2147,7 +2109,6 @@ components:
                                       required:
                                         - name
                                         - description
-                                        - type
                                       additionalProperties: false
                                     - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                                         /properties/npc/properties/character/pr\
@@ -2383,6 +2344,11 @@ components:
                                 /properties/npc/properties/character/properties\
                                 /race/properties/actions/items/properties/varia\
                                 nts/items/anyOf/0/properties/ability"
+                            availableUnit:
+                              type: string
+                              enum:
+                                - level
+                                - cr
                             groups:
                               type: array
                               items:
@@ -2390,7 +2356,7 @@ components:
                                 properties:
                                   tag:
                                     type: string
-                                  levelMin:
+                                  availableAt:
                                     type: string
                                   timesDay:
                                     type: string
@@ -2448,6 +2414,8 @@ components:
                     racevariant:
                       type: object
                       properties:
+                        id:
+                          type: number
                         name:
                           type: string
                         pronouns:
@@ -2560,6 +2528,8 @@ components:
                     class:
                       type: object
                       properties:
+                        id:
+                          type: number
                         name:
                           type: string
                         enableGenerator:
@@ -2660,6 +2630,8 @@ components:
                     classvariant:
                       type: object
                       properties:
+                        id:
+                          type: number
                         name:
                           type: string
                         armor:
@@ -2760,6 +2732,8 @@ components:
                     background:
                       type: object
                       properties:
+                        id:
+                          type: number
                         name:
                           type: string
                         femaleName:
@@ -2854,6 +2828,8 @@ components:
                     template:
                       type: object
                       properties:
+                        id:
+                          type: number
                         name:
                           type: string
                         pronouns:
@@ -3303,6 +3279,13 @@ components:
                       type: array
                       items:
                         type: string
+                    pronouns:
+                      type: string
+                      enum:
+                        - male
+                        - female
+                        - neutral
+                        - thing
                     prename:
                       type: string
                     name:
@@ -3312,7 +3295,26 @@ components:
                     fullName:
                       type: string
                     characterHook:
-                      type: string
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          string:
+                            type: string
+                          type:
+                            type: string
+                            enum:
+                              - background
+                              - spell
+                              - trait
+                              - race
+                              - class
+                              - template
+                          id:
+                            type: number
+                        required:
+                          - string
+                        additionalProperties: false
                     level:
                       type: number
                     CR:
@@ -3368,11 +3370,11 @@ components:
                         /properties/npc/properties/statistics/properties/CR"
                   required:
                     - alignment
+                    - pronouns
                     - prename
                     - name
                     - surname
                     - fullName
-                    - characterHook
                     - level
                     - CR
                     - XP
@@ -3532,7 +3534,8 @@ components:
                     - sizesmaller
                     - sizetwogreater
                     - sizetwosmaller
-                  additionalProperties: false
+                  additionalProperties:
+                    type: string
                 variations:
                   type: object
                   properties:
@@ -3574,6 +3577,8 @@ components:
             object:
               type: object
               properties:
+                id:
+                  type: number
                 name:
                   type: string
                 enableGenerator:
@@ -3612,8 +3617,8 @@ components:
                         type: number
                       value:
                         type: string
-                      levelMin:
-                        type: string
+                      availableAt:
+                        type: number
                     required:
                       - value
                     additionalProperties: false
@@ -3848,6 +3853,15 @@ components:
                           - multiattack
                           - mythic
                           - lair
+                      priority:
+                        type: number
+                      availableUnit:
+                        type: string
+                        enum:
+                          - level
+                          - cr
+                      availableUntil:
+                        type: number
                       subType:
                         type: string
                       source:
@@ -3856,8 +3870,6 @@ components:
                         type: array
                         items:
                           type: string
-                      priority:
-                        type: number
                       variants:
                         type: array
                         items:
@@ -3872,9 +3884,7 @@ components:
                                   $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
                                     object/properties/actions/items/properties/\
                                     actionType"
-                                levelMin:
-                                  type: number
-                                levelMax:
+                                availableAt:
                                   type: number
                                 ability:
                                   type: string
@@ -3895,53 +3905,8 @@ components:
                                   type: array
                                   items:
                                     anyOf:
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                        required:
-                                          - name
-                                          - expression
-                                        additionalProperties: false
-                                      - type: object
-                                        properties:
-                                          name:
-                                            type: string
-                                          type:
-                                            type: string
-                                          expression:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              diceIncrement:
-                                                type: string
-                                              levelMin:
-                                                type: string
-                                              levelMax:
-                                                type: string
-                                              levelInterval:
-                                                type: string
-                                            required:
-                                              - die
-                                              - diceNumber
-                                              - diceIncrement
-                                              - levelMin
-                                              - levelMax
-                                              - levelInterval
-                                            additionalProperties: false
-                                        required:
-                                          - name
-                                          - dice
-                                        additionalProperties: false
+                                      - {}
+                                      - {}
                                       - type: object
                                         properties:
                                           name:
@@ -3951,22 +3916,27 @@ components:
                                           incrProgression:
                                             type: object
                                             properties:
-                                              levelInterval:
+                                              unitInterval:
                                                 type: string
-                                              levelIncrement:
+                                              unitIncrement:
                                                 type: string
-                                              levelMin:
+                                              availableAt:
                                                 type: string
-                                              base:
+                                              availableUnit:
                                                 type: string
-                                              increment:
+                                                enum:
+                                                  - level
+                                                  - cr
+                                              valueBase:
+                                                type: string
+                                              valueIncrement:
                                                 type: string
                                             required:
-                                              - levelInterval
-                                              - levelIncrement
-                                              - levelMin
-                                              - base
-                                              - increment
+                                              - unitInterval
+                                              - unitIncrement
+                                              - availableAt
+                                              - valueBase
+                                              - valueIncrement
                                             additionalProperties: false
                                         required:
                                           - name
@@ -4026,11 +3996,29 @@ components:
                                           type:
                                             type: string
                                           dice:
-                                            $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                              object/properties/actions/items/p\
-                                              roperties/variants/items/anyOf/0/\
-                                              properties/values/items/anyOf/1/p\
-                                              roperties/dice"
+                                            type: object
+                                            properties:
+                                              die:
+                                                type: number
+                                              diceNumber:
+                                                type: number
+                                              diceIncrement:
+                                                type: number
+                                              availableAt:
+                                                type: number
+                                              availableUntil:
+                                                type: number
+                                              availableUnit:
+                                                type: string
+                                                enum:
+                                                  - level
+                                                  - cr
+                                              unitInterval:
+                                                type: number
+                                            required:
+                                              - die
+                                              - diceNumber
+                                            additionalProperties: false
                                           expression:
                                             type: string
                                         required:
@@ -4043,7 +4031,6 @@ components:
                               required:
                                 - name
                                 - description
-                                - type
                               additionalProperties: false
                             - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
                                 object/properties/armor/anyOf/1"
@@ -4226,6 +4213,11 @@ components:
                       $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
                         object/properties/actions/items/properties/variants/ite\
                         ms/anyOf/0/properties/ability"
+                    availableUnit:
+                      type: string
+                      enum:
+                        - level
+                        - cr
                     groups:
                       type: array
                       items:
@@ -4233,7 +4225,7 @@ components:
                         properties:
                           tag:
                             type: string
-                          levelMin:
+                          availableAt:
                             type: string
                           timesDay:
                             type: string

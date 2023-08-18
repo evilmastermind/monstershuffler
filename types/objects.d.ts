@@ -13,3 +13,9 @@ type Race = NonNullable<Character["character"]["race"]> ;
 export type Actions = NonNullable<Race["actions"]>;
 type Bonuses = NonNullable<Race["bonuses"]>;
 export type Bonus = NonNullable<Bonuses["HPBonus"]>;
+
+export type DescriptionPart = {
+  string: string;
+  type?: "background" | "spell" | "trait" | "race" | "class" | "template";
+  id?: number;
+};

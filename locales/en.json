@@ -1,6 +1,18 @@
 {
   "monsterCard": {
-    "alignment": "Alignment"
+    "age": "Age",
+    "ageNumber": "{age} years old",
+    "child": "child",
+    "adolescent": "adolescent", 
+    "young adult" : "young adult",
+    "adult": "adult",
+    "middle-aged": "middle-aged",
+    "elderly": "elderly",
+    "venerable": "venerable",
+    "alignment": "Alignment",
+    "personality": "Personality",
+    "voice": "Voice",
+    "voiceIn": "in"
   },
   "alignment": {
     "Neutral": "Neutral",

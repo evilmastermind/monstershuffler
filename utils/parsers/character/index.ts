@@ -11,6 +11,7 @@ import { calculateAbilityScores } from "./abilityScores";
 import { calculateHitPoints } from "./hp";
 import { calculatePronouns } from "./pronouns";
 import { calculateCharacterHook } from "./characterHook";
+import { createTags } from "./tags";
 import { Character } from "@/types/objects";
 
 export function createStats(character: Character) {
@@ -19,10 +20,6 @@ export function createStats(character: Character) {
   createKeyIfUndefined(character, "tags");
   createKeyIfUndefined(character, "variations");
   /// /// ///
-  calculateName(character);
-  calculateAlignment(character);
-  calculatePronouns(character);
-  calculateCharacterHook(character);
   /// /// ///
   const CRCalculation = character.character.CRCalculation?.name;
   if (CRCalculation === "automatic") {
@@ -31,7 +28,6 @@ export function createStats(character: Character) {
      * The automatic calculation is "CR-Based": the initial CR, chosen by the user, determines
      * the hit points, the ability scores, and the size, with which we can calculate the number
      * of Hit Dice.
-     *
      */
     // === this part uses the original CR to calculate the statistics needed to know the creature's HP
     calculateChallengeRating(character);
@@ -56,9 +52,15 @@ export function createStats(character: Character) {
     calculateChallengeRating(character);
     calculateProficiency(character);
     calculateAbilityScores(character);
-    console.log(character.statistics);
     calculateSize(character);
     calculateHitPoints(character);
   }
+  /// /// ///
+  calculateName(character);
+  calculatePronouns(character);
+  calculateAlignment(character);
+  createTags(character);
+  /// /// ///
+  calculateCharacterHook(character);
   /// /// ///
 }

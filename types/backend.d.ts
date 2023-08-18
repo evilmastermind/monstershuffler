@@ -318,6 +318,7 @@ export interface components {
     backgroundSchemas: {
       createBackgroundSchema: {
         object: {
+          id?: number;
           name: string;
           femaleName: string;
           workplace: string;
@@ -349,7 +350,7 @@ export interface components {
               chosenAlready?: {
                   id?: number;
                   value: string;
-                  levelMin?: string;
+                  availableAt?: number;
                 }[];
             };
           });
@@ -392,48 +393,24 @@ export interface components {
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
+              priority?: number;
+              /** @enum {string} */
+              availableUnit?: "level" | "cr";
+              availableUntil?: number;
               subType?: string;
               source?: string;
               tags?: string[];
-              priority?: number;
               variants: (({
                   name: string;
                   description: string;
-                  type: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["actionType"];
-                  levelMin?: number;
-                  levelMax?: number;
+                  type?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["actionType"];
+                  availableAt?: number;
                   /** @enum {string} */
                   ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
                   charges?: string;
                   recharge?: string;
                   cost?: string;
-                  values?: ({
-                      name: string;
-                      type?: string;
-                      expression: string;
-                    } | {
-                      name: string;
-                      type?: string;
-                      expression?: string;
-                      dice: {
-                        die: string;
-                        diceNumber: string;
-                        diceIncrement: string;
-                        levelMin: string;
-                        levelMax: string;
-                        levelInterval: string;
-                      };
-                    } | {
-                      name: string;
-                      type?: string;
-                      incrProgression: {
-                        levelInterval: string;
-                        levelIncrement: string;
-                        levelMin: string;
-                        base: string;
-                        increment: string;
-                      };
-                    })[];
+                  values?: unknown[];
                   attacks?: ({
                       name: string;
                       replaceName?: boolean;
@@ -455,7 +432,16 @@ export interface components {
                       } | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
-                        dice?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["values"]["items"]["anyOf"]["1"]["dice"];
+                        dice?: {
+                          die: number;
+                          diceNumber: number;
+                          diceIncrement?: number;
+                          availableAt?: number;
+                          availableUntil?: number;
+                          /** @enum {string} */
+                          availableUnit?: "level" | "cr";
+                          unitInterval?: number;
+                        };
                         expression?: string;
                       };
                     })[];
@@ -520,9 +506,11 @@ export interface components {
           spells?: {
             hasSlots?: boolean;
             ability?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+            /** @enum {string} */
+            availableUnit?: "level" | "cr";
             groups?: ({
                 tag: string;
-                levelMin?: string;
+                availableAt?: string;
                 timesDay?: string;
                 timesDayMax?: string;
                 spells: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"];
@@ -550,6 +538,7 @@ export interface components {
     classSchemas: {
       updateClassSchema: {
         object: {
+          id?: number;
           name: string;
           enableGenerator?: boolean;
           armor?: ({
@@ -580,7 +569,7 @@ export interface components {
               chosenAlready?: {
                   id?: number;
                   value: string;
-                  levelMin?: string;
+                  availableAt?: number;
                 }[];
             };
           });
@@ -621,48 +610,24 @@ export interface components {
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
+              priority?: number;
+              /** @enum {string} */
+              availableUnit?: "level" | "cr";
+              availableUntil?: number;
               subType?: string;
               source?: string;
               tags?: string[];
-              priority?: number;
               variants: (({
                   name: string;
                   description: string;
-                  type: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["actionType"];
-                  levelMin?: number;
-                  levelMax?: number;
+                  type?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["actionType"];
+                  availableAt?: number;
                   /** @enum {string} */
                   ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
                   charges?: string;
                   recharge?: string;
                   cost?: string;
-                  values?: ({
-                      name: string;
-                      type?: string;
-                      expression: string;
-                    } | {
-                      name: string;
-                      type?: string;
-                      expression?: string;
-                      dice: {
-                        die: string;
-                        diceNumber: string;
-                        diceIncrement: string;
-                        levelMin: string;
-                        levelMax: string;
-                        levelInterval: string;
-                      };
-                    } | {
-                      name: string;
-                      type?: string;
-                      incrProgression: {
-                        levelInterval: string;
-                        levelIncrement: string;
-                        levelMin: string;
-                        base: string;
-                        increment: string;
-                      };
-                    })[];
+                  values?: unknown[];
                   attacks?: ({
                       name: string;
                       replaceName?: boolean;
@@ -684,7 +649,16 @@ export interface components {
                       } | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
-                        dice?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["values"]["items"]["anyOf"]["1"]["dice"];
+                        dice?: {
+                          die: number;
+                          diceNumber: number;
+                          diceIncrement?: number;
+                          availableAt?: number;
+                          availableUntil?: number;
+                          /** @enum {string} */
+                          availableUnit?: "level" | "cr";
+                          unitInterval?: number;
+                        };
                         expression?: string;
                       };
                     })[];
@@ -749,9 +723,11 @@ export interface components {
           spells?: {
             hasSlots?: boolean;
             ability?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+            /** @enum {string} */
+            availableUnit?: "level" | "cr";
             groups?: ({
                 tag: string;
-                levelMin?: string;
+                availableAt?: string;
                 timesDay?: string;
                 timesDayMax?: string;
                 spells: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
@@ -819,6 +795,7 @@ export interface components {
       };
       createRandomNpcResponseSchema: {
         npc: {
+          id?: number;
           character: {
             name: string;
             prename?: string;
@@ -827,6 +804,7 @@ export interface components {
             /** @enum {string} */
             pronouns?: "male" | "female" | "neutral" | "thing";
             race?: {
+              id?: number;
               name: string;
               enableGenerator?: boolean;
               ageAdult?: number;
@@ -841,7 +819,7 @@ export interface components {
               subtypes?: {
                   id?: number;
                   value: string;
-                  levelMin?: string;
+                  availableAt?: number;
                 }[];
               isSwarm?: boolean;
               swarmSize?: string;
@@ -912,48 +890,24 @@ export interface components {
                   tag: string;
                   /** @enum {string} */
                   actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
+                  priority?: number;
+                  /** @enum {string} */
+                  availableUnit?: "level" | "cr";
+                  availableUntil?: number;
                   subType?: string;
                   source?: string;
                   tags?: string[];
-                  priority?: number;
                   variants: (({
                       name: string;
                       description: string;
-                      type: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["actionType"];
-                      levelMin?: number;
-                      levelMax?: number;
+                      type?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["actionType"];
+                      availableAt?: number;
                       /** @enum {string} */
                       ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
                       charges?: string;
                       recharge?: string;
                       cost?: string;
-                      values?: ({
-                          name: string;
-                          type?: string;
-                          expression: string;
-                        } | {
-                          name: string;
-                          type?: string;
-                          expression?: string;
-                          dice: {
-                            die: string;
-                            diceNumber: string;
-                            diceIncrement: string;
-                            levelMin: string;
-                            levelMax: string;
-                            levelInterval: string;
-                          };
-                        } | {
-                          name: string;
-                          type?: string;
-                          incrProgression: {
-                            levelInterval: string;
-                            levelIncrement: string;
-                            levelMin: string;
-                            base: string;
-                            increment: string;
-                          };
-                        })[];
+                      values?: unknown[];
                       attacks?: ({
                           name: string;
                           replaceName?: boolean;
@@ -975,7 +929,16 @@ export interface components {
                           } | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"];
                           enchantment?: {
                             type: string;
-                            dice?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["values"]["items"]["anyOf"]["1"]["dice"];
+                            dice?: {
+                              die: number;
+                              diceNumber: number;
+                              diceIncrement?: number;
+                              availableAt?: number;
+                              availableUntil?: number;
+                              /** @enum {string} */
+                              availableUnit?: "level" | "cr";
+                              unitInterval?: number;
+                            };
                             expression?: string;
                           };
                         })[];
@@ -1040,9 +1003,11 @@ export interface components {
               spells?: {
                 hasSlots?: boolean;
                 ability?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+                /** @enum {string} */
+                availableUnit?: "level" | "cr";
                 groups?: ({
                     tag: string;
-                    levelMin?: string;
+                    availableAt?: string;
                     timesDay?: string;
                     timesDayMax?: string;
                     spells: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
@@ -1060,6 +1025,7 @@ export interface components {
               };
             };
             racevariant?: {
+              id?: number;
               name: string;
               pronouns?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["pronouns"];
               alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
@@ -1089,6 +1055,7 @@ export interface components {
               backstory?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["backstory"];
             };
             class?: {
+              id?: number;
               name: string;
               enableGenerator?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["enableGenerator"];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
@@ -1115,6 +1082,7 @@ export interface components {
               backstory?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["backstory"];
             };
             classvariant?: {
+              id?: number;
               name: string;
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
@@ -1141,6 +1109,7 @@ export interface components {
               backstory?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["backstory"];
             };
             background?: {
+              id?: number;
               name: string;
               femaleName: string;
               workplace: string;
@@ -1166,6 +1135,7 @@ export interface components {
               enableGenerator?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["enableGenerator"];
             };
             template?: {
+              id?: number;
               name: string;
               pronouns?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["pronouns"];
               size?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["size"];
@@ -1292,11 +1262,18 @@ export interface components {
           };
           statistics?: {
             alignment: string[];
+            /** @enum {string} */
+            pronouns: "male" | "female" | "neutral" | "thing";
             prename: string;
             name: string;
             surname: string;
             fullName: string;
-            characterHook: string;
+            characterHook?: ({
+                string: string;
+                /** @enum {string} */
+                type?: "background" | "spell" | "trait" | "race" | "class" | "template";
+                id?: number;
+              })[];
             level: number;
             CR: {
               number: number;
@@ -1367,6 +1344,7 @@ export interface components {
             sizesmaller: string;
             sizetwogreater: string;
             sizetwosmaller: string;
+            [key: string]: string | undefined;
           };
           variations?: {
             currentCR?: number;
@@ -1382,6 +1360,7 @@ export interface components {
       createRaceSchema: {
         game: number;
         object: {
+          id?: number;
           name: string;
           enableGenerator?: boolean;
           ageAdult?: number;
@@ -1397,7 +1376,7 @@ export interface components {
           subtypes?: {
               id?: number;
               value: string;
-              levelMin?: string;
+              availableAt?: number;
             }[];
           isSwarm?: boolean;
           swarmSize?: string;
@@ -1468,48 +1447,24 @@ export interface components {
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
+              priority?: number;
+              /** @enum {string} */
+              availableUnit?: "level" | "cr";
+              availableUntil?: number;
               subType?: string;
               source?: string;
               tags?: string[];
-              priority?: number;
               variants: (({
                   name: string;
                   description: string;
-                  type: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["actionType"];
-                  levelMin?: number;
-                  levelMax?: number;
+                  type?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["actionType"];
+                  availableAt?: number;
                   /** @enum {string} */
                   ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
                   charges?: string;
                   recharge?: string;
                   cost?: string;
-                  values?: ({
-                      name: string;
-                      type?: string;
-                      expression: string;
-                    } | {
-                      name: string;
-                      type?: string;
-                      expression?: string;
-                      dice: {
-                        die: string;
-                        diceNumber: string;
-                        diceIncrement: string;
-                        levelMin: string;
-                        levelMax: string;
-                        levelInterval: string;
-                      };
-                    } | {
-                      name: string;
-                      type?: string;
-                      incrProgression: {
-                        levelInterval: string;
-                        levelIncrement: string;
-                        levelMin: string;
-                        base: string;
-                        increment: string;
-                      };
-                    })[];
+                  values?: unknown[];
                   attacks?: ({
                       name: string;
                       replaceName?: boolean;
@@ -1531,7 +1486,16 @@ export interface components {
                       } | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"];
                       enchantment?: {
                         type: string;
-                        dice?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["values"]["items"]["anyOf"]["1"]["dice"];
+                        dice?: {
+                          die: number;
+                          diceNumber: number;
+                          diceIncrement?: number;
+                          availableAt?: number;
+                          availableUntil?: number;
+                          /** @enum {string} */
+                          availableUnit?: "level" | "cr";
+                          unitInterval?: number;
+                        };
                         expression?: string;
                       };
                     })[];
@@ -1596,9 +1560,11 @@ export interface components {
           spells?: {
             hasSlots?: boolean;
             ability?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+            /** @enum {string} */
+            availableUnit?: "level" | "cr";
             groups?: ({
                 tag: string;
-                levelMin?: string;
+                availableAt?: string;
                 timesDay?: string;
                 timesDayMax?: string;
                 spells: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];

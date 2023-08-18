@@ -1,5 +1,6 @@
 import { Character, Actions } from "@/types/objects";
 import { capitalizeFirst } from "@/utils/functions";
+import { resolveRandomName } from "@/utils/parsers";
 import { objects } from "@/utils/constants";
 
 export function createTags(character: Character) {
@@ -128,22 +129,29 @@ export function createTags(character: Character) {
     }
     actions.forEach((action) => {
       const variants = action.variants;
+      let currentVariant = variants[0];
+      tags[action.tag] = currentVariant.name;
+      const currentUnitValue =
+        action.availableUnit === "level"
+          ? character.statistics!.level
+          : character.statistics!.CR;
       variants.forEach((variant) => {
         variant.name = resolveRandomName(variant.name);
+        if (
+          variant?.availableAt >= currentUnitValue &&
+          variant?.availableAt > currentVariant.availableAt
+        ) {
+          tags[action.tag] = variant.name;
+          currentVariant = variant;
+          if (Object.hasOwn(variant, "attacks")) {
+            variant.attacks.forEach((attack) => {
+              if (attack.replaceName) {
+                tags[action.tag] = attack.name;
+              }
+            });
+          }
+        }
       });
     });
   }
-}
-
-// ---------------------------------------------------------------------------
-// RANDOM TEXT MANAGEMENT
-// ---------------------------------------------------------------------------
-
-function resolveRandomName(name = "") {
-  if (!name) return "Name";
-  const possibleNames = name.split("|") || null;
-  if (possibleNames?.length <= 1) return name;
-
-  const randomName = random(0, possibleNames.length - 1);
-  return possibleNames[randomName];
 }

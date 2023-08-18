@@ -17,6 +17,9 @@ export default defineNuxtConfig({
     "/reset-password": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
+  devServer: {
+    port: 3001,
+  },
   vite: {
     vue: {
       script: {

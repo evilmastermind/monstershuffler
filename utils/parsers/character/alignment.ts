@@ -69,6 +69,8 @@ export function calculateAlignment(character: Character) {
 
     // distributing the numbers
     array.forEach((modifiers) => {
+      console.log(modifiers[0][0], modifiers[0][1], modifiers[0][2]);
+      console.log(modifiers[1][0], modifiers[1][1], modifiers[1][2]);
       modifiers.forEach((modifier, index) => {
         modifier.forEach((value, index2) => {
           totalModifiers[index][index2] += value;
@@ -98,7 +100,7 @@ export function calculateAlignment(character: Character) {
           ? 0
           : 85 / (totalModifiers[0][1] / ethicalTotal);
     }
-    const random100 = random(1, 100);
+    let random100 = random(1, 100);
     if (random100 <= lawfulness) {
       c.alignmentEthical = "Lawful";
     } else if (random100 <= lawfulness + chaoticness) {
@@ -121,10 +123,10 @@ export function calculateAlignment(character: Character) {
           ? 0
           : 85 / (totalModifiers[1][1] / moralTotal);
     }
-    const random1002 = random(1, 100);
-    if (random1002 <= goodness) {
+    random100 = random(1, 100);
+    if (random100 <= goodness) {
       c.alignmentMoral = "Good";
-    } else if (random1002 <= goodness + evilness) {
+    } else if (random100 <= goodness + evilness) {
       c.alignmentMoral = "Evil";
     } else {
       c.alignmentMoral = "Neutral";

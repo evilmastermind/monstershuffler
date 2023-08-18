@@ -19,6 +19,8 @@ import {
   faUserEdit,
   faUsers,
   faXmark,
+  faVolumeOff,
+  faVolumeHigh,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
@@ -49,7 +51,9 @@ library.add(
   faShuffle,
   faUserEdit,
   faUsers,
-  faXmark
+  faXmark,
+  faVolumeOff,
+  faVolumeHigh
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

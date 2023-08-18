@@ -4,13 +4,15 @@
 }
 
 @font-face {
-  font-family: OpenSans-Bold;
+  font-family: OpenSans;
   src: url("@/assets/fonts/OpenSans-Bold.ttf");
+  font-weight: bold;
 }
 
 @font-face {
-  font-family: OpenSans-Italic;
+  font-family: OpenSans;
   src: url("@/assets/fonts/OpenSans-Italic.ttf");
+  font-style: italic;
 }
 
 @font-face {

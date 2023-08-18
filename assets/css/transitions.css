@@ -1,6 +1,7 @@
 :root {
   --quick: 0.1s;
   --medium: 0.2s;
+  --slow: 0.3s;
 }
 
 .scroll-left-enter-active,
@@ -39,9 +40,26 @@
 .fade-leave-to {
   opacity: 0;
 }
+.fade-slow-enter-active,
+.fade-slow-leave-active {
+  transition: opacity var(--slow) ease-in-out;
+}
+.fade-slow-enter-from,
+.fade-slow-leave-to {
+  opacity: 0;
+}
+.fade-scroll-slow-enter-active,
+.fade-scroll-slow-leave-active {
+  transition: opacity var(--medium) ease-in-out, transform var(--medium) ease-in-out;
+}
+.fade-scroll-slow-enter-from,
+.fade-scroll-slow-leave-to {
+  opacity: 0;
+  transform: translateY(5%) scale(0.95);
+}
 
 .slidetransition-enter-active {
-  transition: all 0.05s ease-out;
+  transition: all 0.2s ease-out;
 }
 .slidetransition-leave-active {
   transition: all 0s;
