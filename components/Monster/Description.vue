@@ -3,7 +3,7 @@
     <template v-for="(part, i) in p.characterHook" :key="i">
       <span v-if="!part.type"> {{ part.string }} </span>
       <b v-else-if="part.type === 'background'" class="dotted">
-        {{ part.string }}
+        <MSTooltip :id="part.id" :word="part.string" source="backgrounds" />
       </b>
       <span v-else class="inline-block">{{ part.string }}</span>
       <template v-if="i < p.characterHook.length - 1">&nbsp;</template>

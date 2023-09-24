@@ -28,13 +28,15 @@
         <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
       </div>
       <div>
-        <GeneratorForm
-          v-show="mode === 'form' && isFormShownOnMobile"
-          ref="form"
-          class="form mb-4 md:mr-4"
-          :generate="generate"
-          @close="isFormShownOnMobile = false"
-        />
+        <Transition name="scroll-left" appear>
+          <GeneratorForm
+            v-show="mode === 'form' && isFormShownOnMobile"
+            ref="form"
+            class="form mb-4 md:mr-6"
+            :generate="generate"
+            @close="isFormShownOnMobile = false"
+          />
+        </Transition>
         <GeneratorPrompt
           v-show="mode === 'prompt'"
           class="prompt text-max mb-4 w-full"

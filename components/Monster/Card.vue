@@ -26,7 +26,15 @@
         </template>
         <template v-if="character.trait">
           <dt :class="ethical">{{ $t("monsterCard.personality") }}</dt>
-          <dd>{{ character.trait }}</dd>
+          <dd>
+            <span
+              class="dotted"
+              @mouseover="showTraitDescription = true"
+              @mouseleave="showTraitDescription = false"
+            >
+              <MSTooltip :word="character.trait" source="traits" />
+            </span>
+          </dd>
         </template>
         <template v-if="character.voice">
           <dt :class="ethical">{{ $t("monsterCard.voice") }}</dt>
@@ -39,6 +47,9 @@
 
 <script setup lang="ts">
 import { Character } from "@/stores/generator.d";
+import { useTooltipsStore } from "@/stores/tooltips";
+
+const tooltips = useTooltipsStore();
 
 const p = defineProps({
   monster: {
@@ -46,6 +57,7 @@ const p = defineProps({
     required: true,
   },
 });
+const showTraitDescription = ref(false);
 
 const statistics = computed(() => p.monster.statistics!);
 const tags = computed(() => p.monster.tags!);
@@ -109,5 +121,9 @@ dt::after {
 }
 .neutral {
   @apply text-neutral-500;
+}
+.dotted {
+  border-bottom: 1px dotted theme("colors.text-secondary");
+  cursor: help;
 }
 </style>

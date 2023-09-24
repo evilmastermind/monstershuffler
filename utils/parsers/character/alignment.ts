@@ -49,7 +49,7 @@ export function calculateAlignment(character: Character) {
     Objects like Character, Race, Class, Template might have arrays like the following
 
     [[number, number, number], [number, number, number]]
-    [[lawfulness, chaoticness, ethicalNeutrality], [goodness, evilness, moralNeutrality]]
+    [[lawfulness, ethicalNeutrality, chaoticness], [goodness, moralNeutrality, evilness]]
 
     ... which make the character lean towards a certain alignment.
     The following calculations will add up all the numbers to determine the alignment.
@@ -69,8 +69,6 @@ export function calculateAlignment(character: Character) {
 
     // distributing the numbers
     array.forEach((modifiers) => {
-      console.log(modifiers[0][0], modifiers[0][1], modifiers[0][2]);
-      console.log(modifiers[1][0], modifiers[1][1], modifiers[1][2]);
       modifiers.forEach((modifier, index) => {
         modifier.forEach((value, index2) => {
           totalModifiers[index][index2] += value;
@@ -96,7 +94,7 @@ export function calculateAlignment(character: Character) {
           ? 0
           : 85 / (totalModifiers[0][0] / ethicalTotal);
       chaoticness +=
-        totalModifiers[0][1] === 0
+        totalModifiers[0][2] === 0
           ? 0
           : 85 / (totalModifiers[0][1] / ethicalTotal);
     }
@@ -119,7 +117,7 @@ export function calculateAlignment(character: Character) {
           ? 0
           : 85 / (totalModifiers[1][0] / moralTotal);
       evilness +=
-        totalModifiers[1][1] === 0
+        totalModifiers[1][2] === 0
           ? 0
           : 85 / (totalModifiers[1][1] / moralTotal);
     }
