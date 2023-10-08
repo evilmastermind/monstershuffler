@@ -68,6 +68,27 @@ export interface paths {
       };
     };
   };
+  "/api/backgrounds/random/{age}": {
+    /**
+     * Returns the details of a random background for a specific age.
+     * @description Returns the details of a random background, for a specific age, from list of backgrounds available to the user in the database. The age must be one of the following: "child", "adolescent", "young adult", "adult", "middle-aged", "elderly", "venerable".
+     */
+    get: {
+      parameters: {
+        header?: {
+          authorization?: string;
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["backgroundSchemas"]["getBackgroundResponseSchema"];
+          };
+        };
+      };
+    };
+  };
   "/api/classes/": {
     /**
      * Returns a list of all available classes in the db.
@@ -204,6 +225,47 @@ export interface paths {
       };
     };
   };
+  "/api/pagesettings/{page}": {
+    /**
+     * Returns the user's settings for a specific page.
+     * @description Returns the user's settings for a specific page.
+     */
+    get: {
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["Schema"]["getPagesettingResponseSchema"];
+          };
+        };
+        /** @description Default Response */
+        404: {
+          content: {
+            "application/json": string;
+          };
+        };
+      };
+    };
+    /**
+     * Saves the user's settings for a specific page.
+     * @description Saves the user's settings for a specific page.
+     */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["Schema"]["setPagesettingResponseSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": string;
+          };
+        };
+      };
+    };
+  };
   "/api/races/": {
     /**
      * Returns a list of all available races in the db.
@@ -288,6 +350,64 @@ export interface paths {
       };
     };
   };
+  "/api/traits/random": {
+    /**
+     * Returns a random trait.
+     * @description Returns a random trait which is usually an adjective describing a creature's state of mind, attitude, core beliefs or current feelings.
+     */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["traitSchemas"]["getRandomTraitSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["traitSchemas"]["getRandomTraitResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/traits/random/{age}": {
+    /**
+     * Returns a random trait for the given age.
+     * @description Returns a random trait for the given age. The age must be one of the following: "child", "adolescent", "young adult", "adult", "middle-aged", "elderly", "venerable".
+     */
+    post: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["traitSchemas"]["getRandomTraitSchema"];
+        };
+      };
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["traitSchemas"]["getRandomTraitResponseSchema"];
+          };
+        };
+      };
+    };
+  };
+  "/api/traits/{name}": {
+    /**
+     * Returns the description of a trait.
+     * @description Returns the description of a trait which is usually an adjective describing a creature's state of mind, attitude, core beliefs or current feelings.
+     */
+    get: {
+      responses: {
+        /** @description Default Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["traitSchemas"]["getTraitDescriptionResponseSchema"];
+          };
+        };
+      };
+    };
+  };
   "/api/users/login": {
     /**
      * Logs in a user and returns an access token.
@@ -322,6 +442,7 @@ export interface components {
           name: string;
           femaleName: string;
           workplace: string;
+          compatibleAges: ("child" | "adolescent" | "young adult" | "adult" | "middle-aged" | "elderly" | "venerable")[];
           armor?: ({
             AC: string;
             name: string;
@@ -389,7 +510,7 @@ export interface components {
           canSpeak?: boolean;
           telepathy?: string;
           languages?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"];
-          actions?: ({
+          actions?: (({
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
@@ -403,7 +524,7 @@ export interface components {
               variants: (({
                   name: string;
                   description: string;
-                  type?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["actionType"];
+                  type?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["actionType"];
                   availableAt?: number;
                   /** @enum {string} */
                   ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
@@ -446,7 +567,7 @@ export interface components {
                       };
                     })[];
                 }) | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["skills"]["anyOf"]["2"])[];
-            })[];
+            }) | components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["armor"]["anyOf"]["1"])[];
           bonuses?: {
             HPBonus?: {
               name?: string;
@@ -505,7 +626,7 @@ export interface components {
           };
           spells?: {
             hasSlots?: boolean;
-            ability?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+            ability?: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["anyOf"]["0"]["ability"];
             /** @enum {string} */
             availableUnit?: "level" | "cr";
             groups?: ({
@@ -533,6 +654,10 @@ export interface components {
       getBackgroundResponseSchema: {
         object: components["schemas"]["backgroundSchemas"]["createBackgroundSchema"]["object"];
         id: components["schemas"]["backgroundSchemas"]["getBackgroundListResponseSchema"]["list"]["items"]["id"];
+        name: string;
+        femaleName: string;
+        age: string;
+        description: string;
       };
     };
     classSchemas: {
@@ -606,7 +731,7 @@ export interface components {
           canSpeak?: boolean;
           telepathy?: string;
           languages?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"]["choice"]["chosenAlready"]["items"][] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"];
-          actions?: ({
+          actions?: (({
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
@@ -620,7 +745,7 @@ export interface components {
               variants: (({
                   name: string;
                   description: string;
-                  type?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["actionType"];
+                  type?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["actionType"];
                   availableAt?: number;
                   /** @enum {string} */
                   ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
@@ -663,7 +788,7 @@ export interface components {
                       };
                     })[];
                 }) | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["skills"]["anyOf"]["2"])[];
-            })[];
+            }) | components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["armor"]["anyOf"]["1"])[];
           bonuses?: {
             HPBonus?: {
               name?: string;
@@ -722,7 +847,7 @@ export interface components {
           };
           spells?: {
             hasSlots?: boolean;
-            ability?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+            ability?: components["schemas"]["classSchemas"]["updateClassSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["anyOf"]["0"]["ability"];
             /** @enum {string} */
             availableUnit?: "level" | "cr";
             groups?: ({
@@ -792,6 +917,7 @@ export interface components {
         primaryRacePercentage?: number;
         secondaryRacePercentage?: number;
         addVoice?: boolean;
+        includeChildren?: boolean;
       };
       createRandomNpcResponseSchema: {
         npc: {
@@ -886,7 +1012,7 @@ export interface components {
               canSpeak?: boolean;
               telepathy?: string;
               languages?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"]["items"][] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"];
-              actions?: ({
+              actions?: (({
                   tag: string;
                   /** @enum {string} */
                   actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
@@ -900,7 +1026,7 @@ export interface components {
                   variants: (({
                       name: string;
                       description: string;
-                      type?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["actionType"];
+                      type?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["anyOf"]["0"]["actionType"];
                       availableAt?: number;
                       /** @enum {string} */
                       ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
@@ -943,7 +1069,7 @@ export interface components {
                           };
                         })[];
                     }) | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"] | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["skills"]["anyOf"]["2"])[];
-                })[];
+                }) | components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"]["anyOf"]["1"])[];
               bonuses?: {
                 HPBonus?: {
                   name?: string;
@@ -1002,7 +1128,7 @@ export interface components {
               };
               spells?: {
                 hasSlots?: boolean;
-                ability?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+                ability?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["anyOf"]["0"]["ability"];
                 /** @enum {string} */
                 availableUnit?: "level" | "cr";
                 groups?: ({
@@ -1113,6 +1239,7 @@ export interface components {
               name: string;
               femaleName: string;
               workplace: string;
+              compatibleAges: ("child" | "adolescent" | "young adult" | "adult" | "middle-aged" | "elderly" | "venerable")[];
               armor?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["armor"];
               alignmentModifiers?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["alignmentModifiers"];
               subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["race"]["subtypes"];
@@ -1215,8 +1342,7 @@ export interface components {
               feeling?: string;
               age?: {
                 number: number;
-                /** @enum {string} */
-                string: "child" | "adolescent" | "young adult" | "adult" | "middle-aged" | "elderly" | "venerable";
+                string: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["character"]["background"]["compatibleAges"]["items"];
               };
               height?: number;
               /** @enum {string} */
@@ -1356,6 +1482,17 @@ export interface components {
         npcs: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"][];
       };
     };
+    Schema: {
+      getPagesettingResponseSchema: {
+        page: string;
+        object: {
+          [key: string]: unknown;
+        };
+      };
+      setPagesettingResponseSchema: {
+        [key: string]: unknown;
+      };
+    };
     raceSchemas: {
       createRaceSchema: {
         game: number;
@@ -1443,7 +1580,7 @@ export interface components {
           canSpeak?: boolean;
           telepathy?: string;
           languages?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["subtypes"]["items"][] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"];
-          actions?: ({
+          actions?: (({
               tag: string;
               /** @enum {string} */
               actionType?: "trait" | "legendary" | "action" | "reaction" | "bonus" | "attack" | "multiattack" | "mythic" | "lair";
@@ -1457,7 +1594,7 @@ export interface components {
               variants: (({
                   name: string;
                   description: string;
-                  type?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["actionType"];
+                  type?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["actionType"];
                   availableAt?: number;
                   /** @enum {string} */
                   ability?: "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
@@ -1500,7 +1637,7 @@ export interface components {
                       };
                     })[];
                 }) | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"] | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["skills"]["anyOf"]["2"])[];
-            })[];
+            }) | components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["armor"]["anyOf"]["1"])[];
           bonuses?: {
             HPBonus?: {
               name?: string;
@@ -1559,7 +1696,7 @@ export interface components {
           };
           spells?: {
             hasSlots?: boolean;
-            ability?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["variants"]["items"]["anyOf"]["0"]["ability"];
+            ability?: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"]["actions"]["items"]["anyOf"]["0"]["variants"]["items"]["anyOf"]["0"]["ability"];
             /** @enum {string} */
             availableUnit?: "level" | "cr";
             groups?: ({
@@ -1608,6 +1745,25 @@ export interface components {
       getRaceResponseSchema: {
         object: components["schemas"]["raceSchemas"]["createRaceSchema"]["object"];
         id: components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"]["list"]["items"]["id"];
+      };
+    };
+    traitSchemas: {
+      getRandomTraitSchema: {
+        type?: string;
+        subtitle?: number;
+        category?: string;
+        feeling?: number;
+      };
+      getRandomTraitResponseSchema: {
+        name: string;
+        type: components["schemas"]["traitSchemas"]["getRandomTraitSchema"]["type"];
+        subtitle: components["schemas"]["traitSchemas"]["getRandomTraitSchema"]["subtitle"];
+        category: components["schemas"]["traitSchemas"]["getRandomTraitSchema"]["category"];
+        feeling: components["schemas"]["traitSchemas"]["getRandomTraitSchema"]["feeling"];
+        description: string;
+      };
+      getTraitDescriptionResponseSchema: {
+        description: components["schemas"]["traitSchemas"]["getRandomTraitResponseSchema"]["description"];
       };
     };
     userSchemas: {

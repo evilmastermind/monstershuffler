@@ -23,22 +23,22 @@ export const useTooltipsStore = defineStore("tooltips", () => {
       "trait",
       () => $fetch(`${api}/traits/${trait}`)
     );
-    if (data?.value?.description) {
+    if (data?.value?.description !== undefined) {
       return data.value.description;
     } else {
-      return "";
+      return null;
     }
   }
 
-  async function getBackgroundDescription(id: number) {
+  async function getBackgroundDescription(id: string | number) {
     const { data } = await useAsyncData<getTraitDescriptionResponseSchema>(
       "background",
       () => $fetch(`${api}/backgrounds/${id}`)
     );
-    if (data?.value?.description) {
+    if (data?.value?.description !== undefined) {
       return data.value.description;
     } else {
-      return "";
+      return null;
     }
   }
 

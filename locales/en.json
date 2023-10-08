@@ -71,6 +71,7 @@
       "levelRandom": "Random Level",
       "levelLowMostly": "Random (mostly low-level)",
       "voice": "Voice",
+      "includeChildren": "Include children",
       "generate": "Generate NPC"
     },
     "prompt": {

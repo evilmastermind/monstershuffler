@@ -2,7 +2,7 @@
   <font-awesome-icon
     class="audio-icon mr-1"
     :icon="`fas fa-solid fa-${audioIcon}`"
-    @click="toggleAudio"
+    @click.stop="toggleAudio"
   />
   <audio
     ref="audio"

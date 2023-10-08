@@ -2,8 +2,8 @@
   <div class="session">
     <TransitionGroup name="slidetransition" appear>
       <div
-        v-for="(characters, generation) in session"
-        :key="generation"
+        v-for="characters in session"
+        :key="characters[0].character.name"
         class="generation"
       >
         <template v-for="(character, index) in characters" :key="index">

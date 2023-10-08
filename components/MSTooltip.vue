@@ -3,22 +3,23 @@
     class="dotted"
     @mouseover="handleMouseOver"
     @mouseleave="isVisible = false"
-    @click="handleClick"
+    @click.stop="handleClick"
   >
     {{ word }}
   </span>
   <div
-    v-if="isVisible && description"
+    v-if="isVisible"
     class="tooltip-container"
     :style="{ top: `${y - 2}px`, left: `${left}px`, width: `${width}px` }"
   >
     <div class="tooltip">
       <h4 class="text-left">{{ word }}:</h4>
-      <p>{{ description }}</p>
+      <p v-if="description !== null">{{ description }}</p>
+      <LoadingDots v-else :size="6" />
       <div
         v-if="hasCloseButton"
         class="close-button"
-        @click="isVisible = false"
+        @click.stop="isVisible = false"
       >
         <font-awesome-icon icon="fas fa-solid fa-xmark" />
       </div>
@@ -52,7 +53,7 @@ const p = defineProps({
 
 const isVisible = ref(false);
 const hasCloseButton = ref(false);
-const description = ref("");
+const description: Ref<string | null> = ref("");
 
 const width = computed(() => {
   if (screenWidth.value < 400) {
@@ -99,7 +100,7 @@ watch(isVisible, async (newValue) => {
   bottom: 0%;
   width: 100%;
   backdrop-filter: blur(4px);
-  @apply shadow-xl rounded p-4 sm:p-5 bg-background;
+  @apply shadow-xl rounded p-4 sm:p-5 bg-background not-italic;
 }
 .close-button {
   position: absolute;

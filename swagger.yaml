@@ -22,6 +22,18 @@ components:
                   type: string
                 workplace:
                   type: string
+                compatibleAges:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - child
+                      - adolescent
+                      - young adult
+                      - adult
+                      - middle-aged
+                      - elderly
+                      - venerable
                 armor:
                   anyOf:
                     - type: object
@@ -255,210 +267,214 @@ components:
                 actions:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      tag:
-                        type: string
-                      actionType:
-                        type: string
-                        enum:
-                          - trait
-                          - legendary
-                          - action
-                          - reaction
-                          - bonus
-                          - attack
-                          - multiattack
-                          - mythic
-                          - lair
-                      priority:
-                        type: number
-                      availableUnit:
-                        type: string
-                        enum:
-                          - level
-                          - cr
-                      availableUntil:
-                        type: number
-                      subType:
-                        type: string
-                      source:
-                        type: string
-                      tags:
-                        type: array
-                        items:
-                          type: string
-                      variants:
-                        type: array
-                        items:
-                          anyOf:
-                            - type: object
-                              properties:
-                                name:
-                                  type: string
-                                description:
-                                  type: string
-                                type:
-                                  $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
-                                    /properties/object/properties/actions/items\
-                                    /properties/actionType"
-                                availableAt:
-                                  type: number
-                                ability:
-                                  type: string
-                                  enum:
-                                    - STR
-                                    - DEX
-                                    - CON
-                                    - INT
-                                    - WIS
-                                    - CHA
-                                charges:
-                                  type: string
-                                recharge:
-                                  type: string
-                                cost:
-                                  type: string
-                                values:
-                                  type: array
-                                  items:
-                                    anyOf:
-                                      - {}
-                                      - {}
-                                      - type: object
+                    anyOf:
+                      - type: object
+                        properties:
+                          tag:
+                            type: string
+                          actionType:
+                            type: string
+                            enum:
+                              - trait
+                              - legendary
+                              - action
+                              - reaction
+                              - bonus
+                              - attack
+                              - multiattack
+                              - mythic
+                              - lair
+                          priority:
+                            type: number
+                          availableUnit:
+                            type: string
+                            enum:
+                              - level
+                              - cr
+                          availableUntil:
+                            type: number
+                          subType:
+                            type: string
+                          source:
+                            type: string
+                          tags:
+                            type: array
+                            items:
+                              type: string
+                          variants:
+                            type: array
+                            items:
+                              anyOf:
+                                - type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    description:
+                                      type: string
+                                    type:
+                                      $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
+                                        /properties/object/properties/actions/i\
+                                        tems/anyOf/0/properties/actionType"
+                                    availableAt:
+                                      type: number
+                                    ability:
+                                      type: string
+                                      enum:
+                                        - STR
+                                        - DEX
+                                        - CON
+                                        - INT
+                                        - WIS
+                                        - CHA
+                                    charges:
+                                      type: string
+                                    recharge:
+                                      type: string
+                                    cost:
+                                      type: string
+                                    values:
+                                      type: array
+                                      items:
+                                        anyOf:
+                                          - {}
+                                          - {}
+                                          - type: object
+                                            properties:
+                                              name:
+                                                type: string
+                                              type:
+                                                type: string
+                                              incrProgression:
+                                                type: object
+                                                properties:
+                                                  unitInterval:
+                                                    type: string
+                                                  unitIncrement:
+                                                    type: string
+                                                  availableAt:
+                                                    type: string
+                                                  availableUnit:
+                                                    type: string
+                                                    enum:
+                                                      - level
+                                                      - cr
+                                                  valueBase:
+                                                    type: string
+                                                  valueIncrement:
+                                                    type: string
+                                                required:
+                                                  - unitInterval
+                                                  - unitIncrement
+                                                  - availableAt
+                                                  - valueBase
+                                                  - valueIncrement
+                                                additionalProperties: false
+                                            required:
+                                              - name
+                                              - incrProgression
+                                            additionalProperties: false
+                                    attacks:
+                                      type: array
+                                      items:
+                                        type: object
                                         properties:
                                           name:
                                             type: string
-                                          type:
-                                            type: string
-                                          incrProgression:
+                                          replaceName:
+                                            type: boolean
+                                          attributes:
+                                            anyOf:
+                                              - type: object
+                                                properties:
+                                                  reach:
+                                                    type: string
+                                                  targets:
+                                                    type: string
+                                                  name:
+                                                    type: string
+                                                  cost:
+                                                    type: string
+                                                  weight:
+                                                    type: string
+                                                  damageType:
+                                                    type: string
+                                                  special:
+                                                    type: string
+                                                  die:
+                                                    type: string
+                                                  diceNumber:
+                                                    type: string
+                                                  dieV:
+                                                    type: string
+                                                  diceNumberV:
+                                                    type: string
+                                                  range:
+                                                    type: string
+                                                  rangeMax:
+                                                    type: string
+                                                  properties:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                                required:
+                                                  - properties
+                                                additionalProperties: false
+                                              - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
+                                                  /properties/object/properties\
+                                                  /armor/anyOf/1"
+                                          enchantment:
                                             type: object
                                             properties:
-                                              unitInterval:
+                                              type:
                                                 type: string
-                                              unitIncrement:
-                                                type: string
-                                              availableAt:
-                                                type: string
-                                              availableUnit:
-                                                type: string
-                                                enum:
-                                                  - level
-                                                  - cr
-                                              valueBase:
-                                                type: string
-                                              valueIncrement:
+                                              dice:
+                                                type: object
+                                                properties:
+                                                  die:
+                                                    type: number
+                                                  diceNumber:
+                                                    type: number
+                                                  diceIncrement:
+                                                    type: number
+                                                  availableAt:
+                                                    type: number
+                                                  availableUntil:
+                                                    type: number
+                                                  availableUnit:
+                                                    type: string
+                                                    enum:
+                                                      - level
+                                                      - cr
+                                                  unitInterval:
+                                                    type: number
+                                                required:
+                                                  - die
+                                                  - diceNumber
+                                                additionalProperties: false
+                                              expression:
                                                 type: string
                                             required:
-                                              - unitInterval
-                                              - unitIncrement
-                                              - availableAt
-                                              - valueBase
-                                              - valueIncrement
+                                              - type
                                             additionalProperties: false
                                         required:
                                           - name
-                                          - incrProgression
+                                          - attributes
                                         additionalProperties: false
-                                attacks:
-                                  type: array
-                                  items:
-                                    type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      replaceName:
-                                        type: boolean
-                                      attributes:
-                                        anyOf:
-                                          - type: object
-                                            properties:
-                                              reach:
-                                                type: string
-                                              targets:
-                                                type: string
-                                              name:
-                                                type: string
-                                              cost:
-                                                type: string
-                                              weight:
-                                                type: string
-                                              damageType:
-                                                type: string
-                                              special:
-                                                type: string
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              dieV:
-                                                type: string
-                                              diceNumberV:
-                                                type: string
-                                              range:
-                                                type: string
-                                              rangeMax:
-                                                type: string
-                                              properties:
-                                                type: array
-                                                items:
-                                                  type: string
-                                            required:
-                                              - properties
-                                            additionalProperties: false
-                                          - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
-                                              /properties/object/properties/arm\
-                                              or/anyOf/1"
-                                      enchantment:
-                                        type: object
-                                        properties:
-                                          type:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: number
-                                              diceNumber:
-                                                type: number
-                                              diceIncrement:
-                                                type: number
-                                              availableAt:
-                                                type: number
-                                              availableUntil:
-                                                type: number
-                                              availableUnit:
-                                                type: string
-                                                enum:
-                                                  - level
-                                                  - cr
-                                              unitInterval:
-                                                type: number
-                                            required:
-                                              - die
-                                              - diceNumber
-                                            additionalProperties: false
-                                          expression:
-                                            type: string
-                                        required:
-                                          - type
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - attributes
-                                    additionalProperties: false
-                              required:
-                                - name
-                                - description
-                              additionalProperties: false
-                            - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
-                                /properties/object/properties/armor/anyOf/1"
-                            - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
-                                /properties/object/properties/skills/anyOf/2"
-                    required:
-                      - tag
-                      - variants
-                    additionalProperties: false
+                                  required:
+                                    - name
+                                    - description
+                                  additionalProperties: false
+                                - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
+                                    /properties/object/properties/armor/anyOf/1"
+                                - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
+                                    /properties/object/properties/skills/anyOf/\
+                                    2"
+                        required:
+                          - tag
+                          - variants
+                        additionalProperties: false
+                      - $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
+                          /properties/object/properties/armor/anyOf/1"
                 bonuses:
                   type: object
                   properties:
@@ -680,8 +696,8 @@ components:
                       type: boolean
                     ability:
                       $ref: "#/components/schemas/backgroundSchemas/properties/createBackgroundSchema\
-                        /properties/object/properties/actions/items/properties/\
-                        variants/items/anyOf/0/properties/ability"
+                        /properties/object/properties/actions/items/anyOf/0/pro\
+                        perties/variants/items/anyOf/0/properties/ability"
                     availableUnit:
                       type: string
                       enum:
@@ -723,6 +739,7 @@ components:
                 - name
                 - femaleName
                 - workplace
+                - compatibleAges
               additionalProperties: false
             age:
               type: string
@@ -776,9 +793,21 @@ components:
             id:
               $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundListRespo\
                 nseSchema/properties/list/items/properties/id"
+            name:
+              type: string
+            femaleName:
+              type: string
+            age:
+              type: string
+            description:
+              type: string
           required:
             - object
             - id
+            - name
+            - femaleName
+            - age
+            - description
           additionalProperties: false
       required:
         - createBackgroundSchema
@@ -1011,209 +1040,213 @@ components:
                 actions:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      tag:
-                        type: string
-                      actionType:
-                        type: string
-                        enum:
-                          - trait
-                          - legendary
-                          - action
-                          - reaction
-                          - bonus
-                          - attack
-                          - multiattack
-                          - mythic
-                          - lair
-                      priority:
-                        type: number
-                      availableUnit:
-                        type: string
-                        enum:
-                          - level
-                          - cr
-                      availableUntil:
-                        type: number
-                      subType:
-                        type: string
-                      source:
-                        type: string
-                      tags:
-                        type: array
-                        items:
-                          type: string
-                      variants:
-                        type: array
-                        items:
-                          anyOf:
-                            - type: object
-                              properties:
-                                name:
-                                  type: string
-                                description:
-                                  type: string
-                                type:
-                                  $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                    s/object/properties/actions/items/propertie\
-                                    s/actionType"
-                                availableAt:
-                                  type: number
-                                ability:
-                                  type: string
-                                  enum:
-                                    - STR
-                                    - DEX
-                                    - CON
-                                    - INT
-                                    - WIS
-                                    - CHA
-                                charges:
-                                  type: string
-                                recharge:
-                                  type: string
-                                cost:
-                                  type: string
-                                values:
-                                  type: array
-                                  items:
-                                    anyOf:
-                                      - {}
-                                      - {}
-                                      - type: object
+                    anyOf:
+                      - type: object
+                        properties:
+                          tag:
+                            type: string
+                          actionType:
+                            type: string
+                            enum:
+                              - trait
+                              - legendary
+                              - action
+                              - reaction
+                              - bonus
+                              - attack
+                              - multiattack
+                              - mythic
+                              - lair
+                          priority:
+                            type: number
+                          availableUnit:
+                            type: string
+                            enum:
+                              - level
+                              - cr
+                          availableUntil:
+                            type: number
+                          subType:
+                            type: string
+                          source:
+                            type: string
+                          tags:
+                            type: array
+                            items:
+                              type: string
+                          variants:
+                            type: array
+                            items:
+                              anyOf:
+                                - type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    description:
+                                      type: string
+                                    type:
+                                      $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                        s/object/properties/actions/items/anyOf\
+                                        /0/properties/actionType"
+                                    availableAt:
+                                      type: number
+                                    ability:
+                                      type: string
+                                      enum:
+                                        - STR
+                                        - DEX
+                                        - CON
+                                        - INT
+                                        - WIS
+                                        - CHA
+                                    charges:
+                                      type: string
+                                    recharge:
+                                      type: string
+                                    cost:
+                                      type: string
+                                    values:
+                                      type: array
+                                      items:
+                                        anyOf:
+                                          - {}
+                                          - {}
+                                          - type: object
+                                            properties:
+                                              name:
+                                                type: string
+                                              type:
+                                                type: string
+                                              incrProgression:
+                                                type: object
+                                                properties:
+                                                  unitInterval:
+                                                    type: string
+                                                  unitIncrement:
+                                                    type: string
+                                                  availableAt:
+                                                    type: string
+                                                  availableUnit:
+                                                    type: string
+                                                    enum:
+                                                      - level
+                                                      - cr
+                                                  valueBase:
+                                                    type: string
+                                                  valueIncrement:
+                                                    type: string
+                                                required:
+                                                  - unitInterval
+                                                  - unitIncrement
+                                                  - availableAt
+                                                  - valueBase
+                                                  - valueIncrement
+                                                additionalProperties: false
+                                            required:
+                                              - name
+                                              - incrProgression
+                                            additionalProperties: false
+                                    attacks:
+                                      type: array
+                                      items:
+                                        type: object
                                         properties:
                                           name:
                                             type: string
-                                          type:
-                                            type: string
-                                          incrProgression:
+                                          replaceName:
+                                            type: boolean
+                                          attributes:
+                                            anyOf:
+                                              - type: object
+                                                properties:
+                                                  reach:
+                                                    type: string
+                                                  targets:
+                                                    type: string
+                                                  name:
+                                                    type: string
+                                                  cost:
+                                                    type: string
+                                                  weight:
+                                                    type: string
+                                                  damageType:
+                                                    type: string
+                                                  special:
+                                                    type: string
+                                                  die:
+                                                    type: string
+                                                  diceNumber:
+                                                    type: string
+                                                  dieV:
+                                                    type: string
+                                                  diceNumberV:
+                                                    type: string
+                                                  range:
+                                                    type: string
+                                                  rangeMax:
+                                                    type: string
+                                                  properties:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                                required:
+                                                  - properties
+                                                additionalProperties: false
+                                              - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                                  s/object/properties/armor/any\
+                                                  Of/1"
+                                          enchantment:
                                             type: object
                                             properties:
-                                              unitInterval:
+                                              type:
                                                 type: string
-                                              unitIncrement:
-                                                type: string
-                                              availableAt:
-                                                type: string
-                                              availableUnit:
-                                                type: string
-                                                enum:
-                                                  - level
-                                                  - cr
-                                              valueBase:
-                                                type: string
-                                              valueIncrement:
+                                              dice:
+                                                type: object
+                                                properties:
+                                                  die:
+                                                    type: number
+                                                  diceNumber:
+                                                    type: number
+                                                  diceIncrement:
+                                                    type: number
+                                                  availableAt:
+                                                    type: number
+                                                  availableUntil:
+                                                    type: number
+                                                  availableUnit:
+                                                    type: string
+                                                    enum:
+                                                      - level
+                                                      - cr
+                                                  unitInterval:
+                                                    type: number
+                                                required:
+                                                  - die
+                                                  - diceNumber
+                                                additionalProperties: false
+                                              expression:
                                                 type: string
                                             required:
-                                              - unitInterval
-                                              - unitIncrement
-                                              - availableAt
-                                              - valueBase
-                                              - valueIncrement
+                                              - type
                                             additionalProperties: false
                                         required:
                                           - name
-                                          - incrProgression
+                                          - attributes
                                         additionalProperties: false
-                                attacks:
-                                  type: array
-                                  items:
-                                    type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      replaceName:
-                                        type: boolean
-                                      attributes:
-                                        anyOf:
-                                          - type: object
-                                            properties:
-                                              reach:
-                                                type: string
-                                              targets:
-                                                type: string
-                                              name:
-                                                type: string
-                                              cost:
-                                                type: string
-                                              weight:
-                                                type: string
-                                              damageType:
-                                                type: string
-                                              special:
-                                                type: string
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              dieV:
-                                                type: string
-                                              diceNumberV:
-                                                type: string
-                                              range:
-                                                type: string
-                                              rangeMax:
-                                                type: string
-                                              properties:
-                                                type: array
-                                                items:
-                                                  type: string
-                                            required:
-                                              - properties
-                                            additionalProperties: false
-                                          - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                              s/object/properties/armor/anyOf/1"
-                                      enchantment:
-                                        type: object
-                                        properties:
-                                          type:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: number
-                                              diceNumber:
-                                                type: number
-                                              diceIncrement:
-                                                type: number
-                                              availableAt:
-                                                type: number
-                                              availableUntil:
-                                                type: number
-                                              availableUnit:
-                                                type: string
-                                                enum:
-                                                  - level
-                                                  - cr
-                                              unitInterval:
-                                                type: number
-                                            required:
-                                              - die
-                                              - diceNumber
-                                            additionalProperties: false
-                                          expression:
-                                            type: string
-                                        required:
-                                          - type
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - attributes
-                                    additionalProperties: false
-                              required:
-                                - name
-                                - description
-                              additionalProperties: false
-                            - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                s/object/properties/armor/anyOf/1"
-                            - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                                s/object/properties/skills/anyOf/2"
-                    required:
-                      - tag
-                      - variants
-                    additionalProperties: false
+                                  required:
+                                    - name
+                                    - description
+                                  additionalProperties: false
+                                - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                    s/object/properties/armor/anyOf/1"
+                                - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                                    s/object/properties/skills/anyOf/2"
+                        required:
+                          - tag
+                          - variants
+                        additionalProperties: false
+                      - $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
+                          s/object/properties/armor/anyOf/1"
                 bonuses:
                   type: object
                   properties:
@@ -1385,8 +1418,8 @@ components:
                       type: boolean
                     ability:
                       $ref: "#/components/schemas/classSchemas/properties/updateClassSchema/propertie\
-                        s/object/properties/actions/items/properties/variants/i\
-                        tems/anyOf/0/properties/ability"
+                        s/object/properties/actions/items/anyOf/0/properties/va\
+                        riants/items/anyOf/0/properties/ability"
                     availableUnit:
                       type: string
                       enum:
@@ -1609,6 +1642,8 @@ components:
               minimum: 0
               maximum: 100
             addVoice:
+              type: boolean
+            includeChildren:
               type: boolean
           additionalProperties: false
         createRandomNpcResponseSchema:
@@ -1911,215 +1946,222 @@ components:
                         actions:
                           type: array
                           items:
-                            type: object
-                            properties:
-                              tag:
-                                type: string
-                              actionType:
-                                type: string
-                                enum:
-                                  - trait
-                                  - legendary
-                                  - action
-                                  - reaction
-                                  - bonus
-                                  - attack
-                                  - multiattack
-                                  - mythic
-                                  - lair
-                              priority:
-                                type: number
-                              availableUnit:
-                                type: string
-                                enum:
-                                  - level
-                                  - cr
-                              availableUntil:
-                                type: number
-                              subType:
-                                type: string
-                              source:
-                                type: string
-                              tags:
-                                type: array
-                                items:
-                                  type: string
-                              variants:
-                                type: array
-                                items:
-                                  anyOf:
-                                    - type: object
-                                      properties:
-                                        name:
-                                          type: string
-                                        description:
-                                          type: string
-                                        type:
-                                          $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                            /properties/npc/properties/characte\
-                                            r/properties/race/properties/action\
-                                            s/items/properties/actionType"
-                                        availableAt:
-                                          type: number
-                                        ability:
-                                          type: string
-                                          enum:
-                                            - STR
-                                            - DEX
-                                            - CON
-                                            - INT
-                                            - WIS
-                                            - CHA
-                                        charges:
-                                          type: string
-                                        recharge:
-                                          type: string
-                                        cost:
-                                          type: string
-                                        values:
-                                          type: array
-                                          items:
-                                            anyOf:
-                                              - {}
-                                              - {}
-                                              - type: object
+                            anyOf:
+                              - type: object
+                                properties:
+                                  tag:
+                                    type: string
+                                  actionType:
+                                    type: string
+                                    enum:
+                                      - trait
+                                      - legendary
+                                      - action
+                                      - reaction
+                                      - bonus
+                                      - attack
+                                      - multiattack
+                                      - mythic
+                                      - lair
+                                  priority:
+                                    type: number
+                                  availableUnit:
+                                    type: string
+                                    enum:
+                                      - level
+                                      - cr
+                                  availableUntil:
+                                    type: number
+                                  subType:
+                                    type: string
+                                  source:
+                                    type: string
+                                  tags:
+                                    type: array
+                                    items:
+                                      type: string
+                                  variants:
+                                    type: array
+                                    items:
+                                      anyOf:
+                                        - type: object
+                                          properties:
+                                            name:
+                                              type: string
+                                            description:
+                                              type: string
+                                            type:
+                                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                                /properties/npc/properties/char\
+                                                acter/properties/race/propertie\
+                                                s/actions/items/anyOf/0/propert\
+                                                ies/actionType"
+                                            availableAt:
+                                              type: number
+                                            ability:
+                                              type: string
+                                              enum:
+                                                - STR
+                                                - DEX
+                                                - CON
+                                                - INT
+                                                - WIS
+                                                - CHA
+                                            charges:
+                                              type: string
+                                            recharge:
+                                              type: string
+                                            cost:
+                                              type: string
+                                            values:
+                                              type: array
+                                              items:
+                                                anyOf:
+                                                  - {}
+                                                  - {}
+                                                  - type: object
+                                                    properties:
+                                                      name:
+                                                        type: string
+                                                      type:
+                                                        type: string
+                                                      incrProgression:
+                                                        type: object
+                                                        properties:
+                                                          unitInterval:
+                                                            type: string
+                                                          unitIncrement:
+                                                            type: string
+                                                          availableAt:
+                                                            type: string
+                                                          availableUnit:
+                                                            type: string
+                                                            enum:
+                                                              - level
+                                                              - cr
+                                                          valueBase:
+                                                            type: string
+                                                          valueIncrement:
+                                                            type: string
+                                                        required:
+                                                          - unitInterval
+                                                          - unitIncrement
+                                                          - availableAt
+                                                          - valueBase
+                                                          - valueIncrement
+                                                        additionalProperties: false
+                                                    required:
+                                                      - name
+                                                      - incrProgression
+                                                    additionalProperties: false
+                                            attacks:
+                                              type: array
+                                              items:
+                                                type: object
                                                 properties:
                                                   name:
                                                     type: string
-                                                  type:
-                                                    type: string
-                                                  incrProgression:
+                                                  replaceName:
+                                                    type: boolean
+                                                  attributes:
+                                                    anyOf:
+                                                      - type: object
+                                                        properties:
+                                                          reach:
+                                                            type: string
+                                                          targets:
+                                                            type: string
+                                                          name:
+                                                            type: string
+                                                          cost:
+                                                            type: string
+                                                          weight:
+                                                            type: string
+                                                          damageType:
+                                                            type: string
+                                                          special:
+                                                            type: string
+                                                          die:
+                                                            type: string
+                                                          diceNumber:
+                                                            type: string
+                                                          dieV:
+                                                            type: string
+                                                          diceNumberV:
+                                                            type: string
+                                                          range:
+                                                            type: string
+                                                          rangeMax:
+                                                            type: string
+                                                          properties:
+                                                            type: array
+                                                            items:
+                                                              type: string
+                                                        required:
+                                                          - properties
+                                                        additionalProperties: false
+                                                      - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                                          /properties/npc/prope\
+                                                          rties/character/prope\
+                                                          rties/race/properties\
+                                                          /armor/anyOf/1"
+                                                  enchantment:
                                                     type: object
                                                     properties:
-                                                      unitInterval:
+                                                      type:
                                                         type: string
-                                                      unitIncrement:
-                                                        type: string
-                                                      availableAt:
-                                                        type: string
-                                                      availableUnit:
-                                                        type: string
-                                                        enum:
-                                                          - level
-                                                          - cr
-                                                      valueBase:
-                                                        type: string
-                                                      valueIncrement:
+                                                      dice:
+                                                        type: object
+                                                        properties:
+                                                          die:
+                                                            type: number
+                                                          diceNumber:
+                                                            type: number
+                                                          diceIncrement:
+                                                            type: number
+                                                          availableAt:
+                                                            type: number
+                                                          availableUntil:
+                                                            type: number
+                                                          availableUnit:
+                                                            type: string
+                                                            enum:
+                                                              - level
+                                                              - cr
+                                                          unitInterval:
+                                                            type: number
+                                                        required:
+                                                          - die
+                                                          - diceNumber
+                                                        additionalProperties: false
+                                                      expression:
                                                         type: string
                                                     required:
-                                                      - unitInterval
-                                                      - unitIncrement
-                                                      - availableAt
-                                                      - valueBase
-                                                      - valueIncrement
+                                                      - type
                                                     additionalProperties: false
                                                 required:
                                                   - name
-                                                  - incrProgression
+                                                  - attributes
                                                 additionalProperties: false
-                                        attacks:
-                                          type: array
-                                          items:
-                                            type: object
-                                            properties:
-                                              name:
-                                                type: string
-                                              replaceName:
-                                                type: boolean
-                                              attributes:
-                                                anyOf:
-                                                  - type: object
-                                                    properties:
-                                                      reach:
-                                                        type: string
-                                                      targets:
-                                                        type: string
-                                                      name:
-                                                        type: string
-                                                      cost:
-                                                        type: string
-                                                      weight:
-                                                        type: string
-                                                      damageType:
-                                                        type: string
-                                                      special:
-                                                        type: string
-                                                      die:
-                                                        type: string
-                                                      diceNumber:
-                                                        type: string
-                                                      dieV:
-                                                        type: string
-                                                      diceNumberV:
-                                                        type: string
-                                                      range:
-                                                        type: string
-                                                      rangeMax:
-                                                        type: string
-                                                      properties:
-                                                        type: array
-                                                        items:
-                                                          type: string
-                                                    required:
-                                                      - properties
-                                                    additionalProperties: false
-                                                  - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                                      /properties/npc/propertie\
-                                                      s/character/properties/ra\
-                                                      ce/properties/armor/anyOf\
-                                                      /1"
-                                              enchantment:
-                                                type: object
-                                                properties:
-                                                  type:
-                                                    type: string
-                                                  dice:
-                                                    type: object
-                                                    properties:
-                                                      die:
-                                                        type: number
-                                                      diceNumber:
-                                                        type: number
-                                                      diceIncrement:
-                                                        type: number
-                                                      availableAt:
-                                                        type: number
-                                                      availableUntil:
-                                                        type: number
-                                                      availableUnit:
-                                                        type: string
-                                                        enum:
-                                                          - level
-                                                          - cr
-                                                      unitInterval:
-                                                        type: number
-                                                    required:
-                                                      - die
-                                                      - diceNumber
-                                                    additionalProperties: false
-                                                  expression:
-                                                    type: string
-                                                required:
-                                                  - type
-                                                additionalProperties: false
-                                            required:
-                                              - name
-                                              - attributes
-                                            additionalProperties: false
-                                      required:
-                                        - name
-                                        - description
-                                      additionalProperties: false
-                                    - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                        /properties/npc/properties/character/pr\
-                                        operties/race/properties/armor/anyOf/1"
-                                    - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
-                                        /properties/npc/properties/character/pr\
-                                        operties/race/properties/skills/anyOf/2"
-                            required:
-                              - tag
-                              - variants
-                            additionalProperties: false
+                                          required:
+                                            - name
+                                            - description
+                                          additionalProperties: false
+                                        - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                            /properties/npc/properties/characte\
+                                            r/properties/race/properties/armor/\
+                                            anyOf/1"
+                                        - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                            /properties/npc/properties/characte\
+                                            r/properties/race/properties/skills\
+                                            /anyOf/2"
+                                required:
+                                  - tag
+                                  - variants
+                                additionalProperties: false
+                              - $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                  /properties/npc/properties/character/properti\
+                                  es/race/properties/armor/anyOf/1"
                         bonuses:
                           type: object
                           properties:
@@ -2342,8 +2384,8 @@ components:
                             ability:
                               $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                                 /properties/npc/properties/character/properties\
-                                /race/properties/actions/items/properties/varia\
-                                nts/items/anyOf/0/properties/ability"
+                                /race/properties/actions/items/anyOf/0/properti\
+                                es/variants/items/anyOf/0/properties/ability"
                             availableUnit:
                               type: string
                               enum:
@@ -2740,6 +2782,18 @@ components:
                           type: string
                         workplace:
                           type: string
+                        compatibleAges:
+                          type: array
+                          items:
+                            type: string
+                            enum:
+                              - child
+                              - adolescent
+                              - young adult
+                              - adult
+                              - middle-aged
+                              - elderly
+                              - venerable
                         armor:
                           $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
                             /properties/npc/properties/character/properties/rac\
@@ -2824,6 +2878,7 @@ components:
                         - name
                         - femaleName
                         - workplace
+                        - compatibleAges
                       additionalProperties: false
                     template:
                       type: object
@@ -3127,15 +3182,9 @@ components:
                             number:
                               type: number
                             string:
-                              type: string
-                              enum:
-                                - child
-                                - adolescent
-                                - young adult
-                                - adult
-                                - middle-aged
-                                - elderly
-                                - venerable
+                              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema\
+                                /properties/npc/properties/character/properties\
+                                /background/properties/compatibleAges/items"
                           required:
                             - number
                             - string
@@ -3566,6 +3615,28 @@ components:
         - createRandomNpcResponseSchema
         - createFourRandomNpcsResponseSchema
       additionalProperties: false
+    Schema:
+      type: object
+      properties:
+        getPagesettingResponseSchema:
+          type: object
+          properties:
+            page:
+              type: string
+            object:
+              type: object
+              additionalProperties: {}
+          required:
+            - page
+            - object
+          additionalProperties: false
+        setPagesettingResponseSchema:
+          type: object
+          additionalProperties: {}
+      required:
+        - getPagesettingResponseSchema
+        - setPagesettingResponseSchema
+      additionalProperties: false
     raceSchemas:
       type: object
       properties:
@@ -3837,209 +3908,213 @@ components:
                 actions:
                   type: array
                   items:
-                    type: object
-                    properties:
-                      tag:
-                        type: string
-                      actionType:
-                        type: string
-                        enum:
-                          - trait
-                          - legendary
-                          - action
-                          - reaction
-                          - bonus
-                          - attack
-                          - multiattack
-                          - mythic
-                          - lair
-                      priority:
-                        type: number
-                      availableUnit:
-                        type: string
-                        enum:
-                          - level
-                          - cr
-                      availableUntil:
-                        type: number
-                      subType:
-                        type: string
-                      source:
-                        type: string
-                      tags:
-                        type: array
-                        items:
-                          type: string
-                      variants:
-                        type: array
-                        items:
-                          anyOf:
-                            - type: object
-                              properties:
-                                name:
-                                  type: string
-                                description:
-                                  type: string
-                                type:
-                                  $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                    object/properties/actions/items/properties/\
-                                    actionType"
-                                availableAt:
-                                  type: number
-                                ability:
-                                  type: string
-                                  enum:
-                                    - STR
-                                    - DEX
-                                    - CON
-                                    - INT
-                                    - WIS
-                                    - CHA
-                                charges:
-                                  type: string
-                                recharge:
-                                  type: string
-                                cost:
-                                  type: string
-                                values:
-                                  type: array
-                                  items:
-                                    anyOf:
-                                      - {}
-                                      - {}
-                                      - type: object
+                    anyOf:
+                      - type: object
+                        properties:
+                          tag:
+                            type: string
+                          actionType:
+                            type: string
+                            enum:
+                              - trait
+                              - legendary
+                              - action
+                              - reaction
+                              - bonus
+                              - attack
+                              - multiattack
+                              - mythic
+                              - lair
+                          priority:
+                            type: number
+                          availableUnit:
+                            type: string
+                            enum:
+                              - level
+                              - cr
+                          availableUntil:
+                            type: number
+                          subType:
+                            type: string
+                          source:
+                            type: string
+                          tags:
+                            type: array
+                            items:
+                              type: string
+                          variants:
+                            type: array
+                            items:
+                              anyOf:
+                                - type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    description:
+                                      type: string
+                                    type:
+                                      $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                        object/properties/actions/items/anyOf/0\
+                                        /properties/actionType"
+                                    availableAt:
+                                      type: number
+                                    ability:
+                                      type: string
+                                      enum:
+                                        - STR
+                                        - DEX
+                                        - CON
+                                        - INT
+                                        - WIS
+                                        - CHA
+                                    charges:
+                                      type: string
+                                    recharge:
+                                      type: string
+                                    cost:
+                                      type: string
+                                    values:
+                                      type: array
+                                      items:
+                                        anyOf:
+                                          - {}
+                                          - {}
+                                          - type: object
+                                            properties:
+                                              name:
+                                                type: string
+                                              type:
+                                                type: string
+                                              incrProgression:
+                                                type: object
+                                                properties:
+                                                  unitInterval:
+                                                    type: string
+                                                  unitIncrement:
+                                                    type: string
+                                                  availableAt:
+                                                    type: string
+                                                  availableUnit:
+                                                    type: string
+                                                    enum:
+                                                      - level
+                                                      - cr
+                                                  valueBase:
+                                                    type: string
+                                                  valueIncrement:
+                                                    type: string
+                                                required:
+                                                  - unitInterval
+                                                  - unitIncrement
+                                                  - availableAt
+                                                  - valueBase
+                                                  - valueIncrement
+                                                additionalProperties: false
+                                            required:
+                                              - name
+                                              - incrProgression
+                                            additionalProperties: false
+                                    attacks:
+                                      type: array
+                                      items:
+                                        type: object
                                         properties:
                                           name:
                                             type: string
-                                          type:
-                                            type: string
-                                          incrProgression:
+                                          replaceName:
+                                            type: boolean
+                                          attributes:
+                                            anyOf:
+                                              - type: object
+                                                properties:
+                                                  reach:
+                                                    type: string
+                                                  targets:
+                                                    type: string
+                                                  name:
+                                                    type: string
+                                                  cost:
+                                                    type: string
+                                                  weight:
+                                                    type: string
+                                                  damageType:
+                                                    type: string
+                                                  special:
+                                                    type: string
+                                                  die:
+                                                    type: string
+                                                  diceNumber:
+                                                    type: string
+                                                  dieV:
+                                                    type: string
+                                                  diceNumberV:
+                                                    type: string
+                                                  range:
+                                                    type: string
+                                                  rangeMax:
+                                                    type: string
+                                                  properties:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                                required:
+                                                  - properties
+                                                additionalProperties: false
+                                              - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                                  object/properties/armor/anyOf\
+                                                  /1"
+                                          enchantment:
                                             type: object
                                             properties:
-                                              unitInterval:
+                                              type:
                                                 type: string
-                                              unitIncrement:
-                                                type: string
-                                              availableAt:
-                                                type: string
-                                              availableUnit:
-                                                type: string
-                                                enum:
-                                                  - level
-                                                  - cr
-                                              valueBase:
-                                                type: string
-                                              valueIncrement:
+                                              dice:
+                                                type: object
+                                                properties:
+                                                  die:
+                                                    type: number
+                                                  diceNumber:
+                                                    type: number
+                                                  diceIncrement:
+                                                    type: number
+                                                  availableAt:
+                                                    type: number
+                                                  availableUntil:
+                                                    type: number
+                                                  availableUnit:
+                                                    type: string
+                                                    enum:
+                                                      - level
+                                                      - cr
+                                                  unitInterval:
+                                                    type: number
+                                                required:
+                                                  - die
+                                                  - diceNumber
+                                                additionalProperties: false
+                                              expression:
                                                 type: string
                                             required:
-                                              - unitInterval
-                                              - unitIncrement
-                                              - availableAt
-                                              - valueBase
-                                              - valueIncrement
+                                              - type
                                             additionalProperties: false
                                         required:
                                           - name
-                                          - incrProgression
+                                          - attributes
                                         additionalProperties: false
-                                attacks:
-                                  type: array
-                                  items:
-                                    type: object
-                                    properties:
-                                      name:
-                                        type: string
-                                      replaceName:
-                                        type: boolean
-                                      attributes:
-                                        anyOf:
-                                          - type: object
-                                            properties:
-                                              reach:
-                                                type: string
-                                              targets:
-                                                type: string
-                                              name:
-                                                type: string
-                                              cost:
-                                                type: string
-                                              weight:
-                                                type: string
-                                              damageType:
-                                                type: string
-                                              special:
-                                                type: string
-                                              die:
-                                                type: string
-                                              diceNumber:
-                                                type: string
-                                              dieV:
-                                                type: string
-                                              diceNumberV:
-                                                type: string
-                                              range:
-                                                type: string
-                                              rangeMax:
-                                                type: string
-                                              properties:
-                                                type: array
-                                                items:
-                                                  type: string
-                                            required:
-                                              - properties
-                                            additionalProperties: false
-                                          - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                              object/properties/armor/anyOf/1"
-                                      enchantment:
-                                        type: object
-                                        properties:
-                                          type:
-                                            type: string
-                                          dice:
-                                            type: object
-                                            properties:
-                                              die:
-                                                type: number
-                                              diceNumber:
-                                                type: number
-                                              diceIncrement:
-                                                type: number
-                                              availableAt:
-                                                type: number
-                                              availableUntil:
-                                                type: number
-                                              availableUnit:
-                                                type: string
-                                                enum:
-                                                  - level
-                                                  - cr
-                                              unitInterval:
-                                                type: number
-                                            required:
-                                              - die
-                                              - diceNumber
-                                            additionalProperties: false
-                                          expression:
-                                            type: string
-                                        required:
-                                          - type
-                                        additionalProperties: false
-                                    required:
-                                      - name
-                                      - attributes
-                                    additionalProperties: false
-                              required:
-                                - name
-                                - description
-                              additionalProperties: false
-                            - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                object/properties/armor/anyOf/1"
-                            - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                                object/properties/skills/anyOf/2"
-                    required:
-                      - tag
-                      - variants
-                    additionalProperties: false
+                                  required:
+                                    - name
+                                    - description
+                                  additionalProperties: false
+                                - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                    object/properties/armor/anyOf/1"
+                                - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                                    object/properties/skills/anyOf/2"
+                        required:
+                          - tag
+                          - variants
+                        additionalProperties: false
+                      - $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
+                          object/properties/armor/anyOf/1"
                 bonuses:
                   type: object
                   properties:
@@ -4211,8 +4286,8 @@ components:
                       type: boolean
                     ability:
                       $ref: "#/components/schemas/raceSchemas/properties/createRaceSchema/properties/\
-                        object/properties/actions/items/properties/variants/ite\
-                        ms/anyOf/0/properties/ability"
+                        object/properties/actions/items/anyOf/0/properties/vari\
+                        ants/items/anyOf/0/properties/ability"
                     availableUnit:
                       type: string
                       enum:
@@ -4378,6 +4453,64 @@ components:
         - getRaceWithVariantsListResponseSchema
         - getRaceListResponseSchema
         - getRaceResponseSchema
+      additionalProperties: false
+    traitSchemas:
+      type: object
+      properties:
+        getRandomTraitSchema:
+          type: object
+          properties:
+            type:
+              type: string
+              minLength: 2
+            subtitle:
+              type: number
+            category:
+              type: string
+            feeling:
+              type: number
+          additionalProperties: false
+        getRandomTraitResponseSchema:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 2
+            type:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+                ties/type"
+            subtitle:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+                ties/subtitle"
+            category:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+                ties/category"
+            feeling:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+                ties/feeling"
+            description:
+              type: string
+          required:
+            - name
+            - type
+            - subtitle
+            - category
+            - feeling
+            - description
+          additionalProperties: false
+        getTraitDescriptionResponseSchema:
+          type: object
+          properties:
+            description:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
+                a/properties/description"
+          required:
+            - description
+          additionalProperties: false
+      required:
+        - getRandomTraitSchema
+        - getRandomTraitResponseSchema
+        - getTraitDescriptionResponseSchema
       additionalProperties: false
     userSchemas:
       type: object
@@ -4582,6 +4715,29 @@ paths:
               schema:
                 $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundResponseS\
                   chema"
+  "/api/backgrounds/random/{age}":
+    get:
+      summary: Returns the details of a random background for a specific age.
+      tags:
+        - backgrounds
+      description: 'Returns the details of a random background, for a specific age,
+        from list of backgrounds available to the user in the database. The age
+        must be one of the following: "child", "adolescent", "young adult",
+        "adult", "middle-aged", "elderly", "venerable".'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: authorization
+          required: false
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundResponseS\
+                  chema"
   /api/classes/:
     get:
       summary: Returns a list of all available classes in the db.
@@ -4714,6 +4870,42 @@ paths:
               schema:
                 $ref: "#/components/schemas/npcSchemas/properties/createFourRandomNpcsResponseS\
                   chema"
+  "/api/pagesettings/{page}":
+    get:
+      summary: Returns the user's settings for a specific page.
+      tags:
+        - pagesettings
+      description: Returns the user's settings for a specific page.
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Schema/properties/getPagesettingResponseSchema"
+        "404":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: string
+    post:
+      summary: Saves the user's settings for a specific page.
+      tags:
+        - pagesettings
+      description: Saves the user's settings for a specific page.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Schema/properties/setPagesettingResponseSchema"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: string
   /api/races/:
     get:
       summary: Returns a list of all available races in the db.
@@ -4795,6 +4987,63 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/raceSchemas/properties/getRaceResponseSchema"
+  /api/traits/random:
+    post:
+      summary: Returns a random trait.
+      tags:
+        - traits
+      description: Returns a random trait which is usually an adjective describing a
+        creature's state of mind, attitude, core beliefs or current feelings.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
+                  a"
+  "/api/traits/random/{age}":
+    post:
+      summary: Returns a random trait for the given age.
+      tags:
+        - traits
+      description: 'Returns a random trait for the given age. The age must be one of
+        the following: "child", "adolescent", "young adult", "adult",
+        "middle-aged", "elderly", "venerable".'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema"
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
+                  a"
+  "/api/traits/{name}":
+    get:
+      summary: Returns the description of a trait.
+      tags:
+        - traits
+      description: Returns the description of a trait which is usually an adjective
+        describing a creature's state of mind, attitude, core beliefs or current
+        feelings.
+      responses:
+        "200":
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/traitSchemas/properties/getTraitDescriptionResponse\
+                  Schema"
   /api/users/login:
     post:
       summary: Logs in a user and returns an access token.

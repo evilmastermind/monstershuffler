@@ -1,8 +1,20 @@
 <template>
-  <div class="background">
+  <div class="background" @click="openCharacterSheet">
     <div class="background-before" :class="[`bg-${ethical}-100`]" />
     <div class="content p-3" :class="selectable ? 'selectable' : ''">
       <slot />
+      <img
+        v-if="ethical === 'chaotic'"
+        class="ethical-symbol"
+        :class="moral"
+        src="@/assets/images/symbol-chaos.png"
+      />
+      <img
+        v-else-if="ethical === 'lawful'"
+        class="ethical-symbol"
+        :class="moral"
+        src="@/assets/images/symbol-law.png"
+      />
     </div>
     <div class="background-after" :class="[`bg-${ethical}-100`]" />
   </div>
@@ -24,12 +36,21 @@ const p = defineProps({
     default: false,
   },
 });
+
+function openCharacterSheet() {
+  if (!p.selectable) {
+    return;
+  }
+  alert("clicked!");
+}
 </script>
 
 <style scoped lang="scss">
 .background {
+  position: relative;
   @apply bg-background-card rounded-xl shadow-md;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 55px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 .content {
   font-size: 15px;
@@ -41,6 +62,20 @@ const p = defineProps({
 }
 .selectable:hover {
   background-color: theme("colors.background");
+}
+.ethical-symbol {
+  position: absolute;
+  bottom: -100px;
+  right: -200px;
+  width: 500px;
+}
+.good {
+  filter: hue-rotate(-120deg);
+}
+.evil {
+}
+.neutral {
+  filter: hue-rotate(60deg);
 }
 // .background {
 //   @apply relative;

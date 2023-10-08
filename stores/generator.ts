@@ -14,6 +14,7 @@ const api = config.public.apiUrl;
 
 export const useGeneratorStore = defineStore("generator", () => {
   const session: Ref<Character[][]> = ref([]);
+  const settings: Ref<createRandomNpcInputSchema | null> = ref(null);
 
   async function getRandomNpcs(object: createRandomNpcInputSchema) {
     const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
@@ -27,6 +28,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
     if (data?.value?.npcs) {
       data?.value?.npcs.forEach((npc) => createStats(npc));
+      session.value = [];
       session.value.push(data.value.npcs);
       return true;
     } else {
@@ -109,6 +111,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   return {
     session,
+    settings,
     getRacesWithVariants,
     getClassesWithVariants,
     getBackgrounds,

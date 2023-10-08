@@ -49,7 +49,7 @@
           />
         </div>
         <div class="npcs centered pt-4">
-          <GeneratorIntro v-if="!session.length" />
+          <GeneratorIntro v-if="isIntroShown" />
           <GeneratorSession v-else />
         </div>
       </div>
@@ -62,6 +62,7 @@ import { useScreen } from "@/composables/screen";
 
 const { t } = useI18n();
 const generator = useGeneratorStore();
+const user = useUserStore();
 
 useHead({
   title: `${t("generator.pageTitle")} - Monstershuffler.com`,
@@ -77,6 +78,7 @@ useHead({
 const { width, medium } = useScreen();
 const { session } = storeToRefs(generator);
 const form = ref(null);
+const isIntroShown = ref(true);
 
 const isFormShownOnMobile = ref(true);
 const modeBoolean = ref(true);
@@ -104,6 +106,12 @@ watch(
   },
   { immediate: true }
 );
+
+watch(session, (newSession) => {
+  if (newSession.length) {
+    isIntroShown.value = false;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

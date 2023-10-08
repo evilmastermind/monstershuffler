@@ -5,6 +5,7 @@ import {
   CreateUserResponseSchema,
   GetUserResponseSchema,
 } from "./user.d";
+import { PageSettings } from "@/types";
 import { handleResponse } from "@/utils/functions";
 
 const config = useRuntimeConfig();
@@ -104,6 +105,33 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  async function getSettings<T>(page: string): Promise<T | null> {
+    const { data, error } = await useAsyncData<{ page: string; object: T }>(
+      `getSettings-${page}`,
+      () =>
+        $fetch(`${api}/pagesettings/${page}`, {
+          method: "GET",
+        })
+    );
+    if (!data?.value?.object) {
+      return null;
+    }
+    return data.value.object as T;
+  }
+
+  async function setSettings<T>(page: string, settings: T): Promise<T | null> {
+    const { data, error } = await useAsyncData<T>(`saveSettings-${page}`, () =>
+      $fetch(`${api}/pagesettings/${page}`, {
+        method: "POST",
+        body: settings as Record<string, any>,
+      })
+    );
+    if (!data?.value) {
+      return null;
+    }
+    return data.value as T;
+  }
+
   function logout() {
     token.value = "";
     me.value = null;
@@ -126,5 +154,7 @@ export const useUserStore = defineStore("user", () => {
     verifyEmail,
     resetPassword,
     getDetails,
+    getSettings,
+    setSettings,
   };
 });

@@ -32,7 +32,7 @@
             </select>
             <select
               id="gen-prace-perc"
-              v-model="primaryRacePercentage"
+              v-model="options.primaryRacePercentage"
               class="ms-select ms-select-20"
             >
               <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
@@ -58,7 +58,7 @@
             </select>
             <select
               id="gen-srace-perc"
-              v-model="secondaryRacePercentage"
+              v-model="options.secondaryRacePercentage"
               class="ms-select ms-select-20"
             >
               <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
@@ -154,10 +154,15 @@
           </select>
         </span>
         <!-- MISC OPTIONS -->
-        <div class="mt-4">
+        <div class="misc-options mt-4">
           <MSCheckbox
             v-model="options.addVoice"
+            class="mr-4"
             :label="$t('generator.form.voice')"
+          />
+          <MSCheckbox
+            v-model="options.includeChildren"
+            :label="$t('generator.form.includeChildren')"
           />
         </div>
       </fieldset>
@@ -193,12 +198,15 @@ const p = defineProps({
 });
 
 const { t } = useI18n();
+const generator = useGeneratorStore();
+const user = useUserStore();
 const {
   getRacesWithVariants,
   getClassesWithVariants,
   getBackgrounds,
   getRandomNpcs,
-} = useGeneratorStore();
+} = generator;
+const { settings } = storeToRefs(generator);
 
 const races = ref<ObjectOrVariant[]>([]);
 const classes = ref<ObjectOrVariant[]>([]);
@@ -208,62 +216,100 @@ const primaryRaceIndex = ref(0);
 const secondaryRaceIndex = ref(0);
 const classIndex = ref(0);
 const backgroundIndex = ref(0);
+const haveSettingsBeenLoaded = ref(false);
 
-const primaryRacePercentage = ref(100);
-const secondaryRacePercentage = ref(0);
 const options = ref<createRandomNpcInputSchema>({
-  classType: "randomAlways",
+  primaryRacePercentage: 100,
+  secondaryRacePercentage: 0,
+  classType: "randomSometimes",
   backgroundType: "random",
   levelType: "randomPeasantsMostly",
   addVoice: true,
+  includeChildren: false,
 });
 
 const generateNpcThrottle = throttle(generateNpc, 1000);
 
 async function generateNpc() {
-  prepareOptions();
   await getRandomNpcs(options.value);
 }
 
-function prepareOptions() {
+// TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
+
+watch(primaryRaceIndex, (newValue) => {
   // primary race
-  options.value.primaryRacePercentage = primaryRacePercentage.value;
-  const race = races.value[primaryRaceIndex.value];
+  const race = races.value[newValue];
   options.value.primaryRaceId = race.id;
   if (race.variantId) {
     options.value.primaryRacevariantId = race.variantId;
   } else {
     delete options.value.primaryRacevariantId;
   }
+});
+
+watch(secondaryRaceIndex, (newValue) => {
   // secondary race
-  options.value.secondaryRacePercentage = secondaryRacePercentage.value;
-  const race2 = races.value[secondaryRaceIndex.value];
+  const race2 = races.value[newValue];
   options.value.secondaryRaceId = race2.id;
   if (race2.variantId) {
     options.value.secondaryRacevariantId = race2.variantId;
   } else {
     delete options.value.secondaryRacevariantId;
   }
-  // class
-  if (options.value.classType === "specific") {
-    const classChosen = classes.value[classIndex.value];
-    options.value.classId = classChosen.id;
-    if (classes.value[classIndex.value].variantId) {
-      options.value.classvariantId = classes.value[classIndex.value].variantId;
-    }
-  }
-  if (options.value.backgroundType === "specific") {
-    options.value.backgroundId = backgrounds.value[backgroundIndex.value].id;
-  }
-}
+});
 
-// TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
+watch(classIndex, (newValue) => {
+  const classChosen = classes.value[newValue];
+  options.value.classId = classChosen.id;
+  if (classes.value[newValue].variantId) {
+    options.value.classvariantId = classes.value[newValue].variantId;
+  }
+});
+
+watch(backgroundIndex, (newValue) => {
+  options.value.backgroundId = backgrounds.value[newValue].id;
+});
 
 watch(
   () => p.generate,
   () => {
     generateNpc();
   }
+);
+
+watch(
+  options,
+  async (newValue) => {
+    if (!haveSettingsBeenLoaded.value) {
+      const settings: createRandomNpcInputSchema | null =
+        await user.getSettings("npcgenerator");
+      haveSettingsBeenLoaded.value = true;
+      if (settings) {
+        options.value = { ...settings };
+        let index = -1;
+        if (options.value.primaryRaceId) {
+          if (options.value.primaryRacevariantId) {
+            index = races.value.findIndex((race) => {
+              return (
+                race.id === options.value.primaryRaceId &&
+                race.variantId === options.value.primaryRacevariantId
+              );
+            });
+          } else {
+            index = races.value.findIndex(
+              (race) => race.id === options.value.primaryRaceId
+            );
+          }
+          if (index !== -1) {
+            primaryRaceIndex.value = index;
+          }
+        }
+      }
+    } else {
+      user.setSettings("npcgenerator", newValue);
+    }
+  },
+  { deep: true, immediate: true }
 );
 
 onMounted(async () => {
