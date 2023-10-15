@@ -1,9 +1,9 @@
 <template>
-  <div class="background" @click="openCharacterSheet">
-    <div class="background-before" :class="[`bg-${ethical}-100`]" />
+  <div class="background">
+    <!-- <div class="background-before" :class="[`bg-${ethical}-100`]" /> -->
     <div class="content p-3" :class="selectable ? 'selectable' : ''">
       <slot />
-      <img
+      <!-- <img
         v-if="ethical === 'chaotic'"
         class="ethical-symbol"
         :class="moral"
@@ -14,14 +14,14 @@
         class="ethical-symbol"
         :class="moral"
         src="@/assets/images/symbol-law.png"
-      />
+      /> -->
     </div>
-    <div class="background-after" :class="[`bg-${ethical}-100`]" />
+    <!-- <div class="background-after" :class="[`bg-${ethical}-50`]" /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-const backgrounds = ["bg-evil-100", "bg-good-100", "bg-neutral-100"];
+const backgrounds = ["bg-evil-50", "bg-good-50", "bg-neutral-50"];
 const p = defineProps({
   ethical: {
     type: String,
@@ -36,13 +36,6 @@ const p = defineProps({
     default: false,
   },
 });
-
-function openCharacterSheet() {
-  if (!p.selectable) {
-    return;
-  }
-  alert("clicked!");
-}
 </script>
 
 <style scoped lang="scss">

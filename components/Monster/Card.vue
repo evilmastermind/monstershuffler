@@ -1,5 +1,9 @@
 <template>
-  <MonsterCardBackground :ethical="ethical" :moral="moral" selectable>
+  <MonsterCardBackground
+    :ethical="ethical"
+    :moral="moral"
+    :selectable="selectable"
+  >
     <div v-if="statistics && tags" class="card p-2">
       <div class="title">
         <span class="title-name" :class="moral">
@@ -38,7 +42,9 @@
         </template>
         <template v-if="character.voice">
           <dt :class="moral">{{ $t("monsterCard.voice") }}</dt>
-          <dd><MonsterVoice :voice="character.voice" /></dd>
+          <dd>
+            <MonsterVoice :voice="character.voice" />
+          </dd>
         </template>
       </dl>
     </div>
@@ -55,6 +61,10 @@ const p = defineProps({
   monster: {
     type: Object as PropType<Character>,
     required: true,
+  },
+  selectable: {
+    type: Boolean,
+    default: false,
   },
 });
 const showTraitDescription = ref(false);
@@ -112,15 +122,6 @@ dt {
 }
 dt::after {
   content: ":";
-}
-.evil {
-  @apply text-evil-500;
-}
-.good {
-  @apply text-good-500;
-}
-.neutral {
-  @apply text-neutral-500;
 }
 .dotted {
   border-bottom: 1px dotted theme("colors.text-secondary");

@@ -18,3 +18,13 @@
 .blurred {
   backdrop-filter: blur(4px);
 }
+
+.evil {
+  @apply text-evil-900;
+}
+.good {
+  @apply text-good-950;
+}
+.neutral {
+  @apply text-neutral-900;
+}

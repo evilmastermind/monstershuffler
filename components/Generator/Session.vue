@@ -11,6 +11,8 @@
             <MonsterCard
               :monster="character"
               :style="{ transitionDelay: `${0.15 * index}s` }"
+              selectable
+              @click="openCharacterSheet(character)"
             />
           </Transition>
         </template>
@@ -20,9 +22,16 @@
 </template>
 
 <script setup lang="ts">
+import { Character } from "@/types/objects";
+
 const generator = useGeneratorStore();
 
-const { session } = storeToRefs(generator);
+const { characters, currentCharacterIndex, session } = storeToRefs(generator);
+
+function openCharacterSheet(character: Character) {
+  characters.value.push(character);
+  currentCharacterIndex.value = characters.value.length - 1;
+}
 </script>
 
 <style scoped lang="scss">

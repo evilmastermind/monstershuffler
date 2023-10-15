@@ -12,9 +12,13 @@ import { createStats } from "@/utils/parsers";
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
 
+/// /////////////////////////////////////
+
 export const useGeneratorStore = defineStore("generator", () => {
   const session: Ref<Character[][]> = ref([]);
   const settings: Ref<createRandomNpcInputSchema | null> = ref(null);
+  const characters: Ref<Character[]> = ref([]);
+  const currentCharacterIndex = ref(-1);
 
   async function getRandomNpcs(object: createRandomNpcInputSchema) {
     const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
@@ -112,6 +116,8 @@ export const useGeneratorStore = defineStore("generator", () => {
   return {
     session,
     settings,
+    characters,
+    currentCharacterIndex,
     getRacesWithVariants,
     getClassesWithVariants,
     getBackgrounds,

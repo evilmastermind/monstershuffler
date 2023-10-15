@@ -75,7 +75,7 @@
       "generate": "Generate NPC"
     },
     "prompt": {
-      "placeholder": "human barbarian cr 5"
+      "placeholder": "Examples: \"innkeeper\", \"human guard\", \"barbarian cr 5\""
     }
   },
   "login": {

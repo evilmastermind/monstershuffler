@@ -1,3 +1,4 @@
+import { get } from "http";
 import {
   Credentials,
   RegistrationFields,
@@ -105,7 +106,12 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  async function getSettings<T>(page: string): Promise<T | null> {
+  async function getSettings<T extends object>(
+    page: string
+  ): Promise<T | null> {
+    if (token.value === "") {
+      return getSettingsFromLocalStorage<T>(page);
+    }
     const { data, error } = await useAsyncData<{ page: string; object: T }>(
       `getSettings-${page}`,
       () =>
@@ -114,12 +120,32 @@ export const useUserStore = defineStore("user", () => {
         })
     );
     if (!data?.value?.object) {
-      return null;
+      return getSettingsFromLocalStorage<T>(page);
     }
     return data.value.object as T;
   }
 
-  async function setSettings<T>(page: string, settings: T): Promise<T | null> {
+  function getSettingsFromLocalStorage<T extends object>(
+    page: string
+  ): T | null {
+    try {
+      const settingsString = localStorage.getItem(`settings-${page}`);
+      if (!settingsString) {
+        return null;
+      }
+      return JSON.parse(settingsString) as T;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function setSettings<T extends object>(
+    page: string,
+    settings: T
+  ): Promise<T | false> {
+    if (token.value === "") {
+      return setSettingsInLocalStorage<T>(page, settings);
+    }
     const { data, error } = await useAsyncData<T>(`saveSettings-${page}`, () =>
       $fetch(`${api}/pagesettings/${page}`, {
         method: "POST",
@@ -127,9 +153,21 @@ export const useUserStore = defineStore("user", () => {
       })
     );
     if (!data?.value) {
-      return null;
+      return false;
     }
     return data.value as T;
+  }
+
+  function setSettingsInLocalStorage<T extends object>(
+    page: string,
+    settings: T
+  ): T | false {
+    try {
+      localStorage.setItem(`settings-${page}`, JSON.stringify(settings));
+      return settings;
+    } catch (e) {
+      return false;
+    }
   }
 
   function logout() {

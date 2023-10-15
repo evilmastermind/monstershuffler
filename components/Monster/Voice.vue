@@ -1,6 +1,6 @@
 <template>
   <font-awesome-icon
-    class="audio-icon mr-1"
+    class="audio-icon pr-1"
     :icon="`fas fa-solid fa-${audioIcon}`"
     @click.stop="toggleAudio"
   />
