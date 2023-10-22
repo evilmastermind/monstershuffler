@@ -1,0 +1,26 @@
+.deleting {
+  animation: deleting 0.5s infinite;
+}
+@keyframes deleting {
+  0% {
+    color: red;
+  }
+  17% {
+    color: purple;
+  }
+  34% {
+    color: blue;
+  }
+  51% {
+    color: green;
+  }
+  68% {
+    color: yellow;
+  }
+  85% {
+    color: orange;
+  }
+  100% {
+    color: red;
+  }
+}

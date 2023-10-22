@@ -4,6 +4,7 @@
 @import "@/assets/css/forms.css";
 @import "@/assets/css/utility.css";
 @import "@/assets/css/transitions.css";
+@import "@/assets/css/animations.css";
 
 @tailwind base;
 
@@ -70,29 +71,6 @@ select:focus {
   outline: 1px solid #000;
 }
 
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-}
-
-.centered {
-  display: grid;
-  place-items: center;
-}
-
-.sr-only {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
 
 body {
   @apply text-text font-sans;

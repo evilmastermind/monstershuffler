@@ -1,24 +1,36 @@
 <template>
-  <div class="bits p-2">
-    <div
-      v-for="(character, index) in characters"
-      :key="index"
-      class="bit p-1"
-      :class="moral(index)"
-    >
-      <div class="name-container">
-        <p class="name">{{ character?.character?.name }}</p>
-        <button>
+  <div class="bits py-2">
+    <TransitionGroup name="fade-row">
+      <div :key="-1" class="buttons px-2">
+        <button
+          class="button-deleteall"
+          :title="$t('generator.deleteAll')"
+          @click="deleteAllCharacters"
+        >
           <font-awesome-icon
-            class="close-button ml-1"
-            icon="fas fa-solid fa-times"
-            fixed-width
+            aria-hidden="true"
+            icon="trash"
+            :class="hasDeleteButtonBeenClickedOnce ? 'deleting' : ''"
           />
+          <span class="sr-only">{{ $t("generator.deleteAll") }}</span>
+        </button>
+        <button
+          class="button-deleteall"
+          :title="$t('generator.saveAll')"
+          disabled
+        >
+          <font-awesome-icon icon="floppy-disk" class="opacity-50" />
+          <span class="sr-only">{{ $t("generator.saveAll") }}</span>
         </button>
       </div>
-      <p>{{ race(index) }}</p>
-      <p>{{ profession(index) }}</p>
-    </div>
+      <GeneratorBit
+        v-for="(character, index) in characters"
+        :key="index"
+        :character="character"
+        :index="index"
+        @click="currentCharacterIndex = index"
+      />
+    </TransitionGroup>
   </div>
 </template>
 
@@ -26,38 +38,21 @@
 const generator = useGeneratorStore();
 const { characters, currentCharacterIndex } = storeToRefs(generator);
 
-const race = (index: number) => {
-  const character = characters.value[index];
-  let info = "";
-  if (character?.character?.racevariant?.name) {
-    info += character.character.racevariant.name;
-  } else if (character?.character?.race?.name) {
-    info += character.character.race.name;
-  }
-  return info;
-};
-const profession = (index: number) => {
-  const character = characters.value[index];
-  let info = "";
-  if (character?.character?.class?.name) {
-    info += ` ${character.character.class.name}`;
-  }
-  if (character?.character?.background?.name) {
-    info += ` ${character.character.background.name}`;
-  }
-  return info;
-};
+const hasDeleteButtonBeenClickedOnce = ref(false);
+const hasSaveButtonBeenClickedOnce = ref(false);
 
-const moral = (index: number) => {
-  const character = characters.value[index];
-  if (character?.statistics?.alignment?.includes("Good")) {
-    return "bg-good-800";
-  } else if (character?.statistics?.alignment?.includes("Evil")) {
-    return "bg-evil-800";
-  } else {
-    return "bg-neutral-800";
+function deleteAllCharacters() {
+  if (!hasDeleteButtonBeenClickedOnce.value) {
+    hasDeleteButtonBeenClickedOnce.value = true;
+    setTimeout(() => {
+      hasDeleteButtonBeenClickedOnce.value = false;
+    }, 1000);
+    return;
   }
-};
+  hasDeleteButtonBeenClickedOnce.value = false;
+  characters.value.length = 0;
+  currentCharacterIndex.value = -1;
+}
 </script>
 
 <style scoped>
@@ -67,31 +62,15 @@ const moral = (index: number) => {
   overflow: hidden;
   flex-wrap: wrap;
 }
-.bit {
-  position: relative;
+.buttons {
   display: flex;
   flex-direction: column;
-  line-height: 1em;
-  @apply text-text-inverse rounded;
-  p {
-    display: inline-block;
-    font-size: 0.87em;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 100px;
-    @apply leading-tight m-0 p-0;
-  }
-}
-.name {
-  font-family: MrsEavesSmallCaps;
-}
-.name-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-}
-.close-button {
+  gap: 0;
+  border-radius: 1rem;
+  line-height: 1rem;
+
+  @apply bg-primary-700 text-text-inverse shadow-md;
 }
 </style>

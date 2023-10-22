@@ -31,7 +31,7 @@
     "userSettings": "User Settings",
     "changeTheme": "Change Theme",
     "menu": {
-      "home": "Home",
+      "home": "Homepage",
       "generator": "Generator",
       "editor": "Editor",
       "dmScreen": "DM Screen",
@@ -57,9 +57,14 @@
     "promptModeTitle": "Prompt mode",
     "promptModeDescription": "Type keywords like \"human\", \"barbarian\" or \"cr 5\" to generate a random character of that type.",
     "options": "Options",
+    "deleteCharacter": "Click twice to delete this character.",
+    "deleteAll": "Click twice to delete all characters.",
+    "saveAll": "Click twice to save all characters.",
     "form": {
       "primaryRace": "Primary Race",
+      "primaryRacePercentage": "Primary Race Percentage",
       "secondaryRace": "Secondary Race",
+      "secondaryRacePercentage": "Secondary Race Percentage",
       "class": "Class",
       "background": "Background",
       "none": "No",

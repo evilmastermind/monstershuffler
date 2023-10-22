@@ -10,8 +10,12 @@
 </template>
 <script setup lang="ts">
 import { defaultHead, defaultDescription } from "@/utils/seo";
+const { locale } = useI18n();
 useHead({
   meta: [...defaultHead, ...defaultDescription],
+  htmlAttrs: {
+    lang: locale.value,
+  },
 });
 </script>
 <style scoped lang="scss">

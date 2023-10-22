@@ -115,7 +115,7 @@ export function createTags(character: Character) {
   }
 
   // race
-  tags.race = c?.race?.name || "Race";
+  tags.race = c?.racevariant?.name || c?.race?.name || "Race";
 
   // actions with random names
   for (const object in objects) {

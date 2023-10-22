@@ -95,4 +95,9 @@ const p = defineProps({
   transform: rotate(45deg);
   opacity: 1;
 }
+
+input:focus-visible + .checkmark {
+  outline: 2px solid theme("colors.text");
+  box-shadow: 0 0 0 3px theme("colors.text-inverse");
+}
 </style>

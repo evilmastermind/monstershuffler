@@ -2,13 +2,19 @@
   <div class="layout">
     <div class="background" />
     <TheNavbar />
-    <slot />
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
-<script setupl lang="ts">
+<script setup lang="ts">
 import { defaultHead } from "@/utils/seo";
+const { locale } = useI18n();
 useHead({
   meta: [...defaultHead],
+  htmlAttrs: {
+    lang: locale.value,
+  },
 });
 </script>
 <style lang="scss" scoped>

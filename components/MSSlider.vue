@@ -4,7 +4,6 @@
       <input
         v-model="currentValue"
         type="checkbox"
-        :aria-label="label"
         @change="emit('update:isEnabled', currentValue)"
       />
       <span class="slider round"></span>
@@ -19,10 +18,10 @@ const p = defineProps({
     type: Boolean,
     default: false,
   },
-  label: {
-    type: String,
-    default: "",
-  },
+  // label: {
+  //   type: String,
+  //   default: "",
+  // },
 });
 
 let currentValue = $ref(false);
@@ -92,8 +91,9 @@ input:checked + .slider:before {
   @apply bg-primary-700;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px theme("colors.primary.600");
+input:focus-visible + .slider {
+  outline: 2px solid theme("colors.text");
+  box-shadow: 0 0 0 3px theme("colors.text-inverse");
 }
 
 input:checked + .slider:before {

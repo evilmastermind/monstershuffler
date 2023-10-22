@@ -158,4 +158,9 @@ function goToURL() {
   color: theme("colors.background");
   @apply bg-success text-background;
 }
+
+.button:focus-visible {
+  outline: 2px solid theme("colors.text");
+  box-shadow: 0 0 0 3px theme("colors.text-inverse");
+}
 </style>

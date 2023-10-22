@@ -2,27 +2,9 @@
   --quick: 0.1s;
   --medium: 0.2s;
   --slow: 0.3s;
+  --very-slow: 0.5s;
 }
 
-.scroll-left-enter-active,
-.scroll-left-leave-active {
-  transition: all var(--quick) ease;
-}
-.scroll-left-enter-from,
-.scroll-left-leave-to {
-  transform: translateX(-20%);
-  opacity: 0;
-}
-
-.scroll-right-enter-active,
-.scroll-right-leave-active {
-  transition: all var(--quick) ease;
-}
-.scroll-right-enter-from,
-.scroll-right-leave-to {
-  transform: translateX(20%);
-  opacity: 0;
-}
 
 .fade-quick-enter-active,
 .fade-quick-leave-active {
@@ -58,7 +40,52 @@
   transform: translateY(5%) scale(0.95);
 }
 
-.slidetransition-enter-active {
+
+
+/* 1. declare transition */
+.fade-row-move,
+.fade-row-enter-active,
+.fade-row-leave-active {
+  transition: all var(--medium) cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-row-enter-from,
+.fade-row-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01) translate(-100%, 0);
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-row-leave-active {
+  position: absolute !important;
+  z-index: -10000;
+}
+
+
+.fade-row-move,
+.fade-group-enter-active,
+.fade-group-leave-active {
+  transition: opacity var(--quick) cubic-bezier(0.55, 0, 0.1, 1), transform var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-group-enter-from,
+.fade-group-leave-to {
+  opacity: 0;
+  /* transform: scaleY(0.01); */
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-group-leave-active {
+  z-index: -10000;
+  position: absolute !important;
+}
+
+
+/* .slidetransition-enter-active {
   transition: all 0.2s ease-out;
 }
 .slidetransition-leave-active {
@@ -67,7 +94,7 @@
 .slidetransition-leave-active {
   position: absolute;
 }
-.slidetransition-enter-from /* .fade-leave-active below version 2.1.8 */ {
+.slidetransition-enter-from {
   opacity: 0;
   pointer-events: none;
 }
@@ -77,10 +104,31 @@
 .slidetransition-leave {
   opacity: 0;
 }
-.slidetransition-enter-to /* .fade-leave-active below version 2.1.8 */ {
+.slidetransition-enter-to {
   opacity: 1;
   pointer-events: auto;
 }
 .slidetransition-move {
   transition: transform var(--quick) ease-in;
+} */
+
+
+/* .scroll-left-enter-active,
+.scroll-left-leave-active {
+  transition: all var(--quick) ease;
 }
+.scroll-left-enter-from,
+.scroll-left-leave-to {
+  transform: translateX(-20%);
+  opacity: 0;
+}
+
+.scroll-right-enter-active,
+.scroll-right-leave-active {
+  transition: all var(--quick) ease;
+}
+.scroll-right-enter-from,
+.scroll-right-leave-to {
+  transform: translateX(20%);
+  opacity: 0;
+} */

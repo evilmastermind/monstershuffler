@@ -30,6 +30,9 @@
                 {{ race.variantName ? ` (${race.variantName})` : "" }}
               </option>
             </select>
+            <label class="sr-only" for="gen-prace-perc">
+              {{ $t("generator.form.primaryRacePercentage") }}
+            </label>
             <select
               id="gen-prace-perc"
               v-model="options.primaryRacePercentage"
@@ -56,6 +59,9 @@
                 {{ race.variantName ? ` (${race.variantName})` : "" }}
               </option>
             </select>
+            <label class="sr-only" for="gen-srace-perc">
+              {{ $t("generator.form.secondaryRacePercentage") }}
+            </label>
             <select
               id="gen-srace-perc"
               v-model="options.secondaryRacePercentage"
@@ -322,7 +328,7 @@ onMounted(async () => {
         secondaryRaceIndex.value = index;
       }
     }
-    if (options.value.classId && options.value.classType === "specific") {
+    if (options.value.classId) {
       index = classes.value.findIndex((aClass) => {
         return (
           aClass.id === options.value.classId &&
@@ -333,10 +339,7 @@ onMounted(async () => {
         classIndex.value = index;
       }
     }
-    if (
-      options.value.backgroundId &&
-      options.value.backgroundType === "specific"
-    ) {
+    if (options.value.backgroundId) {
       index = backgrounds.value.findIndex(
         (background) => background.id === options.value.backgroundId
       );

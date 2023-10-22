@@ -5,7 +5,9 @@
         :icon="`fa-brands ${icon}`"
         class="link-support-icon"
         fixed-width
+        aria-hidden="true"
       />
+      <span class="sr-only">{{ name }}</span>
     </a>
   </div>
 </template>

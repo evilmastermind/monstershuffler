@@ -59,3 +59,8 @@
 .ms-label .ms-input:invalid {
   color: theme("colors.danger");
 }
+
+.ms-input:focus-visible, .ms-select:focus-visible {
+  outline: 2px solid theme("colors.text");
+  box-shadow: 0 0 0 3px theme("colors.text-inverse");
+}

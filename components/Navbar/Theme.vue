@@ -4,7 +4,9 @@
       :icon="`fas fa-solid ${icon}`"
       class="button-theme-icon"
       size="1x"
+      aria-hidden="true"
     />
+    <span class="sr-only">{{ $t("navbar.changeTheme") }}</span>
   </button>
 </template>
 

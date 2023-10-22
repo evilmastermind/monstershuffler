@@ -1,42 +1,49 @@
 @font-face {
   font-family: OpenSans;
-  src: url("@/assets/fonts/OpenSans-Regular.ttf");
+  src: url("@/assets/fonts/OpenSans-Regular.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: OpenSans;
-  src: url("@/assets/fonts/OpenSans-Bold.ttf");
+  src: url("@/assets/fonts/OpenSans-Bold.woff2") format("woff2");
   font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: OpenSans;
-  src: url("@/assets/fonts/OpenSans-Italic.ttf");
+  src: url("@/assets/fonts/OpenSans-Italic.woff2") format("woff2");
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc.woff");
+  src: url("@/assets/fonts/ScalaSansOffc.woff") format("woff");
+  font-display: swap;
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc-Italic.woff");
+  src: url("@/assets/fonts/ScalaSansOffc-Italic.woff") format("woff");
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc-Bold.woff");
+  src: url("@/assets/fonts/ScalaSansOffc-Bold.woff") format("woff");
   font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: ScalaSansOffc;
-  src: url("@/assets/fonts/ScalaSansOffc-BoldItalic.woff");
+  src: url("@/assets/fonts/ScalaSansOffc-BoldItalic.woff") format("woff");
   font-style: italic;
   font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
@@ -45,10 +52,10 @@
   font-weight: 100;
   font-style: normal;
 }
-@font-face {
+/* @font-face {
   font-family: AusweisHollow;
   src: url("@/assets/fonts/AusweisHollow.ttf");
-}
+} */
 
 .bold {
   font-weight: 500;

@@ -1,23 +1,24 @@
 <template>
   <div class="session">
-    <TransitionGroup name="slidetransition" appear>
-      <div
-        v-for="characters in session"
-        :key="characters[0].character.name"
-        class="generation"
-      >
-        <template v-for="(character, index) in characters" :key="index">
-          <Transition name="fade-scroll-slow" appear>
-            <MonsterCard
-              :monster="character"
-              :style="{ transitionDelay: `${0.15 * index}s` }"
-              selectable
-              @click="openCharacterSheet(character)"
-            />
-          </Transition>
-        </template>
-      </div>
-    </TransitionGroup>
+    <div
+      v-for="characters in session"
+      :key="characters[0].character.name"
+      class="generation"
+    >
+      <template v-for="(character, index) in characters" :key="index">
+        <Transition name="fade-scroll-slow" appear>
+          <MonsterCard
+            :monster="character"
+            :style="{
+              transitionDelay: `${0.15 * index}s`,
+              transitionProperty: 'opacity, transform',
+            }"
+            selectable
+            @click="openCharacterSheet(character)"
+          />
+        </Transition>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -29,7 +30,9 @@ const generator = useGeneratorStore();
 const { characters, currentCharacterIndex, session } = storeToRefs(generator);
 
 function openCharacterSheet(character: Character) {
-  characters.value.push(character);
+  if (!characters.value.includes(character)) {
+    characters.value.push(character);
+  }
   currentCharacterIndex.value = characters.value.length - 1;
 }
 </script>

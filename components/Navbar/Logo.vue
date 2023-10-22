@@ -4,6 +4,7 @@
       class="ms-logo basis-9 max-[700px]:basis-7 max-[575px]:mr-0"
       :to="localePath('/')"
     >
+      <span class="sr-only">{{ $t("navbar.menu.home") }}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="50"
@@ -11,6 +12,7 @@
         fill="none"
         class="navbar-link-inactive ms-logo-icon"
         viewBox="0 0 222 227"
+        aria-hidden="true"
       >
         <g clip-path="url(#a)">
           <path

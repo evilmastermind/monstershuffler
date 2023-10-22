@@ -4,34 +4,38 @@
     <div class="background" />
     <NavbarPadding />
     <div class="lg-max max-h-100 overflow-hidden">
-      <h1 class="mb-4 text-shadow">
+      <h1 class="text-shadow">
         {{ $t("generator.title") }}
       </h1>
-      <GeneratorBits />
-      <GeneratorCharacterPage v-if="currentCharacterIndex > -1" />
-      <div v-else>
-        <div class="options centered mt-6 my-4">
-          <label class="cursor-pointer">
-            <MSSlider
-              v-model:is-enabled="modeBoolean"
-              :label="$t(`generator.${mode}ModeTitle`)"
-            />
-            <span class="bold ml-2 inline">
-              {{ $t(`generator.${mode}ModeTitle`) }}
-            </span>
-          </label>
-          <button
-            v-if="mode === 'form'"
-            class="button-show-settings md:hidden cursor-pointer"
-            @click="isFormShownOnMobile = !isFormShownOnMobile"
-          >
-            <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
-            {{ $t("generator.options") }}
-          </button>
-          <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
-        </div>
-        <div>
-          <Transition name="scroll-left" appear>
+      <TransitionGroup name="fade-group">
+        <GeneratorBits v-if="characters.length" key="1" class="mt-4" />
+        <GeneratorCharacterPage v-if="currentCharacterIndex > -1" key="2" />
+        <div
+          v-show="currentCharacterIndex === -1"
+          key="3"
+          class="custom-transition"
+        >
+          <div class="options centered mt-5 my-4">
+            <label class="cursor-pointer">
+              <MSSlider
+                v-model:is-enabled="modeBoolean"
+                :label="$t(`generator.${mode}ModeTitle`)"
+              />
+              <span class="bold ml-2 inline">
+                {{ $t(`generator.${mode}ModeTitle`) }}
+              </span>
+            </label>
+            <button
+              v-if="mode === 'form'"
+              class="button-show-settings md:hidden cursor-pointer"
+              @click="isFormShownOnMobile = !isFormShownOnMobile"
+            >
+              <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
+              {{ $t("generator.options") }}
+            </button>
+            <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
+          </div>
+          <div>
             <GeneratorForm
               v-show="mode === 'form' && isFormShownOnMobile"
               ref="form"
@@ -39,39 +43,42 @@
               :generate="generate"
               @close="isFormShownOnMobile = false"
             />
-          </Transition>
-          <GeneratorPrompt
-            v-show="mode === 'prompt'"
-            class="prompt text-max mb-4 w-full"
-          />
-          <div class="generate-button text-center my-6">
-            <MSButton
-              color="primary"
-              :text="$t('generator.form.generate')"
-              @click.prevent="generate = !generate"
+            <GeneratorPrompt
+              v-show="mode === 'prompt'"
+              class="prompt text-max mb-4 w-full"
             />
-          </div>
-          <div class="npcs centered pt-4">
-            <GeneratorIntro v-if="isIntroShown" />
-            <GeneratorSession v-else />
+            <div class="generate-button text-center my-6">
+              <MSButton
+                color="primary"
+                :text="$t('generator.form.generate')"
+                @click.prevent="generate = !generate"
+              />
+            </div>
+            <div class="npcs centered pt-4">
+              <GeneratorIntro v-if="isIntroShown" />
+              <GeneratorSession v-else />
+            </div>
           </div>
         </div>
-      </div>
+      </TransitionGroup>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useScreen } from "@/composables/screen";
+import { Character } from "@/types/objects";
 
 const generator = useGeneratorStore();
+const user = useUserStore();
 
 const { width, medium } = useScreen();
-const { session, currentCharacterIndex } = storeToRefs(generator);
+const { session, characters, currentCharacterIndex } = storeToRefs(generator);
 const form = ref(null);
 const isIntroShown = ref(true);
 
 const isFormShownOnMobile = ref(true);
+const haveCharactersJustBeenRetrieved = ref(false);
 const modeBoolean = ref(true);
 const mode = computed(() => (modeBoolean.value ? "form" : "prompt"));
 const generate = ref(false);
@@ -101,6 +108,30 @@ watch(
 watch(session, (newSession) => {
   if (newSession.length) {
     isIntroShown.value = false;
+  }
+});
+
+watch(
+  () => characters.value.length,
+  (newCharacters) => {
+    if (haveCharactersJustBeenRetrieved.value) {
+      haveCharactersJustBeenRetrieved.value = false;
+      return;
+    }
+    user.setSettings("npcs", { characters: characters.value });
+  }
+);
+
+type SavedCharacters = {
+  characters: Character[];
+};
+
+onMounted(async () => {
+  const savedCharacters =
+    (await user.getSettings<SavedCharacters>("npcs"))?.characters || [];
+  if (savedCharacters.length) {
+    characters.value = savedCharacters;
+    haveCharactersJustBeenRetrieved.value = true;
   }
 });
 </script>
