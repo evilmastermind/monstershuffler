@@ -199,27 +199,22 @@ export interface paths {
       };
     };
   };
-  "/api/npcs/four": {
+  "/api/npcs/generator-data": {
     /**
-     * [MS ONLY] Creates four new random npcs using the settings provided.
-     * @description Creates four new random npcs using the settings provided. Only accessible through monstershuffler.com
+     * [MS ONLY] Gets the data used by the NPC Generator on the frontend.
+     * @description Gets the data used by the NPC Generator page in one single call (lists of classes, races and backgrounds). Only accessible through monstershuffler.com
      */
-    post: {
+    get: {
       parameters: {
         header?: {
           authorization?: string;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
         };
       };
       responses: {
         /** @description Default Response */
         200: {
           content: {
-            "application/json": components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
+            "application/json": components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"];
           };
         };
       };
@@ -1480,6 +1475,24 @@ export interface components {
       };
       createFourRandomNpcsResponseSchema: {
         npcs: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"][];
+      };
+      getGeneratorDataResponseSchema: {
+        races: {
+            id: number;
+            userid: number;
+            name: string;
+            other_objects: {
+                id: number;
+                name: components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"]["races"]["items"]["name"];
+                userid: components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"]["races"]["items"]["userid"];
+              }[];
+          }[];
+        classes: components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"]["races"];
+        backgrounds: {
+            id: number;
+            userid: components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"]["races"]["items"]["userid"];
+            name: components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"]["races"]["items"]["name"];
+          }[];
       };
     };
     Schema: {

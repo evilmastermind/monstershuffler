@@ -1,11 +1,10 @@
 <template>
   <div class="session">
-    <div
-      v-for="characters in session"
-      :key="characters[0].character.name"
-      class="generation"
-    >
-      <template v-for="(character, index) in characters" :key="index">
+    <div class="generation">
+      <template
+        v-for="(character, index) in session"
+        :key="`${index}${character.character.name}`"
+      >
         <Transition name="fade-scroll-slow" appear>
           <MonsterCard
             :monster="character"

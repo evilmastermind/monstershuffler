@@ -5,7 +5,7 @@ export function useScreen() {
   const medium = ref(0);
   const large = ref(0);
   const xLarge = ref(0);
-  const updateDebounce = debounce(() => update(), 20);
+  // const updateDebounce = debounce(() => update(), 20);
 
   const smAndDown = computed(() => width.value <= small.value);
   const smAndUp = computed(() => width.value >= small.value);
@@ -21,9 +21,9 @@ export function useScreen() {
     height.value = window.innerHeight;
   }
 
-  function callUpdateDebounce() {
-    updateDebounce();
-  }
+  // function callUpdateDebounce() {
+  //   updateDebounce();
+  // }
 
   function readCssVariable(variableName: string) {
     const variable = getComputedStyle(
@@ -33,7 +33,7 @@ export function useScreen() {
   }
 
   onMounted(() => {
-    window.addEventListener("resize", callUpdateDebounce);
+    window.addEventListener("resize", update);
     small.value = 480;
     medium.value = 1000;
     large.value = 1200;

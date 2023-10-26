@@ -1,11 +1,11 @@
 import {
+  Background,
   Character,
-  ObjectOrVariant,
-  getRaceWithVariantsListResponseSchema,
-  getClassWithVariantsListResponseSchema,
-  getBackgroundListResponseSchema,
-  createRandomNpcInputSchema,
   createFourRandomNpcsResponseSchema,
+  createRandomNpcInputSchema,
+  getGeneratorDataResponseSchema,
+  Keyword,
+  ObjectOrVariant,
 } from "@/stores/generator.d";
 import { createStats } from "@/utils/parsers";
 
@@ -15,102 +15,179 @@ const api = config.public.apiUrl;
 /// /////////////////////////////////////
 
 export const useGeneratorStore = defineStore("generator", () => {
-  const session: Ref<Character[][]> = ref([]);
+  const session: Ref<Character[]> = ref([]);
   const settings: Ref<createRandomNpcInputSchema | null> = ref(null);
   const characters: Ref<Character[]> = ref([]);
   const currentCharacterIndex = ref(-1);
+  const racesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
+  const classesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
+  const backgrounds: Ref<Background[]> = ref([]);
+  ///
+  const primaryRaceIndex = ref(0);
+  const secondaryRaceIndex = ref(0);
+  const classIndex = ref(0);
+  const backgroundIndex = ref(0);
+  const options = ref<createRandomNpcInputSchema>({
+    primaryRacePercentage: 50,
+    secondaryRacePercentage: 40,
+    classType: "randomSometimes",
+    backgroundType: "random",
+    levelType: "randomPeasantsMostly",
+    addVoice: true,
+    includeChildren: false,
+  });
+  const promptOptions = ref<createRandomNpcInputSchema>({});
+  const keywords = ref<Keyword[]>([]);
 
-  async function getRandomNpcs(object: createRandomNpcInputSchema) {
+  const generateNpcs = throttle(getRandomNpcs, 1000);
+
+  async function getRandomNpcs() {
     const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
       "npc",
       () =>
         $fetch(`${api}/npcs/four`, {
           method: "POST",
-          body: object,
+          body: options.value,
         })
     );
 
     if (data?.value?.npcs) {
       data?.value?.npcs.forEach((npc) => createStats(npc));
       session.value = [];
-      session.value.push(data.value.npcs);
+      session.value = data.value.npcs;
       return true;
     } else {
       return false;
     }
   }
 
-  async function getRacesWithVariants() {
-    const { data } = await useAsyncData<getRaceWithVariantsListResponseSchema>(
-      "races",
-      () => $fetch(`${api}/races/withvariants`)
+  async function getGeneratorData() {
+    const { data } = await useAsyncData<getGeneratorDataResponseSchema>(
+      "generatorData",
+      () => $fetch(`${api}/npcs/generator-data`)
     );
-    const raceList: ObjectOrVariant[] = [];
-    data.value?.list.forEach((race) => {
+    racesAndVariants.value = prepareObjectOrVariantList(
+      data.value?.races || [],
+      "primaryRaceId",
+      "primaryRacevariantId"
+    );
+    classesAndVariants.value = prepareObjectOrVariantList(
+      data.value?.classes || [],
+      "classId",
+      "classvariantId"
+    );
+    backgrounds.value = data.value?.backgrounds || [];
+    data.value?.backgrounds.forEach((background) => {
+      keywords.value.push({
+        word: background.name.toLowerCase(),
+        type: "backgroundId",
+        value: background.id,
+      });
+    });
+  }
+
+  function prepareObjectOrVariantList(
+    objectWithVariants: getGeneratorDataResponseSchema["races"],
+    type: Keyword["type"],
+    typevariant: Keyword["type"]
+  ) {
+    const objectOrVariantList: ObjectOrVariant[] = [];
+    objectWithVariants.forEach((object) => {
+      keywords.value.push({
+        word: object.name.toLowerCase(),
+        type,
+        value: object.id,
+      });
       if (
-        Object.hasOwn(race, "other_objects") &&
-        race.other_objects.length > 0
+        Object.hasOwn(object, "other_objects") &&
+        object.other_objects.length > 0
       ) {
-        race.other_objects.forEach((otherObject) => {
-          raceList.push({
-            id: race.id,
-            name: race.name,
-            userId: race.userid,
+        object.other_objects.forEach((otherObject) => {
+          objectOrVariantList.push({
+            id: object.id,
+            name: object.name,
+            userId: object.userid,
             variantId: otherObject.id,
             variantName: otherObject.name,
             variantUserId: otherObject.userid,
           });
-        });
-      } else {
-        raceList.push({
-          id: race.id,
-          name: race.name,
-          userId: race.userid,
-        });
-      }
-    });
-    return raceList;
-  }
-
-  async function getClassesWithVariants() {
-    const { data } = await useAsyncData<getClassWithVariantsListResponseSchema>(
-      "classes",
-      () => $fetch(`${api}/classes/withvariants`)
-    );
-    const classList: ObjectOrVariant[] = [];
-    data.value?.list.forEach((aClass) => {
-      if (
-        Object.hasOwn(aClass, "other_objects") &&
-        aClass.other_objects.length > 0
-      ) {
-        aClass.other_objects.forEach((otherObject) => {
-          classList.push({
-            id: aClass.id,
-            name: aClass.name,
-            userId: aClass.userid,
-            variantId: otherObject.id,
-            variantName: otherObject.name,
-            variantUserId: otherObject.userid,
+          keywords.value.push({
+            word: otherObject.name.toLowerCase(),
+            type: typevariant,
+            value: otherObject.id,
           });
         });
       } else {
-        classList.push({
-          id: aClass.id,
-          name: aClass.name,
-          userId: aClass.userid,
+        objectOrVariantList.push({
+          id: object.id,
+          name: object.name,
+          userId: object.userid,
         });
       }
     });
-    return classList;
+    return objectOrVariantList;
   }
 
-  async function getBackgrounds() {
-    const { data } = await useAsyncData<getBackgroundListResponseSchema>(
-      "backgrounds",
-      () => $fetch(`${api}/backgrounds`)
-    );
-
-    return data.value?.list || [];
+  function parseSettings(settings: createRandomNpcInputSchema) {
+    if (settings) {
+      options.value = { ...settings };
+      let index = -1;
+      if (options.value.primaryRaceId) {
+        index = racesAndVariants.value.findIndex((race) => {
+          return (
+            race.id === options.value.primaryRaceId &&
+            race.variantId === options.value.primaryRacevariantId
+          );
+        });
+        if (index !== -1) {
+          primaryRaceIndex.value = index;
+        }
+      }
+      if (options.value.secondaryRaceId) {
+        index = racesAndVariants.value.findIndex((race) => {
+          return (
+            race.id === options.value.secondaryRaceId &&
+            race.variantId === options.value.secondaryRacevariantId
+          );
+        });
+        if (index !== -1) {
+          secondaryRaceIndex.value = index;
+        }
+      }
+      if (options.value.classId) {
+        index = classesAndVariants.value.findIndex((aClass) => {
+          return (
+            aClass.id === options.value.classId &&
+            aClass.variantId === options.value.classvariantId
+          );
+        });
+        if (index !== -1) {
+          classIndex.value = index;
+        }
+      }
+      if (options.value.backgroundId) {
+        index = backgrounds.value.findIndex(
+          (background) => background.id === options.value.backgroundId
+        );
+        if (index !== -1) {
+          backgroundIndex.value = index;
+        }
+      }
+    } else {
+      // TODO: you will have to change this in the future, if you decide to support multiple languages
+      let index = racesAndVariants.value.findIndex((race) =>
+        race.name.includes("Human")
+      );
+      if (index !== -1) {
+        primaryRaceIndex.value = index;
+      }
+      index = racesAndVariants.value.findIndex((race) =>
+        race.variantName?.includes("Hill Dwarf")
+      );
+      if (index !== -1) {
+        secondaryRaceIndex.value = index;
+      }
+    }
   }
 
   return {
@@ -118,9 +195,18 @@ export const useGeneratorStore = defineStore("generator", () => {
     settings,
     characters,
     currentCharacterIndex,
-    getRacesWithVariants,
-    getClassesWithVariants,
-    getBackgrounds,
-    getRandomNpcs,
+    racesAndVariants,
+    classesAndVariants,
+    backgrounds,
+    primaryRaceIndex,
+    secondaryRaceIndex,
+    classIndex,
+    backgroundIndex,
+    options,
+    promptOptions,
+    keywords,
+    generateNpcs,
+    getGeneratorData,
+    parseSettings,
   };
 });

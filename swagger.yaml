@@ -3610,10 +3610,76 @@ components:
           required:
             - npcs
           additionalProperties: false
+        getGeneratorDataResponseSchema:
+          type: object
+          properties:
+            races:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  userid:
+                    type: number
+                  name:
+                    type: string
+                    minLength: 2
+                  other_objects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        name:
+                          $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                            a/properties/races/items/properties/name"
+                        userid:
+                          $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                            a/properties/races/items/properties/userid"
+                      required:
+                        - id
+                        - name
+                        - userid
+                      additionalProperties: false
+                required:
+                  - id
+                  - userid
+                  - name
+                  - other_objects
+                additionalProperties: false
+            classes:
+              $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                a/properties/races"
+            backgrounds:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  userid:
+                    $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                      a/properties/races/items/properties/userid"
+                  name:
+                    $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                      a/properties/races/items/properties/name"
+                required:
+                  - id
+                  - userid
+                  - name
+                additionalProperties: false
+          required:
+            - races
+            - classes
+            - backgrounds
+          additionalProperties: false
       required:
         - createRandomNpcInputSchema
         - createRandomNpcResponseSchema
         - createFourRandomNpcsResponseSchema
+        - getGeneratorDataResponseSchema
       additionalProperties: false
     Schema:
       type: object
@@ -4844,18 +4910,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcResponseSchema"
-  /api/npcs/four:
-    post:
-      summary: "[MS ONLY] Creates four new random npcs using the settings provided."
+  /api/npcs/generator-data:
+    get:
+      summary: "[MS ONLY] Gets the data used by the NPC Generator on the frontend."
       tags:
         - npcs
-      description: Creates four new random npcs using the settings provided. Only
-        accessible through monstershuffler.com
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcInputSchema"
+      description: Gets the data used by the NPC Generator page in one single call
+        (lists of classes, races and backgrounds). Only accessible through
+        monstershuffler.com
       parameters:
         - schema:
             type: string
@@ -4868,8 +4930,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/npcSchemas/properties/createFourRandomNpcsResponseS\
-                  chema"
+                $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                  a"
   "/api/pagesettings/{page}":
     get:
       summary: Returns the user's settings for a specific page.

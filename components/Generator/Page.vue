@@ -7,60 +7,67 @@
       <h1 class="text-shadow">
         {{ $t("generator.title") }}
       </h1>
-      <TransitionGroup name="fade-group">
-        <GeneratorBits v-if="characters.length" key="1" class="mt-4" />
-        <GeneratorCharacterPage v-if="currentCharacterIndex > -1" key="2" />
-        <div
-          v-show="currentCharacterIndex === -1"
-          key="3"
-          class="custom-transition"
-        >
-          <div class="options centered mt-5 my-4">
-            <label class="cursor-pointer">
-              <MSSlider
-                v-model:is-enabled="modeBoolean"
-                :label="$t(`generator.${mode}ModeTitle`)"
-              />
-              <span class="bold ml-2 inline">
-                {{ $t(`generator.${mode}ModeTitle`) }}
-              </span>
-            </label>
-            <button
-              v-if="mode === 'form'"
-              class="button-show-settings md:hidden cursor-pointer"
-              @click="isFormShownOnMobile = !isFormShownOnMobile"
+      <Transition name="fade">
+        <div v-if="!isLoading">
+          <TransitionGroup name="fade-group">
+            <GeneratorBits v-if="characters.length" key="1" class="mt-4" />
+            <GeneratorCharacterPage v-if="currentCharacterIndex > -1" key="2" />
+            <div
+              v-show="currentCharacterIndex === -1"
+              key="3"
+              class="custom-transition"
             >
-              <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
-              {{ $t("generator.options") }}
-            </button>
-            <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
-          </div>
-          <div>
-            <GeneratorForm
-              v-show="mode === 'form' && isFormShownOnMobile"
-              ref="form"
-              class="form mb-4 md:mr-6"
-              :generate="generate"
-              @close="isFormShownOnMobile = false"
-            />
-            <GeneratorPrompt
-              v-show="mode === 'prompt'"
-              class="prompt text-max mb-4 w-full"
-            />
-            <div class="generate-button text-center my-6">
-              <MSButton
-                color="primary"
-                :text="$t('generator.form.generate')"
-                @click.prevent="generate = !generate"
-              />
+              <div class="options centered mt-5 my-4">
+                <label class="cursor-pointer">
+                  <MSSlider
+                    v-model:is-enabled="isFormMode"
+                    :label="$t(`generator.${mode}ModeTitle`)"
+                  />
+                  <span class="bold ml-2 inline">
+                    {{ $t(`generator.${mode}ModeTitle`) }}
+                  </span>
+                </label>
+                <button
+                  v-if="mode === 'form'"
+                  class="button-show-settings md:hidden cursor-pointer"
+                  @click="isFormShownOnMobile = !isFormShownOnMobile"
+                >
+                  <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
+                  {{ $t("generator.options") }}
+                </button>
+                <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
+              </div>
+              <div>
+                <GeneratorForm
+                  v-show="mode === 'form' && isFormShownOnMobile"
+                  ref="form"
+                  class="form mb-4 md:mr-6"
+                  @generate="generateNpcs"
+                  @close="isFormShownOnMobile = false"
+                />
+                <GeneratorPrompt
+                  v-show="mode === 'prompt'"
+                  class="prompt text-max mb-4 w-full"
+                />
+                <div class="generate-button text-center my-6">
+                  <MSButton
+                    color="primary"
+                    :text="$t('generator.form.generate')"
+                    @click.prevent="generateNpcs"
+                  />
+                </div>
+                <div class="npcs centered pt-4">
+                  <GeneratorIntro v-if="isIntroShown" />
+                  <GeneratorSession v-else />
+                </div>
+              </div>
             </div>
-            <div class="npcs centered pt-4">
-              <GeneratorIntro v-if="isIntroShown" />
-              <GeneratorSession v-else />
-            </div>
-          </div>
+          </TransitionGroup>
         </div>
-      </TransitionGroup>
+      </Transition>
+      <div v-show="isLoading" class="mt-12">
+        <LoadingSpinner />
+      </div>
     </div>
   </div>
 </template>
@@ -68,20 +75,42 @@
 <script setup lang="ts">
 import { useScreen } from "@/composables/screen";
 import { Character } from "@/types/objects";
+import { createRandomNpcInputSchema } from "@/stores/generator.d";
+
+type NPCGeneratorSettings = {
+  characters: Character[];
+  options: createRandomNpcInputSchema;
+  isFormMode: boolean;
+};
 
 const generator = useGeneratorStore();
 const user = useUserStore();
 
 const { width, medium } = useScreen();
-const { session, characters, currentCharacterIndex } = storeToRefs(generator);
+const { session, characters, currentCharacterIndex, options } =
+  storeToRefs(generator);
 const form = ref(null);
 const isIntroShown = ref(true);
+const isLoading = ref(true);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
-const modeBoolean = ref(true);
-const mode = computed(() => (modeBoolean.value ? "form" : "prompt"));
-const generate = ref(false);
+const isFormMode = ref(true);
+const mode = computed(() => (isFormMode.value ? "form" : "prompt"));
+
+function generateNpcs() {
+  generator.generateNpcs();
+  saveSettings();
+}
+
+function saveSettings() {
+  const settings: NPCGeneratorSettings = {
+    characters: characters.value,
+    options: options.value,
+    isFormMode: isFormMode.value,
+  };
+  user.setSettings("npcgenerator", settings);
+}
 
 watch(width, (newWidth, oldWidth) => {
   if (newWidth >= medium.value && oldWidth < medium.value) {
@@ -113,26 +142,34 @@ watch(session, (newSession) => {
 
 watch(
   () => characters.value.length,
-  (newCharacters) => {
+  () => {
     if (haveCharactersJustBeenRetrieved.value) {
       haveCharactersJustBeenRetrieved.value = false;
       return;
     }
-    user.setSettings("npcs", { characters: characters.value });
+    saveSettings();
   }
 );
 
-type SavedCharacters = {
-  characters: Character[];
-};
+watch(isFormMode, () => {
+  saveSettings();
+});
 
 onMounted(async () => {
-  const savedCharacters =
-    (await user.getSettings<SavedCharacters>("npcs"))?.characters || [];
-  if (savedCharacters.length) {
-    characters.value = savedCharacters;
+  isLoading.value = true;
+  await generator.getGeneratorData();
+  const settings: NPCGeneratorSettings | null = await user.getSettings(
+    "npcgenerator"
+  );
+  isFormMode.value = settings?.isFormMode ?? true;
+  if (settings?.options) {
+    generator.parseSettings(settings.options);
+  }
+  if (settings?.characters?.length) {
+    characters.value = settings.characters;
     haveCharactersJustBeenRetrieved.value = true;
   }
+  isLoading.value = false;
 });
 </script>
 

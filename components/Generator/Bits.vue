@@ -57,6 +57,7 @@ function deleteAllCharacters() {
 
 <style scoped>
 .bits {
+  position: relative;
   display: flex;
   gap: 0.25rem;
   overflow: hidden;

@@ -5,15 +5,47 @@
       type="text"
       class="ms-input max-w-3xl w-full mb-4"
       :placeholder="$t('generator.prompt.placeholder')"
+      @keyup.enter="generateNpc"
     />
   </div>
 </template>
 
 <script setup>
+const generator = useGeneratorStore();
+
 const prompt = ref("");
+const { promptOptions, keywords } = storeToRefs(generator);
+
+function generateNpc() {
+  const words = prompt.value.toLowerCase().split(" ");
+  if (words.length === 0) {
+    return;
+  }
+  let i = 0;
+  let word = "";
+  while (i < words.length) {
+    if (!word) {
+      word = words[i];
+    }
+    const exactMatch = keywords.value.find((keyword) => keyword.word === word);
+    if (exactMatch) {
+      console.log(exactMatch);
+      word = "";
+    } else {
+      const partialMatch = keywords.value.filter((keyword) =>
+        keyword.word.includes(word)
+      );
+      if (partialMatch.length === 1) {
+        word = "";
+      } else if (i + 1 < words.length) {
+        word += " " + words[i + 1];
+      }
+    }
+    i++;
+  }
+}
 
 /*
-
 SPECIAL WORDS
 =============
 cr

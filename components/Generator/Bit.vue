@@ -1,24 +1,44 @@
 <template>
-  <div class="bit p-1 noselect" :class="moral()">
-    <div class="name-container">
-      <p class="name">{{ character?.character?.name }}</p>
-      <button
-        class="close ml-1"
-        :title="$t('generator.deleteCharacter')"
-        @click.stop="deleteThisCharacter()"
-      >
-        <font-awesome-icon
-          aria-hidden="true"
-          class="close-button"
-          :class="hasBeenClickedOnce ? 'deleting' : ''"
-          icon="fas fa-solid fa-times"
-          fixed-width
-        />
-        <span class="sr-only">{{ $t("generator.deleteCharacter") }}</span>
-      </button>
-    </div>
-    <p>{{ race() }}</p>
-    <p>{{ profession() }}</p>
+  <div>
+    <MSPreview :max-width="400">
+      <template #default>
+        <Transition name="fade" appear mode="out-in">
+          <div
+            class="bit p-1 noselect"
+            :class="moral()"
+            :style="{
+              transitionDelay: `${0.02 * index}s`,
+              transitionProperty: 'opacity, transform',
+            }"
+          >
+            <div class="name-container">
+              <p class="name">{{ character?.character?.name }}</p>
+              <button
+                class="close ml-1"
+                :title="$t('generator.deleteCharacter')"
+                @click.stop="deleteThisCharacter()"
+              >
+                <font-awesome-icon
+                  aria-hidden="true"
+                  class="close-button"
+                  :class="hasBeenClickedOnce ? 'deleting' : ''"
+                  icon="fas fa-solid fa-times"
+                  fixed-width
+                />
+                <span class="sr-only">{{
+                  $t("generator.deleteCharacter")
+                }}</span>
+              </button>
+            </div>
+            <p>{{ race() }}</p>
+            <p>{{ profession() }}</p>
+          </div>
+        </Transition>
+      </template>
+      <template #preview>
+        <MonsterCard :monster="character" />
+      </template>
+    </MSPreview>
   </div>
 </template>
 

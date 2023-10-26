@@ -179,7 +179,7 @@
           color="primary"
           :text="t('generator.form.generate')"
           icon="fa-shuffle"
-          @click.prevent="generateNpcThrottle"
+          @click.prevent="e('generate')"
         />
       </div>
     </form>
@@ -187,15 +187,11 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ObjectOrVariant,
-  Background,
-  createRandomNpcInputSchema,
-} from "@/stores/generator.d";
+import { createRandomNpcInputSchema } from "@/stores/generator.d";
 
 import { capitalizeFirst, throttle } from "@/utils/functions";
 
-const e = defineEmits(["close"]);
+const e = defineEmits(["close", "generate"]);
 const p = defineProps({
   generate: {
     type: Boolean,
@@ -206,43 +202,17 @@ const p = defineProps({
 const { t } = useI18n();
 const generator = useGeneratorStore();
 const user = useUserStore();
+
 const {
-  getRacesWithVariants,
-  getClassesWithVariants,
-  getBackgrounds,
-  getRandomNpcs,
-} = generator;
-const { settings } = storeToRefs(generator);
-
-const races = ref<ObjectOrVariant[]>([]);
-const classes = ref<ObjectOrVariant[]>([]);
-const backgrounds = ref<Background[]>([]);
-
-const primaryRaceIndex = ref(0);
-const secondaryRaceIndex = ref(0);
-const classIndex = ref(0);
-const backgroundIndex = ref(0);
-const haveSettingsBeenSaved = ref(false);
-
-const options = ref<createRandomNpcInputSchema>({
-  primaryRacePercentage: 50,
-  secondaryRacePercentage: 40,
-  classType: "randomSometimes",
-  backgroundType: "random",
-  levelType: "randomPeasantsMostly",
-  addVoice: true,
-  includeChildren: false,
-});
-
-const generateNpcThrottle = throttle(generateNpc, 1000);
-
-async function generateNpc() {
-  await getRandomNpcs(options.value);
-  if (!haveSettingsBeenSaved.value) {
-    user.setSettings("npcgenerator", options.value);
-    haveSettingsBeenSaved.value = true;
-  }
-}
+  racesAndVariants: races,
+  classesAndVariants: classes,
+  backgrounds,
+  primaryRaceIndex,
+  secondaryRaceIndex,
+  classIndex,
+  backgroundIndex,
+  options,
+} = storeToRefs(generator);
 
 // TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
 
@@ -278,88 +248,6 @@ watch(classIndex, (newValue) => {
 
 watch(backgroundIndex, (newValue) => {
   options.value.backgroundId = backgrounds.value[newValue].id;
-});
-
-watch(
-  () => p.generate,
-  () => {
-    generateNpc();
-  }
-);
-
-watch(
-  options,
-  () => {
-    haveSettingsBeenSaved.value = false;
-  },
-  { deep: true }
-);
-
-onMounted(async () => {
-  races.value = await getRacesWithVariants();
-  classes.value = await getClassesWithVariants();
-  backgrounds.value = await getBackgrounds();
-
-  const settings: createRandomNpcInputSchema | null = await user.getSettings(
-    "npcgenerator"
-  );
-  if (settings) {
-    options.value = { ...settings };
-    let index = -1;
-    if (options.value.primaryRaceId) {
-      index = races.value.findIndex((race) => {
-        return (
-          race.id === options.value.primaryRaceId &&
-          race.variantId === options.value.primaryRacevariantId
-        );
-      });
-      if (index !== -1) {
-        primaryRaceIndex.value = index;
-      }
-    }
-    if (options.value.secondaryRaceId) {
-      index = races.value.findIndex((race) => {
-        return (
-          race.id === options.value.secondaryRaceId &&
-          race.variantId === options.value.secondaryRacevariantId
-        );
-      });
-      if (index !== -1) {
-        secondaryRaceIndex.value = index;
-      }
-    }
-    if (options.value.classId) {
-      index = classes.value.findIndex((aClass) => {
-        return (
-          aClass.id === options.value.classId &&
-          aClass.variantId === options.value.classvariantId
-        );
-      });
-      if (index !== -1) {
-        classIndex.value = index;
-      }
-    }
-    if (options.value.backgroundId) {
-      index = backgrounds.value.findIndex(
-        (background) => background.id === options.value.backgroundId
-      );
-      if (index !== -1) {
-        backgroundIndex.value = index;
-      }
-    }
-  } else {
-    // TODO: you will have to change this in the future, if you decide to support multiple languages
-    let index = races.value.findIndex((race) => race.name.includes("Human"));
-    if (index !== -1) {
-      primaryRaceIndex.value = index;
-    }
-    index = races.value.findIndex((race) =>
-      race.variantName?.includes("Hill Dwarf")
-    );
-    if (index !== -1) {
-      secondaryRaceIndex.value = index;
-    }
-  }
 });
 </script>
 

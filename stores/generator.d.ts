@@ -17,6 +17,8 @@ export type createRandomNpcResponseSchema =
   components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
 export type createFourRandomNpcsResponseSchema =
   components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
+export type getGeneratorDataResponseSchema =
+  components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"];
 
 export type Character = createRandomNpcResponseSchema["npc"];
 
@@ -28,3 +30,9 @@ export type ObjectOrVariant = {
   variantName?: string;
   variantUserId?: number;
 };
+
+export type Keyword = {
+  word: string;
+  type: keyof createRandomNpcInputSchema;
+  value: number;
+}
