@@ -8,6 +8,7 @@
         <Transition name="fade-scroll-slow" appear>
           <MonsterCard
             :monster="character"
+            class="shadow-md"
             :style="{
               transitionDelay: `${0.15 * index}s`,
               transitionProperty: 'opacity, transform',

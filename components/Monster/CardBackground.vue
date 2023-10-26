@@ -41,7 +41,7 @@ const p = defineProps({
 <style scoped lang="scss">
 .background {
   position: relative;
-  @apply bg-background-card rounded-xl shadow-md;
+  @apply bg-background-card rounded-xl;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 55px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }

@@ -1,44 +1,37 @@
 <template>
   <div>
-    <MSPreview :max-width="400">
-      <template #default>
-        <Transition name="fade" appear mode="out-in">
-          <div
-            class="bit p-1 noselect"
-            :class="moral()"
-            :style="{
-              transitionDelay: `${0.02 * index}s`,
-              transitionProperty: 'opacity, transform',
-            }"
+    <Transition name="fade" appear mode="out-in">
+      <div
+        class="bit p-1 noselect"
+        :class="moral()"
+        :style="{
+          transitionDelay: `${0.02 * index}s`,
+          transitionProperty: 'opacity, transform',
+        }"
+        @mouseenter="currentCharacterFromBitsPreview = character"
+        @mouseleave="currentCharacterFromBitsPreview = null"
+      >
+        <div class="name-container">
+          <p class="name">{{ character?.character?.name }}</p>
+          <button
+            class="close ml-1"
+            :title="$t('generator.deleteCharacter')"
+            @click.stop="deleteThisCharacter()"
           >
-            <div class="name-container">
-              <p class="name">{{ character?.character?.name }}</p>
-              <button
-                class="close ml-1"
-                :title="$t('generator.deleteCharacter')"
-                @click.stop="deleteThisCharacter()"
-              >
-                <font-awesome-icon
-                  aria-hidden="true"
-                  class="close-button"
-                  :class="hasBeenClickedOnce ? 'deleting' : ''"
-                  icon="fas fa-solid fa-times"
-                  fixed-width
-                />
-                <span class="sr-only">{{
-                  $t("generator.deleteCharacter")
-                }}</span>
-              </button>
-            </div>
-            <p>{{ race() }}</p>
-            <p>{{ profession() }}</p>
-          </div>
-        </Transition>
-      </template>
-      <template #preview>
-        <MonsterCard :monster="character" />
-      </template>
-    </MSPreview>
+            <font-awesome-icon
+              aria-hidden="true"
+              class="close-button"
+              :class="hasBeenClickedOnce ? 'deleting' : ''"
+              icon="fas fa-solid fa-times"
+              fixed-width
+            />
+            <span class="sr-only">{{ $t("generator.deleteCharacter") }}</span>
+          </button>
+        </div>
+        <p>{{ race() }}</p>
+        <p>{{ profession() }}</p>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -46,7 +39,8 @@
 import { Character } from "@/types/objects";
 
 const generator = useGeneratorStore();
-const { characters, currentCharacterIndex } = storeToRefs(generator);
+const { characters, currentCharacterIndex, currentCharacterFromBitsPreview } =
+  storeToRefs(generator);
 
 const p = defineProps({
   character: {

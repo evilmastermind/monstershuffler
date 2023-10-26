@@ -1,5 +1,5 @@
 <template>
-  <div class="bits py-2">
+  <div ref="bits" class="bits py-2">
     <TransitionGroup name="fade-row">
       <div :key="-1" class="buttons px-2">
         <button
@@ -28,18 +28,48 @@
         :key="index"
         :character="character"
         :index="index"
-        @click="currentCharacterIndex = index"
+        @click="showCharacterPage(index)"
       />
     </TransitionGroup>
+    <Transition name="fade-quick">
+      <MonsterCard
+        v-if="currentCharacterFromBitsPreview"
+        class="bits-preview drop-shadow-2xl"
+        :monster="currentCharacterFromBitsPreview"
+        :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
+      />
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
+const { x } = useMouse();
+const { width: screenWidth } = useScreen();
+
 const generator = useGeneratorStore();
-const { characters, currentCharacterIndex } = storeToRefs(generator);
+const { characters, currentCharacterIndex, currentCharacterFromBitsPreview } =
+  storeToRefs(generator);
 
 const hasDeleteButtonBeenClickedOnce = ref(false);
 const hasSaveButtonBeenClickedOnce = ref(false);
+const bits = ref<HTMLElement | null>(null);
+
+const width = computed(() => {
+  if (screenWidth.value < 400) {
+    return screenWidth.value;
+  }
+  return 400;
+});
+const left = computed(() => {
+  const bitsStartingPoint = bits.value?.getBoundingClientRect().left || 0;
+  if (x.value + width.value / 2 > screenWidth.value) {
+    return screenWidth.value - width.value;
+  } else if (x.value - width.value / 2 < 0) {
+    return 0;
+  }
+  console.log("result: ", x.value - width.value / 2);
+  return x.value - bitsStartingPoint - width.value / 2;
+});
 
 function deleteAllCharacters() {
   if (!hasDeleteButtonBeenClickedOnce.value) {
@@ -53,6 +83,11 @@ function deleteAllCharacters() {
   characters.value.length = 0;
   currentCharacterIndex.value = -1;
 }
+
+function showCharacterPage(index: number) {
+  currentCharacterIndex.value = index;
+  currentCharacterFromBitsPreview.value = null;
+}
 </script>
 
 <style scoped>
@@ -60,8 +95,12 @@ function deleteAllCharacters() {
   position: relative;
   display: flex;
   gap: 0.25rem;
-  overflow: hidden;
   flex-wrap: wrap;
+}
+.bits-preview {
+  position: absolute;
+  top: 100%;
+  z-index: 9990;
 }
 .buttons {
   display: flex;

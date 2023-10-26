@@ -3,7 +3,7 @@
     <!-- <BackgroundDice /> -->
     <div class="background" />
     <NavbarPadding />
-    <div class="lg-max max-h-100 overflow-hidden">
+    <div class="lg-max max-h-100">
       <h1 class="text-shadow">
         {{ $t("generator.title") }}
       </h1>
