@@ -23,68 +23,45 @@ function generateNpc() {
   }
   let i = 0;
   let word = "";
+  let wordsCount = 1;
+  console.clear();
   while (i < words.length) {
     if (!word) {
       word = words[i];
     }
     const exactMatch = keywords.value.find((keyword) => keyword.word === word);
     if (exactMatch) {
-      console.log(exactMatch);
+      // example: word was "druid" and the druid class was found
+      promptOptions.value[exactMatch.type] = exactMatch.value;
       word = "";
+      wordsCount = 1;
     } else {
       const partialMatch = keywords.value.filter((keyword) =>
         keyword.word.includes(word)
       );
       if (partialMatch.length === 1) {
+        // example: word was "asmodeus" and "tiefling of asmodeus" was found
+        promptOptions.value[exactMatch.type] = partialMatch.value;
         word = "";
+        wordsCount = 1;
       } else if (i + 1 < words.length) {
+        // example: word was "of", next word is "asmodeus", we try now to search for "of asmodeus"
         word += " " + words[i + 1];
+        wordsCount++;
       }
+    }
+    if (wordsCount > 1 && i === words.length - 1) {
+      // we tried to match a list of words, adding word after word until the end of the prompt, but failed,
+      // so we discard the first word of that list and start again from the second word of the list
+      // example: words were "abcdefg druid cr 5", we discard "abcdefg" and start again with "druid"
+      i = i - wordsCount + 1;
+      wordsCount = 1;
+      word = "";
     }
     i++;
   }
+  console.log(promptOptions.value);
 }
-
-/*
-SPECIAL WORDS
-=============
-cr
-male female
-lawful chaotic neutral good evil
-
-HOW DOES THE ALGORYTHM WORK?
-==============================
-1) I need to create an array of words. These must come from
-- special words
-- races
-- race variants
-- classes
-- class variants
-- backgrounds
-
-2) I need to divide the prompt into words
-
-3) Make a loop
-example: evil archfey warlock dwarf cr 10
-  a) Pick a word from the prompt
-  b) find the word inside the array (exact match)
-  c) if you find it, update the options object that's sent to the backend
-    with the object corresponding to that word (ex: backgroundId: 6969)
-  d) if you don't find it, search the word inside the array (.includes[word])
-  e) if you find only one, update the options object with the object
-    corresponding to that word
-  f) if you find more than one, add the next word from the prompt and
-    repeat from step b)
-  g) if you still find more than one, add the next word from the prompt and
-    repeat from step b)
-  h) if you don't find any correspondence, remove the last word, and
-    ... at this point I suppose you should pick one of the partially
-    matching objects at random
-  
-
-
-
-*/
 </script>
 
 <style lang="scss" scoped></style>

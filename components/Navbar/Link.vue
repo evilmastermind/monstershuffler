@@ -40,8 +40,6 @@ const props = defineProps({
 });
 
 const currentRoute = computed(() => {
-  console.log(nuxtRoute.name);
-  console.log(props.route);
   return nuxtRoute.name;
 });
 </script>

@@ -63,11 +63,10 @@ const width = computed(() => {
 const left = computed(() => {
   const bitsStartingPoint = bits.value?.getBoundingClientRect().left || 0;
   if (x.value + width.value / 2 > screenWidth.value) {
-    return screenWidth.value - width.value;
+    return screenWidth.value - width.value - bitsStartingPoint;
   } else if (x.value - width.value / 2 < 0) {
-    return 0;
+    return 0 - bitsStartingPoint;
   }
-  console.log("result: ", x.value - width.value / 2);
   return x.value - bitsStartingPoint - width.value / 2;
 });
 
@@ -101,6 +100,12 @@ function showCharacterPage(index: number) {
   position: absolute;
   top: 100%;
   z-index: 9990;
+}
+
+@media handheld {
+  .bits-preview {
+    display: none;
+  }
 }
 .buttons {
   display: flex;

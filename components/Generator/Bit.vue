@@ -8,8 +8,9 @@
           transitionDelay: `${0.02 * index}s`,
           transitionProperty: 'opacity, transform',
         }"
-        @mouseenter="currentCharacterFromBitsPreview = character"
-        @mouseleave="currentCharacterFromBitsPreview = null"
+        @touchstart="isTouchScreen = true"
+        @mouseenter="setBitPreview(true)"
+        @mouseleave="setBitPreview(false)"
       >
         <div class="name-container">
           <p class="name">{{ character?.character?.name }}</p>
@@ -54,6 +55,7 @@ const p = defineProps({
 });
 
 const hasBeenClickedOnce = ref(false);
+const isTouchScreen = ref(false);
 const deleteTimeout: Ref<NodeJS.Timeout | null> = ref(null);
 
 const race = () => {
@@ -104,6 +106,14 @@ function deleteThisCharacter() {
   characters.value.splice(p.index, 1);
   if (currentCharacterIndex.value > -1) {
     currentCharacterIndex.value = characters.value.length - 1;
+  }
+}
+
+function setBitPreview(bool: boolean) {
+  if (!isTouchScreen.value && bool) {
+    currentCharacterFromBitsPreview.value = p.character;
+  } else {
+    currentCharacterFromBitsPreview.value = null;
   }
 }
 </script>
