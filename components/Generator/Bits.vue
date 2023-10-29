@@ -62,8 +62,8 @@ const width = computed(() => {
 });
 const left = computed(() => {
   const bitsStartingPoint = bits.value?.getBoundingClientRect().left || 0;
-  if (x.value + width.value / 2 > screenWidth.value) {
-    return screenWidth.value - width.value - bitsStartingPoint;
+  if (x.value + width.value / 2 + bitsStartingPoint + 2 > screenWidth.value) {
+    return screenWidth.value - width.value - bitsStartingPoint * 2 - 1;
   } else if (x.value - width.value / 2 < 0) {
     return 0 - bitsStartingPoint;
   }

@@ -121,6 +121,7 @@ function setBitPreview(bool: boolean) {
 <style scoped lang="scss">
 .bit {
   position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
   line-height: 1em;

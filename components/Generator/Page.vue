@@ -27,14 +27,23 @@
                     {{ $t(`generator.${mode}ModeTitle`) }}
                   </span>
                 </label>
+                <GeneratorPromptHelp v-if="mode === 'prompt'" />
                 <button
                   v-if="mode === 'form'"
                   class="button-show-settings md:hidden cursor-pointer"
                   @click="isFormShownOnMobile = !isFormShownOnMobile"
                 >
-                  <font-awesome-icon icon="fas fa-solid fa-cog" fixed-width />
+                  <font-awesome-icon
+                    class="text-text-secondary"
+                    icon="fas fa-solid fa-cog"
+                    fixed-width
+                  />
                   {{ $t("generator.options") }}
                 </button>
+                <GeneratorPrompt
+                  v-show="mode === 'prompt'"
+                  class="prompt max-w-[700px] w-full"
+                />
                 <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
               </div>
               <div>
@@ -45,11 +54,10 @@
                   @generate="generateNpcs"
                   @close="isFormShownOnMobile = false"
                 />
-                <GeneratorPrompt
-                  v-show="mode === 'prompt'"
-                  class="prompt text-max mb-4 w-full"
-                />
-                <div class="generate-button text-center my-6">
+                <div
+                  v-show="mode !== 'prompt'"
+                  class="generate-button text-center my-6"
+                >
                   <MSButton
                     color="primary"
                     :text="$t('generator.form.generate')"
@@ -99,7 +107,7 @@ const isFormMode = ref(true);
 const mode = computed(() => (isFormMode.value ? "form" : "prompt"));
 
 function generateNpcs() {
-  generator.generateNpcs();
+  generator.generateNpcs(options.value);
   saveSettings();
 }
 
@@ -207,15 +215,14 @@ onMounted(async () => {
 }
 .options {
   display: flex;
-  justify-content: center;
-  gap: theme("spacing.6");
+  justify-content: flex-start;
+  gap: theme("spacing.4");
 }
 .overflow-hidden {
   overflow: hidden;
 }
 .button-show-settings {
   display: block;
-  font-weight: bold;
   @media (min-width: theme("screens.md")) {
     display: none;
   }

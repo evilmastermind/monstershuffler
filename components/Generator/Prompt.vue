@@ -1,22 +1,30 @@
 <template>
-  <div>
+  <div class="prompt-container">
     <input
       v-model="prompt"
       type="text"
-      class="ms-input max-w-3xl w-full mb-4"
+      class="ms-input w-full prompt pr-6"
       :placeholder="$t('generator.prompt.placeholder')"
       @keyup.enter="generateNpc"
     />
+    <button class="generate-button text-primary-700 px-2" @click="generateNpc">
+      <font-awesome-icon class="fa-lg rotate" icon="fas fa-paper-plane" />
+      <span class="sr-only">{{ $t("generator.form.generate") }}</span>
+    </button>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { type CharacterChanges } from "@/stores/generator.d";
 const generator = useGeneratorStore();
 
 const prompt = ref("");
-const { promptOptions, keywords } = storeToRefs(generator);
+const { promptOptions, keywords, settings } = storeToRefs(generator);
+const characterChanges = ref<CharacterChanges>({});
 
 function generateNpc() {
+  promptOptions.value = {};
+  characterChanges.value = {};
   const words = prompt.value.toLowerCase().split(" ");
   if (words.length === 0) {
     return;
@@ -24,15 +32,70 @@ function generateNpc() {
   let i = 0;
   let word = "";
   let wordsCount = 1;
-  console.clear();
   while (i < words.length) {
     if (!word) {
       word = words[i];
     }
+    // SPECIAL KEYWORDS - challenge rating
+    if (word === "cr" && i + 1 < words.length) {
+      const nextWord = words[i + 1];
+      if (!isNaN(parseInt(nextWord))) {
+        characterChanges.value.CR = parseInt(nextWord);
+        word = "";
+        i++;
+      }
+      // SPECIAL KEYWORDS - alignment and pronouns
+    } else {
+      switch (word) {
+        case "lawful":
+          characterChanges.value.alignmentEthical = "Lawful";
+          word = "";
+          break;
+        case "chaotic":
+          characterChanges.value.alignmentEthical = "Chaotic";
+          word = "";
+          break;
+        case "good":
+          characterChanges.value.alignmentMoral = "Good";
+          word = "";
+          break;
+        case "evil":
+          characterChanges.value.alignmentMoral = "Evil";
+          word = "";
+          break;
+        case "neutral":
+          characterChanges.value.alignmentEthical =
+            characterChanges.value.alignmentEthical || "Neutral";
+          characterChanges.value.alignmentMoral = "Neutral";
+          word = "";
+          break;
+        case "female":
+          characterChanges.value.pronouns = "female";
+          word = "";
+          break;
+        case "male":
+          characterChanges.value.pronouns = "male";
+          word = "";
+          break;
+        case "nonbinary":
+          characterChanges.value.pronouns = "neutral";
+          word = "";
+          break;
+      }
+    }
+    if (!word) {
+      i++;
+      continue;
+    }
+    // OBJECT KEYWORDS (classes, races, backgrounds)
     const exactMatch = keywords.value.find((keyword) => keyword.word === word);
     if (exactMatch) {
       // example: word was "druid" and the druid class was found
-      promptOptions.value[exactMatch.type] = exactMatch.value;
+      (promptOptions.value[exactMatch.type] as number) = exactMatch.value;
+      if ("variantOfType" in exactMatch) {
+        (promptOptions.value[exactMatch.variantOfType] as number) =
+          exactMatch.variantOf;
+      }
       word = "";
       wordsCount = 1;
     } else {
@@ -41,7 +104,12 @@ function generateNpc() {
       );
       if (partialMatch.length === 1) {
         // example: word was "asmodeus" and "tiefling of asmodeus" was found
-        promptOptions.value[exactMatch.type] = partialMatch.value;
+        (promptOptions.value[partialMatch[0].type] as number) =
+          partialMatch[0].value;
+        if ("variantOfType" in partialMatch[0]) {
+          (promptOptions.value[partialMatch[0].variantOfType] as number) =
+            partialMatch[0].variantOf;
+        }
         word = "";
         wordsCount = 1;
       } else if (i + 1 < words.length) {
@@ -60,8 +128,38 @@ function generateNpc() {
     }
     i++;
   }
-  console.log(promptOptions.value);
+  // adding additional keywords
+  if (promptOptions.value.primaryRaceId) {
+    promptOptions.value.primaryRacePercentage = 100;
+  }
+  if (promptOptions.value.classId) {
+    promptOptions.value.classType = "specific";
+  } else {
+    promptOptions.value.classType = "none";
+  }
+  if (promptOptions.value.backgroundId) {
+    promptOptions.value.backgroundType = "specific";
+  } else {
+    promptOptions.value.backgroundType = "none";
+  }
+  promptOptions.value.addVoice = settings.value?.addVoice || true;
+  promptOptions.value.includeChildren = settings.value?.includeChildren;
+  promptOptions.value.levelType =
+    settings.value?.levelType || "randomPeasantsMostly";
+
+  generator.generateNpc(promptOptions.value, characterChanges.value);
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.prompt-container {
+  position: relative;
+}
+.generate-button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+</style>

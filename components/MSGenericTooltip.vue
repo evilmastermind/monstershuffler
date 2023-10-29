@@ -3,6 +3,7 @@
     class="dotted"
     @mouseenter="handleMouseOver"
     @mouseleave="isVisible = false"
+    @click.stop="handleClick"
   >
     <slot name="default" />
   </span>
@@ -12,7 +13,14 @@
     :style="{ top: `${y - 2}px`, left: `${left}px`, width: `${width}px` }"
   >
     <div class="tooltip">
-      <slot name="preview" />
+      <slot name="tooltip" />
+      <div
+        v-if="hasCloseButton"
+        class="close-button"
+        @click.stop="isVisible = false"
+      >
+        <font-awesome-icon icon="fas fa-solid fa-xmark" />
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +58,11 @@ function handleMouseOver() {
   isVisible.value = true;
   hasCloseButton.value = false;
 }
+
+function handleClick() {
+  isVisible.value = true;
+  hasCloseButton.value = true;
+}
 </script>
 
 <style scoped lang="scss">
@@ -61,7 +74,9 @@ function handleMouseOver() {
   position: absolute;
   bottom: 0%;
   width: 100%;
+  @apply shadow-xl rounded p-4 sm:p-5 bg-background not-italic;
 }
+
 .close-button {
   position: absolute;
   top: 0;

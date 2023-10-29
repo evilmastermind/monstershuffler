@@ -1,6 +1,6 @@
 <template>
   <div class="session">
-    <div class="generation">
+    <div :class="session.length > 1 ? 'generation-4' : 'generation-1'">
       <template
         v-for="(character, index) in session"
         :key="`${index}${character.character.name}`"
@@ -42,10 +42,14 @@ function openCharacterSheet(character: Character) {
   overflow-y: auto;
   @apply flex flex-col-reverse gap-6 w-full;
 }
-.generation {
+.generation-4 {
   @apply grid grid-cols-1 gap-x-2 gap-y-2;
   @media (min-width: theme("screens.sm")) {
     @apply grid-cols-2;
   }
+}
+.generation-1 {
+  display: grid;
+  place-content: center;
 }
 </style>

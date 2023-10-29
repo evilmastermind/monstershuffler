@@ -17,7 +17,7 @@ export function calculateCharacterHook(character: Character) {
     pronouns === "female"
       ? c?.background?.femaleName || ""
       : c?.background?.name || "";
-  const raceName = c?.race?.name || "";
+  const raceName = c?.racevariant?.name || c?.race?.name || "";
   if (c?.class?.name) {
     const part: DescriptionPart = {
       string: c?.class?.name,

@@ -2,10 +2,12 @@ import {
   Background,
   Character,
   createFourRandomNpcsResponseSchema,
+  createRandomNpcResponseSchema,
   createRandomNpcInputSchema,
   getGeneratorDataResponseSchema,
   Keyword,
   ObjectOrVariant,
+  CharacterChanges,
 } from "@/stores/generator.d";
 import { createStats } from "@/utils/parsers";
 
@@ -41,14 +43,15 @@ export const useGeneratorStore = defineStore("generator", () => {
   const keywords = ref<Keyword[]>([]);
 
   const generateNpcs = throttle(getRandomNpcs, 1000);
+  const generateNpc = throttle(getRandomNpc, 1000);
 
-  async function getRandomNpcs() {
+  async function getRandomNpcs(npcOptions: createRandomNpcInputSchema) {
     const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
       "npc",
       () =>
         $fetch(`${api}/npcs/four`, {
           method: "POST",
-          body: options.value,
+          body: npcOptions,
         })
     );
 
@@ -56,6 +59,45 @@ export const useGeneratorStore = defineStore("generator", () => {
       data?.value?.npcs.forEach((npc) => createStats(npc));
       session.value = [];
       session.value = data.value.npcs;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async function getRandomNpc(
+    npcOptions: createRandomNpcInputSchema,
+    changes: CharacterChanges = {}
+  ) {
+    const { data } = await useAsyncData<createRandomNpcResponseSchema>(
+      "npc",
+      () =>
+        $fetch(`${api}/npcs`, {
+          method: "POST",
+          body: npcOptions,
+        })
+    );
+
+    if (data?.value?.npc) {
+      if (changes.alignmentEthical) {
+        data.value.npc.character.alignmentEthical = changes.alignmentEthical;
+      }
+      if (changes.alignmentMoral) {
+        data.value.npc.character.alignmentMoral = changes.alignmentMoral;
+      }
+      if (changes.pronouns) {
+        data.value.npc.character.pronouns = changes.pronouns;
+      }
+      if (changes.CR) {
+        if (!data.value.npc.variations) {
+          data.value.npc.variations = {};
+        }
+        data.value.npc.variations.currentCR = changes.CR;
+      }
+
+      createStats(data?.value?.npc);
+      session.value = [];
+      session.value.push(data?.value?.npc);
       return true;
     } else {
       return false;
@@ -116,6 +158,8 @@ export const useGeneratorStore = defineStore("generator", () => {
             word: otherObject.name.toLowerCase(),
             type: typevariant,
             value: otherObject.id,
+            variantOf: object.id,
+            variantOfType: type,
           });
         });
       } else {
@@ -208,6 +252,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     promptOptions,
     keywords,
     generateNpcs,
+    generateNpc,
     getGeneratorData,
     parseSettings,
   };
