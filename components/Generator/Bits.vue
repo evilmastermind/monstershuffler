@@ -108,6 +108,7 @@ function showCharacterPage(index: number) {
   }
 }
 .buttons {
+  min-height: 3.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

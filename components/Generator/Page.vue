@@ -17,13 +17,13 @@
               key="3"
               class="custom-transition"
             >
-              <div class="options centered mt-5 my-4">
-                <label class="cursor-pointer">
+              <div class="options mt-5 my-4">
+                <label class="mode-label cursor-pointer">
                   <MSSlider
                     v-model:is-enabled="isFormMode"
                     :label="$t(`generator.${mode}ModeTitle`)"
                   />
-                  <span class="bold ml-2 inline">
+                  <span class="bold inline whitespace-nowrap">
                     {{ $t(`generator.${mode}ModeTitle`) }}
                   </span>
                 </label>
@@ -213,9 +213,16 @@ onMounted(async () => {
     max-width: 300px;
   }
 }
+.mode-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: theme("spacing.2");
+}
 .options {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: theme("spacing.4");
 }
 .overflow-hidden {
