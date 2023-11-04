@@ -42,7 +42,7 @@
                 </button>
                 <GeneratorPrompt
                   v-show="mode === 'prompt'"
-                  class="prompt max-w-[700px] w-full"
+                  class="prompt max-w-[700px] min-w-[200px] w-full"
                 />
                 <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
               </div>
@@ -220,10 +220,15 @@ onMounted(async () => {
   gap: theme("spacing.2");
 }
 .options {
+  position: realtive;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: theme("spacing.4");
+  flex-wrap: wrap;
+  @media (min-width: theme("screens.sm")) {
+    flex-wrap: nowrap;
+  }
 }
 .overflow-hidden {
   overflow: hidden;

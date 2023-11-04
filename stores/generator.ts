@@ -43,9 +43,12 @@ export const useGeneratorStore = defineStore("generator", () => {
   const keywords = ref<Keyword[]>([]);
 
   const generateNpcs = throttle(getRandomNpcs, 1000);
-  const generateNpc = throttle(getRandomNpc, 1000);
+  // const generateNpc = throttle(getRandomNpc, 1000);
 
-  async function getRandomNpcs(npcOptions: createRandomNpcInputSchema) {
+  async function getRandomNpcs(
+    npcOptions: createRandomNpcInputSchema,
+    changes: CharacterChanges = {}
+  ) {
     const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
       "npc",
       () =>
@@ -56,7 +59,21 @@ export const useGeneratorStore = defineStore("generator", () => {
     );
 
     if (data?.value?.npcs) {
-      data?.value?.npcs.forEach((npc) => createStats(npc));
+      data?.value?.npcs.forEach((npc) => {
+        if (changes.alignmentEthical) {
+          npc.character.alignmentEthical = changes.alignmentEthical;
+        }
+        if (changes.alignmentMoral) {
+          npc.character.alignmentMoral = changes.alignmentMoral;
+        }
+        if (changes.CR) {
+          if (!npc.variations) {
+            npc.variations = {};
+          }
+          npc.variations.currentCR = changes.CR;
+        }
+        createStats(npc);
+      });
       session.value = [];
       session.value = data.value.npcs;
       return true;
@@ -65,44 +82,41 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  async function getRandomNpc(
-    npcOptions: createRandomNpcInputSchema,
-    changes: CharacterChanges = {}
-  ) {
-    const { data } = await useAsyncData<createRandomNpcResponseSchema>(
-      "npc",
-      () =>
-        $fetch(`${api}/npcs`, {
-          method: "POST",
-          body: npcOptions,
-        })
-    );
+  // async function getRandomNpc(
+  //   npcOptions: createRandomNpcInputSchema,
+  //   changes: CharacterChanges = {}
+  // ) {
+  //   const { data } = await useAsyncData<createRandomNpcResponseSchema>(
+  //     "npc",
+  //     () =>
+  //       $fetch(`${api}/npcs`, {
+  //         method: "POST",
+  //         body: npcOptions,
+  //       })
+  //   );
 
-    if (data?.value?.npc) {
-      if (changes.alignmentEthical) {
-        data.value.npc.character.alignmentEthical = changes.alignmentEthical;
-      }
-      if (changes.alignmentMoral) {
-        data.value.npc.character.alignmentMoral = changes.alignmentMoral;
-      }
-      if (changes.pronouns) {
-        data.value.npc.character.pronouns = changes.pronouns;
-      }
-      if (changes.CR) {
-        if (!data.value.npc.variations) {
-          data.value.npc.variations = {};
-        }
-        data.value.npc.variations.currentCR = changes.CR;
-      }
+  //   if (data?.value?.npc) {
+  //     if (changes.alignmentEthical) {
+  //       data.value.npc.character.alignmentEthical = changes.alignmentEthical;
+  //     }
+  //     if (changes.alignmentMoral) {
+  //       data.value.npc.character.alignmentMoral = changes.alignmentMoral;
+  //     }
+  //     if (changes.CR) {
+  //       if (!data.value.npc.variations) {
+  //         data.value.npc.variations = {};
+  //       }
+  //       data.value.npc.variations.currentCR = changes.CR;
+  //     }
 
-      createStats(data?.value?.npc);
-      session.value = [];
-      session.value.push(data?.value?.npc);
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //     createStats(data?.value?.npc);
+  //     session.value = [];
+  //     session.value.push(data?.value?.npc);
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   async function getGeneratorData() {
     const { data } = await useAsyncData<getGeneratorDataResponseSchema>(
@@ -252,7 +266,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     promptOptions,
     keywords,
     generateNpcs,
-    generateNpc,
+    // generateNpc,
     getGeneratorData,
     parseSettings,
   };

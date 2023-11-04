@@ -47,5 +47,4 @@ export type CharacterChanges = {
   CR?: number;
   alignmentMoral?: "Neutral" | "Any" | "Good" | "Evil";
   alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
-  pronouns?: "male" | "female" | "neutral";
 };

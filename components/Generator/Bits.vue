@@ -31,14 +31,12 @@
         @click="showCharacterPage(index)"
       />
     </TransitionGroup>
-    <Transition name="fade-quick">
-      <MonsterCard
-        v-if="currentCharacterFromBitsPreview"
-        class="bits-preview drop-shadow-2xl"
-        :monster="currentCharacterFromBitsPreview"
-        :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
-      />
-    </Transition>
+    <MonsterCard
+      v-if="currentCharacterFromBitsPreview"
+      class="bits-preview drop-shadow-2xl"
+      :monster="currentCharacterFromBitsPreview"
+      :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
+    />
   </div>
 </template>
 

@@ -36,6 +36,9 @@ export interface paths {
         header?: {
           authorization?: string;
         };
+        path: {
+          backgroundId: string;
+        };
       };
       responses: {
         /** @description Default Response */
@@ -77,6 +80,9 @@ export interface paths {
       parameters: {
         header?: {
           authorization?: string;
+        };
+        path: {
+          age: string;
         };
       };
       responses: {
@@ -162,6 +168,9 @@ export interface paths {
         header?: {
           authorization?: string;
         };
+        path: {
+          classId: string;
+        };
       };
       responses: {
         /** @description Default Response */
@@ -226,6 +235,11 @@ export interface paths {
      * @description Returns the user's settings for a specific page.
      */
     get: {
+      parameters: {
+        path: {
+          page: string;
+        };
+      };
       responses: {
         /** @description Default Response */
         200: {
@@ -246,6 +260,11 @@ export interface paths {
      * @description Saves the user's settings for a specific page.
      */
     post: {
+      parameters: {
+        path: {
+          page: string;
+        };
+      };
       requestBody?: {
         content: {
           "application/json": components["schemas"]["Schema"]["setPagesettingResponseSchema"];
@@ -313,6 +332,9 @@ export interface paths {
         header?: {
           authorization?: string;
         };
+        path: {
+          raceId: string;
+        };
       };
       responses: {
         /** @description Default Response */
@@ -372,6 +394,11 @@ export interface paths {
      * @description Returns a random trait for the given age. The age must be one of the following: "child", "adolescent", "young adult", "adult", "middle-aged", "elderly", "venerable".
      */
     post: {
+      parameters: {
+        path: {
+          age: string;
+        };
+      };
       requestBody?: {
         content: {
           "application/json": components["schemas"]["traitSchemas"]["getRandomTraitSchema"];
@@ -393,6 +420,11 @@ export interface paths {
      * @description Returns the description of a trait which is usually an adjective describing a creature's state of mind, attitude, core beliefs or current feelings.
      */
     get: {
+      parameters: {
+        path: {
+          name: string;
+        };
+      };
       responses: {
         /** @description Default Response */
         200: {
@@ -913,6 +945,8 @@ export interface components {
         secondaryRacePercentage?: number;
         addVoice?: boolean;
         includeChildren?: boolean;
+        /** @enum {string} */
+        pronounsChosen?: "male" | "female" | "neutral" | "thing";
       };
       createRandomNpcResponseSchema: {
         npc: {
@@ -1383,8 +1417,7 @@ export interface components {
           };
           statistics?: {
             alignment: string[];
-            /** @enum {string} */
-            pronouns: "male" | "female" | "neutral" | "thing";
+            pronouns: components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"]["pronounsChosen"];
             prename: string;
             name: string;
             surname: string;

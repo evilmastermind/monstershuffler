@@ -1,6 +1,6 @@
 <template>
   <span
-    class="dotted"
+    class="cursor-help"
     @mouseenter="handleMouseOver"
     @mouseleave="isVisible = false"
     @click.stop="handleClick"
@@ -10,9 +10,13 @@
   <div
     v-if="isVisible"
     class="tooltip-container"
-    :style="{ top: `${y - 2}px`, left: `${left}px`, width: `${width}px` }"
+    :style="{
+      top: topValue,
+      left: `${left}px`,
+      width: `${width}px`,
+    }"
   >
-    <div class="tooltip">
+    <div ref="container" class="tooltip">
       <slot name="tooltip" />
       <div
         v-if="hasCloseButton"
@@ -38,6 +42,8 @@ const p = defineProps({
 
 const isVisible = ref(false);
 const hasCloseButton = ref(false);
+const container = ref<HTMLElement | null>(null);
+const topValue = ref("auto");
 
 const width = computed(() => {
   if (screenWidth.value < p.maxWidth) {
@@ -63,6 +69,18 @@ function handleClick() {
   isVisible.value = true;
   hasCloseButton.value = true;
 }
+
+watch(y, () => {
+  if (!container.value) {
+    return;
+  }
+  const containerRect = container.value.getBoundingClientRect();
+  if (y.value - containerRect.height < 0) {
+    topValue.value = `${y.value + containerRect.height + 10}px`;
+  } else {
+    topValue.value = `${y.value - 2}px`;
+  }
+});
 </script>
 
 <style scoped lang="scss">

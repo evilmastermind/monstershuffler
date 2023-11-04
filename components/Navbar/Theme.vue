@@ -11,35 +11,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Ref } from "vue";
+import { useUiStore } from "@/stores/ui";
 
-interface Theme {
-  name: string;
-  icon: string;
-}
-const themes: Theme[] = [
-  {
-    name: "light",
-    icon: "fa-sun",
-  },
-  {
-    name: "dark",
-    icon: "fa-moon",
-  },
-  // {
-  //   name: "solarized",
-  //   icon: "fa-cloud"
-  // },
-];
+const ui = useUiStore();
+
+const { themes } = ui;
+const { currentThemeName } = storeToRefs(ui);
 
 const icon: Ref<string> = ref("fa-sun");
-const currentTheme: Ref<string | null> = ref(null) || null;
 
 // setting initial theme
 const setInitialTheme = () => {
-  if (currentTheme.value) {
-    setTheme(currentTheme.value);
+  if (currentThemeName.value) {
+    setTheme(currentThemeName.value);
   } else if (
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -58,23 +42,23 @@ function setTheme(themeName?: string) {
   } else {
     let index =
       themes.findIndex(
-        (theme) => theme.name === (currentTheme.value || "light")
+        (theme) => theme.name === (currentThemeName.value || "light")
       ) || 0;
     if (index === themes.length - 1) index = -1;
     assignTheme(index + 1);
   }
   function assignTheme(index: number) {
-    currentTheme.value = themes[index]?.name || themes[0].name;
-    document.body.classList.value = `${currentTheme.value}-mode`;
+    currentThemeName.value = themes[index]?.name || themes[0].name;
+    document.body.classList.value = `${currentThemeName.value}-mode`;
     icon.value = themes[index]?.icon || themes[0].icon;
-    localStorage.setItem("appTheme", currentTheme.value);
+    localStorage.setItem("appTheme", currentThemeName.value);
   }
 }
 
 onMounted(() => {
   const appTheme = localStorage.getItem("appTheme");
   if (appTheme) {
-    currentTheme.value = appTheme;
+    currentThemeName.value = appTheme;
     setTheme(appTheme);
   }
 });

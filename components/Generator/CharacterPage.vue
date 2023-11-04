@@ -1,7 +1,9 @@
 <template>
   <div class="page p-4 mb-4">
     <button @click="close">X</button>
-    CHARACTER
+    <MonsterStatBlock
+      :character="generator.characters[currentCharacterIndex]"
+    />
   </div>
 </template>
 

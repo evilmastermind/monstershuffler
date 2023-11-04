@@ -70,15 +70,15 @@ function generateNpc() {
           word = "";
           break;
         case "female":
-          characterChanges.value.pronouns = "female";
+          promptOptions.value.pronounsChosen = "female";
           word = "";
           break;
         case "male":
-          characterChanges.value.pronouns = "male";
+          promptOptions.value.pronounsChosen = "male";
           word = "";
           break;
         case "nonbinary":
-          characterChanges.value.pronouns = "neutral";
+          promptOptions.value.pronounsChosen = "neutral";
           word = "";
           break;
       }
@@ -109,6 +109,21 @@ function generateNpc() {
         if ("variantOfType" in partialMatch[0]) {
           (promptOptions.value[partialMatch[0].variantOfType] as number) =
             partialMatch[0].variantOf;
+        }
+        // example: word was "caravan", the background "caravan leader" was found,
+        // we need to skip the next word ("leader") otherwise the
+        // background "leader" will be picked instead on the next loop
+        const indexOfOccurrence = partialMatch[0].word.indexOf(word);
+        if (indexOfOccurrence + word.length < partialMatch[0].word.length) {
+          const remainingWords = partialMatch[0].word
+            .substring(indexOfOccurrence + word.length + 1)
+            .trim()
+            .split(" ");
+          remainingWords.forEach((remainingWord) => {
+            if (remainingWord === words[i + 1]) {
+              i++;
+            }
+          });
         }
         word = "";
         wordsCount = 1;
@@ -147,7 +162,7 @@ function generateNpc() {
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 
-  generator.generateNpc(promptOptions.value, characterChanges.value);
+  generator.generateNpcs(promptOptions.value, characterChanges.value);
 }
 </script>
 

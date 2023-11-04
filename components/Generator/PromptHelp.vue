@@ -3,7 +3,7 @@
     <template #default>
       <slot name="default">
         <font-awesome-icon
-          class="text-text-secondary cursor-pointer"
+          class="text-text-secondary"
           icon="fa-fw fas fa-circle-question"
         />
       </slot>

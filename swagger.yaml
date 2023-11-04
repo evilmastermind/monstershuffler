@@ -1645,6 +1645,13 @@ components:
               type: boolean
             includeChildren:
               type: boolean
+            pronounsChosen:
+              type: string
+              enum:
+                - male
+                - female
+                - neutral
+                - thing
           additionalProperties: false
         createRandomNpcResponseSchema:
           type: object
@@ -3329,12 +3336,8 @@ components:
                       items:
                         type: string
                     pronouns:
-                      type: string
-                      enum:
-                        - male
-                        - female
-                        - neutral
-                        - thing
+                      $ref: "#/components/schemas/npcSchemas/properties/createRandomNpcInputSchema/pr\
+                        operties/pronounsChosen"
                     prename:
                       type: string
                     name:
@@ -4740,7 +4743,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundListRespo\
                   nseSchema"
-  "/api/backgrounds/{backgroundId}":
+  /api/backgrounds/{backgroundId}:
     get:
       summary: Returns the details of the background corresponding to the given id.
       tags:
@@ -4752,6 +4755,11 @@ paths:
           in: header
           name: authorization
           required: false
+        - schema:
+            type: string
+          in: path
+          name: backgroundId
+          required: true
       responses:
         "200":
           description: Default Response
@@ -4781,7 +4789,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundResponseS\
                   chema"
-  "/api/backgrounds/random/{age}":
+  /api/backgrounds/random/{age}:
     get:
       summary: Returns the details of a random background for a specific age.
       tags:
@@ -4796,6 +4804,11 @@ paths:
           in: header
           name: authorization
           required: false
+        - schema:
+            type: string
+          in: path
+          name: age
+          required: true
       responses:
         "200":
           description: Default Response
@@ -4867,7 +4880,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/classSchemas/properties/getClassWithVariantsListRes\
                   ponseSchema"
-  "/api/classes/{classId}":
+  /api/classes/{classId}:
     get:
       summary: Returns the details of the class corresponding to the given id.
       tags:
@@ -4879,6 +4892,11 @@ paths:
           in: header
           name: authorization
           required: false
+        - schema:
+            type: string
+          in: path
+          name: classId
+          required: true
       responses:
         "200":
           description: Default Response
@@ -4932,12 +4950,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
                   a"
-  "/api/pagesettings/{page}":
+  /api/pagesettings/{page}:
     get:
       summary: Returns the user's settings for a specific page.
       tags:
         - pagesettings
       description: Returns the user's settings for a specific page.
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: page
+          required: true
       responses:
         "200":
           description: Default Response
@@ -4961,6 +4985,12 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Schema/properties/setPagesettingResponseSchema"
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: page
+          required: true
       responses:
         "200":
           description: Default Response
@@ -5010,7 +5040,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/raceSchemas/properties/getRaceWithVariantsListRespo\
                   nseSchema"
-  "/api/races/{raceId}":
+  /api/races/{raceId}:
     get:
       summary: Returns the details of the race corresponding to the given id.
       tags:
@@ -5022,6 +5052,11 @@ paths:
           in: header
           name: authorization
           required: false
+        - schema:
+            type: string
+          in: path
+          name: raceId
+          required: true
       responses:
         "200":
           description: Default Response
@@ -5069,7 +5104,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
                   a"
-  "/api/traits/random/{age}":
+  /api/traits/random/{age}:
     post:
       summary: Returns a random trait for the given age.
       tags:
@@ -5082,6 +5117,12 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema"
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: age
+          required: true
       responses:
         "200":
           description: Default Response
@@ -5090,7 +5131,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
                   a"
-  "/api/traits/{name}":
+  /api/traits/{name}:
     get:
       summary: Returns the description of a trait.
       tags:
@@ -5098,6 +5139,12 @@ paths:
       description: Returns the description of a trait which is usually an adjective
         describing a creature's state of mind, attitude, core beliefs or current
         feelings.
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: name
+          required: true
       responses:
         "200":
           description: Default Response
