@@ -115,7 +115,7 @@ export const useUserStore = defineStore("user", () => {
     const { data, error } = await useAsyncData<{ page: string; object: T }>(
       `getSettings-${page}`,
       () =>
-        $fetch(`${api}/pagesettings/${page}`, {
+        $fetch(`${api}/page-settings/${page}`, {
           method: "GET",
         })
     );
@@ -147,7 +147,7 @@ export const useUserStore = defineStore("user", () => {
       return setSettingsInLocalStorage<T>(page, settings);
     }
     const { data, error } = await useAsyncData<T>(`saveSettings-${page}`, () =>
-      $fetch(`${api}/pagesettings/${page}`, {
+      $fetch(`${api}/page-settings/${page}`, {
         method: "POST",
         body: settings as Record<string, any>,
       })

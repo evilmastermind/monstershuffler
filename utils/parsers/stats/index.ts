@@ -71,6 +71,106 @@ export const sizeStats: SizeStats = {
   "6": { name: "Gargantuan", space: 20, squares: 16, hitDice: 20 },
 };
 
+export function typeToNumber(type: string | null | undefined = null) {
+  switch (type?.toLowerCase()) {
+    case "aberration":
+      return 1;
+      break;
+    case "beast":
+      return 2;
+      break;
+    case "celestial":
+      return 3;
+      break;
+    case "construct":
+      return 4;
+      break;
+    case "dragon":
+      return 5;
+      break;
+    case "elemental":
+      return 6;
+      break;
+    case "fey":
+      return 7;
+      break;
+    case "fiend":
+      return 8;
+      break;
+    case "giant":
+      return 9;
+      break;
+    case "humanoid":
+      return 10;
+      break;
+    case "monstrosity":
+      return 11;
+      break;
+    case "ooze":
+      return 12;
+      break;
+    case "plant":
+      return 13;
+      break;
+    case "undead":
+      return 14;
+      break;
+    default:
+      return 0;
+      break;
+  }
+}
+
+export function numberToType(number = 0) {
+  switch (number) {
+    case 1:
+      return "aberration";
+      break;
+    case 2:
+      return "beast";
+      break;
+    case 3:
+      return "celestial";
+      break;
+    case 4:
+      return "construct";
+      break;
+    case 5:
+      return "dragon";
+      break;
+    case 6:
+      return "elemental";
+      break;
+    case 7:
+      return "fey";
+      break;
+    case 8:
+      return "fiend";
+      break;
+    case 9:
+      return "giant";
+      break;
+    case 10:
+      return "humanoid";
+      break;
+    case 11:
+      return "monstrosity";
+      break;
+    case 12:
+      return "ooze";
+      break;
+    case 13:
+      return "plant";
+      break;
+    case 14:
+      return "undead";
+      break;
+    default:
+      return "unknown";
+      break;
+  }
+}
+
 export type Challenge = {
   CR: number;
   CI: number;

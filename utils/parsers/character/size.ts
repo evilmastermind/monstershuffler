@@ -31,7 +31,7 @@ export function calculateSize(character: Character) {
     number: size,
   };
   if (isSwarm) {
-    character.statistics!.sizeSwarmSingleEntity = {
+    character.statistics!.sizeSingleEntityOfSwarm = {
       string: sizeStats[baseSize.toString() as Size].name,
       number: baseSize,
     };

@@ -27,11 +27,11 @@ const { currentThemeType } = storeToRefs(ui);
 
 const moral = computed(() => {
   if (p.character?.statistics?.alignment?.includes("Good")) {
-    return "text-good-900 fill-good-800";
+    return "text-text-good fill-background-good";
   } else if (p.character?.statistics?.alignment?.includes("Evil")) {
-    return "text-evil-900 fill-evil-800";
+    return "text-text-evil fill-background-evil";
   } else {
-    return "text-neutral-900 fill-neutral-800";
+    return "text-text-neutral fill-background-neutral";
   }
 });
 </script>

@@ -11,6 +11,7 @@ import { calculateAbilityScores } from "./abilityScores";
 import { calculateHitPoints } from "./hp";
 import { calculatePronouns } from "./pronouns";
 import { calculateCharacterHook } from "./characterHook";
+import { calculateType } from "./type";
 import { createTags } from "./tags";
 import { Character } from "@/types/objects";
 
@@ -63,4 +64,5 @@ export function createStats(character: Character) {
   /// /// ///
   calculateCharacterHook(character);
   /// /// ///
+  calculateType(character);
 }

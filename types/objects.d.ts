@@ -8,14 +8,21 @@ export type Statistics = NonNullable<Character["statistics"]>;
 export type Tags = NonNullable<Character["tags"]>;
 export type Variations = NonNullable<Character["variations"]>;
 export type alignmentModifiers = Character["character"]["alignmentModifiers"];
-
 type Race = NonNullable<Character["character"]["race"]> ;
+export type Subtypes = NonNullable<Race["subtypes"]>;
+
 export type Actions = NonNullable<Race["actions"]>;
 type Bonuses = NonNullable<Race["bonuses"]>;
 export type Bonus = NonNullable<Bonuses["HPBonus"]>;
 
 export type DescriptionPart = {
   string: string;
-  type?: "background" | "spell" | "trait" | "race" | "class" | "template";
+  type?: "background" | "spell" | "trait" | "race" | "class" | "template" | "type" | "subtype" | "language" | "skill"  | "savingThrow" | "condition" | "resistance" | "immunity" | "vulnerability" | "conditionImmunity";
+  id?: number;
+};
+
+export type StatNumberString = {
+  number: number;
+  string: string;
   id?: number;
 };

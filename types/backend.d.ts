@@ -137,7 +137,7 @@ export interface paths {
       };
     };
   };
-  "/api/classes/withvariants": {
+  "/api/classes/with-variants": {
     /**
      * Returns a list of all available combinations of classes and variants in the db.
      * @description Returns a list of all available combinations of classes and variants in the db. If authenticated, also returns the classes created by the user.
@@ -229,7 +229,7 @@ export interface paths {
       };
     };
   };
-  "/api/pagesettings/{page}": {
+  "/api/page-settings/{page}": {
     /**
      * Returns the user's settings for a specific page.
      * @description Returns the user's settings for a specific page.
@@ -301,7 +301,7 @@ export interface paths {
       };
     };
   };
-  "/api/races/withvariants": {
+  "/api/races/with-variants": {
     /**
      * Returns a list of all available combinations of races and variants in the db.
      * @description Returns a list of all available combinations of races and variants in the db. If authenticated, also returns the races created by the user.
@@ -1425,18 +1425,19 @@ export interface components {
             characterHook?: ({
                 string: string;
                 /** @enum {string} */
-                type?: "background" | "spell" | "trait" | "race" | "class" | "template";
+                type?: "background" | "spell" | "trait" | "race" | "class" | "template" | "type" | "subtype" | "language" | "skill" | "savingThrow" | "condition" | "resistance" | "immunity" | "vulnerability" | "conditionImmunity";
                 id?: number;
               })[];
             level: number;
             CR: {
               number: number;
               string: string;
+              id?: number;
             };
             XP: string;
             proficiency: number;
             size: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
-            sizeSwarmSingleEntity?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
+            sizeSingleEntityOfSwarm?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
             abilityScores: {
               STR: number;
               DEX: number;
@@ -1447,6 +1448,8 @@ export interface components {
             };
             abilityModifiers: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["abilityScores"];
             HP: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
+            type?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"];
+            subtypes?: components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"]["npc"]["statistics"]["CR"][];
           };
           variables?: {
             LVL: number;
@@ -1498,6 +1501,7 @@ export interface components {
             sizesmaller: string;
             sizetwogreater: string;
             sizetwosmaller: string;
+            type: string;
             [key: string]: string | undefined;
           };
           variations?: {

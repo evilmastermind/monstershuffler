@@ -115,6 +115,6 @@ function showCharacterPage(index: number) {
   border-radius: 1rem;
   line-height: 1rem;
 
-  @apply bg-primary-700 text-text-inverse shadow-md;
+  @apply bg-background-evil text-text-inverse shadow-md;
 }
 </style>
