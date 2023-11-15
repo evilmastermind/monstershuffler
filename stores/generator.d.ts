@@ -1,26 +1,4 @@
-import { components } from "@/types/backend";
-
-export type getRaceWithVariantsListResponseSchema =
-  components["schemas"]["raceSchemas"]["getRaceWithVariantsListResponseSchema"];
-
-export type getClassWithVariantsListResponseSchema =
-  components["schemas"]["classSchemas"]["getClassWithVariantsListResponseSchema"];
-
-export type getBackgroundListResponseSchema =
-  components["schemas"]["backgroundSchemas"]["getBackgroundListResponseSchema"];
-
-export type Background = getBackgroundListResponseSchema["list"][number];
-
-export type createRandomNpcInputSchema =
-  components["schemas"]["npcSchemas"]["createRandomNpcInputSchema"];
-export type createRandomNpcResponseSchema =
-  components["schemas"]["npcSchemas"]["createRandomNpcResponseSchema"];
-export type createFourRandomNpcsResponseSchema =
-  components["schemas"]["npcSchemas"]["createFourRandomNpcsResponseSchema"];
-export type getGeneratorDataResponseSchema =
-  components["schemas"]["npcSchemas"]["getGeneratorDataResponseSchema"];
-
-export type Character = createRandomNpcResponseSchema["npc"];
+import type { PostRandomNpcInput } from "@/types";
 
 export type ObjectOrVariant = {
   id: number;
@@ -33,15 +11,14 @@ export type ObjectOrVariant = {
 
 type VariantProps = {
   variantOf: number;
-  variantOfType: keyof createRandomNpcInputSchema;
+  variantOfType: keyof PostRandomNpcInput;
 };
 
 export type Keyword = {
   word: string;
-  type: keyof createRandomNpcInputSchema;
+  type: keyof PostRandomNpcInput;
   value: number;
 } & (VariantProps | {});
-
 
 export type CharacterChanges = {
   CR?: number;

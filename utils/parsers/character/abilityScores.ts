@@ -3,7 +3,7 @@ import {
   getPrioritizedStatistic,
   calibrateStatistic,
 } from "../functions";
-import { Character } from "@/types/objects";
+import { Character, Abilities } from "@/types";
 import { random } from "@/utils/functions";
 
 type AbilityScore = {
@@ -13,10 +13,6 @@ type AbilityScore = {
 
 type Ability = "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
 
-type AbilityScores = {
-  [key in Ability]: AbilityScore;
-};
-
 export function calculateAbilityScores(character: Character) {
   const c = character.character;
   // @ts-expect-error
@@ -25,19 +21,21 @@ export function calculateAbilityScores(character: Character) {
   character.statistics!.abilityModifiers = {};
   const abilities: Ability[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
   createKeyIfUndefined(c, "abilityScores");
-  const abilityScores = c.abilityScores;
+  if (!c.abilityScores) {
+    c.abilityScores = {};
+  }
   const abilitiesLimit =
     getPrioritizedStatistic<number>(character, "abilitiesLimit") || 30;
   for (const abilityName of abilities) {
     // generating abilities scores if they don't exist yet
     // base Ability Score = 3d6, min 8;
-    if (!Object.hasOwn(abilityScores, abilityName)) {
-      abilityScores[abilityName] = {
+    if (c.abilityScores[abilityName] === undefined) {
+      c.abilityScores[abilityName] = {
         value: random(1, 6) + random(1, 6) + random(1, 6),
       };
     }
-    if (abilityScores[abilityName].value < 8) {
-      abilityScores[abilityName].value = 8;
+    if (c.abilityScores[abilityName]!.value < 8) {
+      c.abilityScores[abilityName]!.value = 8;
     }
 
     // checking if there's a template applied to the creature with
@@ -45,13 +43,13 @@ export function calculateAbilityScores(character: Character) {
     if (
       c?.template?.abilityScores &&
       Object.hasOwn(c.template.abilityScores, abilityName) &&
-      abilityScores[abilityName].value <
-        c.template.abilityScores[abilityName].value
+      c.abilityScores[abilityName]!.value <
+        c.template.abilityScores[abilityName]!.value
     ) {
-      abilityScores[abilityName].value =
-        c.template.abilityScores[abilityName].value;
+      c.abilityScores[abilityName]!.value =
+        c.template.abilityScores[abilityName]!.value;
     }
-    let abilityScoreTotal: number = abilityScores[abilityName].value;
+    let abilityScoreTotal: number = c.abilityScores[abilityName]!.value;
 
     // ability score bonus
     abilityScoreTotal += getBonus(character, abilityName);

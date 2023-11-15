@@ -1,4 +1,4 @@
-import { Character, DescriptionPart } from "@/types/objects";
+import { Character, DescriptionPart } from "@/types";
 import { replaceTags } from "@/utils/parsers";
 
 export function calculateCharacterHook(character: Character) {

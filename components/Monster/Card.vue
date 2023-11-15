@@ -24,9 +24,9 @@
             ({{ $t("monsterCard.ageNumber", { age: character.age.number }) }})
           </dd>
         </template>
-        <template v-if="statistics?.alignment.length">
+        <template v-if="statistics?.alignment?.array?.length">
           <dt :class="moral">{{ $t("monsterCard.alignment") }}</dt>
-          <dd>{{ statistics.alignment.join(" ") }}</dd>
+          <dd>{{ statistics.alignment.array.join(" ") }}</dd>
         </template>
         <template v-if="character.trait">
           <dt :class="moral">{{ $t("monsterCard.personality") }}</dt>
@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { Character } from "@/stores/generator.d";
+import { Character } from "@/types";
 import { useTooltipsStore } from "@/stores/tooltips";
 
 const tooltips = useTooltipsStore();
@@ -84,18 +84,18 @@ const about = computed(() => {
   return string;
 });
 const moral = computed(() => {
-  if (statistics.value.alignment.includes("Good")) {
+  if (statistics.value.alignment?.array?.includes("Good")) {
     return "good";
-  } else if (statistics.value.alignment.includes("Evil")) {
+  } else if (statistics.value.alignment.array?.includes("Evil")) {
     return "evil";
   } else {
     return "neutral";
   }
 });
 const ethical = computed(() => {
-  if (statistics.value.alignment.includes("Lawful")) {
+  if (statistics.value.alignment.array?.includes("Lawful")) {
     return "lawful";
-  } else if (statistics.value.alignment.includes("Chaotic")) {
+  } else if (statistics.value.alignment.array?.includes("Chaotic")) {
     return "chaotic";
   } else {
     return "neutral";

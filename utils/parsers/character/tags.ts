@@ -1,4 +1,4 @@
-import { Character, Actions } from "@/types/objects";
+import { Character, Action } from "@/types";
 import { capitalizeFirst } from "@/utils/functions";
 import { resolveRandomName } from "@/utils/parsers";
 import { objects } from "@/utils/constants";
@@ -123,28 +123,33 @@ export function createTags(character: Character) {
       continue;
     }
     // @ts-expect-error Object.hasOwn not accepted by TypeScript
-    const actions = c[object]?.actions as Actions;
+    const actions = c[object]?.actions as Action[];
     if (!actions.length) {
       continue;
     }
     actions.forEach((action) => {
-      const variants = action.variants;
+      if (!("variants" in action)) {
+        return;
+      }
+      const variants = action?.variants || [];
       let currentVariant = variants[0];
       tags[action.tag] = currentVariant.name;
       const currentUnitValue =
         action.availableUnit === "level"
           ? character.statistics!.level
-          : character.statistics!.CR;
+          : character.statistics!.CR?.number;
       variants.forEach((variant) => {
         variant.name = resolveRandomName(variant.name);
         if (
+          variant?.availableAt &&
+          currentVariant.availableAt &&
           variant?.availableAt >= currentUnitValue &&
           variant?.availableAt > currentVariant.availableAt
         ) {
           tags[action.tag] = variant.name;
           currentVariant = variant;
           if (Object.hasOwn(variant, "attacks")) {
-            variant.attacks.forEach((attack) => {
+            variant?.attacks?.forEach((attack) => {
               if (attack.replaceName) {
                 tags[action.tag] = attack.name;
               }

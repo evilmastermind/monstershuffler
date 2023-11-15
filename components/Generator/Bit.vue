@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 
 const generator = useGeneratorStore();
 const { characters, currentCharacterIndex, currentCharacterFromBitsPreview } =
@@ -79,9 +79,9 @@ const profession = () => {
 };
 
 const moral = () => {
-  if (p.character?.statistics?.alignment?.includes("Good")) {
+  if (p.character?.statistics?.alignment?.array?.includes("Good")) {
     return "bg-good-800";
-  } else if (p.character?.statistics?.alignment?.includes("Evil")) {
+  } else if (p.character?.statistics?.alignment?.array?.includes("Evil")) {
     return "bg-evil-800";
   } else {
     return "bg-neutral-800";

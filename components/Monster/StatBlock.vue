@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Character } from "@/types/objects";
+import type { Character } from "@/types";
 
 const p = defineProps({
   character: {
@@ -26,9 +26,9 @@ const { themes } = ui;
 const { currentThemeType } = storeToRefs(ui);
 
 const moral = computed(() => {
-  if (p.character?.statistics?.alignment?.includes("Good")) {
+  if (p.character?.statistics?.alignment?.array?.includes("Good")) {
     return "text-text-good fill-background-good";
-  } else if (p.character?.statistics?.alignment?.includes("Evil")) {
+  } else if (p.character?.statistics?.alignment?.array?.includes("Evil")) {
     return "text-text-evil fill-background-evil";
   } else {
     return "text-text-neutral fill-background-neutral";

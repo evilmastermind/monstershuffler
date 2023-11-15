@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 
 const generator = useGeneratorStore();
 

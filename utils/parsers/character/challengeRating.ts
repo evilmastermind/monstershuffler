@@ -1,4 +1,4 @@
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 import {
   challengeStats,
   getChallengeString,

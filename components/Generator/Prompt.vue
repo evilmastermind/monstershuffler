@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { type CharacterChanges } from "@/stores/generator.d";
+import type { CharacterChanges } from "@/stores/generator.d";
 const generator = useGeneratorStore();
 
 const prompt = ref("");

@@ -1,4 +1,4 @@
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 import { sizeStats, Size, getBonus, calibrateStatistic } from "@/utils/parsers";
 
 export function calculateHitPoints(character: Character) {
@@ -28,7 +28,7 @@ export function calculateHitPoints(character: Character) {
   // statistics
   s.HP = {
     string: `${HPTotal} (${HitDice}d${die}${HPText})`,
-    value: HPTotal,
+    number: HPTotal,
   };
   // variables
   character.variables!.HP = HPTotal;

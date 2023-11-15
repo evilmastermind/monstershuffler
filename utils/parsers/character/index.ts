@@ -13,7 +13,7 @@ import { calculatePronouns } from "./pronouns";
 import { calculateCharacterHook } from "./characterHook";
 import { calculateType } from "./type";
 import { createTags } from "./tags";
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 
 export function createStats(character: Character) {
   createKeyIfUndefined(character, "statistics");

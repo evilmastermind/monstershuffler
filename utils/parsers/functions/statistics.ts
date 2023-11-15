@@ -1,6 +1,6 @@
 import { stat } from "fs";
 import { parseExpressionNumeric } from "./expressions";
-import { Character, Bonus } from "@/types/objects";
+import { Character, Bonus } from "@/types";
 import { objects } from "@/utils/constants";
 import {
   challengeStats,

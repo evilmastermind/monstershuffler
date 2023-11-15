@@ -1,4 +1,3 @@
-import { get } from "http";
 import { getTraitDescriptionResponseSchema } from "./tooltips.d";
 
 const config = useRuntimeConfig();

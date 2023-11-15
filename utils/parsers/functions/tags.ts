@@ -1,4 +1,4 @@
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 
 export function replaceTags(string: string, character: Character) {
   const tags = character.tags!;

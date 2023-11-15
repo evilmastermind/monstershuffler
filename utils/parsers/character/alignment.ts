@@ -1,46 +1,45 @@
-import { Character } from "@/stores/generator.d";
-import { hasDefined, random } from "@/utils/functions";
-import { objects } from "@/utils/constants";
+import type { Character, AlignmentEthical, AlignmentMoral } from "@/types";
+import { random } from "@/utils/functions";
 import { getStatArrayFromObjects } from "@/utils/parsers/functions";
 
 export function calculateAlignment(character: Character) {
   const c = character.character;
   const generic = c?.generic || null;
-  const typically = generic === true ? "Typically " : "";
-  character.statistics!.alignment = [];
-
-  const alignmentNumber = 0;
+  const typically = generic === true ? "Typically" : "";
+  const alignment: (
+    | AlignmentEthical
+    | AlignmentMoral
+    | "Any Alignment"
+    | "Typically"
+  )[] = [];
 
   // alignments that have already been defined
   if (c.alignmentEthical === "Unaligned") {
-    character.statistics!.alignment.push("Unaligned");
+    alignment.push("Unaligned");
     return;
   }
   if (c.alignmentEthical === c.alignmentMoral && c.alignmentMoral === "Any") {
-    character.statistics!.alignment.push("Any Alignment");
+    alignment.push("Any Alignment");
     return;
   }
   if (c.alignmentEthical === "Any" && c.alignmentMoral) {
-    character.statistics!.alignment.push("Any", c.alignmentMoral!);
+    alignment.push("Any", c.alignmentMoral!);
     return;
   }
   if (c.alignmentMoral === "Any" && c.alignmentEthical) {
-    character.statistics!.alignment.push("Any", c.alignmentEthical);
+    alignment.push("Any", c.alignmentEthical);
     return;
   }
   if (typically) {
-    character.statistics!.alignment.unshift(typically);
+    alignment.unshift(typically);
   }
   if (c.alignmentEthical && c.alignmentMoral) {
     // neutral
     if (c.alignmentEthical === c.alignmentMoral) {
-      character.statistics!.alignment.push(c.alignmentEthical!);
+      alignment.push(c.alignmentEthical!);
     } else {
       // any other defined alignment
-      character.statistics!.alignment.push(
-        c.alignmentEthical!,
-        c.alignmentMoral
-      );
+      alignment.push(c.alignmentEthical!, c.alignmentMoral);
     }
     return;
   }
@@ -130,11 +129,40 @@ export function calculateAlignment(character: Character) {
     c.alignmentMoral ??= "Neutral";
   }
   if (typically) {
-    character.statistics!.alignment.push(typically);
+    alignment.push(typically);
   }
   if (c.alignmentEthical === c.alignmentMoral) {
-    character.statistics!.alignment.push(c.alignmentEthical!);
+    alignment.push(c.alignmentEthical!);
   } else {
-    character.statistics!.alignment.push(c.alignmentEthical!, c.alignmentMoral);
+    alignment.push(c.alignmentEthical!, c.alignmentMoral);
   }
+
+  let alignmentNumber = 0;
+  switch (c.alignmentEthical) {
+    case "Lawful":
+      alignmentNumber += 1;
+      break;
+    case "Neutral":
+      alignmentNumber += 2;
+      break;
+    case "Chaotic":
+      alignmentNumber += 3;
+      break;
+  }
+  switch (c.alignmentMoral) {
+    case "Good":
+      alignmentNumber += 10;
+      break;
+    case "Neutral":
+      alignmentNumber += 20;
+      break;
+    case "Evil":
+      alignmentNumber += 30;
+      break;
+  }
+  character.statistics!.alignment = {
+    string: alignment.join(" "),
+    number: alignmentNumber,
+    array: alignment,
+  };
 }

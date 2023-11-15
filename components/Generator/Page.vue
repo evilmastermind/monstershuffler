@@ -82,12 +82,11 @@
 
 <script setup lang="ts">
 import { useScreen } from "@/composables/screen";
-import { Character } from "@/types/objects";
-import { createRandomNpcInputSchema } from "@/stores/generator.d";
+import { Character, PostRandomNpcInput } from "@/types";
 
 type NPCGeneratorSettings = {
   characters: Character[];
-  options: createRandomNpcInputSchema;
+  options: PostRandomNpcInput;
   isFormMode: boolean;
 };
 

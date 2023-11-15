@@ -1,14 +1,12 @@
-import {
-  Background,
+import type { Keyword, CharacterChanges, ObjectOrVariant } from "./generator.d";
+import type {
+  ObjectList,
+  PostFourRandomNpcsResponse,
+  // PostRandomNpcResponse,
+  PostRandomNpcInput,
+  GetGeneratorDataResponse,
   Character,
-  createFourRandomNpcsResponseSchema,
-  createRandomNpcResponseSchema,
-  createRandomNpcInputSchema,
-  getGeneratorDataResponseSchema,
-  Keyword,
-  ObjectOrVariant,
-  CharacterChanges,
-} from "@/stores/generator.d";
+} from "@/types";
 import { createStats } from "@/utils/parsers";
 
 const config = useRuntimeConfig();
@@ -18,19 +16,19 @@ const api = config.public.apiUrl;
 
 export const useGeneratorStore = defineStore("generator", () => {
   const session: Ref<Character[]> = ref([]);
-  const settings: Ref<createRandomNpcInputSchema | null> = ref(null);
+  const settings: Ref<PostRandomNpcInput | null> = ref(null);
   const characters: Ref<Character[]> = ref([]);
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character | null>(null);
   const racesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
   const classesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
-  const backgrounds: Ref<Background[]> = ref([]);
+  const backgrounds: Ref<ObjectList> = ref([]);
   ///
   const primaryRaceIndex = ref(0);
   const secondaryRaceIndex = ref(0);
   const classIndex = ref(0);
   const backgroundIndex = ref(0);
-  const options = ref<createRandomNpcInputSchema>({
+  const options = ref<PostRandomNpcInput>({
     primaryRacePercentage: 50,
     secondaryRacePercentage: 40,
     classType: "randomSometimes",
@@ -39,23 +37,21 @@ export const useGeneratorStore = defineStore("generator", () => {
     addVoice: true,
     includeChildren: false,
   });
-  const promptOptions = ref<createRandomNpcInputSchema>({});
+  const promptOptions = ref<PostRandomNpcInput>({});
   const keywords = ref<Keyword[]>([]);
 
   const generateNpcs = throttle(getRandomNpcs, 1000);
   // const generateNpc = throttle(getRandomNpc, 1000);
 
   async function getRandomNpcs(
-    npcOptions: createRandomNpcInputSchema,
+    npcOptions: PostRandomNpcInput,
     changes: CharacterChanges = {}
   ) {
-    const { data } = await useAsyncData<createFourRandomNpcsResponseSchema>(
-      "npc",
-      () =>
-        $fetch(`${api}/npcs/four`, {
-          method: "POST",
-          body: npcOptions,
-        })
+    const { data } = await useAsyncData<PostFourRandomNpcsResponse>("npc", () =>
+      $fetch(`${api}/npcs/four`, {
+        method: "POST",
+        body: npcOptions,
+      })
     );
 
     if (data?.value?.npcs) {
@@ -83,7 +79,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   // async function getRandomNpc(
-  //   npcOptions: createRandomNpcInputSchema,
+  //   npcOptions: PostRandomNpcInput,
   //   changes: CharacterChanges = {}
   // ) {
   //   const { data } = await useAsyncData<createRandomNpcResponseSchema>(
@@ -119,7 +115,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   // }
 
   async function getGeneratorData() {
-    const { data } = await useAsyncData<getGeneratorDataResponseSchema>(
+    const { data } = await useAsyncData<GetGeneratorDataResponse>(
       "generatorData",
       () => $fetch(`${api}/npcs/generator-data`)
     );
@@ -144,7 +140,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   function prepareObjectOrVariantList(
-    objectWithVariants: getGeneratorDataResponseSchema["races"],
+    objectWithVariants: GetGeneratorDataResponse["races"],
     type: Keyword["type"],
     typevariant: Keyword["type"]
   ) {
@@ -187,7 +183,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     return objectOrVariantList;
   }
 
-  function parseSettings(settings: createRandomNpcInputSchema) {
+  function parseSettings(settings: PostRandomNpcInput) {
     if (settings) {
       options.value = { ...settings };
       let index = -1;

@@ -1,4 +1,4 @@
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 import { getPrioritizedStatistic } from "@/utils/parsers/functions";
 
 export function calculatePronouns(character: Character) {

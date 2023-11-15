@@ -6,7 +6,6 @@ import {
   CreateUserResponseSchema,
   GetUserResponseSchema,
 } from "./user.d";
-import { PageSettings } from "@/types";
 import { handleResponse } from "@/utils/functions";
 
 const config = useRuntimeConfig();

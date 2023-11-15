@@ -1,6 +1,6 @@
 import { getPrioritizedStatistic } from "../functions";
 import { typeToNumber } from "../stats";
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 
 export function calculateType(character: Character) {
   const type = getPrioritizedStatistic<string>(character, "type") || "Humanoid";

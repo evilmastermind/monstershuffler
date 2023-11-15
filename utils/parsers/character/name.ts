@@ -1,4 +1,4 @@
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 
 export function calculateName(character: Character) {
   const c = character.character;

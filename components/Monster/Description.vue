@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { DescriptionPart } from "@/types/objects";
+import type { DescriptionPart } from "@/types";
 
 const p = defineProps({
   characterHook: {

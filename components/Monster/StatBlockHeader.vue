@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Character } from "@/types/objects";
+import type { Character } from "@/types";
 
 const p = defineProps({
   character: {

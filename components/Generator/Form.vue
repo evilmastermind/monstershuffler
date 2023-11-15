@@ -187,9 +187,7 @@
 </template>
 
 <script setup lang="ts">
-import { createRandomNpcInputSchema } from "@/stores/generator.d";
-
-import { capitalizeFirst, throttle } from "@/utils/functions";
+import { capitalizeFirst } from "@/utils/functions";
 
 const e = defineEmits(["close", "generate"]);
 const p = defineProps({

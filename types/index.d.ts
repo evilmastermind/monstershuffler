@@ -1,4 +1,3 @@
-import { components } from "@/types/backend";
-
-
-export type PageSettings = components["schemas"]["Schema"]["getPagesettingResponseSchema"];
+export * from "./api.d";
+export * from "./nuxt.d";
+export * from "./objects.d";
