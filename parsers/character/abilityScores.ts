@@ -4,7 +4,7 @@ import {
   calibrateStatistic,
 } from "../functions";
 import { Character, Abilities } from "@/types";
-import { random } from "@/utils/functions";
+import { random } from "@/utils";
 
 type AbilityScore = {
   value: number;

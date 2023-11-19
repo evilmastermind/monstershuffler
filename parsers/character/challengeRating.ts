@@ -3,7 +3,7 @@ import {
   challengeStats,
   getChallengeString,
   getChallengeNumber,
-} from "@/utils/parsers/stats";
+} from "@/parsers/stats";
 
 export function calculateChallengeRating(character: Character) {
   if (character?.variations?.currentCR) {

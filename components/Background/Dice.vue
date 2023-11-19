@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, nextTick } from "vue";
 import { $ref, $computed } from "vue/macros";
-import { debounce } from "@/utils/functions";
+import { debounce } from "@/utils";
 
 type DiceStyle = {
   left: string;

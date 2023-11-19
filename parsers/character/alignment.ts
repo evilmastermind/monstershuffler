@@ -1,6 +1,6 @@
 import type { Character, AlignmentEthical, AlignmentMoral } from "@/types";
-import { random } from "@/utils/functions";
-import { getStatArrayFromObjects } from "@/utils/parsers/functions";
+import { random } from "@/utils";
+import { getStatArrayFromObjects } from "@/parsers/functions";
 
 export function calculateAlignment(character: Character) {
   const c = character.character;

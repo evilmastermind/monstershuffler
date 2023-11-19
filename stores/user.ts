@@ -1,12 +1,6 @@
-import { get } from "http";
-import {
-  Credentials,
-  RegistrationFields,
-  LoginResponseSchema,
-  CreateUserResponseSchema,
-  GetUserResponseSchema,
-} from "./user.d";
-import { handleResponse } from "@/utils/functions";
+import { Credentials, RegistrationFields } from "./user.d";
+import { LoginResponse, PostUser, GetUserResponse } from "@/types";
+import { handleResponse } from "@/utils";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
@@ -15,16 +9,15 @@ const api = config.public.apiUrl;
 
 export const useUserStore = defineStore("user", () => {
   const token: Ref<string> = ref("");
-  const me: Ref<GetUserResponseSchema | null> = ref(null);
+  const me: Ref<GetUserResponse | null> = ref(null);
+  const settings = computed(() => me.value?.settings || {});
 
   async function login(credentials: Credentials) {
-    const { data, error } = await useAsyncData<LoginResponseSchema>(
-      "login",
-      () =>
-        $fetch(`${api}/users/login`, {
-          method: "POST",
-          body: credentials,
-        })
+    const { data, error } = await useAsyncData<LoginResponse>("login", () =>
+      $fetch(`${api}/users/login`, {
+        method: "POST",
+        body: credentials,
+      })
     );
     if (data?.value?.accessToken) {
       token.value = data.value.accessToken;
@@ -34,26 +27,22 @@ export const useUserStore = defineStore("user", () => {
   }
 
   async function register(fields: RegistrationFields) {
-    const { data, error } = await useAsyncData<CreateUserResponseSchema>(
-      "register",
-      () =>
-        $fetch(`${api}/users`, {
-          method: "POST",
-          body: fields,
-        })
+    const { data, error } = await useAsyncData<PostUser>("register", () =>
+      $fetch(`${api}/users`, {
+        method: "POST",
+        body: fields,
+      })
     );
     // @ts-ignore: TODO: (nuxt bug?) error is not actually of type Error, and I can't access error.statusCode
     return handleResponse(data.value, error.value, 201);
   }
 
   async function verifyEmail(token: string) {
-    const { data, error } = await useAsyncData<LoginResponseSchema>(
-      "verify",
-      () =>
-        $fetch(`${api}/users/verify`, {
-          method: "PUT",
-          body: { token },
-        })
+    const { data, error } = await useAsyncData<LoginResponse>("verify", () =>
+      $fetch(`${api}/users/verify`, {
+        method: "PUT",
+        body: { token },
+      })
     );
     // @ts-ignore: TODO: (nuxt bug?) error is not actually of type Error, and I can't access error.statusCode
     return handleResponse(data.value, error.value, 200);
@@ -71,7 +60,7 @@ export const useUserStore = defineStore("user", () => {
   }
 
   async function resetPassword(password: string, tokenpwd: string) {
-    const { data, error } = await useAsyncData<LoginResponseSchema>(
+    const { data, error } = await useAsyncData<LoginResponse>(
       "resetPassword",
       () =>
         $fetch(`${api}/users/pwdreset`, {
@@ -90,7 +79,7 @@ export const useUserStore = defineStore("user", () => {
     if (!token.value) {
       return;
     }
-    const { data, error } = await useAsyncData<GetUserResponseSchema>(
+    const { data, error } = await useAsyncData<GetUserResponse>(
       "getDetails",
       () =>
         $fetch(`${api}/users/me`, {
@@ -184,6 +173,7 @@ export const useUserStore = defineStore("user", () => {
   return {
     token,
     me,
+    settings,
     login,
     logout,
     register,

@@ -1,27 +1,19 @@
 <template>
   <div class="header">
     <div class="header__name" :class="moral">
-      {{ character?.statistics?.fullName || "Creature Name" }}
+      {{ statistics?.fullName || "Creature Name" }}
     </div>
-    <div class="header__meta pt-1">
-      {{ character?.statistics?.surname || "Creature Name" }}
+    <div v-if="statistics?.meta" class="header__meta pt-1">
+      {{ statistics.meta }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Character } from "@/types";
+import type { Statistics } from "@/types";
 
-const p = defineProps({
-  character: {
-    type: Object as PropType<Character>,
-    required: true,
-  },
-  moral: {
-    type: String,
-    required: true,
-  },
-});
+const statistics = inject("statistics") as Statistics;
+const moral = inject("moral") as string;
 </script>
 
 <style scoped lang="scss">

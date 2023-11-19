@@ -187,7 +187,7 @@
 </template>
 
 <script setup lang="ts">
-import { capitalizeFirst } from "@/utils/functions";
+import { capitalizeFirst } from "@/utils";
 
 const e = defineEmits(["close", "generate"]);
 const p = defineProps({

@@ -1,6 +1,6 @@
-import { sizeStats, Size, parseExpressionNumeric } from "@/utils/parsers";
+import { sizeStats, Size, parseExpressionNumeric } from "@/parsers";
 import { Character } from "@/types";
-import { getBonus, getPrioritizedStatistic } from "@/utils/parsers/functions";
+import { getBonus, getPrioritizedStatistic } from "@/parsers/functions";
 
 export function calculateSize(character: Character) {
   let size = 0;
@@ -14,7 +14,7 @@ export function calculateSize(character: Character) {
   if (isSwarm) {
     const swarmSize = parseExpressionNumeric(
       getPrioritizedStatistic<string>(character, "swarmSize") || "3",
-      character.variables!
+      character
     );
     size += swarmSize;
   } else {

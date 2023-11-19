@@ -1,7 +1,6 @@
 import { Character, Action } from "@/types";
-import { capitalizeFirst } from "@/utils/functions";
-import { resolveRandomName } from "@/utils/parsers";
-import { objects } from "@/utils/constants";
+import { capitalizeFirst, objects } from "@/utils";
+import { resolveRandomName } from "@/parsers";
 
 export function createTags(character: Character) {
   const c = character.character;

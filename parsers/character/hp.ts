@@ -1,8 +1,9 @@
 import { Character } from "@/types";
-import { sizeStats, Size, getBonus, calibrateStatistic } from "@/utils/parsers";
+import { sizeStats, Size, getBonus, calibrateStatistic } from "@/parsers";
 
 export function calculateHitPoints(character: Character) {
   const s = character.statistics!;
+  const v = character.variables!;
   const size = s!.size.number;
   const HitDice = s!.level;
 
@@ -31,5 +32,5 @@ export function calculateHitPoints(character: Character) {
     number: HPTotal,
   };
   // variables
-  character.variables!.HP = HPTotal;
+  v.HP = HPTotal;
 }

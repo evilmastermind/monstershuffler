@@ -4,7 +4,9 @@
     <div class="stat-block" :class="`stat-block-${currentThemeType}`">
       <div class="gradient" :class="`gradient-${currentThemeType}`" />
       <div class="stat-block-content p-4">
-        <MonsterStatBlockHeader :character="character" :moral="moral" />
+        <MonsterStatBlockHeader />
+        <MonsterStatBlockSeparator />
+        <MonsterStatBlockPart1 />
       </div>
     </div>
     <div class="border" :class="`border-${currentThemeType}`" />
@@ -34,6 +36,12 @@ const moral = computed(() => {
     return "text-text-neutral fill-background-neutral";
   }
 });
+
+provide(
+  "statistics",
+  computed(() => p.character.statistics)
+);
+provide("moral", moral);
 </script>
 
 <style scoped lang="scss">

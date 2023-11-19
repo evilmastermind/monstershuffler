@@ -1,5 +1,5 @@
 import { Character, DescriptionPart } from "@/types";
-import { replaceTags } from "@/utils/parsers";
+import { replaceTags } from "@/parsers";
 
 export function calculateCharacterHook(character: Character) {
   const c = character.character;

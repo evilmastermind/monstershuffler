@@ -23,7 +23,7 @@ added features:
 ----------------------------------------------------------------
 */
 
-import { Variables } from "@/types/objects";
+import { Character, Variables } from "@/types";
 
 const fixSigns = (expression: string) => {
   // this part adds 0 before numbers declared with a sign at the beginning of an expression
@@ -191,9 +191,10 @@ type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
 
 export function parseExpression(
   expression = "",
-  mapObj: Variables,
+  character: Character,
   source = ""
 ): Result<number> {
+  const mapObj: Variables = character.variables!;
   let preparedExpression = expression.toString();
   // removing white spaces
   preparedExpression = preparedExpression.replace(/ +/g, "");
@@ -227,10 +228,10 @@ export function parseExpression(
 
 export function parseExpressionNumeric(
   expression = "",
-  mapObj: Variables,
+  character: Character,
   source = ""
 ): number {
-  const result = parseExpression(expression, mapObj, source);
+  const result = parseExpression(expression, character, source);
   if (result.ok) return result.value;
   else return 0;
 }

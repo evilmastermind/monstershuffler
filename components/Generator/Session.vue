@@ -30,10 +30,13 @@ const generator = useGeneratorStore();
 const { characters, currentCharacterIndex, session } = storeToRefs(generator);
 
 function openCharacterSheet(character: Character) {
-  if (!characters.value.includes(character)) {
+  const index = characters.value.findIndex((c) => c === character);
+  if (index === -1) {
     characters.value.push(character);
+    currentCharacterIndex.value = characters.value.length - 1;
+  } else {
+    currentCharacterIndex.value = index;
   }
-  currentCharacterIndex.value = characters.value.length - 1;
 }
 </script>
 

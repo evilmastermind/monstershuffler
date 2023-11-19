@@ -7,7 +7,7 @@ import type {
   GetGeneratorDataResponse,
   Character,
 } from "@/types";
-import { createStats } from "@/utils/parsers";
+import { createStats } from "@/parsers";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;

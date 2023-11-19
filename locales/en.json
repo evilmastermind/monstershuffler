@@ -3,8 +3,8 @@
     "age": "Age",
     "ageNumber": "{age} years old",
     "child": "child",
-    "adolescent": "adolescent", 
-    "young adult" : "young adult",
+    "adolescent": "adolescent",
+    "young adult": "young adult",
     "adult": "adult",
     "middle-aged": "middle-aged",
     "elderly": "elderly",
@@ -13,6 +13,18 @@
     "personality": "Personality",
     "voice": "Voice",
     "voiceIn": "in"
+  },
+  "statBlock": {
+    "AC": "Armor Class",
+    "speed": {
+      "speed": "Speed",
+      "fly": "Fly",
+      "hover": "Hover",
+      "swim": "Swim",
+      "climb": "Climb",
+      "burrow": "Burrow"
+    },
+    "HP": "Hit Points"
   },
   "alignment": {
     "Neutral": "Neutral",

@@ -13,6 +13,10 @@ import { calculatePronouns } from "./pronouns";
 import { calculateCharacterHook } from "./characterHook";
 import { calculateType } from "./type";
 import { createTags } from "./tags";
+import { calculateSubtype } from "./subtype";
+import { calculateMeta } from "./meta";
+import { calculateArmorClass } from "./ac";
+import { calculateSpeed } from "./speed";
 import { Character } from "@/types";
 
 export function createStats(character: Character) {
@@ -65,4 +69,8 @@ export function createStats(character: Character) {
   calculateCharacterHook(character);
   /// /// ///
   calculateType(character);
+  calculateSubtype(character);
+  calculateMeta(character);
+  calculateSpeed(character);
+  calculateArmorClass(character);
 }

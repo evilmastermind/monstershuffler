@@ -1,6 +1,6 @@
-import { sizeStats, Size } from "@/utils/parsers";
+import { sizeStats, Size } from "@/parsers";
 import { Character } from "@/types/objects";
-import { getStatArrayFromObjects } from "@/utils/parsers/functions";
+import { getStatArrayFromObjects } from "@/parsers/functions";
 
 export function calculateLevel(character: Character) {
   if (character?.variations?.currentHD !== undefined) {

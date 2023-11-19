@@ -1,3 +1,5 @@
+export const speedTypes = ["walk", "burrow", "climb", "fly", "hover", "swim"];
+
 export const challengeStats = {
   "0": { xp: 10, proficiency: 2 },
   "1/8": { xp: 25, proficiency: 2 },

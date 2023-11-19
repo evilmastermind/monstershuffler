@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defaultHead, defaultDescription } from "@/utils/seo";
+import { defaultHead, defaultDescription } from "@/utils";
 const { locale } = useI18n();
 useHead({
   meta: [...defaultHead, ...defaultDescription],

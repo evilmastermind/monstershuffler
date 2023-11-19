@@ -8,7 +8,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defaultHead } from "@/utils/seo";
+import { defaultHead } from "@/utils";
 const { locale } = useI18n();
 useHead({
   meta: [...defaultHead],

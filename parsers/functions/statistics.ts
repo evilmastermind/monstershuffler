@@ -1,12 +1,20 @@
-import { stat } from "fs";
+import JSPath from "jspath";
 import { parseExpressionNumeric } from "./expressions";
 import { Character, Bonus } from "@/types";
-import { objects } from "@/utils/constants";
-import {
-  challengeStats,
-  Challenge,
-  challengeTable,
-} from "@/utils/parsers/stats";
+import { objects } from "@/utils";
+import { Challenge, challengeTable } from "@/parsers/stats";
+
+export function isNumber(stat: string) {
+  return !isNaN(parseFloat(stat)) && isFinite(Number(stat));
+}
+
+export function getCurrentStatLimit(character: Character) {
+  if (character?.character?.CRCalculation?.name === "automatic") {
+    return character?.variations?.currentCR || null;
+  } else {
+    return character?.variations?.currentHD || null;
+  }
+}
 
 export function getStatArrayFromObjects<T>(character: Character, stat: string) {
   const c = character.character;
@@ -53,7 +61,7 @@ export function getBonus(character: Character, stat: string): number {
   const bonuses = getBonusesForOneStatistic(character, stat);
   let bonus = 0;
   bonuses.forEach((b) => {
-    bonus += parseExpressionNumeric(b.value, character.variables!);
+    bonus += parseExpressionNumeric(b.value, character);
   });
   return bonus;
 }
@@ -72,6 +80,23 @@ export function getPrioritizedStatistic<T>(character: Character, key: string) {
   if (Object.hasOwn(c, key)) {
     // @ts-ignore
     return c[key] as T;
+  }
+}
+
+export function getPrioritizedStatisticFromPath<T>(
+  character: Character,
+  key: string
+) {
+  const c = character.character;
+  for (let i = 0; i < objects.length; i++) {
+    if (Object.hasOwn(c, objects[i])) {
+      // @ts-ignore
+      const result = JSPath.apply(`${key}`, c[objects[i]]);
+      if (result.length > 0) {
+        // @ts-ignore
+        return result[0] as T;
+      }
+    }
   }
 }
 
@@ -176,4 +201,20 @@ function calibrateTheCalibrationFactor(
       (1 - calibrationFactor) * reductionFactor + calibrationFactor;
   }
   return newCalibrationFactor;
+}
+
+export function pushWithComma(originalString: string, string2: string) {
+  if (originalString) {
+    originalString += ", ";
+  }
+  originalString += string2;
+  return originalString;
+}
+
+export function unshiftWithComma(originalString: string, string2: string) {
+  if (originalString) {
+    originalString = ", " + originalString;
+  }
+  originalString = string2 + originalString;
+  return originalString;
 }

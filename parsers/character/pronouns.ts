@@ -1,5 +1,5 @@
 import { Character } from "@/types";
-import { getPrioritizedStatistic } from "@/utils/parsers/functions";
+import { getPrioritizedStatistic } from "@/parsers/functions";
 
 export function calculatePronouns(character: Character) {
   const pronouns = getPrioritizedStatistic<string>(character, "pronouns");
