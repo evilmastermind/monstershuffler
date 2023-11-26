@@ -16,8 +16,16 @@ import { createTags } from "./tags";
 import { calculateSubtype } from "./subtype";
 import { calculateMeta } from "./meta";
 import { calculateArmorClass } from "./ac";
+import { calculateLanguages } from "./languages";
 import { calculateSpeed } from "./speed";
-import { Character } from "@/types";
+import { calculateSavingThrows } from "./savingThrows";
+import { calculateSkills } from "./skills";
+import { calculateDamageVulnerabilities } from "./damageVulnerabilities";
+import { calculateDamageResistances } from "./damageResistances";
+import { calculateConditionImmunities } from "./conditionImmunities";
+import { calculateDamageImmunities } from "./damageImmunities";
+import { calculateSenses } from "./senses";
+import type { Character } from "@/types";
 
 export function createStats(character: Character) {
   createKeyIfUndefined(character, "statistics");
@@ -71,6 +79,16 @@ export function createStats(character: Character) {
   calculateType(character);
   calculateSubtype(character);
   calculateMeta(character);
-  calculateSpeed(character);
+  /// /// ///
   calculateArmorClass(character);
+  calculateSpeed(character);
+  /// /// ///
+  calculateSavingThrows(character);
+  calculateSkills(character);
+  calculateDamageVulnerabilities(character);
+  calculateDamageResistances(character);
+  calculateDamageImmunities(character);
+  calculateConditionImmunities(character);
+  calculateSenses(character);
+  calculateLanguages(character);
 }

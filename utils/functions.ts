@@ -43,7 +43,7 @@ export function throttle<T extends any[]>(
 }
 
 export function capitalizeFirst(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 export function hasDefined(object: any, key: string): boolean {

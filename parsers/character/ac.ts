@@ -90,9 +90,15 @@ export function calculateArmorClass(character: Character) {
     if (
       parseExpressionNumeric(armor?.minStr, character) > s.abilityScores?.STR
     ) {
-      if (s?.speed?.walk) {
-        s.speed.walk -= 10;
-        if (s.speed.walk < 0) s.speed.walk = 0;
+      if (!s?.speeds?.values?.walk) {
+        s.speeds = {
+          values: {
+            walk: -10,
+          },
+          string: "",
+        };
+      } else {
+        s.speeds.values.walk -= 10;
       }
     }
 

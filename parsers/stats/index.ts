@@ -1,4 +1,38 @@
+export type Ability = "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
+
+export const abilities: Ability[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+
 export const speedTypes = ["walk", "burrow", "climb", "fly", "hover", "swim"];
+
+type SkillsList = Record<string, Ability>;
+
+export const skillTypes: SkillsList = {
+  Acrobatics: "DEX",
+  "Animal Handling": "WIS",
+  Arcana: "INT",
+  Athletics: "STR",
+  Deception: "CHA",
+  History: "INT",
+  Insight: "WIS",
+  Intimidation: "CHA",
+  Investigation: "INT",
+  Medicine: "WIS",
+  Nature: "INT",
+  Perception: "WIS",
+  Performance: "CHA",
+  Persuasion: "CHA",
+  Religion: "INT",
+  "Sleight of Hand": "DEX",
+  Stealth: "DEX",
+  Survival: "WIS",
+};
+
+export const sensesList = [
+  "blindsight",
+  "darkvision",
+  "tremorsense",
+  "truesight",
+];
 
 export const challengeStats = {
   "0": { xp: 10, proficiency: 2 },

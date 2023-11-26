@@ -3,15 +3,9 @@ import {
   getPrioritizedStatistic,
   calibrateStatistic,
 } from "../functions";
-import { Character, Abilities } from "@/types";
+import { abilities } from "../stats";
+import { Character } from "@/types";
 import { random } from "@/utils";
-
-type AbilityScore = {
-  value: number;
-  isAutomaticCalcDisabled?: number;
-};
-
-type Ability = "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
 
 export function calculateAbilityScores(character: Character) {
   const c = character.character;
@@ -19,7 +13,6 @@ export function calculateAbilityScores(character: Character) {
   character.statistics!.abilityScores = {};
   // @ts-expect-error
   character.statistics!.abilityModifiers = {};
-  const abilities: Ability[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
   createKeyIfUndefined(c, "abilityScores");
   if (!c.abilityScores) {
     c.abilityScores = {};
@@ -54,7 +47,10 @@ export function calculateAbilityScores(character: Character) {
     // ability score bonus
     abilityScoreTotal += getBonus(character, abilityName);
     // ------- automatic calculation (CR) -------
-    if (c?.CRCalculation?.name === "automatic") {
+    if (
+      c?.CRCalculation?.name === "automatic" &&
+      c.abilityScores[abilityName]!.isAutomaticCalcDisabled !== true
+    ) {
       abilityScoreTotal = calibrateStatistic(
         character,
         abilityScoreTotal,

@@ -4,6 +4,17 @@ import { Character, Bonus } from "@/types";
 import { objects } from "@/utils";
 import { Challenge, challengeTable } from "@/parsers/stats";
 
+export function sortObject(obj: { [key: string]: any }): {
+  [key: string]: any;
+} {
+  return Object.keys(obj)
+    .sort()
+    .reduce((sortedObj, key) => {
+      sortedObj[key] = obj[key];
+      return sortedObj;
+    }, {} as { [key: string]: any });
+}
+
 export function isNumber(stat: string) {
   return !isNaN(parseFloat(stat)) && isFinite(Number(stat));
 }
@@ -217,4 +228,28 @@ export function unshiftWithComma(originalString: string, string2: string) {
   }
   originalString = string2 + originalString;
   return originalString;
+}
+
+export function feetToOtherUnit(feet: number, unit = "feet") {
+  let meters = 0;
+  switch (unit) {
+    case "meters":
+      meters = feet * 0.3048;
+      return parseFloat((meters - (meters % 1.5)).toFixed(1));
+    case "squares":
+      return feet / 5;
+    default:
+      return feet;
+  }
+}
+
+export function getUnitSymbol(unit = "feet") {
+  switch (unit) {
+    case "feet":
+      return "ft";
+    case "meters":
+      return "m";
+    case "squares":
+      return "sq";
+  }
 }

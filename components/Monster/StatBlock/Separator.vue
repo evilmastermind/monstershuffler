@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="separator my-2"
+    class="separator mt-3 mb-3"
     :class="moral"
     preserveAspectRatio="none"
     xmlns="http://www.w3.org/2000/svg"

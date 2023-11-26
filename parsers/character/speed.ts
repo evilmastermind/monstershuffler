@@ -1,4 +1,3 @@
-import JSPath from "jspath";
 import {
   getBonus,
   getPrioritizedStatisticFromPath,
@@ -14,70 +13,97 @@ export function calculateSpeed(character: Character) {
   const v = character.variables!;
 
   for (const type of speedTypes) {
-    const speedString = getPrioritizedStatisticFromPath<string>(
+    const speedExpression = getPrioritizedStatisticFromPath<string>(
       character,
       `.speeds.${type}`
     );
-    if (!speedString) {
+    if (!speedExpression) {
       continue;
     }
     if (!s.speeds) {
       s.speeds = {
         string: "",
+        values: {},
       };
     }
     const speedBonus = getBonus(character, type);
     const speedNumber =
-      parseExpressionNumeric(speedString, character) + speedBonus;
+      parseExpressionNumeric(speedExpression, character) + speedBonus;
     switch (type) {
       case "walk":
-        s.speeds!.walk = speedNumber;
-        v.SPEED = speedNumber;
-        s.speeds!.string = unshiftWithComma(
-          s.speeds!.string,
-          `${speedString} ft`
-        );
+        s.speeds!.values.walk = (s.speeds!.values.walk || 0) + speedNumber;
+        if (s.speeds!.values.walk > 0) {
+          s.speeds!.string = unshiftWithComma(
+            s.speeds!.string,
+            `${speedNumber} ft`
+          );
+        } else {
+          s.speeds!.values.walk = 0;
+        }
         break;
       case "fly":
-        s.speeds!.fly = speedNumber;
-        v.FLY = speedNumber;
-        s.speeds!.string = pushWithComma(
-          s.speeds!.string,
-          `fly ${speedNumber} ft`
-        );
+        s.speeds!.values.fly = speedNumber;
+        if (s.speeds!.values.fly > 0) {
+          s.speeds!.string = pushWithComma(
+            s.speeds!.string,
+            `fly ${speedNumber} ft`
+          );
+        } else {
+          delete s.speeds!.values.fly;
+        }
         break;
       case "climb":
-        s.speeds!.climb = speedNumber;
-        v.CLIMB = speedNumber;
-        s.speeds!.string = pushWithComma(
-          s.speeds!.string,
-          `climb ${speedNumber} ft`
-        );
+        s.speeds!.values.climb = speedNumber;
+        if (s.speeds!.values.climb > 0) {
+          s.speeds!.string = pushWithComma(
+            s.speeds!.string,
+            `climb ${speedNumber} ft`
+          );
+        } else {
+          delete s.speeds!.values.climb;
+        }
         break;
       case "swim":
-        s.speeds!.swim = speedNumber;
-        v.SWIM = speedNumber;
-        s.speeds!.string = pushWithComma(
-          s.speeds!.string,
-          `swim ${speedNumber} ft`
-        );
+        s.speeds!.values.swim = speedNumber;
+        if (s.speeds!.values.swim > 0) {
+          s.speeds!.string = pushWithComma(
+            s.speeds!.string,
+            `swim ${speedNumber} ft`
+          );
+        } else {
+          delete s.speeds!.values.swim;
+        }
         break;
       case "burrow":
-        s.speeds!.burrow = speedNumber;
+        s.speeds!.values.burrow = speedNumber;
         v.BURROW = speedNumber;
-        s.speeds!.string = pushWithComma(
-          s.speeds!.string,
-          `burrow ${speedNumber} ft`
-        );
+        if (s.speeds!.values.burrow > 0) {
+          s.speeds!.string = pushWithComma(
+            s.speeds!.string,
+            `burrow ${speedNumber} ft`
+          );
+        } else {
+          delete s.speeds!.values.burrow;
+        }
         break;
       case "hover":
-        s.speeds!.hover = speedNumber;
+        s.speeds!.values.hover = speedNumber;
         v.HOVER = speedNumber;
-        s.speeds!.string = pushWithComma(
-          s.speeds!.string,
-          `fly ${speedNumber} ft (hover)`
-        );
+        if (s.speeds!.values.hover > 0) {
+          s.speeds!.string = pushWithComma(
+            s.speeds!.string,
+            `fly ${speedNumber} ft (hover)`
+          );
+        } else {
+          delete s.speeds!.values.hover;
+        }
         break;
     }
+    v.SPEED = s.speeds!.values.walk || 0;
+    v.FLY = s.speeds!.values.fly || 0;
+    v.CLIMB = s.speeds!.values.climb || 0;
+    v.SWIM = s.speeds!.values.swim || 0;
+    v.BURROW = s.speeds!.values.burrow || 0;
+    v.HOVER = s.speeds!.values.hover || 0;
   }
 }

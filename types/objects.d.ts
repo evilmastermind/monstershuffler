@@ -15,6 +15,7 @@ import {
   pageSettings,
   postRandomNpcResponse,
   raceObject,
+  sensesObject,
   speedObject,
   statisticsObject,
   statNumberString,
@@ -37,6 +38,7 @@ export type ChosenAction = z.infer<typeof chosenActionObject>;
 export type DescriptionPart = z.infer<typeof descriptionPartObject>;
 export type PageSettings = z.infer<typeof pageSettings>;
 export type Race = z.infer<typeof raceObject>;
+export type Senses = z.infer<typeof sensesObject>;
 export type Speed = z.infer<typeof speedObject>;
 export type Statistics = z.infer<typeof statisticsObject>;
 export type StatNumberString = z.infer<typeof statNumberString>;

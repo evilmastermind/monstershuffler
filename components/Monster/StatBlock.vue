@@ -7,6 +7,10 @@
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
         <MonsterStatBlockPart1 />
+        <MonsterStatBlockSeparator />
+        <MonsterStatBlockAbilityScores />
+        <MonsterStatBlockSeparator />
+        <MonsterStatBlockPart2 />
       </div>
     </div>
     <div class="border" :class="`border-${currentThemeType}`" />
@@ -45,6 +49,9 @@ provide("moral", moral);
 </script>
 
 <style scoped lang="scss">
+.stat-block-container {
+  max-width: 450px;
+}
 .border {
   height: 6px;
   border: 1px solid #000;

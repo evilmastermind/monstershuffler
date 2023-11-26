@@ -1,5 +1,5 @@
 import { sizeStats, Size } from "@/parsers";
-import { Character } from "@/types/objects";
+import { Character } from "@/types";
 import { getStatArrayFromObjects } from "@/parsers/functions";
 
 export function calculateLevel(character: Character) {
