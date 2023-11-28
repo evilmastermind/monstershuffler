@@ -5,6 +5,7 @@
 @import "@/assets/css/utility.css";
 @import "@/assets/css/transitions.css";
 @import "@/assets/css/animations.css";
+@import "@/assets/css/scrollbar.css";
 
 @tailwind base;
 

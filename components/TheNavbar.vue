@@ -34,7 +34,7 @@
 <style lang="scss" scoped>
 .nav-gradient {
   position: absolute;
-  width: 100%;
+  width: 100vw;
   z-index: 1;
   backdrop-filter: blur(5px);
   opacity: 0.95;
@@ -46,7 +46,7 @@
 }
 .navbar {
   position: absolute;
-  width: 100%;
+  width: 100vw;
   z-index: 1;
 }
 .navbar-menu-container {

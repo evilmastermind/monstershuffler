@@ -1,0 +1,24 @@
+/* preventing the scrollbar from pushing the content to the left */
+html {
+  overflow-y: auto;
+  width: 100vw;
+	overflow-x: hidden;
+  --scrollbar-size: 10px;
+}
+
+@media only screen and (min-width: 789px) {
+	::-webkit-scrollbar {
+		width: var(--scrollbar-size);
+		height: var(--scrollbar-size);
+		background-color: theme("colors.background-card");
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color:theme("colors.background-inset.700");
+	}
+
+	::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		background-color: theme("colors.background");
+	}
+}
