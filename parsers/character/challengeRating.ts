@@ -5,7 +5,10 @@ import {
   getChallengeNumber,
 } from "@/parsers/stats";
 
-export function calculateChallengeRating(character: Character) {
+export function calculateChallengeRating(
+  character: Character,
+  assignToVariations = true
+) {
   if (character?.variations?.currentCR) {
     assignChallengeRating(
       character,
@@ -14,27 +17,27 @@ export function calculateChallengeRating(character: Character) {
     );
     return;
   }
-  const c = character.character;
   const level = character.statistics!.level;
+  const c = character.character;
   let CR = 0;
-  // two-point calculation:
-  // the cr of a creature is given by the user at two different levels
-  //
-  // LVL
-  //  |          /
-  //  |         x
-  //  |        /
-  //  |       /
-  //  |      x
-  //  |     /
-  // _|_______________ CR
-  //  |
-  //
-  // all the other CRs per level are then calculated with the "line between two points" equation
-  // https://en.wikipedia.org/wiki/Linear_equation#Two-point_form
-  //
 
   if (c?.CRCalculation?.name === "twopoints") {
+    // two-point calculation:
+    // the cr of a creature is given by the user at two different levels
+    //
+    // LVL
+    //  |          /
+    //  |         x
+    //  |        /
+    //  |       /
+    //  |      x
+    //  |     /
+    // _|_______________ CR
+    //  |
+    //
+    // all the other CRs per level are then calculated with the "line between two points" equation
+    // https://en.wikipedia.org/wiki/Linear_equation#Two-point_form
+    //
     // x = Level, y = CR
     const x1 = parseFloat(c.CRCalculation.x1) || 1;
     const y1 = parseFloat(c.CRCalculation.y1) || 0;
@@ -42,6 +45,12 @@ export function calculateChallengeRating(character: Character) {
     const y2 = parseFloat(c.CRCalculation.y2) || 12;
     CR = ((level - x1) * (y2 - y1)) / (x2 - x1) + y1;
   } else if (c?.CRCalculation?.name === "npcstandard") {
+    // NPC standard calculation:
+    // CR 1/4 = LVL 1
+    // CR 1/2 = LVL 2
+    // CR 1   = LVL 3
+    // ...
+    // CR 12  = LVL 20
     if (level === 0) {
       CR = -3;
     } else if (level === 1) {
@@ -56,13 +65,18 @@ export function calculateChallengeRating(character: Character) {
   } else if (c?.CRCalculation?.name === "automatic") {
     CR = c.CRCalculation.CR || 0;
   }
+  if (assignToVariations) {
+    character.variations!.currentCR = CR;
+  }
   assignChallengeRating(character, CR, getChallengeString(CR));
 }
 
-export function recalculateChallengeRatingAfterAutomaticHP(
-  character: Character
-) {
-  const CR = character?.variations?.currentCR || character.variables!.CR || 0;
+export function assignNewChallengeRating(character: Character) {
+  let CR = character?.variations?.currentCR;
+  if (CR === null || CR === undefined) {
+    CR = character.variables!.CR || 0;
+  }
+  character.variations!.currentCR = CR;
   assignChallengeRating(character, CR, getChallengeString(CR));
 }
 

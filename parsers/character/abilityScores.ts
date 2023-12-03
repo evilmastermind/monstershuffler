@@ -1,7 +1,7 @@
 import {
-  getBonus,
   getPrioritizedStatistic,
   calibrateStatistic,
+  getBonusAndInfo,
 } from "../functions";
 import { abilities } from "../stats";
 import { Character } from "@/types";
@@ -17,8 +17,8 @@ export function calculateAbilityScores(character: Character) {
   if (!c.abilityScores) {
     c.abilityScores = {};
   }
-  const abilitiesLimit =
-    getPrioritizedStatistic<number>(character, "abilitiesLimit") || 30;
+  const abilityScoresLimit =
+    getPrioritizedStatistic<number>(character, "abilityScoresLimit") || 30;
   for (const abilityName of abilities) {
     // generating abilities scores if they don't exist yet
     // base Ability Score = 3d6, min 8;
@@ -45,11 +45,13 @@ export function calculateAbilityScores(character: Character) {
     let abilityScoreTotal: number = c.abilityScores[abilityName]!.value;
 
     // ability score bonus
-    abilityScoreTotal += getBonus(character, abilityName);
+    const bonus = getBonusAndInfo(character, abilityName);
+    abilityScoreTotal += bonus.value;
     // ------- automatic calculation (CR) -------
     if (
-      c?.CRCalculation?.name === "automatic" &&
-      c.abilityScores[abilityName]!.isAutomaticCalcDisabled !== true
+      // c?.CRCalculation?.name === "automatic" &&
+      c.abilityScores[abilityName]?.isAutomaticCalcDisabled !== true &&
+      !bonus.hadExpressions
     ) {
       abilityScoreTotal = calibrateStatistic(
         character,
@@ -59,8 +61,8 @@ export function calculateAbilityScores(character: Character) {
     }
 
     // normalizing ability scores out of bounds
-    if (abilityScoreTotal > abilitiesLimit) {
-      abilityScoreTotal = abilitiesLimit;
+    if (abilityScoreTotal > abilityScoresLimit) {
+      abilityScoreTotal = abilityScoresLimit;
     } else if (abilityScoreTotal < 1) {
       abilityScoreTotal = 1;
     }

@@ -4,6 +4,13 @@ import { Character, Bonus } from "@/types";
 import { objects } from "@/utils";
 import { Challenge, challengeTable } from "@/parsers/stats";
 
+export function addPlusSign(number: number) {
+  if (number > 0) {
+    return `+${number}`;
+  }
+  return number.toString();
+}
+
 export function sortObject(obj: { [key: string]: any }): {
   [key: string]: any;
 } {
@@ -21,9 +28,9 @@ export function isNumber(stat: string) {
 
 export function getCurrentStatLimit(character: Character) {
   if (character?.character?.CRCalculation?.name === "automatic") {
-    return character?.variations?.currentCR || null;
+    return character?.statistics?.CR.number || 0;
   } else {
-    return character?.variations?.currentHD || null;
+    return character?.statistics?.level || 0;
   }
 }
 
@@ -73,6 +80,21 @@ export function getBonus(character: Character, stat: string): number {
   let bonus = 0;
   bonuses.forEach((b) => {
     bonus += parseExpressionNumeric(b.value, character);
+  });
+  return bonus;
+}
+
+export function getBonusAndInfo(character: Character, stat: string) {
+  const bonuses = getBonusesForOneStatistic(character, stat);
+  const bonus = {
+    value: 0,
+    hadExpressions: false,
+  };
+  bonuses.forEach((b) => {
+    if (!isNumber(b.value)) {
+      bonus.hadExpressions = true;
+    }
+    bonus.value += parseExpressionNumeric(b.value, character);
   });
   return bonus;
 }
@@ -142,7 +164,7 @@ export function calibrateStatistic(
   // @ts-expect-error There can be multiple types of Challenge Calculations
   const originalCR = character.character?.CRCalculation?.CR || undefined;
   const newCR = character?.variables?.CR || undefined;
-  if (!originalCR || !newCR) {
+  if (originalCR === undefined || newCR === undefined || originalCR === newCR) {
     return statValue;
   }
 
@@ -157,8 +179,17 @@ export function calibrateStatistic(
     newCR > 30
       ? getAvgStatisticHigherThan30(newCR, statName)
       : challengeTable[newCR.toString()][statName];
+  const result = Math.round(calibrationFactor * statValueAvgAtNewCR);
 
-  return calibrationFactor * statValueAvgAtNewCR;
+  if (statName === "HP") {
+    console.log(`------CR ${originalCR} to CR ${newCR}------`);
+    console.log("statValue: ", statValue);
+    console.log("calibrationFactor: ", calibrationFactor);
+    console.log("calibrationFactor: ", calibrationFactor);
+    console.log("statValueAvgAtNewCR: ", statValueAvgAtNewCR);
+    console.log("result: ", result);
+  }
+  return result;
 }
 
 function calculateCalibrationFactor(

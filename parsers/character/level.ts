@@ -3,7 +3,10 @@ import { Character } from "@/types";
 import { getStatArrayFromObjects } from "@/parsers/functions";
 
 export function calculateLevel(character: Character) {
-  if (character?.variations?.currentHD !== undefined) {
+  if (
+    character?.variations?.currentHD !== undefined &&
+    character?.character?.CRCalculation?.name !== "automatic"
+  ) {
     assignLevel(character, character.variations.currentHD);
     return;
   }
@@ -16,6 +19,7 @@ export function calculateLevel(character: Character) {
   if (level === 0) {
     level = 1;
   }
+  character.variations!.currentHD = level;
   assignLevel(character, level);
 }
 
@@ -42,4 +46,5 @@ export function recalculateLevelAfterAutomaticHP(character: Character) {
   }
   character.statistics!.level = level;
   character.variables!.LVL = level;
+  character.variations!.currentHD = level;
 }

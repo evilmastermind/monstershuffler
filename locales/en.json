@@ -136,7 +136,12 @@
       "Sylvan": "Sylvan",
       "Terran": "Terran",
       "Undercommon": "Undercommon"
-    }
+    },
+    "challenge": "Challenge",
+    "xp": "XP",
+    "proficiencyBonus": "Proficiency Bonus",
+    "raiseCR": "Raise Challenge Rating",
+    "lowerCR": "Lower Challenge Rating"
   },
   "alignment": {
     "Neutral": "Neutral",

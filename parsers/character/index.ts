@@ -1,6 +1,6 @@
 import {
   calculateChallengeRating,
-  recalculateChallengeRatingAfterAutomaticHP,
+  assignNewChallengeRating,
 } from "./challengeRating";
 import { calculateAlignment } from "./alignment";
 import { calculateName } from "./name";
@@ -28,6 +28,7 @@ import { calculateSenses } from "./senses";
 import type { Character } from "@/types";
 
 export function createStats(character: Character) {
+  console.log("-----------------------");
   createKeyIfUndefined(character, "statistics");
   createKeyIfUndefined(character, "variables");
   createKeyIfUndefined(character, "tags");
@@ -38,29 +39,53 @@ export function createStats(character: Character) {
   if (CRCalculation === "automatic") {
     /**
      * AUTOMATIC
-     * The automatic calculation is "CR-Based": the initial CR, chosen by the user, determines
-     * the hit points, the ability scores, and the size, with which we can calculate the number
-     * of Hit Dice.
+     * The user creates a monster, gives it some hit dice and chooses an appropriate CR.
+     * When increasing or decreasing the CR, some stats like hit points and ability scores
+     * are calibrated automatically (unless the user added 'expressions' to them already).
+     *
+     * "Calibrating" stats:
+     * This recalculation is based on a table which contains the average values for the
+     * most important stats from CR 1 to CR 30. By determining the increase factor of
+     * the average values between the original CR and the new one chosen by the user,
+     * we can estimate the new values by multiplying the original values by that
+     * increase factor.
+     *
+     * PHASE 1: use the original CR to determine the original hit points
      */
-    // === this part uses the original CR to calculate the statistics needed to know the creature's HP
-    calculateChallengeRating(character);
-    calculateLevel(character); // using the original CR
-    calculateSize(character); // original the original CR
-    calculateAbilityScores(character); // using the original CR
-    calculateHitPoints(character); // using original CR, then recalibrating with the new CR
-    // === now that we have the creature's HP, we can recalibrate it for the new CR and get the new level
-    recalculateChallengeRatingAfterAutomaticHP(character);
+    calculateChallengeRating(character, false);
+    calculateLevel(character);
     calculateSize(character);
     calculateAbilityScores(character);
+    /**
+     * the hit points are calculated here for the first time, using the origingal
+     * hit dice, size, and ability scores. With the "calibration" method mentioned above,
+     * the hit points for the new challenge rating are then estimated.
+     */
+    calculateHitPoints(character, false);
+    /**
+     * PHASE 2: use the new CR to calculate all stats
+     */
+    assignNewChallengeRating(character);
+    // TODO: warn the user that, because of this new automatic calculation,
+    // it's no longer possible to use the variable LVL for Size and Ability Scores
+    calculateSize(character);
+    calculateAbilityScores(character);
+    /**
+     * the level here is calculated from the hit points estimated for the new CR.
+     */
     recalculateLevelAfterAutomaticHP(character);
     calculateProficiency(character);
-    calculateHitPoints(character);
+    /**
+     * the hit points are finally calculated using the new level
+     */
+    calculateHitPoints(character, true, false);
   } else {
-    /*
-      TWO-POINTS METHOD / NPC STANDARD
-      The other two calculations (two-points method and NPC standard) are "Level-Based":
-      we calculate the level first, then the CR, and everything else is calculated from there.
-    */
+    /**
+     * TWO-POINTS METHOD / NPC STANDARD
+     * The other two calculations (two-points method and NPC standard) are "Level-Based":
+     * we calculate the level first, then the CR, and everything else is calculated
+     * from there.
+     */
     calculateLevel(character);
     calculateChallengeRating(character);
     calculateProficiency(character);

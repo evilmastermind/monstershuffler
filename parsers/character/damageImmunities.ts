@@ -23,4 +23,8 @@ export function calculateDamageImmunities(character: Character) {
       }
     }
   }
+
+  if (!s.immunities.length) {
+    delete s.immunities;
+  }
 }

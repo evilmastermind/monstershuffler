@@ -10,7 +10,7 @@ import type { Character, Stat } from "@/types";
 
 export function calculateSkills(character: Character) {
   const s = character.statistics!;
-  // const v = character.variables!;
+  const v = character.variables!;
 
   const skills = getStatArrayFromObjects<Stat[]>(character, "skills");
 
@@ -47,5 +47,7 @@ export function calculateSkills(character: Character) {
       s.skills.string,
       `${capitalizeFirst(skill)} ${plusSign}${s.skills.values[skill]!}`
     );
+    v[skill.replace(/\s/g, "").toUpperCase() as "PERSUASION"] =
+      s.skills.values[skill]!;
   }
 }

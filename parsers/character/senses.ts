@@ -12,14 +12,12 @@ import type { Character } from "@/types";
 
 export function calculateSenses(character: Character) {
   const s = character.statistics!;
-  // const v = character.variables!;
+  const v = character.variables!;
 
-  if (!s.senses) {
-    s.senses = {
-      string: "",
-      values: {},
-    };
-  }
+  s.senses = {
+    string: "",
+    values: {},
+  };
 
   for (const sense of sensesList) {
     const senseExpression = getPrioritizedStatisticFromPath<string>(
@@ -77,9 +75,15 @@ export function calculateSenses(character: Character) {
         s.senses!.string += " (blind beyond this radius)";
       }
     }
+    v[`${sense.toUpperCase().replace(/\s/g, "")}` as "DARKVISION"] =
+      s.senses!.values[sense];
   }
 
   if (alternativeSense === "just blind") {
     s.senses!.string = unshiftWithComma(s.senses!.string, "Blind");
+  }
+
+  if (!s.senses!.string) {
+    delete s.senses;
   }
 }

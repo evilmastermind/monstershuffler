@@ -26,4 +26,8 @@ export function calculateDamageVulnerabilities(character: Character) {
       }
     }
   }
+
+  if (!s.vulnerabilities.length) {
+    delete s.vulnerabilities;
+  }
 }

@@ -35,8 +35,12 @@ export function calculateArmorClass(character: Character) {
   const armorBonuses = getBonusesForOneStatistic(character, "AC");
   let armorBonus = 0;
   let armorBonusString = "";
+  let hasExpression = false;
 
   armorBonuses.forEach((bonus) => {
+    if (!isNumber(bonus.value)) {
+      hasExpression = true;
+    }
     armorBonus += parseExpressionNumeric(bonus.value, character);
     if (bonus?.name) {
       if (armorBonusString) armorBonusString += ", ";
@@ -122,9 +126,10 @@ export function calculateArmorClass(character: Character) {
 
   // ------- automatic calculation (CR) -------
   if (
-    character.character?.CRCalculation?.name === "automatic" &&
+    // character.character?.CRCalculation?.name === "automatic" &&
     armor.isAutomaticCalcDisabled !== true &&
-    isNumber(armor.AC)
+    isNumber(armor.AC) &&
+    !hasExpression
   ) {
     totalAC = calibrateStatistic(character, totalAC, "AC");
   }

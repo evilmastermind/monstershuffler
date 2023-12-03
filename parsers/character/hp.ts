@@ -1,7 +1,11 @@
 import { Character } from "@/types";
 import { sizeStats, Size, getBonus, calibrateStatistic } from "@/parsers";
 
-export function calculateHitPoints(character: Character) {
+export function calculateHitPoints(
+  character: Character,
+  addBonus = true,
+  calibrate = true
+) {
   const s = character.statistics!;
   const v = character.variables!;
   const size = s!.size.number;
@@ -11,20 +15,30 @@ export function calculateHitPoints(character: Character) {
 
   const HPFromHitDice = Math.floor(HitDice * ((die + 1) / 2));
   const HPFromConstitution = HitDice * s!.abilityModifiers.CON;
-  const HPBonus = getBonus(character, "HP");
-  const HPAdditional = HPFromConstitution + HPBonus;
-  let HPTotal =
-    HPFromHitDice + HPAdditional < 1 ? 1 : HPFromHitDice + HPAdditional;
+  const HPBonus = addBonus ? getBonus(character, "HP") : 0;
+  let HPTotal = HPFromHitDice + HPFromConstitution + HPBonus;
+  if (HPTotal < 1) {
+    HPTotal = 1;
+  }
+  console.log("size", size);
+  console.log("HitDice", HitDice);
+  console.log("die", die);
+
   // ------- automatic calculation (CR) -------
-  if (character.character?.CRCalculation?.name === "automatic") {
+  if (character.character?.CRCalculation?.name === "automatic" && calibrate) {
     HPTotal = calibrateStatistic(character, HPTotal, "HP");
   }
   // HP text
   let HPText = "";
-  if (HPAdditional > 0) {
-    HPText = ` + ${HPAdditional}`;
-  } else if (HPAdditional < 0) {
-    HPText = ` - ${Math.abs(HPAdditional)}`;
+  if (HPFromConstitution > 0) {
+    HPText = ` + ${HPFromConstitution}`;
+  } else if (HPFromConstitution < 0) {
+    HPText = ` - ${Math.abs(HPFromConstitution)}`;
+  }
+  if (HPBonus > 0) {
+    HPText = ` + ${HPBonus}`;
+  } else if (HPBonus < 0) {
+    HPText = ` - ${Math.abs(HPBonus)}`;
   }
   // statistics
   s.HP = {

@@ -9,7 +9,7 @@ import { Character, Stat } from "@/types";
 
 export function calculateSavingThrows(character: Character) {
   const s = character.statistics!;
-  // const v = character.variables!;
+  const v = character.variables!;
 
   const savingThrows = getStatArrayFromObjects<Stat[]>(
     character,
@@ -44,5 +44,10 @@ export function calculateSavingThrows(character: Character) {
         save as Ability
       ]!}`
     );
+    v[`${save}SAVE` as Ability] = s.savingThrows.values[save as Ability]!;
+  }
+
+  if (!s.savingThrows.string) {
+    delete s.savingThrows;
   }
 }

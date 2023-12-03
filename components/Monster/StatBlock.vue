@@ -6,11 +6,19 @@
       <div class="stat-block-content p-4">
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
+        <!-- ----- -->
         <MonsterStatBlockPart1 />
         <MonsterStatBlockSeparator />
+        <!-- ----- -->
         <MonsterStatBlockAbilityScores />
         <MonsterStatBlockSeparator />
-        <MonsterStatBlockPart2 />
+        <!-- ----- -->
+        <MonsterStatBlockSavesSkills />
+        <MonsterStatBlockResistancesImmunities />
+        <MonsterStatBlockSensesLanguages />
+        <MonsterStatBlockChallengeProficiency />
+        <MonsterStatBlockSeparator />
+        <!-- ----- -->
       </div>
     </div>
     <div class="border" :class="`border-${currentThemeType}`" />
@@ -33,14 +41,15 @@ const { currentThemeType } = storeToRefs(ui);
 
 const moral = computed(() => {
   if (p.character?.statistics?.alignment?.array?.includes("Good")) {
-    return "text-text-good fill-background-good";
+    return "text-text-good fill-background-good border-evil";
   } else if (p.character?.statistics?.alignment?.array?.includes("Evil")) {
-    return "text-text-evil fill-background-evil";
+    return "text-text-evil fill-background-evil border-complementary";
   } else {
-    return "text-text-neutral fill-background-neutral";
+    return "text-text-neutral fill-background-neutral border-neutral";
   }
 });
 
+provide("character", p.character);
 provide(
   "statistics",
   computed(() => p.character.statistics)

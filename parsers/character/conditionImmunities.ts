@@ -26,4 +26,8 @@ export function calculateConditionImmunities(character: Character) {
       }
     }
   }
+
+  if (!s.conditionImmunities.length) {
+    delete s.conditionImmunities;
+  }
 }

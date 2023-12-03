@@ -11,7 +11,10 @@ import { Character } from "@/types";
 export function calculateSpeed(character: Character) {
   const s = character.statistics!;
   const v = character.variables!;
-
+  s.speeds = {
+    string: "",
+    values: {},
+  };
   for (const type of speedTypes) {
     const speedExpression = getPrioritizedStatisticFromPath<string>(
       character,
@@ -19,12 +22,6 @@ export function calculateSpeed(character: Character) {
     );
     if (!speedExpression) {
       continue;
-    }
-    if (!s.speeds) {
-      s.speeds = {
-        string: "",
-        values: {},
-      };
     }
     const speedBonus = getBonus(character, type);
     const speedNumber =
@@ -105,5 +102,8 @@ export function calculateSpeed(character: Character) {
     v.SWIM = s.speeds!.values.swim || 0;
     v.BURROW = s.speeds!.values.burrow || 0;
     v.HOVER = s.speeds!.values.hover || 0;
+  }
+  if (!s.speeds.string) {
+    delete s.speeds;
   }
 }
