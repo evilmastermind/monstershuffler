@@ -58,6 +58,11 @@ export function calculateAbilityScores(character: Character) {
         abilityScoreTotal,
         "abilityScoresAvg"
       );
+    } else if (bonus.hadExpressions) {
+      if (abilityName === "CON") {
+        console.log("bonus: ", bonus.value);
+      }
+      abilityScoreTotal += bonus.value;
     }
 
     // normalizing ability scores out of bounds

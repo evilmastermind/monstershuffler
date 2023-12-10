@@ -3,6 +3,8 @@ import { Character } from "@/types";
 import { getStatArrayFromObjects } from "@/parsers/functions";
 
 export function calculateLevel(character: Character) {
+  // level-based calculation when the level has been already
+  // calculated  once
   if (
     character?.variations?.currentHD !== undefined &&
     character?.character?.CRCalculation?.name !== "automatic"
@@ -10,6 +12,8 @@ export function calculateLevel(character: Character) {
     assignLevel(character, character.variations.currentHD);
     return;
   }
+  // level-based CR calculation when the level has not been
+  // calculated yet, or automatic calculation on its first phase
 
   let level = 0;
   const HD = getStatArrayFromObjects<number>(character, "HD");

@@ -9,7 +9,7 @@ export function calculateChallengeRating(
   character: Character,
   assignToVariations = true
 ) {
-  if (character?.variations?.currentCR) {
+  if (character?.variations?.currentCR !== undefined) {
     assignChallengeRating(
       character,
       character.variations.currentCR,

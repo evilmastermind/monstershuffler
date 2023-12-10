@@ -28,7 +28,6 @@ import { calculateSenses } from "./senses";
 import type { Character } from "@/types";
 
 export function createStats(character: Character) {
-  console.log("-----------------------");
   createKeyIfUndefined(character, "statistics");
   createKeyIfUndefined(character, "variables");
   createKeyIfUndefined(character, "tags");

@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import JSPath from "jspath";
 import { parseExpressionNumeric } from "./expressions";
 import { Character, Bonus } from "@/types";
@@ -28,7 +29,7 @@ export function isNumber(stat: string) {
 
 export function getCurrentStatLimit(character: Character) {
   if (character?.character?.CRCalculation?.name === "automatic") {
-    return character?.statistics?.CR.number || 0;
+    return character?.statistics?.CR.number || -3;
   } else {
     return character?.statistics?.level || 0;
   }
@@ -162,8 +163,8 @@ export function calibrateStatistic(
   statName: keyof Challenge
 ): number {
   // @ts-expect-error There can be multiple types of Challenge Calculations
-  const originalCR = character.character?.CRCalculation?.CR || undefined;
-  const newCR = character?.variables?.CR || undefined;
+  const originalCR = character.character?.CRCalculation?.CR;
+  const newCR = character?.variables?.CR;
   if (originalCR === undefined || newCR === undefined || originalCR === newCR) {
     return statValue;
   }
@@ -181,14 +182,6 @@ export function calibrateStatistic(
       : challengeTable[newCR.toString()][statName];
   const result = Math.round(calibrationFactor * statValueAvgAtNewCR);
 
-  if (statName === "HP") {
-    console.log(`------CR ${originalCR} to CR ${newCR}------`);
-    console.log("statValue: ", statValue);
-    console.log("calibrationFactor: ", calibrationFactor);
-    console.log("calibrationFactor: ", calibrationFactor);
-    console.log("statValueAvgAtNewCR: ", statValueAvgAtNewCR);
-    console.log("result: ", result);
-  }
   return result;
 }
 
@@ -204,14 +197,20 @@ function calculateCalibrationFactor(
   } else {
     statValueAvg = challengeTable[originalCR.toString()][statName];
   }
-  const calibrationFactor = statValue / statValueAvg;
-  if (originalCR >= newCR) {
+  const calibrationFactor = Math.abs(statValue / statValueAvg);
+
+  if (originalCR >= newCR || statName !== "HP") {
     return calibrationFactor;
   } else {
     // At higher CRs, statistics tend to lean towards the average
     // so I'm reducing the calibration factor by 50% for every 12 CRs of difference
     // between the original CR and the new CR
-    return calibrateTheCalibrationFactor(originalCR, newCR, calibrationFactor);
+    const newCalibrationFactor = calibrateTheCalibrationFactor(
+      originalCR,
+      newCR,
+      calibrationFactor
+    );
+    return newCalibrationFactor;
   }
 }
 
@@ -230,17 +229,16 @@ function calibrateTheCalibrationFactor(
   newCr: number,
   calibrationFactor: number
 ) {
-  const CRDifference = originalCR - newCr;
+  const CRDifference = Math.abs(originalCR - newCr);
   if (CRDifference === 0) {
     return calibrationFactor;
   }
-  const reductionFactor = 0.5 ** (CRDifference / 12);
   let newCalibrationFactor: number;
-  if (Math.abs(calibrationFactor) > 1) {
-    newCalibrationFactor = (calibrationFactor - 1) * reductionFactor + 1;
+  const reductionFactor = 1 + CRDifference / 30;
+  if (calibrationFactor > 1) {
+    newCalibrationFactor = (calibrationFactor - 1) / reductionFactor + 1;
   } else {
-    newCalibrationFactor =
-      (1 - calibrationFactor) * reductionFactor + calibrationFactor;
+    newCalibrationFactor = 1 - (1 - calibrationFactor) / reductionFactor;
   }
   return newCalibrationFactor;
 }

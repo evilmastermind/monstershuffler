@@ -20,9 +20,6 @@ export function calculateHitPoints(
   if (HPTotal < 1) {
     HPTotal = 1;
   }
-  console.log("size", size);
-  console.log("HitDice", HitDice);
-  console.log("die", die);
 
   // ------- automatic calculation (CR) -------
   if (character.character?.CRCalculation?.name === "automatic" && calibrate) {
