@@ -60,6 +60,15 @@ export function createKeyIfUndefined(object: any, key: string): void {
   }
 }
 
+export function deleteKeyIfEmpty(object: any, key: string): void {
+  if (
+    Object.hasOwn(object, key) &&
+    (object[key] === undefined || object[key] === null)
+  ) {
+    delete object[key];
+  }
+}
+
 export function handleResponse<T>(
   data: T,
   error: NuxtError | null,

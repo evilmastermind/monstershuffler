@@ -23,7 +23,10 @@ export function calculateSavingThrows(character: Character) {
 
   for (let i = 0; i < savingThrows.length; i++) {
     for (let j = 0; j < savingThrows[i].length; j++) {
-      if (!limit || limit >= (savingThrows[i][j].availableAt || 0)) {
+      if (
+        savingThrows[i][j].availableAt === undefined ||
+        limit >= savingThrows[i][j].availableAt!
+      ) {
         const savingThrow = savingThrows[i][j].value as Ability;
         s.savingThrows.values[savingThrow] =
           abilityModifiers[savingThrow] + proficiency;

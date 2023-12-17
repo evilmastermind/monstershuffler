@@ -4,30 +4,38 @@ import {
 } from "@/parsers/functions";
 import { Character, Stat } from "@/types";
 
-export function calculateDamageVulnerabilities(character: Character) {
+export function calculateVulnerabilities(character: Character) {
   const s = character.statistics!;
 
-  const vulnerabilities = getStatArrayFromObjects<Stat[]>(
-    character,
-    "vulnerabilities"
-  );
-  s.vulnerabilities = [];
+  const stats = getStatArrayFromObjects<Stat[]>(character, "vulnerabilities");
+  s.vulnerabilities = {
+    string: "",
+    array: [],
+  };
 
   const limit = getCurrentStatLimit(character);
 
-  for (let i = 0; i < vulnerabilities.length; i++) {
-    for (let j = 0; j < vulnerabilities[i].length; j++) {
-      if (!limit || limit >= (vulnerabilities[i][j].availableAt || 0)) {
-        const vulnerability = vulnerabilities[i][j].value;
-        s.vulnerabilities.push({
-          string: vulnerability,
-          type: "vulnerability",
+  for (let i = 0; i < stats.length; i++) {
+    for (let j = 0; j < stats[i].length; j++) {
+      if (
+        stats[i][j].availableAt === undefined ||
+        limit >= stats[i][j].availableAt!
+      ) {
+        const string = stats[i][j].value;
+        s.vulnerabilities.array!.push({
+          string,
+          type: "immunity",
         });
       }
     }
   }
 
-  if (!s.vulnerabilities.length) {
-    delete s.vulnerabilities;
+  if (!s.vulnerabilities.array!.length) {
+    delete s.conditionImmunities;
+    return;
   }
+  s.vulnerabilities.string = s.vulnerabilities.array!.reduce(
+    (acc, obj) => acc + obj.string,
+    ""
+  );
 }

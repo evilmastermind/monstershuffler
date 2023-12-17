@@ -1,5 +1,6 @@
-import { Character, Action } from "@/types";
-import { capitalizeFirst, objects } from "@/utils";
+import { getStatArrayFromObjects, getCurrentStatLimit } from "../functions";
+import { Character, ChosenAction } from "@/types";
+import { capitalizeFirst } from "@/utils";
 import { resolveRandomName } from "@/parsers";
 
 export function createTags(character: Character) {
@@ -116,46 +117,46 @@ export function createTags(character: Character) {
   // race
   tags.race = c?.racevariant?.name || c?.race?.name || "Race";
 
-  // actions with random names
-  for (const object in objects) {
-    if (!Object.hasOwn(c, object)) {
+  // action tags
+  const actions = getStatArrayFromObjects<ChosenAction[]>(
+    character,
+    "actions"
+  ).flat();
+
+  for (let i = 0; i < actions.length; i++) {
+    const action = actions[i];
+    const limit = getCurrentStatLimit(character);
+
+    if (
+      !action?.variants?.length ||
+      (action?.availableUntil && limit > action?.availableUntil)
+    ) {
       continue;
     }
-    // @ts-expect-error Object.hasOwn not accepted by TypeScript
-    const actions = c[object]?.actions as Action[];
-    if (!actions.length) {
-      continue;
-    }
-    actions.forEach((action) => {
-      if (!("variants" in action)) {
-        return;
+
+    let variant = action.variants[0];
+    let variantName = variant.name;
+
+    // resolving random names for actions
+    for (const v of action.variants) {
+      variant.name = resolveRandomName(variant.name);
+      const availableAt = v.availableAt ?? -3;
+      const currentAvailableAt = variant ? variant.availableAt ?? -3 : -3;
+      if (availableAt <= limit && availableAt >= currentAvailableAt) {
+        variant = v;
+        variantName = v.name;
       }
-      const variants = action?.variants || [];
-      let currentVariant = variants[0];
-      tags[action.tag] = currentVariant.name;
-      const currentUnitValue =
-        action.availableUnit === "level"
-          ? character.statistics!.level
-          : character.statistics!.CR?.number;
-      variants.forEach((variant) => {
-        variant.name = resolveRandomName(variant.name);
-        if (
-          variant?.availableAt &&
-          currentVariant.availableAt &&
-          variant?.availableAt >= currentUnitValue &&
-          variant?.availableAt > currentVariant.availableAt
-        ) {
-          tags[action.tag] = variant.name;
-          currentVariant = variant;
-          if (Object.hasOwn(variant, "attacks")) {
-            variant?.attacks?.forEach((attack) => {
-              if (attack.replaceName) {
-                tags[action.tag] = attack.name;
-              }
-            });
-          }
+    }
+
+    // actions that use the name of the attack (weapon)
+    if (Object.hasOwn(variant, "attacks")) {
+      variant?.attacks?.forEach((attack) => {
+        if (attack.replaceName) {
+          variantName = attack.name;
         }
       });
-    });
+    }
+
+    tags[action.tag] = variantName;
   }
 }

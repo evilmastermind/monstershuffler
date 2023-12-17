@@ -4,27 +4,38 @@ import {
 } from "@/parsers/functions";
 import { Character, Stat } from "@/types";
 
-export function calculateDamageImmunities(character: Character) {
+export function calculateImmunities(character: Character) {
   const s = character.statistics!;
 
-  const immunities = getStatArrayFromObjects<Stat[]>(character, "immunities");
-  s.immunities = [];
+  const stats = getStatArrayFromObjects<Stat[]>(character, "immunities");
+  s.immunities = {
+    string: "",
+    array: [],
+  };
 
   const limit = getCurrentStatLimit(character);
 
-  for (let i = 0; i < immunities.length; i++) {
-    for (let j = 0; j < immunities[i].length; j++) {
-      if (!limit || limit >= (immunities[i][j].availableAt || 0)) {
-        const immunity = immunities[i][j].value;
-        s.immunities.push({
-          string: immunity,
+  for (let i = 0; i < stats.length; i++) {
+    for (let j = 0; j < stats[i].length; j++) {
+      if (
+        stats[i][j].availableAt === undefined ||
+        limit >= stats[i][j].availableAt!
+      ) {
+        const string = stats[i][j].value;
+        s.immunities.array!.push({
+          string,
           type: "immunity",
         });
       }
     }
   }
 
-  if (!s.immunities.length) {
-    delete s.immunities;
+  if (!s.immunities.array!.length) {
+    delete s.conditionImmunities;
+    return;
   }
+  s.immunities.string = s.immunities.array!.reduce(
+    (acc, obj) => acc + obj.string,
+    ""
+  );
 }

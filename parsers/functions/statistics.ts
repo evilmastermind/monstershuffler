@@ -1,9 +1,29 @@
-import { stat } from "fs";
 import JSPath from "jspath";
 import { parseExpressionNumeric } from "./expressions";
-import { Character, Bonus } from "@/types";
-import { objects } from "@/utils";
+import { Character, Bonus, DescriptionPart } from "@/types";
+import { objects, random } from "@/utils";
 import { Challenge, challengeTable } from "@/parsers/stats";
+
+export function createPart(
+  string: string,
+  type: DescriptionPart["type"] | undefined = undefined,
+  format: DescriptionPart["format"] = [],
+  id: number | undefined = undefined
+) {
+  const part: DescriptionPart = {
+    string,
+  };
+  if (type) {
+    part.type = type;
+  }
+  if (format.length) {
+    part.format = format;
+  }
+  if (id) {
+    part.id = id;
+  }
+  return part;
+}
 
 export function addPlusSign(number: number) {
   if (number > 0) {
@@ -11,6 +31,20 @@ export function addPlusSign(number: number) {
   }
   return number.toString();
 }
+
+const characterObjects = (character: Character) => {
+  const c = character.character as any;
+  let objectsFound: any[] = [];
+  objects.forEach((raceOrClassEtc) => {
+    if (Object.hasOwn(c, raceOrClassEtc)) {
+      objectsFound.push(c[raceOrClassEtc]);
+    }
+  });
+  if (Object.hasOwn(c, "conditions")) {
+    objectsFound = [...objectsFound, ...c.conditions];
+  }
+  return objectsFound as any[];
+};
 
 export function sortObject(obj: { [key: string]: any }): {
   [key: string]: any;
@@ -43,13 +77,10 @@ export function getStatArrayFromObjects<T>(character: Character, stat: string) {
     // @ts-ignore
     array.push(c[stat]);
   }
-  objects.forEach((raceOrClassEtc) => {
-    if (Object.hasOwn(c, raceOrClassEtc)) {
-      // @ts-ignore TODO: f*** you, TypeScript
-      if (Object.hasOwn(c[raceOrClassEtc], stat)) {
-        // @ts-ignore
-        array.push(c[raceOrClassEtc][stat]);
-      }
+  const objectsFound = characterObjects(character);
+  objectsFound.forEach((raceOrClassEtc) => {
+    if (Object.hasOwn(raceOrClassEtc, stat)) {
+      array.push(raceOrClassEtc[stat] as T);
     }
   });
   return array;
@@ -59,20 +90,17 @@ export function getBonusesForOneStatistic(
   character: Character,
   stat: string
 ): Bonus[] {
-  const c = character.character;
   const bonuses: Bonus[] = [];
-  objects.forEach((raceOrClassEtc) => {
-    if (Object.hasOwn(c, raceOrClassEtc)) {
-      // @ts-ignore TODO: f*** you, TypeScript
-      if (Object.hasOwn(c[raceOrClassEtc], "bonuses")) {
-        // @ts-ignore
-        if (Object.hasOwn(c[raceOrClassEtc].bonuses, `${stat}Bonus`)) {
-          // @ts-ignore
-          bonuses.push(c[raceOrClassEtc].bonuses[`${stat}Bonus`]);
-        }
+  const objectsFound = characterObjects(character);
+
+  objectsFound.forEach((raceOrClassEtc) => {
+    if (Object.hasOwn(raceOrClassEtc, "bonuses")) {
+      if (Object.hasOwn(raceOrClassEtc.bonuses, `${stat}Bonus`)) {
+        bonuses.push(raceOrClassEtc.bonuses[`${stat}Bonus`]);
       }
     }
   });
+
   return bonuses;
 }
 
@@ -97,22 +125,20 @@ export function getBonusAndInfo(character: Character, stat: string) {
     }
     bonus.value += parseExpressionNumeric(b.value, character);
   });
+
   return bonus;
 }
 
 export function getPrioritizedStatistic<T>(character: Character, key: string) {
-  const c = character.character;
-  for (let i = 0; i < objects.length; i++) {
-    if (Object.hasOwn(c, objects[i])) {
-      // @ts-ignore
-      if (Object.hasOwn(c[objects[i]], key)) {
-        // @ts-ignore
-        return c[objects[i]][key] as T;
-      }
+  const objectsFound = characterObjects(character);
+
+  for (let i = 0; i < objectsFound.length; i++) {
+    if (Object.hasOwn(objectsFound[i], key)) {
+      return objectsFound[i][key] as T;
     }
   }
+  const c = character.character as any;
   if (Object.hasOwn(c, key)) {
-    // @ts-ignore
     return c[key] as T;
   }
 }
@@ -122,14 +148,11 @@ export function getPrioritizedStatisticFromPath<T>(
   key: string
 ) {
   const c = character.character;
-  for (let i = 0; i < objects.length; i++) {
-    if (Object.hasOwn(c, objects[i])) {
-      // @ts-ignore
-      const result = JSPath.apply(`${key}`, c[objects[i]]);
-      if (result.length > 0) {
-        // @ts-ignore
-        return result[0] as T;
-      }
+  const objectsFound = characterObjects(character);
+  for (let i = 0; i < objectsFound.length; i++) {
+    const result = JSPath.apply(`${key}`, objectsFound[i]);
+    if (result.length > 0) {
+      return result[0] as T;
     }
   }
 }
@@ -281,4 +304,17 @@ export function getUnitSymbol(unit = "feet") {
     case "squares":
       return "sq";
   }
+}
+
+export function parseNameChoices(name = "") {
+  if (!name) {
+    return "Name";
+  }
+  const possibleNames = name.split("|") || null;
+  if (possibleNames?.length <= 1) {
+    return name;
+  }
+
+  const randomName = random(0, possibleNames.length - 1);
+  return possibleNames[randomName];
 }

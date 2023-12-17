@@ -21,7 +21,10 @@ export function calculateSkills(character: Character) {
 
   for (let i = 0; i < skills.length; i++) {
     for (let j = 0; j < skills[i].length; j++) {
-      if (!limit || limit >= (skills[i][j].availableAt || 0)) {
+      if (
+        skills[i][j].availableAt === undefined ||
+        limit >= skills[i][j].availableAt!
+      ) {
         if (!s.skills) {
           s.skills = { string: "", values: {} };
         }

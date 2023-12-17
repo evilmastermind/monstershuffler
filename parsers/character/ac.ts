@@ -5,8 +5,32 @@ import {
   getBonusesForOneStatistic,
   calibrateStatistic,
   isNumber,
+  createPart,
 } from "@/parsers";
-import { Character, Armor, Action, ChosenAction } from "@/types";
+import { Character, Armor, Condition } from "@/types";
+
+const createClankingArmorCondition = (armorName: string) => {
+  return {
+    name: "_clankingarmor",
+    actions: [
+      {
+        tag: "clankingarmordefault",
+        variants: [
+          {
+            name: "Stealth Disadvantage",
+            type: "trait",
+            description: `[Name] has disadvantage on Dexterity (Stealth) checks while wearing [his] ${armorName} armor`,
+          },
+        ],
+      },
+    ],
+    bonuses: {
+      walkBonus: {
+        value: "-10",
+      },
+    },
+  } as Condition;
+};
 
 export function calculateArmorClass(character: Character) {
   const s = character.statistics!;
@@ -14,6 +38,12 @@ export function calculateArmorClass(character: Character) {
   let dexMod = s.abilityModifiers.DEX;
   let armor: Armor = { name: "", AC: "0" };
   let armorAC = 0;
+
+  s.AC = {
+    number: 0,
+    string: "",
+    array: [],
+  };
 
   // checking if the user has "disabled" the armor from other sources
   // (there should be an armor inside the 'user' object with an empty name "")
@@ -52,58 +82,32 @@ export function calculateArmorClass(character: Character) {
     // no armor
     totalAC = 10 + dexMod + armorBonus;
   } else {
-    // stealth disadvantage trait
-    if (armor.stealthDis === true) {
-      const stealthDisActions = JSPath.apply(
-        `..actions{.tag==="clankingarmordefault"}`,
-        character
-      ) as Action[];
-      if (!stealthDisActions.length) {
-        const stealthDisAction: Action = {
-          tag: "clankingarmordefault",
-          variants: [
-            {
-              name: "Stealth Disadvantage",
-              type: "trait",
-              description: `[Name] has disadvantage on Dexterity (Stealth) checks while wearing [his] ${armor.name} armor`,
-            },
-          ],
-        };
-        if (!character.character?.user) {
-          character.character!.user = {};
-        }
-        if (!character.character?.user.actions) {
-          character.character!.user.actions = [];
-        }
-        character.character!.user.actions.push(stealthDisAction);
-      }
-    } else {
-      const stealthDisActions = JSPath.apply(
-        `..actions{.tag==="clankingarmordefault"}`,
-        character
-      ) as ChosenAction[];
-      if (stealthDisActions.length && character.character?.user?.actions) {
-        const userActions = character.character.user.actions as ChosenAction[];
-        character.character.user.actions = userActions.filter(
-          (action) => action.tag === "clankingarmordefault"
-        );
-      }
-    }
-
-    // speed riduction if STR requirement is not met
+    // stealth disadvantage trait & speed reduction
     if (
+      armor.stealthDis === true &&
       parseExpressionNumeric(armor?.minStr, character) > s.abilityScores?.STR
     ) {
-      if (!s?.speeds?.values?.walk) {
-        s.speeds = {
-          values: {
-            walk: -10,
-          },
-          string: "",
-        };
-      } else {
-        s.speeds.values.walk -= 10;
+      if (!character.character.conditions) {
+        character.character.conditions = [];
       }
+      if (
+        character.character.conditions?.findIndex(
+          (c) => c.name === "_clankingarmor"
+        ) === -1
+      ) {
+        character.character.conditions?.push(
+          createClankingArmorCondition(armor.name)
+        );
+      }
+    } else if (
+      character.character.conditions &&
+      character.character.conditions?.findIndex(
+        (c) => c.name === "_clankingarmor"
+      ) !== -1
+    ) {
+      character.character.conditions = character.character.conditions?.filter(
+        (c) => c.name !== "_clankingarmor"
+      );
     }
 
     // max dex bonus
@@ -118,10 +122,12 @@ export function calculateArmorClass(character: Character) {
     totalAC = armorAC + dexMod + armorBonus;
   }
 
-  let armorString = armor.name;
+  s.AC.array?.push(createPart(armor.name, "armor"));
   if (armorBonusString) {
-    if (armorString) armorString += ", ";
-    armorString += armorBonusString;
+    if (s.AC.array?.length) {
+      s.AC.array?.push(createPart(", "));
+    }
+    s.AC.array?.push(createPart(armorBonusString, "armor"));
   }
 
   // ------- automatic calculation (CR) -------
@@ -134,10 +140,12 @@ export function calculateArmorClass(character: Character) {
     totalAC = calibrateStatistic(character, totalAC, "AC");
   }
 
-  s.AC = {
-    number: totalAC,
-    string: `${totalAC}`,
-  };
-  if (armorString) s.AC.string += ` (${armorString})`.toLowerCase();
+  s.AC!.number = totalAC;
+  if (s.AC!.array!.length) {
+    s.AC!.array!.push(createPart(")"));
+    s.AC!.array!.unshift(createPart(" ("));
+    s.AC!.array!.unshift(createPart("totalAC", "number"));
+  }
+  s.AC!.string = s.AC!.array!.reduce((acc, obj) => acc + obj.string, "");
   character.variables!.AC = totalAC;
 }

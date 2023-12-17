@@ -20,11 +20,12 @@ import { calculateLanguages } from "./languages";
 import { calculateSpeed } from "./speed";
 import { calculateSavingThrows } from "./savingThrows";
 import { calculateSkills } from "./skills";
-import { calculateDamageVulnerabilities } from "./damageVulnerabilities";
-import { calculateDamageResistances } from "./damageResistances";
+import { calculateVulnerabilities } from "./damageVulnerabilities";
+import { calculateResistances } from "./damageResistances";
 import { calculateConditionImmunities } from "./conditionImmunities";
-import { calculateDamageImmunities } from "./damageImmunities";
+import { calculateImmunities } from "./damageImmunities";
 import { calculateSenses } from "./senses";
+import { calculateActions } from "./actions";
 import type { Character } from "@/types";
 
 export function createStats(character: Character) {
@@ -109,10 +110,12 @@ export function createStats(character: Character) {
   /// /// ///
   calculateSavingThrows(character);
   calculateSkills(character);
-  calculateDamageVulnerabilities(character);
-  calculateDamageResistances(character);
-  calculateDamageImmunities(character);
+  calculateVulnerabilities(character);
+  calculateResistances(character);
+  calculateImmunities(character);
   calculateConditionImmunities(character);
   calculateSenses(character);
   calculateLanguages(character);
+  /// /// ///
+  // calculateActions(character);
 }

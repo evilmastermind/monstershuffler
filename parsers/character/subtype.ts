@@ -12,7 +12,10 @@ export function calculateSubtype(character: Character) {
 
   for (let i = 0; i < subtypesArrays.length; i++) {
     for (let j = 0; j < subtypesArrays[i].length; j++) {
-      if (!limit || limit >= (subtypesArrays[i][j].availableAt || 0)) {
+      if (
+        subtypesArrays[i][j].availableAt === undefined ||
+        limit >= subtypesArrays[i][j].availableAt!
+      ) {
         const subtype: DescriptionPart = {
           string: subtypesArrays[i][j].value,
         };
