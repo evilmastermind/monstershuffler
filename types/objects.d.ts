@@ -1,9 +1,9 @@
 import { Variables } from "./objects.d";
 import { z } from "zod";
 import {
+  abilitiesObject,
   actionObject,
   actionVariantObject,
-  abilitiesObject,
   alignmentEthical,
   alignmentMoral,
   armorObject,
@@ -13,21 +13,23 @@ import {
   characterObject,
   chosenActionObject,
   descriptionPartObject,
-  parsedActionObject,
   pageSettings,
+  parsedActionObject,
   postRandomNpcResponse,
   raceObject,
   sensesObject,
-  speedObject,
+  speedsObject,
   statisticsObject,
-  statString,
-  statStringNumber,
-  statStringWithName,
   statObject,
+  statString,
+  statStringArray,
+  statStringNumber,
+  statStringNumberArray,
+  statStringWithName,
   tagsObject,
+  userObject,
   variablesObject,
   variationsObject,
-  userObject,
 } from "monstershuffler-shared";
 
 export type Action = z.infer<typeof actionObject>;
@@ -46,11 +48,13 @@ export type PageSettings = z.infer<typeof pageSettings>;
 export type ParsedAction = z.infer<typeof parsedActionObject>;
 export type Race = z.infer<typeof raceObject>;
 export type Senses = z.infer<typeof sensesObject>;
-export type Speed = z.infer<typeof speedObject>;
+export type Speeds = z.infer<typeof speedsObject>;
 export type Statistics = z.infer<typeof statisticsObject>;
 export type StatStringNumber = z.infer<typeof statStringNumber>;
 export type StatString = z.infer<typeof statString>;
+export type StatStringArray = z.infer<typeof statStringArray>;
 export type StatStringWithName = z.infer<typeof statStringWithName>;
+export type StatStringNumberArray = z.infer<typeof statStringNumberArray>;
 export type Stat = z.infer<typeof statObject>;
 export type Subtypes = z.infer<typeof subtypesObject>;
 export type Tags = z.infer<typeof tagsObject>;

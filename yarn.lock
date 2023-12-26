@@ -6369,7 +6369,7 @@ mlly@^1.4.2:
 
 "monstershuffler-shared@git+https://github.com/evilmastermind/monstershuffler-shared#main":
   version "0.0.1"
-  resolved "git+https://github.com/evilmastermind/monstershuffler-shared#2707d13306adb6f3e5c739ddd0e567d65b3739ee"
+  resolved "git+https://github.com/evilmastermind/monstershuffler-shared#2ef8bb95aa7ceb195871350dc8526b6164b9b3aa"
   dependencies:
     zod "^3.22.4"
 

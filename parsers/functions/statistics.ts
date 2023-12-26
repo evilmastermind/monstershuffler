@@ -266,12 +266,25 @@ function calibrateTheCalibrationFactor(
   return newCalibrationFactor;
 }
 
+export function addCommaIfNotEmpty(array: DescriptionPart[]) {
+  if (array.length) {
+    array.push(createPart(", "));
+  }
+}
+
 export function pushWithComma(originalString: string, string2: string) {
   if (originalString) {
     originalString += ", ";
   }
   originalString += string2;
   return originalString;
+}
+
+export function numberToSignedString(number: number) {
+  if (number > 0) {
+    return `+${number}`;
+  }
+  return number.toString();
 }
 
 export function unshiftWithComma(originalString: string, string2: string) {

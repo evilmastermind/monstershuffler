@@ -122,12 +122,12 @@ export function calculateArmorClass(character: Character) {
     totalAC = armorAC + dexMod + armorBonus;
   }
 
-  s.AC.array?.push(createPart(armor.name, "armor"));
+  s.AC.array?.push(createPart(armor.name.toLowerCase(), "armor"));
   if (armorBonusString) {
     if (s.AC.array?.length) {
       s.AC.array?.push(createPart(", "));
     }
-    s.AC.array?.push(createPart(armorBonusString, "armor"));
+    s.AC.array?.push(createPart(armorBonusString.toLowerCase(), "armor"));
   }
 
   // ------- automatic calculation (CR) -------
@@ -144,7 +144,7 @@ export function calculateArmorClass(character: Character) {
   if (s.AC!.array!.length) {
     s.AC!.array!.push(createPart(")"));
     s.AC!.array!.unshift(createPart(" ("));
-    s.AC!.array!.unshift(createPart("totalAC", "number"));
+    s.AC!.array!.unshift(createPart(totalAC.toString(), "number"));
   }
   s.AC!.string = s.AC!.array!.reduce((acc, obj) => acc + obj.string, "");
   character.variables!.AC = totalAC;

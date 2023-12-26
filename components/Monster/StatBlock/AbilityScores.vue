@@ -6,7 +6,7 @@
       class="score"
     >
       <span class="ability-name" :class="moral">
-        {{ $t(`statBlock.abilities.${ability}`) }}
+        {{ $t(`statBlock.ability.${ability}`) }}
       </span>
       <span class="ability-score">
         {{ score }} {{ getModifier(ability) }}

@@ -5,8 +5,8 @@ import {
   getPrioritizedStatisticFromPath,
   parseExpressionNumeric,
   sortObject,
-  pushWithComma,
-  unshiftWithComma,
+  addCommaIfNotEmpty,
+  createPart,
 } from "@/parsers/functions";
 import type { Character } from "@/types";
 
@@ -16,13 +16,17 @@ export function calculateSenses(character: Character) {
 
   s.senses = {
     string: "",
-    values: {},
+    array: [],
   };
+
+  type Senses = (typeof sensesList)[number];
+
+  let senses: { [key in Senses]?: number } = {};
 
   for (const sense of sensesList) {
     const senseExpression = getPrioritizedStatisticFromPath<string>(
       character,
-      `.senses.${sense}`
+      `.senses.'${sense}'`
     );
     if (!senseExpression) {
       continue;
@@ -30,16 +34,14 @@ export function calculateSenses(character: Character) {
     const senseBonus = getBonus(character, sense);
     const senseNumber =
       parseExpressionNumeric(senseExpression, character) + senseBonus;
-    s.senses!.values[sense] = senseNumber + senseBonus;
+    senses[sense] = senseNumber;
   }
 
-  s.senses!.values = sortObject(s.senses!.values);
+  senses = sortObject(senses);
 
   const passivePerceptionBonus = getBonus(character, "passivePerception");
-  s.senses!.values["passive Perception"] =
-    10 +
-    (s.senses!.values?.Perception || s.abilityModifiers.WIS) +
-    passivePerceptionBonus;
+  senses["passive Perception"] =
+    10 + (v?.PERCEPTION || v.WIS) + passivePerceptionBonus;
 
   const isBlind = getPrioritizedStatistic<boolean>(character, "isBlind");
   let alternativeSense = "";
@@ -48,42 +50,62 @@ export function calculateSenses(character: Character) {
   if (isBlind) {
     s.isBlind = true;
     alternativeSense = "just blind";
-    if (Object.hasOwn(s.senses!.values, "blindsight")) {
+    if (
+      Object.hasOwn(senses, "blindsight") &&
+      senses.blindsight !== undefined
+    ) {
       alternativeSense = "blindsight";
-      mostPowerfulSense = s.senses!.values.blindsight;
+      mostPowerfulSense = senses.blindsight;
     }
-    if (Object.hasOwn(s.senses!.values, "tremorsense")) {
-      if (s.senses!.values.tremorsense > mostPowerfulSense) {
+    if (
+      Object.hasOwn(senses, "tremorsense") &&
+      senses.tremorsense !== undefined
+    ) {
+      if (senses.tremorsense > mostPowerfulSense) {
         alternativeSense = "tremorsense";
-        mostPowerfulSense = s.senses!.values.tremorsense;
+        mostPowerfulSense = senses.tremorsense;
       }
     }
   }
 
-  for (const sense in s.senses!.values) {
+  for (const key in senses) {
+    if (!Object.hasOwn(senses, key)) {
+      continue;
+    }
+    if (senses[key as Senses] === undefined) {
+      continue;
+    }
+    const sense = key as Senses;
+    addCommaIfNotEmpty(s.senses!.array);
     if (sense === "passive Perception") {
-      s.senses!.string = pushWithComma(
-        s.senses!.string,
-        `${sense} ${s.senses!.values[sense]}`
-      );
+      s.senses!.array.push(createPart("passive Perception", "sense"));
+      s.senses!.array.push(createPart(" "));
+      s.senses!.array.push(createPart(senses[sense]!.toString(), "sense"));
     } else {
-      s.senses!.string = pushWithComma(
-        s.senses!.string,
-        `${sense} ${s.senses!.values[sense]} ft`
-      );
+      s.senses!.array.push(createPart(capitalizeFirst(sense), "sense"));
+      s.senses!.array.push(createPart(" "));
+      s.senses!.array.push(createPart(senses[sense]!.toString(), "feet"));
+      s.senses!.array.push(createPart(" "));
+      s.senses!.array.push(createPart("ft", "ft"));
       if (sense === alternativeSense) {
-        s.senses!.string += " (blind beyond this radius)";
+        s.senses!.array.push(createPart(" ("));
+        s.senses!.array.push(
+          createPart("blind beyond this radius", "translatableText")
+        );
+        s.senses!.array.push(createPart(")"));
       }
     }
+  }
+
+  for (const sense in sensesList) {
     v[`${sense.toUpperCase().replace(/\s/g, "")}` as "DARKVISION"] =
-      s.senses!.values[sense];
+      senses[sense] ?? 0;
   }
 
   if (alternativeSense === "just blind") {
-    s.senses!.string = unshiftWithComma(s.senses!.string, "Blind");
+    s.senses!.array.unshift(createPart(", "));
+    s.senses!.array.unshift(createPart("Blind", "translatableText"));
   }
 
-  if (!s.senses!.string) {
-    delete s.senses;
-  }
+  s.senses!.string = s.senses!.array.reduce((acc, obj) => acc + obj.string, "");
 }

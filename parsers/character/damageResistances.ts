@@ -24,7 +24,7 @@ export function calculateResistances(character: Character) {
         const string = stats[i][j].value;
         s.resistances.array!.push({
           string,
-          type: "immunity",
+          type: "damageType",
         });
       }
     }

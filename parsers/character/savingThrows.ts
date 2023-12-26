@@ -1,10 +1,11 @@
 import {
+  addCommaIfNotEmpty,
   getStatArrayFromObjects,
   getBonus,
-  pushWithComma,
   getCurrentStatLimit,
+  createPart,
 } from "../functions";
-import { Ability } from "./../stats";
+import { Ability, abilities } from "./../stats";
 import { Character, Stat } from "@/types";
 
 export function calculateSavingThrows(character: Character) {
@@ -15,7 +16,8 @@ export function calculateSavingThrows(character: Character) {
     character,
     "savingThrows"
   );
-  s.savingThrows = { string: "", values: {} };
+  const savingThrowValues: { [K in Ability]?: number } = {};
+  s.savingThrows = { string: "", array: [] };
   const abilityModifiers = s.abilityModifiers;
   const proficiency = s.proficiency;
 
@@ -28,27 +30,53 @@ export function calculateSavingThrows(character: Character) {
         limit >= savingThrows[i][j].availableAt!
       ) {
         const savingThrow = savingThrows[i][j].value as Ability;
-        s.savingThrows.values[savingThrow] =
-          abilityModifiers[savingThrow] + proficiency;
+        const savingThrowValue = abilityModifiers[savingThrow] + proficiency;
+
+        savingThrowValues[savingThrow] = savingThrowValue;
       }
     }
   }
 
-  for (const save in s.savingThrows.values) {
-    const bonus = getBonus(character, `${save}Save`);
+  for (const key in savingThrowValues) {
+    if (
+      !Object.hasOwn(savingThrowValues, key) ||
+      savingThrowValues[key as Ability] === undefined
+    ) {
+      continue;
+    }
+    const ability = key as Ability;
+    const bonus = getBonus(character, `${ability}Save`);
     if (bonus) {
-      s.savingThrows.values[save as Ability]! += bonus;
+      savingThrowValues[ability]! += bonus;
+    }
+    if (savingThrowValues[ability] === 0) {
+      continue;
     }
 
-    const plusSign = s.savingThrows.values[save as Ability]! >= 0 ? "+" : "";
-    s.savingThrows.string = pushWithComma(
-      s.savingThrows.string,
-      `${capitalizeFirst(save)} ${plusSign}${s.savingThrows.values[
-        save as Ability
-      ]!}`
+    addCommaIfNotEmpty(s.savingThrows.array);
+    s.savingThrows.array!.push(
+      createPart(capitalizeFirst(ability), "savingThrow")
     );
-    v[`${save}SAVE` as Ability] = s.savingThrows.values[save as Ability]!;
+    s.savingThrows.array!.push(createPart(" "));
+    const valueAsString =
+      savingThrowValues[ability]! > 0
+        ? `+${savingThrowValues[ability]}`
+        : `${savingThrowValues[ability]}`;
+    s.savingThrows.array!.push(
+      createPart(valueAsString, "rollableNumberWithSign")
+    );
   }
+
+  for (const ability in abilities) {
+    v[`${ability}SAVE` as Ability] =
+      savingThrowValues[ability as Ability]! ??
+      abilityModifiers[ability as Ability];
+  }
+
+  s.savingThrows.string = s.savingThrows.array!.reduce(
+    (acc, obj) => acc + obj.string,
+    ""
+  );
 
   if (!s.savingThrows.string) {
     delete s.savingThrows;

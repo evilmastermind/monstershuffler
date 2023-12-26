@@ -1,8 +1,15 @@
-import type { Character } from "@/types";
+import { createPart } from "../functions";
+import type { Character, StatStringArray } from "@/types";
 import { capitalizeFirst } from "@/utils";
 
 export function calculateMeta(character: Character) {
-  let meta = "";
+  character.statistics!.meta = {
+    string: "",
+    array: [],
+  };
+
+  const meta = character.statistics!.meta as StatStringArray;
+
   // Size Type
   const size = capitalizeFirst(character.statistics?.size?.string || "Medium");
   let type = capitalizeFirst(character.statistics?.type?.string || "Humanoid");
@@ -12,11 +19,19 @@ export function calculateMeta(character: Character) {
     } else if (type !== "Fey") {
       type += "s";
     }
-    meta += `${size} swarm of ${
-      character.statistics!.sizeSingleEntityOfSwarm
-    } ${type}`;
+    meta.array!.push(createPart(size, "size"));
+    meta.array!.push(createPart(" "));
+    meta.array!.push(createPart("swarm of", "translatableText"));
+    meta.array!.push(createPart(" "));
+    meta.array!.push(
+      createPart(character.statistics!.sizeSingleEntityOfSwarm!.string, "size")
+    );
+    meta.array!.push(createPart(" "));
+    meta.array!.push(createPart(type, "type"));
   } else {
-    meta += `${size} ${type}`;
+    meta.array!.push(createPart(size, "size"));
+    meta.array!.push(createPart(" "));
+    meta.array!.push(createPart(type, "type"));
   }
 
   const pronouns = ["male", "female"].includes(
@@ -25,19 +40,30 @@ export function calculateMeta(character: Character) {
     ? character.statistics?.pronouns
     : null;
 
-  const subtypes = character.statistics?.subtypes;
-  if (pronouns || subtypes?.length) {
-    meta += " (";
-    if (pronouns) {
-      meta += pronouns;
+  const subtypes = character.statistics?.subtypes || [];
+
+  if (pronouns || subtypes.length) {
+    meta.array!.push(createPart(" ("));
+    if (pronouns && ["male", "female"].includes(pronouns)) {
+      meta.array!.push(createPart(pronouns, "pronouns"));
       if (subtypes?.length) {
-        meta += " ";
+        meta.array!.push(createPart(" "));
       }
     }
-    if (subtypes?.length) {
-      meta += subtypes.map((s) => s.string).join(", ");
+    for (let i = 0; i < subtypes.length; i++) {
+      if (i > 0) {
+        meta.array!.push(createPart(", "));
+      }
+      meta.array!.push(createPart(subtypes[i].string, "subtype"));
     }
-    meta += ")";
+    meta.array!.push(createPart(")"));
   }
-  character.statistics!.meta = `${meta}, ${character.statistics?.alignment?.string}`;
+  meta.array!.push(createPart(", "));
+  meta.array! = meta.array!.concat(
+    character.statistics?.alignment?.array || []
+  );
+
+  meta.string = meta.array!.reduce((acc, obj) => acc + obj.string, "");
+
+  character.statistics!.meta = meta;
 }

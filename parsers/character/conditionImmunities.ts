@@ -27,7 +27,7 @@ export function calculateConditionImmunities(character: Character) {
         const string = stats[i][j].value;
         s.conditionImmunities.array!.push({
           string,
-          type: "conditionImmunity",
+          type: "condition",
         });
       }
     }

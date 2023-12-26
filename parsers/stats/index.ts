@@ -32,6 +32,7 @@ export const sensesList = [
   "darkvision",
   "tremorsense",
   "truesight",
+  "passive Perception",
 ];
 
 export const challengeStats = {

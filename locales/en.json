@@ -18,14 +18,14 @@
     "AC": "Armor Class",
     "speed": {
       "speed": "Speed",
-      "fly": "Fly",
+      "fly": "fly",
       "hover": "hover",
       "swim": "swim",
       "climb": "climb",
       "burrow": "burrow"
     },
-    "skills": {
-      "skills": "Skills",
+    "skills": "Skills",
+    "skill": {
       "Acrobatics": "Acrobatics",
       "Animal Handling": "Animal Handling",
       "Arcana": "Arcana",
@@ -47,7 +47,7 @@
     },
     "HP": "Hit Points",
     "savingThrows": "Saving Throws",    
-    "abilities": {
+    "ability": {
       "STR": "STR",
       "DEX": "DEX",
       "CON": "CON",
@@ -55,7 +55,7 @@
       "WIS": "WIS",
       "CHA": "CHA"
     },
-    "abilitiesNames": {
+    "abilityName": {
       "STR": "Strength",
       "DEX": "Dexterity",
       "CON": "Constitution",
@@ -67,7 +67,7 @@
     "resistances": "Damage Resistances",
     "immunities": "Damage Immunities",
     "conditionImmunities": "Condition Immunities",
-    "damageTypes": {
+    "damageType": {
       "acid": "acid",
       "bludgeoning": "bludgeoning",
       "cold": "cold",
@@ -82,7 +82,7 @@
       "slashing": "slashing",
       "thunder": "thunder"
     },
-    "conditions": {
+    "condition": {
       "blinded": "blinded",
       "charmed": "charmed",
       "deafened": "deafened",
@@ -100,18 +100,18 @@
       "stunned": "stunned",
       "unconscious": "unconscious"
     },
-    "senses": {
-      "senses": "Senses",
+    "senses": "Senses",
+    "sense": {
       "blindsight": "blindsight",
       "darkvision": "darkvision",
       "tremorsense": "tremorsense",
       "truesight": "truesight",
-      "passive Perception": "Passive Perception",
+      "Passive Perception": "Passive Perception",
       "blind": "Blind",
       "blindBeyond": "blind beyond this radius"
     },
-    "languages": {
-      "languages": "Languages",
+    "languages": "Languages",
+    "language": {
       "understands": "understands",
       "butCantSpeak": "but can't speak",
       "cantSpeak": "can't speak",
@@ -137,20 +137,93 @@
       "Terran": "Terran",
       "Undercommon": "Undercommon"
     },
+    "armor": {
+      "breastplate": "breastplate",
+      "chain mail": "chain mail",
+      "chain shirt": "chain shirt",
+      "half plate": "half plate",
+      "hide": "hide",
+      "leather": "leather",
+      "padded": "padded",
+      "plate": "plate",
+      "ring mail": "ring mail",
+      "scale mail": "scale mail",
+      "shield": "shield",
+      "Shield": "Shield",
+      "splint": "splint",
+      "studded leather": "studded leather"
+    },
+    "size": {
+      "Tiny": "Tiny",
+      "Small": "Small",
+      "Medium": "Medium",
+      "Large": "Large",
+      "Huge": "Huge",
+      "Gargantuan": "Gargantuan"
+    },
+    "type": {
+      "Aberration": "Aberration",
+      "Beast": "Beast",
+      "Celestial": "Celestial",
+      "Construct": "Construct",
+      "Dragon": "Dragon",
+      "Elemental": "Elemental",
+      "Fey": "Fey",
+      "Fiend": "Fiend",
+      "Giant": "Giant",
+      "Humanoid": "Humanoid",
+      "Monstrosity": "Monstrosity",
+      "Ooze": "Ooze",
+      "Plant": "Plant",
+      "Undead": "Undead",
+      "Aberrations": "Aberrations",
+      "Beasts": "Beasts",
+      "Celestials": "Celestials",
+      "Constructs": "Constructs",
+      "Dragons": "Dragons",
+      "Elementals": "Elementals",
+      "Fiends": "Fiends",
+      "Giants": "Giants",
+      "Humanoids": "Humanoids",
+      "Monstrosities": "Monstrosities",
+      "Oozes": "Oozes",
+      "Plants": "Plants"
+    },
+    "pronouns": {
+      "male": "male",
+      "female": "female",
+      "neutral": "neutral",
+      "thing": "thing"
+    },
+    "subtype": {
+      "angel": "angel",
+      "demon": "demon",
+      "devil": "devil",
+      "yugoloth": "yugoloth"
+    },
     "challenge": "Challenge",
     "xp": "XP",
     "proficiencyBonus": "Proficiency Bonus",
     "raiseCR": "Raise Challenge Rating",
-    "lowerCR": "Lower Challenge Rating"
+    "lowerCR": "Lower Challenge Rating",
+    "blind beyond this radius": "blind beyond this radius",
+    "Blind": "Blind",
+    "Understands": "Understands",
+    "but can't speak": "but can't speak",
+    "Can't speak": "Can't speak",
+    "telepathy": "telepathy",
+    "swarm of": "Swarm of"
   },
   "alignment": {
+    "Any Alignment": "Any Alignment",
     "Neutral": "Neutral",
     "Lawful": "Lawful",
     "Chaotic": "Chaotic",
     "Good": "Good",
     "Evil": "Evil",
     "Any": "Any",
-    "Unaligned": "Unaligned"
+    "Unaligned": "Unaligned",
+    "Typically": "Typically"
   },
   "navbar": {
     "menuTitle": "Menu:",

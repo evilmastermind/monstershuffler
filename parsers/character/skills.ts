@@ -1,16 +1,20 @@
-import { skillTypes } from "../stats";
+import { Ability, skillTypes } from "../stats";
 import {
   getStatArrayFromObjects,
   getCurrentStatLimit,
   getBonus,
-  pushWithComma,
+  createPart,
   sortObject,
+  addCommaIfNotEmpty,
+  numberToSignedString,
 } from "@/parsers/functions";
 import type { Character, Stat } from "@/types";
 
 export function calculateSkills(character: Character) {
   const s = character.statistics!;
   const v = character.variables!;
+
+  s.skills = { string: "", array: [] };
 
   const skills = getStatArrayFromObjects<Stat[]>(character, "skills");
 
@@ -19,38 +23,58 @@ export function calculateSkills(character: Character) {
 
   const limit = getCurrentStatLimit(character);
 
+  let skillValues: {
+    [key in keyof typeof skillTypes]?: number;
+  } = {};
+
   for (let i = 0; i < skills.length; i++) {
     for (let j = 0; j < skills[i].length; j++) {
       if (
         skills[i][j].availableAt === undefined ||
         limit >= skills[i][j].availableAt!
       ) {
-        if (!s.skills) {
-          s.skills = { string: "", values: {} };
-        }
         const skill = skills[i][j].value;
         const ability = skillTypes[skill];
-        s.skills.values[skill] = abilityModifiers[ability] + proficiency;
+        skillValues[skill] = abilityModifiers[ability] + proficiency;
       }
     }
   }
 
-  if (s.skills?.values?.length) {
-    s.skills.values = sortObject(s.skills.values);
+  if (skillValues.length) {
+    skillValues = sortObject(skillValues);
   }
 
-  for (const skill in s.skills?.values) {
+  for (const skill in skillValues) {
+    if (
+      !Object.hasOwn(skillValues, skill) ||
+      skillValues[skill] === undefined
+    ) {
+      continue;
+    }
     const bonus = getBonus(character, `${skill.replace(/\s/g, "")}`);
     if (bonus) {
-      s.skills.values[skill]! += bonus;
+      skillValues[skill]! += bonus;
     }
 
-    const plusSign = s.skills.values[skill]! >= 0 ? "+" : "";
-    s.skills.string = pushWithComma(
-      s.skills.string,
-      `${capitalizeFirst(skill)} ${plusSign}${s.skills.values[skill]!}`
+    addCommaIfNotEmpty(s.skills.array);
+    s.skills.array.push(createPart(skill, "skill"));
+    s.skills.array.push(createPart(" "));
+    s.skills.array.push(
+      createPart(
+        numberToSignedString(skillValues[skill]!),
+        "rollableNumberWithSign"
+      )
     );
+  }
+
+  for (const skill in skillTypes) {
     v[skill.replace(/\s/g, "").toUpperCase() as "PERSUASION"] =
-      s.skills.values[skill]!;
+      skillValues[skill] ?? abilityModifiers[skillTypes[skill]];
+  }
+
+  s.skills.string = s.skills.array!.reduce((acc, obj) => acc + obj.string, "");
+
+  if (!s.skills.array.length) {
+    delete s.skills;
   }
 }

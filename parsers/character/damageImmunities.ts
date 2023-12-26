@@ -24,7 +24,7 @@ export function calculateImmunities(character: Character) {
         const string = stats[i][j].value;
         s.immunities.array!.push({
           string,
-          type: "immunity",
+          type: "damageType",
         });
       }
     }

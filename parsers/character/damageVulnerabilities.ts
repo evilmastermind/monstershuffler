@@ -24,7 +24,7 @@ export function calculateVulnerabilities(character: Character) {
         const string = stats[i][j].value;
         s.vulnerabilities.array!.push({
           string,
-          type: "immunity",
+          type: "damageType",
         });
       }
     }

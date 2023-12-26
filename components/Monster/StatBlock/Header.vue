@@ -3,8 +3,8 @@
     <div class="header__name" :class="moral">
       {{ statistics?.fullName || "Creature Name" }}
     </div>
-    <div v-if="statistics?.meta" class="header__meta pt-1">
-      {{ statistics.meta }}
+    <div v-if="statistics?.meta?.string" class="header__meta pt-1">
+      {{ statistics.meta.string }}
     </div>
   </div>
 </template>

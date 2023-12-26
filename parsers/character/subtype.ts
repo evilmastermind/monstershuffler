@@ -18,6 +18,7 @@ export function calculateSubtype(character: Character) {
       ) {
         const subtype: DescriptionPart = {
           string: subtypesArrays[i][j].value,
+          type: "subtype",
         };
         if (subtypesArrays[i][j].id) {
           subtype.id = subtypesArrays[i][j].id;
@@ -25,10 +26,11 @@ export function calculateSubtype(character: Character) {
         if (subtypesArrays[i][j].type) {
           subtype.type = subtypesArrays[i][j].type;
         }
-        subtypes.push({
-          string: subtypesArrays[i][j].value,
-        });
+        subtypes.push(subtype);
       }
+    }
+    if (!subtypes.length) {
+      return;
     }
     character.statistics!.subtypes = subtypes;
   }

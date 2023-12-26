@@ -12,7 +12,6 @@
         <!-- ----- -->
         <MonsterStatBlockAbilityScores />
         <MonsterStatBlockSeparator />
-        <!-- ----- -->
         <MonsterStatBlockSavesSkills />
         <MonsterStatBlockResistancesImmunities />
         <MonsterStatBlockSensesLanguages />
@@ -40,9 +39,10 @@ const { themes } = ui;
 const { currentThemeType } = storeToRefs(ui);
 
 const moral = computed(() => {
-  if (p.character?.statistics?.alignment?.array?.includes("Good")) {
+  const alignment = p.character?.statistics?.alignment?.string || "";
+  if (alignment.includes("Good")) {
     return "text-text-good fill-background-good border-evil";
-  } else if (p.character?.statistics?.alignment?.array?.includes("Evil")) {
+  } else if (alignment.includes("Evil")) {
     return "text-text-evil fill-background-evil border-complementary";
   } else {
     return "text-text-neutral fill-background-neutral border-neutral";

@@ -12,9 +12,9 @@
         <span v-if="about" class="title-about">{{ `, ${about}` }}</span>
       </div>
       <MonsterDescription
-        v-if="statistics.characterHook"
-        :character-hook="statistics.characterHook"
-        class="mt-2"
+        v-if="statistics.characterHook?.length"
+        :parts="statistics.characterHook"
+        class="mt-2 italic"
       />
       <dl class="mt-2">
         <template v-if="character.age">
@@ -24,9 +24,9 @@
             ({{ $t("monsterCard.ageNumber", { age: character.age.number }) }})
           </dd>
         </template>
-        <template v-if="statistics?.alignment?.array?.length">
+        <template v-if="statistics?.alignment?.string">
           <dt :class="moral">{{ $t("monsterCard.alignment") }}</dt>
-          <dd>{{ statistics.alignment.array.join(" ") }}</dd>
+          <dd>{{ statistics.alignment.string }}</dd>
         </template>
         <template v-if="character.trait">
           <dt :class="moral">{{ $t("monsterCard.personality") }}</dt>
@@ -84,18 +84,20 @@ const about = computed(() => {
   return string;
 });
 const moral = computed(() => {
-  if (statistics.value.alignment?.array?.includes("Good")) {
+  const alignment = statistics.value?.alignment?.string || "";
+  if (alignment.includes("Good")) {
     return "good";
-  } else if (statistics.value.alignment.array?.includes("Evil")) {
+  } else if (alignment.includes("Evil")) {
     return "evil";
   } else {
     return "neutral";
   }
 });
 const ethical = computed(() => {
-  if (statistics.value.alignment.array?.includes("Lawful")) {
+  const alignment = statistics.value?.alignment?.string || "";
+  if (alignment.includes("Lawful")) {
     return "lawful";
-  } else if (statistics.value.alignment.array?.includes("Chaotic")) {
+  } else if (alignment.includes("Chaotic")) {
     return "chaotic";
   } else {
     return "neutral";

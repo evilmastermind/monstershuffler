@@ -1,5 +1,5 @@
 import { Character, DescriptionPart } from "@/types";
-import { replaceTags } from "@/parsers";
+import { createPart, replaceTags } from "@/parsers";
 
 export function calculateCharacterHook(character: Character) {
   const c = character.character;
@@ -11,44 +11,34 @@ export function calculateCharacterHook(character: Character) {
 
   const characterHook: DescriptionPart[] = [{ string: "The" }];
 
-  const className = c?.class?.name || "";
-  const pronouns: string = character.statistics!.pronouns!;
-  const backgroundName =
-    pronouns === "female"
-      ? c?.background?.femaleName || ""
-      : c?.background?.name || "";
-  const raceName = c?.racevariant?.name || c?.race?.name || "";
   if (c?.class?.name) {
-    const part: DescriptionPart = {
-      string: c?.class?.name,
-      type: "class",
-    };
-    if (c?.class?.id) {
-      part.id = c.class.id;
-    }
-    characterHook.push(part);
+    characterHook.push(createPart(" "));
+    characterHook.push(createPart(c.class.name, "class", [], c?.class?.id));
   }
+
   if (c?.background?.name) {
+    const pronouns = character.statistics!.pronouns!;
     const backgroundName =
-      pronouns === "female"
-        ? c?.background?.femaleName || ""
-        : c?.background?.name || "";
-    const part: DescriptionPart = {
-      string: backgroundName,
-      type: "background",
-    };
-    if (c?.background?.id) {
-      part.id = c.background.id;
-    }
-    characterHook.push(part);
+      pronouns === "female" ? c.background.femaleName : c.background.name;
+    characterHook.push(createPart(" "));
+    characterHook.push(
+      createPart(backgroundName, "background", [], c.background?.id)
+    );
   }
-  if (!c?.class?.name && !c?.background?.name) {
-    characterHook.push({
-      string: c?.race?.name || c.name,
-    });
+
+  if (characterHook.length === 1) {
+    characterHook.push(createPart(" "));
+    characterHook.push(
+      createPart(
+        c?.racevariant?.name || c?.race?.name || "person",
+        "race",
+        [],
+        c?.racevariant?.id || c?.race?.id
+      )
+    );
   }
-  characterHook.push({
-    string: hook,
-  });
+
+  characterHook.push(createPart(" "));
+  characterHook.push(createPart(hook, "text"));
   character.statistics!.characterHook = characterHook;
 }

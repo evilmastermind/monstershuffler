@@ -1,4 +1,4 @@
-import type { Character, StatStringNumber } from "@/types";
+import type { Character, StatStringNumberArray } from "@/types";
 import { random } from "@/utils";
 import { getStatArrayFromObjects, createPart } from "@/parsers/functions";
 
@@ -6,42 +6,43 @@ export function calculateAlignment(character: Character) {
   const c = character.character;
   const generic = c?.generic || null;
   const typically = generic === true ? "Typically" : "";
-  const alignment: StatStringNumber = {
+  const alignment: StatStringNumberArray = {
+    number: 0,
     string: "",
     array: [],
   };
 
   // alignments that have already been defined
   if (c.alignmentEthical === "Unaligned") {
-    alignment.array!.push(createPart("Unaligned", "translatableText"));
+    alignment.array!.push(createPart("Unaligned", "alignment"));
     return;
   }
   if (c.alignmentEthical === c.alignmentMoral && c.alignmentMoral === "Any") {
-    alignment.array!.push(createPart("Any Alignment", "translatableText"));
+    alignment.array!.push(createPart("Any Alignment", "alignment"));
     return;
   }
   if (c.alignmentEthical === "Any" && c.alignmentMoral) {
-    alignment.array!.push(createPart("Any", "translatableText"));
+    alignment.array!.push(createPart("Any", "alignment"));
     alignment.array!.push(createPart(" "));
   }
   if (c.alignmentMoral === "Any" && c.alignmentEthical) {
-    alignment.array!.push(createPart("Any", "translatableText"));
+    alignment.array!.push(createPart("Any", "alignment"));
     alignment.array!.push(createPart(" "));
     return;
   }
   if (typically) {
     alignment.array!.unshift(createPart(" ", "text"));
-    alignment.array!.unshift(createPart(typically, "translatableText"));
+    alignment.array!.unshift(createPart(typically, "alignment"));
   }
   if (c.alignmentEthical && c.alignmentMoral) {
     // neutral
     if (c.alignmentEthical === c.alignmentMoral) {
-      alignment.array!.push(createPart(c.alignmentEthical, "translatableText"));
+      alignment.array!.push(createPart(c.alignmentEthical, "alignment"));
     } else {
       // any other defined alignment
-      alignment.array!.push(createPart(c.alignmentEthical, "translatableText"));
+      alignment.array!.push(createPart(c.alignmentEthical, "alignment"));
       alignment.array!.push(createPart(" "));
-      alignment.array!.push(createPart(c.alignmentMoral, "translatableText"));
+      alignment.array!.push(createPart(c.alignmentMoral, "alignment"));
     }
     return;
   }
