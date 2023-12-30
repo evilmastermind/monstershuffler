@@ -17,6 +17,7 @@ import {
   parsedActionObject,
   postRandomNpcResponse,
   raceObject,
+  resourcePartObject,
   sensesObject,
   speedsObject,
   statisticsObject,
@@ -26,6 +27,7 @@ import {
   statStringNumber,
   statStringNumberArray,
   statStringWithName,
+  statStringArrayWithName,
   tagsObject,
   userObject,
   variablesObject,
@@ -47,6 +49,7 @@ export type DescriptionPart = z.infer<typeof descriptionPartObject>;
 export type PageSettings = z.infer<typeof pageSettings>;
 export type ParsedAction = z.infer<typeof parsedActionObject>;
 export type Race = z.infer<typeof raceObject>;
+export type ResourcePart = z.infer<typeof resourcePartObject>;
 export type Senses = z.infer<typeof sensesObject>;
 export type Speeds = z.infer<typeof speedsObject>;
 export type Statistics = z.infer<typeof statisticsObject>;
@@ -55,6 +58,7 @@ export type StatString = z.infer<typeof statString>;
 export type StatStringArray = z.infer<typeof statStringArray>;
 export type StatStringWithName = z.infer<typeof statStringWithName>;
 export type StatStringNumberArray = z.infer<typeof statStringNumberArray>;
+export type StatStringArrayWithName = z.infer<typeof statStringArrayWithName>;
 export type Stat = z.infer<typeof statObject>;
 export type Subtypes = z.infer<typeof subtypesObject>;
 export type Tags = z.infer<typeof tagsObject>;

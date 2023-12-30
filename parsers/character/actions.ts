@@ -4,20 +4,22 @@ import {
   getCurrentStatLimit,
   parseNameChoices,
   replaceTags,
+  createPart,
 } from "../functions";
 import { parseExpressionNumeric } from "@/parsers";
-import { Character, ChosenAction, ActionVariant, ParsedAction } from "@/types";
+import {
+  Character,
+  ChosenAction,
+  ActionVariant,
+  DescriptionPart,
+  StatStringArrayWithName,
+} from "@/types";
 
 export function calculateActions(character: Character) {
-  const actions = getStatArrayFromObjects<ChosenAction[]>(
-    character,
-    "actions"
-  ).flat();
-
-  const tempMultiAttack: ParsedAction[] = [];
-  const tempMeleeAttacks: ParsedAction[] = [];
-  const tempRangedAttacks: ParsedAction[] = [];
-  const tempProfessionAttack: ParsedAction[] = [];
+  const tempMultiAttack: StatStringArrayWithName[] = [];
+  const tempMeleeAttacks: StatStringArrayWithName[] = [];
+  const tempRangedAttacks: StatStringArrayWithName[] = [];
+  const tempProfessionAttack: StatStringArrayWithName[] = [];
   character.statistics!.actions = [];
   character.statistics!.traits = [];
   character.statistics!.bonusActions = [];
@@ -26,6 +28,11 @@ export function calculateActions(character: Character) {
 
   const tagsArray: string[] = [];
   let tagsNumber = 0;
+
+  const actions = getStatArrayFromObjects<ChosenAction[]>(
+    character,
+    "actions"
+  ).flat();
 
   for (let i = 0; i < actions.length; i++) {
     const action = actions[i];
@@ -78,53 +85,68 @@ export function calculateActions(character: Character) {
       });
     }
 
-    const parsedAction: ParsedAction = {
-      name: actionName,
+    const parsedAction: StatStringArrayWithName = {
+      nameString: actionName,
+      nameArray: [{ string: actionName }],
       tag: action.tag,
       priority: action.priority || 100,
-      description:
-        capitalizeFirst(replaceTags(variant.description, character)) || "",
+      string: "",
+      array: replaceTags(variant.description, character),
     };
 
     // recharge
     if (variant.recharge) {
+      parsedAction.nameArray.push(createPart(" ("));
+      parsedAction.recharge = variant.recharge;
       const charges = parseExpressionNumeric(variant.charges, character) || 1;
+      const descriptionPart: DescriptionPart = {
+        string: "",
+        type: "resource",
+      };
+      if (charges) {
+        parsedAction.charges = charges;
+      }
       switch (variant.recharge) {
         case "turn":
-          parsedAction.name += ` (${charges}/Turn)`;
+          descriptionPart.string = `${charges}/Turn`;
           break;
         case "short":
-          parsedAction.name += ` (${charges}/Short or Long Rest)`;
+          descriptionPart.string = `${charges}/Short or Long Rest`;
           break;
         case "day":
-          parsedAction.name += ` (${charges}/Day)`;
+          descriptionPart.string = `${charges}/Day`;
           break;
         case "week":
-          parsedAction.name += ` (${charges}/Week)`;
+          descriptionPart.string = `${charges}/Week`;
           break;
         case "month":
-          parsedAction.name += ` (${charges}/Month)`;
+          descriptionPart.string = `${charges}/Month`;
           break;
-        case "3–6":
-          parsedAction.name += " (Recharge 3–6)";
+        case "3-6":
+          descriptionPart.string = "Recharge 3–6";
           break;
-        case "4–6":
-          parsedAction.name += " (Recharge 4–6)";
+        case "4-6":
+          descriptionPart.string = "Recharge 4–6";
           break;
-        case "5–6":
-          parsedAction.name += " (Recharge 5–6)";
+        case "5-6":
+          descriptionPart.string = "Recharge 5–6";
           break;
-        case "6–6":
-          parsedAction.name += " (Recharge 6–6)";
+        case "6-6":
+          descriptionPart.string = "Recharge 6–6";
           break;
       }
+      parsedAction.nameArray.push(descriptionPart);
+      parsedAction.nameArray.push(createPart(")"));
     }
 
     // cost (legendary actions)
     if (variant.cost && variant.type === "legendary") {
       const cost = parseExpressionNumeric(variant.cost, character) || 1;
+      parsedAction.cost = cost;
       if (cost > 1) {
-        parsedAction.name += ` (Costs ${variant.cost} Actions)`;
+        parsedAction.nameArray.push(createPart(" ("));
+        parsedAction.nameArray.push(createPart(`Costs ${cost} Actions`));
+        parsedAction.nameArray.push(createPart(")"));
       }
     }
 
@@ -161,8 +183,10 @@ export function calculateActions(character: Character) {
     }
 
     // sorting the arrays
-    const sortFunction = (a: ParsedAction, b: ParsedAction) =>
-      a.priority - b.priority;
+    const sortFunction = (
+      a: StatStringArrayWithName,
+      b: StatStringArrayWithName
+    ) => a.priority - b.priority;
     tempMultiAttack.sort(sortFunction);
     tempMeleeAttacks.sort(sortFunction);
     tempRangedAttacks.sort(sortFunction);
@@ -173,11 +197,14 @@ export function calculateActions(character: Character) {
     character.statistics!.legendaryActions.sort(sortFunction);
 
     // merging the actions
-    let actions = tempMultiAttack.concat(tempMeleeAttacks, tempRangedAttacks);
-    if (actions.length === 0) {
-      actions = actions.concat(tempProfessionAttack);
+    let mergedActions = tempMultiAttack.concat(
+      tempMeleeAttacks,
+      tempRangedAttacks
+    );
+    if (mergedActions.length === 0) {
+      mergedActions = mergedActions.concat(tempProfessionAttack);
     }
-    character.statistics!.actions = actions.concat(
+    character.statistics!.actions = mergedActions.concat(
       character.statistics!.actions
     );
 
