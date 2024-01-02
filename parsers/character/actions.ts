@@ -5,6 +5,7 @@ import {
   parseNameChoices,
   replaceTags,
   createPart,
+  getPrioritizedStatistic,
 } from "../functions";
 import { parseExpressionNumeric } from "@/parsers";
 import {
@@ -25,6 +26,10 @@ export function calculateActions(character: Character) {
   character.statistics!.bonusActions = [];
   character.statistics!.reactions = [];
   character.statistics!.legendaryActions = [];
+
+  const s = character.statistics!;
+  const v = character.variables!;
+  const t = character.tags!;
 
   const tagsArray: string[] = [];
   let tagsNumber = 0;
@@ -208,10 +213,45 @@ export function calculateActions(character: Character) {
       character.statistics!.actions
     );
 
-    // legendary section - description
-    // const legandaryActionsAvailable = getStatisticWithPriority(`.legendaryActionsAvailable`,object) || "3";
-    // let string = `[Name] can take ${parseExpression(legandaryActionsAvailable,variables,`Legendary Charges`)} legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. [Name] regains spent legendary actions at the start of [his] turn.`;
-    // string = replaceTags(object,string,tags);
-    // object.statistics.LegendaryDescription = string;
+    const legendaryActionsMax = getPrioritizedStatistic<string>(
+      character,
+      "legendaryActionsMax"
+    );
+
+    if (legendaryActionsMax) {
+      s.legendaryActionsMax = parseExpressionNumeric(
+        legendaryActionsMax,
+        character
+      );
+      s.legendaryActionsIntro = {
+        string: "",
+        array: [],
+      };
+
+      const legArray = s.legendaryActionsIntro!.array;
+      legArray.push(createPart(t.Name));
+      legArray.push(createPart(" "));
+      legArray.push(createPart("can take", "translatableText"));
+      legArray.push(createPart(" "));
+      legArray.push(s.legendaryActionsMax, "resource");
+      legArray.push(createPart(" "));
+      legArray.push(
+        createPart(
+          "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. ",
+          "translatableText"
+        )
+      );
+      legArray.push(createPart(t.Name));
+      legArray.push(createPart(" "));
+      legArray.push(
+        createPart(
+          "regains spent legendary actions at the start of ",
+          "translatableText"
+        )
+      );
+      legArray.push(createPart(t.his, "translatableText"));
+      legArray.push(createPart(" "));
+      legArray.push(createPart("turn.", "translatableText"));
+    }
   }
 }
