@@ -1,7 +1,7 @@
 import { getStatArrayFromObjects, getCurrentStatLimit } from "../functions";
 import { Character, ChosenAction } from "@/types";
 import { capitalizeFirst } from "@/utils";
-import { resolveRandomName } from "@/parsers";
+import { calculateRandomName } from "@/parsers";
 
 export function createTags(character: Character) {
   const c = character.character;
@@ -139,7 +139,7 @@ export function createTags(character: Character) {
 
     // resolving random names for actions
     for (const v of action.variants) {
-      variant.name = resolveRandomName(variant.name);
+      variant.name = calculateRandomName(variant.name);
       const availableAt = v.availableAt ?? -3;
       const currentAvailableAt = variant ? variant.availableAt ?? -3 : -3;
       if (availableAt <= limit && availableAt >= currentAvailableAt) {

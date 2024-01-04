@@ -79,7 +79,12 @@ export function calculateActions(character: Character) {
 
     // fixing the name of the action
     let actionName = parseNameChoices(variant.name); // ex: "Fire | Cold | Lightning"
-    actionName = capitalizeFirst(replaceTags(actionName, character)); // ex: "Cone of [damageType]"
+    actionName = capitalizeFirst(
+      replaceTags(actionName, character).reduce(
+        (acc, obj) => acc + obj.string,
+        ""
+      )
+    ); // ex: "Cone of [damageType]"
     character.tags![action.tag] = actionName;
 
     if (variant.type === "attack") {
@@ -233,14 +238,17 @@ export function calculateActions(character: Character) {
       legArray.push(createPart(" "));
       legArray.push(createPart("can take", "translatableText"));
       legArray.push(createPart(" "));
-      legArray.push(s.legendaryActionsMax, "resource");
+      legArray.push(
+        createPart(s.legendaryActionsMax?.toString() || "3", "resource")
+      );
       legArray.push(createPart(" "));
       legArray.push(
         createPart(
-          "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. ",
+          "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn.",
           "translatableText"
         )
       );
+      legArray.push(createPart(" "));
       legArray.push(createPart(t.Name));
       legArray.push(createPart(" "));
       legArray.push(
@@ -251,7 +259,8 @@ export function calculateActions(character: Character) {
       );
       legArray.push(createPart(t.his, "translatableText"));
       legArray.push(createPart(" "));
-      legArray.push(createPart("turn.", "translatableText"));
+      legArray.push(createPart("turn", "translatableText"));
+      legArray.push(createPart("."));
     }
   }
 }

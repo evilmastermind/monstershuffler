@@ -97,10 +97,10 @@ export function calculateSenses(character: Character) {
     }
   }
 
-  for (const sense in sensesList) {
+  sensesList.forEach((sense) => {
     v[`${sense.toUpperCase().replace(/\s/g, "")}` as "DARKVISION"] =
       senses[sense] ?? 0;
-  }
+  });
 
   if (alternativeSense === "just blind") {
     s.senses!.array.unshift(createPart(", "));

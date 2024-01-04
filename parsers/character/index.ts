@@ -117,5 +117,5 @@ export function createStats(character: Character) {
   calculateSenses(character);
   calculateLanguages(character);
   /// /// ///
-  // calculateActions(character);
+  calculateActions(character);
 }

@@ -3,11 +3,11 @@ import { createPart, replaceTags } from "@/parsers";
 
 export function calculateCharacterHook(character: Character) {
   const c = character.character;
-  let hook = c?.user?.characterHook || c?.characterHook;
+  const hook = c?.user?.characterHook || c?.characterHook;
   if (!hook) {
     return;
   }
-  hook = replaceTags(hook, character);
+  const hookParts = replaceTags(hook, character);
 
   const characterHook: DescriptionPart[] = [{ string: "The" }];
 
@@ -39,6 +39,8 @@ export function calculateCharacterHook(character: Character) {
   }
 
   characterHook.push(createPart(" "));
-  characterHook.push(createPart(hook, "text"));
+  if (hook) {
+    characterHook.push(...hookParts);
+  }
   character.statistics!.characterHook = characterHook;
 }

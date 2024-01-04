@@ -67,11 +67,11 @@ export function calculateSavingThrows(character: Character) {
     );
   }
 
-  for (const ability in abilities) {
+  abilities.forEach((ability) => {
     v[`${ability}SAVE` as Ability] =
       savingThrowValues[ability as Ability]! ??
       abilityModifiers[ability as Ability];
-  }
+  });
 
   s.savingThrows.string = s.savingThrows.array!.reduce(
     (acc, obj) => acc + obj.string,
