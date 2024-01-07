@@ -2,9 +2,9 @@
   <div class="background pb-8">
     <NavbarPadding />
     <div class="max-w-[50rem] mx-auto w-100">
-      <h2>PRIVACY POLICY</h2>
-      <p class="text-center italic mb-6">Last Updated May 30, 2022</p>
-      <p>
+      <h2 class="content">PRIVACY POLICY</h2>
+      <p class="content text-center italic mb-6">Last Updated May 30, 2022</p>
+      <p class="content">
         Thank you for choosing to be part of our community at
         Monstershuffler.com, owned by Ismaele Gobbo (the "<b>Owner</b>",
         “<b>he</b>”, “<b>his</b>”, “<b>him</b>”) and managed by him and his
@@ -14,7 +14,7 @@
         notice, or our practices with regards to your personal information,
         please contact us at support@monstershuffler.com.
       </p>
-      <p>
+      <p class="content">
         When you visit our website
         <a href="https://www.monstershuffler.com"
           >https://www.monstershuffler.com</a
@@ -29,32 +29,34 @@
         this privacy notice that you do not agree with, please discontinue use
         of our Services immediately.
       </p>
-      <p>
+      <p class="content">
         This privacy notice applies to all information collected through our
         Services (which, as described above, includes our Website), as well as,
         any related services, sales, marketing or events.
       </p>
-      <p>
+      <p class="content">
         Please read this privacy notice carefully as it will help you understand
         what we do with the information that we collect.
       </p>
 
-      <h3>1. WHAT INFORMATION DO WE COLLECT?</h3>
-      <h4>Personal information you disclose to us</h4>
-      <p>In Short: We collect personal information that you provide to us.</p>
-      <p>
+      <h3 class="content">1. WHAT INFORMATION DO WE COLLECT?</h3>
+      <h4 class="content">Personal information you disclose to us</h4>
+      <p class="content">
+        In Short: We collect personal information that you provide to us.
+      </p>
+      <p class="content">
         We collect personal information that you voluntarily provide to us when
         you register on the Website, express an interest in obtaining
         information about us or our products and Services, when you participate
         in activities on the Website or otherwise when you contact us.
       </p>
-      <p>
+      <p class="content">
         The personal information that we collect depends on the context of your
         interactions with us and the Website, the choices you make and the
         products and features you use. The personal information we collect may
         include the following:
       </p>
-      <p>
+      <p class="content">
         Personal Information Provided by You. We may collect names; phone
         numbers; email addresses; mailing addresses; job titles; contact
         preferences; data collected from surveys; usernames; passwords; contact
@@ -79,13 +81,13 @@
         and accurate, and you must notify us of any changes to such personal
         information.
       </p>
-      <h4>Information automatically collected</h4>
-      <p>
+      <h4 class="content">Information automatically collected</h4>
+      <p class="content">
         In Short: Some information — such as your Internet Protocol (IP) address
         and/or browser and device characteristics — is collected automatically
         when you visit our Website.
       </p>
-      <p>
+      <p class="content">
         We automatically collect certain information when you visit, use or
         navigate the Website. This information does not reveal your specific
         identity (like your name or contact information) but may include device
@@ -96,13 +98,13 @@
         primarily needed to maintain the security and operation of our Website,
         and for our internal analytics and reporting purposes.
       </p>
-      <p>
+      <p class="content">
         Like many businesses, we also collect information through cookies and
         similar technologies. You can find out more about this in our Cookie
         Notice.
       </p>
-      <p>The information we collect automatically includes:</p>
-      <p>
+      <p class="content">The information we collect automatically includes:</p>
+      <p class="content">
         Log and Usage Data. Log and usage data is service-related, diagnostic,
         usage and performance information our servers automatically collect when
         you access or use our Website and which we record in log files.
@@ -132,13 +134,13 @@
         Services.
       </p>
 
-      <h3>2. HOW DO WE USE YOUR INFORMATION?</h3>
-      <p>
+      <h3 class="content">2. HOW DO WE USE YOUR INFORMATION?</h3>
+      <p class="content">
         In Short: We process your information for purposes based on legitimate
         business interests, the fulfillment of our contract with you, compliance
         with our legal obligations, and/or your consent.
       </p>
-      <p>
+      <p class="content">
         We use personal information collected via our Website for a variety of
         business purposes described below. We process your personal information
         for these purposes in reliance on our legitimate business interests, in
@@ -147,8 +149,8 @@
         specific processing grounds we rely on next to each purpose listed
         below.
       </p>
-      <p>We use the information we collect or receive:</p>
-      <p>
+      <p class="content">We use the information we collect or receive:</p>
+      <p class="content">
         To facilitate account creation and logon process. If you choose to link
         your account with us to a third-party account (such as your Google or
         Facebook account), we use the information you allowed us to collect from
@@ -192,17 +194,17 @@
         personal information without your consent.
       </p>
 
-      <h3>3. WILL YOUR INFORMATION BE SHARED WITH ANYONE?</h3>
-      <p>
+      <h3 class="content">3. WILL YOUR INFORMATION BE SHARED WITH ANYONE?</h3>
+      <p class="content">
         In Short: We only share information with your consent, to comply with
         laws, to provide you with services, to protect your rights, or to
         fulfill business obligations.
       </p>
-      <p>
+      <p class="content">
         We may process or share your data that we hold based on the following
         legal basis:
       </p>
-      <p>
+      <p class="content">
         Consent: We may process your data if you have given us specific consent
         to use your personal information for a specific purpose. Legitimate
         Interests: We may process your data when it is reasonably necessary to
@@ -222,7 +224,7 @@
         involved. More specifically, we may need to process your data or share
         your personal information in the following situations:
       </p>
-      <p>
+      <p class="content">
         Business Transfers. We may share or transfer your information in
         connection with, or during negotiations of, any merger, sale of company
         assets, financing, or acquisition of all or a portion of our business to
@@ -247,12 +249,14 @@
         protect the data they hold on our behalf and to retain it for the period
         we instruct.
       </p>
-      <h3>4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</h3>
-      <p>
+      <h3 class="content">
+        4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
+      </h3>
+      <p class="content">
         In Short: We may use cookies and other tracking technologies to collect
         and store your information.
       </p>
-      <p>
+      <p class="content">
         We may use cookies and similar tracking technologies (like web beacons
         and pixels) to access or store information. We currently only use
         cookies to make sure that, when you are logged in inside the Website and
@@ -260,13 +264,13 @@
         again.
       </p>
 
-      <h3>5. HOW DO WE HANDLE YOUR SOCIAL LOGINS?</h3>
-      <p>
+      <h3 class="content">5. HOW DO WE HANDLE YOUR SOCIAL LOGINS?</h3>
+      <p class="content">
         In Short: If you choose to register or log in to our services using a
         social media account, we may have access to certain information about
         you.
       </p>
-      <p>
+      <p class="content">
         Our Website offers you the ability to register and login using your
         third-party social media account details (like your Facebook or Twitter
         logins). Where you choose to do this, we will receive certain profile
@@ -276,7 +280,7 @@
         list, profile picture as well as other information you choose to make
         public on such social media platform.
       </p>
-      <p>
+      <p class="content">
         We will use the information we receive only for the purposes that are
         described in this privacy notice or that are otherwise made clear to you
         on the relevant Website. Please note that we do not control, and are not
@@ -287,12 +291,14 @@
         their sites and apps.
       </p>
 
-      <h3>6. IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?</h3>
-      <p>
+      <h3 class="content">
+        6. IS YOUR INFORMATION TRANSFERRED INTERNATIONALLY?
+      </h3>
+      <p class="content">
         In Short:We may transfer, store, and process your information in
         countries other than your own.
       </p>
-      <p>
+      <p class="content">
         We are based in Italy and our servers are located in Italy. In order to
         provide our Services to you, please be aware that your information may
         be transferred to, stored, and processed by us in our facilities and by
@@ -301,13 +307,13 @@
         United Kingdom, United States, Taiwan, and other countries.
       </p>
 
-      <h3>7. HOW LONG DO WE KEEP YOUR INFORMATION?</h3>
-      <p>
+      <h3 class="content">7. HOW LONG DO WE KEEP YOUR INFORMATION?</h3>
+      <p class="content">
         In Short: We keep your information for as long as necessary to fulfill
         the purposes outlined in this privacy notice unless otherwise required
         by law.
       </p>
-      <p>
+      <p class="content">
         We will only keep your personal information for as long as it is
         necessary for the purposes set out in this privacy notice, unless a
         longer retention period is required or permitted by law (such as tax,
@@ -315,7 +321,7 @@
         require us keeping your personal information for longer than three (3)
         months past the termination of the user’s account.
       </p>
-      <p>
+      <p class="content">
         When we have no ongoing legitimate business need to process your
         personal information, we will either delete or anonymize such
         information, or, if this is not possible (for example, because your
@@ -324,12 +330,12 @@
         processing until deletion is possible.
       </p>
 
-      <h3>8. HOW DO WE KEEP YOUR INFORMATION SAFE?</h3>
-      <p>
+      <h3 class="content">8. HOW DO WE KEEP YOUR INFORMATION SAFE?</h3>
+      <p class="content">
         In Short: We aim to protect your personal information through a system
         of organizational and technical security measures.
       </p>
-      <p>
+      <p class="content">
         We have implemented appropriate technical and organizational security
         measures designed to protect the security of any personal information we
         process. However, despite our safeguards and efforts to secure your
@@ -343,12 +349,12 @@
         access the Website within a secure environment.
       </p>
 
-      <h3>9. DO WE COLLECT INFORMATION FROM MINORS?</h3>
-      <p>
+      <h3 class="content">9. DO WE COLLECT INFORMATION FROM MINORS?</h3>
+      <p class="content">
         In Short: We do not knowingly collect data from or market to children
         under 18 years of age.
       </p>
-      <p>
+      <p class="content">
         We do not knowingly solicit data from or market to children under 18
         years of age. By using the Website, you represent that you are at least
         18 or that you are the parent or guardian of such a minor and consent to
@@ -360,14 +366,14 @@
         support@monstershuffler.com.
       </p>
 
-      <h3>10. WHAT ARE YOUR PRIVACY RIGHTS?</h3>
-      <p>
+      <h3 class="content">10. WHAT ARE YOUR PRIVACY RIGHTS?</h3>
+      <p class="content">
         In Short: In some regions, such as the European Economic Area (EEA) and
         United Kingdom (UK), you have rights that allow you greater access to
         and control over your personal information. You may review, change, or
         terminate your account at any time.
       </p>
-      <p>
+      <p class="content">
         In some regions (like the EEA and UK), you have certain rights under
         applicable data protection laws. These may include the right (i) to
         request access and obtain a copy of your personal information, (ii) to
@@ -378,7 +384,7 @@
         use the contact details provided below. We will consider and act upon
         any request in accordance with applicable data protection laws.
       </p>
-      <p>
+      <p class="content">
         If we are relying on your consent to process your personal information,
         you have the right to withdraw your consent at any time. Please note
         however that this will not affect the lawfulness of the processing
@@ -386,16 +392,16 @@
         personal information conducted in reliance on lawful processing grounds
         other than consent.
       </p>
-      <p>
+      <p class="content">
         If you have questions or comments about your privacy rights, you may
         email us at support@monstershuffler.com.
       </p>
-      <h4>Account Information</h4>
-      <p>
+      <h4 class="content">Account Information</h4>
+      <p class="content">
         If you would at any time like to review or change the information in
         your account or terminate your account, you can:
       </p>
-      <p>
+      <p class="content">
         Contact us using the contact information provided. Log in to your
         account settings and update your user account. Upon your request to
         terminate your account, we will deactivate or delete your account and
@@ -404,15 +410,15 @@
         with any investigations, enforce our Terms of Use and/or comply with
         applicable legal requirements.
       </p>
-      <p>
+      <p class="content">
         Cookies and similar technologies: Most Web browsers are set to accept
         cookies by default. If you prefer, you can usually choose to set your
         browser to remove cookies and to reject cookies. If you choose to remove
         cookies or reject cookies, this could affect certain features or
         services of our Website.
       </p>
-      <h3>11. CONTROLS FOR DO-NOT-TRACK FEATURES</h3>
-      <p>
+      <h3 class="content">11. CONTROLS FOR DO-NOT-TRACK FEATURES</h3>
+      <p class="content">
         Most web browsers and some mobile operating systems and mobile
         applications include a Do-Not-Track (“DNT”) feature or setting you can
         activate to signal your privacy preference not to have data about your
@@ -425,12 +431,12 @@
         practice in a revised version of this privacy notice.
       </p>
 
-      <h3>12. DO WE MAKE UPDATES TO THIS NOTICE?</h3>
-      <p>
+      <h3 class="content">12. DO WE MAKE UPDATES TO THIS NOTICE?</h3>
+      <p class="content">
         In Short: Yes, we will update this notice as necessary to stay compliant
         with relevant laws.
       </p>
-      <p>
+      <p class="content">
         We may update this privacy notice from time to time. The updated version
         will be indicated by an updated “Revised” date and the updated version
         will be effective as soon as it is accessible. If we make material
@@ -440,16 +446,16 @@
         to be informed of how we are protecting your information.
       </p>
 
-      <h3>13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</h3>
-      <p>
+      <h3 class="content">13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</h3>
+      <p class="content">
         If you have questions or comments about this notice, you may contact us
         by email at support@monstershuffler.com
       </p>
 
-      <h3>
+      <h3 class="content">
         14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
       </h3>
-      <p>
+      <p class="content">
         Based on the applicable laws of your country, you may have the right to
         request access to the personal information we collect from you, change
         that information, or delete it in some circumstances. To request to

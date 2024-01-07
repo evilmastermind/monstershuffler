@@ -1,6 +1,6 @@
 <template>
   <div class="link-support-container p-1">
-    <a :href="link" class="link-support" :title="name">
+    <a :href="link" class="content link-support" :title="name">
       <font-awesome-icon
         :icon="`fa-brands ${icon}`"
         class="link-support-icon"

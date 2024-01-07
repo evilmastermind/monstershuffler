@@ -69,7 +69,6 @@ export const useGeneratorStore = defineStore("generator", () => {
           npc.variations.currentCR = changes.CR;
         }
         createStats(npc);
-        console.log(npc);
       });
       session.value = [];
       session.value = data.value.npcs;

@@ -8,7 +8,7 @@
     class="user-flex"
     :to="localePath({ name: 'user-settings' })"
   >
-    <p>
+    <p class="content">
       {{ me.username }}
     </p>
     <div

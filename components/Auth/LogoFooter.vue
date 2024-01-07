@@ -1,6 +1,6 @@
 <template>
   <div class="logo mt-4">
-    <NuxtLink :to="localePath({ name: 'index' })">
+    <NuxtLink :to="localePath({ name: 'index' })" class="content">
       <div class="logo mt-4">
         <LogoStatic :size="30" class="logo-static" />onstershuffler
       </div>

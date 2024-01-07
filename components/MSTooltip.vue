@@ -14,7 +14,7 @@
   >
     <div class="tooltip">
       <h4 class="text-left">{{ word }}:</h4>
-      <p v-if="description !== null">{{ description }}</p>
+      <p v-if="description !== null" class="content">{{ description }}</p>
       <LoadingDots v-else :size="6" />
       <div
         v-if="hasCloseButton"

@@ -19,7 +19,7 @@
     font-style: italic;
   }
 
-  h1 {
+  h1.content {
     font-weight: bold !important;
     font-family: MrsEavesSmallCaps;
     text-align: center;
@@ -27,32 +27,32 @@
     @apply text-primary-700 text-8;
   }
 
-  h2 {
+  h2.content {
     font-size: theme("fontSize.7") !important;
     font-weight: bold !important;
     text-align: center;
   }
 
-  h3 {
+  h3.content {
     font-size: theme("fontSize.6") !important;
     font-weight: bold !important;
   }
 
-  h4 {
+  h4.content {
     font-weight: bold !important;
     text-align: center;
   }
 
-  p {
+  p.content {
     margin: theme("spacing.2") 0;
     line-height: theme("spacing.5");
   }
 
-  q {
+  q.content {
     font-style: italic;
   }
 
-  a {
+  a.content {
     font-weight: 800;
     text-decoration: none;
     color: theme("colors.text");

@@ -4,7 +4,7 @@
     <div class="background" />
     <NavbarPadding />
     <div class="lg-max max-h-100">
-      <h1 class="text-shadow">
+      <h1 class="content text-shadow">
         {{ $t("generator.title") }}
       </h1>
       <Transition name="fade">
@@ -44,7 +44,7 @@
                   v-show="mode === 'prompt'"
                   class="prompt max-w-[700px] min-w-[200px] w-full"
                 />
-                <!-- <p>{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
+                <!-- <p class="content">{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
               </div>
               <div>
                 <GeneratorForm

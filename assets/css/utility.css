@@ -33,11 +33,11 @@
 }
 
 .evil {
-  @apply text-text-evil;
+  @apply text-text-evil border-text-evil;
 }
 .good {
-  @apply text-text-good;
+  @apply text-text-good border-text-good;
 }
 .neutral {
-  @apply text-text-neutral;
+  @apply text-text-neutral border-text-neutral;
 }

@@ -14,13 +14,13 @@
       <NuxtLink
         v-if="!user.token"
         :to="localePath({ name: 'login' })"
-        class="md:hidden dropdown-link"
+        class="content md:hidden dropdown-link"
         >{{ $t("navbar.login") }}</NuxtLink
       >
       <NuxtLink
         v-if="!user.token"
         :to="localePath({ name: 'registration' })"
-        class="md:hidden dropdown-link"
+        class="content md:hidden dropdown-link"
         >{{ $t("navbar.register") }}</NuxtLink
       >
       <button
@@ -30,7 +30,7 @@
       >
         {{ $t("navbar.logout") }}
       </button>
-      <p id="button-theme-mobile">
+      <p id="button-theme-mobile" class="content">
         Change theme: <span class="inline-block"><NavbarTheme /></span>
       </p>
       <div class="mt-4">

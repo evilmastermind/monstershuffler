@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1 class="text-center mt-2">{{ $t("reactivation.title") }}</h1>
+    <h1 class="content text-center mt-2">{{ $t("reactivation.title") }}</h1>
 
     <form
       v-if="!hasRequestBeenSent"
       class="centered"
       @submit.prevent="reactivate"
     >
-      <p class="mt-2 mb-6 text-center">
+      <p class="content mt-2 mb-6 text-center">
         {{ $t("reactivation.message") }}
       </p>
       <label class="ms-label">
@@ -29,7 +29,7 @@
       />
     </form>
     <div v-else class="mt-6 mb-6 text-center">
-      <p>{{ $t("reactivation.emailSentMaybe") }}</p>
+      <p class="content">{{ $t("reactivation.emailSentMaybe") }}</p>
     </div>
     <AuthLogoFooter />
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $t("verification.title") }}</h1>
+    <h1 class="content">{{ $t("verification.title") }}</h1>
     <div v-if="result === 'pending'">
       <h4 class="text-primary-700 text-center my-4">
         <font-awesome-icon icon="fa-solid fa-spinner-third" />

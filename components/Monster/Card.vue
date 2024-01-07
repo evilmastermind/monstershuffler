@@ -14,6 +14,7 @@
       <MonsterDescription
         v-if="statistics.characterHook?.length"
         :parts="statistics.characterHook"
+        period
         class="mt-2 italic"
       />
       <dl class="mt-2">

@@ -15,6 +15,10 @@
     "voiceIn": "in"
   },
   "statBlock": {
+    "actions": "Actions",
+    "bonusActions": "Bonus Actions",
+    "reactions": "Reactions",
+    "legendaryActions": "Legendary Actions",
     "AC": "Armor Class",
     "speed": {
       "speed": "Speed",

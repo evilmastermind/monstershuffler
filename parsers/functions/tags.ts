@@ -1,3 +1,4 @@
+import { start } from "repl";
 import { parseExpressionNumeric } from "./expressions";
 import { createPart } from "./statistics";
 import { numberToWord, addOrdinal } from "./numbers";
@@ -24,14 +25,14 @@ export function replaceTags(
 
   const parts: DescriptionPart[] = [];
   const tags = character.tags!;
-  let stringSize = string.length;
+  const stringSize = string.length;
   let position = 0;
   let j = 0;
   let startingPoint = 0;
   let word = "";
   let wordSize = 0;
   let newWord = "";
-  let newWordSize = 0;
+  const newWordSize = 0;
 
   while (position < stringSize) {
     const i = position;
@@ -68,11 +69,14 @@ export function replaceTags(
         parts.push(createPart(newWord));
       }
       position = position + (wordSize + 1);
+      startingPoint = position;
     } else if (string.charAt(i) === "{") {
       // ---------------------------------------------------------
       // replacing variables between { } that contain expressions,
       // dice rolls and attacks
       // ---------------------------------------------------------
+      parts.push(createPart(string.substring(startingPoint, i)));
+      startingPoint = i;
       j = i + 1;
       while (string.charAt(j) !== "}" && j < stringSize) {
         j++;
@@ -86,25 +90,25 @@ export function replaceTags(
       wordSize = word.length;
       newWord = "";
 
+      position = position + (wordSize + 1);
+      startingPoint = position;
+
       const value = variant?.values?.find((v) => v.name === firstPart);
       if (value) {
-        parts.push(...calculateValue(value, character));
+        parts.push(...calculateValue(value, character, variant));
         continue;
       }
-
       const attack = variant?.attacks?.find((a) => a.name === firstPart);
       if (attack) {
         parts.push(...calculateAttack(attack, character));
         continue;
       }
-
       // here I should parse the new syntax
-
-      newWordSize = [...newWord].length;
-      string = string.slice(0, i) + newWord + string.slice(j + 1);
-      position = position + (newWordSize - 1);
-      stringSize = stringSize - wordSize - 2 + newWordSize;
     }
+  }
+
+  if (startingPoint < stringSize) {
+    parts.push(createPart(string.substring(startingPoint, stringSize)));
   }
 
   return parts;
@@ -173,7 +177,7 @@ export function calculateValue(
     const expression = valueExpression.expression;
     const expressionResult = parseExpressionNumeric(expression, character);
     totalValue += expressionResult;
-    if (part.string) {
+    if (part.string && expressionResult !== 0) {
       if (expressionResult > 0) {
         part.string += ` + ${expressionResult}`;
       } else {
@@ -211,7 +215,7 @@ export function calculateValue(
     parts.push(createPart(")"));
   } else if (variant?.type === "multiattack") {
     const multiattackPart: DescriptionPart = {
-      string: numberToWord(totalValue),
+      string: numberToWord(totalValue).trim(),
       number: totalValue,
       type: "numberAsWord",
     };

@@ -11,8 +11,8 @@
     <template #tooltip>
       <slot name="tooltip">
         <div class="text-sm">
-          <h4>Prompt mode keywords:</h4>
-          <p>
+          <h4 class="content">Prompt mode keywords:</h4>
+          <p class="content">
             ex:
             <span class="example">"evil male drow innkeeper rogue cr 6"</span>
           </p>

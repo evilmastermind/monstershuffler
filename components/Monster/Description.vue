@@ -9,7 +9,7 @@
       }}</b>
       <template v-else>{{ part.string }}</template>
     </template>
-    <template v-if="period">{{ period }}</template>
+    <template v-if="period && !hasPeriod">.</template>
   </span>
 </template>
 
@@ -21,17 +21,21 @@ const p = defineProps({
     type: Object as PropType<DescriptionPart[]>,
     required: true,
   },
+  period: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const period = computed(() => {
+const hasPeriod = computed(() => {
   const last = p.parts[p.parts.length - 1];
-  return last?.string?.endsWith(".") ? "" : ".";
+  return last?.string?.trim().endsWith(".");
 });
 </script>
 
 <style scoped lang="scss">
 .description {
-  @apply max-w-full block whitespace-normal break-normal;
+  @apply whitespace-normal break-normal;
 }
 .dotted {
   border-bottom: 1px dotted theme("colors.text-secondary");

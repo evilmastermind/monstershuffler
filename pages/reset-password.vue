@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center mt-2">{{ $t("resetPassword.title") }}</h1>
+    <h1 class="content text-center mt-2">{{ $t("resetPassword.title") }}</h1>
     <div v-if="!isPasswordResetSuccessful">
       <form class="centered" @submit.prevent="resetPassword">
         <label class="ms-label mt-2">
@@ -23,7 +23,7 @@
             required
           />
         </label>
-        <p v-if="errorMessage" class="text-danger text-center mt-6">
+        <p v-if="errorMessage" class="content text-danger text-center mt-6">
           {{ errorMessage }}
         </p>
         <MSButton
@@ -38,7 +38,7 @@
       </form>
     </div>
     <div v-else>
-      <p class="text-center mt-6">
+      <p class="content text-center mt-6">
         {{ $t("resetPassword.success") }}
       </p>
     </div>

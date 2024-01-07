@@ -1,13 +1,11 @@
 <template>
   <MonsterStatBlockStat v-if="statistics?.savingThrows?.array?.length">
     <template #title> {{ $t("statBlock.savingThrows") }} </template>
-    <MonsterStatBlockDescription
-      :parts="statistics?.savingThrows?.array || []"
-    />
+    <MonsterDescription :parts="statistics?.savingThrows?.array || []" />
   </MonsterStatBlockStat>
   <MonsterStatBlockStat v-if="statistics?.skills?.array?.length">
     <template #title> {{ $t("statBlock.skills") }} </template>
-    <MonsterStatBlockDescription :parts="statistics?.skills?.array || []" />
+    <MonsterDescription :parts="statistics?.skills?.array || []" />
   </MonsterStatBlockStat>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <MonsterStatBlockStat v-if="statistics?.senses?.array?.length">
     <template #title> {{ $t("statBlock.senses") }} </template>
-    <MonsterStatBlockDescription :parts="statistics?.senses?.array || []" />
+    <MonsterDescription :parts="statistics?.senses?.array || []" />
   </MonsterStatBlockStat>
   <MonsterStatBlockStat v-if="statistics?.languages?.array?.length">
     <template #title> {{ $t("statBlock.languages") }} </template>
-    <MonsterStatBlockDescription :parts="statistics?.languages?.array || []" />
+    <MonsterDescription :parts="statistics?.languages?.array || []" />
   </MonsterStatBlockStat>
 </template>
 

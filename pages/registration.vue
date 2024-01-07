@@ -1,14 +1,19 @@
 <template>
   <div>
     <div v-if="!isRegistrationSuccessful" class="registration">
-      <h1 class="text-center mt-2">{{ $t("registration.accountCreation") }}</h1>
-      <p class="text-sm mt-4 mb-6">
+      <h1 class="content text-center mt-2">
+        {{ $t("registration.accountCreation") }}
+      </h1>
+      <p class="content text-sm mt-4 mb-6">
         {{ $t("registration.termsAndConditions1") }}
-        <NuxtLink :to="localePath({ name: 'terms-of-service' })">
+        <NuxtLink
+          :to="localePath({ name: 'terms-of-service' })"
+          class="content"
+        >
           {{ $t("registration.termsAndConditions2") }}
         </NuxtLink>
         {{ $t("registration.termsAndConditions3") }}
-        <NuxtLink :to="localePath({ name: 'privacy-policy' })">
+        <NuxtLink :to="localePath({ name: 'privacy-policy' })" class="content">
           {{ $t("registration.termsAndConditions4") }}
         </NuxtLink>
       </p>
@@ -75,7 +80,7 @@
             required
           />
         </label>
-        <p v-if="errorMessage" class="text-danger text-center mt-6">
+        <p v-if="errorMessage" class="content text-danger text-center mt-6">
           {{ errorMessage }}
         </p>
         <MSButton
@@ -88,19 +93,19 @@
         />
       </form>
       <div class="mt-6 mb-4">
-        <p class="text-center">
+        <p class="content text-center">
           {{ $t("registration.alreadyRegistered") }}
           <NuxtLink :to="localePath({ name: 'login' })">
             {{ $t("registration.loginHere") }}
           </NuxtLink>
         </p>
-        <p class="text-center mt-6 text-sm">
+        <p class="content text-center mt-6 text-sm">
           {{ $t("login.forgotPassword") }}
           <NuxtLink :to="localePath({ name: 'user-reactivation' })">
             {{ $t("login.clickHere") }}
           </NuxtLink>
         </p>
-        <p class="text-center mt-2 text-sm">
+        <p class="content text-center mt-2 text-sm">
           {{ $t("login.needActivation") }}
           <NuxtLink :to="localePath({ name: 'user-reactivation' })">
             {{ $t("login.clickHere") }}
@@ -109,11 +114,11 @@
       </div>
     </div>
     <div v-else class="centered text-center">
-      <h2 class="text-primary-700">
+      <h2 class="content text-primary-700">
         <font-awesome-icon icon="fa-solid fa-check" />
         {{ $t("registration.successTitle") }}
       </h2>
-      <p class="mt-4 max-w-md">
+      <p class="content mt-4 max-w-md">
         {{ $t("registration.successMessage", { email: credentials.email }) }}
       </p>
       <MSButton

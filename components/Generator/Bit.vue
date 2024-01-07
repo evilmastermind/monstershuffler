@@ -13,7 +13,7 @@
         @mouseleave="setBitPreview(false)"
       >
         <div class="name-container">
-          <p class="name">{{ character?.character?.name }}</p>
+          <p class="content name">{{ character?.character?.name }}</p>
           <button
             class="close ml-1"
             :title="$t('generator.deleteCharacter')"
@@ -29,8 +29,8 @@
             <span class="sr-only">{{ $t("generator.deleteCharacter") }}</span>
           </button>
         </div>
-        <p>{{ race() }}</p>
-        <p>{{ profession() }}</p>
+        <p class="content">{{ race() }}</p>
+        <p class="content">{{ profession() }}</p>
       </div>
     </Transition>
   </div>

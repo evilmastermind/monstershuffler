@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="text-center mt-2">{{ $t("login.login") }}</h1>
+    <h1 class="content text-center mt-2">{{ $t("login.login") }}</h1>
     <div class="mt-2 mb-6 text-center">
-      <q>{{ greetings }}</q>
+      <q class="content">{{ greetings }}</q>
     </div>
     <form class="centered" @submit.prevent="login">
       <label class="ms-label">
@@ -23,7 +23,7 @@
           required
         />
       </label>
-      <p v-if="errorMessage" class="text-danger text-center mt-6">
+      <p v-if="errorMessage" class="content text-danger text-center mt-6">
         {{ errorMessage }}
       </p>
       <MSButton
@@ -43,21 +43,27 @@
       />
     </form>
     <div class="mt-6">
-      <p class="text-center">
+      <p class="content text-center">
         {{ $t("login.notRegisteredYet") }}
-        <NuxtLink :to="localePath({ name: 'registration' })">
+        <NuxtLink :to="localePath({ name: 'registration' })" class="content">
           {{ $t("login.registerHere") }}
         </NuxtLink>
       </p>
-      <p class="text-center mt-6 text-sm">
+      <p class="content text-center mt-6 text-sm">
         {{ $t("login.forgotPassword") }}
-        <NuxtLink :to="localePath({ name: 'user-reactivation' })">
+        <NuxtLink
+          :to="localePath({ name: 'user-reactivation' })"
+          class="content"
+        >
           {{ $t("login.clickHere") }}
         </NuxtLink>
       </p>
-      <p class="text-center mt-2 text-sm">
+      <p class="content text-center mt-2 text-sm">
         {{ $t("login.needActivation") }}
-        <NuxtLink :to="localePath({ name: 'user-reactivation' })">
+        <NuxtLink
+          :to="localePath({ name: 'user-reactivation' })"
+          class="content"
+        >
           {{ $t("login.clickHere") }}
         </NuxtLink>
       </p>

@@ -2,11 +2,11 @@
   <div class="background pb-8">
     <NavbarPadding />
     <div class="max-w-[50rem] mx-auto w-100">
-      <h2>AGREEMENT TO TERMS</h2>
-      <p class="text-center italic mb-6">Last Updated May 30, 2022</p>
-      <p>
+      <h2 class="content">AGREEMENT TO TERMS</h2>
+      <p class="content text-center italic mb-6">Last Updated May 30, 2022</p>
+      <p class="content">
         The following terms and conditions govern all use of
-        <a href="https://www.monstershuffler.com"
+        <a class="content" href="https://www.monstershuffler.com"
           >https://www.monstershuffler.com</a
         >
         (the “<b>Website</b>”) and all content, services and products available
@@ -39,8 +39,8 @@
         Persons under the age of 18 are not permitted to use or register for the
         Services.
       </p>
-      <h3>1. WEBSITE AND SERVICES</h3>
-      <p>
+      <h3 class="content">1. WEBSITE AND SERVICES</h3>
+      <p class="content">
         The Owner is not a lawyer nor belongs to a law firm, but he helps you
         with compliance in relation to your privacy and contractual obligations.
         The Owner provides you a software (the “<b>Software</b>”), that you
@@ -90,8 +90,8 @@
         Without limiting the foregoing, the Owner may remove any User Content
         that in the sole judgment of the Owner violates these Terms.
       </p>
-      <h3>2. INTELLECTUAL PROPERTY RIGHTS</h3>
-      <p>
+      <h3 class="content">2. INTELLECTUAL PROPERTY RIGHTS</h3>
+      <p class="content">
         Unless otherwise indicated, the Owner retains all right, title, and
         interest in and to the Software and the Website, including without
         limitation all graphics, user interfaces, databases, functionality,
@@ -104,20 +104,22 @@
         Website and their components are protected by copyright and other laws.
       </p>
 
-      <p>
+      <p class="content">
         By posting or submitting any User Content to or through the Website,
         Software, or Services, you hereby irrevocably subject such User Content
         to the <b>Creative Commons Attribution-Share Alike License</b>, and you
         warrant that such User Content is not subject to other licenses other
         than the Creative Commons Attribution-Share Alike License. For more
         informations please visit
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+        <a
+          class="content"
+          href="https://creativecommons.org/licenses/by-sa/4.0/"
           >https://creativecommons.org/licenses/by-sa/4.0/</a
         >.
       </p>
 
-      <h3>3. USER REPRESENTATIONS</h3>
-      <p>
+      <h3 class="content">3. USER REPRESENTATIONS</h3>
+      <p class="content">
         By using the Services, you represent and warrant that: (1) all
         registration information you submit will be true, accurate, current, and
         complete; (2) you will maintain the accuracy of such information and
@@ -129,15 +131,15 @@
         Services for any illegal or unauthorized purpose; and (7) your use of
         the Services will not violate any applicable law or regulation.
       </p>
-      <p>
+      <p class="content">
         If you provide any information that is untrue, inaccurate, not current,
         or incomplete, we have the right to suspend or terminate your account
         and refuse any and all current or future use of the Services (or any
         portion thereof).
       </p>
 
-      <h3>4. USER REGISTRATION</h3>
-      <p>
+      <h3 class="content">4. USER REGISTRATION</h3>
+      <p class="content">
         You may be required to register with the Services. You agree to keep
         your password confidential and will be responsible for all use of your
         account and password. We reserve the right to remove, reclaim, or change
@@ -145,8 +147,8 @@
         username is inappropriate, obscene, or otherwise objectionable.
       </p>
 
-      <h3>5. FEES AND PAYMENT</h3>
-      <p>
+      <h3 class="content">5. FEES AND PAYMENT</h3>
+      <p class="content">
         The Owner offers free and paid account options. You can create a free
         account (“<b>Free Account</b>”) without providing any credit card
         information, but your access to the Website’s features will be limited.
@@ -157,8 +159,8 @@
         of the Owner’s subscription plans (“<b>Subscription Plans</b>” and each
         a “<b>Subscription</b>”).
       </p>
-      <h4>Fees for Subscriptions</h4>
-      <p>
+      <h4 class="content">Fees for Subscriptions</h4>
+      <p class="content">
         Fees for Subscriptions (“<b>Subscription Fees</b>”) shall be based on
         the length of your Subscription (“<b>Subscription Period</b>”). All
         Subscriptions will auto-renew at the end of the then Subscription
@@ -175,13 +177,13 @@
         sure that you check the current Subscription Fees before placing your
         order. All payments shall be in USD, EUR, or GBP.<br />
       </p>
-      <h4>Accepted Forms of Payment</h4>
-      <p>
+      <h4 class="content">Accepted Forms of Payment</h4>
+      <p class="content">
         The following forms of payment are accepted: Visa, Mastercard, American
         Express, Discover, any other Stripe supported card brands.
       </p>
 
-      <p>
+      <p class="content">
         You agree to pay all charges or fees at the prices then in effect for
         your Subscription, and you authorize the Owner to charge your chosen
         payment provider for any such amounts upon placing your order. If your
@@ -197,8 +199,8 @@
         such case he will notify you by email and refund you any Subscription
         Fees that you have paid.
       </p>
-      <h4>Account Upgrades, Downgrades, and Cancellations</h4>
-      <p>
+      <h4 class="content">Account Upgrades, Downgrades, and Cancellations</h4>
+      <p class="content">
         If you created a Free Account but want to upgrade to a Paid Account,
         your upgrade will occur immediately upon payment of the relevant
         Subscription Fees and your Subscription Period will run from the date of
@@ -220,8 +222,8 @@
         PREMIUM CONSENT PLATFORM FEATURES CREATED OR AVAILABLE THROUGH YOUR
         PREVIOUS SUBSCRIPTION PLAN.
       </p>
-      <h4>How to Cancel a Subscription Plan</h4>
-      <p>
+      <h4 class="content">How to Cancel a Subscription Plan</h4>
+      <p class="content">
         You can cancel your Subscription Plan at any time by logging into your
         account or contacting the Owner using the contact information provided
         below. Your cancellation will take effect at the end of your current
@@ -234,8 +236,8 @@
         support@monstershuffler.com
       </p>
 
-      <h3>6. PROHIBITED ACTIVITIES</h3>
-      <p>
+      <h3 class="content">6. PROHIBITED ACTIVITIES</h3>
+      <p class="content">
         You may not access or use the Services for any purpose other than that
         for which we make the Services available. The Services may not be used
         in connection with any commercial endeavors except those that are
@@ -301,8 +303,8 @@
         applicable laws or regulations.
       </p>
 
-      <h3>7. THIRD-PARTY WEBSITES AND CONTENT</h3>
-      <p>
+      <h3 class="content">7. THIRD-PARTY WEBSITES AND CONTENT</h3>
+      <p class="content">
         The Services may contain (or you may be sent via the Services) links to
         other websites (“Third-Party Websites”) as well as articles,
         photographs, text, graphics, pictures, designs, music, sound, video,
@@ -337,8 +339,8 @@
         Third-Party Content or any contact with Third-Party Websites.
       </p>
 
-      <h3>8. SERVICES MANAGEMENT</h3>
-      <p>
+      <h3 class="content">8. SERVICES MANAGEMENT</h3>
+      <p class="content">
         The Owner reserves the right, but not the obligation, to: (1) monitor
         the Services for violations of these Terms of Use; (2) take appropriate
         legal action against anyone who, in our sole discretion, violates the
@@ -354,8 +356,8 @@
         facilitate the proper functioning of the Services.
       </p>
 
-      <h3>9. PRIVACY NOTICE</h3>
-      <p>
+      <h3 class="content">9. PRIVACY NOTICE</h3>
+      <p class="content">
         Review our Privacy Notice to understand our use of your personal
         information. You acknowledge that you have reviewed and understand our
         Privacy Notice.
@@ -368,9 +370,11 @@
         to have your data transferred to and processed in Italy.
       </p>
 
-      <h3>10. DIGITAL MILLENNIUM COPYRIGHT ACT (DMCA) NOTICE AND POLICY</h3>
-      <h4>Notifications</h4>
-      <p>
+      <h3 class="content">
+        10. DIGITAL MILLENNIUM COPYRIGHT ACT (DMCA) NOTICE AND POLICY
+      </h3>
+      <h4 class="content">Notifications</h4>
+      <p class="content">
         The Owner respect the intellectual property rights of others. If you
         believe that any material available on or through the Services infringes
         upon any copyright you own or control, please immediately notify him
@@ -403,8 +407,8 @@
         complaining party is authorized to act on behalf of the owner of an
         exclusive right that is allegedly infringed upon.
       </p>
-      <h4>Counter Notification</h4>
-      <p>
+      <h4 class="content">Counter Notification</h4>
+      <p class="content">
         If you believe your own copyrighted material has been removed from the
         Services as a result of a mistake or misidentification, you may submit a
         written counter notification to the Owner using the contact information
@@ -436,8 +440,8 @@
         <br />
         Contact info: support@monstershuffler.com
       </p>
-      <h4>11. TERM AND TERMINATION</h4>
-      <p>
+      <h4 class="content">11. TERM AND TERMINATION</h4>
+      <p class="content">
         These Terms of Use shall remain in full force and effect while you use
         the Services. WITHOUT LIMITING ANY OTHER PROVISION OF THESE TERMS OF
         USE, THE OWNER RESERVES THE RIGHT TO, IN HIS SOLE DISCRETION AND WITHOUT
@@ -462,8 +466,8 @@
         criminal, and injunctive redress.
       </p>
 
-      <h3>12. MODIFICATIONS AND INTERRUPTIONS</h3>
-      <p>
+      <h3 class="content">12. MODIFICATIONS AND INTERRUPTIONS</h3>
+      <p class="content">
         The Owner reserves the right to change, modify, or remove the Content or
         the Services from time to time to comply with new laws or regulations or
         to update the Website’s offerings. He also reserves the right to modify
@@ -488,17 +492,17 @@
         or releases in connection therewith.
       </p>
 
-      <h3>13. GOVERNING LAW</h3>
-      <p>
+      <h3 class="content">13. GOVERNING LAW</h3>
+      <p class="content">
         These Terms of Use and your use of the Services are governed by and
         construed in accordance with the laws of Italy applicable to agreements
         made and to be entirely performed within Italy, without regard to its
         conflict of law principles.
       </p>
 
-      <h3>14. DISPUTE RESOLUTION</h3>
-      <h4>Informal Negotiations</h4>
-      <p>
+      <h3 class="content">14. DISPUTE RESOLUTION</h3>
+      <h4 class="content">Informal Negotiations</h4>
+      <p class="content">
         To expedite resolution and control the cost of any dispute, controversy,
         or claim related to these Terms of Use (each a “Dispute” and
         collectively, the “Disputes”) brought by either you or the Owner
@@ -510,8 +514,8 @@
         to the other Party.
       </p>
 
-      <h3>15. CORRECTIONS</h3>
-      <p>
+      <h3 class="content">15. CORRECTIONS</h3>
+      <p class="content">
         There may be information on the Services that contains typographical
         errors, inaccuracies, or omissions, including descriptions, pricing,
         availability, and various other information.
@@ -521,8 +525,8 @@
         time, without prior notice.
       </p>
 
-      <h3>16. DISCLAIMER</h3>
-      <p>
+      <h3 class="content">16. DISCLAIMER</h3>
+      <p class="content">
         THE SERVICES ARE PROVIDED ON AN “AS-IS” AND “AS-AVAILABLE” BASIS. YOU
         AGREE THAT YOUR USE OF OUR SERVICES WILL BE AT YOUR SOLE RISK. TO THE
         FULLEST EXTENT PERMITTED BY LAW, THE OWNER DISCLAIMS ALL WARRANTIES,
@@ -555,8 +559,8 @@
         JUDGMENT AND EXERCISE CAUTION WHERE APPROPRIATE.
       </p>
 
-      <h3>17. LIMITATIONS OF LIABILITY</h3>
-      <p>
+      <h3 class="content">17. LIMITATIONS OF LIABILITY</h3>
+      <p class="content">
         IN NO EVENT WILL THE OWNER OR MONSTERSHUFFLER’S, EMPLOYEES, OR AGENTS BE
         LIABLE TO YOU OR ANY THIRD PARTY FOR ANY INDIRECT, CONSEQUENTIAL,
         EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, OR ANY (DIRECT OR
@@ -576,8 +580,8 @@
         LIMITATIONS MAY NOT APPLY TO YOU, AND YOU MAY HAVE ADDITIONAL RIGHTS.
       </p>
 
-      <h3>18. INDEMNIFICATION</h3>
-      <p>
+      <h3 class="content">18. INDEMNIFICATION</h3>
+      <p class="content">
         You agree to defend, indemnify, and hold the owner harmless, including
         our subsidiaries, affiliates, and all of his respective officers,
         agents, partners, and employees, from and against any loss, damage,
@@ -597,8 +601,8 @@
         of it.
       </p>
 
-      <h3>19. USER DATA</h3>
-      <p>
+      <h3 class="content">19. USER DATA</h3>
+      <p class="content">
         The Owner will maintain certain data that you transmit to the Services
         for the purpose of managing the performance of the Services, as well as
         data relating to your use of the Services. Although the Owner performs
@@ -612,8 +616,10 @@
         against him arising from any such loss or corruption of such data.
       </p>
 
-      <h3>20. ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES</h3>
-      <p>
+      <h3 class="content">
+        20. ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES
+      </h3>
+      <p class="content">
         Visiting the Website or using the Services, sending us emails, and
         completing online forms constitute electronic communications. You
         consent to receive electronic communications, and you agree that all
@@ -633,8 +639,8 @@
         than electronic means.
       </p>
 
-      <h3>21. OTHER IMPORTANT INFORMATION</h3>
-      <p>
+      <h3 class="content">21. OTHER IMPORTANT INFORMATION</h3>
+      <p class="content">
         These Terms of Use and any policies or operating rules posted by us on
         the Services or in respect to the Services constitute the entire
         agreement and understanding between you and The Owner. You confirm that
@@ -694,8 +700,8 @@
         reasonable control.
       </p>
 
-      <h3>22. CONTACT US</h3>
-      <p>
+      <h3 class="content">22. CONTACT US</h3>
+      <p class="content">
         In order to resolve a complaint regarding the Services or to receive
         further information regarding use of the Services, please contact us at:
       </p>

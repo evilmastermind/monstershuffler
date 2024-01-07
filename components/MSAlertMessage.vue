@@ -2,8 +2,8 @@
   <div class="modal centered">
     <MSCard>
       <div class="content">
-        <h4 v-if="title" class="mt-4">{{ title }}</h4>
-        <p>{{ message }}</p>
+        <h4 v-if="title" class="content mt-4">{{ title }}</h4>
+        <p class="content">{{ message }}</p>
       </div>
       <div class="buttons mb-4">
         <MSButton

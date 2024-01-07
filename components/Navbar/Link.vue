@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-link-container">
     <NuxtLink
-      class="navbar-link"
+      class="content navbar-link"
       :class="
         currentRoute === `${route}___${locale}`
           ? 'navbar-link-active'

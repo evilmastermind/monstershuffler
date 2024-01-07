@@ -18,6 +18,11 @@
         <MonsterStatBlockChallengeProficiency />
         <MonsterStatBlockSeparator />
         <!-- ----- -->
+        <MonsterStatBlockTraits />
+        <MonsterStatBlockActions />
+        <MonsterStatBlockBonusActions />
+        <MonsterStatBlockReactions />
+        <MonsterStatBlockLegendaryActions />
       </div>
     </div>
     <div class="border" :class="`border-${currentThemeType}`" />
@@ -102,12 +107,20 @@ provide("moral", moral);
 }
 .gradient-light {
   background: url("@/assets/images/monster/semitransparent.png");
+  background-repeat: no-repeat;
 }
 .gradient-dark {
   background: url("@/assets/images/monster/semitransparent-dark.png");
+  background-repeat: no-repeat;
 }
 .stat-block-content {
   position: relative;
   font-family: ScalaSansOffc, Roboto, Helvetica, sans-serif;
+}
+</style>
+<style>
+.action {
+  margin: theme("spacing.2") 0;
+  line-height: theme("spacing.5");
 }
 </style>

@@ -118,4 +118,5 @@ export function createStats(character: Character) {
   calculateLanguages(character);
   /// /// ///
   calculateActions(character);
+  console.log(character);
 }

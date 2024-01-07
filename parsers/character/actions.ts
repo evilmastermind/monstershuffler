@@ -51,10 +51,10 @@ export function calculateActions(character: Character) {
 
     // giving a unique tag to each action
     while (!Object.hasOwn(action, "tag") || tagsArray.includes(action?.tag)) {
-      const type = action?.tag || action.variants[0].type || "action";
-      if (isNaN(parseInt(type.charAt(type.length - 1))))
+      const type = action?.tag || action?.variants[0]?.type || "action";
+      if (isNaN(parseInt(type.charAt(type.length - 1)))) {
         action.tag = `${type}${tagsNumber}`;
-      else {
+      } else {
         action.tag =
           type.slice(0, type.length - 1) +
           (parseInt(type.charAt(type.length - 1)) + 1);
@@ -73,35 +73,48 @@ export function calculateActions(character: Character) {
         variant = v;
       }
     }
-    if (!variant) {
+    if (variant === null) {
       continue;
     }
 
     // fixing the name of the action
     let actionName = parseNameChoices(variant.name); // ex: "Fire | Cold | Lightning"
-    actionName = capitalizeFirst(
-      replaceTags(actionName, character).reduce(
-        (acc, obj) => acc + obj.string,
-        ""
-      )
+    actionName = replaceTags(actionName, character, variant).reduce(
+      (acc, obj) => acc + obj.string,
+      ""
     ); // ex: "Cone of [damageType]"
-    character.tags![action.tag] = actionName;
+
+    if (actionName !== variant.name) {
+      character.tags![action.tag] = capitalizeFirst(actionName);
+    }
 
     if (variant.type === "attack") {
       variant?.attacks?.forEach((attack) => {
-        if (attack.replaceName) {
-          actionName = attack.name;
+        if (
+          attack.replaceName &&
+          "name" in attack?.attributes &&
+          attack?.attributes?.name
+        ) {
+          actionName = attack.attributes.name;
         }
       });
     }
 
+    const parsedActionArray = replaceTags(
+      variant.description,
+      character,
+      variant
+    );
+
+    actionName = capitalizeFirst(actionName);
+
     const parsedAction: StatStringArrayWithName = {
-      nameString: actionName,
+      name: actionName,
       nameArray: [{ string: actionName }],
       tag: action.tag,
       priority: action.priority || 100,
-      string: "",
-      array: replaceTags(variant.description, character),
+      string: parsedActionArray.reduce((acc, obj) => acc + obj.string, ""),
+      array: parsedActionArray,
     };
 
     // recharge
@@ -160,6 +173,11 @@ export function calculateActions(character: Character) {
       }
     }
 
+    parsedAction.name = parsedAction.nameArray.reduce(
+      (acc, obj) => acc + obj.string,
+      ""
+    );
+
     // assigning the action to the correct array
     switch (variant.type) {
       case "attack":
@@ -191,76 +209,74 @@ export function calculateActions(character: Character) {
         character.statistics!.legendaryActions.push(parsedAction);
         break;
     }
+  }
 
-    // sorting the arrays
-    const sortFunction = (
-      a: StatStringArrayWithName,
-      b: StatStringArrayWithName
-    ) => a.priority - b.priority;
-    tempMultiAttack.sort(sortFunction);
-    tempMeleeAttacks.sort(sortFunction);
-    tempRangedAttacks.sort(sortFunction);
-    character.statistics!.traits.sort(sortFunction);
-    character.statistics!.actions.sort(sortFunction);
-    character.statistics!.bonusActions.sort(sortFunction);
-    character.statistics!.reactions.sort(sortFunction);
-    character.statistics!.legendaryActions.sort(sortFunction);
+  // sorting the arrays
+  const sortFunction = (
+    a: StatStringArrayWithName,
+    b: StatStringArrayWithName
+  ) => a.priority - b.priority;
+  tempMultiAttack.sort(sortFunction);
+  tempMeleeAttacks.sort(sortFunction);
+  tempRangedAttacks.sort(sortFunction);
+  character.statistics!.traits.sort(sortFunction);
+  character.statistics!.actions.sort(sortFunction);
+  character.statistics!.bonusActions.sort(sortFunction);
+  character.statistics!.reactions.sort(sortFunction);
+  character.statistics!.legendaryActions.sort(sortFunction);
 
-    // merging the actions
-    let mergedActions = tempMultiAttack.concat(
-      tempMeleeAttacks,
-      tempRangedAttacks
+  // merging the actions
+  let mergedActions = tempMultiAttack.concat(
+    tempMeleeAttacks,
+    tempRangedAttacks
+  );
+  if (mergedActions.length === 0) {
+    mergedActions = mergedActions.concat(tempProfessionAttack);
+  }
+  character.statistics!.actions = mergedActions.concat(
+    character.statistics!.actions
+  );
+
+  const legendaryActionsMax =
+    getPrioritizedStatistic<string>(character, "legendaryActionsMax") || "3";
+
+  if (legendaryActionsMax) {
+    s.legendaryActionsMax = parseExpressionNumeric(
+      legendaryActionsMax,
+      character
     );
-    if (mergedActions.length === 0) {
-      mergedActions = mergedActions.concat(tempProfessionAttack);
-    }
-    character.statistics!.actions = mergedActions.concat(
-      character.statistics!.actions
+    s.legendaryActionsIntro = {
+      string: "",
+      array: [],
+    };
+
+    const legArray = s.legendaryActionsIntro!.array;
+    legArray.push(createPart(t.Name));
+    legArray.push(createPart(" "));
+    legArray.push(createPart("can take", "translatableText"));
+    legArray.push(createPart(" "));
+    legArray.push(
+      createPart(s.legendaryActionsMax?.toString() || "3", "resource")
     );
-
-    const legendaryActionsMax = getPrioritizedStatistic<string>(
-      character,
-      "legendaryActionsMax"
+    legArray.push(createPart(" "));
+    legArray.push(
+      createPart(
+        "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn.",
+        "translatableText"
+      )
     );
-
-    if (legendaryActionsMax) {
-      s.legendaryActionsMax = parseExpressionNumeric(
-        legendaryActionsMax,
-        character
-      );
-      s.legendaryActionsIntro = {
-        string: "",
-        array: [],
-      };
-
-      const legArray = s.legendaryActionsIntro!.array;
-      legArray.push(createPart(t.Name));
-      legArray.push(createPart(" "));
-      legArray.push(createPart("can take", "translatableText"));
-      legArray.push(createPart(" "));
-      legArray.push(
-        createPart(s.legendaryActionsMax?.toString() || "3", "resource")
-      );
-      legArray.push(createPart(" "));
-      legArray.push(
-        createPart(
-          "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn.",
-          "translatableText"
-        )
-      );
-      legArray.push(createPart(" "));
-      legArray.push(createPart(t.Name));
-      legArray.push(createPart(" "));
-      legArray.push(
-        createPart(
-          "regains spent legendary actions at the start of ",
-          "translatableText"
-        )
-      );
-      legArray.push(createPart(t.his, "translatableText"));
-      legArray.push(createPart(" "));
-      legArray.push(createPart("turn", "translatableText"));
-      legArray.push(createPart("."));
-    }
+    legArray.push(createPart(" "));
+    legArray.push(createPart(t.Name));
+    legArray.push(createPart(" "));
+    legArray.push(
+      createPart(
+        "regains spent legendary actions at the start of ",
+        "translatableText"
+      )
+    );
+    legArray.push(createPart(t.his, "translatableText"));
+    legArray.push(createPart(" "));
+    legArray.push(createPart("turn", "translatableText"));
+    legArray.push(createPart("."));
   }
 }
