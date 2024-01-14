@@ -7,7 +7,7 @@ import {
   isNumber,
   createPart,
 } from "@/parsers";
-import { Character, Armor, Condition } from "@/types";
+import type { Character, Armor, Condition } from "@/types";
 
 const createClankingArmorCondition = (armorName: string) => {
   return {
@@ -144,7 +144,7 @@ export function calculateArmorClass(character: Character) {
   if (s.AC!.array!.length) {
     s.AC!.array!.push(createPart(")"));
     s.AC!.array!.unshift(createPart(" ("));
-    s.AC!.array!.unshift(createPart(totalAC.toString(), "number"));
+    s.AC!.array!.unshift(createPart(totalAC.toString(), "text"));
   }
   s.AC!.string = s.AC!.array!.reduce((acc, obj) => acc + obj.string, "");
   character.variables!.AC = totalAC;

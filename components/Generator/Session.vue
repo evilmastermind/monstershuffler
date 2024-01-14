@@ -7,14 +7,14 @@
       >
         <Transition name="fade-scroll-slow" appear>
           <MonsterCard
-            :monster="character"
+            :monster="(character as Character)"
             class="shadow-md"
             :style="{
               transitionDelay: `${0.15 * index}s`,
               transitionProperty: 'opacity, transform',
             }"
             selectable
-            @click="openCharacterSheet(character)"
+            @click="openCharacterSheet(character as Character)"
           />
         </Transition>
       </template>
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { Character } from "@/types";
+import type { Character } from "@/types";
 
 const generator = useGeneratorStore();
 

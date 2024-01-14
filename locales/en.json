@@ -1,4 +1,15 @@
 {
+  "units": {
+    "feet": "{n} feet | {n} foot | {n} feet",
+    "-feet": " {n}-foot",
+    "ft": "{n} ft",
+    "meter": "{n} meters | {n} meter | {n} meters",
+    "-meter": " {n}-meter",
+    "m": "{n} m",
+    "squares": "{n} squares | {n} square | {n} squares",
+    "-squares": " {n}-square",
+    "sq": "{n} sq"
+  },
   "monsterCard": {
     "age": "Age",
     "ageNumber": "{age} years old",
@@ -50,7 +61,15 @@
       "Survival": "Survival"
     },
     "HP": "Hit Points",
-    "savingThrows": "Saving Throws",    
+    "savingThrows": "Saving Throws",
+    "savingThrow": {
+      "Str": "Str",
+      "Dex": "Dex",
+      "Con": "Con",
+      "Int": "Int",
+      "Wis": "Wis",
+      "Cha": "Cha"
+    },
     "ability": {
       "STR": "STR",
       "DEX": "DEX",
@@ -90,6 +109,7 @@
       "blinded": "blinded",
       "charmed": "charmed",
       "deafened": "deafened",
+      "Disease": "Disease",
       "exhaustion": "exhaustion",
       "frightened": "frightened",
       "sleep": "sleep",
@@ -106,12 +126,12 @@
     },
     "senses": "Senses",
     "sense": {
-      "blindsight": "blindsight",
-      "darkvision": "darkvision",
-      "tremorsense": "tremorsense",
-      "truesight": "truesight",
-      "Passive Perception": "Passive Perception",
-      "blind": "Blind",
+      "Blindsight": "Blindsight",
+      "Darkvision": "Darkvision",
+      "Tremorsense": "Tremorsense",
+      "Truesight": "Truesight",
+      "passive Perception": "passive Perception",
+      "Blind": "Blind",
       "blindBeyond": "blind beyond this radius"
     },
     "languages": "Languages",
@@ -127,6 +147,7 @@
       "Common": "Common",
       "Deep Speech": "Deep Speech",
       "Draconic": "Draconic",
+      "Druidic": "Druidic",
       "Dwarvish": "Dwarvish",
       "Elvish": "Elvish",
       "Giant": "Giant",
@@ -249,6 +270,7 @@
     "time": "time",
     "times": "times",
     "damage": "damage",
+    "legendaryActionsIntro": "{name} can take {number} legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. {name} regains spent legendary actions at the start of {his} turn.",
     "can take": "can take",
     "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn.": "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn.",
     "regains spent legendary actions at the start of ": "regains spent legendary actions at the start of ",
@@ -272,7 +294,26 @@
     "Its": "Its",
     "Their": "Their",
     "Him": "Him",
-    "Them": "Them"
+    "Them": "Them",
+    "dcStrength": "DC {dc} Strength",
+    "dcDexterity": "DC {dc} Dexterity",
+    "dcConstitution": "DC {dc} Constitution",
+    "dcIntelligence": "DC {dc} Intelligence",
+    "dcWisdom": "DC {dc} Wisdom",
+    "dcCharisma": "DC {dc} Charisma",
+    "dcStrengthSave": "DC {dc} Strength saving throw",
+    "dcDexteritySave": "DC {dc} Dexterity saving throw",
+    "dcConstitutionSave": "DC {dc} Constitution saving throw",
+    "dcIntelligenceSave": "DC {dc} Intelligence saving throw",
+    "dcWisdomSave": "DC {dc} Wisdom saving throw",
+    "dcCharismaSave": "DC {dc} Charisma saving throw",
+    "Melee Weapon Attack": "Melee Weapon Attack",
+    "Ranged Weapon Attack": "Ranged Weapon Attack",
+    "Melee Spell Attack": "Melee Spell Attack",
+    "Ranged Spell Attack": "Ranged Spell Attack",
+    "toHit": "{toHit} to hit",
+    "range/rangeMax": "range {range}/{rangeMax} {unit}",
+    "range": "range {range} {unit}"
   },
   "alignment": {
     "Any Alignment": "Any Alignment",

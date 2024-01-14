@@ -8,7 +8,7 @@ import {
   getPrioritizedStatistic,
 } from "../functions";
 import { parseExpressionNumeric } from "@/parsers";
-import {
+import type {
   Character,
   ChosenAction,
   ActionVariant,
@@ -92,6 +92,7 @@ export function calculateActions(character: Character) {
       variant?.attacks?.forEach((attack) => {
         if (
           attack.replaceName &&
+          attack?.attributes &&
           "name" in attack?.attributes &&
           attack?.attributes?.name
         ) {
@@ -251,32 +252,15 @@ export function calculateActions(character: Character) {
     };
 
     const legArray = s.legendaryActionsIntro!.array;
-    legArray.push(createPart(t.Name));
-    legArray.push(createPart(" "));
-    legArray.push(createPart("can take", "translatableText"));
-    legArray.push(createPart(" "));
-    legArray.push(
-      createPart(s.legendaryActionsMax?.toString() || "3", "resource")
-    );
-    legArray.push(createPart(" "));
-    legArray.push(
-      createPart(
-        "legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn.",
-        "translatableText"
-      )
-    );
-    legArray.push(createPart(" "));
-    legArray.push(createPart(t.Name));
-    legArray.push(createPart(" "));
-    legArray.push(
-      createPart(
-        "regains spent legendary actions at the start of ",
-        "translatableText"
-      )
-    );
-    legArray.push(createPart(t.his, "translatableText"));
-    legArray.push(createPart(" "));
-    legArray.push(createPart("turn", "translatableText"));
-    legArray.push(createPart("."));
+    legArray.push({
+      string: `${t.Name} can take ${s.legendaryActionsMax} legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. ${t.Name} regains spent legendary actions at the start of ${t.his} turn.`,
+      type: "translatableText",
+      translationKey: "legendaryActionsIntro",
+      translationVariables: {
+        name: t.Name,
+        his: t.his,
+        number: s.legendaryActionsMax,
+      },
+    });
   }
 }

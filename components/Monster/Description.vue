@@ -1,13 +1,47 @@
 <template>
   <span class="description">
     <template v-for="(part, i) in p.parts" :key="i">
-      <b v-if="part.type === 'background'" class="dotted">
+      <!-- Tooltips -->
+      <span
+        v-if="part.type === 'background'"
+        class="dotted"
+        :class="part?.format || []"
+      >
         <MSTooltip :id="part.id" :word="part.string" source="backgrounds" />
-      </b>
-      <b v-else-if="part.type === 'class'" class="text-textlight">{{
-        part.string
-      }}</b>
-      <template v-else>{{ part.string }}</template>
+      </span>
+      <span
+        v-else-if="part.type === 'class'"
+        class="text-textlight"
+        :class="part?.format || []"
+      >
+        {{ part.string }}
+      </span>
+      <!-- rollable parts -->
+      <span
+        v-else-if="
+          part?.type &&
+          ['rollableNumberWithSign', 'rollableDice'].includes(part?.type)
+        "
+      >
+        <MonsterDescriptionDice :part="part" />
+      </span>
+      <!-- resource -->
+      <span v-else-if="part.type === 'resource'" :class="part?.format || []">
+        <MonsterDescriptionResource :part="part" />
+      </span>
+      <!-- Units of measurement -->
+      <span
+        v-else-if="
+          part?.type &&
+          ['feet', 'ft', 'range/rangeMax', 'range'].includes(part?.type)
+        "
+      >
+        <MonsterDescriptionUnit :part="part" />
+      </span>
+      <!-- Translatable & Non-Translatable Text -->
+      <span v-else :class="part?.format || []">
+        <MonsterDescriptionText :part="part" />
+      </span>
     </template>
     <template v-if="period && !hasPeriod">.</template>
   </span>

@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { Ability } from "@/parsers";
+import type { Ability } from "@/parsers";
 import type { Statistics } from "@/types";
 
 const statistics = inject("statistics") as ComputedRef<Statistics>;

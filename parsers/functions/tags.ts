@@ -1,8 +1,15 @@
-import { start } from "repl";
+import {} from "monstershuffler-shared";
+import type { Size } from "../stats";
+import { sizeStats } from "../stats";
 import { parseExpressionNumeric } from "./expressions";
-import { createPart } from "./statistics";
-import { numberToWord, addOrdinal } from "./numbers";
 import {
+  createPart,
+  getBonus,
+  getPrioritizedStatistic,
+  numberToSignedString,
+} from "./statistics";
+import { numberToWord, addOrdinal } from "./numbers";
+import type {
   ActionVariant,
   Attack,
   Character,
@@ -13,6 +20,7 @@ import {
   Variables,
   ParsedDice,
   ParsedExpression,
+  Spells,
 } from "@/types";
 
 export function replaceTags(
@@ -59,8 +67,12 @@ export function replaceTags(
       }
       if (Object.hasOwn(tags, newWord)) {
         // word found between [] is a tag
-        newWord = tags[newWord] || "";
-        parts.push(createPart(newWord, "tag"));
+        const newWordFromTag = tags[newWord] || "";
+        parts.push({
+          string: newWordFromTag,
+          type: "tag",
+          // translationKey: newWord,
+        });
       } else if (newWord.substring(0, 6) === "spell:") {
         // TODO: spell preview
         parts.push(createPart(newWord.replace("spell:", "").trim(), "spell"));
@@ -100,7 +112,7 @@ export function replaceTags(
       }
       const attack = variant?.attacks?.find((a) => a.name === firstPart);
       if (attack) {
-        parts.push(...calculateAttack(attack, character));
+        parts.push(...calculateAttack(attack, variant?.ability, character));
         continue;
       }
       // here I should parse the new syntax
@@ -127,12 +139,16 @@ export function calculateRandomName(name = "") {
   return possibleNames[randomName];
 }
 
+// ---------------------------------------------------------------------------
+// VALUES PARSING
+// ---------------------------------------------------------------------------
+
 export function calculateValue(
   value: ValueDice | ValueExpression | ValueIncrProgression,
   character: Character,
   variant: ActionVariant | undefined = undefined
 ) {
-  const parts: DescriptionPart[] = [];
+  let parts: DescriptionPart[] = [];
   let totalValue = 0;
   const v = character.variables!;
 
@@ -141,6 +157,8 @@ export function calculateValue(
     type: "text",
   };
 
+  // when dice are present, I calculate the total value
+  // and create the rollable dice part
   if (Object.hasOwn(value, "dice")) {
     const valueDice = value as ValueDice;
     const dice = valueDice.dice;
@@ -150,7 +168,7 @@ export function calculateValue(
       currentUnitValue > availableUntil ? availableUntil : currentUnitValue;
     const unitStart = dice.availableAt || 1;
     const unitInterval = dice.unitInterval || 1;
-    const diceIncrement = dice.diceIncrement || 1;
+    const diceIncrement = dice.diceIncrement || 0;
 
     const additionalDice =
       Math.floor((unitEnd - unitStart) / unitInterval) * diceIncrement || 0;
@@ -172,6 +190,8 @@ export function calculateValue(
     part.string += diceString;
   }
 
+  // parsing the expression and adding it to the
+  // rollable dice part, if any
   if (Object.hasOwn(value, "expression")) {
     const valueExpression = value as ValueExpression;
     const expression = valueExpression.expression;
@@ -193,6 +213,7 @@ export function calculateValue(
     }
   }
 
+  // this is used for multiattacks
   if (Object.hasOwn(value, "incrProgression")) {
     const valueIncrProg = value as ValueIncrProgression;
     const incrProg = valueIncrProg.incrProgression;
@@ -208,12 +229,15 @@ export function calculateValue(
     totalValue += result;
   }
 
+  // adding the total value to the parts array
   if (Object.hasOwn(value, "dice")) {
     parts.unshift(createPart(" "));
     parts.unshift(createPart(totalValue.toString()));
+    // adding the rollable dice part
     parts.push(part);
     parts.push(createPart(")"));
   } else if (variant?.type === "multiattack") {
+    // adding the total value as word to the parts array
     const multiattackPart: DescriptionPart = {
       string: numberToWord(totalValue).trim(),
       number: totalValue,
@@ -221,9 +245,10 @@ export function calculateValue(
     };
     parts.unshift(multiattackPart);
   } else {
+    // adding the total value as number to the parts array
     parts.unshift(createPart(totalValue.toString()));
   }
-  addAdditionalDescriptionParts(parts, totalValue, value.type);
+  parts = addAdditionalDescriptionParts(parts, totalValue, value.type);
   return parts;
 }
 
@@ -277,40 +302,161 @@ export function addAdditionalDescriptionParts(
       parts.push(createPart(value === 1 ? "day" : "days", "translatableText"));
       break;
     case "DC Strength":
-      parts.unshift(createPart(" "));
-      parts.unshift(createPart("DC", "translatableText"));
-      parts.unshift(createPart(" "));
-      parts.push(createPart("Strength", "translatableText"));
+      parts = [
+        {
+          string: `DC ${value} Strength`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcStrength",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
       break;
     case "DC Dexterity":
-      parts.unshift(createPart(" "));
-      parts.unshift(createPart("DC", "translatableText"));
-      parts.unshift(createPart(" "));
-      parts.push(createPart("Dexterity", "translatableText"));
+      parts = [
+        {
+          string: `DC ${value} Dexterity`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcDexterity",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
       break;
     case "DC Constitution":
-      parts.unshift(createPart(" "));
-      parts.unshift(createPart("DC", "translatableText"));
-      parts.unshift(createPart(" "));
-      parts.push(createPart("Constitution", "translatableText"));
+      parts = [
+        {
+          string: `DC ${value} Constitution`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcConstitution",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+
       break;
     case "DC Intelligence":
-      parts.unshift(createPart(" "));
-      parts.unshift(createPart("DC", "translatableText"));
-      parts.unshift(createPart(" "));
-      parts.push(createPart("Intelligence", "translatableText"));
+      parts = [
+        {
+          string: `DC ${value} Intelligence`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcIntelligence",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
       break;
     case "DC Wisdom":
-      parts.unshift(createPart(" "));
-      parts.unshift(createPart("DC", "translatableText"));
-      parts.unshift(createPart(" "));
-      parts.push(createPart("Wisdom", "translatableText"));
+      parts = [
+        {
+          string: `DC ${value} Wisdom`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcWisdom",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
       break;
     case "DC Charisma":
-      parts.unshift(createPart(" "));
-      parts.unshift(createPart("DC", "translatableText"));
-      parts.unshift(createPart(" "));
-      parts.push(createPart("Charisma", "translatableText"));
+      parts = [
+        {
+          string: `DC ${value} Strength`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcStrength",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+      break;
+    case "DC Strength saving throw":
+      parts = [
+        {
+          string: `DC ${value} Strength saving throw`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcStrengthSave",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+      break;
+    case "DC Dexterity saving throw":
+      parts = [
+        {
+          string: `DC ${value} Dexterity saving throw`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcDexteritySave",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+      break;
+    case "DC Constitution saving throw":
+      parts = [
+        {
+          string: `DC ${value} Constitution saving throw`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcConstitutionSave",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+      break;
+    case "DC Intelligence saving throw":
+      parts = [
+        {
+          string: `DC ${value} Intelligence saving throw`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcIntelligenceSave",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+      break;
+    case "DC Wisdom saving throw":
+      parts = [
+        {
+          string: `DC ${value} Wisdom saving throw`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcWisdomSave",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
+      break;
+    case "DC Charisma saving throw":
+      parts = [
+        {
+          string: `DC ${value} Charisma saving throw`,
+          number: value,
+          type: "translatableText",
+          translationKey: "dcCharismaSave",
+          translationVariables: {
+            dc: value.toString(),
+          },
+        },
+      ];
       break;
     case "hit point":
       parts.push(createPart(" "));
@@ -342,13 +488,34 @@ export function addAdditionalDescriptionParts(
       });
       break;
     case "feet":
-      parts.push(createPart(" "));
-      parts.push(createPart(value === 1 ? "foot" : "feet", "translatableText"));
+      if (parts.length > 1) {
+        parts.push(createPart(" "));
+        parts.push(
+          createPart(value === 1 ? "foot" : "feet", "translatableText")
+        );
+      } else {
+        parts = [
+          {
+            string: `${value} feet`,
+            number: value,
+            type: "feet",
+          },
+        ];
+      }
       break;
     case "-feet":
-      parts.push(
-        createPart(value === 1 ? "-foot" : "-feet", "translatableText")
-      );
+      if (parts.length > 1) {
+        parts.push(createPart(" "));
+        parts.push(createPart("-foot", "translatableText"));
+      } else {
+        parts = [
+          {
+            string: `${value}-foot`,
+            number: value,
+            type: "-feet",
+          },
+        ];
+      }
       break;
     case "time":
       parts.push(createPart(" "));
@@ -436,74 +603,134 @@ export function addAdditionalDescriptionParts(
       parts.push(createPart("damage", "translatableText"));
       break;
   }
+  return parts;
 }
 
-export function calculateAttack(attack: Attack, character: Character) {
-  return [];
+// ---------------------------------------------------------------------------
+// ATTACKS PARSING
+// ---------------------------------------------------------------------------
+
+export function calculateAttack(
+  attack: Attack,
+  variantAbility: ActionVariant["ability"],
+  character: Character
+) {
+  const parts: DescriptionPart[] = [];
+  const v = character.variables!;
+  let ability = variantAbility;
+
+  const attributes = attack?.attributes || {
+    name: "Dagger",
+    cost: "200",
+    dice: "1",
+    sides: "4",
+    damageType: "piercing damage",
+    weight: "1",
+    range: "20",
+    rangeMax: "60",
+    properties: ["one-handed", "melee", "simple", "light", "finesse", "thrown"],
+  };
+
+  if ("choice" in attributes) {
+    return parts;
+  }
+
+  // const isMelee = attributes.properties?.includes("melee");
+  const isSpell = attributes.properties?.includes("spell");
+  const isRanged = attributes.properties?.includes("ranged");
+  const isThrown = attributes.properties?.includes("thrown");
+  const isReach = attributes.properties?.includes("reach");
+  const isVersatile = attributes.properties?.includes("versatile");
+  const isSpecial = !!attributes?.special;
+
+  let toHitBonus = 0;
+  let damageBonus = 0;
+
+  const attackTypePart: DescriptionPart = {
+    string: "",
+    type: "translatableText",
+    format: ["italic"],
+  };
+
+  // attack type
+  if (isRanged) {
+    attackTypePart.string += "Ranged ";
+    toHitBonus += getBonus(character, "rangedAttack");
+    damageBonus += getBonus(character, "rangedDamage");
+    ability ??= "DEX";
+  } else {
+    attackTypePart.string += "Melee ";
+    toHitBonus += getBonus(character, "meleeAttack");
+    damageBonus += getBonus(character, "meleeDamage");
+    ability ??= "STR";
+  }
+  if (isSpell) {
+    attackTypePart.string += "Spell Attack";
+    toHitBonus += getBonus(character, "spellAttack");
+    damageBonus += getBonus(character, "spellDamage");
+    ability ??=
+      getPrioritizedStatistic<Spells>(character, "spells")?.ability || "CHA";
+  } else {
+    attackTypePart.string += "Weapon Attack";
+    toHitBonus += getBonus(character, "weaponAttack");
+    damageBonus += getBonus(character, "weaponDamage");
+  }
+
+  parts.push(attackTypePart);
+  parts.push(createPart(": "));
+
+  // to hit bonus
+  const toHit = v.PROF + v[ability] + toHitBonus;
+  parts.push({
+    string: `${numberToSignedString(toHit)} to hit`,
+    number: toHit,
+    type: "rollableNumberWithSign",
+    translationKey: "toHit",
+    translationVariables: {
+      toHit: numberToSignedString(toHit),
+    },
+  });
+  parts.push(createPart(", "));
+
+  // ranged
+  if (isRanged) {
+    // range
+    const range = parseExpressionNumeric(attributes.range || "20", character);
+    const rangeMax = parseExpressionNumeric(
+      attributes.rangeMax || "0",
+      character
+    );
+    if (rangeMax && rangeMax > range) {
+      parts.push({
+        string: `range ${range}/${rangeMax} ft`,
+        type: "range/rangeMax",
+        translationKey: "range/rangeMax",
+        translationVariables: {
+          range: range.toString(),
+          rangeMax: rangeMax.toString(),
+        },
+      });
+    } else {
+      parts.push({
+        string: `range ${range} ft`,
+        type: "range",
+        translationKey: "range",
+        translationVariables: {
+          range: range.toString(),
+        },
+      });
+    }
+    parts.push(createPart(", "));
+  } else {
+    // reach
+    const standardReachForSize = sizeStats[v.SIZE.toString() as Size].space;
+    const weaponsReach = parseExpressionNumeric(
+      attributes?.reach || standardReachForSize.toString(),
+      character
+    );
+    // TODO: ========
+    // if (isReach)
+  }
+
+  return parts;
 }
-// /// //////////////////////////////////
-// // finding the variable in "values"
-// let variableInfo = JSPath.apply(
-//   '.values..{.name=="' + word + '"}',
-//   object
-// );
-// if (variableInfo.length != 0) {
-//   variableInfo = variableInfo[0];
-
-//   const newString = {
-//     totalValue: 0,
-//     textValue: "",
-//   };
-//   // resolving dice
-//   if (find(variableInfo, "dice"))
-//     resolveDice(variableInfo.dice, newString, variables);
-//   // resolving expression
-//   if (find(variableInfo, "expression"))
-//     resolveExpression(variableInfo.expression, newString, variables);
-//   // resolving incremental progression
-//   if (find(variableInfo, "incrProgression"))
-//     resolveIncrProgression(
-//       variableInfo.incrProgression,
-//       newString,
-//       variables
-//     );
-
-//   if (newString.textValue.length > 0) {
-//     // merging value and text only if dices were found
-//     if (find(variableInfo, "dice"))
-//       newWord = newString.totalValue + " " + newString.textValue + ")";
-//     else {
-//       newWord = newString.totalValue.toString();
-//       if (find(object, "type") === "multiattack") {
-//         newWord = toWords(newWord);
-//       }
-//     }
-//     newWord = addType(
-//       newWord,
-//       newString.totalValue,
-//       find(variableInfo, "type")
-//     );
-//   }
-// } else {
-//   variableInfo = JSPath.apply(
-//     '.attacks..{.name=="' + word + '"}',
-//     object
-//   );
-//   if (variableInfo.length != 0) {
-//     // resolving attack
-//     let lowerDice = false;
-//     if (find(object, "tag") == "profession") {
-//       if (
-//         find(object, "name") != find(variableInfo[0].attributes, "name")
-//       )
-//         lowerDice = true;
-//     }
-//     newWord = resolveAttack(
-//       character,
-//       variableInfo,
-//       find(object, "ability"),
-//       variables,
-//       lowerDice
-//     );
-//   }
-// }

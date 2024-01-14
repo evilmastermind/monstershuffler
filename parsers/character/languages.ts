@@ -66,9 +66,11 @@ export function calculateLanguages(character: Character) {
     }
     s.languages.array!.push(createPart("telepathy", "translatableText"));
     s.languages.array!.push(createPart(" "));
-    s.languages.array!.push(createPart(`${s.telepathy}`, "feet"));
-    s.languages.array!.push(createPart(" "));
-    s.languages.array!.push(createPart("ft", "ft"));
+    s.languages.array!.push({
+      string: `${s.telepathy} ft`,
+      number: s.telepathy,
+      type: "ft",
+    });
     v.TELEPATHY = s.telepathy;
   }
 

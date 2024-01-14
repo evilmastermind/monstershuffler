@@ -80,13 +80,15 @@ export function calculateSenses(character: Character) {
     if (sense === "passive Perception") {
       s.senses!.array.push(createPart("passive Perception", "sense"));
       s.senses!.array.push(createPart(" "));
-      s.senses!.array.push(createPart(senses[sense]!.toString(), "sense"));
+      s.senses!.array.push(createPart(senses[sense]!.toString()));
     } else {
       s.senses!.array.push(createPart(capitalizeFirst(sense), "sense"));
       s.senses!.array.push(createPart(" "));
-      s.senses!.array.push(createPart(senses[sense]!.toString(), "feet"));
-      s.senses!.array.push(createPart(" "));
-      s.senses!.array.push(createPart("ft", "ft"));
+      s.senses!.array.push({
+        string: `${senses[sense]} ft`,
+        number: senses[sense],
+        type: "ft",
+      });
       if (sense === alternativeSense) {
         s.senses!.array.push(createPart(" ("));
         s.senses!.array.push(

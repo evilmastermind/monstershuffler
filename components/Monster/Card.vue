@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { Character } from "@/types";
+import type { Character } from "@/types";
 import { useTooltipsStore } from "@/stores/tooltips";
 
 const tooltips = useTooltipsStore();

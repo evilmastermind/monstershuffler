@@ -1,8 +1,8 @@
 import JSPath from "jspath";
 import { parseExpressionNumeric } from "./expressions";
-import { Character, Bonus, DescriptionPart } from "@/types";
+import type { Character, Bonus, DescriptionPart } from "@/types";
 import { objects, random } from "@/utils";
-import { Challenge, challengeTable } from "@/parsers/stats";
+import { type Challenge, challengeTable } from "@/parsers/stats";
 
 export function createPart(
   string: string,

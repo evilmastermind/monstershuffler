@@ -6,7 +6,7 @@ import {
   parseExpressionNumeric,
 } from "../functions";
 import { speedTypes } from "../stats";
-import { Character } from "@/types";
+import type { Character } from "@/types";
 
 export function calculateSpeed(character: Character) {
   const s = character.statistics!;
@@ -46,16 +46,20 @@ export function calculateSpeed(character: Character) {
 
     switch (type as Speeds) {
       case "walk":
-        s.speeds!.array!.push(createPart(speedNumber.toString(), "feet"));
-        s.speeds!.array.push(createPart(" "));
-        s.speeds!.array!.push(createPart("ft", "ft"));
+        s.speeds!.array!.push({
+          string: `${speedNumber} ft`,
+          number: speedNumber,
+          type: "ft",
+        });
         break;
       case "hover":
         s.speeds!.array.push(createPart("fly", "speed"));
         s.speeds!.array.push(createPart(" "));
-        s.speeds!.array!.push(createPart(speedNumber.toString(), "feet"));
-        s.speeds!.array.push(createPart(" "));
-        s.speeds!.array!.push(createPart("ft", "ft"));
+        s.speeds!.array!.push({
+          string: `${speedNumber} ft`,
+          number: speedNumber,
+          type: "ft",
+        });
         s.speeds!.array.push(createPart(" ("));
         s.speeds!.array.push(createPart("hover", "speed"));
         s.speeds!.array.push(createPart(")"));
@@ -63,9 +67,11 @@ export function calculateSpeed(character: Character) {
       default:
         s.speeds!.array.push(createPart(type, "speed"));
         s.speeds!.array.push(createPart(" "));
-        s.speeds!.array!.push(createPart(speedNumber.toString(), "feet"));
-        s.speeds!.array.push(createPart(" "));
-        s.speeds!.array!.push(createPart("ft", "ft"));
+        s.speeds!.array!.push({
+          string: `${speedNumber} ft`,
+          number: speedNumber,
+          type: "ft",
+        });
         break;
     }
     speeds[type as Speeds] = speedNumber;

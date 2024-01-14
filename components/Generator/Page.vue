@@ -82,7 +82,7 @@
 
 <script setup lang="ts">
 import { useScreen } from "@/composables/screen";
-import { Character, PostRandomNpcInput } from "@/types";
+import type { Character, PostRandomNpcInput } from "@/types";
 
 type NPCGeneratorSettings = {
   characters: Character[];
@@ -112,7 +112,7 @@ function generateNpcs() {
 
 function saveSettings() {
   const settings: NPCGeneratorSettings = {
-    characters: characters.value,
+    characters: characters.value as Character[],
     options: options.value,
     isFormMode: isFormMode.value,
   };
