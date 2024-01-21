@@ -110,3 +110,12 @@ function addOrdinalEn(number: number) {
   }
   return "th";
 }
+
+export function roundDiceSides(value: number) {
+  if (value < 5) return 4;
+  if (value < 7) return 6;
+  if (value < 9) return 8;
+  if (value < 11) return 10;
+  if (value < 16) return 12;
+  return 20;
+}

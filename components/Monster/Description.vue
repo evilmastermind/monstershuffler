@@ -18,12 +18,9 @@
       </span>
       <!-- rollable parts -->
       <span
-        v-else-if="
-          part?.type &&
-          ['rollableNumberWithSign', 'rollableDice'].includes(part?.type)
-        "
+        v-else-if="part?.type && ['value', 'valueAsWord'].includes(part?.type)"
       >
-        <MonsterDescriptionDice :part="part" />
+        <MonsterDescriptionValue :part="part" />
       </span>
       <!-- resource -->
       <span v-else-if="part.type === 'resource'" :class="part?.format || []">
@@ -33,7 +30,9 @@
       <span
         v-else-if="
           part?.type &&
-          ['feet', 'ft', 'range/rangeMax', 'range'].includes(part?.type)
+          ['feet', 'ft', 'range/rangeMax', 'range', 'reach'].includes(
+            part?.type
+          )
         "
       >
         <MonsterDescriptionUnit :part="part" />

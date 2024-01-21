@@ -39,6 +39,17 @@
       })
     }}
   </template>
+  <template v-else-if="part.type === 'reach'">
+    {{
+      $t("statBlock.reach", {
+        reach: feetToOtherUnit(
+          parseInt(part.translationVariables?.reach || "20"),
+          unit
+        ),
+        unit: getUnitSymbol(unit),
+      })
+    }}
+  </template>
 </template>
 
 <script setup lang="ts">

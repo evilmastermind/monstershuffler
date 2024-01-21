@@ -188,6 +188,8 @@ export function calculateActions(character: Character) {
           const properties = JSPath.apply("..properties", variant.attacks);
           if (properties.includes("ranged")) {
             tempRangedAttacks.push(parsedAction);
+          } else {
+            tempMeleeAttacks.push(parsedAction);
           }
         }
         break;
@@ -259,7 +261,7 @@ export function calculateActions(character: Character) {
       translationVariables: {
         name: t.Name,
         his: t.his,
-        number: s.legendaryActionsMax,
+        number: s.legendaryActionsMax.toString(),
       },
     });
   }

@@ -1,4 +1,3 @@
-import {} from "monstershuffler-shared";
 import type { Size } from "../stats";
 import { sizeStats } from "../stats";
 import { parseExpressionNumeric } from "./expressions";
@@ -8,7 +7,7 @@ import {
   getPrioritizedStatistic,
   numberToSignedString,
 } from "./statistics";
-import { numberToWord, addOrdinal } from "./numbers";
+import { numberToWord, addOrdinal, roundDiceSides } from "./numbers";
 import type {
   ActionVariant,
   Attack,
@@ -17,7 +16,6 @@ import type {
   ValueDice,
   ValueExpression,
   ValueIncrProgression,
-  Variables,
   ParsedDice,
   ParsedExpression,
   Spells,
@@ -28,9 +26,6 @@ export function replaceTags(
   character: Character,
   variant: ActionVariant | undefined = undefined
 ) {
-  const s = character.statistics!;
-  const v = character.variables!;
-
   const parts: DescriptionPart[] = [];
   const tags = character.tags!;
   const stringSize = string.length;
@@ -40,7 +35,6 @@ export function replaceTags(
   let word = "";
   let wordSize = 0;
   let newWord = "";
-  const newWordSize = 0;
 
   while (position < stringSize) {
     const i = position;
@@ -107,7 +101,7 @@ export function replaceTags(
 
       const value = variant?.values?.find((v) => v.name === firstPart);
       if (value) {
-        parts.push(...calculateValue(value, character, variant));
+        parts.push(calculateValue(value, character, variant));
         continue;
       }
       const attack = variant?.attacks?.find((a) => a.name === firstPart);
@@ -148,13 +142,13 @@ export function calculateValue(
   character: Character,
   variant: ActionVariant | undefined = undefined
 ) {
-  let parts: DescriptionPart[] = [];
   let totalValue = 0;
   const v = character.variables!;
 
   const part: DescriptionPart = {
     string: "",
-    type: "text",
+    type: "value",
+    translationVariables: {},
   };
 
   // when dice are present, I calculate the total value
@@ -175,9 +169,8 @@ export function calculateValue(
     const totalDice = dice.dice + additionalDice;
     totalValue += Math.floor((dice.sides / 2 + 0.5) * totalDice);
     const diceString = `${totalDice}d${dice.sides}`;
-    if (parts.length === 0) {
-      parts.push(createPart("("));
-    }
+    part.string = `(${diceString}`;
+
     const parsedDice: ParsedDice = {
       dice: totalDice,
       sides: dice.sides,
@@ -186,8 +179,7 @@ export function calculateValue(
       parsedDice.type = value.type;
     }
     part.dice = [parsedDice];
-    part.type = "rollableDice";
-    part.string += diceString;
+    part.translationKey = "rollableDice";
   }
 
   // parsing the expression and adding it to the
@@ -199,9 +191,9 @@ export function calculateValue(
     totalValue += expressionResult;
     if (part.string && expressionResult !== 0) {
       if (expressionResult > 0) {
-        part.string += ` + ${expressionResult}`;
+        part.string += ` + ${expressionResult})`;
       } else {
-        part.string += ` - ${expressionResult}`;
+        part.string += ` - ${expressionResult})`;
       }
       const parsedExpression: ParsedExpression = {
         value: expressionResult,
@@ -210,6 +202,8 @@ export function calculateValue(
         parsedExpression.type = value.type;
       }
       part.dice = [...(part.dice || []), parsedExpression];
+    } else {
+      part.string += `${expressionResult}`;
     }
   }
 
@@ -231,379 +225,255 @@ export function calculateValue(
 
   // adding the total value to the parts array
   if (Object.hasOwn(value, "dice")) {
-    parts.unshift(createPart(" "));
-    parts.unshift(createPart(totalValue.toString()));
-    // adding the rollable dice part
-    parts.push(part);
-    parts.push(createPart(")"));
+    part.string = `${totalValue} ${part.string}`;
+    part.translationVariables!.value = part.string;
   } else if (variant?.type === "multiattack") {
     // adding the total value as word to the parts array
-    const multiattackPart: DescriptionPart = {
-      string: numberToWord(totalValue).trim(),
-      number: totalValue,
-      type: "numberAsWord",
-    };
-    parts.unshift(multiattackPart);
+    part.string = numberToWord(totalValue);
+    part.type = "valueAsWord";
+    part.translationVariables!.value = totalValue.toString();
   } else {
-    // adding the total value as number to the parts array
-    parts.unshift(createPart(totalValue.toString()));
+    part.translationVariables!.value = part.string;
   }
-  parts = addAdditionalDescriptionParts(parts, totalValue, value.type);
-  return parts;
+  addAdditionalDescriptionParts(part, value.type, totalValue);
+  return part;
 }
 
 export function addAdditionalDescriptionParts(
-  parts: DescriptionPart[],
-  value = 0,
-  type = ""
+  part: DescriptionPart,
+  type = "",
+  totalValue = 0
 ) {
   if (!type) {
-    return parts;
+    return;
   }
   switch (type) {
     case "attack":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "attack" : "attacks", "translatableText")
-      );
+      part.string += totalValue === 1 ? " attack" : " attacks";
+      part.translationKey = "valueAttack";
       break;
     case "creature":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "creature" : "creatures", "translatableText")
-      );
+      part.string += totalValue === 1 ? " creature" : " creatures";
+      part.translationKey = "valueCreature";
       break;
     case "humanoid":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "humanoid" : "humanoids", "translatableText")
-      );
+      part.string += totalValue === 1 ? " humanoid" : " humanoids";
+      part.translationKey = "valueHumanoid";
       break;
     case "round":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "round" : "rounds", "translatableText")
-      );
+      part.string += totalValue === 1 ? " round" : " rounds";
+      part.translationKey = "valueRound";
       break;
     case "hour":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "hour" : "hours", "translatableText")
-      );
+      part.string += totalValue === 1 ? " hour" : " hours";
+      part.translationKey = "valueHour";
       break;
     case "minute":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "minute" : "minutes", "translatableText")
-      );
+      part.string += totalValue === 1 ? " minute" : " minutes";
+      part.translationKey = "valueMinute";
       break;
     case "day":
-      parts.push(createPart(" "));
-      parts.push(createPart(value === 1 ? "day" : "days", "translatableText"));
+      part.string += totalValue === 1 ? " day" : " days";
+      part.translationKey = "valueDay";
       break;
     case "DC Strength":
-      parts = [
-        {
-          string: `DC ${value} Strength`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcStrength",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Strength`;
+      part.translationKey = "dcStrength";
       break;
     case "DC Dexterity":
-      parts = [
-        {
-          string: `DC ${value} Dexterity`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcDexterity",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Dexterity`;
+      part.translationKey = "dcDexterity";
       break;
     case "DC Constitution":
-      parts = [
-        {
-          string: `DC ${value} Constitution`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcConstitution",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
-
+      part.string = `DC ${part.string} Constitution`;
+      part.translationKey = "dcConstitution";
       break;
     case "DC Intelligence":
-      parts = [
-        {
-          string: `DC ${value} Intelligence`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcIntelligence",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Intelligence`;
+      part.translationKey = "dcIntelligence";
       break;
     case "DC Wisdom":
-      parts = [
-        {
-          string: `DC ${value} Wisdom`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcWisdom",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Wisdom`;
+      part.translationKey = "dcWisdom";
       break;
     case "DC Charisma":
-      parts = [
-        {
-          string: `DC ${value} Strength`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcStrength",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Charisma`;
+      part.translationKey = "dcCharisma";
       break;
     case "DC Strength saving throw":
-      parts = [
-        {
-          string: `DC ${value} Strength saving throw`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcStrengthSave",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
-      break;
-    case "DC Dexterity saving throw":
-      parts = [
-        {
-          string: `DC ${value} Dexterity saving throw`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcDexteritySave",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Charisma saving throw`;
+      part.translationKey = "dcStrengthSave";
       break;
     case "DC Constitution saving throw":
-      parts = [
-        {
-          string: `DC ${value} Constitution saving throw`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcConstitutionSave",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Constitution saving throw`;
+      part.translationKey = "dcConstitutionSave";
+      break;
+    case "DC Dexterity saving throw":
+      part.string = `DC ${part.string} Dexterity saving throw`;
+      part.translationKey = "dcDexteritySave";
       break;
     case "DC Intelligence saving throw":
-      parts = [
-        {
-          string: `DC ${value} Intelligence saving throw`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcIntelligenceSave",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Intelligence saving throw`;
+      part.translationKey = "dcIntelligenceSave";
       break;
     case "DC Wisdom saving throw":
-      parts = [
-        {
-          string: `DC ${value} Wisdom saving throw`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcWisdomSave",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Wisdom saving throw`;
+      part.translationKey = "dcWisdomSave";
       break;
     case "DC Charisma saving throw":
-      parts = [
-        {
-          string: `DC ${value} Charisma saving throw`,
-          number: value,
-          type: "translatableText",
-          translationKey: "dcCharismaSave",
-          translationVariables: {
-            dc: value.toString(),
-          },
-        },
-      ];
+      part.string = `DC ${part.string} Charisma saving throw`;
+      part.translationKey = "dcCharismaSave";
       break;
     case "hit point":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "hit point" : "hit points", "translatableText")
-      );
+      part.string += totalValue === 1 ? " hit point" : " hit points";
+      if (part.translationKey === "rollableDice") {
+        part.translationKey = "rollableHitPoint";
+      } else {
+        part.translationKey = "valueHitPoint";
+      }
       break;
     case "temporary hit point":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(
-          value === 1 ? "temporary hit point" : "temporary hit points",
-          "translatableText"
-        )
-      );
+      part.string +=
+        totalValue === 1 ? " temporary hit point" : " temporary hit points";
+      if (part.translationKey === "rollableDice") {
+        part.translationKey = "rollableTemporaryHitPoint";
+      } else {
+        part.translationKey = "valueTemporaryHitPoint";
+      }
       break;
     case "+":
-      if (value >= 0) {
-        parts.unshift(createPart("+"));
+      if (totalValue >= 0) {
+        part.string = `+${part.string}`;
+        part.translationKey = "valuePlus";
       } else {
-        parts.unshift(createPart("-"));
+        part.string = `${part.string}`;
+        part.translationKey = "valueMinus";
       }
       break;
     case "-st-nd-rd":
-      parts.push({
-        string: addOrdinal(value),
-        number: value,
-        type: "ordinal",
-      });
+      part.string += addOrdinal(totalValue);
+      part.number = totalValue;
+      part.type = "ordinal";
       break;
     case "feet":
-      if (parts.length > 1) {
-        parts.push(createPart(" "));
-        parts.push(
-          createPart(value === 1 ? "foot" : "feet", "translatableText")
-        );
-      } else {
-        parts = [
-          {
-            string: `${value} feet`,
-            number: value,
-            type: "feet",
-          },
-        ];
-      }
+      part.string += totalValue === 1 ? " foot" : " feet";
+      part.number = totalValue;
+      part.type = "feet";
       break;
     case "-feet":
-      if (parts.length > 1) {
-        parts.push(createPart(" "));
-        parts.push(createPart("-foot", "translatableText"));
-      } else {
-        parts = [
-          {
-            string: `${value}-foot`,
-            number: value,
-            type: "-feet",
-          },
-        ];
-      }
+      part.string += "-feet";
+      part.number = totalValue;
+      part.type = "-feet";
       break;
     case "time":
-      parts.push(createPart(" "));
-      parts.push(
-        createPart(value === 1 ? "time" : "times", "translatableText")
-      );
+      part.string += totalValue === 1 ? " time" : " times";
+      part.translationKey = "valueTime";
       break;
     case "acid damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("acid", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " acid damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "acid";
       break;
     case "bludgeoning damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("bludgeoning", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " bludgeoning damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "bludgeoning";
       break;
     case "cold damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("cold", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " cold damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "cold";
       break;
     case "fire damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("fire", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " fire damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "fire";
       break;
     case "force damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("force", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " force damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "force";
       break;
     case "lightning damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("lightning", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " lightning damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "lightning";
       break;
     case "necrotic damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("necrotic", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " necrotic damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "necrotic";
       break;
     case "piercing damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("piercing", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " piercing damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "piercing";
       break;
     case "poison damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("poison", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " poison damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "poison";
       break;
     case "psychic damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("psychic", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
-      break;
+      part.string += " psychic damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "psychic";
       break;
     case "radiant damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("radiant", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += "radiant damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "radiant";
       break;
     case "slashing damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("slashing", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " slashing damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "slashing";
       break;
     case "thunder damage":
-      parts.push(createPart(" "));
-      parts.push(createPart("thunder", "damageType"));
-      parts.push(createPart(" "));
-      parts.push(createPart("damage", "translatableText"));
+      part.string += " thunder damage";
+      part.translationKey =
+        part.translationKey === "rollableDice"
+          ? "rollableDamage"
+          : "valueDamage";
+      part.translationVariables!.damageType = "thunder";
       break;
   }
-  return parts;
 }
 
 // ---------------------------------------------------------------------------
@@ -660,24 +530,27 @@ export function calculateAttack(
     ability ??= "DEX";
   } else {
     attackTypePart.string += "Melee ";
+    if (isThrown) {
+      attackTypePart.string += "or Ranged ";
+    }
     toHitBonus += getBonus(character, "meleeAttack");
     damageBonus += getBonus(character, "meleeDamage");
     ability ??= "STR";
   }
   if (isSpell) {
-    attackTypePart.string += "Spell Attack";
+    attackTypePart.string += "Spell Attack:";
     toHitBonus += getBonus(character, "spellAttack");
     damageBonus += getBonus(character, "spellDamage");
     ability ??=
       getPrioritizedStatistic<Spells>(character, "spells")?.ability || "CHA";
   } else {
-    attackTypePart.string += "Weapon Attack";
+    attackTypePart.string += "Weapon Attack:";
     toHitBonus += getBonus(character, "weaponAttack");
     damageBonus += getBonus(character, "weaponDamage");
   }
 
   parts.push(attackTypePart);
-  parts.push(createPart(": "));
+  parts.push(createPart(" "));
 
   // to hit bonus
   const toHit = v.PROF + v[ability] + toHitBonus;
@@ -728,8 +601,230 @@ export function calculateAttack(
       attributes?.reach || standardReachForSize.toString(),
       character
     );
-    // TODO: ========
-    // if (isReach)
+    let totalReach: number;
+    if (isReach) {
+      totalReach = standardReachForSize + weaponsReach;
+    } else {
+      totalReach = weaponsReach;
+    }
+    parts.push({
+      string: `reach ${totalReach} ft`,
+      type: "reach",
+      translationKey: "reach",
+      translationVariables: {
+        reach: weaponsReach.toString(),
+      },
+    });
+
+    // thrown
+    if (isThrown) {
+      parts.push(createPart(" "));
+      parts.push(createPart("or", "translatableText"));
+      parts.push(createPart(" "));
+      const range = parseExpressionNumeric(attributes.range || "20", character);
+      const rangeMax = parseExpressionNumeric(
+        attributes.rangeMax || "0",
+        character
+      );
+      if (rangeMax && rangeMax > range) {
+        parts.push({
+          string: `range ${range}/${rangeMax} ft`,
+          type: "range/rangeMax",
+          translationKey: "range/rangeMax",
+          translationVariables: {
+            range: range.toString(),
+            rangeMax: rangeMax.toString(),
+          },
+        });
+      } else {
+        parts.push({
+          string: `range ${range} ft`,
+          type: "range",
+          translationKey: "range",
+          translationVariables: {
+            range: range.toString(),
+          },
+        });
+      }
+    }
+  }
+  parts.push(createPart(", "));
+
+  // targets
+  const targets = parseExpressionNumeric(attributes.targets || "1", character);
+  parts.push({
+    string: `${numberToWord(targets)} targets`,
+    type: "valueAsWord",
+    translationKey: "valueTarget",
+    translationVariables: { value: targets.toString() },
+  });
+  parts.push(createPart(". "));
+
+  // damage
+  parts.push(createPart("Hit:", "translatableText", ["italic"]));
+  parts.push(createPart(" "));
+  const part: DescriptionPart = {
+    string: "",
+    type: "value",
+    translationVariables: {},
+  };
+
+  if ("dice" in attributes) {
+    const dice = parseExpressionNumeric(attributes.dice || "1", character);
+    const sides = roundDiceSides(
+      parseExpressionNumeric(attributes.sides || "4", character)
+    );
+    part.dice = [];
+    part.dice.push({
+      dice,
+      sides,
+      type: attributes.damageType,
+    });
+    const additionalDamage = v[ability] + damageBonus;
+
+    if (additionalDamage !== 0) {
+      part.dice.push({
+        value: additionalDamage,
+        type: attributes.damageType,
+      });
+    }
+
+    let damageTotal = Math.floor(dice * (sides / 2 + 0.5)) + additionalDamage;
+    if (damageTotal < 1) {
+      damageTotal = 1;
+    }
+    let diceString = `${damageTotal} (${dice}d${sides}`;
+    if (additionalDamage > 0) {
+      diceString += ` + ${additionalDamage}`;
+    } else if (additionalDamage < 0) {
+      diceString += ` - ${Math.abs(additionalDamage)}`;
+    }
+    diceString += `)`;
+    part.string = `${diceString} ${attributes.damageType}`;
+    part.translationVariables!.damage = diceString;
+    part.translationVariables!.damageType =
+      attributes.damageType || "bludgeoning damage";
+
+    if ("enchantment" in attributes) {
+      part.translationKey = "rollableDamageEnchantment";
+      const enchantment = calculateValue(
+        attributes.enchantment as ValueDice,
+        character
+      );
+      part.string += ` plus ${enchantment.string}`;
+      if (
+        enchantment.translationVariables &&
+        "value" in enchantment.translationVariables
+      ) {
+        part.translationVariables!.valueEnchantment =
+          enchantment.translationVariables.value;
+      }
+      if (
+        enchantment.translationVariables &&
+        "damageType" in enchantment.translationVariables
+      ) {
+        part.translationVariables!.enchantmentType =
+          enchantment.translationVariables.damageType;
+      }
+      part.dice = [...(part.dice || []), ...(enchantment.dice || [])];
+    } else {
+      part.translationKey = "rollableDamage";
+    }
+  } else {
+    // TODO: there should be an option to allow attacks that don't deal damage based on dice
+    part.string += " — ";
+    delete part.type;
+    delete part.translationVariables;
+  }
+
+  parts.push(part);
+
+  // versatile
+  if (isVersatile) {
+    parts.push(createPart(", ", "translatableText"));
+    parts.push(createPart("or", "translatableText"));
+    parts.push(createPart(" "));
+
+    const versatilePart: DescriptionPart = {
+      string: "",
+      type: "value",
+      translationKey: "rollableDamage",
+      translationVariables: {},
+    };
+
+    const dice = parseExpressionNumeric(attributes.diceV || "1", character);
+    const sides = roundDiceSides(
+      parseExpressionNumeric(attributes.sidesV || "4", character)
+    );
+    versatilePart.dice = [];
+    versatilePart.dice.push({
+      dice,
+      sides,
+      type: attributes.damageType,
+    });
+    const additionalDamage = v[ability] + damageBonus;
+
+    if (additionalDamage !== 0) {
+      versatilePart.dice.push({
+        value: additionalDamage,
+        type: attributes.damageType,
+      });
+    }
+
+    let damageTotal = Math.floor(dice * (sides / 2 + 0.5)) + additionalDamage;
+    if (damageTotal < 1) {
+      damageTotal = 1;
+    }
+    let diceString = `${damageTotal} (${dice}d${sides}`;
+    if (additionalDamage > 0) {
+      diceString += ` + ${additionalDamage}`;
+    } else if (additionalDamage < 0) {
+      diceString += ` - ${Math.abs(additionalDamage)}`;
+    }
+    diceString += `)`;
+    versatilePart.string = `${diceString} ${attributes.damageType}`;
+    versatilePart.translationVariables!.damage = diceString;
+    versatilePart.translationVariables!.damageType =
+      attributes.damageType || "bludgeoning damage";
+
+    if ("enchantment" in attributes) {
+      versatilePart.translationKey = "rollableDamageEnchantment";
+      const enchantment = calculateValue(
+        attributes.enchantment as ValueDice,
+        character
+      );
+      versatilePart.string += ` plus ${enchantment.string}`;
+      if (
+        enchantment.translationVariables &&
+        "value" in enchantment.translationVariables
+      ) {
+        versatilePart.translationVariables!.valueEnchantment =
+          enchantment.translationVariables.value;
+      }
+      if (
+        enchantment.translationVariables &&
+        "damageType" in enchantment.translationVariables
+      ) {
+        versatilePart.translationVariables!.enchantmentType =
+          enchantment.translationVariables.damageType;
+      }
+      versatilePart.dice = [
+        ...(versatilePart.dice || []),
+        ...(enchantment.dice || []),
+      ];
+    }
+    parts.push(versatilePart);
+    parts.push(createPart(" "));
+    parts.push(createPart("if used with two hands", "translatableText"));
+    if (isThrown) {
+      parts.push(createPart(" "));
+      parts.push(createPart("to make a melee attack", "translatableText"));
+    }
+  }
+
+  if (isSpecial) {
+    parts.push(createPart(". "));
+    parts.push(createPart(attributes.special!));
   }
 
   return parts;
