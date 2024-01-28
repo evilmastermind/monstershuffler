@@ -43,6 +43,7 @@
       </span>
     </template>
     <template v-if="period && !hasPeriod">.</template>
+    <template v-if="colon && !hasColon">:</template>
   </span>
 </template>
 
@@ -58,11 +59,19 @@ const p = defineProps({
     type: Boolean,
     default: false,
   },
+  colon: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const hasPeriod = computed(() => {
   const last = p.parts[p.parts.length - 1];
   return last?.string?.trim().endsWith(".");
+});
+const hasColon = computed(() => {
+  const last = p.parts[p.parts.length - 1];
+  return last?.string?.trim().endsWith(":");
 });
 </script>
 

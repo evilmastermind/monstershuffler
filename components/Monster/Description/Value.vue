@@ -2,8 +2,11 @@
   <span v-if="part?.translationKey?.includes('rollable')">
     <MonsterDescriptionDice :part="part" />
   </span>
-  <span v-else>
+  <span v-else-if="part.translationKey">
     {{ $t(`statBlock.${part.translationKey}`, translationVariables || {}) }}
+  </span>
+  <span v-else>
+    {{ part?.string }}
   </span>
 </template>
 
@@ -19,8 +22,8 @@ const p = defineProps({
 
 const translationVariables = computed(() => {
   const variables = p.part?.translationVariables || {};
-  if (p.part?.type === "valueAsWord" && "value" in variables) {
-    variables.value = numberToWord(parseInt(variables.value) || 0);
+  if (p.part?.type === "valueAsWord" && "n" in variables) {
+    variables.n = numberToWord(parseInt(variables.n) || 0);
   }
   return variables;
 });

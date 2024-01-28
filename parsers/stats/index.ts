@@ -1,6 +1,16 @@
 export type Ability = "STR" | "DEX" | "CON" | "INT" | "WIS" | "CHA";
 
 export const abilities: Ability[] = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+export const abilityNames: {
+  [key in Ability]: string;
+} = {
+  STR: "Strength",
+  DEX: "Dexterity",
+  CON: "Constitution",
+  INT: "Intelligence",
+  WIS: "Wisdom",
+  CHA: "Charisma",
+};
 
 export const speedTypes = ["walk", "burrow", "climb", "fly", "hover", "swim"];
 

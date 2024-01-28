@@ -1,5 +1,20 @@
 <template>
-  <template v-if="part?.translationKey">
+  <template
+    v-if="
+      part?.translationKey &&
+      part?.translationVariables &&
+      'n' in part?.translationVariables
+    "
+  >
+    {{
+      $t(
+        `statBlock.${part?.translationKey}`,
+        parseInt(part.translationVariables.n),
+        part?.translationVariables || {}
+      )
+    }}
+  </template>
+  <template v-else-if="part?.translationKey">
     {{
       $t(`statBlock.${part?.translationKey}`, part?.translationVariables || {})
     }}

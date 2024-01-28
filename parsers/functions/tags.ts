@@ -233,7 +233,8 @@ export function calculateValue(
     part.type = "valueAsWord";
     part.translationVariables!.value = totalValue.toString();
   } else {
-    part.translationVariables!.value = part.string;
+    part.type = "value";
+    part.translationVariables!.n = part.string;
   }
   addAdditionalDescriptionParts(part, value.type, totalValue);
   return part;
@@ -647,8 +648,8 @@ export function calculateAttack(
         });
       }
     }
+    parts.push(createPart(", "));
   }
-  parts.push(createPart(", "));
 
   // targets
   const targets = parseExpressionNumeric(attributes.targets || "1", character);
@@ -656,7 +657,7 @@ export function calculateAttack(
     string: `${numberToWord(targets)} targets`,
     type: "valueAsWord",
     translationKey: "valueTarget",
-    translationVariables: { value: targets.toString() },
+    translationVariables: { n: targets.toString() },
   });
   parts.push(createPart(". "));
 

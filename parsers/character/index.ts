@@ -120,5 +120,4 @@ export function createStats(character: Character) {
   /// /// ///
   calculateActions(character);
   calculateSpells(character);
-  // console.log(character);
 }
