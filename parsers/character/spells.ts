@@ -222,12 +222,14 @@ export function calculateSpells(character: Character) {
         const slots = `${group.slots} slots`;
         parsedGroup.name = `${level} (${slots})`;
         parsedGroup.nameArray.push({
-          string: level,
+          string: `${uses}${addOrdinal(uses)}`,
+          number: parseInt(uses),
+          type: "ordinal",
+        });
+        parsedGroup.nameArray.push(createPart(" "));
+        parsedGroup.nameArray.push({
+          string: "level",
           type: "translatableText",
-          translationKey: "levelSpells",
-          translationVariables: {
-            n: uses,
-          },
         });
         parsedGroup.nameArray.push(createPart(" ("));
         parsedGroup.nameArray.push({

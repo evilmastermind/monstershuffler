@@ -121,8 +121,9 @@ export function calculateArmorClass(character: Character) {
 
     totalAC = armorAC + dexMod + armorBonus;
   }
-
-  s.AC.array?.push(createPart(armor.name.toLowerCase(), "armor"));
+  if (armor.name) {
+    s.AC.array?.push(createPart(armor.name.toLowerCase(), "armor"));
+  }
   if (armorBonusString) {
     if (s.AC.array?.length) {
       s.AC.array?.push(createPart(", "));
@@ -144,8 +145,8 @@ export function calculateArmorClass(character: Character) {
   if (s.AC!.array!.length) {
     s.AC!.array!.push(createPart(")"));
     s.AC!.array!.unshift(createPart(" ("));
-    s.AC!.array!.unshift(createPart(totalAC.toString(), "text"));
   }
+  s.AC!.array!.unshift(createPart(totalAC.toString(), "text"));
   s.AC!.string = s.AC!.array!.reduce((acc, obj) => acc + obj.string, "");
   character.variables!.AC = totalAC;
 }

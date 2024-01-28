@@ -332,7 +332,7 @@
     "spellcastingDescription": "{name} casts one of the following spells, using {ability} as the spellcasting ability (spell save DC {dc}, ",
     "spellcastingDescription2": " with spell attacks):",
     "cantripsAtWill": "Cantrips (at will)",
-    "levelSpells": "{n} level",
+    "level": "level",
     "slotSpells": "{n} slots | {n} slot | {n} slots",
     "At will": "At will",
     "dayEach": "{times}/day each"
