@@ -28,8 +28,7 @@ export function calculateSpells(character: Character) {
 
   const groups: SpellGroup[] = [];
   const tagsArray: string[] = [];
-  // const hasSlots = prioritizedSpells?.hasSlots || false;
-  const hasSlots = true;
+  const hasSlots = prioritizedSpells?.hasSlots || false;
   let tagsNumber = 1;
 
   // removing groups that are not available for the current level/CR
