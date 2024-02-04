@@ -20,14 +20,19 @@ import type {
   ParsedExpression,
   Spells,
 } from "@/types";
+import { toggle } from "@/utils";
 
 export function replaceTags(
-  string: string,
+  untrimmedString: string,
   character: Character,
   variant: ActionVariant | undefined = undefined
 ) {
+  const string = untrimmedString.trim().replace(/^\\n|\\n$/g, "");
   const parts: DescriptionPart[] = [];
   const tags = character.tags!;
+  const format: DescriptionPart["format"] = [];
+  let isListStarted = false;
+  let isListItemStarted = false;
   const stringSize = string.length;
   let position = 0;
   let j = 0;
@@ -68,8 +73,12 @@ export function replaceTags(
           // translationKey: newWord,
         });
       } else if (newWord.substring(0, 6) === "spell:") {
-        // TODO: spell preview
-        parts.push(createPart(newWord.replace("spell:", "").trim(), "spell"));
+        parts.push(
+          createPart(newWord.replace("spell:", "").trim(), "spell", [
+            "italic",
+            "underline",
+          ])
+        );
       } else {
         // word found between [] is not recognizable
         parts.push(createPart(newWord));
@@ -110,7 +119,61 @@ export function replaceTags(
         continue;
       }
       // here I should parse the new syntax
+
+      // ---------------------------------------------------------
+      // pseudo-markdown for actions
+      // ---------------------------------------------------------
+    } else if (string.charAt(i) === "\n") {
+      parts.push(createPart(string.substring(startingPoint, i)));
+      if (isListItemStarted) {
+        // list item end
+        parts.push(createPart("\n", "listItemEnd", format));
+        isListItemStarted = false;
+      } else if (string.charAt(i + 1) === "\n") {
+        // paragraph end (double new line)
+        parts.push(createPart(`\n\n`, "paragraphEnd", format));
+        position++;
+      } else if (string.charAt(i + 1) === "-") {
+        if (!isListStarted) {
+          // list start
+          parts.push(createPart(``, "listStart", format));
+          isListStarted = true;
+        }
+        // list item start
+        parts.push(createPart(`\n-`, "listItemStart", format));
+        isListItemStarted = true;
+        position++;
+      } else {
+        if (isListStarted) {
+          // list end
+          parts.push(createPart(``, "listEnd", format));
+          isListStarted = false;
+        }
+        // next line
+        parts.push(createPart(`\n`, "nextLine", format));
+      }
+      startingPoint = position;
+    } else if (string.charAt(i) === "*") {
+      parts.push(createPart(string.substring(startingPoint, i)));
+      if (string.charAt(i + 1) === "*") {
+        // bold
+        toggle(format, "font-bold");
+        position++;
+      } else {
+        // italic
+        toggle(format, "italic");
+      }
+      startingPoint = position;
     }
+  }
+
+  if (isListItemStarted) {
+    parts.push(createPart("", "listItemEnd", format));
+  }
+  if (isListStarted) {
+    // list end
+    parts.push(createPart(``, "listEnd", format));
+    isListStarted = false;
   }
 
   if (startingPoint < stringSize) {
@@ -184,7 +247,7 @@ export function calculateValue(
 
   // parsing the expression and adding it to the
   // rollable dice part, if any
-  if (Object.hasOwn(value, "expression")) {
+  if ("expression" in value && value.expression) {
     const valueExpression = value as ValueExpression;
     const expression = valueExpression.expression;
     const expressionResult = parseExpressionNumeric(expression, character);
@@ -205,6 +268,8 @@ export function calculateValue(
     } else {
       part.string += `${expressionResult}`;
     }
+  } else if (part.string) {
+    part.string += ")";
   }
 
   // this is used for multiattacks

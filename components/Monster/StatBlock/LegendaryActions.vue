@@ -14,7 +14,7 @@
     class="action"
   >
     <MonsterDescription
-      class="font-bold italic mr-1"
+      class="font-bold mr-1"
       :parts="action.nameArray"
       period
     />

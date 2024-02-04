@@ -1,8 +1,9 @@
 <template>
   <p class="my-0 stat">
-    <em class="title mr-1" :class="moral">
+    <em class="title" :class="moral">
       <slot name="title" />
     </em>
+    <span>&nbsp;</span>
     <slot />
   </p>
 </template>

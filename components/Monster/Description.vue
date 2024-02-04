@@ -1,6 +1,10 @@
 <template>
   <span class="description">
     <template v-for="(part, i) in p.parts" :key="i">
+      <!-- Pseudo-Markdown -->
+      <br v-if="part.type === 'nextLine'" />
+      <span v-if="part.type === 'paragraphEnd'" class="paragraph-end" />
+      <template v-if="part.type === 'listStart'" v-html="`<ul>`" />
       <!-- Tooltips -->
       <span
         v-if="part.type === 'background'"
@@ -16,6 +20,8 @@
       >
         {{ part.string }}
       </span>
+      <!-- Links -->
+      <MonsterSpellName v-else-if="part.type === 'spell'" :part="part" />
       <!-- rollable parts -->
       <span
         v-else-if="part?.type && ['value', 'valueAsWord'].includes(part?.type)"
@@ -82,5 +88,9 @@ const hasColon = computed(() => {
 .dotted {
   border-bottom: 1px dotted theme("colors.text-secondary");
   cursor: help;
+}
+.paragraph-end {
+  display: block;
+  height: 1em;
 }
 </style>

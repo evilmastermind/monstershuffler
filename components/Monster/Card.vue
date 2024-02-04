@@ -41,6 +41,12 @@
             </span>
           </dd>
         </template>
+        <!-- <template v-if="character.weight">
+          <dt :class="moral">{{ $t("monsterCard.weight") }}</dt>
+          <dd>
+            {{ capitalizeFirst($t(`monsterCard.${character.weight}`)) }}
+          </dd>
+        </template> -->
         <template v-if="character.voice">
           <dt :class="moral">{{ $t("monsterCard.voice") }}</dt>
           <dd>

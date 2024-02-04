@@ -1,10 +1,11 @@
-import { getTraitDescriptionResponseSchema } from "./tooltips.d";
+import type { getTraitDescriptionResponseSchema } from "./tooltips.d";
+import type { GetSpellResponse, Spell } from "@/types";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
 
 export const useTooltipsStore = defineStore("tooltips", () => {
-  async function getDescription(word: string, type: string) {
+  async function getDescription(word: string | number, type: string) {
     switch (type) {
       case "traits":
         return await getTraitDescription(word);
@@ -17,7 +18,7 @@ export const useTooltipsStore = defineStore("tooltips", () => {
     }
   }
 
-  async function getTraitDescription(trait: string) {
+  async function getTraitDescription(trait: string | number) {
     const { data } = await useAsyncData<getTraitDescriptionResponseSchema>(
       "trait",
       () => $fetch(`${api}/traits/${trait}`)
@@ -41,7 +42,19 @@ export const useTooltipsStore = defineStore("tooltips", () => {
     }
   }
 
+  async function getSpellDescription(id: string | number) {
+    const { data } = await useAsyncData<GetSpellResponse>("spell", () =>
+      $fetch(`${api}/spells/${id}`)
+    );
+    if (data?.value?.object !== undefined) {
+      return data.value?.object;
+    } else {
+      return null;
+    }
+  }
+
   return {
     getDescription,
+    getSpellDescription,
   };
 });

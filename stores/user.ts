@@ -11,6 +11,7 @@ export const useUserStore = defineStore("user", () => {
   const token: Ref<string> = ref("");
   const me: Ref<GetUserResponse | null> = ref(null);
   const settings = computed(() => me.value?.settings || {});
+  const language = computed(() => me.value?.settings?.language || "en");
 
   async function login(credentials: Credentials) {
     const { data, error } = await useAsyncData<LoginResponse>("login", () =>
@@ -174,6 +175,7 @@ export const useUserStore = defineStore("user", () => {
     token,
     me,
     settings,
+    language,
     login,
     logout,
     register,

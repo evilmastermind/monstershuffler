@@ -23,6 +23,7 @@ import {
   resourcePartObject,
   sensesObject,
   speedsObject,
+  spellObject,
   spellsObject,
   spellGroupObject,
   statisticsObject,
@@ -64,6 +65,7 @@ export type Race = z.infer<typeof raceObject>;
 export type ResourcePart = z.infer<typeof resourcePartObject>;
 export type Senses = z.infer<typeof sensesObject>;
 export type Speeds = z.infer<typeof speedsObject>;
+export type Spell = z.infer<typeof spellObject>;
 export type Spells = z.infer<typeof spellsObject>;
 export type SpellGroup = z.infer<typeof spellGroupObject>;
 export type Stat = z.infer<typeof statObject>;

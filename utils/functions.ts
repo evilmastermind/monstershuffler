@@ -1,4 +1,4 @@
-import { NuxtError } from "@/types/nuxt";
+import type { NuxtError } from "@/types/nuxt";
 
 export function debounce(cb: Function, delay = 1000): Function {
   let timeout: NodeJS.Timeout;
@@ -114,6 +114,21 @@ export function randomDecimal(
   return randomValue * (max - min) + min;
 }
 
+/**
+ * Rounds a number to 2 decimal places.
+ */
 export function round2Decimals(value: number): number {
   return Math.round(value * 100) / 100;
+}
+
+/**
+ * Toggles an item in an array. If the item is not present, it will be added. If it is present, it will be removed.
+ */
+export function toggle<T>(array: T[], item: T): void {
+  const index = array.indexOf(item);
+  if (index === -1) {
+    array.push(item); // Add the item if it's not present
+  } else {
+    array.splice(index, 1); // Remove the item if it's already in the array
+  }
 }

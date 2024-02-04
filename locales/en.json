@@ -23,7 +23,12 @@
     "alignment": "Alignment",
     "personality": "Personality",
     "voice": "Voice",
-    "voiceIn": "in"
+    "weight": "Weight",
+    "voiceIn": "in",
+    "skinny": "skinny",
+    "average": "average",
+    "chubby": "chubby",
+    "obese": "obese"
   },
   "statBlock": {
     "actions": "Actions",
@@ -337,6 +342,16 @@
     "At will": "At will",
     "dayEach": "{times}/day each"
   },
+  "spell": {
+    "cantrip": "Cantrip",
+    "level": "Level",
+    "school": "School",
+    "castingTime": "Casting Time",
+    "components": "Components",
+    "ritual": "Ritual",
+    "duration": "Duration",
+    "rangeArea": "Range/Area"
+  },
   "alignment": {
     "Any Alignment": "Any Alignment",
     "Neutral": "Neutral",
@@ -365,6 +380,9 @@
     }
   },
   "closeLabel": "Close",
+  "close": "Close",
+  "yes": "Yes",
+  "no": "No",
   "home": {
     "pageTitle": "Home"
   },

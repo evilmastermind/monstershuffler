@@ -168,6 +168,7 @@ export function calculateSpells(character: Character) {
   // --------------------------------------------------
   // SPELL GROUPS/SLOTS
   // --------------------------------------------------
+  let cantrips: StatStringArrayWithName | undefined;
   s.spells = [];
   for (const uses in spellsPerUses) {
     if (spellsPerUses[uses].spells.length === 0) {
@@ -279,7 +280,21 @@ export function calculateSpells(character: Character) {
         id: group.spells[i].id,
       });
     }
-    s.spells.push(parsedGroup);
+
+    if (uses === "0") {
+      cantrips = parsedGroup;
+    } else if (hasSlots) {
+      // slots are ordered from lower to higher level
+      s.spells.push(parsedGroup);
+    } else {
+      // uses/day are ordered from higher uses/day to lower
+      s.spells.unshift(parsedGroup);
+    }
+  }
+
+  if (cantrips) {
+    // adding at will spells (or cantrips) at the beginning of the spells array
+    s.spells.unshift(cantrips);
   }
 }
 

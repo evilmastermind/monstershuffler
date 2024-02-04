@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  getSpellResponse,
   postFourRandomNpcsResponse,
   postRandomNpcResponse,
   postRandomNpcInput,
@@ -8,6 +9,7 @@ import {
   objectWithVariantsList,
 } from "monstershuffler-shared";
 
+export type GetSpellResponse = z.infer<typeof getSpellResponse>;
 export type PostRandomNpcResponse = z.infer<typeof postRandomNpcResponse>;
 export type PostRandomNpcInput = z.infer<typeof postRandomNpcInput>;
 export type GetGeneratorDataResponse = z.infer<typeof getGeneratorDataResponse>;
