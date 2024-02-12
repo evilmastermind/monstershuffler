@@ -16,9 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { useLocaleLocation } from "vue-i18n-routing";
 const router = useRouter();
-const localeLocation = useLocaleLocation();
+const localePath = useLocalePath();
 
 const p = defineProps({
   text: {
@@ -62,7 +61,7 @@ const isDisabled = computed(() => p.disabled || p.loading);
 
 function goToURL() {
   if (p.to) {
-    router.push(localeLocation({ name: p.to }));
+    router.push(localePath({ name: p.to }));
   }
 }
 </script>

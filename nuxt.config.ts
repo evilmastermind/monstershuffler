@@ -56,9 +56,6 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     vueI18n: "./plugins/i18n.config.ts",
   },
-  pinia: {
-    autoImports: ["defineStore", "storeToRefs"],
-  },
   postcss: {
     plugins: {
       tailwindcss: {},

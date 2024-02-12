@@ -167,6 +167,10 @@ export function replaceTags(
     }
   }
 
+  if (startingPoint < stringSize) {
+    parts.push(createPart(string.substring(startingPoint, stringSize)));
+  }
+
   if (isListItemStarted) {
     parts.push(createPart("", "listItemEnd", format));
   }
@@ -174,10 +178,6 @@ export function replaceTags(
     // list end
     parts.push(createPart(``, "listEnd", format));
     isListStarted = false;
-  }
-
-  if (startingPoint < stringSize) {
-    parts.push(createPart(string.substring(startingPoint, stringSize)));
   }
 
   return parts;

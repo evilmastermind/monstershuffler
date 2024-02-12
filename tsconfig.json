@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["./*"]
     },
+    "lib": ["es6", "dom", "ES2022"],
     "types": ["@nuxt/types", "@nuxtjs/i18n"],
     "resolveJsonModule": true
   }
