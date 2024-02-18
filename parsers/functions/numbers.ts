@@ -1,4 +1,8 @@
-export function numberToWord(number: number, language = "en") {
+export function numberToWord(number: number | string, language = "en") {
+  if (typeof number === "string") {
+    number = parseInt(number);
+  }
+  if (isNaN(number)) return "";
   switch (language) {
     default:
       return numberToWordEn(number);
@@ -82,7 +86,7 @@ function numberToWordEn(number: number) {
     for (let i = xVal + 1; i < yVal; i++)
       strVal += dgVal[parseInt(nVal[i])] + " ";
   }
-  return strVal.replace(/\s+/g, " ");
+  return strVal.replace(/\s+/g, " ").trim();
 }
 
 export function addOrdinal(value: number | string, language = "en") {

@@ -3,18 +3,14 @@
     v-if="statistics?.reactions?.length"
     type="reactions"
   />
-  <p
+  <MonsterDescription
     v-for="(action, index) in statistics?.reactions"
     :key="index"
     class="action"
-  >
-    <MonsterDescription
-      class="font-bold italic mr-1"
-      :parts="action.nameArray"
-      period
-    />
-    <MonsterDescription :parts="action.array" period />
-  </p>
+    :parts="action.array"
+    :name="action.nameArray"
+    period
+  />
 </template>
 
 <script setup lang="ts">

@@ -1,4 +1,4 @@
-import { Ability, skillTypes } from "../stats";
+import { type Ability, skillTypes } from "../stats";
 import {
   getStatArrayFromObjects,
   getCurrentStatLimit,

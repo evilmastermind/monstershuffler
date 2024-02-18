@@ -1,27 +1,39 @@
 <template>
-  <span class="description">
-    <!-- <component :is="group.tag" v-for="(group, i) in partGroups" :key="i">
-      <MonsterDescriptionPart
-        v-for="(part, j) in group.parts"
-        :key="j"
-        :part="part"
-      />
-    </component> -->
-    <MonsterDescriptionHTMLTag
-      v-for="(group, i) in HTMLTags"
-      :key="i"
-      :parts="group"
-    />
-  </span>
+  <MonsterDescriptionHTMLTag
+    v-for="(group, i) in HTMLTags"
+    :key="i"
+    :parts="group"
+    :class="p.class.split(' ')"
+  >
+    <template v-if="i === 0 && name">
+      <MonsterDescription
+        :parts="name"
+        :tag="'span'"
+        :period="period"
+      />&nbsp;</template
+    >
+  </MonsterDescriptionHTMLTag>
 </template>
 
 <script setup lang="ts">
-import type { DescriptionPart, PartsInHTMLTag } from "@/types";
+import type { DescriptionPart, PartsInHTMLTag, ParsedHTMLTags } from "@/types";
 
 const p = defineProps({
   parts: {
     type: Object as PropType<DescriptionPart[]>,
     required: true,
+  },
+  name: {
+    type: Object as PropType<DescriptionPart[] | null>,
+    default: null,
+  },
+  tag: {
+    type: String as () => ParsedHTMLTags,
+    default: "p",
+  },
+  class: {
+    type: String,
+    default: "",
   },
   period: {
     type: Boolean,
@@ -58,12 +70,14 @@ function groupParts(
       currentTag = newPartGroup;
       parentTag = currentTag;
     } else if (part.type === "listEnd") {
-      const newPartGroup: PartsInHTMLTag = {
-        tag: "p",
-        parts: [],
-      };
-      partsInHTMLTag.push(newPartGroup);
-      currentTag = newPartGroup;
+      if (i < parts.length - 2) {
+        const newPartGroup: PartsInHTMLTag = {
+          tag: "p",
+          parts: [],
+        };
+        partsInHTMLTag.push(newPartGroup);
+        currentTag = newPartGroup;
+      }
     } else if (part.type === "listItemStart") {
       const newPartGroup: PartsInHTMLTag = {
         tag: "li",
@@ -75,27 +89,37 @@ function groupParts(
     } else if (part.type === "listItemEnd") {
       currentTag = parentTag;
     } else if (part.type === "paragraphEnd") {
-      const newPartGroup: PartsInHTMLTag = {
-        tag: "p",
-        parts: [],
-      };
-      partsInHTMLTag.push(newPartGroup);
-      currentTag = newPartGroup;
-      parentTag = currentTag;
+      if (i < parts.length - 2) {
+        const newPartGroup: PartsInHTMLTag = {
+          tag: "p",
+          parts: [],
+        };
+        partsInHTMLTag.push(newPartGroup);
+        currentTag = newPartGroup;
+        parentTag = currentTag;
+      }
     } else {
       currentTag.parts.push(part);
     }
     i++;
   }
+  if (p.period && !hasPeriod.value) {
+    const last = partsInHTMLTag[partsInHTMLTag.length - 1];
+    last.parts.push({ string: "." });
+  }
+  if (p.colon && !hasColon.value) {
+    const last = partsInHTMLTag[partsInHTMLTag.length - 1];
+    last.parts.push({ string: ":" });
+  }
 }
 
 const hasPeriod = computed(() => {
-  const last = p.parts[p.parts.length - 1];
-  return last?.string?.trim().endsWith(".");
+  const last = p.parts[p.parts.length - 1].string?.trim();
+  return !last?.length || last?.endsWith(".");
 });
 const hasColon = computed(() => {
-  const last = p.parts[p.parts.length - 1];
-  return last?.string?.trim().endsWith(":");
+  const last = p.parts[p.parts.length - 1].string?.trim();
+  return !last?.length || last?.endsWith(":");
 });
 
 watch(
@@ -103,7 +127,7 @@ watch(
   (parts) => {
     HTMLTags.value = [
       {
-        tag: "p",
+        tag: p.tag,
         parts: [],
       },
     ];
@@ -117,10 +141,7 @@ watch(
 .description {
   @apply whitespace-normal break-normal;
 }
-.dotted {
-  border-bottom: 1px dotted theme("colors.text-secondary");
-  cursor: help;
-}
+
 ul {
   @apply list-disc ml-4;
 }

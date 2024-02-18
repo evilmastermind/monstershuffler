@@ -69,3 +69,8 @@
   max-width: 700px;
   margin: 0 auto;
 }
+
+.dotted {
+  border-bottom: 1px dotted theme("colors.text-secondary");
+  cursor: help;
+}

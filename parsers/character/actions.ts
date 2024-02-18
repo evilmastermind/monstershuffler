@@ -102,16 +102,20 @@ export function calculateActions(character: Character) {
     }
 
     const parsedActionArray = replaceTags(
-      variant.description,
+      variant.description.trim(),
       character,
       variant
     );
 
     actionName = capitalizeFirst(actionName);
+    const format: DescriptionPart["format"] = ["font-bold"];
+    if (variant.type !== "legendary") {
+      format.push("italic");
+    }
 
     const parsedAction: StatStringArrayWithName = {
       name: actionName,
-      nameArray: [{ string: actionName }],
+      nameArray: [{ string: actionName, format }],
       tag: action.tag,
       priority: action.priority || 100,
       string: parsedActionArray.reduce((acc, obj) => acc + obj.string, ""),
@@ -120,12 +124,13 @@ export function calculateActions(character: Character) {
 
     // recharge
     if (variant.recharge) {
-      parsedAction.nameArray.push(createPart(" ("));
+      parsedAction.nameArray.push(createPart(" (", "text", format));
       parsedAction.recharge = variant.recharge;
       const charges = parseExpressionNumeric(variant.charges, character) || 1;
       const descriptionPart: DescriptionPart = {
         string: "",
         type: "resource",
+        format,
       };
       if (charges) {
         parsedAction.charges = charges;
@@ -135,7 +140,11 @@ export function calculateActions(character: Character) {
           descriptionPart.string = `${charges}/Turn`;
           break;
         case "short":
-          descriptionPart.string = `${charges}/Short or Long Rest`;
+          if (charges === 1) {
+            descriptionPart.string = "Recharges after a Short or Long Rest";
+          } else {
+            descriptionPart.string = `${charges}/Short or Long Rest`;
+          }
           break;
         case "day":
           descriptionPart.string = `${charges}/Day`;
@@ -160,7 +169,7 @@ export function calculateActions(character: Character) {
           break;
       }
       parsedAction.nameArray.push(descriptionPart);
-      parsedAction.nameArray.push(createPart(")"));
+      parsedAction.nameArray.push(createPart(")", "text", format));
     }
 
     // cost (legendary actions)
@@ -168,8 +177,12 @@ export function calculateActions(character: Character) {
       const cost = parseExpressionNumeric(variant.cost, character) || 1;
       parsedAction.cost = cost;
       if (cost > 1) {
-        parsedAction.nameArray.push(createPart(" ("));
-        parsedAction.nameArray.push(createPart(`Costs ${cost} Actions`));
+        parsedAction.nameArray.push(createPart(" (", "text", format));
+        parsedAction.nameArray.push({
+          string: `Costs ${cost} Actions`,
+          type: "resource",
+          format,
+        });
         parsedAction.nameArray.push(createPart(")"));
       }
     }

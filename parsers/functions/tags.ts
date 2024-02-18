@@ -125,23 +125,25 @@ export function replaceTags(
       // ---------------------------------------------------------
     } else if (string.charAt(i) === "\n") {
       parts.push(createPart(string.substring(startingPoint, i)));
+      parts.push(createPart("\n"));
       if (isListItemStarted) {
         // list item end
-        parts.push(createPart("\n", "listItemEnd", format));
+        parts.push(createPart("", "listItemEnd", format));
         isListItemStarted = false;
-      } else if (string.charAt(i + 1) === "\n") {
-        // paragraph end (double new line)
-        parts.push(createPart(`\n\n`, "paragraphEnd", format));
-        position++;
-      } else if (string.charAt(i + 1) === "-") {
+      }
+      if (string.charAt(i + 1) === "-") {
         if (!isListStarted) {
           // list start
           parts.push(createPart(``, "listStart", format));
           isListStarted = true;
         }
         // list item start
-        parts.push(createPart(`\n-`, "listItemStart", format));
+        parts.push(createPart(`-`, "listItemStart", format));
         isListItemStarted = true;
+        position++;
+      } else if (string.charAt(i + 1) === "\n") {
+        // paragraph end (double new line)
+        parts.push(createPart(`\n`, "paragraphEnd", format));
         position++;
       } else {
         if (isListStarted) {
@@ -163,6 +165,11 @@ export function replaceTags(
         // italic
         toggle(format, "italic");
       }
+      startingPoint = position;
+    } else if (string.charAt(i) === "_") {
+      parts.push(createPart(string.substring(startingPoint, i)));
+      // italic
+      toggle(format, "italic");
       startingPoint = position;
     }
   }
@@ -296,10 +303,10 @@ export function calculateValue(
     // adding the total value as word to the parts array
     part.string = numberToWord(totalValue);
     part.type = "valueAsWord";
-    part.translationVariables!.value = totalValue.toString();
+    part.translationVariables!.n = totalValue.toString();
   } else {
     part.type = "value";
-    part.translationVariables!.n = part.string;
+    part.translationVariables!.n = totalValue.toString();
   }
   addAdditionalDescriptionParts(part, value.type, totalValue);
   return part;
@@ -539,6 +546,9 @@ export function addAdditionalDescriptionParts(
           : "valueDamage";
       part.translationVariables!.damageType = "thunder";
       break;
+    default:
+      console.log("part", part);
+      break;
   }
 }
 
@@ -719,7 +729,7 @@ export function calculateAttack(
   // targets
   const targets = parseExpressionNumeric(attributes.targets || "1", character);
   parts.push({
-    string: `${numberToWord(targets)} targets`,
+    string: `${numberToWord(targets)} ${targets === 1 ? "target" : "targets"}`,
     type: "valueAsWord",
     translationKey: "valueTarget",
     translationVariables: { n: targets.toString() },
@@ -780,10 +790,10 @@ export function calculateAttack(
       part.string += ` plus ${enchantment.string}`;
       if (
         enchantment.translationVariables &&
-        "value" in enchantment.translationVariables
+        "n" in enchantment.translationVariables
       ) {
         part.translationVariables!.valueEnchantment =
-          enchantment.translationVariables.value;
+          enchantment.translationVariables.n;
       }
       if (
         enchantment.translationVariables &&
@@ -862,10 +872,10 @@ export function calculateAttack(
       versatilePart.string += ` plus ${enchantment.string}`;
       if (
         enchantment.translationVariables &&
-        "value" in enchantment.translationVariables
+        "n" in enchantment.translationVariables
       ) {
         versatilePart.translationVariables!.valueEnchantment =
-          enchantment.translationVariables.value;
+          enchantment.translationVariables.n;
       }
       if (
         enchantment.translationVariables &&

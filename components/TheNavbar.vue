@@ -5,18 +5,22 @@
       <div class="navbar-menu">
         <NavbarLogo name="Home" route="Home" icon="fa-user" />
         <NavbarLink
-          name="Generator"
+          :name="$t('navbar.menu.npcGenerator')"
           route="monsters-generator"
           icon="fa-dice-d20"
         />
-        <NavbarLink name="Editor" route="monsters-editor" icon="fa-user-edit" />
         <NavbarLink
-          name="DM Screen"
+          :name="$t('navbar.menu.editor')"
+          route="monsters-editor"
+          icon="fa-user-edit"
+        />
+        <NavbarLink
+          :name="$t('navbar.menu.dmScreen')"
           route="monsters-your-creations"
           icon="fa-book-open"
         />
         <NavbarLink
-          name="Monsters"
+          :name="$t('navbar.menu.monsters')"
           route="monsters-community-creations"
           icon="fa-dragon"
         />

@@ -1,7 +1,7 @@
 <template>
   <MonsterStatBlockStat>
     <template #title> {{ $t("statBlock.AC") }} </template>
-    <MonsterDescription :parts="statistics?.AC?.array || []" />
+    <MonsterDescription :parts="statistics?.AC?.array || []" tag="span" />
   </MonsterStatBlockStat>
   <MonsterStatBlockStat>
     <template #title> {{ $t("statBlock.HP") }} </template>
@@ -9,7 +9,7 @@
   </MonsterStatBlockStat>
   <MonsterStatBlockStat v-if="statistics?.speeds?.string">
     <template #title> {{ $t("statBlock.speed.speed") }} </template>
-    <MonsterDescription :parts="statistics?.speeds?.array || []" />
+    <MonsterDescription :parts="statistics?.speeds?.array || []" tag="span" />
   </MonsterStatBlockStat>
 </template>
 

@@ -84,8 +84,10 @@ export type ValueIncrProgression = z.infer<typeof valueIncrProgressionObject>;
 export type Variables = z.infer<typeof variablesObject>;
 export type Variations = z.infer<typeof variationsObject>;
 
+export type ParsedHTMLTags = "p" | "li" | "ul" | "span";
+
 export type PartsInHTMLTag = {
-  tag: "p" | "li" | "ul";
+  tag: ParsedHTMLTags;
   parts: Parts;
 };
 

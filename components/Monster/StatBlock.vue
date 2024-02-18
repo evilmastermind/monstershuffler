@@ -123,4 +123,6 @@ provide("moral", moral);
   margin: theme("spacing.2") 0;
   line-height: theme("spacing.5");
 }
+.spell-group {
+}
 </style>

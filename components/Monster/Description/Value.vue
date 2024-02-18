@@ -1,18 +1,37 @@
 <template>
-  <span v-if="part?.translationKey?.includes('rollable')">
-    <MonsterDescriptionDice :part="part" />
-  </span>
-  <span v-else-if="part.translationKey">
-    {{ $t(`statBlock.${part.translationKey}`, translationVariables || {}) }}
-  </span>
-  <span v-else>
+  <MonsterDescriptionDice
+    v-if="part?.translationKey?.includes('rollable')"
+    :part="part"
+  />
+  <template
+    v-else-if="
+      part.translationKey && n !== undefined && part.type === 'valueAsWord'
+    "
+  >
+    {{
+      $t(
+        `statBlock.${part.translationKey}`,
+        {
+          n: numberToWord(n, user.language),
+        },
+        parseInt(n)
+      )
+    }}
+  </template>
+  <template v-else-if="part.translationKey">
+    {{
+      $t(`statBlock.${part.translationKey}`, part.translationVariables || {})
+    }}
+  </template>
+  <template v-else>
     {{ part?.string }}
-  </span>
+  </template>
 </template>
 
 <script setup lang="ts">
 import type { DescriptionPart } from "@/types";
 import { numberToWord } from "@/parsers";
+
 const p = defineProps({
   part: {
     type: Object as PropType<DescriptionPart>,
@@ -20,12 +39,15 @@ const p = defineProps({
   },
 });
 
-const translationVariables = computed(() => {
-  const variables = p.part?.translationVariables || {};
-  if (p.part?.type === "valueAsWord" && "n" in variables) {
-    variables.n = numberToWord(parseInt(variables.n) || 0);
+const user = useUserStore();
+
+const n = computed(() => {
+  const number = p.part?.translationVariables?.n;
+  if (number !== undefined) {
+    return number;
+  } else {
+    return undefined;
   }
-  return variables;
 });
 </script>
 

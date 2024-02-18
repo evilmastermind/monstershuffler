@@ -1,5 +1,7 @@
 <template>
-  {{ part.string }}
+  <span>
+    {{ part.string }}
+  </span>
 </template>
 
 <script setup lang="ts">

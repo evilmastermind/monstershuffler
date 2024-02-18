@@ -7,7 +7,7 @@
           fixed-width
           class="navbar-icon"
         />
-        <span class="navbar-link-name">Settings</span>
+        <span class="navbar-link-name">{{ $t("navbar.menu.settings") }}</span>
       </div>
     </div>
     <template #dropdown>
