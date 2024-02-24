@@ -31,7 +31,7 @@ const p = defineProps({
 });
 
 const audioIcon = ref("volume-off");
-const audio: Ref<HTMLAudioElement | null> = ref(null);
+const audio: Ref<HTMLElement | null> = ref(null);
 
 const voiceString = computed(() => {
   let voiceString = p.voice.person;

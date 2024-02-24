@@ -15,7 +15,10 @@
   </span>
   <MonsterSpellName v-else-if="part.type === 'spell'" :part="part" />
   <MonsterDescriptionValue
-    v-else-if="part?.type && ['value', 'valueAsWord'].includes(part?.type)"
+    v-else-if="
+      part?.type &&
+      ['value', 'valueAsWord', 'diceRoll', 'd20Roll'].includes(part?.type)
+    "
     :part="part"
   />
   <MonsterDescriptionResource

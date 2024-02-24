@@ -18,7 +18,6 @@ export function calculateSkills(character: Character) {
 
   const skills = getStatArrayFromObjects<Stat[]>(character, "skills");
 
-  const abilityModifiers = s.abilityModifiers;
   const proficiency = s.proficiency;
 
   const limit = getCurrentStatLimit(character);
@@ -35,7 +34,7 @@ export function calculateSkills(character: Character) {
       ) {
         const skill = skills[i][j].value;
         const ability = skillTypes[skill];
-        skillValues[skill] = abilityModifiers[ability] + proficiency;
+        skillValues[skill] = v[ability] + proficiency;
       }
     }
   }
@@ -59,17 +58,21 @@ export function calculateSkills(character: Character) {
     addCommaIfNotEmpty(s.skills.array);
     s.skills.array.push(createPart(skill, "skill"));
     s.skills.array.push(createPart(" "));
-    s.skills.array.push(
-      createPart(
-        numberToSignedString(skillValues[skill]!),
-        "rollableNumberWithSign"
-      )
-    );
+    s.skills.array!.push({
+      string: numberToSignedString(skillValues[skill]!),
+      number: skillValues[skill],
+      type: "d20Roll",
+      roll: {
+        name: skill,
+        translationKey: `skill.${skill}`,
+      },
+      translationKey: `skill.${skill}`,
+    });
   }
 
   for (const skill in skillTypes) {
     v[skill.replace(/\s/g, "").toUpperCase() as "PERSUASION"] =
-      skillValues[skill] ?? abilityModifiers[skillTypes[skill]];
+      skillValues[skill] ?? v[skillTypes[skill]];
   }
 
   s.skills.string = s.skills.array!.reduce((acc, obj) => acc + obj.string, "");

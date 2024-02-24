@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span class="dice">
     {{ part.string }}
   </span>
 </template>
@@ -15,4 +15,11 @@ const p = defineProps({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.dice {
+  border-bottom: 1px solid rgba(125, 125, 125, 0.3);
+}
+.dice:hover {
+  cursor: pointer;
+}
+</style>

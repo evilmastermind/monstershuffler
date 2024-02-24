@@ -281,7 +281,7 @@ export function pushWithComma(originalString: string, string2: string) {
 }
 
 export function numberToSignedString(number: number) {
-  if (number > 0) {
+  if (number >= 0) {
     return `+${number}`;
   }
   return number.toString();

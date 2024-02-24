@@ -21,6 +21,7 @@ import {
   postRandomNpcResponse,
   raceObject,
   resourcePartObject,
+  roll,
   sensesObject,
   speedsObject,
   spellObject,
@@ -62,6 +63,7 @@ export type ParsedAction = z.infer<typeof parsedActionObject>;
 export type ParsedDice = z.infer<typeof parsedDice>;
 export type ParsedExpression = z.infer<typeof parsedExpression>;
 export type Race = z.infer<typeof raceObject>;
+export type Roll = z.infer<typeof roll>;
 export type ResourcePart = z.infer<typeof resourcePartObject>;
 export type Senses = z.infer<typeof sensesObject>;
 export type Speeds = z.infer<typeof speedsObject>;

@@ -4,9 +4,10 @@ import {
   getBonus,
   getCurrentStatLimit,
   createPart,
+  numberToSignedString,
 } from "../functions";
-import { Ability, abilities } from "./../stats";
-import { Character, Stat } from "@/types";
+import { type Ability, abilityNames, abilities } from "./../stats";
+import type { Character, Stat } from "@/types";
 
 export function calculateSavingThrows(character: Character) {
   const s = character.statistics!;
@@ -18,7 +19,6 @@ export function calculateSavingThrows(character: Character) {
   );
   const savingThrowValues: { [K in Ability]?: number } = {};
   s.savingThrows = { string: "", array: [] };
-  const abilityModifiers = s.abilityModifiers;
   const proficiency = s.proficiency;
 
   const limit = getCurrentStatLimit(character);
@@ -30,8 +30,7 @@ export function calculateSavingThrows(character: Character) {
         limit >= savingThrows[i][j].availableAt!
       ) {
         const savingThrow = savingThrows[i][j].value as Ability;
-        const savingThrowValue = abilityModifiers[savingThrow] + proficiency;
-
+        const savingThrowValue = v[savingThrow] + proficiency;
         savingThrowValues[savingThrow] = savingThrowValue;
       }
     }
@@ -58,19 +57,21 @@ export function calculateSavingThrows(character: Character) {
       createPart(capitalizeFirst(ability), "savingThrow")
     );
     s.savingThrows.array!.push(createPart(" "));
-    const valueAsString =
-      savingThrowValues[ability]! > 0
-        ? `+${savingThrowValues[ability]}`
-        : `${savingThrowValues[ability]}`;
-    s.savingThrows.array!.push(
-      createPart(valueAsString, "rollableNumberWithSign")
-    );
+    s.savingThrows.array!.push({
+      string: numberToSignedString(savingThrowValues[ability]!),
+      number: savingThrowValues[ability],
+      type: "d20Roll",
+      roll: {
+        name: abilityNames[ability],
+        translationKey: abilityNames[ability],
+      },
+      translationKey: abilityNames[ability],
+    });
   }
 
   abilities.forEach((ability) => {
     v[`${ability}SAVE` as Ability] =
-      savingThrowValues[ability as Ability]! ??
-      abilityModifiers[ability as Ability];
+      savingThrowValues[ability as Ability]! ?? v[ability as Ability];
   });
 
   s.savingThrows.string = s.savingThrows.array!.reduce(

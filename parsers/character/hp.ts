@@ -1,5 +1,5 @@
-import { Character } from "@/types";
-import { sizeStats, Size, getBonus, calibrateStatistic } from "@/parsers";
+import { type Character } from "@/types";
+import { sizeStats, type Size, getBonus, calibrateStatistic } from "@/parsers";
 
 export function calculateHitPoints(
   character: Character,
@@ -14,7 +14,7 @@ export function calculateHitPoints(
   const die = sizeStats[size.toString() as Size].hitDice;
 
   const HPFromHitDice = Math.floor(HitDice * ((die + 1) / 2));
-  const HPFromConstitution = HitDice * s!.abilityModifiers.CON;
+  const HPFromConstitution = HitDice * v!.CON;
   const HPBonus = addBonus ? getBonus(character, "HP") : 0;
   let HPTotal = HPFromHitDice + HPFromConstitution + HPBonus;
   if (HPTotal < 1) {

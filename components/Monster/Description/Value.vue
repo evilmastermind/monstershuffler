@@ -1,8 +1,6 @@
 <template>
-  <MonsterDescriptionDice
-    v-if="part?.translationKey?.includes('rollable')"
-    :part="part"
-  />
+  <MonsterDescriptionDice v-if="part.type === 'diceRoll'" :part="part" />
+  <MonsterDescriptionD20 v-else-if="part.type === 'd20Roll'" :part="part" />
   <template
     v-else-if="
       part.translationKey && n !== undefined && part.type === 'valueAsWord'

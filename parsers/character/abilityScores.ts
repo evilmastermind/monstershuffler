@@ -2,17 +2,17 @@ import {
   getPrioritizedStatistic,
   calibrateStatistic,
   getBonusAndInfo,
+  createPart,
+  numberToSignedString,
 } from "../functions";
-import { abilities } from "../stats";
-import { Character } from "@/types";
+import { abilities, abilityNames } from "../stats";
+import { type Character } from "@/types";
 import { random } from "@/utils";
 
 export function calculateAbilityScores(character: Character) {
   const c = character.character;
   // @ts-expect-error
-  character.statistics!.abilityScores = {};
-  // @ts-expect-error
-  character.statistics!.abilityModifiers = {};
+  character.statistics!.abilities = {};
   createKeyIfUndefined(c, "abilityScores");
   if (!c.abilityScores) {
     c.abilityScores = {};
@@ -67,13 +67,28 @@ export function calculateAbilityScores(character: Character) {
     } else if (abilityScoreTotal < 1) {
       abilityScoreTotal = 1;
     }
+
+    const modifier = Math.floor(abilityScoreTotal / 2) - 5;
     // statistics
-    character.statistics!.abilityScores[abilityName] = abilityScoreTotal;
-    character.statistics!.abilityModifiers[abilityName] =
-      Math.floor(abilityScoreTotal / 2) - 5;
+    character.statistics!.abilities[abilityName] = {
+      number: modifier,
+      string: "",
+      array: [],
+    };
+    const parts = character.statistics!.abilities[abilityName].array;
+    parts.push(createPart(`${abilityScoreTotal} (`));
+    parts.push({
+      string: numberToSignedString(modifier),
+      number: modifier,
+      type: "d20Roll",
+      roll: {
+        name: abilityNames[abilityName],
+        translationKey: abilityNames[abilityName],
+      },
+    });
+    parts.push(createPart(")"));
     // variables
-    character.variables![abilityName] =
-      character.statistics!.abilityModifiers[abilityName];
+    character.variables![abilityName] = modifier;
     character.variables![`${abilityName}VALUE`] = abilityScoreTotal;
   }
 }

@@ -1,32 +1,23 @@
 <template>
-  <div class="abilityScores">
+  <p class="abilityScores">
     <span
-      v-for="(score, ability) in statistics.abilityScores"
+      v-for="(score, ability) in statistics.abilities"
       :key="ability"
       class="score"
     >
       <span class="ability-name" :class="moral">
         {{ $t(`statBlock.ability.${ability}`) }}
       </span>
-      <span class="ability-score">
-        {{ score }} {{ getModifier(ability) }}
-      </span>
+      <MonsterDescription :parts="score.array" tag="span" />
     </span>
-  </div>
+  </p>
 </template>
 
 <script setup lang="ts">
-import type { Ability } from "@/parsers";
 import type { Statistics } from "@/types";
 
 const statistics = inject("statistics") as ComputedRef<Statistics>;
 const moral = inject("moral") as string;
-
-function getModifier(ability: Ability) {
-  const modifier = statistics.value.abilityModifiers[ability];
-  const plusSign = modifier >= 0 ? "+" : "";
-  return `(${plusSign}${modifier})`;
-}
 </script>
 
 <style scoped lang="scss">

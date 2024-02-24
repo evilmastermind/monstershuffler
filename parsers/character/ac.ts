@@ -34,8 +34,10 @@ const createClankingArmorCondition = (armorName: string) => {
 
 export function calculateArmorClass(character: Character) {
   const s = character.statistics!;
+  const v = character.variables!;
+
   let totalAC = 0;
-  let dexMod = s.abilityModifiers.DEX;
+  let dexMod = v.DEX;
   let armor: Armor = { name: "", AC: "0" };
   let armorAC = 0;
 
@@ -85,7 +87,7 @@ export function calculateArmorClass(character: Character) {
     // stealth disadvantage trait & speed reduction
     if (
       armor.stealthDis === true &&
-      parseExpressionNumeric(armor?.minStr, character) > s.abilityScores?.STR
+      parseExpressionNumeric(armor?.minStr, character) > v?.STR
     ) {
       if (!character.character.conditions) {
         character.character.conditions = [];

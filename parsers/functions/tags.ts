@@ -115,7 +115,7 @@ export function replaceTags(
       }
       const attack = variant?.attacks?.find((a) => a.name === firstPart);
       if (attack) {
-        parts.push(...calculateAttack(attack, variant?.ability, character));
+        parts.push(...calculateAttack(attack, variant!, character));
         continue;
       }
       // here I should parse the new syntax
@@ -224,6 +224,7 @@ export function calculateValue(
   // when dice are present, I calculate the total value
   // and create the rollable dice part
   if (Object.hasOwn(value, "dice")) {
+    part.type = "diceRoll";
     const valueDice = value as ValueDice;
     const dice = valueDice.dice;
     const currentUnitValue = dice.availableUnit === "level" ? v.LVL : v.CR;
@@ -245,10 +246,14 @@ export function calculateValue(
       dice: totalDice,
       sides: dice.sides,
     };
+    part.roll = {
+      dice: [],
+      name: variant?.name || value?.name || "Dice Roll",
+    };
     if (value.type) {
       parsedDice.type = value.type;
     }
-    part.dice = [parsedDice];
+    part.roll!.dice = [parsedDice];
     part.translationKey = "rollableDice";
   }
 
@@ -271,7 +276,7 @@ export function calculateValue(
       if (value.type) {
         parsedExpression.type = value.type;
       }
-      part.dice = [...(part.dice || []), parsedExpression];
+      part.roll!.dice = [...(part.roll!.dice || []), parsedExpression];
     } else {
       part.string += `${expressionResult}`;
     }
@@ -546,9 +551,6 @@ export function addAdditionalDescriptionParts(
           : "valueDamage";
       part.translationVariables!.damageType = "thunder";
       break;
-    default:
-      console.log("part", part);
-      break;
   }
 }
 
@@ -558,12 +560,12 @@ export function addAdditionalDescriptionParts(
 
 export function calculateAttack(
   attack: Attack,
-  variantAbility: ActionVariant["ability"],
+  variant: ActionVariant,
   character: Character
 ) {
   const parts: DescriptionPart[] = [];
   const v = character.variables!;
-  let ability = variantAbility;
+  let ability = variant?.ability || "STR";
 
   const attributes = attack?.attributes || {
     name: "Dagger",
@@ -633,7 +635,10 @@ export function calculateAttack(
   parts.push({
     string: `${numberToSignedString(toHit)} to hit`,
     number: toHit,
-    type: "rollableNumberWithSign",
+    type: "d20Roll",
+    roll: {
+      name: variant.name || attributes.name || "Attack",
+    },
     translationKey: "toHit",
     translationVariables: {
       toHit: numberToSignedString(toHit),
@@ -741,7 +746,7 @@ export function calculateAttack(
   parts.push(createPart(" "));
   const part: DescriptionPart = {
     string: "",
-    type: "value",
+    type: "diceRoll",
     translationVariables: {},
   };
 
@@ -750,8 +755,10 @@ export function calculateAttack(
     const sides = roundDiceSides(
       parseExpressionNumeric(attributes.sides || "4", character)
     );
-    part.dice = [];
-    part.dice.push({
+    part.roll = {
+      dice: [],
+    };
+    part.roll.dice!.push({
       dice,
       sides,
       type: attributes.damageType,
@@ -759,7 +766,7 @@ export function calculateAttack(
     const additionalDamage = v[ability] + damageBonus;
 
     if (additionalDamage !== 0) {
-      part.dice.push({
+      part.roll.dice!.push({
         value: additionalDamage,
         type: attributes.damageType,
       });
@@ -802,7 +809,10 @@ export function calculateAttack(
         part.translationVariables!.enchantmentType =
           enchantment.translationVariables.damageType;
       }
-      part.dice = [...(part.dice || []), ...(enchantment.dice || [])];
+      part.roll!.dice = [
+        ...(part.roll!.dice || []),
+        ...(enchantment.roll!.dice || []),
+      ];
     } else {
       part.translationKey = "rollableDamage";
     }
@@ -823,17 +833,21 @@ export function calculateAttack(
 
     const versatilePart: DescriptionPart = {
       string: "",
-      type: "value",
+      type: "diceRoll",
       translationKey: "rollableDamage",
       translationVariables: {},
+      roll: {
+        dice: [],
+        name: variant.name || attributes.name || "Attack",
+      },
     };
 
     const dice = parseExpressionNumeric(attributes.diceV || "1", character);
     const sides = roundDiceSides(
       parseExpressionNumeric(attributes.sidesV || "4", character)
     );
-    versatilePart.dice = [];
-    versatilePart.dice.push({
+    versatilePart.roll!.dice = [];
+    versatilePart.roll!.dice.push({
       dice,
       sides,
       type: attributes.damageType,
@@ -841,7 +855,7 @@ export function calculateAttack(
     const additionalDamage = v[ability] + damageBonus;
 
     if (additionalDamage !== 0) {
-      versatilePart.dice.push({
+      versatilePart.roll!.dice.push({
         value: additionalDamage,
         type: attributes.damageType,
       });
@@ -884,9 +898,9 @@ export function calculateAttack(
         versatilePart.translationVariables!.enchantmentType =
           enchantment.translationVariables.damageType;
       }
-      versatilePart.dice = [
-        ...(versatilePart.dice || []),
-        ...(enchantment.dice || []),
+      versatilePart.roll!.dice = [
+        ...(versatilePart.roll!.dice || []),
+        ...(enchantment.roll!.dice || []),
       ];
     }
     parts.push(versatilePart);

@@ -46,11 +46,11 @@ const { currentThemeType } = storeToRefs(ui);
 const moral = computed(() => {
   const alignment = p.character?.statistics?.alignment?.string || "";
   if (alignment.includes("Good")) {
-    return "text-text-good fill-background-good border-evil";
+    return "text-text-good fill-background-good border-good decoration-good";
   } else if (alignment.includes("Evil")) {
-    return "text-text-evil fill-background-evil border-complementary";
+    return "text-text-evil fill-background-evil border-complementary decoration-evil";
   } else {
-    return "text-text-neutral fill-background-neutral border-neutral";
+    return "text-text-neutral fill-background-neutral border-neutral decoration-neutral";
   }
 });
 
