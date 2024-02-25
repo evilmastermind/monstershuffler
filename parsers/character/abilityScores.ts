@@ -84,6 +84,13 @@ export function calculateAbilityScores(character: Character) {
       roll: {
         name: abilityNames[abilityName],
         translationKey: abilityNames[abilityName],
+        dice: [
+          {
+            sides: 20,
+            dice: 1,
+            bonus: modifier,
+          },
+        ],
       },
     });
     parts.push(createPart(")"));

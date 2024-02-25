@@ -52,6 +52,12 @@
   font-weight: 100;
   font-style: normal;
 }
+
+@font-face {
+  font-family: AdLib;
+  src: url("@/assets/fonts/AdLib.woff2") format("woff2");
+  font-display: swap;
+}
 /* @font-face {
   font-family: AusweisHollow;
   src: url("@/assets/fonts/AusweisHollow.ttf");

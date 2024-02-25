@@ -638,6 +638,13 @@ export function calculateAttack(
     type: "d20Roll",
     roll: {
       name: variant.name || attributes.name || "Attack",
+      dice: [
+        {
+          sides: 20,
+          dice: 1,
+          bonus: toHit,
+        },
+      ],
     },
     translationKey: "toHit",
     translationVariables: {
@@ -789,6 +796,7 @@ export function calculateAttack(
       attributes.damageType || "bludgeoning damage";
 
     if ("enchantment" in attributes) {
+      console.log("enchantment", attributes.enchantment);
       part.translationKey = "rollableDamageEnchantment";
       const enchantment = calculateValue(
         attributes.enchantment as ValueDice,
@@ -877,10 +885,10 @@ export function calculateAttack(
     versatilePart.translationVariables!.damageType =
       attributes.damageType || "bludgeoning damage";
 
-    if ("enchantment" in attributes) {
+    if ("enchantment" in attack) {
       versatilePart.translationKey = "rollableDamageEnchantment";
       const enchantment = calculateValue(
-        attributes.enchantment as ValueDice,
+        attack.enchantment as ValueDice,
         character
       );
       versatilePart.string += ` plus ${enchantment.string}`;

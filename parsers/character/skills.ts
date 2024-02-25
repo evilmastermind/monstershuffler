@@ -65,6 +65,13 @@ export function calculateSkills(character: Character) {
       roll: {
         name: skill,
         translationKey: `skill.${skill}`,
+        dice: [
+          {
+            sides: 20,
+            dice: 1,
+            bonus: skillValues[skill],
+          },
+        ],
       },
       translationKey: `skill.${skill}`,
     });

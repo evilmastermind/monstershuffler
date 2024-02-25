@@ -14,11 +14,12 @@
     {{ part.string }}
   </span>
   <MonsterSpellName v-else-if="part.type === 'spell'" :part="part" />
+  <MonsterDescriptionDiceRoll
+    v-else-if="part.type && ['d20Roll', 'diceRoll'].includes(part.type)"
+    :part="part"
+  />
   <MonsterDescriptionValue
-    v-else-if="
-      part?.type &&
-      ['value', 'valueAsWord', 'diceRoll', 'd20Roll'].includes(part?.type)
-    "
+    v-else-if="part?.type && ['value', 'valueAsWord'].includes(part?.type)"
     :part="part"
   />
   <MonsterDescriptionResource

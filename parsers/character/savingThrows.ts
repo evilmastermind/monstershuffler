@@ -64,6 +64,13 @@ export function calculateSavingThrows(character: Character) {
       roll: {
         name: abilityNames[ability],
         translationKey: abilityNames[ability],
+        dice: [
+          {
+            sides: 20,
+            dice: 1,
+            bonus: savingThrowValues[ability],
+          },
+        ],
       },
       translationKey: abilityNames[ability],
     });
