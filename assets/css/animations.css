@@ -1,7 +1,7 @@
-.deleting {
-  animation: deleting 0.5s infinite;
+.rainbow {
+  animation: rainbow 0.5s infinite;
 }
-@keyframes deleting {
+@keyframes rainbow {
   0% {
     color: red;
   }
@@ -22,5 +22,20 @@
   }
   100% {
     color: red;
+  }
+}
+
+.poop {
+  animation: poop 0.5s infinite;
+}
+@keyframes poop {
+  0% {
+    color: #452709;
+  }
+  50% {
+    color: #d9ab4a;
+  }
+  100% {
+    color: #452709;
   }
 }

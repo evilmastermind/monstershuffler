@@ -36,6 +36,9 @@
     "reactions": "Reactions",
     "legendaryActions": "Legendary Actions",
     "AC": "Armor Class",
+    "crit": "Crit",
+    "nat1": "Nat 1",
+    "plus": "plus",
     "speed": {
       "speed": "Speed",
       "fly": "fly",
@@ -330,7 +333,7 @@
     "rollableHitPoint": "{n} hit points | {n} hit point | {n} hit points",
     "rollableTemporaryHitPoint": "{n} temporary hit points | {n} temporary hit point | {n} temporary hit points",
     "rollableDamage": "{n} {damageType} damage",
-    "rollableDamageEnchantment": "{n} {damageType} damage plus {valueEnchantment} {enchantmentType} damage",
+    "rollableDamageEnchantment": "{n} {damageType} damage plus {valueEnchantment}  {enchantmentType} damage",
     "if used with two hands": "if used with two hands",
     "to make a melee attack": "to make a melee attack",
     "spellcasting": "Spellcasting",
@@ -498,5 +501,13 @@
   "username": "Username",
   "email": "Email",
   "password": "Password",
-  "confirmPassword": "Confirm Password"
+  "confirmPassword": "Confirm Password",
+  "dice": {
+    "you": "You",
+    "close": "Close roll history",
+    "open": "Open roll history",
+    "clear": "Clear roll history",
+    "diceRoll": "Roll",
+    "d20Roll": "D20"
+  }
 }

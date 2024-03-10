@@ -9,6 +9,7 @@ export type ResultByType = {
 export type DiceRoll = {
   roll: Roll;
   monster: string;
+  rollName?: string;
   d20Roll?: number;
   rollDetails: string;
   resultsByType: ResultByType[];

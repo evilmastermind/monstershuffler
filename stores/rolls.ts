@@ -1,35 +1,20 @@
 import type { DiceRoll, ResultByType } from "./rolls.d";
-import type { Roll, DescriptionPart } from "@/types";
+import { numberToSignedString } from "@/parsers";
+import type {
+  Roll,
+  DescriptionPart,
+  ParsedDice,
+  ParsedExpression,
+} from "@/types";
 
 export const useRollsStore = defineStore("rolls", () => {
-  const diceRolls: Ref<DiceRoll[]> = ref([]);
+  const diceRolls = shallowRef<DiceRoll[]>([]);
+  const maxSize = 50;
+  const localStorageName = "diceRolls";
 
-  function rollDice(part: DescriptionPart, monster: string) {
-    const rollInfo = part.roll;
-
-    // If there's no roll, just roll a d20
-    if (!rollInfo) {
-      const d20Roll = Math.floor(Math.random() * 20) + 1;
-      return {
-        roll: {
-          dice: [
-            {
-              dice: 1,
-              sides: 20,
-            },
-          ],
-        },
-        monster,
-        d20Roll,
-        rollDetails: `[${d20Roll}]`,
-        resultsByType: [{ result: d20Roll }],
-        totalResult: d20Roll,
-        emojis: addEmojiByD20Roll(d20Roll),
-      } as DiceRoll;
-    }
-
+  function rollDice(roll: Roll, monster: string) {
     const diceRoll: DiceRoll = {
-      roll: rollInfo,
+      roll,
       monster,
       rollDetails: "",
       resultsByType: [],
@@ -37,11 +22,21 @@ export const useRollsStore = defineStore("rolls", () => {
       emojis: [],
     };
 
-    for (let i = 0; i < rollInfo.dice.length; i++) {
-      const dice = rollInfo.dice[i];
+    const isD20Roll =
+      roll.dice.length >= 1 &&
+      "sides" in roll.dice[0] &&
+      roll.dice[0].sides === 20 &&
+      roll.dice[0].dice === 1;
+
+    if (roll.name) {
+      diceRoll.rollName = roll.name;
+    }
+
+    for (let i = 0; i < roll.dice.length; i++) {
+      const dice = roll.dice[i];
       let totalForCurrentGroup = 0;
       if ("dice" in dice) {
-        addPlusSign(diceRoll.rollDetails, true);
+        diceRoll.rollDetails = addPlusSign(diceRoll.rollDetails, true);
         let rollDetailsForCurrentGroup = "";
         let result = 1;
         for (let j = 0; j < dice.dice; j++) {
@@ -53,7 +48,7 @@ export const useRollsStore = defineStore("rolls", () => {
         }
         if (dice.bonus) {
           totalForCurrentGroup += dice.bonus || 0;
-          rollDetailsForCurrentGroup += `+${dice.bonus || 0}`;
+          rollDetailsForCurrentGroup += numberToSignedString(dice.bonus || 0);
         }
         addResultByType(
           totalForCurrentGroup,
@@ -62,23 +57,22 @@ export const useRollsStore = defineStore("rolls", () => {
         );
         diceRoll.totalResult += totalForCurrentGroup;
         diceRoll.rollDetails += rollDetailsForCurrentGroup;
-        if (part.type === "d20Roll") {
+        if (isD20Roll) {
           diceRoll.emojis.push(...addEmojiByD20Roll(result));
           diceRoll.d20Roll = result;
         } else {
           diceRoll.emojis.push(...addEmojiByType(dice.type));
         }
       } else {
-        diceRoll.rollDetails += `${addPlusSign(diceRoll.rollDetails, true)}${
+        diceRoll.rollDetails = `${addPlusSign(diceRoll.rollDetails, true)}${
           dice.value
         }`;
         addResultByType(dice.value, diceRoll.resultsByType, dice.type);
         diceRoll.totalResult += dice.value;
       }
-      console.log(diceRoll.rollDetails);
     }
 
-    diceRolls.value.push(diceRoll);
+    addDie(diceRoll);
     return diceRoll;
 
     /**
@@ -115,9 +109,87 @@ export const useRollsStore = defineStore("rolls", () => {
      */
   }
 
+  function rollDiceAsString(rollAsString = "1d20") {
+    const parsedRoll = parseRollAsString(rollAsString);
+    return rollDice(parsedRoll, "");
+  }
+
+  function parseRollAsString(rollAsString: string) {
+    /**
+     * A roll as string can be something like:
+     * 1d20 - 5 + 1d6 - 4 + 2
+     * It's made of:
+     * - dice rolls (two numbers separated by a "d")
+     * - a bonus (a number)
+     * - + and - signs as separators
+     *
+     * I need to:
+     * 1) remove spaces
+     * 2) split the string by the + and - signs.
+     *    The - sign is allowed only before a number and will make it negative
+     * 3) for each part, check if it's a dice roll or a bonus
+     * 4) if it's a dice roll, split it by the "d" and create a "ParsedDice" object
+     * 5) if it's a bonus, create a "ParsedExpression" object
+     */
+    const rollWithoutSpaces = rollAsString.toLowerCase().replace(/\s/g, "");
+    const parts = rollWithoutSpaces.split(/(?=[+-])/);
+    const roll: Roll = {
+      dice: [],
+      name: "",
+    };
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      if (part.includes("d")) {
+        const [dice, bonus] = part.split(/(?=[+-])/);
+        const [diceRoll, sides] = dice.split("d");
+        const newDie: ParsedDice = {
+          dice: Math.abs(parseInt(diceRoll)),
+          sides: parseInt(sides),
+        };
+        if (bonus) {
+          newDie.bonus = parseInt(bonus);
+        }
+        roll.dice.push(newDie);
+      } else {
+        roll.dice.push({
+          value: parseInt(part),
+        });
+      }
+    }
+    return roll;
+  }
+
+  function addDie(die: DiceRoll) {
+    if (diceRolls.value.length === maxSize) {
+      diceRolls.value.shift();
+    }
+    diceRolls.value.push(die);
+    triggerRef(diceRolls);
+    saveToLocalStorage();
+  }
+
+  function clear() {
+    diceRolls.value = [];
+    saveToLocalStorage();
+  }
+
+  function saveToLocalStorage() {
+    localStorage.setItem(localStorageName, JSON.stringify(diceRolls.value));
+  }
+
+  function loadFromLocalStorage() {
+    const loadedDiceRolls = localStorage.getItem(localStorageName);
+    if (loadedDiceRolls) {
+      diceRolls.value.push(...JSON.parse(loadedDiceRolls));
+    }
+  }
+
   return {
     diceRolls,
     rollDice,
+    rollDiceAsString,
+    clear,
+    loadFromLocalStorage,
   };
 });
 
@@ -180,7 +252,7 @@ function addEmojiByType(type?: string) {
       return ["⚔️", "🔪", "🪓"];
       break;
     case "thunder damage":
-      return ["ᯤ", "ᯤ", "ᯤ"];
+      return ["ᯤ", "😱", "🔈"];
     case "hit point":
     case "temporary hit point":
       return ["❤️‍🩹", "❤️"];

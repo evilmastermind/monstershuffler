@@ -528,7 +528,7 @@ export function addAdditionalDescriptionParts(
       part.translationVariables!.damageType = "psychic";
       break;
     case "radiant damage":
-      part.string += "radiant damage";
+      part.string += " radiant damage";
       part.translationKey =
         part.translationKey === "rollableDice"
           ? "rollableDamage"
@@ -764,6 +764,7 @@ export function calculateAttack(
     );
     part.roll = {
       dice: [],
+      name: variant.name || attributes.name || "Attack",
     };
     part.roll.dice!.push({
       dice,
@@ -795,11 +796,10 @@ export function calculateAttack(
     part.translationVariables!.damageType =
       attributes.damageType || "bludgeoning damage";
 
-    if ("enchantment" in attributes) {
-      console.log("enchantment", attributes.enchantment);
+    if ("enchantment" in attack) {
       part.translationKey = "rollableDamageEnchantment";
       const enchantment = calculateValue(
-        attributes.enchantment as ValueDice,
+        attack.enchantment as ValueDice,
         character
       );
       part.string += ` plus ${enchantment.string}`;

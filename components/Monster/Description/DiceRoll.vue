@@ -1,15 +1,21 @@
 <template>
-  <button ref="container" class="roll noselect" @click="rollDice">
+  <span
+    class="roll noselect"
+    :class="moralDecoration"
+    role="button"
+    tabindex="0"
+    @click="rollDice"
+    @keydown="rollDice"
+  >
     {{ part.string }}
     <TransitionGroup name="roll">
       <DiceRoll
-        v-for="(roll, index) in rolls"
-        :key="index"
+        v-for="roll in rolls"
+        :key="roll.id.toISOString()"
         :part="part"
-        :parent="container"
       />
     </TransitionGroup>
-  </button>
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -24,9 +30,8 @@ type Roll = {
   id: Date;
 };
 
+const moralDecoration = inject("moralDecoration") as string;
 const rolls = ref<Roll[]>([]);
-
-const container: Ref<HTMLElement | null> = ref(null);
 
 const p = defineProps({
   part: {
@@ -35,7 +40,14 @@ const p = defineProps({
   },
 });
 
-function rollDice() {
+function rollDice(event: KeyboardEvent | MouseEvent | undefined = undefined) {
+  if (
+    event &&
+    "key" in event &&
+    !(event.key === "Enter" || event.key === " ")
+  ) {
+    return;
+  }
   const id = new Date();
   rolls.value.push({ id });
   setTimeout(() => {
@@ -54,10 +66,13 @@ function removeRoll(id: Date) {
 
 <style scoped>
 .roll {
+  position: relative;
   display: inline;
   line-height: inherit;
-  position: relative;
-  border-bottom: 1px solid rgba(125, 125, 125, 0.3);
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: all;
 }
 .roll:hover {
   cursor: pointer;

@@ -10,7 +10,7 @@
           <font-awesome-icon
             aria-hidden="true"
             icon="trash"
-            :class="hasDeleteButtonBeenClickedOnce ? 'deleting' : ''"
+            :class="hasDeleteButtonBeenClickedOnce ? 'rainbow' : ''"
           />
           <span class="sr-only">{{ $t("generator.deleteAll") }}</span>
         </button>

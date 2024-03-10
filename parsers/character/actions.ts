@@ -96,6 +96,7 @@ export function calculateActions(character: Character) {
           "name" in attack?.attributes &&
           attack?.attributes?.name
         ) {
+          variant!.name = attack.attributes.name;
           actionName = attack.attributes.name;
         }
       });

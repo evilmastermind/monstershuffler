@@ -22,7 +22,7 @@
             <font-awesome-icon
               aria-hidden="true"
               class="close-button"
-              :class="hasBeenClickedOnce ? 'deleting' : ''"
+              :class="hasBeenClickedOnce ? 'rainbow' : ''"
               icon="fas fa-solid fa-times"
               fixed-width
             />

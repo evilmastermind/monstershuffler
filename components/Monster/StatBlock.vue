@@ -54,12 +54,24 @@ const moral = computed(() => {
   }
 });
 
+const moralDecoration = computed(() => {
+  const alignment = p.character?.statistics?.alignment?.string || "";
+  if (alignment.includes("Good")) {
+    return "decoration-text-good/30";
+  } else if (alignment.includes("Evil")) {
+    return "decoration-text-evil/30";
+  } else {
+    return "decoration-text-neutral/30";
+  }
+});
+
 provide("character", p.character);
 provide(
   "statistics",
   computed(() => p.character.statistics)
 );
 provide("moral", moral);
+provide("moralDecoration", moralDecoration);
 </script>
 
 <style scoped lang="scss">

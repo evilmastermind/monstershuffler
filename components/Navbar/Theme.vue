@@ -25,8 +25,8 @@ const setInitialTheme = () => {
   if (currentThemeName.value) {
     setTheme(currentThemeName.value);
   } else if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
+    window?.matchMedia &&
+    window?.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
     setTheme("dark");
   } else {

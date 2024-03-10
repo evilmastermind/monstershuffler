@@ -77,6 +77,7 @@
         <LoadingSpinner />
       </div>
     </div>
+    <DiceHistory />
   </div>
 </template>
 
