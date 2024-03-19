@@ -96,7 +96,7 @@ function removeItem<T>(anArray: Array<T>, aClass: T) {
   align-items: stretch;
   text-align: left;
   // border-radius: 5px;
-  background-color: theme("colors.background");
+  background-color: theme("colors.background.100");
   transform-origin: top center;
   animation: rotateX 200ms ease-in-out forwards;
 }

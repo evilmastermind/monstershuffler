@@ -7,11 +7,12 @@
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
         <!-- ----- -->
-        <MonsterStatBlockPart1 />
+        <MonsterStatBlockACHPSpeed />
         <MonsterStatBlockSeparator />
         <!-- ----- -->
         <MonsterStatBlockAbilityScores />
         <MonsterStatBlockSeparator />
+        <!-- ----- -->
         <MonsterStatBlockSavesSkills />
         <MonsterStatBlockResistancesImmunities />
         <MonsterStatBlockSensesLanguages />

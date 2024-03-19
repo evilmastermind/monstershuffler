@@ -51,6 +51,6 @@ const p = defineProps({
 
 <style scoped>
 .shadow {
-  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+  filter: drop-shadow(2px 2px 2px rgb(0 0 0 / 0.3));
 }
 </style>

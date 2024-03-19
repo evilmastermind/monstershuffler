@@ -13,7 +13,7 @@
     :style="{ top: `${y - 2}px`, left: `${left}px`, width: `${width}px` }"
   >
     <div class="tooltip">
-      <h4 class="text-left">{{ word }}:</h4>
+      <h4 class="text-left font-bold">{{ word }}:</h4>
       <p v-if="description !== null" class="content">{{ description }}</p>
       <LoadingDots v-else :size="6" />
       <div
@@ -99,7 +99,7 @@ watch(isVisible, async (newValue) => {
   position: absolute;
   bottom: 0%;
   width: 100%;
-  @apply shadow-xl rounded p-4 sm:p-5 bg-background not-italic;
+  @apply shadow-xl rounded p-4 sm:p-5 bg-background-100 not-italic;
 }
 .close-button {
   position: absolute;

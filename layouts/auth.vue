@@ -28,7 +28,7 @@ useHead({
   background: linear-gradient(
       to bottom,
       theme("colors.background-inset.500") 0,
-      rgba(var(--colors-background), 0.2) 100%
+      rgba(var(--colors-background-100), 0.2) 100%
     ),
     url("@/assets/images/login-bg-1.jpg") no-repeat center center/cover;
   // background-color: t($background2);

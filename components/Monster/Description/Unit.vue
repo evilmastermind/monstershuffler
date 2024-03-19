@@ -53,7 +53,6 @@
 </template>
 
 <script setup lang="ts">
-import Part1 from "../StatBlock/Part1.vue";
 import type { DescriptionPart } from "@/types";
 import { feetToOtherUnit, getUnitSymbol } from "@/parsers";
 

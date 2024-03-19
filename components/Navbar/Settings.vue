@@ -52,7 +52,7 @@ const user = useUserStore();
 .dropdown-link:hover,
 .dropdown-link:active {
   background: theme("colors.text");
-  color: theme("colors.background") !important;
+  color: theme("colors.background.100") !important;
 }
 .dropdown-link:visited {
   color: inherit;

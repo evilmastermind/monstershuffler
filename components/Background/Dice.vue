@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, nextTick } from "vue";
-import { $ref, $computed } from "vue/macros";
 import { debounce } from "@/utils";
 
 type DiceStyle = {
@@ -131,14 +130,17 @@ function generateBackground() {
   overflow: hidden;
   background-color: #e5e5f7;
   background-size: 10px 10px;
-  // background-image: repeating-linear-gradient(45deg, t($background) 0, t($background) 1px, t($background2) 0, t($background2) 50%);
-  background-color: theme("colors.background2");
+  background-color: theme("colors.background.0");
   background: radial-gradient(
       ellipse at 50% 20%,
       theme("colors.primary.100"),
       transparent
     ),
-    radial-gradient(ellipse at 70% 80%, theme("colors.background"), transparent),
+    radial-gradient(
+      ellipse at 70% 80%,
+      theme("colors.background.100"),
+      transparent
+    ),
     radial-gradient(
       ellipse at 30% 80%,
       theme("colors.complementary.200"),

@@ -21,6 +21,6 @@ const p = defineProps({
 .roll-preview {
   backdrop-filter: blur(4px);
   font-family: ScalaSansOffc;
-  @apply shadow-xl p-1 ml-2 rounded bg-background2;
+  @apply shadow-xl p-1 ml-2 rounded bg-background-50;
 }
 </style>

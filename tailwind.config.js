@@ -90,8 +90,11 @@ export default {
               900: "hsl(240, 0%, 7%)",
               1000: "hsl(240, 0%, 0%)",
             },
-            background: "hsl(47, 41%, 93%)",
-            background2: "hsl(0, 0%, 100%)",
+            background: {
+              0: "hsl(0, 0%, 100%)",
+              50: "hsl(47, 41%, 96%)",
+              100: "hsl(47, 41%, 93%)",
+            },
             "background-card": "hsla(47,30%,90%,0.7)",
             "background-inset": {
               400: "hsla(46, 22%, 88%, 0.7)",
@@ -205,8 +208,11 @@ export default {
                 50: "hsl(240, 0%, 3%)",
                 0: "hsl(240, 0%, 0%)",
               },
-              background: "hsl(0,0%,20%)",
-              background2: "hsl(0, 0%, 0%)",
+              background: {
+                0: "hsl(0,0%,0%)",
+                50: "hsl(0,0%,10%)",
+                100: "hsl(0,0%,20%)",
+              },
               "background-card": "hsla(0,0%,20%,0.7)",
               "background-inset": {
                 400: "hsla(0, 0%, 18%,0.7)",

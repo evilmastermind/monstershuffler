@@ -104,7 +104,7 @@ function goToURL() {
 }
 
 .color-primary {
-  @apply bg-primary-700 text-background;
+  @apply bg-primary-700 text-background-100;
 }
 .color-primary:hover {
   @apply bg-primary-600;
@@ -113,7 +113,7 @@ function goToURL() {
   @apply bg-primary-700;
 }
 .color-complementary {
-  @apply bg-complementary-700 text-background;
+  @apply bg-complementary-700 text-background-100;
 }
 .color-complementary:hover {
   @apply bg-complementary-600;
@@ -154,8 +154,8 @@ function goToURL() {
 }
 .color-success {
   background-color: theme("colors.success");
-  color: theme("colors.background");
-  @apply bg-success text-background;
+  color: theme("colors.background.100");
+  @apply bg-success text-background-100;
 }
 
 .button:focus-visible {

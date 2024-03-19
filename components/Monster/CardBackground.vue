@@ -54,7 +54,7 @@ const p = defineProps({
   transition: background-color 0.09s ease-in-out;
 }
 .selectable:hover {
-  background-color: theme("colors.background");
+  @apply bg-background-100;
 }
 .ethical-symbol {
   position: absolute;

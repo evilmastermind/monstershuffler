@@ -68,7 +68,7 @@
 }
 
 .text-shadow {
-  text-shadow: 0 0 10px theme("colors.background");
+  text-shadow: 0 0 10px theme("colors.background.100");
 }
 
 .text-max {

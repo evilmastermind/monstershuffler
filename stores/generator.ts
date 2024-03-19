@@ -40,6 +40,10 @@ export const useGeneratorStore = defineStore("generator", () => {
   const promptOptions = ref<PostRandomNpcInput>({});
   const keywords = ref<Keyword[]>([]);
 
+  const currentCharacter = computed(() => {
+    return characters.value[currentCharacterIndex.value] as Character;
+  });
+
   const generateNpcs = throttle(getRandomNpcs, 1000);
   // const generateNpc = throttle(getRandomNpc, 1000);
 
@@ -249,6 +253,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     session,
     settings,
     characters,
+    currentCharacter,
     currentCharacterIndex,
     currentCharacterFromBitsPreview,
     racesAndVariants,

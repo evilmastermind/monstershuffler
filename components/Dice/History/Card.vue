@@ -109,7 +109,7 @@ function rollName(roll: DiceRoll) {
 .monster-rolls {
   display: flex;
   flex-direction: column;
-  @apply p-2 gap-1 rounded bg-background-inset-400;
+  @apply p-2 gap-1 rounded bg-background-50;
 }
 .roll {
   line-height: 1em;

@@ -9,6 +9,6 @@
 <style scoped lang="scss">
 .card {
   backdrop-filter: blur(4px);
-  @apply shadow-xl rounded p-4 sm:p-5 bg-background;
+  @apply shadow-xl rounded p-4 sm:p-5 bg-background-100;
 }
 </style>

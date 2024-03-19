@@ -11,7 +11,11 @@
         <div v-if="!isLoading">
           <TransitionGroup name="fade-group">
             <GeneratorBits v-if="characters.length" key="1" class="mt-4" />
-            <GeneratorCharacterPage v-if="currentCharacterIndex > -1" key="2" />
+            <GeneratorCharacterPage
+              v-if="currentCharacterIndex > -1"
+              key="2"
+              class="mt-2"
+            />
             <div
               v-show="currentCharacterIndex === -1"
               key="3"
@@ -190,16 +194,11 @@ onMounted(async () => {
   height: 100vh;
   background: linear-gradient(
       to bottom,
-      theme("colors.background2") 0,
-      theme("colors.background") 10em,
-      rgba(var(--colors-background), 0.5) 100%
+      theme("colors.background.0") 0,
+      theme("colors.background.100") 10em,
+      rgba(var(--colors-background-100), 0.5) 100%
     ),
     url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
-  // background-color: t($background2);
-  // background: rgba(t($background2), 0.7)
-  //   url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
-  // background-blend-mode: t($background-blend-mode);
-  //  ;
   z-index: -2;
 }
 

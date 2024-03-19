@@ -19,7 +19,7 @@
           :title="$t('generator.saveAll')"
           disabled
         >
-          <font-awesome-icon icon="floppy-disk" class="opacity-50" />
+          <font-awesome-icon icon="floppy-disk" class="opacity-20" />
           <span class="sr-only">{{ $t("generator.saveAll") }}</span>
         </button>
       </div>
@@ -114,7 +114,6 @@ function showCharacterPage(index: number) {
   gap: 0;
   border-radius: 1rem;
   line-height: 1rem;
-
-  @apply bg-background-evil text-text-inverse shadow-md;
+  @apply bg-background-evil text-text-inverse;
 }
 </style>

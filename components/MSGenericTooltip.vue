@@ -92,7 +92,7 @@ watch(y, () => {
   position: absolute;
   bottom: 0%;
   width: 100%;
-  @apply shadow-xl rounded p-4 sm:p-5 bg-background not-italic;
+  @apply shadow-xl rounded p-4 sm:p-5 bg-background-100 not-italic;
 }
 
 .close-button {
