@@ -142,9 +142,17 @@ export const useRollsStore = defineStore("rolls", () => {
       if (part.includes("d")) {
         const [dice, bonus] = part.split(/(?=[+-])/);
         const [diceRoll, sides] = dice.split("d");
+        let parsedDice = Math.abs(parseInt(diceRoll));
+        if (parsedDice > 10000) {
+          parsedDice = 10000;
+        }
+        let parsedSides = parseInt(sides);
+        if (parsedSides > 100000) {
+          parsedSides = 100000;
+        }
         const newDie: ParsedDice = {
-          dice: Math.abs(parseInt(diceRoll)),
-          sides: parseInt(sides),
+          dice: parsedDice,
+          sides: parsedSides,
         };
         if (bonus) {
           newDie.bonus = parseInt(bonus);

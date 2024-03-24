@@ -19,7 +19,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   const settings: Ref<PostRandomNpcInput | null> = ref(null);
   const characters: Ref<Character[]> = ref([]);
   const currentCharacterIndex = ref(-1);
-  const currentCharacterFromBitsPreview = ref<Character | null>(null);
+  const currentCharacterFromBitsPreview = ref<Character>();
   const racesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
   const classesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
   const backgrounds: Ref<ObjectList> = ref([]);

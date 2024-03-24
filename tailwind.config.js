@@ -96,6 +96,7 @@ export default {
               100: "hsl(47, 41%, 93%)",
             },
             "background-card": "hsla(47,30%,90%,0.7)",
+            "background-details": "hsl(225,7%,95%)",
             "background-inset": {
               400: "hsla(46, 22%, 88%, 0.7)",
               500: "hsla(46, 22%, 85%, 0.7)",
@@ -214,6 +215,7 @@ export default {
                 100: "hsl(0,0%,20%)",
               },
               "background-card": "hsla(0,0%,20%,0.7)",
+              "background-details": "hsl(225,12%,16%)",
               "background-inset": {
                 400: "hsla(0, 0%, 18%,0.7)",
                 500: "hsla(0, 0%, 15%,0.7)",

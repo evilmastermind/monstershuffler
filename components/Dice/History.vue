@@ -4,7 +4,7 @@
       <div v-if="!isHistoryOpen" class="dice-history-previews">
         <TransitionGroup name="list">
           <DiceHistoryPreview
-            v-for="roll in uniqueDiceRolls"
+            v-for="roll in diceRollsWithId"
             :key="`${roll.id}`"
             :roll="roll"
           />
@@ -39,22 +39,20 @@ type IdTimeout = {
 
 const rolls = useRollsStore();
 
-const uniqueDiceRolls = ref<(DiceRoll & IdTimeout)[]>([]);
+const diceRollsWithId = ref<(DiceRoll & IdTimeout)[]>([]);
 const isHistoryOpen = ref(false);
 const { diceRolls } = storeToRefs(rolls);
-const rollsCount = ref(0);
 const areRollsLoaded = ref(false);
 
 watch(diceRolls, () => {
-  if (rollsCount.value > diceRolls.value.length || !diceRolls.value.length) {
+  if (!diceRolls.value.length) {
     return;
   }
-  rollsCount.value = diceRolls.value.length;
-  if (uniqueDiceRolls.value.length >= maxSize) {
-    uniqueDiceRolls.value.shift();
+  if (diceRollsWithId.value.length >= maxSize) {
+    diceRollsWithId.value.shift();
   }
   const newId = Math.random().toString(36).substring(7);
-  uniqueDiceRolls.value.push({
+  diceRollsWithId.value.push({
     ...diceRolls.value[diceRolls.value.length - 1],
     id: newId,
     timeout: setTimeout(() => {
@@ -64,15 +62,15 @@ watch(diceRolls, () => {
 });
 
 function removeRoll(id: string) {
-  if (!uniqueDiceRolls.value.length) {
+  if (!diceRollsWithId.value.length) {
     return;
   }
-  const index = uniqueDiceRolls.value.findIndex((roll) => roll.id === id);
+  const index = diceRollsWithId.value.findIndex((roll) => roll.id === id);
   if (index === -1) {
     return;
   }
-  clearTimeout(uniqueDiceRolls.value[index].timeout);
-  uniqueDiceRolls.value.splice(index, 1);
+  clearTimeout(diceRollsWithId.value[index].timeout);
+  diceRollsWithId.value.splice(index, 1);
 }
 
 onMounted(() => {

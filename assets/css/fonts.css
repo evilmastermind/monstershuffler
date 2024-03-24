@@ -54,14 +54,20 @@
 }
 
 @font-face {
-  font-family: AdLib;
-  src: url("@/assets/fonts/AdLib.woff2") format("woff2");
-  font-display: swap;
+  font-family: AngloText;
+  src: url("@/assets/fonts/AngloText.woff2") format("woff2");
 }
 /* @font-face {
   font-family: AusweisHollow;
   src: url("@/assets/fonts/AusweisHollow.ttf");
 } */
+
+/* @font-face {
+  font-family: AdLib;
+  src: url("@/assets/fonts/AdLib.woff2") format("woff2");
+  font-display: swap;
+} */
+
 
 .bold {
   font-weight: 500;

@@ -28,7 +28,8 @@
     "skinny": "skinny",
     "average": "average",
     "chubby": "chubby",
-    "obese": "obese"
+    "obese": "obese",
+    "monstersTraits": "{name}'s Traits"
   },
   "statBlock": {
     "actions": "Actions",

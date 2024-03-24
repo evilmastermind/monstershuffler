@@ -4,8 +4,8 @@
     :class="moralDecoration"
     role="button"
     tabindex="0"
-    @click="rollDice"
-    @keydown="rollDice"
+    @click.stop="rollDice"
+    @keydown.stop="rollDice"
   >
     {{ part.string }}
     <TransitionGroup name="roll">

@@ -262,6 +262,7 @@ const stroke = computed(() => {
   stroke: theme("colors.primary.700");
 }
 .ms-logo-icon {
+  overflow: visible;
   min-width: theme("spacing.6");
   width: 40px;
 }

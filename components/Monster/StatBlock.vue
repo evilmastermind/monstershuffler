@@ -1,8 +1,8 @@
 <template>
   <div class="stat-block-container">
-    <div class="border" :class="`border-${currentThemeType}`" />
-    <div class="stat-block" :class="`stat-block-${currentThemeType}`">
-      <div class="gradient" :class="`gradient-${currentThemeType}`" />
+    <div class="border" :class="`border-${ui.currentThemeType}`" />
+    <div class="stat-block" :class="`stat-block-${ui.currentThemeType}`">
+      <div class="gradient" :class="`gradient-${ui.currentThemeType}`" />
       <div class="stat-block-content p-4">
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
@@ -26,53 +26,12 @@
         <MonsterStatBlockLegendaryActions />
       </div>
     </div>
-    <div class="border" :class="`border-${currentThemeType}`" />
+    <div class="border" :class="`border-${ui.currentThemeType}`" />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Character } from "@/types";
-
-const p = defineProps({
-  character: {
-    type: Object as PropType<Character>,
-    required: true,
-  },
-});
-
 const ui = useUiStore();
-const { themes } = ui;
-const { currentThemeType } = storeToRefs(ui);
-
-const moral = computed(() => {
-  const alignment = p.character?.statistics?.alignment?.string || "";
-  if (alignment.includes("Good")) {
-    return "text-text-good fill-background-good border-good decoration-good";
-  } else if (alignment.includes("Evil")) {
-    return "text-text-evil fill-background-evil border-complementary decoration-evil";
-  } else {
-    return "text-text-neutral fill-background-neutral border-neutral decoration-neutral";
-  }
-});
-
-const moralDecoration = computed(() => {
-  const alignment = p.character?.statistics?.alignment?.string || "";
-  if (alignment.includes("Good")) {
-    return "decoration-text-good/30";
-  } else if (alignment.includes("Evil")) {
-    return "decoration-text-evil/30";
-  } else {
-    return "decoration-text-neutral/30";
-  }
-});
-
-provide("character", p.character);
-provide(
-  "statistics",
-  computed(() => p.character.statistics)
-);
-provide("moral", moral);
-provide("moralDecoration", moralDecoration);
 </script>
 
 <style scoped lang="scss">
