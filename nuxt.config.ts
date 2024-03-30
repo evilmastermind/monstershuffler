@@ -30,13 +30,13 @@ export default defineNuxtConfig({
   },
   nitro: {
     compressPublicAssets: true,
-    //   devProxy: {
-    //     "/api": {
-    //       target: process.env.API_URL,
-    //       changeOrigin: true,
-    //       prependPath: true,
-    //     }
-    //   }
+    devProxy: {
+      "/api": {
+        target: process.env.API_URL,
+        changeOrigin: true,
+        prependPath: true,
+      },
+    },
   },
   runtimeConfig: {
     someServerSideVariable: "some value",

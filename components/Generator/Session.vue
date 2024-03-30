@@ -7,7 +7,7 @@
       >
         <Transition name="fade-scroll-slow" appear>
           <MonsterCard
-            :monster="(character as Character)"
+            :character="(character as Character)"
             class="shadow-md"
             :style="{
               transitionDelay: `${0.15 * index}s`,

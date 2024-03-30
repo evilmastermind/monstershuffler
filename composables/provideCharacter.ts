@@ -23,6 +23,17 @@ export function useProvideCharacter(character: Ref<Character>) {
     }
   });
 
+  const moralBackground = computed(() => {
+    const alignment = character.value?.statistics?.alignment?.string || "";
+    if (alignment.includes("Good")) {
+      return "bg-card-good";
+    } else if (alignment.includes("Evil")) {
+      return "bg-card-evil";
+    } else {
+      return "bg-card-neutral";
+    }
+  });
+
   provide("character", character);
   provide(
     "statistics",
@@ -30,4 +41,5 @@ export function useProvideCharacter(character: Ref<Character>) {
   );
   provide("moral", moral);
   provide("moralDecoration", moralDecoration);
+  provide("moralBackground", moralBackground);
 }

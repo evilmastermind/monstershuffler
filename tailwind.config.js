@@ -3,9 +3,6 @@ const srcDir = ".";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // corePlugins: {
-  //   preflight: false,
-  // },
   theme: {
     screens: {
       sm: "480px",
@@ -106,6 +103,9 @@ export default {
             "background-evil": "hsl(0, 50%, 35%)",
             "background-good": "hsl(240, 58%, 41%)",
             "background-neutral": "hsl(59, 45%, 23%)",
+            "card-evil": "hsl(0,20%,93%)",
+            "card-good": "hsl(240,7%,95%)",
+            "card-neutral": "hsl(42,75%,94%)",
             text: "hsl(240, 30%, 7%)",
             "text-secondary": "hsl(240, 0%, 55%)",
             "text-inverse": "hsl(240, 0%, 93%)",
@@ -215,7 +215,6 @@ export default {
                 100: "hsl(0,0%,20%)",
               },
               "background-card": "hsla(0,0%,20%,0.7)",
-              "background-details": "hsl(225,12%,16%)",
               "background-inset": {
                 400: "hsla(0, 0%, 18%,0.7)",
                 500: "hsla(0, 0%, 15%,0.7)",
@@ -225,6 +224,9 @@ export default {
               "background-evil": "hsl(0, 70%, 89%)",
               "background-good": "hsl(223, 100%, 89%)",
               "background-neutral": "hsl(53, 56%, 80%)",
+              "card-evil": "hsl(0,3%,16%)",
+              "card-good": "hsl(240,3%,16%)",
+              "card-neutral": "hsl(59,3%,16%)",
               text: "hsl(240, 0%, 95%)",
               "text-secondary": "hsl(240, 0%, 55%)",
               "text-inverse": "hsl(240, 0%, 3%)",

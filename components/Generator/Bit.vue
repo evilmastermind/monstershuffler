@@ -114,7 +114,7 @@ function setBitPreview(bool: boolean) {
   if (!isTouchScreen.value && bool) {
     currentCharacterFromBitsPreview.value = p.character;
   } else {
-    currentCharacterFromBitsPreview.value = null;
+    currentCharacterFromBitsPreview.value = undefined;
   }
 }
 </script>

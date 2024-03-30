@@ -26,27 +26,30 @@
       <GeneratorBit
         v-for="(character, index) in characters"
         :key="index"
-        :character="character"
+        :character="character as Character"
         :index="index"
         @click="showCharacterPage(index)"
       />
     </TransitionGroup>
     <MonsterCard
       v-if="currentCharacterFromBitsPreview"
+      :character="currentCharacterFromBitsPreview as Character"
       class="bits-preview drop-shadow-2xl"
-      :monster="currentCharacterFromBitsPreview"
       :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
     />
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Character } from "@/types";
 const { x } = useMouse();
 const { width: screenWidth } = useScreen();
 
 const generator = useGeneratorStore();
 const { characters, currentCharacterIndex, currentCharacterFromBitsPreview } =
   storeToRefs(generator);
+
+useProvideCharacter(currentCharacterFromBitsPreview as Ref<Character>);
 
 const hasDeleteButtonBeenClickedOnce = ref(false);
 const hasSaveButtonBeenClickedOnce = ref(false);
@@ -83,7 +86,7 @@ function deleteAllCharacters() {
 
 function showCharacterPage(index: number) {
   currentCharacterIndex.value = index;
-  currentCharacterFromBitsPreview.value = null;
+  currentCharacterFromBitsPreview.value = undefined;
 }
 </script>
 

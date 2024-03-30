@@ -54,9 +54,19 @@
 }
 
 @font-face {
+  font-family: Bookman;
+  src: url("@/assets/fonts/Bookman.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: LibreBaskerville;
+  src: url("@/assets/fonts/LibreBaskerville-Regular.woff2") format("woff2");
+}
+
+/* @font-face {
   font-family: AngloText;
   src: url("@/assets/fonts/AngloText.woff2") format("woff2");
-}
+} */
 /* @font-face {
   font-family: AusweisHollow;
   src: url("@/assets/fonts/AusweisHollow.ttf");

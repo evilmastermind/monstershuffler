@@ -15,15 +15,15 @@ const api = config.public.apiUrl;
 /// /////////////////////////////////////
 
 export const useGeneratorStore = defineStore("generator", () => {
-  const session: Ref<Character[]> = ref([]);
-  const settings: Ref<PostRandomNpcInput | null> = ref(null);
-  const characters: Ref<Character[]> = ref([]);
+  const session = ref<Character[]>([]);
+  const settings = ref<PostRandomNpcInput>();
+  const characters = ref<Character[]>([]);
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character>();
-  const racesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
-  const classesAndVariants: Ref<ObjectOrVariant[]> = ref([]);
-  const backgrounds: Ref<ObjectList> = ref([]);
-  ///
+  const racesAndVariants = ref<ObjectOrVariant[]>([]);
+  const classesAndVariants = ref<ObjectOrVariant[]>([]);
+  const backgrounds = ref<ObjectList>([]);
+  //
   const primaryRaceIndex = ref(0);
   const secondaryRaceIndex = ref(0);
   const classIndex = ref(0);
