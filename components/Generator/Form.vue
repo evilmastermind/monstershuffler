@@ -163,12 +163,15 @@
         <div class="misc-options mt-4">
           <MSCheckbox
             v-model="options.addVoice"
-            class="mr-4"
             :label="$t('generator.form.voice')"
           />
           <MSCheckbox
             v-model="options.includeChildren"
             :label="$t('generator.form.includeChildren')"
+          />
+          <MSCheckbox
+            v-model="options.includeBodyType"
+            :label="$t('generator.form.includeBodyType')"
           />
         </div>
       </fieldset>
@@ -285,5 +288,10 @@ form-container {
   @media (min-width: theme("screens.md")) {
     display: block;
   }
+}
+.misc-options {
+  display: inline-flex;
+  flex-wrap: wrap;
+  @apply gap-4;
 }
 </style>

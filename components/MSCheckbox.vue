@@ -1,6 +1,6 @@
 <template>
-  <label class="container"
-    >{{ label }}
+  <label class="container">
+    <span class="label">{{ label }}</span>
     <input v-model="modelValue" type="checkbox" />
     <span class="checkmark" />
   </label>
@@ -21,6 +21,7 @@ const p = defineProps({
 /* Customize the label (the container) */
 .container {
   display: inline;
+  width: min-content;
   position: relative;
   padding-left: 2em;
   cursor: pointer;
@@ -99,5 +100,8 @@ const p = defineProps({
 input:focus-visible + .checkmark {
   outline: 2px solid theme("colors.text");
   box-shadow: 0 0 0 3px theme("colors.text-inverse");
+}
+.label {
+  white-space: nowrap;
 }
 </style>

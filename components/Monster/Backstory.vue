@@ -2,21 +2,37 @@
   <div class="backstory">
     <h1 class="name mb-2" :class="moral">Allip</h1>
     <p class="backstory-text">
-      And so, with the dawn's light glinting off his broadsword, Ernald Herren
-      stood at the edge of the abyss. Below, the snarls of unseen creatures
-      echoed, as if challenging the very notion of courage. "I did not choose
-      the light," Ernald's voice rumbled, his words aimed at the darkness below
-      as much as to his own heart. "But I will wield it against those who lurk
-      in the shadows." Beside him, a figure cloaked in the whispers of shadow
-      shifted uneasily. "You walk a path no other Paladin dares, Ernald. To
-      embrace chaos, to question... Are you certain of your purpose?" Ernald
-      turned, his gaze fixed on the horizon where the sky bled into the earth.
-      "Certainty is a luxury afforded to those who do not bear my burden. I
-      search for purpose, yes, but I do not expect to find it in the light nor
-      in the dark. It is the struggle, the constant battle against the chains of
-      destiny, that defines me." The cloaked figure stepped closer, the air
-      chilling as they spoke, "And what of the codes you once held dear? The
-      sacred oaths..."
+      ...clattering of chains echoed through the newly occupied halls, Yurdir
+      Stonebeard stood at the center, his gaze piercing the darkness. Around
+      him, the shadows danced, as if mocking his somber mood. He had never asked
+      for this life, to be the master of chains and keeper of wills. Yet, there
+      he was, a Dwarf of considerable skill and strength, bound to a profession
+      that gnawed at his conscience. "Ye think this is what I wanted?" Yurdir
+      muttered to the empty air, his voice a blend of resentment and
+      resignation. His hands, calloused and scarred, ran over the cold iron of a
+      shackle, a silent testament to the lives he had altered. Yet, in the midst
+      of his brooding, a spark of gratitude flickered within him. This house,
+      this new beginning, was a chance to alter the course, to weave a thread of
+      compassion through the fabric of servitude. As if in response to his
+      contemplation, a faint stir broke the silence. From the shadows emerged a
+      figure, small and trembling. A young Elf, her eyes wide with fear and
+      confusion, yet there was a defiance in her stance that caught Yurdir off
+      guard. "You... you are the master here?" she asked, her voice barely a
+      whisper. Yurdir's heart clenched. "Aye, I am that," he replied, the weight
+      of his title heavier than the mightiest axe he had wielded. The Elf
+      squared her shoulders, taking a step forward. "Then hear my plea, Master
+      Dwarf. I seek not freedom for myself, but for my brother. He is but a
+      child, innocent in the ways of the world. If there is any kindness in your
+      heart, any at all, let him go." In that moment, Yurdir saw the crossroads
+      laid before him. To continue down the path of apathy and compliance, or to
+      forge a new destiny, not just for himself, but for those under his
+      dominion. The choice was clear, and yet, the consequences of such a
+      decision loomed large. "I..." Yurdir began, his voice strong, yet laden
+      with an emotion he had long since buried. "I will consider your request.
+      Not out of duty, but out of respect for the courage you've shown." As the
+      Elf's eyes filled with a cautious hope, Yurdir Stonebeard felt a shift
+      within him. This was his moment, his chance to redefine the legacy of his
+      name. Not as a master of slaves, but as a beacon of...
     </p>
     <p class="backstory-text">
       With a scoff, Ernald interrupted, "Oaths? Codes? They are but chains. My

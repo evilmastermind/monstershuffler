@@ -47,7 +47,7 @@ function openCharacterSheet(character: Character) {
 }
 .generation-4 {
   @apply grid grid-cols-1 gap-x-2 gap-y-2;
-  @media (min-width: theme("screens.sm")) {
+  @media (min-width: 620px) {
     @apply grid-cols-2;
   }
 }

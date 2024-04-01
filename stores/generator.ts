@@ -36,6 +36,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     levelType: "randomPeasantsMostly",
     addVoice: true,
     includeChildren: false,
+    includeBodyType: false,
   });
   const promptOptions = ref<PostRandomNpcInput>({});
   const keywords = ref<Keyword[]>([]);

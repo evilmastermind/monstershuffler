@@ -24,6 +24,7 @@
     "personality": "Personality",
     "voice": "Voice",
     "weight": "Weight",
+    "height": "Height",
     "voiceIn": "in",
     "skinny": "skinny",
     "average": "average",
@@ -424,10 +425,11 @@
       "levelLowMostly": "Random (mostly low-level)",
       "voice": "Voice",
       "includeChildren": "Include children",
+      "includeBodyType": "Body Type",
       "generate": "Generate NPC"
     },
     "prompt": {
-      "placeholder": "Examples: \"innkeeper\", \"human guard\", \"barbarian cr 5\""
+      "placeholder": "\"innkeeper\", \"human guard\", \"barbarian cr 5\""
     }
   },
   "login": {

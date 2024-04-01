@@ -4,9 +4,35 @@
     <div class="background" />
     <NavbarPadding />
     <div class="lg-max max-h-100">
-      <h1 class="content text-shadow">
-        {{ $t("generator.title") }}
-      </h1>
+      <Breadcrumbs>
+        <template #default>
+          {{ $t("generator.pageTitle") }}
+        </template>
+        <template #options>
+          <label class="mode-label cursor-pointer">
+            <MSSlider
+              v-model:is-enabled="isFormMode"
+              :label="$t(`generator.${mode}ModeTitle`)"
+            />
+            <span class="bold inline whitespace-nowrap">
+              {{ $t(`generator.${mode}ModeTitle`) }}
+            </span>
+          </label>
+          <GeneratorPromptHelp v-if="mode === 'prompt'" />
+          <button
+            v-if="mode === 'form'"
+            class="button-show-settings md:hidden cursor-pointer"
+            @click="isFormShownOnMobile = !isFormShownOnMobile"
+          >
+            <font-awesome-icon
+              class="text-text-secondary"
+              icon="fas fa-solid fa-cog"
+              fixed-width
+            />
+            {{ $t("generator.options") }}
+          </button>
+        </template>
+      </Breadcrumbs>
       <Transition name="fade">
         <div v-if="!isLoading">
           <TransitionGroup name="fade-group">
@@ -14,47 +40,22 @@
             <GeneratorCharacterPage
               v-if="currentCharacterIndex > -1"
               key="2"
-              class="mt-2"
+              class="mt-4"
             />
             <div
               v-show="currentCharacterIndex === -1"
               key="3"
               class="custom-transition"
             >
-              <div class="options mt-5 my-4">
-                <label class="mode-label cursor-pointer">
-                  <MSSlider
-                    v-model:is-enabled="isFormMode"
-                    :label="$t(`generator.${mode}ModeTitle`)"
-                  />
-                  <span class="bold inline whitespace-nowrap">
-                    {{ $t(`generator.${mode}ModeTitle`) }}
-                  </span>
-                </label>
-                <GeneratorPromptHelp v-if="mode === 'prompt'" />
-                <button
-                  v-if="mode === 'form'"
-                  class="button-show-settings md:hidden cursor-pointer"
-                  @click="isFormShownOnMobile = !isFormShownOnMobile"
-                >
-                  <font-awesome-icon
-                    class="text-text-secondary"
-                    icon="fas fa-solid fa-cog"
-                    fixed-width
-                  />
-                  {{ $t("generator.options") }}
-                </button>
-                <GeneratorPrompt
-                  v-show="mode === 'prompt'"
-                  class="prompt max-w-[700px] min-w-[200px] w-full"
-                />
+              <div v-show="mode === 'prompt'" class="options mt-7 mb-6">
+                <GeneratorPrompt class="prompt" />
                 <!-- <p class="content">{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
               </div>
-              <div>
+              <div class="mt-4">
                 <GeneratorForm
                   v-show="mode === 'form' && isFormShownOnMobile"
                   ref="form"
-                  class="form mb-4 md:mr-6"
+                  class="form md:mr-6"
                   @generate="generateNpcs"
                   @close="isFormShownOnMobile = false"
                 />
@@ -219,15 +220,9 @@ onMounted(async () => {
   gap: theme("spacing.2");
 }
 .options {
-  position: realtive;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: theme("spacing.4");
-  flex-wrap: wrap;
-  @media (min-width: theme("screens.sm")) {
-    flex-wrap: nowrap;
-  }
 }
 .overflow-hidden {
   overflow: hidden;
@@ -246,5 +241,9 @@ onMounted(async () => {
 }
 .npcs {
   max-height: 100%;
+}
+.prompt {
+  max-width: 500px;
+  width: 100%;
 }
 </style>

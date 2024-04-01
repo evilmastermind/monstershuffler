@@ -1,12 +1,14 @@
 <template>
   <div class="layout">
-    <MonsterStatBlock class="stats" />
-    <div class="text">
-      <MonsterSheetCard class="card" :character>
-        <MonsterRoleplayStats />
-      </MonsterSheetCard>
-      <MonsterBackstory class="story" />
+    <div class="stats">
+      <MonsterStatBlock />
+      <div class="card my-4">
+        <MonsterSheetCard>
+          <MonsterRoleplayStats />
+        </MonsterSheetCard>
+      </div>
     </div>
+    <MonsterBackstory class="story" />
   </div>
 </template>
 
@@ -45,6 +47,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/**
 .layout {
   display: grid;
   grid-template-areas:
@@ -73,5 +76,34 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   @apply gap-6;
+}
+*/
+
+/*
+.layout {
+  padding: 6%;
+  column-count: 2;
+  column-width: 400px;
+  column-gap: 2rem;
+}
+*/
+
+.layout {
+  padding: 6%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.card {
+  display: inline-block;
+  width: 100%;
+}
+
+.stats,
+.card {
+  display: grid;
+  place-items: center;
+  break-inside: avoid;
 }
 </style>

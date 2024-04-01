@@ -36,7 +36,7 @@ const ui = useUiStore();
 
 <style scoped lang="scss">
 .stat-block-container {
-  max-width: 450px;
+  display: block;
 }
 .border {
   height: 6px;

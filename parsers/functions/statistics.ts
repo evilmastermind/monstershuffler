@@ -308,6 +308,17 @@ export function feetToOtherUnit(feet: number, unit = "feet") {
   }
 }
 
+export function feetDecimalToFeetInches(decimalFeet: number) {
+  const feet = Math.floor(decimalFeet);
+  const inches = Math.round((decimalFeet - feet) * 12);
+  return `${feet}'${inches}"`;
+}
+
+export function feetDecimalToMeters(decimalFeet: number) {
+  const meters = decimalFeet * 0.3048;
+  return `${meters.toFixed(2)} m`;
+}
+
 export function getUnitSymbol(unit = "feet") {
   switch (unit) {
     case "feet":

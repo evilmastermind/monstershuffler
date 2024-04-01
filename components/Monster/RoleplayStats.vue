@@ -40,6 +40,10 @@
           </span>
         </dd>
       </template>
+      <template v-if="character.character.height">
+        <dt :class="moral">{{ $t("monsterCard.height") }}</dt>
+        <dd>{{ convertHeight(character.character.height) }}</dd>
+      </template>
       <template v-if="character.character.weight">
         <dt :class="moral">{{ $t("monsterCard.weight") }}</dt>
         <dd>
@@ -58,6 +62,10 @@
 
 <script setup lang="ts">
 import type { Statistics, Character } from "@/types";
+import { feetDecimalToFeetInches, feetDecimalToMeters } from "@/parsers";
+
+const user = useUserStore();
+const unit = computed(() => user.me?.settings?.stats?.heightUnit || "feet");
 
 const statistics = inject("statistics") as Ref<Statistics>;
 const character = inject("character") as Ref<Character>;
@@ -77,6 +85,13 @@ const about = computed(() => {
   }
   return string;
 });
+
+function convertHeight(height: number) {
+  if (unit.value === "meters") {
+    return feetDecimalToMeters(height);
+  }
+  return feetDecimalToFeetInches(height);
+}
 </script>
 
 <style scoped>
