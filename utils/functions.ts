@@ -132,3 +132,24 @@ export function toggle<T>(array: T[], item: T): void {
     array.splice(index, 1); // Remove the item if it's already in the array
   }
 }
+
+/**
+ * Removes an item from an array.
+ */
+export function removeItem<T>(anArray: Array<T>, anItem: T) {
+  const index = anArray.indexOf(anItem);
+  if (index > -1) {
+    anArray.splice(index, 1);
+  }
+  return anArray;
+}
+/**
+ * Adds an item to an array if it is not already present.
+ */
+export function addUniqueItem<T>(anArray: Array<T>, anItem: T) {
+  const index = anArray.indexOf(anItem);
+  if (index === -1) {
+    anArray.push(anItem);
+  }
+  return anArray;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="backstory">
-    <h1 class="name mb-2" :class="moral">Allip</h1>
+    <h1 class="name mb-2" :class="moral">{{ statistics.fullName }}</h1>
     <p class="backstory-text">
       ...clattering of chains echoed through the newly occupied halls, Yurdir
       Stonebeard stood at the center, his gaze piercing the darkness. Around
@@ -69,10 +69,10 @@ const moral = inject("moral") as ComputedRef<string>;
   line-height: 1;
   letter-spacing: 0.05em;
   font-weight: 500;
-  font-family: "MrsEavesSmallCaps";
+  font-family: "MrsEavesSmallCaps", serif;
 }
 .backstory-text {
-  font-family: "LibreBaskerville";
+  font-family: "LibreBaskerville", serif;
   line-height: 1.5;
   @apply my-2;
 }

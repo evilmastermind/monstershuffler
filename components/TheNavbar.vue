@@ -54,15 +54,46 @@
   z-index: 1;
 }
 .navbar-menu-container {
-  display: flex;
-  align-items: center;
-  @apply justify-center md:justify-between;
+  display: block;
+  @apply px-4;
 }
 .navbar-menu {
   display: flex;
+  justify-content: center;
   align-items: center;
-  @apply max-w-lg gap-5 justify-center md:justify-start;
+  @apply gap-5;
 }
+@media (min-width: theme("screens.sm")) {
+  .navbar-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar-menu {
+    display: flex;
+    justify-items: start;
+    align-items: center;
+    @apply gap-5;
+  }
+}
+@media (min-width: theme("screens.md")) {
+  .navbar-menu-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    @apply gap-5;
+  }
+}
+
+/* .navbar-menu {
+  display: flex;
+  align-items: center;
+  @apply max-w-lg gap-5 justify-evenly md:justify-start sm:justify-center;
+}
+*/
 
 .navbar-other {
   flex-direction: row;

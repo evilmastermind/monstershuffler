@@ -38,6 +38,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  devtools: {
+    enabled: false,
+  },
   runtimeConfig: {
     someServerSideVariable: "some value",
     public: {
@@ -54,7 +57,7 @@ export default defineNuxtConfig({
   i18n: {
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
-    vueI18n: "./plugins/i18n.config.ts",
+    vueI18n: "./locales/i18n.config.ts",
   },
   postcss: {
     plugins: {

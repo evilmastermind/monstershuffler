@@ -10,6 +10,10 @@
     "-squares": " {n}-square",
     "sq": "{n} sq"
   },
+  "monsterSheet": {
+    "editImages": "Edit images",
+    "closeMonster": "Close Monster sheet"
+  },
   "monsterCard": {
     "age": "Age",
     "ageNumber": "{age} years old",

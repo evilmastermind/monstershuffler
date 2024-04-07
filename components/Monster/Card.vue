@@ -36,7 +36,7 @@ useProvideCharacter(refCharacter);
 <style scoped lang="scss">
 .background {
   position: relative;
-  @apply rounded-xl;
+  @apply rounded-xl bg-background-card;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 55px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }

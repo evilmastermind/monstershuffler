@@ -37,7 +37,7 @@ const fontSize = computed(() => {
 
 <style scoped>
 .result {
-  font-family: "MrsEavesSmallCaps", sans-serif;
+  font-family: "MrsEavesSmallCaps", serif;
   font-weight: 700;
   @apply text-text;
 }

@@ -1,5 +1,10 @@
-import type { Credentials, RegistrationFields } from "./user.d";
-import type { LoginResponse, PostUser, GetUserResponse } from "@/types";
+import type {
+  Credentials,
+  RegistrationFields,
+  LoginResponse,
+  PostUser,
+  GetUserResponse,
+} from "@/types";
 import { handleResponse } from "@/utils";
 
 const config = useRuntimeConfig();

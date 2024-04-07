@@ -4,12 +4,12 @@
   <button
     class="dropdown"
     :aria-label="$t('navbar.menuTitle')"
-    @mouseover="mouseOver"
+    @mouseenter="mouseOver"
     @mouseleave="mouseLeave"
-    @click="mouseOver"
+    @click="toggle"
   >
     <slot />
-    <transition :name="transition">
+    <transition :name="transition" appear>
       <div
         class="dropdown-menu rounded drop-shadow-lg py-2"
         :class="dropdownMenuClass"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { $ref } from "vue/macros";
+import { addUniqueItem, removeItem } from "@/utils";
 
 const dropdownMenuClass = $ref(["dropdown-menu-hidden"]);
 
@@ -39,6 +39,9 @@ const props = defineProps({
     default: "bottomleft",
   },
 });
+
+const isMouseOver = ref(false);
+
 const directionsAllowed = [
   "rightup",
   "rightdown",
@@ -59,20 +62,23 @@ if (directionsAllowed.includes(props.direction)) {
 function mouseOver() {
   if (props.hover === true) {
     removeItem(dropdownMenuClass, "dropdown-menu-hidden");
+    isMouseOver.value = true;
   }
 }
 function mouseLeave() {
   if (props.hover === true) {
-    dropdownMenuClass.push("dropdown-menu-hidden");
+    addUniqueItem(dropdownMenuClass, "dropdown-menu-hidden");
+    isMouseOver.value = false;
   }
 }
 
-function removeItem<T>(anArray: Array<T>, aClass: T) {
-  const index = anArray.indexOf(aClass);
-  if (index > -1) {
-    anArray.splice(index, 1);
+function toggle() {
+  if (dropdownMenuClass.includes("dropdown-menu-hidden")) {
+    removeItem(dropdownMenuClass, "dropdown-menu-hidden");
+  } else if (!isMouseOver.value) {
+    addUniqueItem(dropdownMenuClass, "dropdown-menu-hidden");
   }
-  return anArray;
+  isMouseOver.value = false;
 }
 </script>
 

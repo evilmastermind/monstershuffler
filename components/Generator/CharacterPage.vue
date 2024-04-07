@@ -1,6 +1,9 @@
 <template>
-  <div class="page mb-4">
-    <MonsterSheet :character="currentCharacter" @close="close" />
+  <div class="pb-7">
+    <MonsterSheetTools class="px-4" />
+    <div class="page">
+      <MonsterSheet :character="currentCharacter" @close="close" />
+    </div>
   </div>
 </template>
 
@@ -14,8 +17,13 @@ function close() {
 
 <style scoped>
 .page {
-  border-radius: 0.5rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 55px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+}
+
+@media (min-width: theme("screens.sm")) {
+  .page {
+    @apply rounded mx-4;
+  }
 }
 </style>

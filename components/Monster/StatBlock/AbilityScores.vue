@@ -1,5 +1,5 @@
 <template>
-  <p class="abilityScores">
+  <p class="ability-scores">
     <span
       v-for="(score, ability) in statistics.abilities"
       :key="ability"
@@ -21,11 +21,11 @@ const moral = inject("moral") as string;
 </script>
 
 <style scoped lang="scss">
-.abilityScores {
+.ability-scores {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  @media (min-width: theme("screens.sm")) {
+  @container (min-width: 375px) {
     display: flex;
     justify-content: space-evenly;
   }

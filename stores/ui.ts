@@ -1,4 +1,4 @@
-import { type Theme } from "./ui.d";
+import type { Theme } from "@/types";
 
 export const useUiStore = defineStore("ui", () => {
   const currentThemeName: Ref<string | null> = ref(null) || null;

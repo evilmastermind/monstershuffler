@@ -64,10 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import { faCropSimple } from "@fortawesome/free-solid-svg-icons";
 import type { Spell } from "@/types";
 import { addOrdinal } from "@/parsers";
-import { useScreen } from "@/composables/screen";
 import { enableDrag, disableDrag } from "@/utils";
 
 const { language } = storeToRefs(useUserStore());

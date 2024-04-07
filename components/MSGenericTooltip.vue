@@ -70,17 +70,21 @@ function handleClick() {
   hasCloseButton.value = true;
 }
 
-watch(y, () => {
-  if (!container.value) {
-    return;
-  }
-  const containerRect = container.value.getBoundingClientRect();
-  if (y.value - containerRect.height < 0) {
-    topValue.value = `${y.value + containerRect.height + 10}px`;
-  } else {
-    topValue.value = `${y.value - 2}px`;
-  }
-});
+watch(
+  [y, x],
+  () => {
+    if (!container.value) {
+      return;
+    }
+    const containerRect = container.value.getBoundingClientRect();
+    if (y.value - containerRect.height < 0) {
+      topValue.value = `${y.value + containerRect.height + 10}px`;
+    } else {
+      topValue.value = `${y.value - 2}px`;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped lang="scss">

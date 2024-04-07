@@ -1,5 +1,7 @@
-import type { getTraitDescriptionResponseSchema } from "./tooltips.d";
-import type { GetSpellResponse, Spell } from "@/types";
+import type {
+  getTraitDescriptionResponseSchema,
+  GetSpellResponse,
+} from "@/types";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;

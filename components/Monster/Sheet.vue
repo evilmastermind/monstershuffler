@@ -1,18 +1,5 @@
 <template>
   <div class="sheet background" :class="`background-${ui.currentThemeType}`">
-    <button
-      class="close px-4 pt-2"
-      :title="$t('close')"
-      @click.stop="e('close')"
-    >
-      <font-awesome-icon
-        aria-hidden="true"
-        class="close-button"
-        icon="fas fa-solid fa-times"
-        fixed-width
-      />
-      <span class="sr-only">{{ $t("close") }}</span>
-    </button>
     <component :is="layout" />
   </div>
 </template>
@@ -20,7 +7,6 @@
 <script setup lang="ts">
 import type { Character } from "@/types";
 
-const e = defineEmits(["close"]);
 const p = defineProps({
   character: {
     type: Object as PropType<Character>,
@@ -33,7 +19,8 @@ const character = toRef(p, "character");
 useProvideCharacter(character);
 
 const layout = computed(() => {
-  const layoutName = p.character.character?.user?.sheet?.layout || "Default";
+  const layoutName =
+    p.character.character?.user?.sheet?.layout || "DefaultImage";
   const hasImages = !!p.character.character?.user?.sheet?.images?.length;
   if (layoutName === "Default" && hasImages) {
     return resolveComponent("MonsterLayoutDefaultImage");
@@ -41,6 +28,10 @@ const layout = computed(() => {
   switch (layoutName) {
     case "Something":
       return resolveComponent("MonsterLayoutSomething");
+    case "Default":
+      return resolveComponent("MonsterLayoutDefault");
+    case "DefaultImage":
+      return resolveComponent("MonsterLayoutDefaultImage");
     default:
       return resolveComponent("MonsterLayoutDefault");
   }

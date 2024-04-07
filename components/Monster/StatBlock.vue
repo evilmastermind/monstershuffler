@@ -3,7 +3,7 @@
     <div class="border" :class="`border-${ui.currentThemeType}`" />
     <div class="stat-block" :class="`stat-block-${ui.currentThemeType}`">
       <div class="gradient" :class="`gradient-${ui.currentThemeType}`" />
-      <div class="stat-block-content p-4">
+      <div class="p-4 stat-block-content" :class="`columns-${columns}`">
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
         <!-- ----- -->
@@ -17,7 +17,7 @@
         <MonsterStatBlockResistancesImmunities />
         <MonsterStatBlockSensesLanguages />
         <MonsterStatBlockChallengeProficiency />
-        <MonsterStatBlockSeparator />
+        <MonsterStatBlockSeparator v-if="wordsCount" />
         <!-- ----- -->
         <MonsterStatBlockTraits />
         <MonsterStatBlockActions />
@@ -32,6 +32,22 @@
 
 <script setup lang="ts">
 const ui = useUiStore();
+const columnsFromActions = inject("columns") as Ref<number>;
+const wordsCount = inject("wordsCount") as Ref<number>;
+
+const p = defineProps({
+  forceOneColumn: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const columns = computed(() => {
+  if (p.forceOneColumn) {
+    return 1;
+  }
+  return columnsFromActions.value;
+});
 </script>
 
 <style scoped lang="scss">
@@ -79,15 +95,20 @@ const ui = useUiStore();
 }
 .gradient-light {
   background: url("@/assets/images/monster/semitransparent.png");
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
 }
 .gradient-dark {
   background: url("@/assets/images/monster/semitransparent-dark.png");
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
 }
 .stat-block-content {
   position: relative;
   font-family: ScalaSansOffc, Roboto, Helvetica, sans-serif;
+  container-type: inline-size;
+}
+.columns-2 {
+  columns: 2;
+  column-gap: 2rem;
 }
 </style>
 <style>

@@ -4,9 +4,14 @@
     <div class="background" />
     <NavbarPadding />
     <div class="lg-max max-h-100">
-      <Breadcrumbs>
+      <Breadcrumbs class="mx-4">
         <template #default>
-          {{ $t("generator.pageTitle") }}
+          <button @click="currentCharacterIndex = -1">
+            {{ $t("generator.pageTitle") }}
+          </button>
+          <span v-if="currentCharacterIndex > -1" class="character-name">
+            > {{ characters[currentCharacterIndex]?.statistics?.fullName }}
+          </span>
         </template>
         <template #options>
           <label class="mode-label cursor-pointer">
@@ -18,7 +23,6 @@
               {{ $t(`generator.${mode}ModeTitle`) }}
             </span>
           </label>
-          <GeneratorPromptHelp v-if="mode === 'prompt'" />
           <button
             v-if="mode === 'form'"
             class="button-show-settings md:hidden cursor-pointer"
@@ -29,29 +33,26 @@
               icon="fas fa-solid fa-cog"
               fixed-width
             />
-            {{ $t("generator.options") }}
+            <span class="sr-only">{{ $t("generator.options") }}</span>
           </button>
+          <GeneratorPromptHelp v-if="mode === 'prompt'" />
         </template>
       </Breadcrumbs>
       <Transition name="fade">
         <div v-if="!isLoading">
           <TransitionGroup name="fade-group">
-            <GeneratorBits v-if="characters.length" key="1" class="mt-4" />
-            <GeneratorCharacterPage
-              v-if="currentCharacterIndex > -1"
-              key="2"
-              class="mt-4"
-            />
+            <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
+            <GeneratorCharacterPage v-if="currentCharacterIndex > -1" key="2" />
             <div
               v-show="currentCharacterIndex === -1"
               key="3"
               class="custom-transition"
             >
-              <div v-show="mode === 'prompt'" class="options mt-7 mb-6">
+              <div v-show="mode === 'prompt'" class="options mt-7 mb-6 mx-4">
                 <GeneratorPrompt class="prompt" />
                 <!-- <p class="content">{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
               </div>
-              <div class="mt-4">
+              <div class="mt-4 mx-4">
                 <GeneratorForm
                   v-show="mode === 'form' && isFormShownOnMobile"
                   ref="form"
@@ -87,7 +88,6 @@
 </template>
 
 <script setup lang="ts">
-import { useScreen } from "@/composables/screen";
 import type { Character, PostRandomNpcInput } from "@/types";
 
 type NPCGeneratorSettings = {
@@ -245,5 +245,16 @@ onMounted(async () => {
 .prompt {
   max-width: 500px;
   width: 100%;
+}
+.character-name {
+  display: none;
+}
+@media (min-width: theme("screens.md")) {
+  .character-name {
+    display: inline;
+    font-weight: normal;
+    letter-spacing: 0.03rem;
+    @apply text-text;
+  }
 }
 </style>

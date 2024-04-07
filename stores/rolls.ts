@@ -1,11 +1,5 @@
-import type { DiceRoll, ResultByType } from "./rolls.d";
+import type { DiceRoll, ResultByType, Roll, ParsedDice } from "@/types";
 import { numberToSignedString } from "@/parsers";
-import type {
-  Roll,
-  DescriptionPart,
-  ParsedDice,
-  ParsedExpression,
-} from "@/types";
 
 export const useRollsStore = defineStore("rolls", () => {
   const diceRolls = shallowRef<DiceRoll[]>([]);

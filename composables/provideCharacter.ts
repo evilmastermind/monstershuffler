@@ -1,4 +1,4 @@
-import type { Character } from "@/types";
+import type { Character, StatStringArrayWithName } from "@/types";
 
 export function useProvideCharacter(character: Ref<Character>) {
   const moral = computed(() => {
@@ -34,6 +34,38 @@ export function useProvideCharacter(character: Ref<Character>) {
     }
   });
 
+  const wordsCount = computed(() => {
+    let wordsCount = 0;
+    wordsCount += getActionsWordsCount(
+      character.value?.statistics?.traits || []
+    );
+    wordsCount += getActionsWordsCount(
+      character.value?.statistics?.actions || []
+    );
+    wordsCount += getActionsWordsCount(
+      character.value?.statistics?.bonusActions || []
+    );
+    wordsCount += getActionsWordsCount(
+      character.value?.statistics?.reactions || []
+    );
+    wordsCount += getActionsWordsCount(
+      character.value?.statistics?.legendaryActions || []
+    );
+    return wordsCount;
+  });
+
+  const columns = computed(() => {
+    return wordsCount.value > 200 ? 2 : 1;
+  });
+
+  function getActionsWordsCount(actions: StatStringArrayWithName[]) {
+    let wordsCount = 0;
+    actions.forEach((action) => {
+      wordsCount += action.string.split(" ").length;
+    });
+    return wordsCount;
+  }
+
   provide("character", character);
   provide(
     "statistics",
@@ -42,4 +74,6 @@ export function useProvideCharacter(character: Ref<Character>) {
   provide("moral", moral);
   provide("moralDecoration", moralDecoration);
   provide("moralBackground", moralBackground);
+  provide("columns", columns);
+  provide("wordsCount", wordsCount);
 }

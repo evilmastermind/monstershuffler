@@ -2,8 +2,6 @@
   max-width: theme("screens.lg");
   width: 100%;
   margin: 0 auto;
-  padding-left: theme("spacing.4");
-  padding-right: theme("spacing.4");
 }
 
 .bg-max {

@@ -96,7 +96,7 @@ function convertHeight(height: number) {
 
 <style scoped>
 .name {
-  font-family: "MrsEavesSmallCaps", sans-serif;
+  font-family: "MrsEavesSmallCaps", sans;
   font-weight: 600;
   font-size: 1.3rem;
   font-variant: small-caps;

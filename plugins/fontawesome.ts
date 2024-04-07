@@ -16,6 +16,7 @@ import {
   faDragon,
   faEnvelope,
   faFloppyDisk,
+  faImage,
   faKey,
   faMoon,
   faPaperPlane,
@@ -27,6 +28,7 @@ import {
   faUsers,
   faVolumeHigh,
   faVolumeOff,
+  faX,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -51,6 +53,7 @@ library.add(
   faFloppyDisk,
   faGithub,
   faGithubAlt,
+  faImage,
   faKey,
   faMoon,
   faPatreon,
@@ -64,6 +67,7 @@ library.add(
   faUsers,
   faVolumeHigh,
   faVolumeOff,
+  faX,
   faXmark
 );
 

@@ -1,13 +1,26 @@
 <template>
-  <div>
-    ABBABUELO
-    <MonsterImages />
-    <MonsterStatBlock class="monster-stats mr-8" />
-    <MonsterRoleplayStats />
-    <MonsterBackstory />
-  </div>
+  <Transition name="fade-quick" mode="out-in">
+    <MonsterLayoutDefaultImage1C v-if="columns === 1" />
+    <MonsterLayoutDefaultImage2C v-else />
+  </Transition>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const columns = inject("columns") as Ref<number>;
+</script>
 
-<style scoped></style>
+<style scoped>
+/* .story {
+  quotes: "“" "”" "‘" "’";
+}
+.story::before {
+  content: open-quote;
+  font-size: 3rem;
+}
+.story::after {
+  content: close-quote;
+  font-family: serif;
+  font-size: 3rem;
+}
+*/
+</style>

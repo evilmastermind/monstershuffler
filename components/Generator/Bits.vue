@@ -1,12 +1,8 @@
 <template>
-  <div ref="bits" class="bits py-2">
+  <div ref="bits" class="bits">
     <TransitionGroup name="fade-row">
       <div :key="-1" class="buttons px-2">
-        <button
-          class="button-deleteall"
-          :title="$t('generator.deleteAll')"
-          @click="deleteAllCharacters"
-        >
+        <button :title="$t('generator.deleteAll')" @click="deleteAllCharacters">
           <font-awesome-icon
             aria-hidden="true"
             icon="trash"
@@ -14,11 +10,7 @@
           />
           <span class="sr-only">{{ $t("generator.deleteAll") }}</span>
         </button>
-        <button
-          class="button-deleteall"
-          :title="$t('generator.saveAll')"
-          disabled
-        >
+        <button :title="$t('generator.saveAll')" disabled>
           <font-awesome-icon icon="floppy-disk" class="opacity-20" />
           <span class="sr-only">{{ $t("generator.saveAll") }}</span>
         </button>
