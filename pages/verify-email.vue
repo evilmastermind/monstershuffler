@@ -3,20 +3,20 @@
     <h1 class="content">{{ $t("verification.title") }}</h1>
     <div v-if="result === 'pending'">
       <h4 class="text-primary-700 text-center my-4">
-        <font-awesome-icon icon="fa-solid fa-spinner-third" />
+        <LoadingSpinner />
         {{ $t("verification.verifying") }}
       </h4>
       <LoadingSpinner :size="4" color="primary" class="mb-8" />
     </div>
     <div v-if="result === 'success'">
       <h4 class="text-primary-700 text-center my-4">
-        <font-awesome-icon icon="fa-solid fa-check" class="mr-2" />
+        <Icon name="fa-solid:check" class="mr-2" aria-hidden />
         {{ $t("verification.success") }}
       </h4>
     </div>
     <div v-else>
       <h4 class="text-danger text-center my-4">
-        <font-awesome-icon icon="fa-solid fa-times" class="mr-2" />
+        <Icon name="fa-solid:times" class="mr-2" aria-hidden />
         {{ $t("verification.failure") }}
       </h4>
     </div>

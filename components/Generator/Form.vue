@@ -2,18 +2,12 @@
   <div class="form-container">
     <form class="generator-form p-4 md:mr-4 rounded shadow-md md:shadow-none">
       <fieldset>
-        <button
-          class="close-button cursor-pointer"
-          type="button"
+        <MSIconButton
+          class="close-button"
+          :label="$t('closeLabel')"
+          icon="fa6-solid:xmark"
           @click="e('close')"
-        >
-          <font-awesome-icon
-            :icon="['fas', 'xmark']"
-            size="lg"
-            aria-hidden="true"
-          />
-          <span class="sr-only">{{ $t("closeLabel") }}</span>
-        </button>
+        />
         <!-- PRIMARY AND SECONDARY RACES -->
         <span class="form-line">
           <label class="ms-label" for="gen-prace"
@@ -175,13 +169,13 @@
           />
         </div>
       </fieldset>
-      <!-- GENERATE MSButton -->
+      <!-- GENERATE -->
       <div class="generate-button text-center mt-5">
         <MSButton
           block
           color="primary"
           :text="t('generator.form.generate')"
-          icon="fa-shuffle"
+          icon="fa6-solid:shuffle"
           @click.prevent="e('generate')"
         />
       </div>

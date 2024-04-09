@@ -23,7 +23,7 @@
         class="mt-5"
         type="button"
         color="patreon"
-        icon="fa-brands fa-patreon"
+        icon="fa6-brands:patreon"
         :text="$t('registration.signUpWithPatreon')"
       />
       <MSButton
@@ -115,7 +115,7 @@
     </div>
     <div v-else class="centered text-center">
       <h2 class="content text-primary-700">
-        <font-awesome-icon icon="fa-solid fa-check" />
+        <Icon name="fa-solid:check" aria-hidden />
         {{ $t("registration.successTitle") }}
       </h2>
       <p class="content mt-4 max-w-md">
@@ -128,7 +128,7 @@
         :text="$t('registration.backToHome')"
         :loading="isButtonLoading"
         :disabled="isButtonDisabled"
-        icon="fa-caret-left"
+        icon="fa6-solid:caret-left"
         to="index"
       />
     </div>

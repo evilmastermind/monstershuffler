@@ -30,7 +30,7 @@
           block
           class="mt-6"
           color="primary"
-          icon="fa-key"
+          icon="fa6-solid:key"
           :text="$t('resetPassword.changePassword')"
           :loading="isButtonLoading"
           :disabled="isButtonDisabled"

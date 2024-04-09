@@ -18,13 +18,14 @@
   >
     <div ref="container" class="tooltip">
       <slot name="tooltip" />
-      <div
+
+      <MSIconButton
         v-if="hasCloseButton"
         class="close-button"
+        :label="$t('closeLabel')"
+        icon="fa6-solid:xmark"
         @click.stop="isVisible = false"
-      >
-        <font-awesome-icon icon="fas fa-solid fa-xmark" />
-      </div>
+      />
     </div>
   </div>
 </template>

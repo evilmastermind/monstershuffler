@@ -1,23 +1,17 @@
 <template>
   <div class="card">
-    <button class="ml-1" :title="$t('dice.clear')" @click="rolls.clear()">
-      <font-awesome-icon
-        aria-hidden="true"
-        icon="fas fa-solid fa-trash"
-        size="sm"
-        fixed-width
+    <div class="buttons pb-2">
+      <MSIconButton
+        :label="$t('dice.clear')"
+        icon="fa6-solid:trash"
+        @click="rolls.clear()"
       />
-      <span class="sr-only">{{ $t("dice.clear") }}</span>
-    </button>
-    <button class="close ml-1" :title="$t('dice.close')" @click="emit('close')">
-      <font-awesome-icon
-        aria-hidden="true"
-        class="close-button"
-        icon="fas fa-solid fa-times"
-        fixed-width
+      <MSIconButton
+        :label="$t('dice.close')"
+        icon="fa6-solid:xmark"
+        @click="emit('close')"
       />
-      <span class="sr-only">{{ $t("dice.close") }}</span>
-    </button>
+    </div>
     <div class="rolls">
       <div v-for="monster in diceRollsByMonster" :key="monster.name">
         <b class="text-xs">{{ monster.name || $t("dice.you") }}</b>
@@ -48,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DiceRoll } from "@/stores";
+import type { DiceRoll } from "@/types";
 
 const emit = defineEmits(["close"]);
 
@@ -66,7 +60,7 @@ type DiceRollsByMonster = {
 
 const diceRollsByMonster = computed(() => {
   const rollsByMonster: DiceRollsByMonster = [];
-  diceRolls.value.forEach((roll) => {
+  diceRolls.value.forEach((roll: DiceRoll) => {
     const firstMonster = rollsByMonster[0];
     if (firstMonster && firstMonster.name === roll.monster) {
       firstMonster.rolls.push(roll);
@@ -121,5 +115,10 @@ function rollName(roll: DiceRoll) {
 }
 .close {
   float: right;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 </style>

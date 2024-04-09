@@ -7,10 +7,12 @@
       :placeholder="$t('generator.prompt.placeholder')"
       @keyup.enter="generateNpc"
     />
-    <button class="generate-button text-primary-700 px-2" @click="generateNpc">
-      <font-awesome-icon class="fa-lg rotate" icon="fas fa-paper-plane" />
-      <span class="sr-only">{{ $t("generator.form.generate") }}</span>
-    </button>
+    <MSIconButton
+      class="generate-button text-primary-700 px-2 text-2xl"
+      :label="$t('generator.form.generate')"
+      icon="fa6-solid:shuffle"
+      @click="generateNpc"
+    />
   </div>
 </template>
 

@@ -3,20 +3,12 @@
     <Teleport v-if="spell" to="body">
       <div ref="card" class="spell">
         <MSCard class="m-2">
-          <button
-            class="close ml-1"
-            :title="$t('close')"
+          <MSIconButton
+            class="close ml-1 text-text-secondary"
+            :label="$t('closeLabel')"
+            icon="fa6-solid:xmark"
             @click="emit('close')"
-          >
-            <font-awesome-icon
-              aria-hidden="true"
-              class="close-button"
-              icon="fas fa-solid fa-times"
-              size="sm"
-              fixed-width
-            />
-            <span class="sr-only">{{ $t("close") }}</span>
-          </button>
+          />
           <h1 class="spell-name" :class="moral">{{ name }}</h1>
           <MonsterStatBlockStat v-if="spell.level !== undefined">
             <template #title> {{ $t("spell.level") }} </template>
@@ -161,7 +153,6 @@ onMounted(async () => {
   right: 0;
   background: transparent;
   border: none;
-  color: var(--text);
   padding: 0.5rem;
   font-size: 1.5rem;
   transition: color 0.2s ease-in-out;

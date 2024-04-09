@@ -9,12 +9,9 @@
       "
       :to="localePath({ name: route })"
     >
-      <font-awesome-icon
-        :icon="`fas fa-solid ${icon}`"
-        fixed-width
-        class="navbar-icon mr-2"
-        aria-hidden="true"
-      />
+      <span class="navbar-icon mr-2">
+        <Icon :name="icon" aria-hidden />
+      </span>
       <span class="navbar-link-name">{{ name }}</span>
     </NuxtLink>
   </div>
@@ -73,7 +70,7 @@ const currentRoute = computed(() => {
 }
 @media (max-width: 700px) {
   .navbar-icon {
-    font-size: theme("spacing.5");
+    font-size: theme("spacing.6");
     margin-right: 0;
   }
   .navbar-link {
@@ -82,7 +79,8 @@ const currentRoute = computed(() => {
 }
 @media (max-width: theme("screens.nav")) {
   .navbar-icon {
-    display: inline-block;
+    display: inline-grid;
+    place-items: center;
   }
   .navbar-link-name {
     position: absolute;

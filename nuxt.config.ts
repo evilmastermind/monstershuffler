@@ -53,6 +53,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "nuxt-purgecss",
     "@nuxtjs/tailwindcss",
+    "nuxt-icon",
   ],
   i18n: {
     locales: ["en"], // used in URL path prefix

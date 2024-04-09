@@ -1,13 +1,10 @@
 <template>
-  <button class="button-theme p-1 noselect" @click="setTheme()">
-    <font-awesome-icon
-      :icon="`fas fa-solid ${icon}`"
-      class="button-theme-icon"
-      size="1x"
-      aria-hidden="true"
-    />
-    <span class="sr-only">{{ $t("navbar.changeTheme") }}</span>
-  </button>
+  <MSIconButton
+    :label="$t('navbar.changeTheme')"
+    class="button-theme p-1 noselect"
+    :icon="`fa6-solid:${icon}`"
+    @click="setTheme()"
+  />
 </template>
 
 <script setup lang="ts">
@@ -18,7 +15,7 @@ const ui = useUiStore();
 const { themes } = ui;
 const { currentThemeName } = storeToRefs(ui);
 
-const icon: Ref<string> = ref("fa-sun");
+const icon: Ref<string> = ref("sun");
 
 // setting initial theme
 const setInitialTheme = () => {
@@ -64,19 +61,10 @@ onMounted(() => {
 });
 </script>
 <style lang="scss" scoped>
-.button-theme {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  min-height: theme("spacing.6");
-  min-width: theme("spacing.6");
-  cursor: pointer;
-}
-.button-theme:hover .button-theme-icon {
+.button-theme:hover {
   color: theme("colors.primary.700");
 }
-.button-theme-icon {
+.button-theme {
   color: theme("colors.text-secondary");
   font-size: theme("spacing.4");
 }

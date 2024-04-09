@@ -23,18 +23,13 @@
               {{ $t(`generator.${mode}ModeTitle`) }}
             </span>
           </label>
-          <button
+          <MSIconButton
             v-if="mode === 'form'"
-            class="button-show-settings md:hidden cursor-pointer"
+            class="button-show-settings md:hidden text-text-secondary"
+            :label="$t('generator.options')"
+            icon="fa-solid:cog"
             @click="isFormShownOnMobile = !isFormShownOnMobile"
-          >
-            <font-awesome-icon
-              class="text-text-secondary"
-              icon="fas fa-solid fa-cog"
-              fixed-width
-            />
-            <span class="sr-only">{{ $t("generator.options") }}</span>
-          </button>
+          />
           <GeneratorPromptHelp v-if="mode === 'prompt'" />
         </template>
       </Breadcrumbs>
@@ -67,6 +62,7 @@
                   <MSButton
                     color="primary"
                     :text="$t('generator.form.generate')"
+                    icon="fa6-solid:shuffle"
                     @click.prevent="generateNpcs"
                   />
                 </div>

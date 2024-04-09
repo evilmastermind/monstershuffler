@@ -3,26 +3,26 @@
   <nav class="navbar centered h-8">
     <div class="navbar-menu-container lg-max">
       <div class="navbar-menu">
-        <NavbarLogo name="Home" route="Home" icon="fa-user" />
+        <NavbarLogo name="Home" route="Home" />
         <NavbarLink
           :name="$t('navbar.menu.npcGenerator')"
           route="monsters-generator"
-          icon="fa-dice-d20"
+          icon="fa6-solid:dice-d20"
         />
         <NavbarLink
           :name="$t('navbar.menu.editor')"
           route="monsters-editor"
-          icon="fa-user-edit"
+          icon="fa-solid:user-edit"
         />
         <NavbarLink
           :name="$t('navbar.menu.dmScreen')"
           route="monsters-your-creations"
-          icon="fa-book-open"
+          icon="fa6-solid:book-open"
         />
         <NavbarLink
           :name="$t('navbar.menu.monsters')"
           route="monsters-community-creations"
-          icon="fa-dragon"
+          icon="fa6-solid:dragon"
         />
         <NavbarSettings class="md:hidden" />
       </div>

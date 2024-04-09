@@ -9,7 +9,7 @@
       <LoadingSpinner :size="1.5" :color="color" />
     </div>
     <div class="button-content">
-      <font-awesome-icon v-if="icon" :style="{ color }" :icon="`${icon}`" />
+      <Icon v-if="icon" :name="icon" :style="{ color }" />
       <span class="button-text">{{ text }}</span>
     </div>
   </button>

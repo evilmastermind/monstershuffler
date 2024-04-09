@@ -1,27 +1,32 @@
 <template>
   <div class="tools-container my-2">
-    <div class="tools p-2">
-      <button :title="$t('monsterSheet.editImages')">
-        <font-awesome-icon aria-hidden="true" icon="image" />
-        <span class="sr-only">{{ $t("monsterSheet.editImages") }}</span>
-      </button>
-      <button :title="$t('monsterSheet.editImages')">
-        <font-awesome-icon aria-hidden="true" icon="image" />
-        <span class="sr-only">{{ $t("monsterSheet.editImages") }}</span>
-      </button>
-      <button :title="$t('monsterSheet.editImages')">
-        <font-awesome-icon aria-hidden="true" icon="image" />
-        <span class="sr-only">{{ $t("monsterSheet.editImages") }}</span>
-      </button>
-      <button :title="$t('monsterSheet.closeMonster')" class="pl-2">
-        <font-awesome-icon aria-hidden="true" icon="xmark" />
-        <span class="sr-only">{{ $t("monsterSheet.closeMonster") }}</span>
-      </button>
+    <div class="tools py-2 px-3">
+      <MSIconButton
+        :label="$t('monsterSheet.editLayout')"
+        icon="ri:layout-6-fill"
+      />
+      <MSIconButton
+        :label="$t('monsterSheet.editBackstory')"
+        icon="humbleicons:align-text-left"
+      />
+      <MSIconButton
+        :label="$t('monsterSheet.editImages')"
+        icon="fa6-solid:image"
+      />
+      <MSIconButton
+        class="ml-2"
+        :label="$t('monsterSheet.editImages')"
+        icon="fa6-solid:xmark"
+        @click="currentCharacterIndex = -1"
+      />
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const generator = useGeneratorStore();
+const { currentCharacterIndex } = storeToRefs(generator);
+</script>
 
 <style scoped>
 .tools-container {

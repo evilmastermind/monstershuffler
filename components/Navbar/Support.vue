@@ -3,17 +3,17 @@
     <NavbarSupportLink
       name="Patreon"
       link="https://www.patreon.com/monstershuffler"
-      icon="fa-patreon"
+      icon="fa6-brands:patreon"
     />
     <NavbarSupportLink
       name="Github"
       link="https://github.com/evilmastermind/monstershuffler"
-      icon="fa-github"
+      icon="fa6-brands:github"
     />
     <NavbarSupportLink
       name="Reddit"
       link="https://www.reddit.com/r/monstershuffler/"
-      icon="fa-reddit-alien"
+      icon="fa6-brands:reddit-alien"
     />
   </div>
 </template>

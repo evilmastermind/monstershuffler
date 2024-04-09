@@ -38,7 +38,7 @@
         class="mt-4 mb-4"
         type="button"
         color="patreon"
-        icon="fa-brands fa-patreon"
+        icon="fa6-brands:patreon"
         :text="$t('login.loginWithPatreon')"
       />
     </form>

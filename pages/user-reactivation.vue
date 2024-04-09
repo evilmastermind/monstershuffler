@@ -23,7 +23,7 @@
         block
         class="mt-4 mb-4"
         color="primary"
-        icon="fa-envelope"
+        icon="fa6-solid:envelope"
         :text="$t('reactivation.sendEmail')"
         :loading="isButtonLoading"
       />

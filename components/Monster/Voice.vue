@@ -1,7 +1,8 @@
 <template>
-  <font-awesome-icon
+  <MSIconButton
     class="audio-icon pr-1"
-    :icon="`fas fa-solid fa-${audioIcon}`"
+    :icon="`fa6-solid:${audioIcon}`"
+    :label="t('monsterCard.playVoice')"
     @click.stop="toggleAudio"
   />
   <audio
@@ -31,7 +32,7 @@ const p = defineProps({
 });
 
 const audioIcon = ref("volume-off");
-const audio: Ref<HTMLElement | null> = ref(null);
+const audio: Ref<HTMLAudioElement | null> = ref(null);
 
 const voiceString = computed(() => {
   let voiceString = p.voice.person;
@@ -66,6 +67,8 @@ function toggleAudio() {
 
 <style scoped lang="scss">
 .audio-icon {
-  @apply cursor-pointer text-text-secondary w-[1em] text-left;
+  display: inline-grid;
+  transform: translateY(0.2rem);
+  @apply text-text-secondary;
 }
 </style>

@@ -1,5 +1,7 @@
-import type { Keyword, CharacterChanges, ObjectOrVariant } from "./generator.d";
 import type {
+  Keyword,
+  CharacterChanges,
+  ObjectOrVariant,
   ObjectList,
   PostFourRandomNpcsResponse,
   // PostRandomNpcResponse,

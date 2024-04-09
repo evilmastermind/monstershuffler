@@ -14,20 +14,13 @@
       >
         <div class="name-container">
           <p class="content name">{{ character?.character?.name }}</p>
-          <button
+          <MSIconButton
             class="close ml-1"
-            :title="$t('generator.deleteCharacter')"
+            :class="hasBeenClickedOnce ? 'rainbow' : ''"
+            :label="$t('closeLabel')"
+            icon="fa6-solid:xmark"
             @click.stop="deleteThisCharacter()"
-          >
-            <font-awesome-icon
-              aria-hidden="true"
-              class="close-button"
-              :class="hasBeenClickedOnce ? 'rainbow' : ''"
-              icon="fas fa-solid fa-times"
-              fixed-width
-            />
-            <span class="sr-only">{{ $t("generator.deleteCharacter") }}</span>
-          </button>
+          />
         </div>
         <p class="content">{{ race() }}</p>
         <p class="content">{{ profession() }}</p>

@@ -2,11 +2,9 @@
   <MSMenu :hover="true" direction="bottomleft" class="navbar-link-container">
     <div>
       <div class="navbar-link navbar-link-inactive">
-        <font-awesome-icon
-          icon="fas fa-solid fa-cog"
-          fixed-width
-          class="navbar-icon"
-        />
+        <span class="navbar-icon">
+          <Icon name="fa-solid:cog" aria-hidden />
+        </span>
         <span class="navbar-link-name">{{ $t("navbar.menu.settings") }}</span>
       </div>
     </div>

@@ -16,13 +16,13 @@
       <h4 class="text-left font-bold">{{ word }}:</h4>
       <p v-if="description !== null" class="content">{{ description }}</p>
       <LoadingDots v-else :size="6" />
-      <div
+      <MSIconButton
         v-if="hasCloseButton"
         class="close-button"
+        :label="$t('closeLabel')"
+        icon="fa6-solid:xmark"
         @click.stop="isVisible = false"
-      >
-        <font-awesome-icon icon="fas fa-solid fa-xmark" />
-      </div>
+      />
     </div>
   </div>
 </template>

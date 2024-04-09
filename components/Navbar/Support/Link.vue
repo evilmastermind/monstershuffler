@@ -1,12 +1,7 @@
 <template>
   <div class="link-support-container p-1">
     <a :href="link" class="content link-support" :title="name">
-      <font-awesome-icon
-        :icon="`fa-brands ${icon}`"
-        class="link-support-icon"
-        fixed-width
-        aria-hidden="true"
-      />
+      <Icon :name="icon" class="link-support-icon" aria-hidden />
       <span class="sr-only">{{ name }}</span>
     </a>
   </div>

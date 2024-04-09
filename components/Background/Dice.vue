@@ -1,18 +1,18 @@
 <template>
   <div class="background-dice-container">
-    <font-awesome-icon
+    <Icon
       v-for="(die, key) in bgDiceArray"
       :key="key"
       class="d20-bg"
       :style="die"
-      icon="fas fa-solid fa-dice-d20"
+      name="fa6-solid:dice-d20"
     />
-    <font-awesome-icon
+    <Icon
       v-for="(die, key) in bgD6Array"
       :key="key"
       class="d6-bg"
       :style="die"
-      icon="fas fa-solid fa-dice-d6"
+      name="fa6-solid:dice-d6"
     />
     <div class="background-dice" />
   </div>

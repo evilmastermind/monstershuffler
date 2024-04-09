@@ -5,12 +5,12 @@ export const useUiStore = defineStore("ui", () => {
   const themes: Theme[] = [
     {
       name: "light",
-      icon: "fa-sun",
+      icon: "sun",
       type: "light",
     },
     {
       name: "dark",
-      icon: "fa-moon",
+      icon: "moon",
       type: "dark",
     },
     // {

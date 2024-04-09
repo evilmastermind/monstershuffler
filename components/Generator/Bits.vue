@@ -2,23 +2,22 @@
   <div ref="bits" class="bits">
     <TransitionGroup name="fade-row">
       <div :key="-1" class="buttons px-2">
-        <button :title="$t('generator.deleteAll')" @click="deleteAllCharacters">
-          <font-awesome-icon
-            aria-hidden="true"
-            icon="trash"
-            :class="hasDeleteButtonBeenClickedOnce ? 'rainbow' : ''"
-          />
-          <span class="sr-only">{{ $t("generator.deleteAll") }}</span>
-        </button>
-        <button :title="$t('generator.saveAll')" disabled>
-          <font-awesome-icon icon="floppy-disk" class="opacity-20" />
-          <span class="sr-only">{{ $t("generator.saveAll") }}</span>
-        </button>
+        <MSIconButton
+          :class="hasDeleteButtonBeenClickedOnce ? 'rainbow' : ''"
+          :label="$t('generator.deleteAll')"
+          icon="fa6-solid:trash"
+          @click="deleteAllCharacters"
+        />
+        <MSIconButton
+          class="opacity-30"
+          :label="$t('generator.saveAll')"
+          icon="fa6-solid:floppy-disk"
+        />
       </div>
       <GeneratorBit
         v-for="(character, index) in characters"
         :key="index"
-        :character="character as Character"
+        :character="character"
         :index="index"
         @click="showCharacterPage(index)"
       />

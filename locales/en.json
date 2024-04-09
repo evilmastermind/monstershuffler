@@ -12,7 +12,9 @@
   },
   "monsterSheet": {
     "editImages": "Edit images",
-    "closeMonster": "Close Monster sheet"
+    "editLayout": "Edit layout",
+    "editBackstory": "Edit backstory",
+    "closeSheet": "Close sheet"
   },
   "monsterCard": {
     "age": "Age",
@@ -34,7 +36,8 @@
     "average": "average",
     "chubby": "chubby",
     "obese": "obese",
-    "monstersTraits": "{name}'s Traits"
+    "monstersTraits": "{name}'s Traits",
+    "playVoice": "Play voice"
   },
   "statBlock": {
     "actions": "Actions",
