@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DiceRoll } from "@/stores";
+import type { DiceRoll } from "@/types";
 
 const rolls = useRollsStore();
 const ui = useUiStore();

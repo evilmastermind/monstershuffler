@@ -3,7 +3,7 @@ import { numberToSignedString } from "@/parsers";
 
 export const useRollsStore = defineStore("rolls", () => {
   const diceRolls = shallowRef<DiceRoll[]>([]);
-  const maxSize = 50;
+  const maxSize = 100;
   const localStorageName = "diceRolls";
 
   function rollDice(roll: Roll, monster: string) {
@@ -30,6 +30,7 @@ export const useRollsStore = defineStore("rolls", () => {
       const dice = roll.dice[i];
       let totalForCurrentGroup = 0;
       if ("dice" in dice) {
+        // dice object
         diceRoll.rollDetails = addPlusSign(diceRoll.rollDetails, true);
         let rollDetailsForCurrentGroup = "";
         let result = 1;
@@ -58,6 +59,7 @@ export const useRollsStore = defineStore("rolls", () => {
           diceRoll.emojis.push(...addEmojiByType(dice.type));
         }
       } else {
+        // expression object
         diceRoll.rollDetails = `${addPlusSign(diceRoll.rollDetails, true)}${
           dice.value
         }`;
@@ -162,8 +164,10 @@ export const useRollsStore = defineStore("rolls", () => {
   }
 
   function addDie(die: DiceRoll) {
-    if (diceRolls.value.length === maxSize) {
-      diceRolls.value.shift();
+    if (diceRolls.value.length >= maxSize) {
+      while (diceRolls.value.length >= maxSize) {
+        diceRolls.value.shift();
+      }
     }
     diceRolls.value.push(die);
     triggerRef(diceRolls);

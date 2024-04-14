@@ -45,7 +45,7 @@
         <dd>{{ convertHeight(character.character.height) }}</dd>
       </template>
       <template v-if="character.character.weight">
-        <dt :class="moral">{{ $t("monsterCard.weight") }}</dt>
+        <dt :class="moral">{{ $t("monsterCard.bodyType") }}</dt>
         <dd>
           {{ capitalizeFirst($t(`monsterCard.${character.character.weight}`)) }}
         </dd>

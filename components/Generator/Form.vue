@@ -138,7 +138,7 @@
         <!-- LEVEL -->
         <span class="form-line">
           <label class="ms-label" for="gen-level"
-            >{{ $t("generator.form.level") }}:</label
+            >{{ $t("generator.form.cr") }}:</label
           >
           <select
             id="gen-level"
@@ -146,10 +146,10 @@
             class="ms-select ms-select-100"
           >
             <option value="random">
-              {{ $t("generator.form.levelRandom") }}
+              {{ $t("generator.form.crRandom") }}
             </option>
             <option value="randomPeasantsMostly" selected>
-              {{ $t("generator.form.levelLowMostly") }}
+              {{ $t("generator.form.crLowMostly") }}
             </option>
           </select>
         </span>
@@ -209,6 +209,14 @@ const {
   options,
 } = storeToRefs(generator);
 
+function setClass(index: number) {
+  const classChosen = classes.value[index];
+  options.value.classId = classChosen.id;
+  if (classes.value[index].variantId) {
+    options.value.classvariantId = classes.value[index].variantId;
+  }
+}
+
 // TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
 
 watch(primaryRaceIndex, (newValue) => {
@@ -234,15 +242,20 @@ watch(secondaryRaceIndex, (newValue) => {
 });
 
 watch(classIndex, (newValue) => {
-  const classChosen = classes.value[newValue];
-  options.value.classId = classChosen.id;
-  if (classes.value[newValue].variantId) {
-    options.value.classvariantId = classes.value[newValue].variantId;
-  }
+  setClass(newValue);
 });
 
 watch(backgroundIndex, (newValue) => {
   options.value.backgroundId = backgrounds.value[newValue].id;
+});
+
+watch(options, (newValue) => {
+  if (newValue.backgroundType === "specific") {
+    options.value.backgroundId = backgrounds.value[backgroundIndex.value].id;
+  }
+  if (newValue.classType === "specific") {
+    setClass(classIndex.value);
+  }
 });
 </script>
 

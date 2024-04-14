@@ -20,8 +20,7 @@
 
 <script setup lang="ts">
 import { emojisplosion } from "emojisplosion";
-import type { DescriptionPart, Statistics } from "@/types";
-import type { DiceRoll } from "@/stores";
+import type { DescriptionPart, Statistics, DiceRoll } from "@/types";
 
 const rolls = useRollsStore();
 const diceRoll = ref<DiceRoll>();

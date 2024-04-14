@@ -30,6 +30,7 @@ inject("character") as Character;
   height: 500px;
   background-image: url(@/assets/images/background8.png);
   background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
   mask-image: url(@/assets/images/monster/test-mask.png);
   mask-repeat: no-repeat;

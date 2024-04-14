@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DiceRoll } from "@/stores/index";
+import type { DiceRoll } from "@/types";
 
 const p = defineProps({
   roll: {
