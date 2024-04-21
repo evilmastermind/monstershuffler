@@ -1,4 +1,4 @@
-import { Character, DescriptionPart } from "@/types";
+import type { Character, DescriptionPart } from "@/types";
 import { createPart, replaceTags } from "@/parsers";
 
 export function calculateCharacterHook(character: Character) {

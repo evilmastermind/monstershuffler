@@ -3,6 +3,7 @@
     <form class="generator-form p-4 md:mr-4 rounded shadow-md md:shadow-none">
       <fieldset>
         <MSIconButton
+          type="button"
           class="close-button"
           :label="$t('closeLabel')"
           icon="fa6-solid:xmark"

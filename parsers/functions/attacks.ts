@@ -10,6 +10,7 @@ import {
 import { numberToWord, roundDiceSides } from "./numbers";
 import { calculateValue } from "./values";
 import type {
+  AbilitiesEnum,
   ActionVariant,
   Attack,
   Character,
@@ -25,12 +26,12 @@ import type {
 
 export function calculateAttack(
   attack: Attack,
-  variant: ActionVariant,
-  character: Character
+  character: Character,
+  name: string = "",
+  ability: AbilitiesEnum = "STR"
 ) {
   const parts: DescriptionPart[] = [];
   const v = character.variables!;
-  let ability = variant?.ability || "STR";
 
   // default attributes
   const attributes = attack?.attributes || {
@@ -103,7 +104,7 @@ export function calculateAttack(
     number: toHit,
     type: "d20Roll",
     roll: {
-      name: variant.name || attributes.name || "Attack",
+      name: name || attributes.name || "Attack",
       dice: [
         {
           sides: 20,
@@ -222,11 +223,11 @@ export function calculateAttack(
   if ("dice" in attributes) {
     parts.push(
       createAttackDamagePart(
+        name,
         ability,
         damageBonus,
         attributes,
         attack,
-        variant,
         character
       )
     );
@@ -242,11 +243,11 @@ export function calculateAttack(
     parts.push(createPart(" "));
     parts.push(
       createAttackDamagePart(
+        name,
         ability,
         damageBonus,
         attributes,
         attack,
-        variant,
         character,
         true
       )
@@ -268,11 +269,11 @@ export function calculateAttack(
 }
 
 function createAttackDamagePart(
+  name: string,
   ability: Ability,
   damageBonus: number,
   attributes: Weapon,
   attack: Attack,
-  variant: ActionVariant,
   character: Character,
   isVersatile = false
 ) {
@@ -293,7 +294,7 @@ function createAttackDamagePart(
   );
   part.roll = {
     dice: [],
-    name: variant.name || attributes.name || "Attack",
+    name: name || attributes.name || "Attack",
   };
   const parsedDice: ParsedDice = {
     dice,

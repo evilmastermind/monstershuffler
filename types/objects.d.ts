@@ -1,6 +1,7 @@
 import { Variables } from "./objects.d";
 import { z } from "zod";
 import {
+  abilitiesEnum,
   abilitiesObject,
   actionObject,
   actionVariantObject,
@@ -46,6 +47,7 @@ import {
 } from "monstershuffler-shared";
 
 export type Abilities = z.infer<typeof abilitiesObject>;
+export type AbilitiesEnum = z.infer<typeof abilitiesEnum>;
 export type Action = z.infer<typeof actionObject>;
 export type ActionVariant = z.infer<typeof actionVariantObject>;
 export type AlignmentEthical = z.infer<typeof alignmentEthical>;

@@ -8,7 +8,6 @@ import type {
   ValueExpression,
   ValueIncrProgression,
   ParsedDice,
-  ParsedExpression,
 } from "@/types";
 
 export function calculateValue(

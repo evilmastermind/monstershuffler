@@ -1,12 +1,18 @@
 import { createPart } from "./statistics";
 import { calculateValue } from "./values";
 import { calculateAttack } from "./attacks";
-import type { ActionVariant, Character, DescriptionPart } from "@/types";
+import type {
+  ChosenAction,
+  ActionVariant,
+  Character,
+  DescriptionPart,
+} from "@/types";
 import { toggle } from "@/utils";
 
 export function replaceTags(
   untrimmedString: string,
   character: Character,
+  action: ChosenAction | undefined = undefined,
   variant: ActionVariant | undefined = undefined
 ) {
   const string = untrimmedString.trim().replace(/^\\n|\\n$/g, "");
@@ -90,16 +96,18 @@ export function replaceTags(
       position = position + (wordSize + 1);
       startingPoint = position;
 
-      const value = variant?.values?.find((v) => v.name === firstPart);
+      const value = action?.values?.find((v) => v.name === firstPart);
       if (value) {
         // VALUES
         parts.push(calculateValue(value, character, variant));
         continue;
       }
-      const attack = variant?.attacks?.find((a) => a.name === firstPart);
+      const attack = action?.attacks?.find((a) => a.name === firstPart);
       // ATTACKS (which may contain values that need to be calculated as well)
       if (attack) {
-        parts.push(...calculateAttack(attack, variant!, character));
+        parts.push(
+          ...calculateAttack(attack, character, variant?.name, variant?.ability)
+        );
         continue;
       }
       // here I should parse the new syntax

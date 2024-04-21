@@ -79,7 +79,7 @@ export function calculateActions(character: Character) {
 
     // fixing the name of the action
     let actionName = parseNameChoices(variant.name); // ex: "Fire | Cold | Lightning"
-    actionName = replaceTags(actionName, character, variant).reduce(
+    actionName = replaceTags(actionName, character, action, variant).reduce(
       (acc, obj) => acc + obj.string,
       ""
     ); // ex: "Cone of [damageType]"
@@ -89,7 +89,7 @@ export function calculateActions(character: Character) {
     }
 
     if (variant.type === "attack") {
-      variant?.attacks?.forEach((attack) => {
+      action?.attacks?.forEach((attack) => {
         if (
           attack.replaceName &&
           attack?.attributes &&
@@ -105,6 +105,7 @@ export function calculateActions(character: Character) {
     const parsedActionArray = replaceTags(
       variant.description.trim(),
       character,
+      action,
       variant
     );
 
@@ -199,7 +200,7 @@ export function calculateActions(character: Character) {
         if (action.tag === "profession") {
           tempProfessionAttack.push(parsedAction);
         } else {
-          const properties = JSPath.apply("..properties", variant.attacks);
+          const properties = JSPath.apply("..properties", action.attacks);
           if (properties.includes("ranged")) {
             tempRangedAttacks.push(parsedAction);
           } else {
