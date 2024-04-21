@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { addUniqueItem, removeItem } from "@/utils";
 
-const dropdownMenuClass = $ref(["dropdown-menu-hidden"]);
+const dropdownMenuClass = ref(["dropdown-menu-hidden"]);
 
 const props = defineProps({
   transition: {
@@ -54,29 +54,29 @@ const directionsAllowed = [
 ];
 
 if (directionsAllowed.includes(props.direction)) {
-  dropdownMenuClass.push(props.direction);
+  dropdownMenuClass.value.push(props.direction);
 } else {
-  dropdownMenuClass.push("bottomleft");
+  dropdownMenuClass.value.push("bottomleft");
 }
 
 function mouseOver() {
   if (props.hover === true) {
-    removeItem(dropdownMenuClass, "dropdown-menu-hidden");
+    removeItem(dropdownMenuClass.value, "dropdown-menu-hidden");
     isMouseOver.value = true;
   }
 }
 function mouseLeave() {
   if (props.hover === true) {
-    addUniqueItem(dropdownMenuClass, "dropdown-menu-hidden");
+    addUniqueItem(dropdownMenuClass.value, "dropdown-menu-hidden");
     isMouseOver.value = false;
   }
 }
 
 function toggle() {
-  if (dropdownMenuClass.includes("dropdown-menu-hidden")) {
-    removeItem(dropdownMenuClass, "dropdown-menu-hidden");
+  if (dropdownMenuClass.value.includes("dropdown-menu-hidden")) {
+    removeItem(dropdownMenuClass.value, "dropdown-menu-hidden");
   } else if (!isMouseOver.value) {
-    addUniqueItem(dropdownMenuClass, "dropdown-menu-hidden");
+    addUniqueItem(dropdownMenuClass.value, "dropdown-menu-hidden");
   }
   isMouseOver.value = false;
 }

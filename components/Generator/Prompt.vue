@@ -28,13 +28,11 @@ const characterChanges = ref<CharacterChanges>({});
 function generateNpc() {
   promptOptions.value = {};
   characterChanges.value = {};
-  const words = prompt.value.toLowerCase().split(" ");
-  if (words.length === 0) {
-    return;
-  }
+  const words = prompt.value.trim().toLowerCase().split(" ");
   let i = 0;
   let word = "";
   let wordsCount = 1;
+
   while (i < words.length) {
     if (!word) {
       word = words[i];
@@ -157,6 +155,8 @@ function generateNpc() {
   }
   if (promptOptions.value.backgroundId) {
     promptOptions.value.backgroundType = "specific";
+  } else if (words.length === 1 && words[0] === "") {
+    promptOptions.value.backgroundType = "random";
   } else {
     promptOptions.value.backgroundType = "none";
   }

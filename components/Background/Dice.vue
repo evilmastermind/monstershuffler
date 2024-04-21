@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, nextTick } from "vue";
 import { debounce } from "@/utils";
 
 type DiceStyle = {
@@ -32,13 +31,13 @@ type DiceStyle = {
 };
 
 const incrementStart = 0.9;
-let bgDiceArray: DiceStyle[] = $ref([]);
-let bgD6Array: DiceStyle[] = $ref([]);
-let windowWidth = $ref(window.innerWidth);
+const bgDiceArray = ref<DiceStyle[]>([]);
+const bgD6Array = ref<DiceStyle[]>([]);
+const windowWidth = ref(window.innerWidth);
 const generateBackgroundDebounce = debounce(() => generateBackground(), 300);
 
-const bgDiceNumber = $computed(() => Math.ceil(windowWidth / 100));
-const bgD6Number = $computed(() => Math.ceil(windowWidth / 130));
+const bgDiceNumber = $computed(() => Math.ceil(windowWidth.value / 100));
+const bgD6Number = $computed(() => Math.ceil(windowWidth.value / 130));
 const bgDiceXIncrement = $computed(() => 100 / bgDiceNumber);
 const bgD6XIncrement = $computed(() => 100 / bgD6Number);
 
@@ -57,7 +56,7 @@ function onResize() {
 }
 
 function generateBackground() {
-  windowWidth = window.innerWidth;
+  windowWidth.value = window.innerWidth;
   const bgDiceArrayTemp: DiceStyle[] = [];
   let x = 0;
   let incrementDifference = (incrementStart * 2) / bgDiceNumber;
@@ -80,7 +79,7 @@ function generateBackground() {
     bgDiceArrayTemp.push(d20);
   }
 
-  bgDiceArray = [...bgDiceArrayTemp];
+  bgDiceArray.value = [...bgDiceArrayTemp];
 
   const bgD6ArrayTemp: DiceStyle[] = [];
 
@@ -105,7 +104,7 @@ function generateBackground() {
     bgD6ArrayTemp.push(d6);
   }
 
-  bgD6Array = [...bgD6ArrayTemp];
+  bgD6Array.value = [...bgD6ArrayTemp];
 }
 </script>
 

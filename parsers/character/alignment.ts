@@ -119,7 +119,7 @@ export function calculateAlignment(character: Character) {
   let lawfulness = BASE_PERCENTAGE;
   let chaoticness = BASE_PERCENTAGE;
   let goodness = BASE_PERCENTAGE;
-  let evilness = BASE_PERCENTAGE;
+  let evilness = 15;
 
   if (
     totalModifiers[0][0] < 1 &&
@@ -143,10 +143,7 @@ export function calculateAlignment(character: Character) {
 
   const ethicalTotal =
     totalModifiers[0][0] + totalModifiers[0][1] + totalModifiers[0][2];
-  if (ethicalTotal === 0) {
-    lawfulness += 33;
-    chaoticness += 33;
-  } else {
+  if (ethicalTotal !== 0) {
     lawfulness = 85 * (totalModifiers[0][0] / ethicalTotal) + 5;
     chaoticness = 85 * (totalModifiers[0][2] / ethicalTotal) + 5;
   }
@@ -161,10 +158,7 @@ export function calculateAlignment(character: Character) {
 
   const moralTotal =
     totalModifiers[1][0] + totalModifiers[1][1] + totalModifiers[1][2];
-  if (moralTotal === 0) {
-    goodness += 35;
-    evilness += 10; // true evil is uncommon
-  } else {
+  if (moralTotal !== 0) {
     goodness = 85 * (totalModifiers[1][0] / moralTotal) + 5;
     evilness = 85 * (totalModifiers[1][2] / moralTotal) + 5;
   }

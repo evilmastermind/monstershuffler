@@ -24,16 +24,16 @@ const p = defineProps({
   // },
 });
 
-let currentValue = $ref(false);
+const currentValue = ref(false);
 
 onMounted(() => {
-  currentValue = p.isEnabled;
+  currentValue.value = p.isEnabled;
 });
 
 watch(
   () => p.isEnabled,
   () => {
-    currentValue = p.isEnabled;
+    currentValue.value = p.isEnabled;
   }
 );
 </script>
