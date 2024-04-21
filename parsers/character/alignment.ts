@@ -63,10 +63,40 @@ export function calculateAlignment(character: Character) {
   there will always be at least a 5% chance of the character being of a different alignment.
   */
   type AlignmentArray = [[number, number, number], [number, number, number]];
-  const array: AlignmentArray[] = getStatArrayFromObjects<AlignmentArray>(
-    character,
-    "alignmentModifiers"
-  );
+  const array: AlignmentArray[] = [];
+  // getStatArrayFromObjects<AlignmentArray>(
+  //   character,
+  //   "alignmentModifiers"
+  // );
+
+  // alignmentModifiers from traits
+  if ("alignmentModifiers" in c && c.alignmentModifiers) {
+    array.push(c.alignmentModifiers);
+  }
+
+  // alignmentModifiers from racevariant (or race)
+  if (
+    c?.racevariant &&
+    Object.hasOwn(c?.racevariant, "alignmentModifiers") &&
+    c.racevariant.alignmentModifiers
+  ) {
+    array.push(c.racevariant.alignmentModifiers);
+  } else if (
+    c?.race &&
+    Object.hasOwn(c?.race, "alignmentModifiers") &&
+    c.race.alignmentModifiers
+  ) {
+    array.push(c.race.alignmentModifiers);
+  }
+
+  // alignmentModifiers from template
+  if (
+    c?.template &&
+    Object.hasOwn(c?.template, "alignmentModifiers") &&
+    c.template.alignmentModifiers
+  ) {
+    array.push(c.template.alignmentModifiers);
+  }
 
   const totalModifiers = [
     [0, 0, 0],
@@ -82,27 +112,43 @@ export function calculateAlignment(character: Character) {
     });
   });
 
+  // console.log("totalModifiers", totalModifiers);
+
   // now that I have all modifiers, I can calculate the alignment
-  let lawfulness = 5;
-  let chaoticness = 5;
-  // const ethicalNeutrality = 5;
-  let goodness = 5;
-  let evilness = 5;
-  // const moralNeutrality = 5;
+  const BASE_PERCENTAGE = 33.3;
+  let lawfulness = BASE_PERCENTAGE;
+  let chaoticness = BASE_PERCENTAGE;
+  let goodness = BASE_PERCENTAGE;
+  let evilness = BASE_PERCENTAGE;
+
+  if (
+    totalModifiers[0][0] < 1 &&
+    totalModifiers[0][1] < 1 &&
+    totalModifiers[0][2] < 1
+  ) {
+    totalModifiers[0][0] += 1;
+    totalModifiers[0][1] += 1;
+    totalModifiers[0][2] += 1;
+  }
+
+  if (
+    totalModifiers[1][0] < 1 &&
+    totalModifiers[1][1] < 1 &&
+    totalModifiers[1][2] < 1
+  ) {
+    totalModifiers[1][0] += 1;
+    totalModifiers[1][1] += 1;
+    totalModifiers[1][2] += 1;
+  }
+
   const ethicalTotal =
     totalModifiers[0][0] + totalModifiers[0][1] + totalModifiers[0][2];
   if (ethicalTotal === 0) {
-    lawfulness += 27;
-    chaoticness += 27;
+    lawfulness += 33;
+    chaoticness += 33;
   } else {
-    lawfulness +=
-      totalModifiers[0][0] === 0
-        ? 0
-        : 85 / (totalModifiers[0][0] / ethicalTotal);
-    chaoticness +=
-      totalModifiers[0][2] === 0
-        ? 0
-        : 85 / (totalModifiers[0][1] / ethicalTotal);
+    lawfulness = 85 * (totalModifiers[0][0] / ethicalTotal) + 5;
+    chaoticness = 85 * (totalModifiers[0][2] / ethicalTotal) + 5;
   }
   let random100 = random(1, 100);
   if (random100 <= lawfulness) {
@@ -112,16 +158,15 @@ export function calculateAlignment(character: Character) {
   } else {
     c.alignmentEthical ??= "Neutral";
   }
+
   const moralTotal =
     totalModifiers[1][0] + totalModifiers[1][1] + totalModifiers[1][2];
   if (moralTotal === 0) {
     goodness += 35;
-    evilness += 10; // intentionally limiting the chance of being evil (true evil is uncommon)
+    evilness += 10; // true evil is uncommon
   } else {
-    goodness +=
-      totalModifiers[1][0] === 0 ? 0 : 85 / (totalModifiers[1][0] / moralTotal);
-    evilness +=
-      totalModifiers[1][2] === 0 ? 0 : 85 / (totalModifiers[1][1] / moralTotal);
+    goodness = 85 * (totalModifiers[1][0] / moralTotal) + 5;
+    evilness = 85 * (totalModifiers[1][2] / moralTotal) + 5;
   }
   random100 = random(1, 100);
   if (random100 <= goodness) {
@@ -131,6 +176,7 @@ export function calculateAlignment(character: Character) {
   } else {
     c.alignmentMoral ??= "Neutral";
   }
+
   if (typically) {
     alignment.array!.unshift(createPart(" ", "text"));
     alignment.array!.unshift(createPart(typically, "translatableText"));

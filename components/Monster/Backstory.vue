@@ -1,15 +1,6 @@
 <template>
   <div class="backstory">
     <h1 class="name mb-2" :class="moral">{{ statistics.fullName }}</h1>
-
-    <p>
-      {{
-        $t("statBlock.rollableDamageTest", {
-          n: "22 (4d6 + 8)",
-          damageType: $t("statBlock.damageType.fire"),
-        })
-      }}
-    </p>
     <p class="backstory-text">
       ...clattering of chains echoed through the newly occupied halls, Yurdir
       Stonebeard stood at the center, his gaze piercing the darkness. Around

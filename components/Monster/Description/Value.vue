@@ -8,13 +8,13 @@
         {
           n: numberToWord(n, user.language),
         },
-        parseInt(n)
+        n
       )
     }}
   </template>
   <template v-else-if="part.translationKey">
     {{
-      $t(`statBlock.${part.translationKey}`, part.translationVariables || {})
+      $t(`statBlock.${part.translationKey}`, part.translationVariables || {}, n)
     }}
   </template>
   <template v-else>
@@ -38,9 +38,9 @@ const user = useUserStore();
 const n = computed(() => {
   const number = p.part?.translationVariables?.n;
   if (number !== undefined) {
-    return number;
+    return parseInt(number);
   } else {
-    return undefined;
+    return 0;
   }
 });
 </script>

@@ -59,7 +59,7 @@ export function calculateValue(
     const parsedDice: ParsedDice = {
       dice: totalDice,
       sides: dice.sides,
-      average,
+      value: average,
       string: "",
     };
     if (value.type) {
@@ -118,7 +118,7 @@ export function calculateValue(
     part.string = `${average} ${part.string}`; // 10 (2d6 + 3)
     if (finalParsedDice.length > 0) {
       finalParsedDice[0].string = part.string;
-      finalParsedDice[0].average = average;
+      finalParsedDice[0].value = average;
       part.roll = {
         dice: finalParsedDice,
         name: variant?.name || value.name || "Dice Roll",
@@ -265,6 +265,10 @@ export function addAdditionalDescriptionParts(
       part.string += average === 1 ? " time" : " times";
       part.translationKey = `value.${type}`;
       break;
+    case "damage":
+      part.string += " damage";
+      part.translationKey = `value.${type}`;
+      break;
     case "acid damage":
       part.string += " acid damage";
       part.translationKey = `value.${type}`;
@@ -317,5 +321,7 @@ export function addAdditionalDescriptionParts(
       part.string += " thunder damage";
       part.translationKey = `value.${type}`;
       break;
+    default:
+      part.translationKey = `value.value`;
   }
 }

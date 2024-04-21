@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { getChallengeNumber } from "@/parsers";
 import type { CharacterChanges } from "@/types";
 const generator = useGeneratorStore();
 
@@ -42,7 +43,7 @@ function generateNpc() {
     if (word === "cr" && i + 1 < words.length) {
       const nextWord = words[i + 1];
       if (!isNaN(parseInt(nextWord))) {
-        characterChanges.value.CR = parseInt(nextWord);
+        characterChanges.value.CR = getChallengeNumber(nextWord);
         word = "";
         i++;
       }

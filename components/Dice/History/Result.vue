@@ -10,7 +10,13 @@
     ><template v-if="roll.d20Roll === undefined"
       ><template v-for="(result, index) in roll.resultsByType" :key="index"
         ><span v-if="index > 0">&nbsp;{{ $t("statBlock.plus") }}&nbsp;</span
-        >{{ result.result }} {{ result.type }}
+        >{{
+          $t(
+            `statBlock.value.${result.type || "value"}`,
+            { n: result.result },
+            result.result
+          )
+        }}
       </template>
     </template>
     <template v-if="roll.resultsByType?.length > 1">)</template>

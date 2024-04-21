@@ -149,6 +149,7 @@ export const useRollsStore = defineStore("rolls", () => {
         const newDie: ParsedDice = {
           dice: parsedDice,
           sides: parsedSides,
+          value: Math.floor((parsedSides / 2) * parsedDice),
         };
         if (bonus) {
           newDie.bonus = parseInt(bonus);

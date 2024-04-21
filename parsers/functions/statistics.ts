@@ -72,11 +72,13 @@ export function getCurrentStatLimit(character: Character) {
 export function getStatArrayFromObjects<T>(character: Character, stat: string) {
   const c = character.character;
   const array: T[] = [];
-  // retrieving alignment arrays from objects
+  // checking if the stat exists in the main character object
   if (Object.hasOwn(c, stat)) {
     // @ts-ignore
     array.push(c[stat]);
   }
+  // checking if the stat exists in any of the other secondary objects,
+  // like races, classes, etc.
   const objectsFound = characterObjects(character);
   objectsFound.forEach((raceOrClassEtc) => {
     if (Object.hasOwn(raceOrClassEtc, stat)) {

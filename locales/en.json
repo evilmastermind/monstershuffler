@@ -312,6 +312,7 @@
     "targets": "targets",
     "Hit": "Hit",
     "value": {
+      "value": "{n}",
       "target": "{n} targets | {n} target | {n} targets",
       "attack": "{n} attacks | {n} attack | {n} attacks", 
       "creature": "{n} creatures | {n} creature | {n} creatures",
@@ -335,7 +336,7 @@
       "hit point": "{n} hit points | {n} hit point | {n} hit points",
       "temporary hit point": "{n} temporary hit points | {n} temporary hit point | {n} temporary hit points",
       "+": "+{n}",
-      "-": "{n}",
+      "-": "-{n}",
       "time": "{n} times | {n} time | {n} times",
       "damage": "{n} damage",
       "acid damage": "{n} acid damage",

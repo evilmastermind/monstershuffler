@@ -9,7 +9,7 @@ import type {
   GetGeneratorDataResponse,
   Character,
 } from "@/types";
-import { createStats } from "@/parsers";
+import { createStats, adjustLevel } from "@/parsers";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
@@ -17,6 +17,10 @@ const api = config.public.apiUrl;
 /// /////////////////////////////////////
 
 export const useGeneratorStore = defineStore("generator", () => {
+  /**
+   * State
+   */
+
   const session = ref<Character[]>([]);
   const settings = ref<PostRandomNpcInput>();
   const characters = ref<Character[]>([]);
@@ -43,9 +47,17 @@ export const useGeneratorStore = defineStore("generator", () => {
   const promptOptions = ref<PostRandomNpcInput>({});
   const keywords = ref<Keyword[]>([]);
 
+  /**
+   * Computed properties
+   */
+
   const currentCharacter = computed(() => {
     return characters.value[currentCharacterIndex.value] as Character;
   });
+
+  /**
+   * Actions
+   */
 
   const generateNpcs = throttle(getRandomNpcs, 1000);
   // const generateNpc = throttle(getRandomNpc, 1000);
@@ -74,6 +86,7 @@ export const useGeneratorStore = defineStore("generator", () => {
             npc.variations = {};
           }
           npc.variations.currentCR = changes.CR;
+          adjustLevel(npc);
         }
         createStats(npc);
       });

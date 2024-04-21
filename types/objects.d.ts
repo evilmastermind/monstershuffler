@@ -42,6 +42,7 @@ import {
   valueIncrProgressionObject,
   variablesObject,
   variationsObject,
+  weaponObject,
 } from "monstershuffler-shared";
 
 export type Abilities = z.infer<typeof abilitiesObject>;
@@ -85,6 +86,7 @@ export type ValueExpression = z.infer<typeof valueExpressionObject>;
 export type ValueIncrProgression = z.infer<typeof valueIncrProgressionObject>;
 export type Variables = z.infer<typeof variablesObject>;
 export type Variations = z.infer<typeof variationsObject>;
+export type Weapon = z.infer<typeof weaponObject>;
 
 export type ParsedHTMLTags = "p" | "li" | "ul" | "span";
 

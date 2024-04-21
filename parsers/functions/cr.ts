@@ -1,5 +1,5 @@
 import { createStats } from "../character";
-import { Character } from "@/types";
+import type { Character } from "@/types";
 
 export function raiseCR(character: Character) {
   character.variations!.currentCR!++;
@@ -32,7 +32,7 @@ export function lowerCR(character: Character) {
   createStats(character);
 }
 
-function adjustLevel(character: Character) {
+export function adjustLevel(character: Character) {
   if (character?.character?.CRCalculation?.name === "automatic") {
     return;
   }
