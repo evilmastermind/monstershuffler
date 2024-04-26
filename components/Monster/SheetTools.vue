@@ -1,39 +1,74 @@
 <template>
-  <div class="tools-container my-2">
-    <div class="tools py-2 px-3">
-      <MSIconButton
-        :label="$t('monsterSheet.editLayout')"
-        icon="ri:layout-6-fill"
-      />
-      <MSIconButton
-        :label="$t('monsterSheet.editBackstory')"
-        icon="humbleicons:align-text-left"
-      />
-      <MSIconButton
-        :label="$t('monsterSheet.editImages')"
-        icon="fa6-solid:image"
-      />
-      <MSIconButton
-        class="ml-2"
-        :label="$t('monsterSheet.editImages')"
-        icon="fa6-solid:xmark"
-        @click="currentCharacterIndex = -1"
-      />
+  <div>
+    <div class="tools-container">
+      <div class="tools-left py-2 px-3">
+        <MSIconButton
+          :label="$t('monsterSheet.editLayout')"
+          icon="ri:layout-6-fill"
+          @click="isLayoutEditorOpen = !isLayoutEditorOpen"
+        />
+        <MSIconButton
+          :label="$t('monsterSheet.editImages')"
+          icon="fa6-solid:image"
+        />
+        <MSIconButton
+          :label="$t('monsterSheet.editBackstory')"
+          icon="humbleicons:align-text-left"
+        />
+        <MSIconButton
+          :label="$t('monsterSheet.regenerateBackstory')"
+          icon="simple-icons:openai"
+        />
+      </div>
+      <div class="tools-right py-2 px-3">
+        <MSIconButton
+          :label="$t('monsterSheet.export')"
+          icon="fa6-solid:file-export"
+        />
+        <MSIconButton
+          :label="$t('monsterSheet.download')"
+          icon="fa6-solid:download"
+        />
+        <MSIconButton
+          class="ml-4"
+          :label="$t('monsterSheet.closeSheet')"
+          icon="fa6-solid:xmark"
+          @click="currentCharacterIndex = -1"
+        />
+      </div>
     </div>
+    <MonsterLayoutEditor
+      v-if="isLayoutEditorOpen"
+      @close="isLayoutEditorOpen = false"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Character } from "@/types";
+
+const p = defineProps({
+  character: {
+    type: Object as PropType<Character>,
+    required: true,
+  },
+});
+
+const character = toRef(p, "character");
 const generator = useGeneratorStore();
 const { currentCharacterIndex } = storeToRefs(generator);
+useProvideCharacter(character);
+
+const isLayoutEditorOpen = ref(false);
 </script>
 
 <style scoped>
 .tools-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
-.tools {
+.tools-left,
+.tools-right {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

@@ -273,7 +273,7 @@ form-container {
   transform: translateX(-50%);
   width: 100%;
   max-width: 400px;
-  z-index: 100;
+  z-index: 9900;
   @apply bg-background-100;
   @media (min-width: theme("screens.md")) {
     position: relative;

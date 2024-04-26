@@ -37,7 +37,11 @@
         <div v-if="!isLoading">
           <TransitionGroup name="fade-group">
             <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
-            <GeneratorCharacterPage v-if="currentCharacterIndex > -1" key="2" />
+            <GeneratorCharacterPage
+              v-if="currentCharacterIndex > -1"
+              key="2"
+              class="mt-4"
+            />
             <div
               v-show="currentCharacterIndex === -1"
               key="3"

@@ -88,7 +88,7 @@ onMounted(() => {
   left: 50%;
   top: 0.75rem;
   transform: translateX(-50%);
-  z-index: 5000000;
+  z-index: 100;
 }
 .emojis {
   z-index: 0 !important;

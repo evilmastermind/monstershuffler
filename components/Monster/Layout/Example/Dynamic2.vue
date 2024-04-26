@@ -1,0 +1,221 @@
+<template>
+  <svg viewBox="0 0 150 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_263_121)">
+      <rect width="150" height="210" fill="#D9D9D9" />
+      <rect x="19" y="115" width="112" height="85" fill="#E9E9E9" />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="120"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="126"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="132"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="138"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="144"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="168"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="156"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="174"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="186"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="162"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="180"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="78"
+        y="192"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="120"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="126"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="132"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="138"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="144"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="168"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="156"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="174"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="186"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="162"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="180"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect
+        opacity="0.59"
+        x="26"
+        y="192"
+        width="46"
+        height="2"
+        fill="#595959"
+      />
+      <rect x="15" y="200" width="120" height="4" fill="#B9B9B9" />
+      <rect x="15" y="111" width="120" height="4" fill="#B9B9B9" />
+      <rect opacity="0.59" x="82" y="99" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="82" y="87" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="82" y="81" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="82" y="93" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="15" y="99" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="15" y="87" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="15" y="81" width="53" height="2" fill="black" />
+      <rect opacity="0.59" x="15" y="93" width="53" height="2" fill="black" />
+      <rect width="150" height="70" fill="#535353" />
+      <circle cx="42" cy="17" r="10" fill="#A9A9A9" />
+      <path
+        d="M58.1448 29.2L32 70H111.787L89.2481 19L70.3156 51.13L58.1448 29.2Z"
+        fill="black"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_263_121">
+        <rect width="150" height="210" rx="10" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+</template>

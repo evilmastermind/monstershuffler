@@ -14,6 +14,9 @@
     "editImages": "Edit images",
     "editLayout": "Edit layout",
     "editBackstory": "Edit backstory",
+    "regenerateBackstory":"Regenerate backstory with AI",
+    "download": "Download",
+    "export": "Export",
     "closeSheet": "Close sheet"
   },
   "monsterCard": {
@@ -38,6 +41,16 @@
     "obese": "obese",
     "monstersTraits": "{name}'s Traits",
     "playVoice": "Play voice"
+  },
+  "editor": {
+    "layout": {
+      "title": "Choose a Layout",
+      "dynamic": "Dynamic layouts",
+      "dynamicSubtitle": "These layouts rearrange themselves when stat blocks become too big",
+      "1Column": "Layouts for 1-Column stat blocks",
+      "2Column": "Layouts for 2-Column stat blocks",
+      "chooseLayout": "Choose this layout"
+    }
   },
   "statBlock": {
     "actions": "Actions",

@@ -40,12 +40,15 @@
 
   h4.content {
     font-weight: bold !important;
-    text-align: center;
   }
 
   p.content {
     margin: theme("spacing.2") 0;
     line-height: theme("spacing.5");
+  }
+  p.subtitle {
+    line-height: theme("spacing.3");
+    @apply text-text-secondary text-3 ;
   }
 
   q.content {
