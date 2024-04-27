@@ -28,37 +28,37 @@
   }
 
   h2.content {
-    font-size: theme("fontSize.7") !important;
     font-weight: bold !important;
     text-align: center;
+    @apply text-text text-7;
   }
 
   h3.content {
-    font-size: theme("fontSize.6") !important;
     font-weight: bold !important;
+    @apply text-text text-6;
   }
 
   h4.content {
     font-weight: bold !important;
+    @apply text-text;
   }
 
   p.content {
-    margin: theme("spacing.2") 0;
-    line-height: theme("spacing.5");
+    @apply text-text my-2 mx-0 leading-5;
   }
   p.subtitle {
-    line-height: theme("spacing.3");
-    @apply text-text-secondary text-3 ;
+    @apply text-text-secondary text-3 leading-3;
   }
 
   q.content {
     font-style: italic;
+    @apply text-text;
   }
 
   a.content {
     font-weight: 800;
     text-decoration: none;
-    color: theme("colors.text");
+    @apply text-text;
   }
 }
 

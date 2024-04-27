@@ -19,21 +19,34 @@ const character = toRef(p, "character");
 useProvideCharacter(character);
 
 const layout = computed(() => {
-  const layoutName =
-    p.character.character?.user?.sheet?.layout || "DefaultImage";
+  const layoutName = p.character.character?.user?.sheet?.layout || "DynamicA";
   const hasImages = !!p.character.character?.user?.sheet?.images?.length;
   if (layoutName === "Default" && hasImages) {
-    return resolveComponent("MonsterLayoutDefaultImage");
+    return resolveComponent("MonsterLayoutDynamicA");
   }
   switch (layoutName) {
     case "Something":
       return resolveComponent("MonsterLayoutSomething");
-    case "Default":
-      return resolveComponent("MonsterLayoutDefault");
-    case "DefaultImage":
-      return resolveComponent("MonsterLayoutDefaultImage");
+    case "DynamicNoImage":
+      return resolveComponent("MonsterLayoutDynamicNoImage");
+    case "DynamicA":
+      return resolveComponent("MonsterLayoutDynamicA");
+    case "OneColumnA":
+      return resolveComponent("MonsterLayoutOneColumnA");
+    case "OneColumnB":
+      return resolveComponent("MonsterLayoutOneColumnB");
+    case "OneColumnC":
+      return resolveComponent("MonsterLayoutOneColumnC");
+    case "OneColumnD":
+      return resolveComponent("MonsterLayoutOneColumnD");
+    case "TwoColumnA":
+      return resolveComponent("MonsterLayoutTwoColumnA");
+    case "TwoColumnB":
+      return resolveComponent("MonsterLayoutTwoColumnB");
+    case "TwoColumnC":
+      return resolveComponent("MonsterLayoutTwoColumnC");
     default:
-      return resolveComponent("MonsterLayoutDefault");
+      return resolveComponent("MonsterLayoutDynamicNoImage");
   }
 });
 </script>

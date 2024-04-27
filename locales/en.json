@@ -47,8 +47,8 @@
       "title": "Choose a Layout",
       "dynamic": "Dynamic layouts",
       "dynamicSubtitle": "These layouts rearrange themselves when stat blocks become too big",
-      "1Column": "Layouts for 1-Column stat blocks",
-      "2Column": "Layouts for 2-Column stat blocks",
+      "1Column": "Layouts with 1-Column stat blocks",
+      "2Column": "Layouts with 2-Column stat blocks",
       "chooseLayout": "Choose this layout"
     }
   },

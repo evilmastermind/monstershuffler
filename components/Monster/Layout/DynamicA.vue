@@ -1,7 +1,7 @@
 <template>
   <Transition name="fade-quick" mode="out-in">
-    <MonsterLayoutDefault1C v-if="columns === 1" />
-    <MonsterLayoutDefault2C v-else />
+    <MonsterLayoutOneColumnA v-if="columns === 1" />
+    <MonsterLayoutTwoColumnA v-else />
   </Transition>
 </template>
 

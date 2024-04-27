@@ -1,6 +1,6 @@
 <template>
   <svg viewBox="0 0 150 210" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_263_121)">
+    <g clip-path="url(#clip0_264_330)">
       <rect width="150" height="210" fill="#D9D9D9" />
       <rect x="19" y="115" width="112" height="85" fill="#E9E9E9" />
       <rect
@@ -213,7 +213,7 @@
       />
     </g>
     <defs>
-      <clipPath id="clip0_263_121">
+      <clipPath id="clip0_264_330">
         <rect width="150" height="210" rx="10" fill="white" />
       </clipPath>
     </defs>

@@ -28,7 +28,7 @@ inject("character") as Character;
   overflow: hidden;
   width: 100%;
   height: 500px;
-  background-image: url(@/assets/images/background8.png);
+  background-image: url(@/assets/images/background10.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

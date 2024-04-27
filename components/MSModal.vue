@@ -51,7 +51,7 @@ const p = defineProps({
   }
   .card {
     height: auto;
-    margin: 10vh auto;
+    margin: 0.5rem auto;
     backdrop-filter: blur(4px);
     @apply shadow-xl rounded p-4 sm:p-5 bg-background-100;
   }

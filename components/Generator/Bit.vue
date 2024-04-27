@@ -128,11 +128,12 @@ function setBitPreview(bool: boolean) {
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100px;
-    @apply leading-tight m-0 p-0;
+    @apply text-text-inverse leading-tight m-0 p-0;
   }
 }
 .name {
   font-family: MrsEavesSmallCaps;
+  @apply text-text-inverse;
 }
 .name-container {
   width: 100%;

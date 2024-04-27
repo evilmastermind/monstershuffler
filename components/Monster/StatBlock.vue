@@ -55,6 +55,7 @@ const columns = computed(() => {
   display: block;
 }
 .border {
+  position: relative;
   height: 6px;
   border: 1px solid #000;
   background-position: top left;
