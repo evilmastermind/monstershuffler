@@ -89,7 +89,7 @@ function removeRoll(id: Date) {
 <style scoped>
 .roll {
   position: relative;
-  display: inline;
+  display: inline-block;
   line-height: inherit;
   text-decoration-line: underline;
   text-decoration-style: wavy;

@@ -3,7 +3,7 @@
     <div class="border" :class="`border-${ui.currentThemeType}`" />
     <div class="stat-block" :class="`stat-block-${ui.currentThemeType}`">
       <div class="gradient" :class="`gradient-${ui.currentThemeType}`" />
-      <div class="p-4 stat-block-content" :class="`columns-${columns}`">
+      <div class="p-4 stat-block-content" :class="`columns-${columnsCount}`">
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
         <!-- ----- -->
@@ -35,16 +35,18 @@ const ui = useUiStore();
 const columnsFromActions = inject("columns") as Ref<number>;
 const wordsCount = inject("wordsCount") as Ref<number>;
 
+type Columns = 1 | 2;
+
 const p = defineProps({
-  forceOneColumn: {
-    type: Boolean,
-    default: false,
+  columns: {
+    type: Number as PropType<Columns>,
+    default: () => 2,
   },
 });
 
-const columns = computed(() => {
-  if (p.forceOneColumn) {
-    return 1;
+const columnsCount = computed(() => {
+  if (p.columns) {
+    return p.columns;
   }
   return columnsFromActions.value;
 });
@@ -72,6 +74,7 @@ const columns = computed(() => {
   margin: 0 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  container-type: inline-size;
 }
 .stat-block:before {
   position: absolute;
@@ -105,11 +108,15 @@ const columns = computed(() => {
 .stat-block-content {
   position: relative;
   font-family: ScalaSansOffc, Roboto, Helvetica, sans-serif;
-  container-type: inline-size;
 }
 .columns-2 {
   columns: 2;
   column-gap: 2rem;
+}
+@container (max-width: 500px) {
+  .columns-2 {
+    columns: 1;
+  }
 }
 </style>
 <style>

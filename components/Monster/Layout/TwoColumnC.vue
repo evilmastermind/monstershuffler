@@ -1,43 +1,66 @@
 <template>
   <div class="layout-container">
-    <MonsterImages />
     <div class="layout">
+      <MonsterImages class="image" />
       <div class="roleplay">
         <MonsterBackstory class="story" />
         <div class="card class= mt-6">
-          <MonsterSheetCard>
+          <MonsterSheetCard v-if="showRoleplayStats">
             <MonsterRoleplayStats />
           </MonsterSheetCard>
         </div>
       </div>
-      <MonsterStatBlock :force-one-column class="mt-6" />
     </div>
+    <MonsterStatBlock :columns="2" class="stats mt-6" />
   </div>
 </template>
 
 <script setup lang="ts">
-const { width: screenWidth } = useScreen();
-
-const forceOneColumn = computed(() => screenWidth.value < 930);
+const p = defineProps({
+  showRoleplayStats: {
+    type: Boolean,
+    default: true,
+  },
+});
 </script>
 
 <style scoped>
 .layout {
-  display: block;
-  @apply px-4 pb-4;
+  display: grid;
+  grid-template-columns: 1fr;
 }
+
 .roleplay {
-  columns: 1;
+  @apply px-4 pt-0;
 }
-@media (min-width: 750px) {
-  .roleplay {
-    columns: 2;
-    column-gap: 2rem;
-  }
+.stats {
+  @apply px-4 pb-6;
 }
 
 @media (min-width: theme("screens.sm")) {
+  .roleplay {
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 0;
+  }
+  .stats {
+    padding-left: 6%;
+    padding-right: 6%;
+    @apply pb-7;
+  }
+}
+
+@media (min-width: 750px) {
   .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .roleplay {
+    padding-top: 12%;
+    padding-right: 12%;
+  }
+  .stats {
     padding-left: 6%;
     padding-right: 6%;
     padding-bottom: 6%;

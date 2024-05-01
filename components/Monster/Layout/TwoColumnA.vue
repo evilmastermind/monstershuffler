@@ -5,20 +5,23 @@
       <div class="roleplay">
         <MonsterBackstory class="story" />
         <div class="card class= mt-6">
-          <MonsterSheetCard>
+          <MonsterSheetCard v-if="showRoleplayStats">
             <MonsterRoleplayStats />
           </MonsterSheetCard>
         </div>
       </div>
-      <MonsterStatBlock :force-one-column class="mt-6" />
+      <MonsterStatBlock :columns="2" class="mt-6" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { width: screenWidth } = useScreen();
-
-const forceOneColumn = computed(() => screenWidth.value < 930);
+const p = defineProps({
+  showRoleplayStats: {
+    type: Boolean,
+    default: true,
+  },
+});
 </script>
 
 <style scoped>

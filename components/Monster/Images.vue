@@ -28,12 +28,12 @@ inject("character") as Character;
   overflow: hidden;
   width: 100%;
   height: 500px;
-  background-image: url(@/assets/images/background10.png);
+  background-image: url(@/assets/images/background22.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   mask-image: url(@/assets/images/monster/test-mask.png);
-  mask-repeat: no-repeat;
+  mask-repeat: repeat;
   mask-position: bottom center;
   mask-origin: stroke-box;
 }

@@ -1,16 +1,18 @@
 <template>
-  <p class="ability-scores">
-    <span
-      v-for="(score, ability) in statistics.abilities"
-      :key="ability"
-      class="score"
-    >
-      <span class="ability-name" :class="moral">
-        {{ $t(`statBlock.ability.${ability}`) }}
+  <div class="ability-scores-container">
+    <p class="ability-scores">
+      <span
+        v-for="(score, ability) in statistics.abilities"
+        :key="ability"
+        class="score"
+      >
+        <span class="ability-name" :class="moral">
+          {{ $t(`statBlock.ability.${ability}`) }}
+        </span>
+        <MonsterDescription :parts="score.array" tag="span" />
       </span>
-      <MonsterDescription :parts="score.array" tag="span" />
-    </span>
-  </p>
+    </p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +23,10 @@ const moral = inject("moral") as string;
 </script>
 
 <style scoped lang="scss">
+.ability-scores-container {
+  position: relative;
+  container-type: inline-size;
+}
 .ability-scores {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

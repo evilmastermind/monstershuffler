@@ -1,6 +1,6 @@
 <template>
   <div class="sheet background" :class="`background-${ui.currentThemeType}`">
-    <component :is="layout" />
+    <component :is="layout" :show-roleplay-stats />
   </div>
 </template>
 
@@ -18,35 +18,43 @@ const ui = useUiStore();
 const character = toRef(p, "character");
 useProvideCharacter(character);
 
+const showRoleplayStats = computed(() => {
+  const showRoleplayStats =
+    character.value.character.user?.sheet?.showRoleplayStats;
+  return showRoleplayStats !== undefined ? showRoleplayStats : true;
+});
+
 const layout = computed(() => {
-  const layoutName = p.character.character?.user?.sheet?.layout || "DynamicA";
+  const layoutName =
+    p.character.character?.user?.sheet?.layout || "MonsterLayoutDynamicA";
   const hasImages = !!p.character.character?.user?.sheet?.images?.length;
-  if (layoutName === "Default" && hasImages) {
+  if (layoutName === "MonsterLayoutDynamicA" && hasImages) {
     return resolveComponent("MonsterLayoutDynamicA");
   }
+  console.log(layoutName);
   switch (layoutName) {
-    case "Something":
+    case "MonsterLayoutSomething":
       return resolveComponent("MonsterLayoutSomething");
-    case "DynamicNoImage":
+    case "MonsterLayoutDynamicNoImage":
       return resolveComponent("MonsterLayoutDynamicNoImage");
-    case "DynamicA":
+    case "MonsterLayoutDynamicA":
       return resolveComponent("MonsterLayoutDynamicA");
-    case "OneColumnA":
+    case "MonsterLayoutOneColumnA":
       return resolveComponent("MonsterLayoutOneColumnA");
-    case "OneColumnB":
+    case "MonsterLayoutOneColumnB":
       return resolveComponent("MonsterLayoutOneColumnB");
-    case "OneColumnC":
+    case "MonsterLayoutOneColumnC":
       return resolveComponent("MonsterLayoutOneColumnC");
-    case "OneColumnD":
+    case "MonsterLayoutOneColumnD":
       return resolveComponent("MonsterLayoutOneColumnD");
-    case "TwoColumnA":
+    case "MonsterLayoutTwoColumnA":
       return resolveComponent("MonsterLayoutTwoColumnA");
-    case "TwoColumnB":
+    case "MonsterLayoutTwoColumnB":
       return resolveComponent("MonsterLayoutTwoColumnB");
-    case "TwoColumnC":
+    case "MonsterLayoutTwoColumnC":
       return resolveComponent("MonsterLayoutTwoColumnC");
     default:
-      return resolveComponent("MonsterLayoutDynamicNoImage");
+      return resolveComponent("MonsterLayoutDynamicA");
   }
 });
 </script>

@@ -5,7 +5,7 @@
       <div class="stats">
         <MonsterStatBlock />
         <div class="card my-4">
-          <MonsterSheetCard>
+          <MonsterSheetCard v-if="showRoleplayStats">
             <MonsterRoleplayStats />
           </MonsterSheetCard>
         </div>
@@ -15,7 +15,14 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const p = defineProps({
+  showRoleplayStats: {
+    type: Boolean,
+    default: true,
+  },
+});
+</script>
 
 <style scoped>
 .layout {

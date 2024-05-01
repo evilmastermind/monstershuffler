@@ -49,7 +49,9 @@
       "dynamicSubtitle": "These layouts rearrange themselves when stat blocks become too big",
       "1Column": "Layouts with 1-Column stat blocks",
       "2Column": "Layouts with 2-Column stat blocks",
-      "chooseLayout": "Choose this layout"
+      "chooseLayout": "Choose this layout",
+      "otherOptions": "Other options",
+      "showRoleplayStats": "Show roleplay stats"
     }
   },
   "statBlock": {

@@ -20,7 +20,7 @@ const p = defineProps({
 <style scoped lang="scss">
 /* Customize the label (the container) */
 .container {
-  display: inline;
+  display: inline-block;
   width: min-content;
   position: relative;
   padding-left: 2em;
