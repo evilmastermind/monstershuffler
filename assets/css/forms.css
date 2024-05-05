@@ -6,7 +6,6 @@
 .ms-label {
   color: theme("colors.text");
   font-weight: bold;
-  display: block;
   width: 100%;
 }
 

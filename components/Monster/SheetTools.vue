@@ -10,6 +10,7 @@
         <MSIconButton
           :label="$t('monsterSheet.editImages')"
           icon="fa6-solid:image"
+          @click="isEditorModeEnabled = !isEditorModeEnabled"
         />
         <MSIconButton
           :label="$t('monsterSheet.editBackstory')"
@@ -56,6 +57,9 @@ const p = defineProps({
 
 const character = toRef(p, "character");
 const generator = useGeneratorStore();
+const editor = useMonsterEditorStore();
+
+const { isEditorModeEnabled } = storeToRefs(editor);
 const { currentCharacterIndex } = storeToRefs(generator);
 useProvideCharacter(character);
 

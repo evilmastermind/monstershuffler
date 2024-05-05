@@ -52,6 +52,9 @@
       "chooseLayout": "Choose this layout",
       "otherOptions": "Other options",
       "showRoleplayStats": "Show roleplay stats"
+    },
+    "image": {
+      "frameHeight": "Frame Height"
     }
   },
   "statBlock": {

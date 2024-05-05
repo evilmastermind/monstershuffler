@@ -15,7 +15,7 @@
         </template>
         <template #options>
           <label class="mode-label cursor-pointer">
-            <MSSlider
+            <MSSwitch
               v-model:is-enabled="isFormMode"
               :label="$t(`generator.${mode}ModeTitle`)"
             />

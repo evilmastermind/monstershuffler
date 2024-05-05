@@ -155,7 +155,10 @@ function generateNpc() {
   }
   if (promptOptions.value.backgroundId) {
     promptOptions.value.backgroundType = "specific";
-  } else if (words.length === 1 && words[0] === "") {
+  } else if (
+    words.length === 1 &&
+    (words[0] === "" || promptOptions.value.primaryRaceId)
+  ) {
     promptOptions.value.backgroundType = "random";
   } else {
     promptOptions.value.backgroundType = "none";
