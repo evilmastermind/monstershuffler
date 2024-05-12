@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tools-container">
-      <div class="tools-left py-2 px-3">
+      <div class="tools-left shadow-md py-2 px-3">
         <MSIconButton
           :label="$t('monsterSheet.editLayout')"
           icon="ri:layout-6-fill"
@@ -21,7 +21,7 @@
           icon="simple-icons:openai"
         />
       </div>
-      <div class="tools-right py-2 px-3">
+      <div class="tools-right shadow-md py-2 px-3">
         <MSIconButton
           :label="$t('monsterSheet.export')"
           icon="fa6-solid:file-export"

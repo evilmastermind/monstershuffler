@@ -1,7 +1,7 @@
 <template>
   <div ref="bits" class="bits">
     <TransitionGroup name="fade-row">
-      <div :key="-1" class="buttons px-2 mr-1">
+      <div :key="-1" class="buttons shadow-md px-2 mr-1">
         <MSIconButton
           :class="hasDeleteButtonBeenClickedOnce ? 'rainbow' : ''"
           :label="$t('generator.deleteAll')"

@@ -1,11 +1,19 @@
 :root {
+  --swift: 0.03s;
   --quick: 0.1s;
   --medium: 0.2s;
   --slow: 0.3s;
   --very-slow: 0.5s;
 }
 
-
+.fade-swift-enter-active,
+.fade-swift-leave-active {
+  transition: opacity var(--swift) ease-in-out;
+}
+.fade-swift-enter-from,
+.fade-swift-leave-to {
+  opacity: 0;
+}
 .fade-quick-enter-active,
 .fade-quick-leave-active {
   transition: opacity var(--quick) ease-in-out;

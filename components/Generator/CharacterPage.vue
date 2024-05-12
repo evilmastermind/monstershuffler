@@ -2,7 +2,11 @@
   <div class="pb-7">
     <MonsterSheetTools :character="currentCharacter" class="px-4" />
     <div class="page mt-2">
-      <MonsterSheet :character="currentCharacter" @close="close" />
+      <MonsterSheet
+        :key="currentCharacterIndex"
+        :character="currentCharacter"
+        @close="close"
+      />
     </div>
   </div>
 </template>

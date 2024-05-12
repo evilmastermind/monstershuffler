@@ -15,6 +15,7 @@ import {
   characterObject,
   chosenActionObject,
   descriptionPartObject,
+  imageObject,
   pageSettings,
   parsedActionObject,
   parsedDice,
@@ -37,6 +38,7 @@ import {
   statStringNumberArray,
   statStringWithName,
   tagsObject,
+  tokenObject,
   userObject,
   valueDiceObject,
   valueExpressionObject,
@@ -61,6 +63,7 @@ export type Character = z.infer<typeof characterObject>;
 export type ChosenAction = z.infer<typeof chosenActionObject>;
 export type Condition = z.infer<typeof userObject>;
 export type DescriptionPart = z.infer<typeof descriptionPartObject>;
+export type Image = z.infer<typeof imageObject>;
 export type PageSettings = z.infer<typeof pageSettings>;
 export type ParsedAction = z.infer<typeof parsedActionObject>;
 export type ParsedDice = z.infer<typeof parsedDice>;
@@ -83,6 +86,7 @@ export type StatStringNumberArray = z.infer<typeof statStringNumberArray>;
 export type StatStringWithName = z.infer<typeof statStringWithName>;
 export type Subtypes = z.infer<typeof subtypesObject>;
 export type Tags = z.infer<typeof tagsObject>;
+export type Token = z.infer<typeof tokenObject>;
 export type ValueDice = z.infer<typeof valueDiceObject>;
 export type ValueExpression = z.infer<typeof valueExpressionObject>;
 export type ValueIncrProgression = z.infer<typeof valueIncrProgressionObject>;
