@@ -1,4 +1,4 @@
-import type { Image } from "@/types";
+import type { Image, Token } from "@/types";
 
 export function fixImageHeight(
   image: Ref<Image>,
@@ -55,46 +55,34 @@ export function fixImagePosition(
 }
 
 export function fixTokenSize(
-  image: Ref<Image>,
+  token: Ref<Token>,
   containerWidth: number,
-  containerHeight: number,
-  originalImageWidth: number,
-  originalImageHeight: number
+  containerHeight: number
 ) {
-  if (!image.value.token) {
-    image.value.token = {
-      leftPx: 0,
-      topPx: 0,
-      widthPx: 0,
-    };
+  if (token.value.widthPx + token.value.leftPx > containerWidth) {
+    token.value.widthPx = containerWidth - token.value.leftPx;
   }
-  if (image.value.token.widthPx + image.value.token.leftPx > containerWidth) {
-    image.value.token.widthPx = containerWidth - image.value.token.leftPx;
-  }
-  if (image.value.token.widthPx + image.value.token.topPx > containerHeight) {
-    image.value.token.widthPx = containerHeight - image.value.token.topPx;
+  if (token.value.widthPx + token.value.topPx > containerHeight) {
+    token.value.widthPx = containerHeight - token.value.topPx;
   }
 }
 
 export function fixTokenPosition(
-  image: Ref<Image>,
+  token: Ref<Token>,
   containerWidth: number,
-  containerHeight: number,
-  originalImageWidth: number,
-  originalImageHeight: number
+  containerHeight: number
 ) {
-  if (!image.value.token) {
-    image.value.token = {
-      leftPx: 0,
-      topPx: 0,
-      widthPx: 0,
-    };
+  if (token.value.leftPx < 0) {
+    token.value.leftPx = 0;
   }
-  if (image.value.token.widthPx + image.value.token.leftPx > containerWidth) {
-    image.value.token.leftPx = containerWidth - image.value.token.widthPx;
+  if (token.value.topPx < 0) {
+    token.value.topPx = 0;
   }
-  if (image.value.token.widthPx + image.value.token.topPx > containerHeight) {
-    image.value.token.topPx = containerHeight - image.value.token.widthPx;
+  if (token.value.widthPx + token.value.leftPx > containerWidth) {
+    token.value.leftPx = containerWidth - token.value.widthPx;
+  }
+  if (token.value.widthPx + token.value.topPx > containerHeight) {
+    token.value.topPx = containerHeight - token.value.widthPx;
   }
 }
 
@@ -104,4 +92,20 @@ export function getImageWidth(
   originalImageHeight: number
 ) {
   return originalImageWidth * (imageHeight / originalImageHeight);
+}
+
+export function createToken(
+  image: Ref<Image>,
+  container: Ref<HTMLElement | null>
+) {
+  const containerWidth = container.value?.clientWidth || 0;
+  const containerHeight = container.value?.clientHeight || 0;
+  const tokenWidth = 100;
+  const token: Token = {
+    widthPx: tokenWidth,
+    topPx: containerHeight / 2 - tokenWidth / 2,
+    leftPx: containerWidth / 2 - tokenWidth / 2,
+  };
+  image.value.token = token;
+  return image.value.token;
 }

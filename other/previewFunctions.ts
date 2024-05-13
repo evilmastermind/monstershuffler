@@ -34,9 +34,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -51,9 +51,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -68,9 +68,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -85,9 +85,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -102,9 +102,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -119,9 +119,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -136,9 +136,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -153,9 +153,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -170,9 +170,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -187,9 +187,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -204,9 +204,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -221,9 +221,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -238,9 +238,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -255,9 +255,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -272,9 +272,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -289,9 +289,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -306,9 +306,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -323,9 +323,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -340,9 +340,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -357,9 +357,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -374,9 +374,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -391,9 +391,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -408,9 +408,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -425,9 +425,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -442,9 +442,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -459,9 +459,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -476,9 +476,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -493,9 +493,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -510,9 +510,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 0,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;
@@ -527,9 +527,9 @@ export function getTemporaryImage(character: Character) {
         imagePositionTopPx: 50,
         mask: "",
         token: {
-          topPx: 0,
-          leftPx: 0,
-          widthPx: 0,
+          topPx: 100,
+          leftPx: 700,
+          widthPx: 100,
         },
       };
       break;

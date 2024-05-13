@@ -46,6 +46,10 @@
 </template>
 
 <script setup lang="ts">
+// TODO: create a store variable that indicates which
+// tool is currently enabled, so that you can set it to
+// null when the user changes character, disabling
+// the currently enabled tool
 import type { Character } from "@/types";
 
 const p = defineProps({

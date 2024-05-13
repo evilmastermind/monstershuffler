@@ -17,17 +17,17 @@
           v-if="isEditorModeEnabled"
           class="token"
           :style="{
-            top: `${image.token?.topPx || canvasCenterY}px`,
-            left: `${image.token?.leftPx || canvasCenterX}px`,
-            width: `${image.token?.widthPx || TOKENDEFAULTWIDTH}px`,
-            height: `${image.token?.widthPx || TOKENDEFAULTWIDTH}px`,
+            top: `${token?.topPx}px`,
+            left: `${token?.leftPx}px`,
+            width: `${token?.widthPx}px`,
+            height: `${token?.widthPx}px`,
           }"
-          @mousedown="startMoveTokenXY"
+          @mousedown.stop="startMoveTokenXY"
         >
           <div class="token-circle">
-            <div class="token-drag-right" />
-            <div class="token-drag-down" />
-            <div class="token-drag-trick" />
+            <div class="token-drag-right" @mousedown.stop="startTokenResize" />
+            <div class="token-drag-down" @mousedown.stop="startTokenResize" />
+            <div class="token-drag-trick" @mousedown.stop="startTokenResize" />
           </div>
         </div>
       </div>
@@ -64,6 +64,7 @@ const { isEditorModeEnabled } = storeToRefs(editor);
 const originalImageWidth = ref(1456);
 const originalImageHeight = ref(832);
 const image = ref<Image>(getTemporaryImage(character.value));
+const token = ref(image.value.token || createToken(image, imageRef));
 
 const { startDragY } = useImageDragY(
   image,
@@ -77,12 +78,8 @@ const { startMoveXY } = useImageMoveXY(
   originalImageWidth.value,
   originalImageHeight.value
 );
-const { startMoveTokenXY } = useTokenMoveXY(
-  image,
-  imageRef,
-  originalImageWidth.value,
-  originalImageHeight.value
-);
+const { startMoveTokenXY } = useTokenMoveXY(token, imageRef);
+const { startTokenResize } = useTokenResize(token, imageRef);
 const { startResize } = useImageResize(
   image,
   imageRef,

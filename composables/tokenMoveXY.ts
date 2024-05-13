@@ -2,10 +2,8 @@ import type { Image, Token } from "@/types";
 import { fixTokenSize, fixTokenPosition } from "@/utils";
 
 export function useTokenMoveXY(
-  image: Ref<Image>,
-  container: Ref<HTMLElement | null>,
-  originalImageWidth: number,
-  originalImageHeight: number
+  token: Ref<Token>,
+  container: Ref<HTMLElement | null>
 ) {
   let startX = 0;
   let startY = 0;
@@ -20,22 +18,9 @@ export function useTokenMoveXY(
     startY = event.clientY;
     containerWidth = container.value?.clientWidth || 0;
     containerHeight = container.value?.clientHeight || 0;
-    if (!image.value.token) {
-      image.value.token = {
-        leftPx: 0,
-        topPx: 0,
-        widthPx: 0,
-      };
-    }
-    startPositionLeft = image.value.token.leftPx;
-    startPositionTop = image.value.token.topPx;
-    fixTokenSize(
-      image,
-      containerWidth,
-      containerHeight,
-      originalImageWidth,
-      originalImageHeight
-    );
+    startPositionLeft = token.value.leftPx;
+    startPositionTop = token.value.topPx;
+    fixTokenSize(token, containerWidth, containerHeight);
     document.addEventListener("mousemove", doMoveXY);
     document.addEventListener("mouseup", stopMoveXY);
   };
@@ -43,22 +28,9 @@ export function useTokenMoveXY(
   const doMoveXY = (event: MouseEvent) => {
     const currentX = event.clientX;
     const currentY = event.clientY;
-    if (!image.value.token) {
-      image.value.token = {
-        leftPx: 0,
-        topPx: 0,
-        widthPx: 0,
-      };
-    }
-    image.value.token.leftPx = startPositionLeft + (currentX - startX);
-    image.value.token.topPx = startPositionTop + (currentY - startY);
-    fixTokenPosition(
-      image,
-      containerWidth,
-      containerHeight,
-      originalImageWidth,
-      originalImageHeight
-    );
+    token.value.leftPx = startPositionLeft + (currentX - startX);
+    token.value.topPx = startPositionTop + (currentY - startY);
+    fixTokenPosition(token, containerWidth, containerHeight);
   };
 
   const stopMoveXY = () => {
