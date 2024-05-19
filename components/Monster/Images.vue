@@ -17,10 +17,10 @@
           v-if="isEditorModeEnabled"
           class="token"
           :style="{
-            top: `${token?.topPx}px`,
-            left: `${token?.leftPx}px`,
-            width: `${token?.widthPx}px`,
-            height: `${token?.widthPx}px`,
+            top: `${token.topPx}px`,
+            left: `${token.leftPx}px`,
+            width: `${token.widthPx}px`,
+            height: `${token.widthPx}px`,
           }"
           @mousedown.stop="startMoveTokenXY"
         >
@@ -32,15 +32,13 @@
         </div>
       </div>
       <div
-        ref="imageRef"
+        ref="canvas"
         class="image"
         :style="{
-          height: `${image.canvasHeightPx || CANVASDEFAULTHEIGHT}px`,
+          height: `${image.canvasHeightPx}px`,
           backgroundImage: `url(/images/backgrounds/${image.url}.png)`,
-          backgroundSize: `auto ${image.imageHeightPx || originalImageWidth}px`,
-          backgroundPosition: `${image.imagePositionLeftPx || 0}px ${
-            image.imagePositionTopPx || 0
-          }px`,
+          backgroundSize: `auto ${computedImage.imageHeightPx}px`,
+          backgroundPosition: `${computedImage.imagePositionLeftPx}px ${computedImage.imagePositionTopPx}px`,
         }"
       />
     </div>
@@ -49,74 +47,182 @@
 </template>
 
 <script setup lang="ts">
-import type { Character, Image } from "@/types";
+import type { Character, Image, ComputedImage } from "@/types";
 import { getTemporaryImage } from "@/other";
 import { fixImageHeight, fixImagePosition } from "@/utils";
 
-const TOKENDEFAULTWIDTH = 100;
-const CANVASDEFAULTHEIGHT = 500;
-
 const editor = useMonsterEditorStore();
-const imageRef = ref<HTMLElement | null>(null);
+const canvas = ref<HTMLElement | null>(null);
 
 const character = inject("character") as Ref<Character>;
 const { isEditorModeEnabled } = storeToRefs(editor);
 const originalImageWidth = ref(1456);
 const originalImageHeight = ref(832);
-const image = ref<Image>(getTemporaryImage(character.value));
-const token = ref(image.value.token || createToken(image, imageRef));
 
+const image = ref<Image>(getTemporaryImage(character.value, canvas));
+const token = ref(image.value.token || createToken(image, canvas));
+
+const computedImage = computed<Image>(() => {
+  if (isEditorModeEnabled.value || canvas.value === null) {
+    return {
+      url: image.value.url,
+      imageHeightPx: image.value.imageHeightPx || 500,
+      imagePositionLeftPx: image.value.imagePositionLeftPx || 0,
+      imagePositionTopPx: image.value.imagePositionTopPx || 0,
+    };
+  }
+  return calculateComputedImage(
+    image,
+    canvas as Ref<HTMLElement>,
+    originalImageWidth.value,
+    originalImageHeight.value,
+    width.value
+  );
+});
+
+function calculateComputedImage(
+  image: Ref<Image>,
+  canvas: Ref<HTMLElement>,
+  originalImageWidth: number,
+  originalImageHeight: number,
+  width: number // this is used to trigger computedImage's recalculation
+): Image {
+  // This function recalculates the image position when the screen width
+  // changes, so the part of the image where the token is placed remains
+  // visible in all screen sizes.
+  //
+  //               C A N V A S
+  //  _______________________________________________________
+  // |              |             |                          |
+  // | token.leftPx | token width | other part of the canvas |
+  // |              |             |                          |
+  // |______________|_____________|__________________________|
+
+  console.log("Recalculating image position");
+  // ------------ width --------------------------------------
+  // (token.leftPx + other part)
+  const canvasWidthMinusTokenWidth =
+    (image.value?.canvasWidthPx || 1016) - (image.value.token?.widthPx || 0);
+
+  // x / canvasWidthMinusTokenWidth
+  const proportionsOfTheWidthBeforeTheToken =
+    (image.value.token?.leftPx || 0) / canvasWidthMinusTokenWidth;
+
+  // calculate the new canvasWidthMinusTokenWidth
+  const newCanvasWidthMinusTokenWidth =
+    canvas.value.clientWidth - token.value.widthPx;
+
+  // TODO: check if newCanvasWidthMinusTokenWidth is < 0 (if so, you need to resize the token too)
+
+  // calculate the new tokenLeftPx
+  const newTokenLeftPx =
+    proportionsOfTheWidthBeforeTheToken * newCanvasWidthMinusTokenWidth;
+
+  // calculate the token position difference
+  const tokenPositionLeftDifference =
+    newTokenLeftPx - (image.value.token?.leftPx || 0);
+
+  // new image position left
+  const imagePositionLeftPx =
+    (image.value.imagePositionLeftPx || 0) + tokenPositionLeftDifference;
+
+  // ------------ height -------------------------------------
+  // (token.leftPx + other part)
+  const canvasHeightMinusTokenWidth =
+    (image.value?.canvasHeightPx || 500) - (image.value.token?.widthPx || 0);
+
+  // x / canvasHeightMinusTokenWidth
+  const proportionsOfTheHeightBeforeTheToken =
+    (image.value.token?.topPx || 0) / canvasHeightMinusTokenWidth;
+
+  // calculate the new canvasWidthMinusTokenWidth
+  const newCanvasHeightMinusTokenWidth =
+    canvas.value.clientHeight - token.value.widthPx;
+
+  // TODO: check if newCanvasWidthMinusTokenWidth is < 0 (if so, you need to resize the token too)
+
+  // calculate the new tokenLeftPx
+  const newTokenTopPx =
+    proportionsOfTheHeightBeforeTheToken * newCanvasHeightMinusTokenWidth;
+
+  // calculate the token position difference
+  const tokenPositionTopDifference =
+    newTokenTopPx - (image.value.token?.topPx || 0);
+
+  // new image position left
+  const imagePositionTopPx =
+    (image.value.imagePositionTopPx || 0) + tokenPositionTopDifference;
+
+  // --- fixing image size -----------------------------------
+
+  const newImage = {
+    url: image.value.url,
+    imageHeightPx: image.value.imageHeightPx || 500,
+    imagePositionLeftPx,
+    imagePositionTopPx,
+  };
+
+  fixImageHeight(
+    newImage,
+    canvas.value.clientWidth,
+    canvas.value.clientHeight,
+    originalImageWidth,
+    originalImageHeight
+  );
+  fixImagePosition(
+    newImage,
+    canvas.value.clientWidth,
+    canvas.value.clientHeight,
+    originalImageWidth,
+    originalImageHeight
+  );
+
+  return newImage;
+}
+
+// image composables
 const { startDragY } = useImageDragY(
   image,
-  imageRef,
+  canvas,
   originalImageWidth.value,
   originalImageHeight.value
 );
 const { startMoveXY } = useImageMoveXY(
   image,
-  imageRef,
+  canvas,
   originalImageWidth.value,
   originalImageHeight.value
 );
-const { startMoveTokenXY } = useTokenMoveXY(token, imageRef);
-const { startTokenResize } = useTokenResize(token, imageRef);
 const { startResize } = useImageResize(
   image,
-  imageRef,
+  canvas,
   originalImageWidth.value,
   originalImageHeight.value
 );
+// token composables
+const { startMoveTokenXY } = useTokenMoveXY(image, token, canvas);
+const { startTokenResize } = useTokenResize(token, canvas);
+
 const { width } = useScreen();
 
-const canvasCenterY = computed(() => {
-  return (
-    (imageRef.value?.clientHeight || 0) / 2 -
-    (image.value.token?.widthPx || TOKENDEFAULTWIDTH) / 2
-  );
-});
-
-const canvasCenterX = computed(() => {
-  return (
-    (imageRef.value?.clientWidth || 0) / 2 -
-    (image.value.token?.widthPx || TOKENDEFAULTWIDTH) / 2
-  );
-});
-
 watch(width, () => {
-  fixImageHeight(
-    image,
-    imageRef.value?.clientWidth || 0,
-    imageRef.value?.clientHeight || 0,
-    originalImageWidth.value,
-    originalImageHeight.value
-  );
-  fixImagePosition(
-    image,
-    imageRef.value?.clientWidth || 0,
-    imageRef.value?.clientHeight || 0,
-    originalImageWidth.value,
-    originalImageHeight.value
-  );
+  if (isEditorModeEnabled.value) {
+    // Fix the image height and position when the screen width changes
+    fixImageHeight(
+      image.value,
+      canvas.value?.clientWidth || 0,
+      canvas.value?.clientHeight || 0,
+      originalImageWidth.value,
+      originalImageHeight.value
+    );
+    fixImagePosition(
+      image.value,
+      canvas.value?.clientWidth || 0,
+      canvas.value?.clientHeight || 0,
+      originalImageWidth.value,
+      originalImageHeight.value
+    );
+  }
 });
 
 onMounted(() => {
@@ -202,7 +308,7 @@ onMounted(() => {
   z-index: 102;
   bottom: -3px;
   right: -3px;
-  width: 8px;
+  width: 6px;
   height: 20px;
   cursor: se-resize;
   border: 1px solid;
@@ -215,7 +321,7 @@ onMounted(() => {
   bottom: -3px;
   right: -3px;
   width: 20px;
-  height: 8px;
+  height: 6px;
   cursor: se-resize;
   border: 1px solid;
   border-radius: 2px;
@@ -226,7 +332,7 @@ onMounted(() => {
   z-index: 102;
   bottom: -2px;
   right: -2px;
-  width: 6px;
+  width: 4px;
   height: 15px;
   cursor: se-resize;
   @apply bg-primary-500;

@@ -1,56 +1,53 @@
 import type { Image, Token } from "@/types";
 
 export function fixImageHeight(
-  image: Ref<Image>,
+  image: Image,
   containerWidth: number,
   containerHeight: number,
   originalImageWidth: number,
   originalImageHeight: number
 ) {
-  image.value.imageHeightPx ??= originalImageHeight;
-  if (image.value.imageHeightPx < containerHeight) {
-    image.value.imageHeightPx = containerHeight;
+  image.imageHeightPx ??= originalImageHeight;
+  if (image.imageHeightPx < containerHeight) {
+    image.imageHeightPx = containerHeight;
   }
   const imageWidth =
-    originalImageWidth * (image.value.imageHeightPx / originalImageHeight);
+    originalImageWidth * (image.imageHeightPx / originalImageHeight);
   if (imageWidth < containerWidth) {
-    image.value.imageHeightPx =
+    image.imageHeightPx =
       originalImageHeight * (containerWidth / originalImageWidth);
   }
 }
 
 export function fixImagePosition(
-  image: Ref<Image>,
+  image: Image,
   containerWidth: number,
   containerHeight: number,
   originalImageWidth: number,
   originalImageHeight: number
 ) {
-  image.value.imageHeightPx ??= originalImageHeight;
-  image.value.imagePositionLeftPx ??= 0;
-  image.value.imagePositionTopPx ??= 0;
+  image.canvasWidthPx = containerWidth;
+  image.imageHeightPx ??= originalImageHeight;
+  image.imagePositionLeftPx ??= 0;
+  image.imagePositionTopPx ??= 0;
   const imageWidth = getImageWidth(
     originalImageWidth,
-    image.value.imageHeightPx,
+    image.imageHeightPx,
     originalImageHeight
   );
   // image doesn't cover the container on the left or top
-  if (image.value.imagePositionLeftPx > 0) {
-    image.value.imagePositionLeftPx = 0;
+  if (image.imagePositionLeftPx > 0) {
+    image.imagePositionLeftPx = 0;
   }
-  if (image.value.imagePositionTopPx > 0) {
-    image.value.imagePositionTopPx = 0;
+  if (image.imagePositionTopPx > 0) {
+    image.imagePositionTopPx = 0;
   }
   // image doesn't cover the container on the right or bottom
-  if (image.value.imagePositionLeftPx + imageWidth < containerWidth) {
-    image.value.imagePositionLeftPx = containerWidth - imageWidth;
+  if (image.imagePositionLeftPx + imageWidth < containerWidth) {
+    image.imagePositionLeftPx = containerWidth - imageWidth;
   }
-  if (
-    image.value.imagePositionTopPx + image.value.imageHeightPx <
-    containerHeight
-  ) {
-    image.value.imagePositionTopPx =
-      containerHeight - image.value.imageHeightPx;
+  if (image.imagePositionTopPx + image.imageHeightPx < containerHeight) {
+    image.imagePositionTopPx = containerHeight - image.imageHeightPx;
   }
 }
 
@@ -59,11 +56,23 @@ export function fixTokenSize(
   containerWidth: number,
   containerHeight: number
 ) {
+  // token goes out of bounds (right or bottom)
   if (token.value.widthPx + token.value.leftPx > containerWidth) {
     token.value.widthPx = containerWidth - token.value.leftPx;
   }
   if (token.value.widthPx + token.value.topPx > containerHeight) {
     token.value.widthPx = containerHeight - token.value.topPx;
+  }
+  // token can't be bigger than the container's width or height
+  if (token.value.widthPx > containerWidth) {
+    token.value.widthPx = containerWidth;
+  }
+  if (token.value.widthPx > containerHeight) {
+    token.value.widthPx = containerHeight;
+  }
+  // min width = 50px
+  if (token.value.widthPx < 50) {
+    token.value.widthPx = 50;
   }
 }
 

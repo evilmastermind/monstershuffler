@@ -1,6 +1,9 @@
 import type { Image, Character } from "@/types";
 
-export function getTemporaryImage(character: Character) {
+export function getTemporaryImage(
+  character: Character,
+  canvas: Ref<HTMLElement | null>
+) {
   const c = character.character;
   // checking if the background, race or class has an image set
   let image;
@@ -22,6 +25,8 @@ export function getTemporaryImage(character: Character) {
   const className = c?.class?.name;
   const imageName =
     random(1, 2) === 1 ? workplace || className : className || workplace;
+  const randomImage = random(1, 3);
+  const tokenLeftPx = (canvas.value?.clientWidth || 100) / 2 - 50;
   switch (imageName?.toLowerCase()) {
     case "barbarian":
       image = {
@@ -29,13 +34,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -46,13 +52,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -63,13 +70,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -80,13 +88,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -97,13 +106,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -114,13 +124,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -131,13 +142,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -148,13 +160,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -165,13 +178,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -182,13 +196,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -199,13 +214,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -216,13 +232,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -233,13 +250,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -250,13 +268,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -267,13 +286,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -284,13 +304,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -301,13 +322,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -318,13 +340,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -335,13 +358,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -352,13 +376,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -369,13 +394,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -386,13 +412,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -403,33 +430,75 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
       break;
     case "streets":
-      image = {
-        url: "streets",
-        artist: "",
-        artistUrl: "",
-        canvasHeightPx: 300,
-        imageHeightPx: 700,
-        imagePositionLeftPx: 0,
-        imagePositionTopPx: 0,
-        mask: "",
-        token: {
-          topPx: 100,
-          leftPx: 700,
-          widthPx: 100,
-        },
-      };
+      switch (randomImage) {
+        case 1:
+          image = {
+            url: "streets1",
+            artist: "",
+            artistUrl: "",
+            canvasHeightPx: 300,
+            canvasWidthPx: 1016,
+            imageHeightPx: 700,
+            imagePositionLeftPx: 0,
+            imagePositionTopPx: 0,
+            mask: "",
+            token: {
+              topPx: 100,
+              leftPx: tokenLeftPx,
+              widthPx: 100,
+            },
+          };
+          break;
+        case 2:
+          image = {
+            url: "streets1",
+            artist: "",
+            artistUrl: "",
+            canvasHeightPx: 300,
+            canvasWidthPx: 1016,
+            imageHeightPx: 700,
+            imagePositionLeftPx: 0,
+            imagePositionTopPx: 0,
+            mask: "",
+            token: {
+              topPx: 100,
+              leftPx: tokenLeftPx,
+              widthPx: 100,
+            },
+          };
+          break;
+        default:
+          image = {
+            url: "streets3",
+            artist: "",
+            artistUrl: "",
+            canvasHeightPx: 300,
+            canvasWidthPx: 1016,
+            imageHeightPx: 700,
+            imagePositionLeftPx: 0,
+            imagePositionTopPx: 0,
+            mask: "",
+            token: {
+              topPx: 100,
+              leftPx: tokenLeftPx,
+              widthPx: 100,
+            },
+          };
+          break;
+      }
       break;
     case "theatre":
       image = {
@@ -437,13 +506,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -454,13 +524,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -471,13 +542,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -488,13 +560,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -505,13 +578,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 0,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };
@@ -522,13 +596,14 @@ export function getTemporaryImage(character: Character) {
         artist: "",
         artistUrl: "",
         canvasHeightPx: 300,
+        canvasWidthPx: 1016,
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: 50,
         mask: "",
         token: {
           topPx: 100,
-          leftPx: 700,
+          leftPx: tokenLeftPx,
           widthPx: 100,
         },
       };

@@ -21,8 +21,14 @@ export function useTokenResize(
     const currentY = event.clientY;
     const diffX = currentX - startX;
     const diffY = currentY - startY;
-    const diff = Math.max(diffX, diffY);
-    token.value.widthPx += diff;
+    const diff = Math.min(diffX, diffY);
+    token.value.widthPx += diffX;
+    startX = currentX;
+    startY = currentY;
+    // min width = 50px
+    if (token.value.widthPx < 50) {
+      token.value.widthPx = 50;
+    }
     fixTokenPosition(
       token,
       container.value?.clientWidth || 0,

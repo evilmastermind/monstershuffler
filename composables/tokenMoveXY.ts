@@ -2,6 +2,7 @@ import type { Image, Token } from "@/types";
 import { fixTokenSize, fixTokenPosition } from "@/utils";
 
 export function useTokenMoveXY(
+  image: Ref<Image>,
   token: Ref<Token>,
   container: Ref<HTMLElement | null>
 ) {
@@ -30,6 +31,7 @@ export function useTokenMoveXY(
     const currentY = event.clientY;
     token.value.leftPx = startPositionLeft + (currentX - startX);
     token.value.topPx = startPositionTop + (currentY - startY);
+    image.value.canvasWidthPx = containerWidth;
     fixTokenPosition(token, containerWidth, containerHeight);
   };
 

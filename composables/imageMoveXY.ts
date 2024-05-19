@@ -25,7 +25,7 @@ export function useImageMoveXY(
     startPositionLeft = image.value.imagePositionLeftPx || 0;
     startPositionTop = image.value.imagePositionTopPx || 0;
     fixImageHeight(
-      image,
+      image.value,
       containerWidth,
       containerHeight,
       originalImageWidth,
@@ -43,7 +43,7 @@ export function useImageMoveXY(
     image.value.imagePositionLeftPx = startPositionLeft + (currentX - startX);
     image.value.imagePositionTopPx = startPositionTop + (currentY - startY);
     fixImagePosition(
-      image,
+      image.value,
       containerWidth,
       containerHeight,
       originalImageWidth,

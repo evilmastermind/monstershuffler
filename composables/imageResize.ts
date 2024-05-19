@@ -58,15 +58,14 @@ export function useImageResize(
     image.value.imagePositionLeftPx ??= 0;
     image.value.imagePositionLeftPx += (oldImageWidth - newImageWidth) / 2;
     fixImageHeight(
-      image,
+      image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth,
       originalImageHeight
     );
-
     fixImagePosition(
-      image,
+      image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth,

@@ -22,19 +22,31 @@ export function useImageDragY(
     const currentY = event.clientY;
     image.value.canvasHeightPx = startHeight + (currentY - startY);
     fixImageHeight(
-      image,
+      image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth,
       originalImageHeight
     );
     fixImagePosition(
-      image,
+      image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth,
       originalImageHeight
     );
+    if ("token" in image.value && image.value.token) {
+      fixTokenPosition(
+        ref(image.value.token),
+        container.value?.clientWidth || 0,
+        container.value?.clientHeight || 0
+      );
+      fixTokenSize(
+        ref(image.value.token),
+        container.value?.clientWidth || 0,
+        container.value?.clientHeight || 0
+      );
+    }
   };
 
   const stopDragY = () => {
