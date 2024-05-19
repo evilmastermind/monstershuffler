@@ -4,8 +4,8 @@ import { fixImageHeight, fixImagePosition } from "@/utils";
 export function useImageMoveXY(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
-  originalImageWidth: number,
-  originalImageHeight: number
+  originalImageWidth: Ref<number>,
+  originalImageHeight: Ref<number>
 ) {
   let startX = 0;
   let startY = 0;
@@ -28,11 +28,12 @@ export function useImageMoveXY(
       image.value,
       containerWidth,
       containerHeight,
-      originalImageWidth,
-      originalImageHeight
+      originalImageWidth.value,
+      originalImageHeight.value
     );
-    imageHeight = image.value.imageHeightPx || originalImageHeight;
-    imageWidth = originalImageWidth * (imageHeight / originalImageHeight);
+    imageHeight = image.value.imageHeightPx || originalImageHeight.value;
+    imageWidth =
+      originalImageWidth.value * (imageHeight / originalImageHeight.value);
     document.addEventListener("mousemove", doMoveXY);
     document.addEventListener("mouseup", stopMoveXY);
   };
@@ -46,8 +47,8 @@ export function useImageMoveXY(
       image.value,
       containerWidth,
       containerHeight,
-      originalImageWidth,
-      originalImageHeight
+      originalImageWidth.value,
+      originalImageHeight.value
     );
   };
 

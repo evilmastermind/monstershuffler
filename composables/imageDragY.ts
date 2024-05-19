@@ -4,8 +4,8 @@ import { fixImageHeight } from "@/utils";
 export function useImageDragY(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
-  originalImageWidth: number,
-  originalImageHeight: number
+  originalImageWidth: Ref<number>,
+  originalImageHeight: Ref<number>
 ) {
   let startY = 0;
   let startHeight = 0;
@@ -25,15 +25,15 @@ export function useImageDragY(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
-      originalImageWidth,
-      originalImageHeight
+      originalImageWidth.value,
+      originalImageHeight.value
     );
     fixImagePosition(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
-      originalImageWidth,
-      originalImageHeight
+      originalImageWidth.value,
+      originalImageHeight.value
     );
     if ("token" in image.value && image.value.token) {
       fixTokenPosition(

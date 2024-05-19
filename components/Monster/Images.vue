@@ -36,7 +36,7 @@
         class="image"
         :style="{
           height: `${image.canvasHeightPx}px`,
-          backgroundImage: `url(/images/backgrounds/${image.url}.png)`,
+          backgroundImage: `url(/images/backgrounds/${image.url}.webp)`,
           backgroundSize: `auto ${computedImage.imageHeightPx}px`,
           backgroundPosition: `${computedImage.imagePositionLeftPx}px ${computedImage.imagePositionTopPx}px`,
         }"
@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Character, Image, ComputedImage } from "@/types";
+import type { Character, Image } from "@/types";
 import { getTemporaryImage } from "@/other";
 import { fixImageHeight, fixImagePosition } from "@/utils";
 
@@ -56,8 +56,8 @@ const canvas = ref<HTMLElement | null>(null);
 
 const character = inject("character") as Ref<Character>;
 const { isEditorModeEnabled } = storeToRefs(editor);
-const originalImageWidth = ref(1456);
-const originalImageHeight = ref(832);
+const originalImageWidth = ref();
+const originalImageHeight = ref();
 
 const image = ref<Image>(getTemporaryImage(character.value, canvas));
 const token = ref(image.value.token || createToken(image, canvas));
@@ -74,8 +74,8 @@ const computedImage = computed<Image>(() => {
   return calculateComputedImage(
     image,
     canvas as Ref<HTMLElement>,
-    originalImageWidth.value,
-    originalImageHeight.value,
+    originalImageWidth,
+    originalImageHeight,
     width.value
   );
 });
@@ -83,8 +83,8 @@ const computedImage = computed<Image>(() => {
 function calculateComputedImage(
   image: Ref<Image>,
   canvas: Ref<HTMLElement>,
-  originalImageWidth: number,
-  originalImageHeight: number,
+  originalImageWidth: Ref<number>,
+  originalImageHeight: Ref<number>,
   width: number // this is used to trigger computedImage's recalculation
 ): Image {
   // This function recalculates the image position when the screen width
@@ -98,7 +98,6 @@ function calculateComputedImage(
   // |              |             |                          |
   // |______________|_____________|__________________________|
 
-  console.log("Recalculating image position");
   // ------------ width --------------------------------------
   // (token.leftPx + other part)
   const canvasWidthMinusTokenWidth =
@@ -166,15 +165,15 @@ function calculateComputedImage(
     newImage,
     canvas.value.clientWidth,
     canvas.value.clientHeight,
-    originalImageWidth,
-    originalImageHeight
+    originalImageWidth.value,
+    originalImageHeight.value
   );
   fixImagePosition(
     newImage,
     canvas.value.clientWidth,
     canvas.value.clientHeight,
-    originalImageWidth,
-    originalImageHeight
+    originalImageWidth.value,
+    originalImageHeight.value
   );
 
   return newImage;
@@ -184,20 +183,20 @@ function calculateComputedImage(
 const { startDragY } = useImageDragY(
   image,
   canvas,
-  originalImageWidth.value,
-  originalImageHeight.value
+  originalImageWidth,
+  originalImageHeight
 );
 const { startMoveXY } = useImageMoveXY(
   image,
   canvas,
-  originalImageWidth.value,
-  originalImageHeight.value
+  originalImageWidth,
+  originalImageHeight
 );
 const { startResize } = useImageResize(
   image,
   canvas,
-  originalImageWidth.value,
-  originalImageHeight.value
+  originalImageWidth,
+  originalImageHeight
 );
 // token composables
 const { startMoveTokenXY } = useTokenMoveXY(image, token, canvas);
@@ -225,14 +224,21 @@ watch(width, () => {
   }
 });
 
+watch(isEditorModeEnabled, () => {
+  console.log(JSON.parse(JSON.stringify(image.value, null, 2)));
+});
+
 onMounted(() => {
   const imageElement = new Image();
   // Check the resolution once the image is loaded
-  imageElement.src = `/images/backgrounds/${image.value.url}.png`;
-  imageElement.onload = function () {
-    originalImageWidth.value = imageElement.naturalWidth;
-    originalImageHeight.value = imageElement.naturalHeight;
+  imageElement.src = `/images/backgrounds/${image.value.url}.webp`;
+  imageElement.onload = () => {
+    originalImageHeight.value ??= imageElement.naturalHeight;
+    originalImageWidth.value ??= imageElement.naturalWidth;
   };
+  // imageElement.onload = function () {
+  //   originalImageWidth.value = imageElement.naturalWidth;
+  //   originalImageHeight.value = imageElement.naturalHeight;
 });
 </script>
 

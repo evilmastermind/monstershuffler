@@ -11,8 +11,11 @@ export function fixImageHeight(
   if (image.imageHeightPx < containerHeight) {
     image.imageHeightPx = containerHeight;
   }
-  const imageWidth =
-    originalImageWidth * (image.imageHeightPx / originalImageHeight);
+  const imageWidth = getImageWidth(
+    originalImageWidth,
+    image.imageHeightPx,
+    originalImageHeight
+  );
   if (imageWidth < containerWidth) {
     image.imageHeightPx =
       originalImageHeight * (containerWidth / originalImageWidth);

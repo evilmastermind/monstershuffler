@@ -6,8 +6,8 @@ const resizeStep = 20;
 export function useImageResize(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
-  originalImageWidth: number,
-  originalImageHeight: number
+  originalImageWidth: Ref<number>,
+  originalImageHeight: Ref<number>
 ) {
   const startResize = (event: WheelEvent | KeyboardEvent) => {
     event.preventDefault();
@@ -30,17 +30,17 @@ export function useImageResize(
   function enlargeImage() {
     image.value.imageHeightPx ??= 0;
     const oldImageWidth = getImageWidth(
-      originalImageWidth,
+      originalImageWidth.value,
       image.value.imageHeightPx,
-      originalImageHeight
+      originalImageHeight.value
     );
     image.value.imageHeightPx += resizeStep;
     image.value.imagePositionTopPx ??= 0;
     image.value.imagePositionTopPx -= resizeStep / 2;
     const newImageWidth = getImageWidth(
-      originalImageWidth,
+      originalImageWidth.value,
       image.value.imageHeightPx,
-      originalImageHeight
+      originalImageHeight.value
     );
     image.value.imagePositionLeftPx ??= 0;
     image.value.imagePositionLeftPx -= (newImageWidth - oldImageWidth) / 2;
@@ -49,27 +49,29 @@ export function useImageResize(
   function reduceImage() {
     image.value.imageHeightPx ??= 0;
     const oldImageWidth =
-      originalImageWidth * (image.value.imageHeightPx / originalImageHeight);
+      originalImageWidth.value *
+      (image.value.imageHeightPx / originalImageHeight.value);
     image.value.imageHeightPx -= resizeStep;
     image.value.imagePositionTopPx ??= 0;
     image.value.imagePositionTopPx += resizeStep / 2;
     const newImageWidth =
-      originalImageWidth * (image.value.imageHeightPx / originalImageHeight);
+      originalImageWidth.value *
+      (image.value.imageHeightPx / originalImageHeight.value);
     image.value.imagePositionLeftPx ??= 0;
     image.value.imagePositionLeftPx += (oldImageWidth - newImageWidth) / 2;
     fixImageHeight(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
-      originalImageWidth,
-      originalImageHeight
+      originalImageWidth.value,
+      originalImageHeight.value
     );
     fixImagePosition(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
-      originalImageWidth,
-      originalImageHeight
+      originalImageWidth.value,
+      originalImageHeight.value
     );
   }
 
