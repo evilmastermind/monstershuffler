@@ -1,6 +1,7 @@
 import { createPart } from "./statistics";
 import { calculateValue } from "./values";
 import { calculateAttack } from "./attacks";
+import { getFirstWord, thirdToFirstPerson } from "./words";
 import type {
   ChosenAction,
   ActionVariant,
@@ -179,6 +180,8 @@ export function replaceTags(
     isListStarted = false;
   }
 
+  fixVerbsAfterNeutralThey(parts);
+
   return parts;
 }
 
@@ -193,4 +196,36 @@ export function calculateRandomName(name = "") {
 
   const randomName = random(0, possibleNames.length - 1);
   return possibleNames[randomName];
+}
+
+// ---------------------------------------------------------------------------
+// MISCELLANEOUS FUNCTIONS
+// ---------------------------------------------------------------------------
+
+function fixVerbsAfterNeutralThey(parts: DescriptionPart[]) {
+  let i = 0;
+  while (i < parts.length) {
+    const part = parts[i];
+
+    // checking for a "they" tag
+    if (part.type === "tag") {
+      if (["they", "They"].includes(part.string)) {
+        if (i >= parts.length - 1) {
+          i++;
+          continue;
+        }
+
+        const word = getFirstWord(parts[i + 1].string, true);
+        // check if the word has "n't" and separate it
+        const hasNt = word.endsWith("n't");
+        const wordWithoutNt = hasNt ? word.slice(0, -3) : word;
+        // replace the word with the new one
+        parts[i + 1].string = parts[i + 1].string.replace(
+          word,
+          thirdToFirstPerson(wordWithoutNt) + (hasNt ? "n't" : "")
+        );
+      }
+    }
+    i++;
+  }
 }

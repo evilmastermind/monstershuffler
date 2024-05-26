@@ -77,12 +77,12 @@ async function resetPassword() {
     isButtonLoading.value = false;
     return;
   }
-  const res = await user.resetPassword(
+  const statusCode = await user.resetPassword(
     credentials.value.password,
     credentials.value.token
   );
   isButtonLoading.value = false;
-  switch (res.status) {
+  switch (statusCode) {
     case 200:
       isPasswordResetSuccessful.value = true;
       errorMessage.value = "";

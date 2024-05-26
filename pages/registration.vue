@@ -167,9 +167,9 @@ async function register() {
     errorMessage.value = t("registration.passwordsDontMatch");
     isButtonLoading.value = false;
   } else {
-    const res = await user.register(credentials.value);
+    const statusCode = await user.register(credentials.value);
     isButtonLoading.value = false;
-    switch (res.status) {
+    switch (statusCode) {
       case 201:
         isRegistrationSuccessful.value = true;
         errorMessage.value = "";

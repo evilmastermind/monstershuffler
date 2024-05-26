@@ -93,9 +93,9 @@ const errorMessage = ref("");
 
 async function login() {
   isButtonLoading.value = true;
-  const res = await user.login(credentials.value);
+  const statusCode = await user.login(credentials.value);
   isButtonLoading.value = false;
-  switch (res.status) {
+  switch (statusCode) {
     case 200:
       router.push({ path: "/" });
       break;

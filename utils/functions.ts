@@ -1,5 +1,7 @@
+import { FetchError } from "ofetch";
 import type { NuxtError } from "@/types/nuxt";
 
+/** Handles multiple calls to the same function: only one is called after X seconds */
 export function debounce(cb: Function, delay = 1000): Function {
   let timeout: NodeJS.Timeout;
   return (...args: string[]) => {
@@ -11,6 +13,7 @@ export function debounce(cb: Function, delay = 1000): Function {
   };
 }
 
+/** Handles multiple calls to the same function: one is called immmediately and others are called after X seconds */
 export function throttle<T extends any[]>(
   cb: (...args: T) => void,
   delay = 1000
@@ -69,24 +72,33 @@ export function deleteKeyIfEmpty(object: any, key: string): void {
   }
 }
 
-export function handleResponse<T>(
-  data: T,
-  error: NuxtError | null,
-  status: number
-) {
-  if (error) {
+type ParsedError = {
+  error: string;
+  message: string;
+  statusCode: number;
+};
+/** parseError is used in catch() blocks to parse errors raised from $fetch API requests */
+export function parseError(error: unknown): ParsedError {
+  if (error instanceof FetchError) {
     return {
-      data: null,
-      status: error.statusCode,
+      error: error.name,
+      message: error.message,
+      statusCode: error.data?.status || 500,
+    };
+  } else if (error instanceof Error) {
+    return {
+      error: error.name,
+      message: error.message,
+      statusCode: 500,
     };
   } else {
     return {
-      data,
-      status,
+      error: "UnknownError",
+      message: "An unknown error occurred",
+      statusCode: 500,
     };
   }
 }
-
 export function random(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }

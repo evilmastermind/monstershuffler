@@ -19,6 +19,8 @@
         :key="index"
         :character="character"
         :index="index"
+        tabindex="0"
+        @mousedown="showCharacterPage(index)"
         @click="showCharacterPage(index)"
       />
     </TransitionGroup>

@@ -550,7 +550,7 @@ export function getTemporaryImage(
             imagePositionTopPx: -40,
             mask: "",
             token: {
-              topPx: -1,
+              topPx: 0,
               leftPx: 499,
               widthPx: 410,
             },
@@ -626,7 +626,7 @@ export function getTemporaryImage(
             imagePositionTopPx: -194.42857142857144,
             mask: "",
             token: {
-              topPx: -1,
+              topPx: 0,
               leftPx: 371,
               widthPx: 407,
             },

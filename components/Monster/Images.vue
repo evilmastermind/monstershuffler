@@ -35,7 +35,11 @@
         ref="canvas"
         class="image"
         :style="{
-          height: `${image.canvasHeightPx}px`,
+          height: `${
+            isEditorModeEnabled
+              ? image.canvasHeightPx
+              : computedImage.canvasHeightPx
+          }px`,
           backgroundImage: `url(/images/backgrounds/${image.url}.webp)`,
           backgroundSize: `auto ${computedImage.imageHeightPx}px`,
           backgroundPosition: `${computedImage.imagePositionLeftPx}px ${computedImage.imagePositionTopPx}px`,
@@ -51,17 +55,23 @@ import type { Character, Image } from "@/types";
 import { getTemporaryImage } from "@/other";
 import { fixImageHeight, fixImagePosition } from "@/utils";
 
+const MOBILE_PERC = 0.6;
+
 const editor = useMonsterEditorStore();
+const { width, smAndDown } = useScreen();
 const canvas = ref<HTMLElement | null>(null);
 
 const character = inject("character") as Ref<Character>;
-const { isEditorModeEnabled } = storeToRefs(editor);
+const { currentEditorMode } = storeToRefs(editor);
 const originalImageWidth = ref();
 const originalImageHeight = ref();
 
 const image = ref<Image>(getTemporaryImage(character.value, canvas));
 const token = ref(image.value.token || createToken(image, canvas));
 
+const isEditorModeEnabled = computed<boolean>(() => {
+  return currentEditorMode.value === "image";
+});
 const computedImage = computed<Image>(() => {
   if (isEditorModeEnabled.value || canvas.value === null) {
     return {
@@ -104,8 +114,11 @@ function calculateComputedImage(
     (image.value?.canvasWidthPx || 1016) - (image.value.token?.widthPx || 0);
 
   // x / canvasWidthMinusTokenWidth
+  const tokenLeftPx = image.value.token?.leftPx || 0;
   const proportionsOfTheWidthBeforeTheToken =
-    (image.value.token?.leftPx || 0) / canvasWidthMinusTokenWidth;
+    canvasWidthMinusTokenWidth !== 0
+      ? tokenLeftPx / canvasWidthMinusTokenWidth
+      : 0;
 
   // calculate the new canvasWidthMinusTokenWidth
   const newCanvasWidthMinusTokenWidth =
@@ -118,45 +131,61 @@ function calculateComputedImage(
     proportionsOfTheWidthBeforeTheToken * newCanvasWidthMinusTokenWidth;
 
   // calculate the token position difference
-  const tokenPositionLeftDifference =
-    newTokenLeftPx - (image.value.token?.leftPx || 0);
+  const tokenPositionLeftDifference = newTokenLeftPx - tokenLeftPx;
 
   // new image position left
-  const imagePositionLeftPx =
+  let imagePositionLeftPx =
     (image.value.imagePositionLeftPx || 0) + tokenPositionLeftDifference;
 
   // ------------ height -------------------------------------
-  // (token.leftPx + other part)
+  // (token.topPx + other part)
   const canvasHeightMinusTokenWidth =
     (image.value?.canvasHeightPx || 500) - (image.value.token?.widthPx || 0);
 
   // x / canvasHeightMinusTokenWidth
+  const tokenTopPx = image.value.token?.topPx || 0;
   const proportionsOfTheHeightBeforeTheToken =
-    (image.value.token?.topPx || 0) / canvasHeightMinusTokenWidth;
+    canvasHeightMinusTokenWidth !== 0
+      ? tokenTopPx / canvasHeightMinusTokenWidth
+      : 0;
 
-  // calculate the new canvasWidthMinusTokenWidth
+  // calculate the new canvasHeightMinusTokenWidth
   const newCanvasHeightMinusTokenWidth =
     canvas.value.clientHeight - token.value.widthPx;
 
-  // TODO: check if newCanvasWidthMinusTokenWidth is < 0 (if so, you need to resize the token too)
-
-  // calculate the new tokenLeftPx
+  // calculate the new tokenTopPx
   const newTokenTopPx =
     proportionsOfTheHeightBeforeTheToken * newCanvasHeightMinusTokenWidth;
 
   // calculate the token position difference
-  const tokenPositionTopDifference =
-    newTokenTopPx - (image.value.token?.topPx || 0);
+  const tokenPositionTopDifference = newTokenTopPx - tokenTopPx;
 
-  // new image position left
-  const imagePositionTopPx =
+  // new image position top
+  let imagePositionTopPx =
     (image.value.imagePositionTopPx || 0) + tokenPositionTopDifference;
 
   // --- fixing image size -----------------------------------
+  let canvasHeightPx = image.value.canvasHeightPx || 500;
+  let imageHeightPx = image.value.imageHeightPx || 500;
+
+  canvasHeightPx = smAndDown.value
+    ? canvasHeightPx * MOBILE_PERC
+    : canvasHeightPx;
+
+  imageHeightPx = smAndDown.value ? imageHeightPx * MOBILE_PERC : imageHeightPx;
+
+  imagePositionLeftPx = smAndDown.value
+    ? imagePositionLeftPx * MOBILE_PERC
+    : imagePositionLeftPx;
+
+  imagePositionTopPx = smAndDown.value
+    ? imagePositionTopPx * MOBILE_PERC
+    : imagePositionTopPx;
 
   const newImage = {
     url: image.value.url,
-    imageHeightPx: image.value.imageHeightPx || 500,
+    canvasHeightPx,
+    imageHeightPx,
     imagePositionLeftPx,
     imagePositionTopPx,
   };
@@ -164,14 +193,14 @@ function calculateComputedImage(
   fixImageHeight(
     newImage,
     canvas.value.clientWidth,
-    canvas.value.clientHeight,
+    canvasHeightPx,
     originalImageWidth.value,
     originalImageHeight.value
   );
   fixImagePosition(
     newImage,
     canvas.value.clientWidth,
-    canvas.value.clientHeight,
+    canvasHeightPx,
     originalImageWidth.value,
     originalImageHeight.value
   );
@@ -202,8 +231,6 @@ const { startResize } = useImageResize(
 const { startMoveTokenXY } = useTokenMoveXY(image, token, canvas);
 const { startTokenResize } = useTokenResize(token, canvas);
 
-const { width } = useScreen();
-
 watch(width, () => {
   if (isEditorModeEnabled.value) {
     // Fix the image height and position when the screen width changes
@@ -224,9 +251,9 @@ watch(width, () => {
   }
 });
 
-watch(isEditorModeEnabled, () => {
-  console.log(JSON.parse(JSON.stringify(image.value, null, 2)));
-});
+// watch(isEditorModeEnabled, () => {
+//   console.log(JSON.parse(JSON.stringify(image.value, null, 2)));
+// });
 
 onMounted(() => {
   const imageElement = new Image();

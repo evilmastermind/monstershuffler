@@ -1,7 +1,9 @@
+import type { MonsterEditors } from "@/types";
+
 export const useMonsterEditorStore = defineStore("monster-editor", () => {
-  const isEditorModeEnabled = ref(false);
+  const currentEditorMode = ref<MonsterEditors>("");
 
   return {
-    isEditorModeEnabled,
+    currentEditorMode,
   };
 });

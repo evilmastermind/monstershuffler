@@ -47,8 +47,8 @@ function backToHomePage() {
   router.push({ path: "/" });
 }
 
-const res = await user.verifyEmail(token);
-switch (res.status) {
+const statusCode = await user.verifyEmail(token);
+switch (statusCode) {
   case 200:
     result.value = "success";
     setTimeout(backToHomePage, 4000);

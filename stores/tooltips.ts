@@ -20,37 +20,35 @@ export const useTooltipsStore = defineStore("tooltips", () => {
     }
   }
 
-  async function getTraitDescription(trait: string | number) {
-    const { data } = await useAsyncData<getTraitDescriptionResponseSchema>(
-      "trait",
-      () => $fetch(`${api}/traits/${trait}`)
-    );
-    if (data?.value?.description !== undefined) {
-      return data.value.description;
-    } else {
+  async function getTraitDescription(
+    trait: string | number
+  ): Promise<string | null> {
+    try {
+      const data: getTraitDescriptionResponseSchema = await $fetch(
+        `${api}/traits/${trait}`
+      );
+      return data.description;
+    } catch (error) {
       return null;
     }
   }
 
   async function getBackgroundDescription(id: string | number) {
-    const { data } = await useAsyncData<getTraitDescriptionResponseSchema>(
-      "background",
-      () => $fetch(`${api}/backgrounds/${id}`)
-    );
-    if (data?.value?.description !== undefined) {
-      return data.value.description;
-    } else {
+    try {
+      const data: getTraitDescriptionResponseSchema = await $fetch(
+        `${api}/backgrounds/${id}`
+      );
+      return data.description;
+    } catch (error) {
       return null;
     }
   }
 
   async function getSpellDescription(id: string | number) {
-    const { data } = await useAsyncData<GetSpellResponse>("spell", () =>
-      $fetch(`${api}/spells/${id}`)
-    );
-    if (data?.value?.object !== undefined) {
-      return data.value?.object;
-    } else {
+    try {
+      const data: GetSpellResponse = await $fetch(`${api}/spells/${id}`);
+      return data.object;
+    } catch (error) {
       return null;
     }
   }

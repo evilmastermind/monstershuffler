@@ -1,3 +1,4 @@
+import { parseError } from "@/utils";
 import type {
   Keyword,
   CharacterChanges,
@@ -65,16 +66,17 @@ export const useGeneratorStore = defineStore("generator", () => {
   async function getRandomNpcs(
     npcOptions: PostRandomNpcInput,
     changes: CharacterChanges = {}
-  ) {
-    const { data } = await useAsyncData<PostFourRandomNpcsResponse>("npc", () =>
-      $fetch(`${api}/npcs/four`, {
-        method: "POST",
-        body: npcOptions,
-      })
-    );
+  ): Promise<number> {
+    try {
+      const data: PostFourRandomNpcsResponse = await $fetch(
+        `${api}/npcs/four`,
+        {
+          method: "POST",
+          body: npcOptions,
+        }
+      );
 
-    if (data?.value?.npcs) {
-      data?.value?.npcs.forEach((npc) => {
+      data?.npcs.forEach((npc) => {
         if (changes.alignmentEthical) {
           npc.character.alignmentEthical = changes.alignmentEthical;
         }
@@ -91,72 +93,40 @@ export const useGeneratorStore = defineStore("generator", () => {
         createStats(npc);
       });
       session.value = [];
-      session.value = data.value.npcs;
-      return true;
-    } else {
-      return false;
+      session.value = data.npcs;
+      return 200;
+    } catch (error) {
+      return parseError(error).statusCode;
     }
   }
 
-  // async function getRandomNpc(
-  //   npcOptions: PostRandomNpcInput,
-  //   changes: CharacterChanges = {}
-  // ) {
-  //   const { data } = await useAsyncData<createRandomNpcResponseSchema>(
-  //     "npc",
-  //     () =>
-  //       $fetch(`${api}/npcs`, {
-  //         method: "POST",
-  //         body: npcOptions,
-  //       })
-  //   );
-
-  //   if (data?.value?.npc) {
-  //     if (changes.alignmentEthical) {
-  //       data.value.npc.character.alignmentEthical = changes.alignmentEthical;
-  //     }
-  //     if (changes.alignmentMoral) {
-  //       data.value.npc.character.alignmentMoral = changes.alignmentMoral;
-  //     }
-  //     if (changes.CR) {
-  //       if (!data.value.npc.variations) {
-  //         data.value.npc.variations = {};
-  //       }
-  //       data.value.npc.variations.currentCR = changes.CR;
-  //     }
-
-  //     createStats(data?.value?.npc);
-  //     session.value = [];
-  //     session.value.push(data?.value?.npc);
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-  async function getGeneratorData() {
-    const { data } = await useAsyncData<GetGeneratorDataResponse>(
-      "generatorData",
-      () => $fetch(`${api}/npcs/generator-data`)
-    );
-    racesAndVariants.value = prepareObjectOrVariantList(
-      data.value?.races || [],
-      "primaryRaceId",
-      "primaryRacevariantId"
-    );
-    classesAndVariants.value = prepareObjectOrVariantList(
-      data.value?.classes || [],
-      "classId",
-      "classvariantId"
-    );
-    backgrounds.value = data.value?.backgrounds || [];
-    data.value?.backgrounds.forEach((background) => {
-      keywords.value.push({
-        word: background.name.toLowerCase(),
-        type: "backgroundId",
-        value: background.id,
+  async function getGeneratorData(): Promise<number> {
+    try {
+      const data: GetGeneratorDataResponse = await $fetch(
+        `${api}/npcs/generator-data`
+      );
+      racesAndVariants.value = prepareObjectOrVariantList(
+        data.races || [],
+        "primaryRaceId",
+        "primaryRacevariantId"
+      );
+      classesAndVariants.value = prepareObjectOrVariantList(
+        data.classes || [],
+        "classId",
+        "classvariantId"
+      );
+      backgrounds.value = data.backgrounds || [];
+      data.backgrounds.forEach((background) => {
+        keywords.value.push({
+          word: background.name.toLowerCase(),
+          type: "backgroundId",
+          value: background.id,
+        });
       });
-    });
+      return 200;
+    } catch (error) {
+      return parseError(error).statusCode;
+    }
   }
 
   function prepareObjectOrVariantList(

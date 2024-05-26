@@ -14,6 +14,7 @@
               transitionProperty: 'opacity, transform',
             }"
             selectable
+            tabindex="0"
             @click="openCharacterSheet(character as Character)"
           />
         </Transition>

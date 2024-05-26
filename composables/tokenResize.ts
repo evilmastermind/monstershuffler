@@ -29,12 +29,12 @@ export function useTokenResize(
     if (token.value.widthPx < 50) {
       token.value.widthPx = 50;
     }
-    fixTokenPosition(
+    fixTokenSize(
       token,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0
     );
-    fixTokenSize(
+    fixTokenPosition(
       token,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0

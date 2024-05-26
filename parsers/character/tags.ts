@@ -149,8 +149,8 @@ export function createTags(character: Character) {
     }
 
     // actions that use the name of the attack (weapon)
-    if (Object.hasOwn(variant, "attacks")) {
-      variant?.attacks?.forEach((attack) => {
+    if ("attacks" in action) {
+      action?.attacks?.forEach((attack) => {
         if (
           attack.replaceName &&
           attack?.attributes &&

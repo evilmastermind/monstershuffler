@@ -1,7 +1,7 @@
 <template>
   <div class="pb-7">
-    <MonsterSheetTools :character="currentCharacter" class="px-4" />
-    <div class="page mt-2">
+    <MonsterSheetTools :character="currentCharacter" class="px-0 sm:px-4" />
+    <div class="page mt-0 sm:mt-2">
       <MonsterSheet
         :key="currentCharacterIndex"
         :character="currentCharacter"

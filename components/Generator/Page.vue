@@ -6,7 +6,7 @@
     <div class="lg-max max-h-100">
       <Breadcrumbs class="mx-4">
         <template #default>
-          <button @click="currentCharacterIndex = -1">
+          <button @click="closeMonster">
             {{ $t("generator.pageTitle") }}
           </button>
           <span v-if="currentCharacterIndex > -1" class="character-name">
@@ -102,6 +102,7 @@ const user = useUserStore();
 const { width, medium } = useScreen();
 const { session, characters, currentCharacterIndex, options } =
   storeToRefs(generator);
+const { currentEditorMode } = storeToRefs(useMonsterEditorStore());
 const form = ref(null);
 const isIntroShown = ref(true);
 const isLoading = ref(true);
@@ -123,6 +124,11 @@ function saveSettings() {
     isFormMode: isFormMode.value,
   };
   user.setSettings("npcgenerator", settings);
+}
+
+function closeMonster() {
+  currentCharacterIndex.value = -1;
+  currentEditorMode.value = "";
 }
 
 watch(width, (newWidth, oldWidth) => {
