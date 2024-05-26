@@ -31,6 +31,10 @@
           icon="fa6-solid:download"
         />
         <MSIconButton
+          :label="$t('monsterSheet.save')"
+          icon="fa6-solid:floppy-disk"
+        />
+        <MSIconButton
           class="ml-4"
           :label="$t('monsterSheet.closeSheet')"
           icon="fa6-solid:xmark"
@@ -87,7 +91,7 @@ function closeMonster() {
 .tools-container {
   display: flex;
   justify-content: space-between;
-  @apply bg-background-evil;
+  @apply bg-background-inset-500;
 }
 .tools {
   display: flex;
@@ -96,7 +100,7 @@ function closeMonster() {
   align-items: center;
   border-radius: 0;
   line-height: 1rem;
-  @apply bg-background-evil text-text-inverse gap-4;
+  @apply bg-background-inset-500  gap-4;
 }
 @media (min-width: theme("screens.sm")) {
   .tools-container {
@@ -105,7 +109,10 @@ function closeMonster() {
   .tools {
     border-radius: 1rem;
     line-height: 1rem;
-    @apply bg-background-evil shadow-md text-text-inverse gap-4;
+    @apply bg-background-inset-500 text-text-icon  gap-4;
   }
+}
+.tools button:hover {
+  @apply text-primary-700;
 }
 </style>

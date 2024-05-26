@@ -1,6 +1,6 @@
 <template>
   <button class="icon-button" :title="label">
-    <Icon class="icon" aria-hidden :name="icon" />
+    <Icon class="icon" aria-hidden :name="icon" :size />
     <span class="sr-only">{{ label }}</span>
   </button>
 </template>
@@ -14,6 +14,10 @@ const p = defineProps({
   icon: {
     type: String,
     required: true,
+  },
+  size: {
+    type: String,
+    default: "16",
   },
 });
 </script>

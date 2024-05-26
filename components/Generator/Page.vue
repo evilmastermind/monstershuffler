@@ -14,23 +14,21 @@
           </span>
         </template>
         <template #options>
-          <label class="mode-label cursor-pointer">
+          <GeneratorPromptHelp v-if="mode === 'prompt'" />
+          <MSSwitchWords
+            v-model="isFormMode"
+            checked="Form"
+            unchecked="Prompt"
+          />
+          <!-- <label class="mode-label cursor-pointer">
             <MSSwitch
-              v-model:is-enabled="isFormMode"
+              v-model="isFormMode"
               :label="$t(`generator.${mode}ModeTitle`)"
             />
             <span class="bold inline whitespace-nowrap">
               {{ $t(`generator.${mode}ModeTitle`) }}
             </span>
-          </label>
-          <MSIconButton
-            v-if="mode === 'form'"
-            class="button-show-settings md:hidden text-text-secondary"
-            :label="$t('generator.options')"
-            icon="fa-solid:cog"
-            @click="isFormShownOnMobile = !isFormShownOnMobile"
-          />
-          <GeneratorPromptHelp v-if="mode === 'prompt'" />
+          </label> -->
         </template>
       </Breadcrumbs>
       <Transition name="fade">
@@ -68,6 +66,13 @@
                     :text="$t('generator.form.generate')"
                     icon="fa6-solid:shuffle"
                     @click.prevent="generateNpcs"
+                  />
+                  <MSIconButton
+                    class="button-show-settings md:hidden text-text-secondary"
+                    :label="$t('generator.options')"
+                    size="24"
+                    icon="fa-solid:cog"
+                    @click="isFormShownOnMobile = !isFormShownOnMobile"
                   />
                 </div>
                 <div class="npcs centered pt-4">
@@ -240,10 +245,13 @@ onMounted(async () => {
   }
 }
 .generate-button {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media (min-width: theme("screens.md")) {
     display: none;
   }
+  @apply gap-4;
 }
 .npcs {
   max-height: 100%;

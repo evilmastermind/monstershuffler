@@ -1,10 +1,12 @@
 <template>
   <div class="text-max centered">
-    <p class="content" v-html="$t('generator.description1')" />
-    <p class="content" v-html="$t('generator.description2')" />
+    <p class="content">{{ $t("generator.description1") }}</p>
+    <p class="content">{{ $t("generator.description2") }}</p>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const boolean = ref(false);
+</script>
 
 <style scoped></style>

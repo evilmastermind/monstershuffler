@@ -53,7 +53,7 @@ const p = defineProps({
   border-left: 1px solid theme("colors.background-inset.700");
   border-right: 1px solid theme("colors.background-inset.700");
   border-bottom: 1px solid theme("colors.background-inset.600");
-  box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
+  box-shadow: inset 0px 3px 4px theme("colors.background-inset.600");
 }
 
 /* On mouse-over, add a grey background color */
@@ -63,12 +63,6 @@ const p = defineProps({
 
 /* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
-  background-color: theme("colors.primary.700");
-  border-top: 1px solid theme("colors.primary.700");
-  border-left: 1px solid theme("colors.primary.700");
-  border-right: 1px solid theme("colors.primary.700");
-  border-bottom: 1px solid theme("colors.primary.700");
-  box-shadow: none;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -89,7 +83,7 @@ const p = defineProps({
   top: 5px;
   width: 5px;
   height: 10px;
-  border: solid theme("colors.text-inverse");
+  border: solid theme("colors.text");
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -99,9 +93,13 @@ const p = defineProps({
 
 input:focus-visible + .checkmark {
   outline: 2px solid theme("colors.text");
-  box-shadow: 0 0 0 3px theme("colors.text-inverse");
+  box-shadow: 0 0 0 3px theme("colors.text");
 }
 .label {
   white-space: nowrap;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px theme("colors.text-inverse");
+  @apply text-sm;
 }
 </style>

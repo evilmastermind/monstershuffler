@@ -17,6 +17,7 @@
     "regenerateBackstory":"Regenerate backstory with AI",
     "download": "Download",
     "export": "Export",
+    "save": "Save",
     "closeSheet": "Close sheet"
   },
   "monsterCard": {
@@ -433,8 +434,8 @@
     "pageTitle": "NPC Generator",
     "pageDescription": "NPC Generator for Dungeons & Dragons (D&D) 5th Edition, complete with fully-editable stat blocks.",
     "title": "NPC Generator",
-    "description1": "This generator creates <b>fully-editable</b> Non-Player Characters (NPCs) for Dungeons & Dragons 5th Edition.",
-    "description2": "Click on the \"cog\" icon  at the bottom-right of each character's Stat Block to edit it or add it to your collection. You can find more Races and Classes in <a href=\"/monsters/community-creations/\">Community Creations</a>, or you can use the <a href=\"/monsters/editor/\">editor</a> to make your own.",
+    "description1": "This generator creates fully-editable Non-Player Characters (NPCs) for Dungeons & Dragons 5th Edition.",
+    "description2": "Click on the \"cog\" icon  at the bottom-right of each character's Stat Block to edit it or add it to your collection. You can find more Races and Classes in BLA BLA BLa to make your own.",
     "formModeTitle": "Form mode",
     "formModeDescription": "Choose the most appropriate options for your adventure and generate a random character.",
     "promptModeTitle": "Prompt mode",

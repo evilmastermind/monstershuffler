@@ -73,7 +73,7 @@
     display: flex;
     justify-items: start;
     align-items: center;
-    @apply gap-5;
+    @apply gap-6;
   }
 }
 @media (min-width: theme("screens.md")) {
@@ -84,7 +84,7 @@
   .navbar-menu {
     display: flex;
     align-items: center;
-    @apply gap-5;
+    @apply gap-6;
   }
 }
 

@@ -1,41 +1,14 @@
 <template>
   <label class="switch">
     <div class="slider-container">
-      <input
-        v-model="currentValue"
-        type="checkbox"
-        @change="emit('update:isEnabled', currentValue)"
-      />
+      <input v-model="model" type="checkbox" />
       <span class="slider round"></span>
     </div>
   </label>
 </template>
 
 <script setup>
-const emit = defineEmits(["update:isEnabled"]);
-const p = defineProps({
-  isEnabled: {
-    type: Boolean,
-    default: false,
-  },
-  // label: {
-  //   type: String,
-  //   default: "",
-  // },
-});
-
-const currentValue = ref(false);
-
-onMounted(() => {
-  currentValue.value = p.isEnabled;
-});
-
-watch(
-  () => p.isEnabled,
-  () => {
-    currentValue.value = p.isEnabled;
-  }
-);
+const model = defineModel({ type: Boolean, required: true });
 </script>
 
 <style lang="scss" scoped>
