@@ -10,17 +10,16 @@
 }
 
 .ms-select {
-  padding: 0 theme("spacing.1");
+  padding: theme("spacing.1") theme("spacing.1");
   border-radius: theme("spacing.1");
   box-sizing: border-box;
-  height: theme("spacing.6");
   text-overflow: ellipsis;
-  background-color: theme("colors.background-inset.500");
+  background-color: theme("colors.background-inset.400");
   border-top: 1px solid theme("colors.background-inset.700");
-  border-left: 1px solid theme("colors.background-inset.600");
-  border-right: 1px solid theme("colors.background-inset.600");
-  border-bottom: 1px solid theme("colors.background-inset.400");
-  box-shadow: inset 0px 3px 5px theme("colors.background-inset.600");
+  border-left: 1px solid theme("colors.background-inset.700");
+  border-right: 1px solid theme("colors.background-inset.700");
+  border-bottom: 1px solid theme("colors.background-inset.600");
+  box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
   color: theme("colors.text");
   cursor: pointer;
 }
@@ -40,12 +39,12 @@
   border-radius: theme("spacing.1");
   box-sizing: border-box;
   height: theme("spacing.6");
-  background-color: theme("colors.background-inset.500");
+  background-color: theme("colors.background-inset.400");
   border-top: 1px solid theme("colors.background-inset.700");
-  border-left: 1px solid theme("colors.background-inset.600");
-  border-right: 1px solid theme("colors.background-inset.600");
-  border-bottom: 1px solid theme("colors.background-inset.400");
-  box-shadow: inset 0px 3px 5px theme("colors.background-inset.600");
+  border-left: 1px solid theme("colors.background-inset.700");
+  border-right: 1px solid theme("colors.background-inset.700");
+  border-bottom: 1px solid theme("colors.background-inset.600");
+  box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
   color: theme("colors.text");
   cursor: text;
 }

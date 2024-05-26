@@ -66,6 +66,8 @@ const currentRoute = computed(() => {
 }
 .navbar-link-name {
   font-weight: 400;
+  letter-spacing: 0.05em;
+  @apply text-sm;
   // text-transform: uppercase;
 }
 @media (max-width: 700px) {

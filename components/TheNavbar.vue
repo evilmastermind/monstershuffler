@@ -3,7 +3,7 @@
   <nav class="navbar centered h-8">
     <div class="navbar-menu-container lg-max">
       <div class="navbar-menu">
-        <NavbarLogo name="Home" route="Home" />
+        <NavbarLogo name="Home" route="Home" class="mr-0 sm:mr-2" />
         <NavbarLink
           :name="$t('navbar.menu.npcGenerator')"
           route="monsters-generator"

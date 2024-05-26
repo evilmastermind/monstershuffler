@@ -23,7 +23,7 @@ added features:
 ----------------------------------------------------------------
 */
 
-import { Character, Variables } from "@/types";
+import type { Character, Variables } from "@/types";
 
 const fixSigns = (expression: string) => {
   // this part adds 0 before numbers declared with a sign at the beginning of an expression
@@ -214,8 +214,8 @@ export function parseExpression(
       error: new Error(
         `Expression parsing ${sourceExpression} failed, possibly because of an unknown 
         (or not yet available) variable, or invalid numbers or signs. After 
-        replacing all known variables the expression looks like this: 
-        \`${resultAfterReplace}\`. After attempting to calculate it the expression 
+        replacing all known variables, the expression looks like this: 
+        \`${resultAfterReplace}\`. After attempting to calculate it, the expression 
         looks like this: \`${result}\`.`
       ),
     };
