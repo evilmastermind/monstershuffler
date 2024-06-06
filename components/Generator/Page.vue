@@ -54,7 +54,8 @@
                   v-show="mode === 'form' && isFormShownOnMobile"
                   ref="form"
                   class="form md:mr-6"
-                  @generate="generateNpcs"
+                  :is-button-loading
+                  @generate="generateNpcsThrottle"
                   @close="isFormShownOnMobile = false"
                 />
                 <div
@@ -65,7 +66,9 @@
                     color="primary"
                     :text="$t('generator.form.generate')"
                     icon="fa6-solid:shuffle"
-                    @click.prevent="generateNpcs"
+                    :loading="isButtonLoading"
+                    :disabled="isButtonLoading"
+                    @click.prevent="generateNpcsThrottle"
                   />
                   <MSIconButton
                     class="button-show-settings md:hidden text-text-secondary"
@@ -94,6 +97,7 @@
 
 <script setup lang="ts">
 import type { Character, PostRandomNpcInput } from "@/types";
+import { throttle } from "@/utils";
 
 type NPCGeneratorSettings = {
   characters: Character[];
@@ -111,15 +115,21 @@ const { currentEditorMode } = storeToRefs(useMonsterEditorStore());
 const form = ref(null);
 const isIntroShown = ref(true);
 const isLoading = ref(true);
+const isButtonLoading = ref(false);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
 const isFormMode = ref(true);
 const mode = computed(() => (isFormMode.value ? "form" : "prompt"));
 
-function generateNpcs() {
-  generator.generateNpcs(options.value);
-  saveSettings();
+const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
+const saveSettingsThrottle = throttle(() => saveSettings(), 1000);
+
+async function generateNpcs() {
+  isButtonLoading.value = true;
+  await generator.getRandomNpcs(options.value);
+  isButtonLoading.value = false;
+  saveSettingsThrottle();
 }
 
 function saveSettings() {
@@ -165,18 +175,19 @@ watch(session, (newSession) => {
 });
 
 watch(
-  () => characters.value.length,
+  characters,
   () => {
     if (haveCharactersJustBeenRetrieved.value) {
       haveCharactersJustBeenRetrieved.value = false;
       return;
     }
-    saveSettings();
-  }
+    saveSettingsThrottle();
+  },
+  { deep: true }
 );
 
 watch(isFormMode, () => {
-  saveSettings();
+  saveSettingsThrottle();
 });
 
 onMounted(async () => {

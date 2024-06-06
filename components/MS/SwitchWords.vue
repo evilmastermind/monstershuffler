@@ -45,8 +45,12 @@ const p = defineProps({
   box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
   @apply gap-2  py-1;
 }
+.slider-container:hover .slider {
+  @apply bg-primary-600;
+}
 .word {
   z-index: 1;
+  letter-spacing: 0.05em;
   @apply text-sm;
 }
 .slider {
@@ -55,8 +59,8 @@ const p = defineProps({
   width: 50%;
   left: 0;
   border-radius: 1rem;
-  transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
-  @apply bg-background-evil;
+  transition: 0.1s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+  @apply bg-primary-700;
 }
 .checked {
   text-align: center;

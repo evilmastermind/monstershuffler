@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DiceRoll } from "@/stores/index";
+import type { DiceRoll } from "@/types";
 
 const maxSize = 3;
 const timeout = 5000;

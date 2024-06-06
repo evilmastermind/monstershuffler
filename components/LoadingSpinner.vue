@@ -1,14 +1,15 @@
 <template>
   <div class="lds-ring" :style="containerSize">
-    <div :style="innerSize" :class="`color-${color}`"></div>
-    <div :style="innerSize" :class="`color-${color}`"></div>
-    <div :style="innerSize" :class="`color-${color}`"></div>
-    <div :style="innerSize" :class="`color-${color}`"></div>
+    <div :style="innerSize" :class="`color-${computedColor}`"></div>
+    <div :style="innerSize" :class="`color-${computedColor}`"></div>
+    <div :style="innerSize" :class="`color-${computedColor}`"></div>
+    <div :style="innerSize" :class="`color-${computedColor}`"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
+import type { UIColors } from "@/types";
 
 const p = defineProps({
   size: {
@@ -16,9 +17,25 @@ const p = defineProps({
     default: 5,
   },
   color: {
-    type: String,
+    type: String as PropType<UIColors>,
     default: "primary",
   },
+  background: {
+    type: String as PropType<UIColors>,
+    default: "",
+  },
+});
+
+const computedColor = computed(() => {
+  if (
+    p.background &&
+    ["primary", "complementary", "dark"].includes(p.background)
+  ) {
+    return "dark";
+  } else if (p.background) {
+    return "light";
+  }
+  return p.color;
 });
 
 const containerSize = computed(() => {

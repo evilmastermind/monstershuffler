@@ -12,18 +12,27 @@
           </div>
         </div>
       </div>
-      <MonsterImages class="image" />
+      <MonsterImages class="image" :rules @load="e('load')" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { ImageRules } from "@/types";
+
+const e = defineEmits(["load"]);
 const p = defineProps({
   showRoleplayStats: {
     type: Boolean,
     default: true,
   },
 });
+
+const rules: ImageRules = {
+  width: "full",
+  height: "full",
+  mask: "left",
+};
 </script>
 
 <style scoped>
@@ -38,7 +47,17 @@ const p = defineProps({
 .stats {
   @apply mt-6;
 }
-@media (min-width: 850px) {
+
+@media (min-width: theme("screens.sm")) {
+  .story-stats {
+    padding-top: 6%;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 700px) {
   .layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -51,12 +70,6 @@ const p = defineProps({
     padding-bottom: 12%;
   }
 }
-
-@media (min-width: theme("screens.sm")) {
-  .layout {
-  }
-}
-
 .card {
   display: grid;
   place-items: center;

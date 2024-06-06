@@ -112,8 +112,6 @@ export function calculateAlignment(character: Character) {
     });
   });
 
-  // console.log("totalModifiers", totalModifiers);
-
   // now that I have all modifiers, I can calculate the alignment
   const BASE_PERCENTAGE = 33.3;
   let lawfulness = BASE_PERCENTAGE;

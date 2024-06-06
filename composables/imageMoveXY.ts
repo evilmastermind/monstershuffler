@@ -1,11 +1,12 @@
-import type { Image } from "@/types";
+import type { Image, ImageRules } from "@/types";
 import { fixImageHeight, fixImagePosition } from "@/utils";
 
 export function useImageMoveXY(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
   originalImageWidth: Ref<number>,
-  originalImageHeight: Ref<number>
+  originalImageHeight: Ref<number>,
+  rules: ImageRules
 ) {
   let startX = 0;
   let startY = 0;
@@ -29,7 +30,8 @@ export function useImageMoveXY(
       containerWidth,
       containerHeight,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      rules
     );
     imageHeight = image.value.imageHeightPx || originalImageHeight.value;
     imageWidth =
@@ -43,12 +45,15 @@ export function useImageMoveXY(
     const currentY = event.clientY;
     image.value.imagePositionLeftPx = startPositionLeft + (currentX - startX);
     image.value.imagePositionTopPx = startPositionTop + (currentY - startY);
+    image.value.canvasWidthPx = containerWidth;
+    image.value.canvasHeightPx = containerHeight;
     fixImagePosition(
       image.value,
       containerWidth,
       containerHeight,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      rules
     );
   };
 

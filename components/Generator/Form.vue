@@ -177,6 +177,8 @@
           color="primary"
           :text="t('generator.form.generate')"
           icon="fa6-solid:shuffle"
+          :loading="isButtonLoading"
+          :disabled="isButtonLoading"
           @click.prevent="e('generate')"
         />
       </div>
@@ -190,6 +192,10 @@ import { capitalizeFirst } from "@/utils";
 const e = defineEmits(["close", "generate"]);
 const p = defineProps({
   generate: {
+    type: Boolean,
+    default: false,
+  },
+  isButtonLoading: {
     type: Boolean,
     default: false,
   },

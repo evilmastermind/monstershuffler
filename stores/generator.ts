@@ -60,7 +60,7 @@ export const useGeneratorStore = defineStore("generator", () => {
    * Actions
    */
 
-  const generateNpcs = throttle(getRandomNpcs, 1000);
+  // const generateNpcs = throttle(getRandomNpcs, 1000);
   // const generateNpc = throttle(getRandomNpc, 1000);
 
   async function getRandomNpcs(
@@ -252,7 +252,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     options,
     promptOptions,
     keywords,
-    generateNpcs,
+    getRandomNpcs,
     // generateNpc,
     getGeneratorData,
     parseSettings,

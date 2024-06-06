@@ -1,11 +1,12 @@
-import type { Image } from "@/types";
-import { fixImageHeight } from "@/utils";
+import type { Image, ImageRules } from "@/types";
+import { fixImageHeight, fixCanvasSize } from "@/utils";
 
 export function useImageDragY(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
   originalImageWidth: Ref<number>,
-  originalImageHeight: Ref<number>
+  originalImageHeight: Ref<number>,
+  rules: ImageRules
 ) {
   let startY = 0;
   let startHeight = 0;
@@ -21,19 +22,22 @@ export function useImageDragY(
   const doDragY = (event: MouseEvent) => {
     const currentY = event.clientY;
     image.value.canvasHeightPx = startHeight + (currentY - startY);
+
     fixImageHeight(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      rules
     );
     fixImagePosition(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      rules
     );
     if ("token" in image.value && image.value.token) {
       fixTokenPosition(

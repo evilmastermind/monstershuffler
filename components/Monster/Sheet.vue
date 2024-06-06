@@ -1,6 +1,6 @@
 <template>
   <div class="sheet background" :class="`background-${ui.currentThemeType}`">
-    <component :is="layout" :show-roleplay-stats />
+    <component :is="layout" :show-roleplay-stats @load="isLoaded = true" />
   </div>
 </template>
 
@@ -16,6 +16,7 @@ const p = defineProps({
 
 const ui = useUiStore();
 const character = toRef(p, "character");
+const isLoaded = ref(false);
 useProvideCharacter(character);
 
 const showRoleplayStats = computed(() => {
@@ -43,7 +44,7 @@ const layout = computed(() => {
     case "MonsterLayoutOneColumnB":
       return resolveComponent("MonsterLayoutOneColumnB");
     case "MonsterLayoutOneColumnC":
-      return resolveComponent("MonsterLayoutOneColumnC");
+      return resolveComponent("MonsterLayoutOneColumnCResponsive");
     case "MonsterLayoutOneColumnD":
       return resolveComponent("MonsterLayoutOneColumnD");
     case "MonsterLayoutTwoColumnA":

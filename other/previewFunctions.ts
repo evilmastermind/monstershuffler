@@ -619,16 +619,16 @@ export function getTemporaryImage(
             url: "workshop1",
             artist: "",
             artistUrl: "",
-            canvasHeightPx: 407,
+            canvasHeightPx: 433,
             canvasWidthPx: 1168,
-            imageHeightPx: 667.4285714285714,
+            imageHeightPx: 433,
             imagePositionLeftPx: 0,
-            imagePositionTopPx: -194.42857142857144,
+            imagePositionTopPx: 0,
             mask: "",
             token: {
-              topPx: 0,
-              leftPx: 371,
-              widthPx: 407,
+              topPx: 15,
+              leftPx: 168,
+              widthPx: 410,
             },
           };
           break;

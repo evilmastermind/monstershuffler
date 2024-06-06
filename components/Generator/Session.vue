@@ -43,7 +43,6 @@ function openCharacterSheet(character: Character) {
 
 <style scoped lang="scss">
 .session {
-  overflow-y: auto;
   @apply flex flex-col-reverse gap-6 w-full;
 }
 .generation-4 {

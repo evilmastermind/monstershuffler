@@ -1,4 +1,4 @@
-import type { Image } from "@/types";
+import type { Image, ImageRules } from "@/types";
 import { fixImageHeight, getImageWidth } from "@/utils";
 
 const resizeStep = 20;
@@ -7,12 +7,13 @@ export function useImageResize(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
   originalImageWidth: Ref<number>,
-  originalImageHeight: Ref<number>
+  originalImageHeight: Ref<number>,
+  rules: ImageRules
 ) {
   const startResize = (event: WheelEvent | KeyboardEvent) => {
     event.preventDefault();
     if ("deltaY" in event) {
-      event.deltaY < 0 ? reduceImage() : enlargeImage();
+      event.deltaY > 0 ? reduceImage() : enlargeImage();
       return;
     }
     if ("key" in event) {
@@ -64,14 +65,16 @@ export function useImageResize(
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      rules
     );
     fixImagePosition(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      rules
     );
   }
 

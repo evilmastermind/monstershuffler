@@ -100,7 +100,7 @@ function closeMonster() {
   align-items: center;
   border-radius: 0;
   line-height: 1rem;
-  @apply bg-background-inset-500  gap-4;
+  @apply bg-background-inset-500  text-text-icon  gap-4;
 }
 @media (min-width: theme("screens.sm")) {
   .tools-container {

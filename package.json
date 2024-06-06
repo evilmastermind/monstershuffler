@@ -1,6 +1,7 @@
 {
   "private": true,
   "type": "module",
+  "license": "GPL-3.0-only",
   "scripts": {
     "schemas": "yarn upgrade monstershuffler-shared",
     "build": "nuxt build",
@@ -34,7 +35,6 @@
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
     "@pinia/nuxt": "^0.5.1",
-    "emojisplosion": "^2.6.1",
     "jspath": "^0.4.0",
     "monstershuffler-shared": "git+https://github.com/evilmastermind/monstershuffler-shared#main",
     "nuxt": "^3.8.1",

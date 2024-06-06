@@ -1,13 +1,15 @@
 <template>
   <button
-    class="button shadow-md rounded py-2 px-4 centered"
+    class="button rounded py-2 px-4 centered"
     :class="[`color-${color}`, block ? 'is-block' : '']"
     :disabled="isDisabled"
     @click="goToURL"
   >
-    <div v-if="loading" class="loading" :class="[`color-${color}`]">
-      <LoadingSpinner :size="1.5" :color="color" />
-    </div>
+    <Transition name="fade">
+      <div v-if="loading" class="loading" :class="[`color-${color}`]">
+        <LoadingSpinner :size="1.5" :background="color" />
+      </div>
+    </Transition>
     <div class="button-content">
       <Icon v-if="icon" :name="icon" :style="{ color }" />
       <span class="button-text">{{ text }}</span>
@@ -16,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import type { UIColors } from "@/types";
+
 const router = useRouter();
 const localePath = useLocalePath();
 
@@ -26,7 +30,7 @@ const p = defineProps({
     default: "Click",
   },
   color: {
-    type: String,
+    type: String as PropType<UIColors>,
     required: true,
     default: "primary",
   },
@@ -77,7 +81,11 @@ function goToURL() {
   font-size: 0.875rem;
   letter-spacing: 0.05em;
   //@include shadow-1;
-  transition: transform 0.03s;
+  transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
+  @apply shadow-md;
+}
+.button:disabled {
+  cursor: auto;
 }
 .button-content {
   display: flex;
@@ -86,7 +94,8 @@ function goToURL() {
   gap: 1em;
 }
 .button:active {
-  transform: translateY(2px) scale(0.97);
+  transform: translateY(2px) scale(0.99);
+  @apply shadow-sm;
 }
 .is-block {
   display: block;

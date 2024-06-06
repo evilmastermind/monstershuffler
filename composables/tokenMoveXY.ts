@@ -33,6 +33,7 @@ export function useTokenMoveXY(
     token.value.topPx = startPositionTop + (currentY - startY);
     fixTokenPosition(token, containerWidth, containerHeight);
     image.value.canvasWidthPx = containerWidth;
+    image.value.canvasHeightPx = containerHeight;
   };
 
   const stopMoveXY = () => {

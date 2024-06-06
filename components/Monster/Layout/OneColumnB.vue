@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container">
-    <MonsterImages />
+    <MonsterImages :rules @load="e('load')" />
     <div class="layout">
       <div class="stats">
         <MonsterStatBlock />
@@ -16,12 +16,21 @@
 </template>
 
 <script setup lang="ts">
+import type { ImageRules } from "@/types";
+
+const e = defineEmits(["load"]);
 const p = defineProps({
   showRoleplayStats: {
     type: Boolean,
     default: true,
   },
 });
+
+const rules: ImageRules = {
+  width: "full",
+  height: "manual",
+  mask: "bottom",
+};
 </script>
 
 <style scoped>

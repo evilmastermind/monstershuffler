@@ -97,7 +97,6 @@ input:focus-visible + .checkmark {
 }
 .label {
   white-space: nowrap;
-  font-weight: bold;
   letter-spacing: 0.05em;
   text-shadow: 0 0 20px theme("colors.text-inverse");
   @apply text-sm;
