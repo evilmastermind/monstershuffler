@@ -1,7 +1,12 @@
 <template>
   <div class="layout-container">
     <div class="layout">
-      <MonsterImages :rules class="image" @load="e('load')" />
+      <MonsterImages
+        :rules
+        class="image"
+        @load="e('load')"
+        @height="setHeight"
+      />
       <div class="roleplay">
         <MonsterBackstory class="story" />
         <div class="card class= mt-6">
@@ -17,6 +22,7 @@
 
 <script setup lang="ts">
 import type { ImageRules } from "@/types";
+import { IMG_MAX_CANVAS_WIDTH } from "@/utils";
 
 const e = defineEmits(["load"]);
 const p = defineProps({
@@ -26,11 +32,41 @@ const p = defineProps({
   },
 });
 
-const rules: ImageRules = {
-  width: "full",
-  height: "manual",
-  mask: "bottom-right",
-};
+const imageHeight = ref(500);
+const width = ref(IMG_MAX_CANVAS_WIDTH);
+const layout = ref<HTMLElement | null>(null);
+
+const observer = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    const { clientWidth } = entry.target as HTMLElement;
+    width.value = clientWidth;
+  }
+});
+
+const rules: ComputedRef<ImageRules> = computed(() => {
+  return {
+    width: "full",
+    height: "full",
+    maxWidth: width.value,
+    mask: "bottom-right",
+  };
+});
+
+function setHeight(height: number) {
+  imageHeight.value = height;
+}
+
+watch(layout, () => {
+  if (layout.value) {
+    observer.observe(layout.value);
+  }
+});
+
+onUnmounted(() => {
+  if (layout.value) {
+    observer.unobserve(layout.value);
+  }
+});
 </script>
 
 <style scoped>

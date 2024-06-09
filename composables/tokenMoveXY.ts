@@ -1,10 +1,11 @@
-import type { Image, Token } from "@/types";
+import type { Image, ImageRules, Token } from "@/types";
 import { fixTokenSize, fixTokenPosition } from "@/utils";
 
 export function useTokenMoveXY(
   image: Ref<Image>,
   token: Ref<Token>,
-  container: Ref<HTMLElement | null>
+  container: Ref<HTMLElement | null>,
+  rules: Ref<ImageRules>
 ) {
   let startX = 0;
   let startY = 0;
@@ -34,6 +35,7 @@ export function useTokenMoveXY(
     fixTokenPosition(token, containerWidth, containerHeight);
     image.value.canvasWidthPx = containerWidth;
     image.value.canvasHeightPx = containerHeight;
+    image.value.sheetWidthPx = rules.value.maxWidth || IMG_MAX_CANVAS_WIDTH;
   };
 
   const stopMoveXY = () => {

@@ -1,12 +1,17 @@
 <template>
-  <div class="layout-container">
+  <div ref="layout" class="layout-container">
     <div class="layout padding-bottom">
       <div>
-        <MonsterImages :rules class="image" @load="e('load')" />
+        <MonsterImages
+          :rules
+          class="image"
+          @load="e('load')"
+          @height="setHeight"
+        />
         <MonsterBackstory
           class="story padding-left"
           :style="{
-            paddingTop: '500px',
+            paddingTop: `${imageHeight}`,
           }"
         />
       </div>
@@ -24,6 +29,7 @@
 
 <script setup lang="ts">
 import type { ImageRules } from "@/types";
+import { IMG_MAX_CANVAS_WIDTH } from "@/utils";
 
 const e = defineEmits(["load"]);
 const p = defineProps({
@@ -33,11 +39,41 @@ const p = defineProps({
   },
 });
 
-const rules: ImageRules = {
-  width: "full",
-  height: "manual",
-  mask: "bottom-right",
-};
+const imageHeight = ref(500);
+const width = ref(IMG_MAX_CANVAS_WIDTH);
+const layout = ref<HTMLElement | null>(null);
+
+const observer = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    const { clientWidth } = entry.target as HTMLElement;
+    width.value = clientWidth;
+  }
+});
+
+const rules: ComputedRef<ImageRules> = computed(() => {
+  return {
+    width: "manual",
+    height: "manual",
+    maxWidth: width.value,
+    mask: "bottom-right",
+  };
+});
+
+function setHeight(height: number) {
+  imageHeight.value = height;
+}
+
+watch(layout, () => {
+  if (layout.value) {
+    observer.observe(layout.value);
+  }
+});
+
+onUnmounted(() => {
+  if (layout.value) {
+    observer.unobserve(layout.value);
+  }
+});
 </script>
 
 <style scoped>

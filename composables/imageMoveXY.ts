@@ -1,12 +1,12 @@
 import type { Image, ImageRules } from "@/types";
-import { fixImageHeight, fixImagePosition } from "@/utils";
+import { fixImageSize, fixImagePosition, IMG_MAX_CANVAS_WIDTH } from "@/utils";
 
 export function useImageMoveXY(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
   originalImageWidth: Ref<number>,
   originalImageHeight: Ref<number>,
-  rules: ImageRules
+  rules: Ref<ImageRules>
 ) {
   let startX = 0;
   let startY = 0;
@@ -25,13 +25,13 @@ export function useImageMoveXY(
     containerHeight = container.value?.clientHeight || 0;
     startPositionLeft = image.value.imagePositionLeftPx || 0;
     startPositionTop = image.value.imagePositionTopPx || 0;
-    fixImageHeight(
+    fixImageSize(
       image.value,
       containerWidth,
       containerHeight,
       originalImageWidth.value,
       originalImageHeight.value,
-      rules
+      rules.value
     );
     imageHeight = image.value.imageHeightPx || originalImageHeight.value;
     imageWidth =
@@ -47,13 +47,14 @@ export function useImageMoveXY(
     image.value.imagePositionTopPx = startPositionTop + (currentY - startY);
     image.value.canvasWidthPx = containerWidth;
     image.value.canvasHeightPx = containerHeight;
+    image.value.sheetWidthPx = rules.value.maxWidth || IMG_MAX_CANVAS_WIDTH;
     fixImagePosition(
       image.value,
       containerWidth,
       containerHeight,
       originalImageWidth.value,
       originalImageHeight.value,
-      rules
+      rules.value
     );
   };
 

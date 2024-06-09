@@ -1,5 +1,5 @@
 import type { Image, ImageRules } from "@/types";
-import { fixImageHeight, getImageWidth } from "@/utils";
+import { fixImageSize, getImageWidth } from "@/utils";
 
 const resizeStep = 20;
 
@@ -60,7 +60,7 @@ export function useImageResize(
       (image.value.imageHeightPx / originalImageHeight.value);
     image.value.imagePositionLeftPx ??= 0;
     image.value.imagePositionLeftPx += (oldImageWidth - newImageWidth) / 2;
-    fixImageHeight(
+    fixImageSize(
       image.value,
       container.value?.clientWidth || 0,
       container.value?.clientHeight || 0,

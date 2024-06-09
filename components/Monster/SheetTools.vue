@@ -4,17 +4,21 @@
       <div class="tools py-2 px-3">
         <MSIconButton
           :label="$t('monsterSheet.editLayout')"
+          :class="currentEditorMode === 'layout' ? 'text-primary-700' : ''"
           icon="ri:layout-6-fill"
-          @click="isLayoutEditorOpen = !isLayoutEditorOpen"
+          @click="toggleEditorMode('layout')"
         />
         <MSIconButton
           :label="$t('monsterSheet.editImages')"
+          :class="currentEditorMode === 'image' ? 'text-primary-700' : ''"
           icon="fa6-solid:image"
           @click="toggleEditorMode('image')"
         />
         <MSIconButton
           :label="$t('monsterSheet.editBackstory')"
+          :class="currentEditorMode === 'backstory' ? 'text-primary-700' : ''"
           icon="humbleicons:align-text-left"
+          @click="toggleEditorMode('backstory')"
         />
         <MSIconButton
           :label="$t('monsterSheet.regenerateBackstory')"
@@ -43,8 +47,8 @@
       </div>
     </div>
     <MonsterLayoutEditor
-      v-if="isLayoutEditorOpen"
-      @close="isLayoutEditorOpen = false"
+      v-if="currentEditorMode === 'layout'"
+      @close="currentEditorMode = ''"
     />
   </div>
 </template>
@@ -70,8 +74,6 @@ const editor = useMonsterEditorStore();
 const { currentEditorMode } = storeToRefs(editor);
 const { currentCharacterIndex } = storeToRefs(generator);
 useProvideCharacter(character);
-
-const isLayoutEditorOpen = ref(false);
 
 function toggleEditorMode(mode: MonsterEditors) {
   if (currentEditorMode.value === mode) {

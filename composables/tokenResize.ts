@@ -1,5 +1,5 @@
 import type { Token } from "@/types";
-import { fixImageHeight } from "@/utils";
+import { fixImageSize } from "@/utils";
 
 export function useTokenResize(
   token: Ref<Token>,

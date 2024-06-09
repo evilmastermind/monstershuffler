@@ -46,13 +46,13 @@ const layout = computed(() => {
     case "MonsterLayoutOneColumnC":
       return resolveComponent("MonsterLayoutOneColumnCResponsive");
     case "MonsterLayoutOneColumnD":
-      return resolveComponent("MonsterLayoutOneColumnD");
+      return resolveComponent("MonsterLayoutOneColumnDResponsive");
     case "MonsterLayoutTwoColumnA":
       return resolveComponent("MonsterLayoutTwoColumnA");
     case "MonsterLayoutTwoColumnB":
       return resolveComponent("MonsterLayoutTwoColumnB");
     case "MonsterLayoutTwoColumnC":
-      return resolveComponent("MonsterLayoutTwoColumnC");
+      return resolveComponent("MonsterLayoutTwoColumnCResponsive");
     default:
       return resolveComponent("MonsterLayoutDynamicA");
   }

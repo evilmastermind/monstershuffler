@@ -1,29 +1,29 @@
 import type { Image, ImageRules } from "@/types";
-import { fixImageSize, fixCanvasSize } from "@/utils";
+import { fixImageSize, fixCanvasSize, IMG_MAX_CANVAS_WIDTH } from "@/utils";
 
-export function useImageDragY(
+export function useImageDragX(
   image: Ref<Image>,
   container: Ref<HTMLElement | null>,
   originalImageWidth: Ref<number>,
   originalImageHeight: Ref<number>,
-  rules: ImageRules
+  rules: Ref<ImageRules>
 ) {
-  let startY = 0;
-  let startHeight = 0;
+  let startX = 0;
+  let startWidth = 0;
 
-  const startDragY = (event: MouseEvent) => {
+  const startDragX = (event: MouseEvent) => {
     event.preventDefault();
-    startY = event.clientY;
-    startHeight = image.value.canvasHeightPx || 500;
-    document.addEventListener("mousemove", doDragY);
-    document.addEventListener("mouseup", stopDragY);
+    startX = event.clientX;
+    startWidth = image.value.canvasWidthPx || 500;
+    document.addEventListener("mousemove", doDragX);
+    document.addEventListener("mouseup", stopDragX);
   };
 
-  const doDragY = (event: MouseEvent) => {
-    const currentY = event.clientY;
-    image.value.canvasHeightPx = startHeight + (currentY - startY);
-
-    fixCanvasSize(image, rules);
+  const doDragX = (event: MouseEvent) => {
+    const currentX = event.clientX;
+    image.value.canvasWidthPx = startWidth + (currentX - startX);
+    image.value.sheetWidthPx = rules?.value?.maxWidth || IMG_MAX_CANVAS_WIDTH;
+    fixCanvasSize(image, rules.value);
 
     fixImageSize(
       image.value,
@@ -31,7 +31,7 @@ export function useImageDragY(
       container.value?.clientHeight || 0,
       originalImageWidth.value,
       originalImageHeight.value,
-      rules
+      rules.value
     );
     fixImagePosition(
       image.value,
@@ -39,7 +39,7 @@ export function useImageDragY(
       container.value?.clientHeight || 0,
       originalImageWidth.value,
       originalImageHeight.value,
-      rules
+      rules.value
     );
     if ("token" in image.value && image.value.token) {
       fixTokenPosition(
@@ -55,10 +55,10 @@ export function useImageDragY(
     }
   };
 
-  const stopDragY = () => {
-    document.removeEventListener("mousemove", doDragY);
-    document.removeEventListener("mouseup", stopDragY);
+  const stopDragX = () => {
+    document.removeEventListener("mousemove", doDragX);
+    document.removeEventListener("mouseup", stopDragX);
   };
 
-  return { startDragY };
+  return { startDragX };
 }
