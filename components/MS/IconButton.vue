@@ -1,6 +1,14 @@
 <template>
   <button class="icon-button" :title="label">
-    <Icon class="icon" aria-hidden :name="icon" :size />
+    <Icon
+      class="icon"
+      aria-hidden
+      :name="icon"
+      :size
+      :style="{
+        transform: rotate ? `rotate(${rotate}deg)` : 'none',
+      }"
+    />
     <span class="sr-only">{{ label }}</span>
   </button>
 </template>
@@ -18,6 +26,10 @@ const p = defineProps({
   size: {
     type: String,
     default: "16",
+  },
+  rotate: {
+    type: Number,
+    default: null,
   },
 });
 </script>

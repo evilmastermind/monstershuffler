@@ -64,10 +64,10 @@ const columnsCount = computed(() => {
   background-repeat: repeat;
 }
 .border-light {
-  background-image: url("@/assets/images/monster/sticks2.png");
+  background-image: url("@/assets/images/monster/sticks2.webp");
 }
 .border-dark {
-  background-image: url("@/assets/images/monster/sticks2-dark.png");
+  background-image: url("@/assets/images/monster/sticks2-dark.webp");
 }
 .stat-block {
   position: relative;
@@ -84,11 +84,11 @@ const columnsCount = computed(() => {
   background-repeat: repeat;
 }
 .stat-block-light:before {
-  background-image: url("@/assets/images/monster/paper-texture.png");
+  background-image: url("@/assets/images/monster/paper-texture.webp");
   background-color: #fff8dc;
 }
 .stat-block-dark:before {
-  background-image: url("@/assets/images/monster/paper-texture-dark.png");
+  background-image: url("@/assets/images/monster/paper-texture-dark.webp");
   background-color: #000723;
 }
 .gradient {
@@ -98,11 +98,11 @@ const columnsCount = computed(() => {
   background-repeat: repeat-x;
 }
 .gradient-light {
-  background: url("@/assets/images/monster/semitransparent.png");
+  background: url("@/assets/images/monster/semitransparent.webp");
   background-repeat: repeat-x;
 }
 .gradient-dark {
-  background: url("@/assets/images/monster/semitransparent-dark.png");
+  background: url("@/assets/images/monster/semitransparent-dark.webp");
   background-repeat: repeat-x;
 }
 .stat-block-content {

@@ -42,10 +42,11 @@ export function shrinkImage(
   containerWidth: number,
   containerHeight: number,
   originalImageWidth: number,
-  originalImageHeight: number
+  originalImageHeight: number,
+  smAndDown = false
 ) {
   image.imageHeightPx ??= containerHeight;
-  if (containerHeight > image.imageHeightPx) {
+  if (containerHeight > image.imageHeightPx && !smAndDown) {
     return;
   }
   const imageWidth = getImageWidth(
@@ -258,15 +259,17 @@ export function calculateComputedImage(
   // change (e.g. monster sheet opened on mobile, LayoutC => LayoutA) and we
   // need to check if the image size could be reduced to make it fully visible
   if (
-    image.value.canvasHeightPx &&
-    container.value.clientHeight < image.value.canvasHeightPx
+    (image.value.canvasHeightPx &&
+      container.value.clientHeight < image.value.canvasHeightPx) ||
+    smAndDown.value
   ) {
     shrinkImage(
       newImage,
       containerWidth,
       container.value.clientHeight,
       originalImageWidth.value,
-      originalImageHeight.value
+      originalImageHeight.value,
+      smAndDown.value
     );
   }
 

@@ -41,10 +41,12 @@ useProvideCharacter(refCharacter);
   overflow: hidden;
 }
 .background-light {
-  background: url("@/assets/images/monster/paper.jpg");
+  background-image: url("@/assets/images/monster/paper.webp");
+  @apply bg-background-card;
 }
 .background-dark {
-  background-image: url("@/assets/images/monster/paper-texture-dark.png");
+  background-image: url("@/assets/images/monster/paper-texture-dark.webp");
+  @apply bg-background-card;
 }
 .content {
   height: 100%;

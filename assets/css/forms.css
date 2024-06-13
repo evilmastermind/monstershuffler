@@ -62,3 +62,24 @@
   outline: 2px solid theme("colors.text");
   box-shadow: 0 0 0 3px theme("colors.text-inverse");
 }
+
+/* 
+::-webkit-input-placeholder {
+  color: theme("colors.background-inset.700");
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  color: theme("colors.background-inset.700");
+  opacity: 1;
+}
+
+::-ms-placeholder {
+  color: theme("colors.background-inset.700");
+  opacity: 1;
+}
+
+::placeholder {
+  color: theme("colors.background-inset.700");
+  opacity: 1;
+} */

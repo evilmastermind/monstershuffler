@@ -30,7 +30,7 @@ export function getTemporaryImage(
   switch (imageName?.toLowerCase()) {
     case "barbarian":
       image = {
-        url: "barbarian",
+        url: "/images/backgrounds/barbarian.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 426,
@@ -38,7 +38,7 @@ export function getTemporaryImage(
         imageHeightPx: 601.6310679611651,
         imagePositionLeftPx: -97.56521739130437,
         imagePositionTopPx: -175.63106796116506,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 64,
           leftPx: 541,
@@ -48,7 +48,7 @@ export function getTemporaryImage(
       break;
     case "bard":
       image = {
-        url: "bard",
+        url: "/images/backgrounds/bard.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 422,
@@ -56,7 +56,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -137,
-        mask: "",
+        mask: "2",
         token: {
           topPx: 95,
           leftPx: 500,
@@ -66,7 +66,7 @@ export function getTemporaryImage(
       break;
     case "barracks":
       image = {
-        url: "barracks",
+        url: "/images/backgrounds/barracks.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 357,
@@ -74,7 +74,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: -56,
         imagePositionTopPx: -319,
-        mask: "",
+        mask: "3",
         token: {
           topPx: 25,
           leftPx: 279,
@@ -84,7 +84,7 @@ export function getTemporaryImage(
       break;
     case "church":
       image = {
-        url: "church",
+        url: "/images/backgrounds/church.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 474,
@@ -92,7 +92,7 @@ export function getTemporaryImage(
         imageHeightPx: 541.6310679611651,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -56.63106796116506,
-        mask: "",
+        mask: "4",
         token: {
           topPx: 27,
           leftPx: 531,
@@ -102,7 +102,7 @@ export function getTemporaryImage(
       break;
     case "cleric":
       image = {
-        url: "cleric",
+        url: "/images/backgrounds/cleric.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 453,
@@ -110,7 +110,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -148,
-        mask: "",
+        mask: "5",
         token: {
           topPx: 166,
           leftPx: 549,
@@ -120,7 +120,7 @@ export function getTemporaryImage(
       break;
     case "druid":
       image = {
-        url: "druid",
+        url: "/images/backgrounds/druid.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 417,
@@ -128,7 +128,7 @@ export function getTemporaryImage(
         imageHeightPx: 717,
         imagePositionLeftPx: -86.75,
         imagePositionTopPx: -104,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 30,
           leftPx: 313,
@@ -138,7 +138,7 @@ export function getTemporaryImage(
       break;
     case "fighter":
       image = {
-        url: "fighter",
+        url: "/images/backgrounds/fighter.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 376,
@@ -146,7 +146,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: -3,
         imagePositionTopPx: -165,
-        mask: "",
+        mask: "2",
         token: {
           topPx: 25,
           leftPx: 345,
@@ -156,7 +156,7 @@ export function getTemporaryImage(
       break;
     case "forge":
       image = {
-        url: "forge",
+        url: "/images/backgrounds/forge.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 452,
@@ -164,7 +164,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -98,
-        mask: "",
+        mask: "3",
         token: {
           topPx: 65,
           leftPx: 143,
@@ -174,7 +174,7 @@ export function getTemporaryImage(
       break;
     case "hospital":
       image = {
-        url: "hospital",
+        url: "/images/backgrounds/hospital.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 478,
@@ -182,7 +182,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -143,
-        mask: "",
+        mask: "4",
         token: {
           topPx: 81,
           leftPx: 581,
@@ -192,7 +192,7 @@ export function getTemporaryImage(
       break;
     case "inn":
       image = {
-        url: "inn",
+        url: "/images/backgrounds/inn.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 446,
@@ -200,7 +200,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -144.42857142857144,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 156,
           leftPx: 688,
@@ -210,7 +210,7 @@ export function getTemporaryImage(
       break;
     case "kitchen":
       image = {
-        url: "kitchen",
+        url: "/images/backgrounds/kitchen.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 461,
@@ -218,7 +218,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -48.428571428571445,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 82,
           leftPx: 654,
@@ -228,7 +228,7 @@ export function getTemporaryImage(
       break;
     case "laboratory":
       image = {
-        url: "laboratory",
+        url: "/images/backgrounds/laboratory.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 358,
@@ -236,7 +236,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -104,
-        mask: "",
+        mask: "2",
         token: {
           topPx: 77,
           leftPx: 559,
@@ -246,7 +246,7 @@ export function getTemporaryImage(
       break;
     case "monk":
       image = {
-        url: "monk",
+        url: "/images/backgrounds/monk.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 322,
@@ -254,7 +254,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -222,
-        mask: "",
+        mask: "3",
         token: {
           topPx: 0,
           leftPx: 358,
@@ -264,7 +264,7 @@ export function getTemporaryImage(
       break;
     case "office":
       image = {
-        url: "office",
+        url: "/images/backgrounds/office.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 413,
@@ -272,7 +272,7 @@ export function getTemporaryImage(
         imageHeightPx: 427.57142857142856,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -2,
-        mask: "",
+        mask: "4",
         token: {
           topPx: 13,
           leftPx: 101,
@@ -282,7 +282,7 @@ export function getTemporaryImage(
       break;
     case "palace":
       image = {
-        url: "palace",
+        url: "/images/backgrounds/palace.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 402,
@@ -290,7 +290,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -244,
-        mask: "",
+        mask: "5",
         token: {
           topPx: 0,
           leftPx: 552,
@@ -300,7 +300,7 @@ export function getTemporaryImage(
       break;
     case "paladin":
       image = {
-        url: "paladin",
+        url: "/images/backgrounds/paladin.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 480,
@@ -308,7 +308,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -90,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 13,
           leftPx: 229,
@@ -318,7 +318,7 @@ export function getTemporaryImage(
       break;
     case "ranger":
       image = {
-        url: "ranger",
+        url: "/images/backgrounds/ranger.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 473,
@@ -326,7 +326,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -44,
-        mask: "",
+        mask: "2",
         token: {
           topPx: 0,
           leftPx: 530,
@@ -336,7 +336,7 @@ export function getTemporaryImage(
       break;
     case "rogue":
       image = {
-        url: "rogue",
+        url: "/images/backgrounds/rogue.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 357,
@@ -344,7 +344,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -217,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 85,
           leftPx: 654,
@@ -354,7 +354,7 @@ export function getTemporaryImage(
       break;
     case "school":
       image = {
-        url: "school",
+        url: "/images/backgrounds/school.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 384,
@@ -362,7 +362,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -232,
-        mask: "",
+        mask: "4",
         token: {
           topPx: 84,
           leftPx: 366,
@@ -372,7 +372,7 @@ export function getTemporaryImage(
       break;
     case "ship":
       image = {
-        url: "ship",
+        url: "/images/backgrounds/ship.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 385,
@@ -380,7 +380,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: -18,
         imagePositionTopPx: -251,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 0,
           leftPx: 142,
@@ -390,7 +390,7 @@ export function getTemporaryImage(
       break;
     case "shop":
       image = {
-        url: "shop",
+        url: "/images/backgrounds/shop.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 414,
@@ -398,7 +398,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -158,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 0,
           leftPx: 473,
@@ -408,7 +408,7 @@ export function getTemporaryImage(
       break;
     case "sorcerer":
       image = {
-        url: "sorcerer",
+        url: "/images/backgrounds/sorcerer.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 356,
@@ -416,7 +416,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -2,
-        mask: "",
+        mask: "2",
         token: {
           topPx: 6,
           leftPx: 553,
@@ -426,7 +426,7 @@ export function getTemporaryImage(
       break;
     case "stable":
       image = {
-        url: "stable",
+        url: "/images/backgrounds/stable.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 417,
@@ -434,7 +434,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -267,
-        mask: "",
+        mask: "3",
         token: {
           topPx: 79,
           leftPx: 548,
@@ -446,7 +446,7 @@ export function getTemporaryImage(
       switch (randomImage) {
         case 1:
           image = {
-            url: "streets1",
+            url: "/images/backgrounds/streets1.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 471,
@@ -454,7 +454,7 @@ export function getTemporaryImage(
             imageHeightPx: 700,
             imagePositionLeftPx: 0,
             imagePositionTopPx: 0,
-            mask: "",
+            mask: "4",
             token: {
               topPx: 53,
               leftPx: 712,
@@ -464,7 +464,7 @@ export function getTemporaryImage(
           break;
         case 2:
           image = {
-            url: "streets2",
+            url: "/images/backgrounds/streets2.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 466,
@@ -472,7 +472,7 @@ export function getTemporaryImage(
             imageHeightPx: 767.4285714285714,
             imagePositionLeftPx: -68.5,
             imagePositionTopPx: -194,
-            mask: "",
+            mask: "5",
             token: {
               topPx: 29,
               leftPx: 422,
@@ -482,7 +482,7 @@ export function getTemporaryImage(
           break;
         default:
           image = {
-            url: "streets3",
+            url: "/images/backgrounds/streets3.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 430,
@@ -490,7 +490,7 @@ export function getTemporaryImage(
             imageHeightPx: 521.6310679611651,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -54.63106796116506,
-            mask: "",
+            mask: "1",
             token: {
               topPx: 0,
               leftPx: 183,
@@ -502,7 +502,7 @@ export function getTemporaryImage(
       break;
     case "theatre":
       image = {
-        url: "theatre",
+        url: "/images/backgrounds/theatre.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 402,
@@ -510,7 +510,7 @@ export function getTemporaryImage(
         imageHeightPx: 767.4285714285714,
         imagePositionLeftPx: -87.5,
         imagePositionTopPx: -360.42857142857144,
-        mask: "",
+        mask: "2",
         token: {
           topPx: 85,
           leftPx: 401,
@@ -520,7 +520,7 @@ export function getTemporaryImage(
       break;
     case "warlock":
       image = {
-        url: "warlock",
+        url: "/images/backgrounds/warlock.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 428,
@@ -528,7 +528,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -139,
-        mask: "",
+        mask: "3",
         token: {
           topPx: 121,
           leftPx: 434,
@@ -540,7 +540,7 @@ export function getTemporaryImage(
       switch (randomImage) {
         case 1:
           image = {
-            url: "wilds1",
+            url: "/images/backgrounds/wilds1.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 410,
@@ -548,7 +548,7 @@ export function getTemporaryImage(
             imageHeightPx: 582.3956043956044,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -40,
-            mask: "",
+            mask: "4",
             token: {
               topPx: 0,
               leftPx: 499,
@@ -558,7 +558,7 @@ export function getTemporaryImage(
           break;
         case 2:
           image = {
-            url: "wilds2",
+            url: "/images/backgrounds/wilds2.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 340,
@@ -566,7 +566,7 @@ export function getTemporaryImage(
             imageHeightPx: 667.4285714285714,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -50,
-            mask: "",
+            mask: "5",
             token: {
               topPx: 0,
               leftPx: 467,
@@ -576,47 +576,49 @@ export function getTemporaryImage(
           break;
         default:
           image = {
-            url: "wilds3",
+            url: "/images/backgrounds/wilds3.webp",
             artist: "",
             artistUrl: "",
-            canvasHeightPx: 390,
+            canvasHeightPx: 426,
             canvasWidthPx: 1168,
-            imageHeightPx: 747.4285714285714,
-            imagePositionLeftPx: -63,
-            imagePositionTopPx: -340.42857142857144,
-            mask: "",
+            imageHeightPx: 430,
+            imagePositionLeftPx: -6,
+            imagePositionTopPx: 0,
+            mask: "1",
             token: {
-              topPx: 0,
-              leftPx: 205,
-              widthPx: 219,
+              topPx: 9,
+              leftPx: 178,
+              widthPx: 406,
             },
+            sheetWidthPx: 800,
           };
           break;
       }
       break;
     case "wizard":
       image = {
-        url: "wizard",
+        url: "/images/backgrounds/wizard.webp",
         artist: "",
         artistUrl: "",
-        canvasHeightPx: 440,
+        canvasHeightPx: 405,
         canvasWidthPx: 1168,
         imageHeightPx: 700,
-        imagePositionLeftPx: 0,
-        imagePositionTopPx: -161,
-        mask: "",
+        imagePositionLeftPx: -432,
+        imagePositionTopPx: -187,
+        mask: "2",
         token: {
-          topPx: 53,
-          leftPx: 769,
+          topPx: 16,
+          leftPx: 405,
           widthPx: 350,
         },
+        sheetWidthPx: 800,
       };
       break;
     case "workshop":
       switch (randomImage) {
         case 1:
           image = {
-            url: "workshop1",
+            url: "/images/backgrounds/workshop1.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 433,
@@ -624,7 +626,7 @@ export function getTemporaryImage(
             imageHeightPx: 433,
             imagePositionLeftPx: 0,
             imagePositionTopPx: 0,
-            mask: "",
+            mask: "3",
             token: {
               topPx: 15,
               leftPx: 168,
@@ -634,7 +636,7 @@ export function getTemporaryImage(
           break;
         case 2:
           image = {
-            url: "workshop2",
+            url: "/images/backgrounds/workshop2.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 401,
@@ -642,7 +644,7 @@ export function getTemporaryImage(
             imageHeightPx: 521.6310679611651,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -76.63106796116506,
-            mask: "",
+            mask: "4",
             token: {
               topPx: 10,
               leftPx: 479,
@@ -650,9 +652,9 @@ export function getTemporaryImage(
             },
           };
           break;
-        default:
+        case 3:
           image = {
-            url: "workshop3",
+            url: "/images/backgrounds/workshop3.webp",
             artist: "",
             artistUrl: "",
             canvasHeightPx: 419,
@@ -660,7 +662,25 @@ export function getTemporaryImage(
             imageHeightPx: 521.6310679611651,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -95.63106796116506,
-            mask: "",
+            mask: "5",
+            token: {
+              topPx: 0,
+              leftPx: 628,
+              widthPx: 393,
+            },
+          };
+          break;
+        default:
+          image = {
+            url: "/images/backgrounds/workshop4.webp",
+            artist: "",
+            artistUrl: "",
+            canvasHeightPx: 419,
+            canvasWidthPx: 1168,
+            imageHeightPx: 521.6310679611651,
+            imagePositionLeftPx: 0,
+            imagePositionTopPx: -95.63106796116506,
+            mask: "1",
             token: {
               topPx: 0,
               leftPx: 628,
@@ -672,7 +692,7 @@ export function getTemporaryImage(
       break;
     default:
       image = {
-        url: "default",
+        url: "/images/backgrounds/default.webp",
         artist: "",
         artistUrl: "",
         canvasHeightPx: 472,
@@ -680,7 +700,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -126.42857142857144,
-        mask: "",
+        mask: "1",
         token: {
           topPx: 19,
           leftPx: 356,

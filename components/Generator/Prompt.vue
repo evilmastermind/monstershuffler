@@ -5,13 +5,13 @@
       type="text"
       class="ms-input w-full prompt pr-6"
       :placeholder="$t('generator.prompt.placeholder')"
-      @keyup.enter="generateNpc"
+      @keyup.enter="generateNpcsThrottle"
     />
     <MSIconButton
       class="generate-button text-primary-700 px-2 text-2xl"
       :label="$t('generator.form.generate')"
       icon="fa6-solid:shuffle"
-      @click="generateNpc"
+      @click="generateNpcsThrottle"
     />
   </div>
 </template>
@@ -25,7 +25,9 @@ const prompt = ref("");
 const { promptOptions, keywords, settings } = storeToRefs(generator);
 const characterChanges = ref<CharacterChanges>({});
 
-function generateNpc() {
+const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
+
+function generateNpcs() {
   promptOptions.value = {};
   characterChanges.value = {};
   const words = prompt.value.trim().toLowerCase().split(" ");
@@ -168,7 +170,7 @@ function generateNpc() {
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 
-  generator.generateNpcs(promptOptions.value, characterChanges.value);
+  generator.getRandomNpcs(promptOptions.value, characterChanges.value);
 }
 </script>
 

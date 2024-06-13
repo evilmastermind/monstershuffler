@@ -14,6 +14,7 @@
       @keyup.-="startResize"
       @keyup.+="startResize"
     >
+      <MonsterImagesTools :image class="image-tools" />
       <div
         v-if="rules.width !== 'full'"
         class="image-handle-right"
@@ -48,9 +49,10 @@
       :style="{
         height: `${canvasHeight}`,
         width: `${canvasWidth}`,
-        background: `url(/images/backgrounds/${image.url}.webp)`,
         backgroundSize: `auto ${computedImage.imageHeightPx}px`,
         backgroundPosition: `${computedImage.imagePositionLeftPx}px ${computedImage.imagePositionTopPx}px`,
+
+        backgroundImage: `url(${image.url})`,
         ...mask,
       }"
     >
@@ -166,16 +168,25 @@ const canvasWidth = computed<string>(() => {
 const mask = computed(() => {
   if (p.rules.mask === "bottom") {
     return {
-      maskImage: `url(/images/masks/bottom-1.png)`,
+      maskImage: `url(/images/masks/bottom-${image.value?.mask || 1}.png)`,
       maskRepeat: "repeat-x",
       maskPosition: "bottom center",
     };
   }
   if (p.rules.mask === "left") {
     return {
-      maskImage: `url(/images/masks/left-1.png)`,
+      maskImage: `url(/images/masks/left-${image.value?.mask || 1}.png)`,
       maskRepeat: "repeat-y",
       maskPosition: "top left",
+    };
+  }
+  if (p.rules.mask === "bottom-right") {
+    return {
+      maskImage: `url(/images/masks/bottom-right-${
+        image.value?.mask || 1
+      }.png)`,
+      maskRepeat: "no-repeat",
+      maskPosition: "bottom right",
     };
   }
 });
@@ -253,7 +264,7 @@ watch(
 onBeforeMount(() => {
   const imageElement = new Image();
   // Check the resolution once the image is loaded
-  imageElement.src = `/images/backgrounds/${image.value.url}.webp`;
+  imageElement.src = `${image.value.url}`;
   imageElement.onload = () => {
     e("load");
     isImageLoading.value = false;
@@ -272,7 +283,7 @@ onBeforeMount(() => {
   overflow: hidden;
   background-repeat: no-repeat;
   mask-origin: stroke-box;
-  @apply bg-gradient-to-t from-primary-500 to-primary-700;
+  background: theme("colors.background-inset.500");
 }
 .image-outline {
   position: absolute;
@@ -379,5 +390,21 @@ onBeforeMount(() => {
 }
 .elevated {
   z-index: 9900;
+}
+.image-tools {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: -400% 0;
+  }
 }
 </style>

@@ -149,6 +149,16 @@ onBeforeMount(() => {
       character.value.character.user.sheet.showRoleplayStats;
   }
 });
+
+watch(showRoleplayStats, () => {
+  if (
+    character.value.character.user?.sheet?.showRoleplayStats === true ||
+    character.value.character.user?.sheet?.showRoleplayStats === false
+  ) {
+    character.value.character.user.sheet.showRoleplayStats =
+      showRoleplayStats.value;
+  }
+});
 </script>
 
 <style scoped>
