@@ -1,3 +1,4 @@
+import { enchantmentObject } from './../node_modules/monstershuffler-shared/schemas/objects/character/actions';
 import { Variables } from "./objects.d";
 import { z } from "zod";
 import {
@@ -15,6 +16,7 @@ import {
   characterObject,
   chosenActionObject,
   descriptionPartObject,
+  enchantmentObject,
   imageObject,
   pageSettings,
   parsedActionObject,
@@ -63,6 +65,7 @@ export type Character = z.infer<typeof characterObject>;
 export type ChosenAction = z.infer<typeof chosenActionObject>;
 export type Condition = z.infer<typeof userObject>;
 export type DescriptionPart = z.infer<typeof descriptionPartObject>;
+export type Enchantment = z.infer<typeof enchantmentObject>;
 export type Image = z.infer<typeof imageObject>;
 export type PageSettings = z.infer<typeof pageSettings>;
 export type ParsedAction = z.infer<typeof parsedActionObject>;

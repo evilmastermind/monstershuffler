@@ -10,20 +10,20 @@
         <div class="text-sm">
           <h4 class="content">Prompt mode keywords:</h4>
           <p class="content">
-            ex:
+            e.g.
             <span class="example">"evil male drow innkeeper rogue cr 6"</span>
           </p>
           <ul class="list">
             <li>
-              <b>any race</b> or variant: ex:
+              <b>any race</b> or variant:
               <span class="example">"drow"</span>
             </li>
             <li>
-              <b>any class</b> or variant: ex:
+              <b>any class</b> or variant:
               <span class="example">"rogue"</span>
             </li>
             <li>
-              <b>any background</b>: ex:
+              <b>any background</b>:
               <span class="example">"innkeeper"</span>
             </li>
             <li>
@@ -31,12 +31,12 @@
               used in the stat block
             </li>
             <li>
-              <b>cr {number}</b>: challenge rating, ex:
+              <b>cr {number}</b>: challenge rating:
               <span class="example">"cr 6"</span>
             </li>
             <li>
               <b>lawful</b>, <b>chaotic</b>, <b>good</b>, <b>evil</b>,
-              <b>neutral</b>: alignment, ex:
+              <b>neutral</b> alignment:
               <span class="example">"lawful evil"</span>
             </li>
           </ul>

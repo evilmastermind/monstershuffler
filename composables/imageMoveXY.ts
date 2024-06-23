@@ -17,10 +17,15 @@ export function useImageMoveXY(
   let imageWidth = 0;
   let imageHeight = 0;
 
-  const startMoveXY = (event: MouseEvent) => {
+  const startMoveXY = (event: MouseEvent | TouchEvent) => {
     event.preventDefault();
-    startX = event.clientX;
-    startY = event.clientY;
+    if (event instanceof TouchEvent) {
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+    } else {
+      startX = event.clientX;
+      startY = event.clientY;
+    }
     containerWidth = container.value?.clientWidth || 0;
     containerHeight = container.value?.clientHeight || 0;
     startPositionLeft = image.value.imagePositionLeftPx || 0;
@@ -36,13 +41,26 @@ export function useImageMoveXY(
     imageHeight = image.value.imageHeightPx || originalImageHeight.value;
     imageWidth =
       originalImageWidth.value * (imageHeight / originalImageHeight.value);
-    document.addEventListener("mousemove", doMoveXY);
-    document.addEventListener("mouseup", stopMoveXY);
+
+    if (event instanceof TouchEvent) {
+      document.addEventListener("touchmove", doMoveXY);
+      document.addEventListener("touchend", stopMoveXY);
+    } else {
+      document.addEventListener("mousemove", doMoveXY);
+      document.addEventListener("mouseup", stopMoveXY);
+    }
   };
 
-  const doMoveXY = (event: MouseEvent) => {
-    const currentX = event.clientX;
-    const currentY = event.clientY;
+  const doMoveXY = (event: MouseEvent | TouchEvent) => {
+    let currentX = 0;
+    let currentY = 0;
+    if (event instanceof TouchEvent) {
+      currentX = event.touches[0].clientX;
+      currentY = event.touches[0].clientY;
+    } else {
+      currentX = event.clientX;
+      currentY = event.clientY;
+    }
     image.value.imagePositionLeftPx = startPositionLeft + (currentX - startX);
     image.value.imagePositionTopPx = startPositionTop + (currentY - startY);
     image.value.canvasWidthPx = containerWidth;
@@ -61,6 +79,8 @@ export function useImageMoveXY(
   const stopMoveXY = () => {
     document.removeEventListener("mousemove", doMoveXY);
     document.removeEventListener("mouseup", stopMoveXY);
+    document.removeEventListener("touchmove", doMoveXY);
+    document.removeEventListener("touchend", stopMoveXY);
   };
 
   return { startMoveXY };

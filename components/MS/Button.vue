@@ -26,12 +26,10 @@ const localePath = useLocalePath();
 const p = defineProps({
   text: {
     type: String,
-    required: true,
     default: "Click",
   },
   color: {
     type: String as PropType<UIColors>,
-    required: true,
     default: "primary",
   },
   block: {

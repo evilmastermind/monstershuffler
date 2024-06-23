@@ -1,8 +1,12 @@
 <template>
   <MSModal width="800" @close="emit('close')">
     <template #title>{{ $t("editor.layout.title") }}</template>
+    <div class="mt-2" />
+    <MSAlert v-if="isMobileAlertOpen" inline type="warning" :title="$t('editor.layout.warningMobileTitle')" @close="closeAlert">
+      {{ $t("editor.layout.warningMobileDescription") }}
+    </MSAlert>
     <h4 class="content mt-4">{{ $t("editor.layout.dynamic") }}</h4>
-    <p class="subtitle">{{ $t("editor.layout.dynamicSubtitle") }}.</p>
+    <p class="text-sm">{{ $t("editor.layout.dynamicSubtitle") }}.</p>
     <div class="layout-group mt-4">
       <button
         class="layout"
@@ -13,6 +17,18 @@
         <MonsterLayoutExample2ColumnA class="example" />
         <span class="sr-only">
           Monster's image on top, description and stat block automatically
+          rearranged when the stat block becomes too big.
+        </span>
+      </button>
+      <button
+        class="layout"
+        :class="currentLayout === 'MonsterLayoutDynamicNoImage' ? 'selected' : ''"
+        @click="chooseLayout('MonsterLayoutDynamicNoImage')"
+      >
+        <MonsterLayoutExampleNoImage1Column class="example" />
+        <MonsterLayoutExampleNoImage2Column class="example" />
+        <span class="sr-only">
+          No image, description and stat block automatically
           rearranged when the stat block becomes too big.
         </span>
       </button>
@@ -106,6 +122,9 @@
       :label="$t('editor.layout.showRoleplayStats')"
       class="mt-4"
     />
+    <div class="buttons mt-5 mb-4">
+      <MSButton @click="emit('close')" :text="$t('close')" />
+    </div>
   </MSModal>
 </template>
 
@@ -114,7 +133,11 @@ import type { Character } from "@/types";
 const emit = defineEmits(["close"]);
 const character = inject("character") as Ref<Character>;
 
+const { smAndDown } = useScreen();
+const { alertClicked } = storeToRefs(useUiStore());
+
 const showRoleplayStats = ref(true);
+const isMobileAlertOpen = ref(false);
 
 const currentLayout = computed(() => {
   return character.value.character.user?.sheet?.layout;
@@ -143,12 +166,11 @@ function chooseLayout(layout: string) {
   emit("close");
 }
 
-onBeforeMount(() => {
-  if (character.value.character.user?.sheet?.showRoleplayStats !== undefined) {
-    showRoleplayStats.value =
-      character.value.character.user.sheet.showRoleplayStats;
-  }
-});
+function closeAlert() {
+  isMobileAlertOpen.value = false;
+  alertClicked.value.layoutsMobile = true;
+}
+
 
 watch(showRoleplayStats, () => {
   if (
@@ -159,11 +181,27 @@ watch(showRoleplayStats, () => {
       showRoleplayStats.value;
   }
 });
+
+watch(smAndDown, () => {
+  isMobileAlertOpen.value = alertClicked.value?.layoutsMobile ? false : smAndDown.value;
+});
+
+onBeforeMount(() => {
+  if (character.value.character.user?.sheet?.showRoleplayStats !== undefined) {
+    showRoleplayStats.value =
+      character.value.character.user.sheet.showRoleplayStats;
+  }
+});
 </script>
 
 <style scoped>
 .example {
-  width: 90px;
+  width: 60px;
+}
+@media (min-width: 480px) {
+  .example {
+    width: 90px;
+  }
 }
 .layout-group {
   display: flex;
@@ -173,13 +211,14 @@ watch(showRoleplayStats, () => {
 .layout {
   display: flex;
   cursor: pointer;
-  @apply gap-2 p-2 rounded-xl bg-text-inverse shadow;
+  background-color: #999;
+  @apply gap-2 p-2 rounded-lg shadow-md;
 }
 .layout:hover {
   transition: background-color 0.05s;
-  @apply bg-background-evil outline-2;
+  outline: 2px solid theme("colors.primary.700");
 }
 .selected {
-  @apply bg-background-evil outline-2;
+  outline: 2px solid theme("colors.primary.700");
 }
 </style>

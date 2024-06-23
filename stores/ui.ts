@@ -2,6 +2,7 @@ import type { Theme } from "@/types";
 
 export const useUiStore = defineStore("ui", () => {
   const currentThemeName: Ref<string | null> = ref(null) || null;
+  const alertClicked = ref<Record<string, boolean>>({});
   const themes: Theme[] = [
     {
       name: "light",
@@ -28,6 +29,7 @@ export const useUiStore = defineStore("ui", () => {
 
   return {
     themes,
+    alertClicked,
     currentThemeName,
     currentThemeType,
   };

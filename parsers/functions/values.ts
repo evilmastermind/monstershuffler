@@ -7,11 +7,12 @@ import type {
   ValueDice,
   ValueExpression,
   ValueIncrProgression,
+  Enchantment,
   ParsedDice,
 } from "@/types";
 
 export function calculateValue(
-  value: ValueDice | ValueExpression | ValueIncrProgression,
+  value: ValueDice | ValueExpression | ValueIncrProgression | Enchantment,
   character: Character,
   variant: ActionVariant | undefined = undefined
 ) {
@@ -82,6 +83,8 @@ export function calculateValue(
       // adding the expression as bonus to the dice roll
       if (finalParsedDice.length > 0) {
         finalParsedDice[0].bonus = expressionResult;
+      } else {
+        part.number = expressionResult;
       }
     } else {
       part.string += `${expressionResult}`;

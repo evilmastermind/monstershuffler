@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
-    <dialog class="modal" open>
-      <div class="card" :style="{ maxWidth: `${p.width}px` }">
+    <dialog class="modal" open @click="emit('close')">
+      <div class="card" :style="{ maxWidth: `${p.width}px` }" @click.stop>
         <MSIconButton
           class="close ml-1 text-text-secondary"
           :label="$t('closeLabel')"
@@ -37,16 +37,16 @@ const p = defineProps({
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  @apply text-text bg-background-100;;
 }
 .card {
-  width: 100%;
-  height: 100%;
+  position: relative;
   backdrop-filter: blur(4px);
-  @apply shadow-xl p-4 sm:p-5 bg-background-100;
+  @apply p-4 sm:p-5 bg-background-100;
 }
 @media (min-width: theme("screens.sm")) {
   .modal {
+    background-color: rgba(0, 0, 0, 0.4);
     @apply p-4;
   }
   .card {

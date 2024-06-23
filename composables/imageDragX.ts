@@ -11,16 +11,30 @@ export function useImageDragX(
   let startX = 0;
   let startWidth = 0;
 
-  const startDragX = (event: MouseEvent) => {
+  const startDragX = (event: MouseEvent | TouchEvent) => {
     event.preventDefault();
-    startX = event.clientX;
     startWidth = image.value.canvasWidthPx || 500;
-    document.addEventListener("mousemove", doDragX);
-    document.addEventListener("mouseup", stopDragX);
+
+    if (event instanceof TouchEvent) {
+      startX = event.touches[0].clientX;
+      document.addEventListener("touchmove", doDragX);
+      document.addEventListener("touchend", stopDragX);
+    } else {
+      startX = event.clientX;
+      document.addEventListener("mousemove", doDragX);
+      document.addEventListener("mouseup", stopDragX);
+    }
   };
 
-  const doDragX = (event: MouseEvent) => {
-    const currentX = event.clientX;
+  const doDragX = (event: MouseEvent | TouchEvent) => {
+    let currentX = 0;
+
+    if (event instanceof TouchEvent) {
+      currentX = event.touches[0].clientX;
+    } else {
+      currentX = event.clientX;
+    }
+    
     image.value.canvasWidthPx = startWidth + (currentX - startX);
     image.value.sheetWidthPx = rules?.value?.maxWidth || IMG_MAX_CANVAS_WIDTH;
     fixCanvasSize(image, rules.value);
@@ -58,6 +72,8 @@ export function useImageDragX(
   const stopDragX = () => {
     document.removeEventListener("mousemove", doDragX);
     document.removeEventListener("mouseup", stopDragX);
+    document.removeEventListener("touchmove", doDragX);
+    document.removeEventListener("touchend", stopDragX);
   };
 
   return { startDragX };

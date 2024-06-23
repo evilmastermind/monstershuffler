@@ -1,7 +1,6 @@
 <template>
   <div class="layout">
-    <MonsterStatBlock :columns="2" />
-    <div class="roleplay mt-6">
+    <div class="roleplay">
       <MonsterBackstory class="story" />
       <div class="card class= mt-6">
         <MonsterSheetCard v-if="showRoleplayStats">
@@ -9,6 +8,7 @@
         </MonsterSheetCard>
       </div>
     </div>
+    <MonsterStatBlock :columns="2" class="mt-6" />
   </div>
 </template>
 

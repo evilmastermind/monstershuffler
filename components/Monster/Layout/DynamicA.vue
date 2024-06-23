@@ -1,11 +1,12 @@
 <template>
   <Transition name="fade-quick" mode="out-in">
-    <MonsterLayoutOneColumnA v-if="columns === 1" />
-    <MonsterLayoutTwoColumnA v-else />
+    <MonsterLayoutOneColumnA v-if="columns === 1" @load="e('load')" />
+    <MonsterLayoutTwoColumnA v-else @load="e('load')" />
   </Transition>
 </template>
 
 <script setup lang="ts">
+const e = defineEmits(["load"]);
 const columns = inject("columns") as Ref<number>;
 </script>
 

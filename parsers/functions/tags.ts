@@ -1,7 +1,7 @@
 import { createPart } from "./statistics";
 import { calculateValue } from "./values";
 import { calculateAttack } from "./attacks";
-import { getFirstWord, thirdToFirstPerson } from "./words";
+import { ADVERBS, getNthWord, thirdToFirstPerson } from "./words";
 import type {
   ChosenAction,
   ActionVariant,
@@ -215,7 +215,10 @@ function fixVerbsAfterNeutralThey(parts: DescriptionPart[]) {
           continue;
         }
 
-        const word = getFirstWord(parts[i + 1].string, true);
+        let word = getNthWord(parts[i + 1].string, 1, true);
+        if (ADVERBS.includes(word)) {
+          word = getNthWord(parts[i + 1].string, 2, true);
+        }
         // check if the word has "n't" and separate it
         const hasNt = word.endsWith("n't");
         const wordWithoutNt = hasNt ? word.slice(0, -3) : word;

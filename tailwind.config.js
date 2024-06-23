@@ -119,8 +119,8 @@ export default {
               500: "hsl(7, 93%, 65%)",
               600: "hsl(7, 93%, 60%)",
             },
-            danger: "hsl(0, 100%, 40%)",
-            warning: "hsl(45, 100%, 40%)",
+            danger: "hsl(0, 50%, 35%)",
+            warning: "hsl(45, 100%, 35%)",
             success: "hsl(120, 100%, 30%)",
             info: "hsl(210, 100%, 35%)",
             evil: {

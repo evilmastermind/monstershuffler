@@ -47,6 +47,8 @@
     "layout": {
       "title": "Choose a Layout",
       "dynamic": "Dynamic layouts",
+      "warningMobileTitle": "Layouts & Mobile Devices",
+      "warningMobileDescription": "If you're using a small screen (e.g., a smartphone), you might not notice any change when switching layouts due to how the character sheets are styled on mobile devices.",
       "dynamicSubtitle": "These layouts rearrange themselves when stat blocks become too big",
       "1Column": "Layouts with 1-Column stat blocks",
       "2Column": "Layouts with 2-Column stat blocks",
@@ -55,8 +57,19 @@
       "showRoleplayStats": "Show roleplay stats"
     },
     "image": {
-      "frameHeight": "Frame Height"
+      "frameHeight": "Frame Height",
+      "placement": "Image Placement",
+      "toZoom": "zoom in/out the image",
+      "tokenCircle": "Token/Circle",
+      "tokenCircleHelp": "move the circle over the most relevant part of the image (e.g., the face of the NPC). This will be used not only for the token, but also to center the image on different layouts and screen resolutions.",
+      "changeMask": "Change mask",
+      "uploadImage": "Upload Image"
     }
+  },
+  "keys": {
+    "keys": "Keys",
+    "mouseWheelUp": "Mousewheel up",
+    "mouseWheelDown": "Mousewheel down"
   },
   "statBlock": {
     "actions": "Actions",
@@ -432,6 +445,7 @@
   },
   "generator": {
     "pageTitle": "NPC Generator",
+    "pickOne": "Pick one, or generate 4 more",
     "pageDescription": "NPC Generator for Dungeons & Dragons (D&D) 5th Edition, complete with fully-editable stat blocks.",
     "title": "NPC Generator",
     "description1": "This generator creates fully-editable Non-Player Characters (NPCs) for Dungeons & Dragons 5th Edition.",

@@ -39,8 +39,6 @@ const layout = computed(() => {
     return resolveComponent("MonsterLayoutDynamicA");
   }
   switch (layoutName) {
-    case "MonsterLayoutSomething":
-      return resolveComponent("MonsterLayoutSomething");
     case "MonsterLayoutDynamicNoImage":
       return resolveComponent("MonsterLayoutDynamicNoImage");
     case "MonsterLayoutDynamicA":

@@ -30,17 +30,17 @@
   h2.content {
     font-weight: bold !important;
     text-align: center;
-    @apply text-text text-7;
+    @apply text-7;
   }
 
   h3.content {
+    font-family: MrsEavesSmallCaps;
     font-weight: bold !important;
-    @apply text-text text-6;
+    @apply text-6;
   }
 
   h4.content {
-    font-weight: bold !important;
-    @apply text-text;
+    font-weight: bold !important;;
   }
 
   p.content {

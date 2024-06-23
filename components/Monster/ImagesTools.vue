@@ -1,17 +1,34 @@
 <template>
-  <div class="tools">
+  <div class="tools" @touchstart="handleTouch"  @touchmove="handleTouch" @touchend="handleTouch">
+    <MonsterImagesHelp />
     <MSIconButton
-      :label="$t('monsterSheet.editLayout')"
+      class="tool"
+      :label="$t('editor.image.changeMask')"
+      icon="fa6-solid:magnifying-glass-minus"
+      @click.stop="e('reduce')"
+      @touchstart.stop="e('reduce')"
+    />
+    <MSIconButton
+      class="tool"
+      :label="$t('editor.image.changeMask')"
+      icon="fa6-solid:magnifying-glass-plus"
+      @click.stop="e('enlarge')"
+      @touchstart.stop="e('enlarge')"
+    />
+    <MSIconButton
+      class="tool"
+      :label="$t('editor.image.changeMask')"
       icon="fe:mask"
       :rotate="90"
-      @click="toggleMask"
+      @click.stop="toggleMask"
+      @touchstart.stop="toggleMask"
     />
     <!-- <MSIconButton
       :label="$t('monsterSheet.editLayout')"
       :class="currentEditorMode === 'layout' ? 'text-invert' : ''"
       icon="fa6-solid:check"
     /> -->
-    <label class="label-icon">
+    <label class="label-icon tool" :title="$t('editor.image.uploadImage')" @touchstart.stop="uploadImage">
       <input
         ref="imageUpload"
         class="image-upload"
@@ -19,14 +36,15 @@
         accept="image/*"
       />
       <Icon class="icon" aria-hidden name="mdi:image-add" />
-      <span class="sr-only">{{ $t("monsterSheet.editLayout") }}</span>
+      <span class="sr-only">{{ $t("editor.image.uploadImage") }}</span>
     </label>
     <MSIconButton
       :label="$t('close')"
-      class="ml-4"
+      class="ml-4 tool"
       :class="currentEditorMode === 'layout' ? 'text-invert' : ''"
       icon="fa6-solid:check"
-      @click="currentEditorMode = ''"
+      @click.stop="currentEditorMode = ''"
+      @touchstart.stop="currentEditorMode = ''"
     />
   </div>
 </template>
@@ -37,11 +55,12 @@ import type { Image } from "@/types";
 
 const editor = useMonsterEditorStore();
 
+const e = defineEmits(["enlarge", "reduce"]);
 const p = defineProps({
   image: {
     type: Object as PropType<Image>,
     required: true,
-  },
+  }
 });
 
 const { image } = toRefs(p);
@@ -50,11 +69,17 @@ const imageUpload = ref<HTMLInputElement | null>(null);
 
 function toggleMask() {
   if (!image.value.mask) {
-    image.value.mask = "1";
+    image.value.mask = "0";
   }
   const currentMask = parseInt(image.value.mask);
-  const nextMask = currentMask === IMG_MASKS_COUNT ? 1 : currentMask + 1;
-  image.value.mask = nextMask.toString();
+  const nextMask = currentMask === IMG_MASKS_COUNT ? "" : (currentMask + 1).toString();
+  image.value.mask = nextMask;
+}
+
+function handleTouch(event: TouchEvent) {
+  // Prevent scrolling
+  event.stopPropagation();
+  event.preventDefault();
 }
 
 // document.getElementById("imageUpload")?.addEventListener("change", (e) => {
@@ -62,12 +87,15 @@ function toggleMask() {
 //   if (file) {
 //     const reader = new FileReader();
 //     reader.onload = (e) => {
-//       console.log(e.target?.result);
 //       image.value.url = e.target?.result as string;
 //     };
 //     reader.readAsDataURL(file);
 //   }
 // });
+
+function uploadImage() {
+  imageUpload.value?.click();
+}
 
 watch(
   imageUpload,
@@ -90,6 +118,7 @@ watch(
 
 <style scoped>
 .tools {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -119,5 +148,8 @@ watch(
   display: grid;
   place-items: center;
   cursor: pointer;
+}
+.tool {
+  z-index: 120;
 }
 </style>

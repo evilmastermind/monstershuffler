@@ -11,16 +11,28 @@ export function useImageDragY(
   let startY = 0;
   let startHeight = 0;
 
-  const startDragY = (event: MouseEvent) => {
+  const startDragY = (event: MouseEvent | TouchEvent) => {
     event.preventDefault();
-    startY = event.clientY;
     startHeight = image.value.canvasHeightPx || 500;
-    document.addEventListener("mousemove", doDragY);
-    document.addEventListener("mouseup", stopDragY);
+    if (event instanceof TouchEvent) {
+      startY = event.touches[0].clientY;
+      document.addEventListener("touchmove", doDragY);
+      document.addEventListener("touchend", stopDragY);
+    } else {
+      startY = event.clientY;
+      document.addEventListener("mousemove", doDragY);
+      document.addEventListener("mouseup", stopDragY);
+    }
   };
 
-  const doDragY = (event: MouseEvent) => {
-    const currentY = event.clientY;
+  const doDragY = (event: MouseEvent | TouchEvent) => {
+    let currentY = 0;
+    if (event instanceof TouchEvent) {
+      currentY = event.touches[0].clientY;
+    } else {
+      currentY = event.clientY;
+    }
+
     image.value.canvasHeightPx = startHeight + (currentY - startY);
 
     fixCanvasSize(image, rules);
@@ -58,6 +70,8 @@ export function useImageDragY(
   const stopDragY = () => {
     document.removeEventListener("mousemove", doDragY);
     document.removeEventListener("mouseup", stopDragY);
+    document.removeEventListener("touchmove", doDragY);
+    document.removeEventListener("touchend", stopDragY);
   };
 
   return { startDragY };

@@ -48,13 +48,17 @@
     text-align: center;
     color: white;
     overflow: hidden;
+    animation: delayed 4s linear;
   }
-  @keyframes text {
+  @keyframes delayed {
     0% {
-      width: 0px;
+      opacity: 0;
+    }
+    99% {
+      opacity: 0;
     }
     100% {
-      width: 100px;
+      opacity: 1;
     }
   }
   @keyframes loader {

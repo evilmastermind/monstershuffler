@@ -127,7 +127,7 @@ const saveSettingsThrottle = throttle(() => saveSettings(), 1000);
 
 async function generateNpcs() {
   isButtonLoading.value = true;
-  await generator.getRandomNpcs(options.value);
+  const reply = await generator.getRandomNpcs(options.value);
   isButtonLoading.value = false;
   saveSettingsThrottle();
 }

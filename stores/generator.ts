@@ -96,6 +96,7 @@ export const useGeneratorStore = defineStore("generator", () => {
       session.value = data.npcs;
       return 200;
     } catch (error) {
+      console.log("error", error);
       return parseError(error).statusCode;
     }
   }

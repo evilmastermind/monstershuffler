@@ -74,7 +74,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: -56,
         imagePositionTopPx: -319,
-        mask: "3",
+        mask: "1",
         token: {
           topPx: 25,
           leftPx: 279,
@@ -92,7 +92,7 @@ export function getTemporaryImage(
         imageHeightPx: 541.6310679611651,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -56.63106796116506,
-        mask: "4",
+        mask: "2",
         token: {
           topPx: 27,
           leftPx: 531,
@@ -164,7 +164,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -98,
-        mask: "3",
+        mask: "1",
         token: {
           topPx: 65,
           leftPx: 143,
@@ -182,7 +182,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -143,
-        mask: "4",
+        mask: "2",
         token: {
           topPx: 81,
           leftPx: 581,
@@ -254,7 +254,7 @@ export function getTemporaryImage(
         imageHeightPx: 667.4285714285714,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -222,
-        mask: "3",
+        mask: "1",
         token: {
           topPx: 0,
           leftPx: 358,
@@ -272,7 +272,7 @@ export function getTemporaryImage(
         imageHeightPx: 427.57142857142856,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -2,
-        mask: "4",
+        mask: "2",
         token: {
           topPx: 13,
           leftPx: 101,
@@ -362,7 +362,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -232,
-        mask: "4",
+        mask: "2",
         token: {
           topPx: 84,
           leftPx: 366,
@@ -434,7 +434,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -267,
-        mask: "3",
+        mask: "1",
         token: {
           topPx: 79,
           leftPx: 548,
@@ -454,7 +454,7 @@ export function getTemporaryImage(
             imageHeightPx: 700,
             imagePositionLeftPx: 0,
             imagePositionTopPx: 0,
-            mask: "4",
+            mask: "2",
             token: {
               topPx: 53,
               leftPx: 712,
@@ -528,7 +528,7 @@ export function getTemporaryImage(
         imageHeightPx: 700,
         imagePositionLeftPx: 0,
         imagePositionTopPx: -139,
-        mask: "3",
+        mask: "1",
         token: {
           topPx: 121,
           leftPx: 434,
@@ -548,7 +548,7 @@ export function getTemporaryImage(
             imageHeightPx: 582.3956043956044,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -40,
-            mask: "4",
+            mask: "2",
             token: {
               topPx: 0,
               leftPx: 499,
@@ -626,7 +626,7 @@ export function getTemporaryImage(
             imageHeightPx: 433,
             imagePositionLeftPx: 0,
             imagePositionTopPx: 0,
-            mask: "3",
+            mask: "1",
             token: {
               topPx: 15,
               leftPx: 168,
@@ -644,7 +644,7 @@ export function getTemporaryImage(
             imageHeightPx: 521.6310679611651,
             imagePositionLeftPx: 0,
             imagePositionTopPx: -76.63106796116506,
-            mask: "4",
+            mask: "2",
             token: {
               topPx: 10,
               leftPx: 479,

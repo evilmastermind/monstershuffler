@@ -1,9 +1,10 @@
 <template>
   <span
-    class="cursor-help"
+    class="tooltip-span cursor-help"
     @mouseenter="handleMouseOver"
     @mouseleave="isVisible = false"
     @click.stop="handleClick"
+    @touchstart.stop="handleClick"
   >
     <slot name="default" />
   </span>
@@ -25,6 +26,7 @@
         :label="$t('closeLabel')"
         icon="fa6-solid:xmark"
         @click.stop="isVisible = false"
+        @touchstart.stop="isVisible = false"
       />
     </div>
   </div>
@@ -89,6 +91,10 @@ watch(
 </script>
 
 <style scoped lang="scss">
+.tooltip-span {
+  display: grid;
+  place-items: center;
+}
 .tooltip-container {
   position: fixed;
   z-index: 9990;
@@ -97,7 +103,7 @@ watch(
   position: absolute;
   bottom: 0%;
   width: 100%;
-  @apply shadow-xl rounded p-4 sm:p-5 bg-background-100 not-italic;
+  @apply text-text shadow-xl rounded p-4 sm:p-5 bg-background-100 not-italic;
 }
 
 .close-button {

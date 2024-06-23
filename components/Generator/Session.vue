@@ -1,24 +1,29 @@
 <template>
-  <div class="session">
-    <div :class="session.length > 1 ? 'generation-4' : 'generation-1'">
-      <template
-        v-for="(character, index) in session"
-        :key="`${index}${character.character.name}`"
-      >
-        <Transition name="fade-scroll-slow" appear>
-          <MonsterCard
-            :character="(character as Character)"
-            class="shadow-md"
-            :style="{
-              transitionDelay: `${0.15 * index}s`,
-              transitionProperty: 'opacity, transform',
-            }"
-            selectable
-            tabindex="0"
-            @click="openCharacterSheet(character as Character)"
-          />
-        </Transition>
-      </template>
+  <div>
+    <!-- <h3 class="content text-text-evil">
+      {{ $t("generator.pickOne") }}
+    </h3> -->
+    <div class="session mt-2">
+      <div :class="session.length > 1 ? 'generation-4' : 'generation-1'">
+        <template
+          v-for="(character, index) in session"
+          :key="`${index}${character.character.name}`"
+        >
+          <Transition name="fade-scroll-slow" appear>
+            <MonsterCard
+              :character="(character as Character)"
+              class="shadow-md"
+              :style="{
+                transitionDelay: `${0.15 * index}s`,
+                transitionProperty: 'opacity, transform',
+              }"
+              selectable
+              tabindex="0"
+              @click="openCharacterSheet(character as Character)"
+            />
+          </Transition>
+        </template>
+      </div>
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="container"
     class="image-container"
     :class="isEditorModeEnabled ? 'mb-6 elevated' : ''"
   >
@@ -10,20 +11,23 @@
       v-if="isEditorModeEnabled"
       class="image-outline"
       @mousedown="startMoveXY"
+      @touchstart.stop="startMoveXY"
       @wheel="startResize"
       @keyup.-="startResize"
       @keyup.+="startResize"
     >
-      <MonsterImagesTools :image class="image-tools" />
+      <MonsterImagesTools :image @enlarge="enlargeImage" @reduce="reduceImage" class="image-tools" />
       <div
         v-if="rules.width !== 'full'"
         class="image-handle-right"
         @mousedown.stop="startDragX"
+        @touchstart.stop="startDragX"
       />
       <div
         v-if="rules.height !== 'full'"
         class="image-handle-bottom"
         @mousedown.stop="startDragY"
+        @touchstart.stop="startDragY"
       />
       <div
         v-if="isEditorModeEnabled"
@@ -35,11 +39,12 @@
           height: `${token.widthPx}px`,
         }"
         @mousedown.stop="startMoveTokenXY"
+        @touchstart.stop="startMoveTokenXY"
       >
         <div class="token-circle">
-          <div class="token-drag-right" @mousedown.stop="startTokenResize" />
-          <div class="token-drag-down" @mousedown.stop="startTokenResize" />
-          <div class="token-drag-trick" @mousedown.stop="startTokenResize" />
+          <div class="token-drag-right" @mousedown.stop="startTokenResize" @touchstart.stop="startTokenResize" />
+          <div class="token-drag-down" @mousedown.stop="startTokenResize" @touchstart.stop="startTokenResize" />
+          <div class="token-drag-trick" @mousedown.stop="startTokenResize" @touchstart.stop="startTokenResize" />
         </div>
       </div>
     </div>
@@ -56,8 +61,8 @@
         ...mask,
       }"
     >
-      <div v-if="isEditorModeEnabled" class="vertical-line" />
-      <div v-if="isEditorModeEnabled" class="horizontal-line" />
+      <div v-if="isEditorModeEnabled" class="image-vertical-line" />
+      <div v-if="isEditorModeEnabled" class="image-horizontal-line" />
     </div>
   </div>
 </template>
@@ -86,6 +91,7 @@ const { rules: rulesRef } = toRefs(p);
 const editor = useMonsterEditorStore();
 const { width, smAndDown } = useScreen();
 const canvas = ref<HTMLElement | null>(null);
+const container = ref<HTMLElement | null>(null);
 
 const character = inject("character") as Ref<Character>;
 const { currentEditorMode } = storeToRefs(editor);
@@ -166,16 +172,19 @@ const canvasWidth = computed<string>(() => {
 });
 
 const mask = computed(() => {
+  if(image.value?.mask === undefined || !image.value?.mask) {
+    return {};
+  }
   if (p.rules.mask === "bottom") {
     return {
-      maskImage: `url(/images/masks/bottom-${image.value?.mask || 1}.png)`,
+      maskImage: `url(/images/masks/bottom-${image.value?.mask || 1}.webp)`,
       maskRepeat: "repeat-x",
       maskPosition: "bottom center",
     };
   }
   if (p.rules.mask === "left") {
     return {
-      maskImage: `url(/images/masks/left-${image.value?.mask || 1}.png)`,
+      maskImage: `url(/images/masks/left-${image.value?.mask || 1}.webp)`,
       maskRepeat: "repeat-y",
       maskPosition: "top left",
     };
@@ -184,7 +193,7 @@ const mask = computed(() => {
     return {
       maskImage: `url(/images/masks/bottom-right-${
         image.value?.mask || 1
-      }.png)`,
+      }.webp)`,
       maskRepeat: "no-repeat",
       maskPosition: "bottom right",
     };
@@ -213,7 +222,7 @@ const { startMoveXY } = useImageMoveXY(
   originalImageHeight,
   rulesRef
 );
-const { startResize } = useImageResize(
+const { startResize, enlargeImage, reduceImage } = useImageResize(
   image,
   canvas,
   originalImageWidth,
@@ -224,9 +233,70 @@ const { startResize } = useImageResize(
 const { startMoveTokenXY } = useTokenMoveXY(image, token, canvas, rulesRef);
 const { startTokenResize } = useTokenResize(token, canvas);
 
+
+function enableDropImage(element: HTMLElement | null) {
+  if (!element) {
+    return;
+  }
+  element.addEventListener('dragover', (event) => fileDragHover(event, element), false);
+  element.addEventListener('dragleave', (event) => fileDragHover(event, element), false);
+  element.addEventListener('drop', (event) => fileSelectHandler(event, element), false);
+}
+
+function fileDragHover(e: DragEvent, element: HTMLElement) {
+  e.stopPropagation();
+  e.preventDefault();
+  // TODO: add hover effect
+  element.classList.toggle('drag-border', e.type === 'dragover');
+}
+
+function fileSelectHandler(e: DragEvent, element: HTMLElement) {
+  // Fetch FileList object
+  const files = e?.dataTransfer?.files;
+
+  // Cancel event and hover styling
+  fileDragHover(e, element);
+
+  if (!files) {
+    return;
+  }
+
+  // Process all File objects
+  for (let i = 0, f; f = files[i]; i++) {
+    if (f) {
+      // check if file is an image
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+      const objectURL = URL.createObjectURL(f);
+      image.value.url = objectURL;
+    }
+  }
+}
+
+function checkImageSize() {
+  const imageElement = new Image();
+  // Check the resolution once the image is loaded
+  imageElement.src = `${image.value.url}`;
+  // check if the image exists
+  imageElement.onerror = () => {
+    console.log("Image not found");
+    e("load");
+    isImageLoading.value = false;
+    image.value.url = "/images/backgrounds/default.webp";
+  };
+  imageElement.onload = () => {
+    e("load");
+    isImageLoading.value = false;
+    originalImageHeight.value = imageElement.naturalHeight;
+    originalImageWidth.value = imageElement.naturalWidth;
+  };
+}
+
+
 // Fix the image height and position when the screen width changes
 watch(
-  [width, isEditorModeEnabled, () => p.rules, () => canvas.value?.clientHeight],
+  [width, isEditorModeEnabled, () => p.rules, () => canvas.value?.clientHeight, originalImageHeight, originalImageWidth],
   () => {
     if (isEditorModeEnabled.value) {
       fixCanvasSize(image, p.rules);
@@ -261,16 +331,19 @@ watch(
   { immediate: true }
 );
 
+watch(() => image.value.url, () => {
+  isImageLoading.value = true;
+  checkImageSize();
+});
+
+
+
+onMounted(() => {
+  enableDropImage(container.value);
+});
+
 onBeforeMount(() => {
-  const imageElement = new Image();
-  // Check the resolution once the image is loaded
-  imageElement.src = `${image.value.url}`;
-  imageElement.onload = () => {
-    e("load");
-    isImageLoading.value = false;
-    originalImageHeight.value ??= imageElement.naturalHeight;
-    originalImageWidth.value ??= imageElement.naturalWidth;
-  };
+  checkImageSize();
 });
 </script>
 
@@ -370,7 +443,7 @@ onBeforeMount(() => {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
-.vertical-line {
+.image-vertical-line {
   position: absolute;
   z-index: 102;
   top: 0;
@@ -379,7 +452,7 @@ onBeforeMount(() => {
   height: 100%;
   border-right: 1px dashed rgba(125, 125, 125, 0.7);
 }
-.horizontal-line {
+.image-horizontal-line {
   position: absolute;
   z-index: 102;
   top: calc(50% - 1px);
@@ -393,10 +466,26 @@ onBeforeMount(() => {
 }
 .image-tools {
   position: absolute;
-  z-index: 100;
+  z-index: 110;
   top: 0;
   right: 0;
-  padding: 0.5rem;
+  padding: 0.5rem;  
+}
+.drag-border {
+  border: 2px solid theme("colors.primary.700");
+  box-shadow: inset 0 0 2px 2px theme("colors.evil.700");
+  animation: drag 1s infinite;
+}
+@keyframes drag {
+  0% {
+    box-shadow: inset 0 0 2px 2px theme("colors.evil.700");
+  }
+  50% {
+    box-shadow: inset 0 0 0px 0px theme("colors.evil.700");
+  }
+  100% {
+    box-shadow: inset 0 0 2px 2px theme("colors.evil.700");
+  }
 }
 
 @keyframes loading {

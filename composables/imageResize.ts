@@ -52,6 +52,9 @@ export function useImageResize(
     const oldImageWidth =
       originalImageWidth.value *
       (image.value.imageHeightPx / originalImageHeight.value);
+    if (image.value.imageHeightPx - resizeStep < (container.value?.clientHeight || 0)) {
+      return;
+    }
     image.value.imageHeightPx -= resizeStep;
     image.value.imagePositionTopPx ??= 0;
     image.value.imagePositionTopPx += resizeStep / 2;
@@ -78,5 +81,5 @@ export function useImageResize(
     );
   }
 
-  return { startResize };
+  return { startResize, enlargeImage, reduceImage };
 }

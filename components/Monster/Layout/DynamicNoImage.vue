@@ -6,7 +6,12 @@
 </template>
 
 <script setup lang="ts">
+const e = defineEmits(["load"]);
 const columns = inject("columns") as Ref<number>;
+
+onMounted(() => {
+  e("load");
+});
 </script>
 
 <style scoped>

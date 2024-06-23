@@ -1,9 +1,86 @@
-export function getFirstWord(str: string, apostrophe = false) {
-  const match = apostrophe
-    ? str.match(/^\s*\b([\w']+)\b/)
-    : str.match(/^\s*\b(\w+)\b/);
-  return match ? match[1] : "";
+
+export function getNthWord(str: string, n: number, apostrophe = false) {
+  if (n < 1) return ""; // Return empty string if n is less than 1
+
+  const regex = apostrophe ? /[\w']+/g : /\w+/g;
+  const words = str.match(regex);
+
+  return words && words.length >= n ? words[n - 1] : "";
 }
+
+export const ADVERBS = [
+  "absolutely",
+  "accordingly",
+  "actually",
+  "additionally",
+  "admittedly",
+  "also",
+  "always",
+  "anyway",
+  "certainly",
+  "chiefly",
+  "clearly",
+  "consequently",
+  "constantly",
+  "continually",
+  "conversely",
+  "definitely",
+  "especially",
+  "even",
+  "exclusively",
+  "finally",
+  "frequently",
+  "furthermore",
+  "hence",
+  "however",
+  "indeed",
+  "infrequently",
+  "instead",
+  "just",
+  "largely",
+  "likewise",
+  "literally",
+  "mainly",
+  "meanwhile",
+  "merely",
+  "moreover",
+  "mostly",
+  "namely",
+  "never",
+  "nevertheless",
+  "next",
+  "nonetheless",
+  "notably",
+  "now",
+  "occasionally",
+  "often",
+  "only",
+  "otherwise",
+  "particularly",
+  "precisely",
+  "primarily",
+  "principally",
+  "purely",
+  "rarely",
+  "rather",
+  "regularly",
+  "scarcely",
+  "seldom",
+  "similarly",
+  "simply",
+  "solely",
+  "sometimes",
+  "specifically",
+  "still",
+  "subsequently",
+  "surely",
+  "then",
+  "therefore",
+  "thus",
+  "truly",
+  "undoubtedly",
+  "usually",
+];
 
 // This was "inspired by" (copied from)
 // https://github.com/tandrewnichols/conjugate by Andrew Nichols
