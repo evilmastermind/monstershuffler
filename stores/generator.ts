@@ -1,3 +1,7 @@
+import {
+  fetchEventSource,
+  EventStreamContentType,
+} from "@microsoft/fetch-event-source";
 import { parseError } from "@/utils";
 import type {
   Keyword,
@@ -9,11 +13,15 @@ import type {
   PostRandomNpcInput,
   GetGeneratorDataResponse,
   Character,
+  NpcDetails,
 } from "@/types";
 import { createStats, adjustLevel } from "@/parsers";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
+
+class RetriableError extends Error {}
+class FatalError extends Error {}
 
 /// /////////////////////////////////////
 
@@ -22,14 +30,15 @@ export const useGeneratorStore = defineStore("generator", () => {
    * State
    */
 
-  const session = ref<Character[]>([]);
+  const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
+  const characters = ref<NpcDetails[]>([]); // this is the list of npcs chosen by the user
   const settings = ref<PostRandomNpcInput>();
-  const characters = ref<Character[]>([]);
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character>();
   const racesAndVariants = ref<ObjectOrVariant[]>([]);
   const classesAndVariants = ref<ObjectOrVariant[]>([]);
   const backgrounds = ref<ObjectList>([]);
+  const backstoryBuffer = ref<{ id: string; chunks: any[] }[]>([]);
   //
   const primaryRaceIndex = ref(0);
   const secondaryRaceIndex = ref(0);
@@ -53,7 +62,10 @@ export const useGeneratorStore = defineStore("generator", () => {
    */
 
   const currentCharacter = computed(() => {
-    return characters.value[currentCharacterIndex.value] as Character;
+    if (currentCharacterIndex.value >= 0) {
+      return characters.value[currentCharacterIndex.value].object as Character;
+    }
+    return null;
   });
 
   /**
@@ -77,20 +89,21 @@ export const useGeneratorStore = defineStore("generator", () => {
       );
 
       data?.npcs.forEach((npc) => {
+        const character = npc.object;
         if (changes.alignmentEthical) {
-          npc.character.alignmentEthical = changes.alignmentEthical;
+          character.character.alignmentEthical = changes.alignmentEthical;
         }
         if (changes.alignmentMoral) {
-          npc.character.alignmentMoral = changes.alignmentMoral;
+          character.character.alignmentMoral = changes.alignmentMoral;
         }
         if (changes.CR) {
-          if (!npc.variations) {
-            npc.variations = {};
+          if (!character.variations) {
+            character.variations = {};
           }
-          npc.variations.currentCR = changes.CR;
-          adjustLevel(npc);
+          character.variations.currentCR = changes.CR;
+          adjustLevel(character);
         }
-        createStats(npc);
+        createStats(character);
       });
       session.value = [];
       session.value = data.npcs;
@@ -236,6 +249,54 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
+  function generateBackstory(prompt: string, chunks: Ref<string[]>) {
+    fetchEventSource(`${api}/ai/generate-text`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+      // eslint-disable-next-line
+      async onopen(response) {
+        if (
+          response.ok &&
+          response.headers.get("content-type") === EventStreamContentType
+        ) {
+          // everything's good
+        } else if (
+          response.status >= 400 &&
+          response.status < 500 &&
+          response.status !== 429
+        ) {
+          // client-side errors are usually non-retriable:
+          throw new FatalError();
+        } else {
+          throw new RetriableError();
+        }
+      },
+      onmessage(msg) {
+        // if the server emits an error message, throw an exception
+        // so it gets handled by the onerror callback below:
+        if (msg.event === "FatalError") {
+          throw new FatalError(msg.data);
+        }
+        console.log(msg.data);
+      },
+      onclose() {
+        // if the server closes the connection unexpectedly, retry:
+        throw new RetriableError();
+      },
+      onerror(err) {
+        if (err instanceof FatalError) {
+          throw err; // rethrow to stop the operation
+        } else {
+          // do nothing to automatically retry. You can also
+          // return a specific retry interval here.
+        }
+      },
+    });
+  }
+
   return {
     session,
     settings,
@@ -257,5 +318,6 @@ export const useGeneratorStore = defineStore("generator", () => {
     // generateNpc,
     getGeneratorData,
     parseSettings,
+    generateBackstory,
   };
 });

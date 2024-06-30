@@ -15,9 +15,9 @@
         />
       </div>
       <GeneratorBit
-        v-for="(character, index) in characters"
+        v-for="(npc, index) in characters"
         :key="index"
-        :character="character"
+        :character="npc.object as Character"
         :index="index"
         tabindex="0"
         @mousedown="showCharacterPage(index)"

@@ -1,36 +1,38 @@
 <template>
   <Teleport to="body" :disabled="inline">
-    <div 
-      class="alert-container"         
-      :class="[
-        inline ? '' : 'alert-container-fixed px-4'
-      ]"
-    >
-      <div
-        class="alert p-4"
+    <Transition name="fade">
+      <div 
+        class="alert-container"         
         :class="[
-          type,
-          inline ? 'shadow-sm' : 'shadow-xl alert-fixed'
-          ]"
-        role="alert"
+          inline ? '' : 'alert-container-fixed px-4'
+        ]"
       >
-        <div>
-          <Icon v-if="computedIcon" class="icon" :name="computedIcon" aria-hidden />
-        </div>
-        <div class="alert-message">
-          <h4 v-if="title" class="alert-title content">{{ title }}</h4>
-          <slot />
-        </div>
-        <div class="close-button">
-          <MSIconButton
-            class="close ml-1"
-            :label="$t('closeLabel')"
-            icon="fa6-solid:xmark"
-            @click.stop="e('close')"
-          />
+        <div
+          class="alert p-4"
+          :class="[
+            type,
+            inline ? 'shadow-sm' : 'shadow-xl alert-fixed'
+            ]"
+          role="alert"
+        >
+          <div>
+            <Icon v-if="computedIcon" class="icon" :name="computedIcon" aria-hidden />
+          </div>
+          <div class="alert-message">
+            <h4 v-if="title" class="alert-title content">{{ title }}</h4>
+            <slot />
+          </div>
+          <div class="close-button">
+            <MSIconButton
+              class="close ml-1"
+              :label="$t('closeLabel')"
+              icon="fa6-solid:xmark"
+              @click.stop="e('close')"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
 
@@ -60,6 +62,10 @@ const p = defineProps({
     type: Boolean,
     default: true,
   },
+  persistent: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const computedIcon = computed(() => {
@@ -78,18 +84,26 @@ const computedIcon = computed(() => {
   }
   return "";
 });
+
+onMounted(() => {
+  if (!p.persistent) {
+    setTimeout(() => {
+      e("close");
+    }, 7000);
+  }
+});
 </script>
 
 <style scoped>
 .alert {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   justify-content: flex-start;
   align-items: flex-start;
   @apply rounded gap-4;
 }
 .icon {
   font-size: 1.7rem;
-  @apply mt-1;
 }
 .info {
   @apply bg-info text-text-inverse;
@@ -106,7 +120,7 @@ const computedIcon = computed(() => {
 .alert-container-fixed {
   position: fixed;
   width: 100%;
-  top: 0.5rem;
+  bottom: 0.5rem;
   z-index: 9999;
 }
 .alert-fixed{

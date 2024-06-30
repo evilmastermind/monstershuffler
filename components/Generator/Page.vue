@@ -9,8 +9,8 @@
           <button @click="closeMonster">
             {{ $t("generator.pageTitle") }}
           </button>
-          <span v-if="currentCharacterIndex > -1" class="character-name">
-            > {{ characters[currentCharacterIndex]?.statistics?.fullName }}
+          <span v-if="currentCharacter" class="character-name">
+            > {{ currentCharacter?.statistics?.fullName || "" }}
           </span>
         </template>
         <template #options>
@@ -92,15 +92,18 @@
       </div>
     </div>
     <DiceHistory />
+    <MSAlert v-if="isServerDown" type="danger" @close="isServerDown = false">
+      <p>{{ $t("error.couldntRetrieveData") }}</p>
+    </MSAlert>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Character, PostRandomNpcInput } from "@/types";
+import type { Character, PostRandomNpcInput, NpcDetails } from "@/types";
 import { throttle } from "@/utils";
 
 type NPCGeneratorSettings = {
-  characters: Character[];
+  characters: NpcDetails[];
   options: PostRandomNpcInput;
   isFormMode: boolean;
 };
@@ -109,13 +112,19 @@ const generator = useGeneratorStore();
 const user = useUserStore();
 
 const { width, medium } = useScreen();
-const { session, characters, currentCharacterIndex, options } =
-  storeToRefs(generator);
+const {
+  session,
+  characters,
+  currentCharacter,
+  currentCharacterIndex,
+  options,
+} = storeToRefs(generator);
 const { currentEditorMode } = storeToRefs(useMonsterEditorStore());
 const form = ref(null);
 const isIntroShown = ref(true);
 const isLoading = ref(true);
 const isButtonLoading = ref(false);
+const isServerDown = ref(false);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
@@ -134,7 +143,7 @@ async function generateNpcs() {
 
 function saveSettings() {
   const settings: NPCGeneratorSettings = {
-    characters: characters.value as Character[],
+    characters: characters.value as NpcDetails[],
     options: options.value,
     isFormMode: isFormMode.value,
   };
@@ -192,7 +201,10 @@ watch(isFormMode, () => {
 
 onMounted(async () => {
   isLoading.value = true;
-  await generator.getGeneratorData();
+  const status = await generator.getGeneratorData();
+  if (status !== 200) {
+    isServerDown.value = true;
+  }
   const settings: NPCGeneratorSettings | null = await user.getSettings(
     "npcgenerator"
   );
@@ -200,7 +212,7 @@ onMounted(async () => {
   if (settings?.options) {
     generator.parseSettings(settings.options);
   }
-  if (settings?.characters?.length) {
+  if (settings?.characters?.length && settings.characters[0].object) {
     characters.value = settings.characters;
     haveCharactersJustBeenRetrieved.value = true;
   }

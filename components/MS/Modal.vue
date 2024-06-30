@@ -1,19 +1,21 @@
 <template>
   <Teleport to="body">
+    <Transition name="fade-swift" appear>
     <dialog class="modal" open @click="emit('close')">
-      <div class="card" :style="{ maxWidth: `${p.width}px` }" @click.stop>
-        <MSIconButton
-          class="close ml-1 text-text-secondary"
-          :label="$t('closeLabel')"
-          icon="fa6-solid:xmark"
-          @click="emit('close')"
-        />
-        <h3 class="content">
-          <slot name="title" />
-        </h3>
-        <slot />
-      </div>
-    </dialog>
+        <div class="card" :style="{ maxWidth: `${p.width}px` }" @click.stop>
+          <MSIconButton
+            class="close ml-1 text-text-secondary"
+            :label="$t('closeLabel')"
+            icon="fa6-solid:xmark"
+            @click="emit('close')"
+          />
+          <h3 class="content">
+            <slot name="title" />
+          </h3>
+          <slot />
+        </div>
+      </dialog>
+    </Transition>
   </Teleport>
 </template>
 

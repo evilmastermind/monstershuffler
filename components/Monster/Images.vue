@@ -56,7 +56,7 @@
         width: `${canvasWidth}`,
         backgroundSize: `auto ${computedImage.imageHeightPx}px`,
         backgroundPosition: `${computedImage.imagePositionLeftPx}px ${computedImage.imagePositionTopPx}px`,
-
+        backgroundColor: isImageLoading? 'initial' : 'transparent',
         backgroundImage: `url(${image.url})`,
         ...mask,
       }"

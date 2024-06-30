@@ -5,7 +5,6 @@
   --slow: 0.3s;
   --very-slow: 0.5s;
 }
-
 .fade-swift-enter-active,
 .fade-swift-leave-active {
   transition: opacity var(--swift) ease-in-out;

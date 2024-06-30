@@ -1,4 +1,7 @@
 {
+  "error": {
+    "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later."
+  },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",
     "-feet": " {n}-foot",
@@ -448,8 +451,8 @@
     "pickOne": "Pick one, or generate 4 more",
     "pageDescription": "NPC Generator for Dungeons & Dragons (D&D) 5th Edition, complete with fully-editable stat blocks.",
     "title": "NPC Generator",
-    "description1": "This generator creates fully-editable Non-Player Characters (NPCs) for Dungeons & Dragons 5th Edition.",
-    "description2": "Click on the \"cog\" icon  at the bottom-right of each character's Stat Block to edit it or add it to your collection. You can find more Races and Classes in BLA BLA BLa to make your own.",
+    "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lectus ut sapien posuere consectetur for Dungeons & Dragons 5th Edition.",
+    "description2": "Pellentesque malesuada varius ante, et egestas quam. Aliquam sit amet pellentesque arcu. Pellentesque sagittis aliquet quam, nec tempus lorem tincidunt non. In nec arcu condimentum, malesuada tellus et, malesuada justo. Vivamus porta viverra justo, in dapibus velit tincidunt id. Nulla luctus sit amet ante vitae lobortis.",
     "formModeTitle": "Form mode",
     "formModeDescription": "Choose the most appropriate options for your adventure and generate a random character.",
     "promptModeTitle": "Prompt mode",

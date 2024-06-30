@@ -2,7 +2,7 @@
   <MSModal width="800" @close="emit('close')">
     <template #title>{{ $t("editor.layout.title") }}</template>
     <div class="mt-2" />
-    <MSAlert v-if="isMobileAlertOpen" inline type="warning" :title="$t('editor.layout.warningMobileTitle')" @close="closeAlert">
+    <MSAlert v-if="isMobileAlertOpen" inline type="warning" :title="$t('editor.layout.warningMobileTitle')" @close="closeAlert" persistent>
       {{ $t("editor.layout.warningMobileDescription") }}
     </MSAlert>
     <h4 class="content mt-4">{{ $t("editor.layout.dynamic") }}</h4>
@@ -133,7 +133,7 @@ import type { Character } from "@/types";
 const emit = defineEmits(["close"]);
 const character = inject("character") as Ref<Character>;
 
-const { smAndDown } = useScreen();
+const { mdAndDown } = useScreen();
 const { alertClicked } = storeToRefs(useUiStore());
 
 const showRoleplayStats = ref(true);
@@ -182,8 +182,8 @@ watch(showRoleplayStats, () => {
   }
 });
 
-watch(smAndDown, () => {
-  isMobileAlertOpen.value = alertClicked.value?.layoutsMobile ? false : smAndDown.value;
+watch(mdAndDown, () => {
+  isMobileAlertOpen.value = alertClicked.value?.layoutsMobile ? false : mdAndDown.value;
 });
 
 onBeforeMount(() => {

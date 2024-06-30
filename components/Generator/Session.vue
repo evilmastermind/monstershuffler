@@ -5,13 +5,10 @@
     </h3> -->
     <div class="session mt-2">
       <div :class="session.length > 1 ? 'generation-4' : 'generation-1'">
-        <template
-          v-for="(character, index) in session"
-          :key="`${index}${character.character.name}`"
-        >
+        <template v-for="(npc, index) in session" :key="`${index}${npc.id}`">
           <Transition name="fade-scroll-slow" appear>
             <MonsterCard
-              :character="(character as Character)"
+              :character="(npc.object as Character)"
               class="shadow-md"
               :style="{
                 transitionDelay: `${0.15 * index}s`,
@@ -19,7 +16,7 @@
               }"
               selectable
               tabindex="0"
-              @click="openCharacterSheet(character as Character)"
+              @click="openCharacterSheet(index)"
             />
           </Transition>
         </template>
@@ -35,10 +32,11 @@ const generator = useGeneratorStore();
 
 const { characters, currentCharacterIndex, session } = storeToRefs(generator);
 
-function openCharacterSheet(character: Character) {
-  const index = characters.value.findIndex((c) => c === character);
-  if (index === -1) {
-    characters.value.push(character);
+function openCharacterSheet(index: number) {
+  const npc = session.value[index];
+  const characterIndex = characters.value.findIndex((c) => c.id === npc.id);
+  if (characterIndex === -1) {
+    characters.value.push(npc);
     currentCharacterIndex.value = characters.value.length - 1;
   } else {
     currentCharacterIndex.value = index;

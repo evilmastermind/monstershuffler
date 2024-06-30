@@ -14,7 +14,8 @@ import type {
 export function calculateValue(
   value: ValueDice | ValueExpression | ValueIncrProgression | Enchantment,
   character: Character,
-  variant: ActionVariant | undefined = undefined
+  variant: ActionVariant | undefined = undefined,
+  isEnchantment = false
 ) {
   let average = 0;
   const v = character.variables!;
@@ -83,11 +84,20 @@ export function calculateValue(
       // adding the expression as bonus to the dice roll
       if (finalParsedDice.length > 0) {
         finalParsedDice[0].bonus = expressionResult;
-      } else {
-        part.number = expressionResult;
       }
     } else {
       part.string += `${expressionResult}`;
+      part.number = expressionResult;
+      if (isEnchantment) {
+        part.roll = {
+          dice: [
+            {
+              value: expressionResult,
+              type: value.type,
+            },
+          ],
+        };
+      }
     }
   } else if (part.string) {
     part.string += ")";

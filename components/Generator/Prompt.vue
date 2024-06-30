@@ -166,7 +166,8 @@ function generateNpcs() {
     promptOptions.value.backgroundType = "none";
   }
   promptOptions.value.addVoice = settings.value?.addVoice || true;
-  promptOptions.value.includeChildren = settings.value?.includeChildren;
+  promptOptions.value.includeChildren =
+    settings.value?.includeChildren || false;
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 

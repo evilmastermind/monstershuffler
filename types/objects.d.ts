@@ -18,6 +18,7 @@ import {
   descriptionPartObject,
   enchantmentObject,
   imageObject,
+  npcDetailsObject,
   pageSettings,
   parsedActionObject,
   parsedDice,
@@ -67,6 +68,7 @@ export type Condition = z.infer<typeof userObject>;
 export type DescriptionPart = z.infer<typeof descriptionPartObject>;
 export type Enchantment = z.infer<typeof enchantmentObject>;
 export type Image = z.infer<typeof imageObject>;
+export type NpcDetails = z.infer<typeof npcDetailsObject>;
 export type PageSettings = z.infer<typeof pageSettings>;
 export type ParsedAction = z.infer<typeof parsedActionObject>;
 export type ParsedDice = z.infer<typeof parsedDice>;

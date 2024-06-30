@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-7">
+  <div v-if="currentCharacter" class="pb-16">
     <MonsterSheetTools
       :character="currentCharacter"
       class="mt-5 sm:mt-0 px-0 sm:px-4"

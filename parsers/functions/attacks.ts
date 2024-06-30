@@ -325,17 +325,11 @@ function createAttackDamagePart(
   part.roll.dice.push(parsedDice);
 
   attack.enchantments?.forEach((enchantment) => {
-    console.log(enchantment);
-    const parsedEnchantment = calculateValue(enchantment, character);
+    const parsedEnchantment = calculateValue(enchantment, character, undefined, true);
     part.string += ` plus ${parsedEnchantment.string}`;
     if ("roll" in parsedEnchantment && parsedEnchantment.roll) {
       if ("dice" in parsedEnchantment.roll && parsedEnchantment.roll.dice) {
         part.roll!.dice.push(...parsedEnchantment.roll.dice);
-      } else if ("number" in parsedEnchantment && parsedEnchantment.number !== undefined) {
-        part.roll!.dice.push({
-          value: parsedEnchantment.number,
-          type: parsedEnchantment.type
-        });
       }
     }
   });
