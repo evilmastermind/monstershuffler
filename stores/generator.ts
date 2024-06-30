@@ -38,7 +38,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   const racesAndVariants = ref<ObjectOrVariant[]>([]);
   const classesAndVariants = ref<ObjectOrVariant[]>([]);
   const backgrounds = ref<ObjectList>([]);
-  const backstoryBuffer = ref<{ id: string; chunks: any[] }[]>([]);
+  const backstoryBuffer = ref<Record<string, { chunks: string[] }>>({});
   //
   const primaryRaceIndex = ref(0);
   const secondaryRaceIndex = ref(0);
@@ -249,20 +249,27 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  function generateBackstory(prompt: string, chunks: Ref<string[]>) {
+  function generateBackstory() {
+    const currentNpc = characters.value[currentCharacterIndex.value];
+    if (backstoryBuffer.value[currentNpc.id]) {
+      return;
+    }
+    backstoryBuffer.value[currentNpc.id] = { chunks: [] };
     fetchEventSource(`${api}/ai/generate-text`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({
+        prompt: "please write a poem about any topic you want",
+      }),
       // eslint-disable-next-line
       async onopen(response) {
         if (
-          response.ok &&
-          response.headers.get("content-type") === EventStreamContentType
+          response.ok
+          // && response.headers.get("content-type") === EventStreamContentType
         ) {
-          // everything's good
+          // OK
         } else if (
           response.status >= 400 &&
           response.status < 500 &&
@@ -271,7 +278,7 @@ export const useGeneratorStore = defineStore("generator", () => {
           // client-side errors are usually non-retriable:
           throw new FatalError();
         } else {
-          throw new RetriableError();
+          throw new FatalError();
         }
       },
       onmessage(msg) {
@@ -280,11 +287,14 @@ export const useGeneratorStore = defineStore("generator", () => {
         if (msg.event === "FatalError") {
           throw new FatalError(msg.data);
         }
-        console.log(msg.data);
+        if (backstoryBuffer.value[currentNpc.id]) {
+          backstoryBuffer.value[currentNpc.id].chunks.push(msg.data);
+        }
       },
       onclose() {
+        console.log("closed!");
         // if the server closes the connection unexpectedly, retry:
-        throw new RetriableError();
+        // throw new FatalError();
       },
       onerror(err) {
         if (err instanceof FatalError) {

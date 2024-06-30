@@ -32,18 +32,14 @@
 <script setup lang="ts">
 import type { Statistics } from "@/types";
 
-const sorceryStore = useSorceryStore();
+const generatorStore = useGeneratorStore();
 
 const statistics = inject("statistics") as ComputedRef<Statistics>;
 const moral = inject("moral") as ComputedRef<string>;
 const chunks = ref<string[]>([]);
 
 onMounted(() => {
-  console.log("Generating backstory...");
-  // sorceryStore.generateBackstory(
-  //   "Generate a backstory for a dungeons & dragons monster named 'Yomammu the Demon Queen'. Use yomama jokes as much as possible.",
-  //   chunks
-  // );
+  generatorStore.generateBackstory();
 });
 </script>
 
