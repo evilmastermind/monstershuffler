@@ -15,7 +15,7 @@ import type {
   Character,
   NpcDetails,
 } from "@/types";
-import { createStats, adjustLevel } from "@/parsers";
+import { createStats, adjustLevel, getBackstory } from "@/parsers";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
@@ -63,6 +63,8 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   const currentCharacter = computed(() => {
     if (currentCharacterIndex.value >= 0) {
+      // console.log(currentCharacterIndex);
+      // console.log(characters.value[currentCharacterIndex.value]);
       return characters.value[currentCharacterIndex.value].object as Character;
     }
     return null;
@@ -109,7 +111,6 @@ export const useGeneratorStore = defineStore("generator", () => {
       session.value = data.npcs;
       return 200;
     } catch (error) {
-      console.log("error", error);
       return parseError(error).statusCode;
     }
   }
@@ -255,13 +256,22 @@ export const useGeneratorStore = defineStore("generator", () => {
       return;
     }
     backstoryBuffer.value[currentNpc.id] = { chunks: [] };
+
+    const c = currentNpc.object.character;
+
+    if (!c.user) {
+      c.user = {};
+    }
+    c.user.backstory = { string: "" };
+    const backstory = c.user.backstory;
+
     fetchEventSource(`${api}/ai/generate-text`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: "please write a poem about any topic you want",
+        prompt: getBackstory(currentNpc.object as Character),
       }),
       // eslint-disable-next-line
       async onopen(response) {
@@ -289,10 +299,10 @@ export const useGeneratorStore = defineStore("generator", () => {
         }
         if (backstoryBuffer.value[currentNpc.id]) {
           backstoryBuffer.value[currentNpc.id].chunks.push(msg.data);
+          backstory.string += msg.data;
         }
       },
       onclose() {
-        console.log("closed!");
         // if the server closes the connection unexpectedly, retry:
         // throw new FatalError();
       },

@@ -1,5 +1,6 @@
-import { sizeStats, Size, parseExpressionNumeric } from "@/parsers";
-import { Character } from "@/types";
+import type { Size } from "@/parsers";
+import type { Character } from "@/types";
+import { sizeStats, parseExpressionNumeric } from "@/parsers";
 import { getBonus, getPrioritizedStatistic } from "@/parsers/functions";
 
 export function calculateSize(character: Character) {

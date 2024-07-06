@@ -26,7 +26,9 @@ import { calculateConditionImmunities } from "./conditionImmunities";
 import { calculateImmunities } from "./damageImmunities";
 import { calculateSenses } from "./senses";
 import { calculateActions } from "./actions";
+import { calculateBackstoryInfo } from "./backstory";
 import { calculateSpells } from "./spells";
+
 import type { Character } from "@/types";
 
 export function createStats(character: Character) {
@@ -120,4 +122,6 @@ export function createStats(character: Character) {
   /// /// ///
   calculateActions(character);
   calculateSpells(character);
+  /// /// ///
+  calculateBackstoryInfo(character);
 }

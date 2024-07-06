@@ -16,7 +16,12 @@
       @keyup.-="startResize"
       @keyup.+="startResize"
     >
-      <MonsterImagesTools :image @enlarge="enlargeImage" @reduce="reduceImage" class="image-tools" />
+      <MonsterImagesTools
+        :image
+        class="image-tools"
+        @enlarge="enlargeImage"
+        @reduce="reduceImage"
+      />
       <div
         v-if="rules.width !== 'full'"
         class="image-handle-right"
@@ -42,9 +47,21 @@
         @touchstart.stop="startMoveTokenXY"
       >
         <div class="token-circle">
-          <div class="token-drag-right" @mousedown.stop="startTokenResize" @touchstart.stop="startTokenResize" />
-          <div class="token-drag-down" @mousedown.stop="startTokenResize" @touchstart.stop="startTokenResize" />
-          <div class="token-drag-trick" @mousedown.stop="startTokenResize" @touchstart.stop="startTokenResize" />
+          <div
+            class="token-drag-right"
+            @mousedown.stop="startTokenResize"
+            @touchstart.stop="startTokenResize"
+          />
+          <div
+            class="token-drag-down"
+            @mousedown.stop="startTokenResize"
+            @touchstart.stop="startTokenResize"
+          />
+          <div
+            class="token-drag-trick"
+            @mousedown.stop="startTokenResize"
+            @touchstart.stop="startTokenResize"
+          />
         </div>
       </div>
     </div>
@@ -56,7 +73,7 @@
         width: `${canvasWidth}`,
         backgroundSize: `auto ${computedImage.imageHeightPx}px`,
         backgroundPosition: `${computedImage.imagePositionLeftPx}px ${computedImage.imagePositionTopPx}px`,
-        backgroundColor: isImageLoading? 'initial' : 'transparent',
+        backgroundColor: isImageLoading ? 'initial' : 'transparent',
         backgroundImage: `url(${image.url})`,
         ...mask,
       }"
@@ -172,7 +189,7 @@ const canvasWidth = computed<string>(() => {
 });
 
 const mask = computed(() => {
-  if(image.value?.mask === undefined || !image.value?.mask) {
+  if (image.value?.mask === undefined || !image.value?.mask) {
     return {};
   }
   if (p.rules.mask === "bottom") {
@@ -233,21 +250,32 @@ const { startResize, enlargeImage, reduceImage } = useImageResize(
 const { startMoveTokenXY } = useTokenMoveXY(image, token, canvas, rulesRef);
 const { startTokenResize } = useTokenResize(token, canvas);
 
-
 function enableDropImage(element: HTMLElement | null) {
   if (!element) {
     return;
   }
-  element.addEventListener('dragover', (event) => fileDragHover(event, element), false);
-  element.addEventListener('dragleave', (event) => fileDragHover(event, element), false);
-  element.addEventListener('drop', (event) => fileSelectHandler(event, element), false);
+  element.addEventListener(
+    "dragover",
+    (event) => fileDragHover(event, element),
+    false
+  );
+  element.addEventListener(
+    "dragleave",
+    (event) => fileDragHover(event, element),
+    false
+  );
+  element.addEventListener(
+    "drop",
+    (event) => fileSelectHandler(event, element),
+    false
+  );
 }
 
 function fileDragHover(e: DragEvent, element: HTMLElement) {
   e.stopPropagation();
   e.preventDefault();
   // TODO: add hover effect
-  element.classList.toggle('drag-border', e.type === 'dragover');
+  element.classList.toggle("drag-border", e.type === "dragover");
 }
 
 function fileSelectHandler(e: DragEvent, element: HTMLElement) {
@@ -262,10 +290,10 @@ function fileSelectHandler(e: DragEvent, element: HTMLElement) {
   }
 
   // Process all File objects
-  for (let i = 0, f; f = files[i]; i++) {
+  for (let i = 0, f; (f = files[i]); i++) {
     if (f) {
       // check if file is an image
-      if (!f.type.match('image.*')) {
+      if (!f.type.match("image.*")) {
         continue;
       }
       const objectURL = URL.createObjectURL(f);
@@ -280,7 +308,6 @@ function checkImageSize() {
   imageElement.src = `${image.value.url}`;
   // check if the image exists
   imageElement.onerror = () => {
-    console.log("Image not found");
     e("load");
     isImageLoading.value = false;
     image.value.url = "/images/backgrounds/default.webp";
@@ -293,10 +320,16 @@ function checkImageSize() {
   };
 }
 
-
 // Fix the image height and position when the screen width changes
 watch(
-  [width, isEditorModeEnabled, () => p.rules, () => canvas.value?.clientHeight, originalImageHeight, originalImageWidth],
+  [
+    width,
+    isEditorModeEnabled,
+    () => p.rules,
+    () => canvas.value?.clientHeight,
+    originalImageHeight,
+    originalImageWidth,
+  ],
   () => {
     if (isEditorModeEnabled.value) {
       fixCanvasSize(image, p.rules);
@@ -331,12 +364,13 @@ watch(
   { immediate: true }
 );
 
-watch(() => image.value.url, () => {
-  isImageLoading.value = true;
-  checkImageSize();
-});
-
-
+watch(
+  () => image.value.url,
+  () => {
+    isImageLoading.value = true;
+    checkImageSize();
+  }
+);
 
 onMounted(() => {
   enableDropImage(container.value);
@@ -469,7 +503,7 @@ onBeforeMount(() => {
   z-index: 110;
   top: 0;
   right: 0;
-  padding: 0.5rem;  
+  padding: 0.5rem;
 }
 .drag-border {
   border: 2px solid theme("colors.primary.700");
