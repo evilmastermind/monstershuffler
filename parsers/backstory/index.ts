@@ -210,29 +210,28 @@ export function parseRoleplayStats(character: Character) {
 function getExcerptPrompt(character: Character) {
   const stats = parseRoleplayStats(character);
   const backstory = `
-Write an excerpt from an imaginary tabloid.
+Write an excerpt from an imaginary gossip tabloid.
 - do not write any title
 - start with ... a truncated sentence, as if the excerpt was extracted randomly from the article
-- also end with a truncated sentence...
+- also end with a truncated sentence... or a cliffhanger
 - only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)
-- write it in markdown language and write at least 300 words
-- use the writing style of an english tabloid written by Sir Arthur Conan Doyle
+- write in the style of a Fox News special report
+- make the excerpt at least 300 words long
 - Imagine this excerpt to be extracted from an article that talks about a character
-- This character is defined, by the community, as the following character hook: ${stats.characterHook}, and you must describe why [he] is called like that
-- the last words of the excerpt must be a cliffhanger
-- the last words of the excerpt must be a cliffhanger
+- This character is defined, by the community, by the following character hook: ${stats.characterHook}
+- the tabloid will speculate about why people think that way about the character
+- provide one possible cause, and give proof of it in the excerpt
+- the cause will be the starting point of a Dungeons & Dragons adventure
+- do not mention the character hook directly, but hint at it
 - never use the character's traits directly written below
-- only describe [his] actions and dialogues in the event
-- only describe [his] actions and dialogues in the event
-- this is the character: ${stats.name}, 
-[he] is called like that. More details about the character: 
+- additional details about the character: 
+[His name is ${stats.name}, 
 [He] is a ${stats.age} ${stats.gender} ${stats.race}.
 [His] defining personality trait is "${stats.personality}", and ${stats.alignment}.
 `;
   const parsedStory = replaceTags(backstory, character)
     .map((part) => part.string)
     .join("");
-  console.log(parsedStory);
   return parsedStory;
 }
 

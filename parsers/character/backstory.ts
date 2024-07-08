@@ -2,7 +2,10 @@ import type { Character } from "@/types";
 
 export function calculateBackstoryInfo(character: Character) {
   const s = character.statistics!;
-  s.race = character.character?.race?.name || s.type.string;
+  s.race =
+    character.character?.racevariant?.name ||
+    character.character?.race?.name ||
+    s.type.string;
   if ("class" in character.character && character.character.class) {
     s.class = character.character?.class?.name || "";
   }
