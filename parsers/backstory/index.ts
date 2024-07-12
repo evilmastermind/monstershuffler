@@ -210,22 +210,21 @@ export function parseRoleplayStats(character: Character) {
 function getExcerptPrompt(character: Character) {
   const stats = parseRoleplayStats(character);
   const backstory = `
-Write an excerpt from an imaginary gossip tabloid.
+Write an excerpt from an imaginary fantasy medieval gossip tabloid.
 - do not write any title
 - start with ... a truncated sentence, as if the excerpt was extracted randomly from the article
 - also end with a truncated sentence... or a cliffhanger
 - only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)
 - write in the style of a Fox News special report
-- make the excerpt at least 300 words long
+- make the excerpt at least 200 words long
 - Imagine this excerpt to be extracted from an article that talks about a character
 - This character is defined, by the community, by the following character hook: ${stats.characterHook}
 - the tabloid will speculate about why people think that way about the character
 - provide one possible cause, and give proof of it in the excerpt
-- the cause will be the starting point of a Dungeons & Dragons adventure
-- do not mention the character hook directly, but hint at it
-- never use the character's traits directly written below
+- do not mention the character hook directly,
+or the character's traits but hint at them, just be inspired by them
 - additional details about the character: 
-[His name is ${stats.name}, 
+[His] name is ${stats.name}, 
 [He] is a ${stats.age} ${stats.gender} ${stats.race}.
 [His] defining personality trait is "${stats.personality}", and ${stats.alignment}.
 `;
@@ -234,6 +233,12 @@ Write an excerpt from an imaginary gossip tabloid.
     .join("");
   return parsedStory;
 }
+/**
+ *
+ * - the cause will be the starting point of a Dungeons & Dragons adventure
+ *
+ *
+ */
 
 // Imagine this excerpt to be extracted from an article in which a notorious character is described,
 // having been involved in some event. In this excerpt you must not describe the background, the origins,
