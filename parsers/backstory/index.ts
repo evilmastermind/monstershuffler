@@ -156,18 +156,6 @@ export function getArchetypeDescription(archetype: string) {
   return "";
 }
 
-export function getBackstory(character: Character) {
-  const backstoryType = random(1, 3);
-  let backstory = "";
-  switch (backstoryType) {
-    case 1:
-    case 2:
-    default:
-      backstory = getExcerptPrompt(character);
-  }
-  return backstory;
-}
-
 export function parseRoleplayStats(character: Character) {
   const s = character.statistics!;
   const name = `${s.fullName}`;
@@ -207,11 +195,30 @@ export function parseRoleplayStats(character: Character) {
   };
 }
 
-function getExcerptPrompt(character: Character) {
+// function testPolygenCapabilities(character: Character) {
+//   return `
+//     S ::= ("Write a poem" |
+//     "Explain fission in layman's terms" | "Write a short story") ;
+//   `;
+// }
+
+export function getBackstory(character: Character) {
+  const backstoryType = random(1, 3);
+  let backstory = "";
+  switch (backstoryType) {
+    case 1:
+    case 2:
+    default:
+      backstory = getTabloidPrompt(character);
+  }
+  return backstory;
+}
+
+function getTabloidPrompt(character: Character) {
   const stats = parseRoleplayStats(character);
-  const backstory = `
-Write an excerpt from an imaginary fantasy medieval gossip tabloid.
-- do not write any title
+  const backstory = `S ::=
+"Write an excerpt from an imaginary fantasy medieval gossip tabloid."
+"- do not write any title
 - start with ... a truncated sentence, as if the excerpt was extracted randomly from the article
 - also end with a truncated sentence... or a cliffhanger
 - only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)
@@ -226,33 +233,58 @@ or the character's traits but hint at them, just be inspired by them
 - additional details about the character: 
 [His] name is ${stats.name}, 
 [He] is a ${stats.age} ${stats.gender} ${stats.race}.
-[His] defining personality trait is "${stats.personality}", and ${stats.alignment}.
+[His] defining personality trait is '${stats.personality}', and ${stats.alignment}. ";
 `;
-  const parsedStory = replaceTags(backstory, character)
+  return parsePromptTags(backstory, character);
+}
+
+function getExcerptPrompt(character: Character) {
+  const stats = parseRoleplayStats(character);
+  const backstory = `
+  Write an excerpt from an imaginary fantasy novel.
+  - do not write any title
+  - start with ... a truncated sentence, as if the excerpt was extracted randomly from the novel
+  - also end with a truncated sentence...
+  - only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)
+  - make the excerpt at least 200 words long
+  - this excerpt comes from a chapter in which a character of 
+the book has an ordinary boring moment in their life
+  - This moment, and the character, are defined by the following character hook: ${stats.characterHook}
+  - do not mention the character hook directly,
+  or the character's traits, but hint at them, just be inspired by them
+  - additional details about the character: 
+  [His] name is ${stats.name}, 
+  [He] is a ${stats.age} ${stats.gender} ${stats.race}.
+  [His] defining personality trait is "${stats.personality}", and ${stats.alignment}.
+  `;
+  return parsePromptTags(backstory, character);
+}
+
+/*
+
+`
+  Write an excerpt from an imaginary fantasy novel.
+  - do not write any title
+  - start with ... a truncated sentence, as if the excerpt was extracted randomly from the novel
+  - also end with a truncated sentence...
+  - only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)
+  - write in the style of H. P. Lovecraft
+  - make the excerpt at least 200 words long
+  - this excerpt comes from a chapter in which a character of 
+the book has their most iconic moment
+  - This moment, and the character, are defined by the following character hook: ${stats.characterHook}
+  - do not mention the character hook directly,
+  or the character's traits, but hint at them, just be inspired by them
+  - additional details about the character: 
+  [His] name is ${stats.name}, 
+  [He] is a ${stats.age} ${stats.gender} ${stats.race}.
+  [His] defining personality trait is "${stats.personality}", and ${stats.alignment}.
+  `;
+
+*/
+
+function parsePromptTags(prompt: string, character: Character) {
+  return replaceTags(prompt, character)
     .map((part) => part.string)
     .join("");
-  return parsedStory;
 }
-/**
- *
- * - the cause will be the starting point of a Dungeons & Dragons adventure
- *
- *
- */
-
-// Imagine this excerpt to be extracted from an article in which a notorious character is described,
-// having been involved in some event. In this excerpt you must not describe the background, the origins,
-// or the future of this character. What you must write is their involvement in the event, which will be
-// based on some minor details I will provide about them. Chose if
-// 1) you should include other characters and witnesses or if
-// 2) the excerpt is all about the character.
-// Start with a truncated sentence, to make the reader feel like you extracted the excerpt randomly from
-// the article, and also end by truncating the final sentence for the same reason.
-// Never break the fourth wall, and write only sentences that would be found in the article.
-// Do not write anything else after the excerpt ends.
-// Do not write "The end."  or "[End of excerpt]" for instance.
-// Don’t insert the details provided in the story “as is”; just be inspired by them.
-// Write the excerpt in the same style of a trashy tabloid newspaper.
-// Last requests: write the excerpt in markdown language, and make it at least 300 words long.
-
-// Here are the details about the character:
