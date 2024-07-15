@@ -209,7 +209,7 @@ export function getBackstory(character: Character) {
     case 1:
     case 2:
     default:
-      backstory = getTabloidPrompt(character);
+      backstory = getDnDAdventurePrompt(character);
   }
   return backstory;
 }
@@ -218,23 +218,34 @@ function getTabloidPrompt(character: Character) {
   const stats = parseRoleplayStats(character);
   const backstory = `S ::=
 "Write an excerpt from an imaginary fantasy medieval gossip tabloid."
-"- do not write any title
-- start with ... a truncated sentence, as if the excerpt was extracted randomly from the article
-- also end with a truncated sentence... or a cliffhanger
-- only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)
-- write in the style of a Fox News special report
-- make the excerpt at least 200 words long
-- Imagine this excerpt to be extracted from an article that talks about a character
-- This character is defined, by the community, by the following character hook: ${stats.characterHook}
-- the tabloid will speculate about why people think that way about the character
-- provide one possible cause, and give proof of it in the excerpt
-- do not mention the character hook directly,
-or the character's traits but hint at them, just be inspired by them
-- additional details about the character: 
-[His] name is ${stats.name}, 
-[He] is a ${stats.age} ${stats.gender} ${stats.race}.
-[His] defining personality trait is '${stats.personality}', and ${stats.alignment}. ";
+"- do not write any title"
+"- start with ... a truncated sentence, as if the excerpt was extracted randomly from the article"
+("- also end with a truncated sentence" | "- finish with a cliffhanger")
+"- only write the excerpt, no other text must be included (no title, no author, no ending line, etc.)"
+"- write in the style of a " ("Fox News special report")
+"- make the excerpt at least 200 words long"
+"- Imagine this excerpt to be extracted from an article that talks about a character"
+"- This character is defined, by the community, by the following character hook: ${stats.characterHook}"
+"- the tabloid will speculate about why people think that way about the character"
+"- provide one possible cause, and give proof of it in the excerpt"
+"- do not mention the character hook directly, or the character's traits but hint at them, just be inspired by them"
+"- additional details about the character: "
+"[His] name is ${stats.name}, "
+"[He] is a ${stats.age} ${stats.gender} ${stats.race}."
+"[His] defining personality trait is '${stats.personality}', and ${stats.alignment}. ";
 `;
+  return parsePromptTags(backstory, character);
+}
+
+function getDnDAdventurePrompt(character: Character) {
+  const stats = parseRoleplayStats(character);
+  const backstory = `S ::=
+"Write the description of a Dungeons & Dragons adventure, as if extracted from a module."
+"The adventure is set in a fantasy medieval world, and will revolve around a character, which will be defined by the following character hook: ${stats.characterHook}."
+"[His] name is ${stats.name}, "
+"[He] is a ${stats.age} ${stats.gender} ${stats.race}."
+"[His] defining personality trait is '${stats.personality}', and ${stats.alignment}. ";  
+  `;
   return parsePromptTags(backstory, character);
 }
 
