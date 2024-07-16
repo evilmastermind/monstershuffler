@@ -27,8 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { lowerCR, raiseCR } from "@/parsers/functions";
-import { addPlusSign } from "@/parsers";
+import { lowerCR, raiseCR, addPlusSign } from "@/parsers";
 import type { Character, Statistics } from "@/types";
 
 const character = inject("character") as Character;

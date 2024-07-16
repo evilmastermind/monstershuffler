@@ -1,4 +1,3 @@
-import JSPath from "jspath";
 import {
   getStatArrayFromObjects,
   parseExpressionNumeric,

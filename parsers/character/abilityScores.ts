@@ -88,6 +88,7 @@ export function calculateAbilityScores(character: Character) {
           {
             sides: 20,
             dice: 1,
+            value: 10 + modifier,
             bonus: modifier,
           },
         ],

@@ -1,6 +1,6 @@
 import type { Character, StatStringNumberArray } from "@/types";
 import { random } from "@/utils";
-import { getStatArrayFromObjects, createPart } from "@/parsers/functions";
+import { createPart } from "@/parsers/functions";
 
 export function calculateAlignment(character: Character) {
   const c = character.character;
