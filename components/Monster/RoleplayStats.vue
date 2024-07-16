@@ -61,8 +61,11 @@
 </template>
 
 <script setup lang="ts">
+import {
+  feetDecimalToFeetInches,
+  feetDecimalToMeters,
+} from "monstershuffler-shared";
 import type { Statistics, Character } from "@/types";
-import { feetDecimalToFeetInches, feetDecimalToMeters } from "@/parsers";
 
 const user = useUserStore();
 const unit = computed(() => user.me?.settings?.stats?.heightUnit || "feet");

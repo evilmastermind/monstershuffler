@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { lowerCR, raiseCR, addPlusSign } from "@/parsers";
+import { lowerCR, raiseCR, addPlusSign } from "monstershuffler-shared";
 import type { Character, Statistics } from "@/types";
 
 const character = inject("character") as Character;

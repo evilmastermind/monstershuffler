@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { getChallengeNumber } from "@/parsers";
+import { getChallengeNumber } from "monstershuffler-shared";
 import type { CharacterChanges } from "@/types";
 const generator = useGeneratorStore();
 

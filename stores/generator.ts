@@ -2,6 +2,7 @@ import {
   fetchEventSource,
   EventStreamContentType,
 } from "@microsoft/fetch-event-source";
+import { createStats, adjustLevel, getBackstory } from "monstershuffler-shared";
 import { parseError } from "@/utils";
 import type {
   Keyword,
@@ -15,7 +16,6 @@ import type {
   Character,
   NpcDetails,
 } from "@/types";
-import { createStats, adjustLevel, getBackstory } from "@/parsers";
 
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;

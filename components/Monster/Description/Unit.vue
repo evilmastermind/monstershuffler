@@ -53,8 +53,8 @@
 </template>
 
 <script setup lang="ts">
+import { feetToOtherUnit, getUnitSymbol } from "monstershuffler-shared";
 import type { DescriptionPart } from "@/types";
-import { feetToOtherUnit, getUnitSymbol } from "@/parsers";
 
 const user = useUserStore();
 const unit = computed(() => user.me?.settings?.stats?.lengthUnit || "feet");

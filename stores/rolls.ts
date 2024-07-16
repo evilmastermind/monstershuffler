@@ -1,5 +1,5 @@
+import { numberToSignedString } from "monstershuffler-shared";
 import type { DiceRoll, ResultByType, Roll, ParsedDice } from "@/types";
-import { numberToSignedString } from "@/parsers";
 
 export const useRollsStore = defineStore("rolls", () => {
   const diceRolls = shallowRef<DiceRoll[]>([]);

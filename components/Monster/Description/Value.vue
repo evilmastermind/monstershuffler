@@ -23,8 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import { numberToWord } from "monstershuffler-shared";
 import type { DescriptionPart } from "@/types";
-import { numberToWord } from "@/parsers";
 
 const p = defineProps({
   part: {

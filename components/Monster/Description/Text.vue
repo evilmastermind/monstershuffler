@@ -38,8 +38,8 @@
 </template>
 
 <script setup lang="ts">
+import { numberToWord, addOrdinal } from "monstershuffler-shared";
 import type { DescriptionPart } from "@/types";
-import { numberToWord, addOrdinal } from "@/parsers";
 
 const { t, te } = useI18n();
 const user = useUserStore();

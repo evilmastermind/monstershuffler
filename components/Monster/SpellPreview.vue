@@ -56,8 +56,8 @@
 </template>
 
 <script setup lang="ts">
+import { addOrdinal } from "monstershuffler-shared";
 import type { Spell } from "@/types";
-import { addOrdinal } from "@/parsers";
 import { enableDrag, disableDrag } from "@/utils";
 
 const { language } = storeToRefs(useUserStore());

@@ -5,7 +5,9 @@ export default defineNuxtConfig({
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
   },
+
   spaLoadingTemplate: "public/spa-loading-template.html",
+
   routeRules: {
     "/": { ssr: false },
     "/monsters/generator": { ssr: false },
@@ -18,9 +20,11 @@ export default defineNuxtConfig({
     "/reset-password": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
+
   devServer: {
     port: 3001,
   },
+
   vite: {
     vue: {
       script: {
@@ -29,6 +33,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   nitro: {
     compressPublicAssets: true,
     devProxy: {
@@ -39,15 +44,18 @@ export default defineNuxtConfig({
       },
     },
   },
+
   devtools: {
     enabled: false,
   },
+
   runtimeConfig: {
     someServerSideVariable: "some value",
     public: {
       apiUrl: process.env.API_URL,
     },
   },
+
   modules: [
     "@vue-macros/nuxt",
     "@nuxtjs/i18n",
@@ -56,17 +64,20 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
   ],
+
   i18n: {
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
     vueI18n: "./locales/i18n.config.ts",
   },
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   // css: ["@/assets/css-reset.css"],
   // vite: {
   //   css: {
@@ -77,10 +88,6 @@ export default defineNuxtConfig({
   //     },
   //   },
   // },
-  imports: {
-    // Auto-import pinia stores defined in `~/stores`
-    dirs: ["stores"],
-  },
   // Defaults options
   // tailwindcss: {
   //   cssPath: "~/assets/css/tailwind.css",
@@ -90,4 +97,10 @@ export default defineNuxtConfig({
   //   injectPosition: "first",
   //   viewer: true,
   // },
+  imports: {
+    // Auto-import pinia stores defined in `~/stores`
+    dirs: ["stores"],
+  },
+
+  compatibilityDate: "2024-07-16",
 });
