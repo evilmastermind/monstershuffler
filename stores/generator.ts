@@ -3,6 +3,7 @@ import {
   EventStreamContentType,
 } from "@microsoft/fetch-event-source";
 import { createStats, adjustLevel, getBackstory } from "monstershuffler-shared";
+import { object } from "zod";
 import { parseError } from "@/utils";
 import type {
   Keyword,
@@ -259,19 +260,22 @@ export const useGeneratorStore = defineStore("generator", () => {
 
     const c = currentNpc.object.character;
 
+    console.log(currentNpc.object.variables);
+
     if (!c.user) {
       c.user = {};
     }
     c.user.backstory = { string: "" };
     const backstory = c.user.backstory;
 
-    fetchEventSource(`${api}/ai/generate-text`, {
+    fetchEventSource(`${api}/npcs/backstory`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: getBackstory(currentNpc.object as Character),
+        token: currentNpc.token,
+        object: currentNpc.object,
       }),
       // eslint-disable-next-line
       async onopen(response) {
