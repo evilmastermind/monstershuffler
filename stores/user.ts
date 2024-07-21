@@ -1,3 +1,4 @@
+import { userInfo } from "os";
 import type {
   Credentials,
   RegistrationFields,
@@ -12,8 +13,9 @@ const api = config.public.apiUrl;
 /// ////////////////////////////////////////////////
 
 export const useUserStore = defineStore("user", () => {
-  const token: Ref<string> = ref("");
-  const me: Ref<GetUserResponse | null> = ref(null);
+  const token = ref("");
+  const sessionId = ref<string | undefined>();
+  const me = ref<GetUserResponse | null>(null);
   const settings = computed(() => me.value?.settings || {});
   const language = computed(() => me.value?.settings?.language || "en");
 
@@ -24,6 +26,7 @@ export const useUserStore = defineStore("user", () => {
         body: credentials,
       });
       token.value = data.accessToken;
+      sessionId.value = undefined;
       return 200;
     } catch (error) {
       return parseError(error).statusCode;
@@ -162,10 +165,27 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  function setSession() {
+    if (token.value) {
+      sessionId.value = undefined;
+      return;
+    }
+    const sessionIdStorage = localStorage.getItem("sessionId");
+    if (sessionIdStorage) {
+      sessionId.value = sessionIdStorage;
+    } else {
+      sessionId.value = crypto
+        .getRandomValues(new Uint8Array(16))
+        .reduce((acc, byte) => acc + byte.toString(16).padStart(2, "0"), "");
+      localStorage.setItem("sessionId", sessionId.value);
+    }
+  }
+
   function logout() {
     token.value = "";
     me.value = null;
     localStorage.removeItem("token");
+    setSession();
   }
 
   watch(token, (newValue) => {
@@ -176,6 +196,7 @@ export const useUserStore = defineStore("user", () => {
 
   return {
     token,
+    sessionId,
     me,
     settings,
     language,
@@ -188,5 +209,6 @@ export const useUserStore = defineStore("user", () => {
     getDetails,
     getSettings,
     setSettings,
+    setSession,
   };
 });

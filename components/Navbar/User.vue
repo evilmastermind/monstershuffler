@@ -32,6 +32,7 @@ onMounted(async () => {
   if (user.token) {
     await user.getDetails();
   }
+  user.setSession();
 });
 </script>
 <style lang="scss" scoped>

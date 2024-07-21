@@ -19,7 +19,9 @@
 <script setup lang="ts">
 import { getChallengeNumber } from "monstershuffler-shared";
 import type { CharacterChanges } from "@/types";
+
 const generator = useGeneratorStore();
+const user = useUserStore();
 
 const prompt = ref("");
 const { promptOptions, keywords, settings } = storeToRefs(generator);
@@ -171,7 +173,11 @@ function generateNpcs() {
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 
-  generator.getRandomNpcs(promptOptions.value, characterChanges.value);
+  generator.getRandomNpcs(
+    promptOptions.value,
+    user.sessionId,
+    characterChanges.value
+  );
 }
 </script>
 

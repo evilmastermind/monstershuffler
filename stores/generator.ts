@@ -80,6 +80,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   async function getRandomNpcs(
     npcOptions: PostRandomNpcInput,
+    sessionId: string | undefined,
     changes: CharacterChanges = {}
   ): Promise<number> {
     try {
@@ -87,7 +88,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         `${api}/npcs/four`,
         {
           method: "POST",
-          body: npcOptions,
+          body: { ...npcOptions, sessionId },
         }
       );
 
@@ -251,7 +252,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  function generateBackstory() {
+  function generateBackstory(sessionId: string | undefined) {
     const currentNpc = characters.value[currentCharacterIndex.value];
     if (backstoryBuffer.value[currentNpc.id]) {
       return;
@@ -259,8 +260,6 @@ export const useGeneratorStore = defineStore("generator", () => {
     backstoryBuffer.value[currentNpc.id] = { chunks: [] };
 
     const c = currentNpc.object.character;
-
-    console.log(currentNpc.object.variables);
 
     if (!c.user) {
       c.user = {};
@@ -276,6 +275,7 @@ export const useGeneratorStore = defineStore("generator", () => {
       body: JSON.stringify({
         token: currentNpc.token,
         object: currentNpc.object,
+        sessionId,
       }),
       // eslint-disable-next-line
       async onopen(response) {

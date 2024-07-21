@@ -9,7 +9,9 @@
 
 <script setup lang="ts">
 import type { Character, Statistics } from "@/types";
+
 const generatorStore = useGeneratorStore();
+const user = useUserStore();
 
 const statistics = inject("statistics") as ComputedRef<Statistics>;
 const character = inject("character") as ComputedRef<Character>;
@@ -21,7 +23,7 @@ const backstory = computed(() => {
 });
 
 onMounted(() => {
-  generatorStore.generateBackstory();
+  generatorStore.generateBackstory(user.sessionId);
 });
 </script>
 
