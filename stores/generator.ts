@@ -64,8 +64,6 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   const currentCharacter = computed(() => {
     if (currentCharacterIndex.value >= 0) {
-      // console.log(currentCharacterIndex);
-      // console.log(characters.value[currentCharacterIndex.value]);
       return characters.value[currentCharacterIndex.value].object as Character;
     }
     return null;
@@ -80,8 +78,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   async function getRandomNpcs(
     npcOptions: PostRandomNpcInput,
-    sessionId: string | undefined,
-    changes: CharacterChanges = {}
+    sessionId: string | undefined
   ): Promise<number> {
     try {
       const data: PostFourRandomNpcsResponse = await $fetch(
@@ -94,20 +91,9 @@ export const useGeneratorStore = defineStore("generator", () => {
 
       data?.npcs.forEach((npc) => {
         const character = npc.object;
-        if (changes.alignmentEthical) {
-          character.character.alignmentEthical = changes.alignmentEthical;
+        if (!character.statistics) {
+          createStats(character);
         }
-        if (changes.alignmentMoral) {
-          character.character.alignmentMoral = changes.alignmentMoral;
-        }
-        if (changes.CR) {
-          if (!character.variations) {
-            character.variations = {};
-          }
-          character.variations.currentCR = changes.CR;
-          adjustLevel(character);
-        }
-        createStats(character);
       });
       session.value = [];
       session.value = data.npcs;
@@ -252,7 +238,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  function generateBackstory(sessionId: string | undefined) {
+  function generateBackstory() {
     const currentNpc = characters.value[currentCharacterIndex.value];
     if (backstoryBuffer.value[currentNpc.id]) {
       return;
@@ -273,9 +259,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token: currentNpc.token,
-        object: currentNpc.object,
-        sessionId,
+        id: currentNpc.id,
       }),
       // eslint-disable-next-line
       async onopen(response) {

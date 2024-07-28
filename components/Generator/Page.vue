@@ -231,7 +231,7 @@ onMounted(async () => {
       to bottom,
       theme("colors.background.0") 0,
       theme("colors.background.100") 10em,
-      rgba(var(--colors-background-100), 0.5) 100%
+      rgba(var(--colors-background-100), 0.6) 100%
     ),
     url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover;
   z-index: -2;

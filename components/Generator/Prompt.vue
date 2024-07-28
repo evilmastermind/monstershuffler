@@ -18,20 +18,17 @@
 
 <script setup lang="ts">
 import { getChallengeNumber } from "monstershuffler-shared";
-import type { CharacterChanges } from "@/types";
 
 const generator = useGeneratorStore();
 const user = useUserStore();
 
 const prompt = ref("");
 const { promptOptions, keywords, settings } = storeToRefs(generator);
-const characterChanges = ref<CharacterChanges>({});
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 
 function generateNpcs() {
   promptOptions.value = {};
-  characterChanges.value = {};
   const words = prompt.value.trim().toLowerCase().split(" ");
   let i = 0;
   let word = "";
@@ -45,7 +42,7 @@ function generateNpcs() {
     if (word === "cr" && i + 1 < words.length) {
       const nextWord = words[i + 1];
       if (!isNaN(parseInt(nextWord))) {
-        characterChanges.value.CR = getChallengeNumber(nextWord);
+        promptOptions.value.CRChosen = getChallengeNumber(nextWord);
         word = "";
         i++;
       }
@@ -53,25 +50,26 @@ function generateNpcs() {
     } else {
       switch (word) {
         case "lawful":
-          characterChanges.value.alignmentEthical = "Lawful";
+          promptOptions.value.alignmentEthicalChosen = "Lawful";
           word = "";
           break;
         case "chaotic":
-          characterChanges.value.alignmentEthical = "Chaotic";
+          promptOptions.value.alignmentEthicalChosen = "Chaotic";
           word = "";
           break;
         case "good":
-          characterChanges.value.alignmentMoral = "Good";
+          promptOptions.value.alignmentMoralChosen = "Good";
           word = "";
           break;
         case "evil":
-          characterChanges.value.alignmentMoral = "Evil";
+          promptOptions.value.alignmentMoralChosen = "Evil";
           word = "";
           break;
         case "neutral":
-          characterChanges.value.alignmentEthical =
-            characterChanges.value.alignmentEthical || "Neutral";
-          characterChanges.value.alignmentMoral = "Neutral";
+          promptOptions.value.alignmentEthicalChosen =
+            promptOptions.value.alignmentEthicalChosen || "Neutral";
+          promptOptions.value.alignmentMoralChosen =
+            promptOptions.value.alignmentMoralChosen || "Neutral";
           word = "";
           break;
         case "female":
@@ -173,11 +171,7 @@ function generateNpcs() {
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 
-  generator.getRandomNpcs(
-    promptOptions.value,
-    user.sessionId,
-    characterChanges.value
-  );
+  generator.getRandomNpcs(promptOptions.value, user.sessionId);
 }
 </script>
 

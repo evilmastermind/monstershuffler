@@ -11,7 +11,6 @@
 import type { Character, Statistics } from "@/types";
 
 const generatorStore = useGeneratorStore();
-const user = useUserStore();
 
 const statistics = inject("statistics") as ComputedRef<Statistics>;
 const character = inject("character") as ComputedRef<Character>;
@@ -23,7 +22,9 @@ const backstory = computed(() => {
 });
 
 onMounted(() => {
-  generatorStore.generateBackstory(user.sessionId);
+  if (!backstory.value) {
+    generatorStore.generateBackstory();
+  }
 });
 </script>
 
