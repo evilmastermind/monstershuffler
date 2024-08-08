@@ -1,13 +1,16 @@
 <template>
   <div class="backstory">
     <h1 class="name mb-2" :class="moral">{{ statistics.fullName }}</h1>
-    <p class="backstory-text">
+    <!-- <p class="backstory-text">
       {{ backstory }}
-    </p>
+    </p> -->
+    <VMarkdownView mode="light" :content="backstory" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { VMarkdownView } from "vue3-markdown";
+
 import type { Character, Statistics } from "@/types";
 
 const generatorStore = useGeneratorStore();

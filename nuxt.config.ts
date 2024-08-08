@@ -68,7 +68,7 @@ export default defineNuxtConfig({
   i18n: {
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
-    vueI18n: "./locales/i18n.config.ts",
+    vueI18n: "./plugins-other/i18n.config.ts",
   },
 
   postcss: {

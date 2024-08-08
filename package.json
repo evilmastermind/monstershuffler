@@ -42,6 +42,7 @@
     "pinia": "^2.1.7",
     "sass": "^1.69.5",
     "sass-loader": "^13.2.0",
+    "vue3-markdown": "^1.1.9",
     "zod": "^3.22.4"
   },
   "overrides": {

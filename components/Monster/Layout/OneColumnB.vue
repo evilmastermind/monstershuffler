@@ -36,15 +36,26 @@ const rules: ImageRules = {
 <style scoped>
 .layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-areas:
+    "story"
+    "stats";
   gap: 2rem;
   @apply px-4 pb-4;
 }
+.stats {
+  grid-area: stats;
+}
+.story {
+  grid-area: story;
+}
 @media (min-width: 750px) {
   .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    display: block;
+  }
+  .stats {
+    float: left;
+    padding-right: 2rem;
+    min-width: 50%;
   }
 }
 

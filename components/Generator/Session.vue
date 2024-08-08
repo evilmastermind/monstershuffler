@@ -39,7 +39,7 @@ function openCharacterSheet(index: number) {
     characters.value.push(npc);
     currentCharacterIndex.value = characters.value.length - 1;
   } else {
-    currentCharacterIndex.value = index;
+    currentCharacterIndex.value = characterIndex;
   }
 }
 </script>
