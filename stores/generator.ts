@@ -1,17 +1,11 @@
-import {
-  fetchEventSource,
-  EventStreamContentType,
-} from "@microsoft/fetch-event-source";
-import { createStats, adjustLevel, getBackstory } from "monstershuffler-shared";
-import { object } from "zod";
-import { parseError } from "@/utils";
+import { fetchEventSource } from "@microsoft/fetch-event-source";
+import { createStats } from "monstershuffler-shared";
+import { parseError, throttle } from "@/utils";
 import type {
   Keyword,
-  CharacterChanges,
   ObjectOrVariant,
   ObjectList,
   PostFourRandomNpcsResponse,
-  // PostRandomNpcResponse,
   PostRandomNpcInput,
   GetGeneratorDataResponse,
   Character,
@@ -21,10 +15,14 @@ import type {
 const config = useRuntimeConfig();
 const api = config.public.apiUrl;
 
-class RetriableError extends Error {}
 class FatalError extends Error {}
 
 /// /////////////////////////////////////
+
+type NPCGeneratorData = {
+  rating?: number;
+  isStreamOpen?: boolean;
+};
 
 export const useGeneratorStore = defineStore("generator", () => {
   /**
@@ -32,14 +30,13 @@ export const useGeneratorStore = defineStore("generator", () => {
    */
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
-  const characters = ref<NpcDetails[]>([]); // this is the list of npcs chosen by the user
+  const characters = ref<(NpcDetails & NPCGeneratorData)[]>([]); // this is the list of npcs chosen by the user
   const settings = ref<PostRandomNpcInput>();
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character>();
   const racesAndVariants = ref<ObjectOrVariant[]>([]);
   const classesAndVariants = ref<ObjectOrVariant[]>([]);
   const backgrounds = ref<ObjectList>([]);
-  const backstoryBuffer = ref<Record<string, { chunks: string[] }>>({});
   //
   const primaryRaceIndex = ref(0);
   const secondaryRaceIndex = ref(0);
@@ -67,6 +64,12 @@ export const useGeneratorStore = defineStore("generator", () => {
       return characters.value[currentCharacterIndex.value].object as Character;
     }
     return null;
+  });
+  const currentCharacterRating = computed(() => {
+    if (currentCharacterIndex.value >= 0) {
+      return characters.value[currentCharacterIndex.value].rating;
+    }
+    return 0;
   });
 
   /**
@@ -176,7 +179,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     return objectOrVariantList;
   }
 
-  function parseSettings(settings: PostRandomNpcInput) {
+  function parseSettings(settings: PostRandomNpcInput | undefined) {
     if (settings) {
       options.value = { ...settings };
       let index = -1;
@@ -238,12 +241,11 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  function generateBackstory() {
+  async function generateBackstory() {
     const currentNpc = characters.value[currentCharacterIndex.value];
-    if (backstoryBuffer.value[currentNpc.id]) {
+    if (currentNpc.isStreamOpen) {
       return;
     }
-    backstoryBuffer.value[currentNpc.id] = { chunks: [] };
 
     const c = currentNpc.object.character;
 
@@ -251,65 +253,106 @@ export const useGeneratorStore = defineStore("generator", () => {
       c.user = {};
     }
     c.user.backstory = { string: "" };
-    const backstory = c.user.backstory;
+    const backstory = c.user.backstory as { string: string };
 
-    fetchEventSource(`${api}/npcs/backstory`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: currentNpc.id,
-      }),
-      // eslint-disable-next-line
+    let lastEventId = "";
+
+    try {
+      await fetchEventSource(`${api}/npcs/backstory`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Last-Event-ID": lastEventId,
+        },
+        body: JSON.stringify({
+          id: currentNpc.id,
+        }),
+        openWhenHidden: true,
+        // eslint-disable-next-line
       async onopen(response) {
-        if (
-          response.ok
-          // && response.headers.get("content-type") === EventStreamContentType
-        ) {
-          // OK
-        } else if (
-          response.status >= 400 &&
-          response.status < 500 &&
-          response.status !== 429
-        ) {
-          // client-side errors are usually non-retriable:
-          throw new FatalError();
-        } else {
-          throw new FatalError();
-        }
-      },
-      onmessage(msg) {
-        // if the server emits an error message, throw an exception
-        // so it gets handled by the onerror callback below:
-        if (msg.event === "FatalError") {
-          throw new FatalError(msg.data);
-        }
-        if (backstoryBuffer.value[currentNpc.id]) {
-          backstoryBuffer.value[currentNpc.id].chunks.push(msg.data);
-          backstory.string += msg.data;
-        }
-      },
-      onclose() {
-        // if the server closes the connection unexpectedly, retry:
-        // throw new FatalError();
-      },
-      onerror(err) {
-        if (err instanceof FatalError) {
-          throw err; // rethrow to stop the operation
-        } else {
-          // do nothing to automatically retry. You can also
-          // return a specific retry interval here.
-        }
-      },
-    });
+          currentNpc.isStreamOpen = true;
+          if (
+            response.ok
+            // && response.headers.get("content-type") === EventStreamContentType
+          ) {
+            // OK
+          } else if (
+            response.status >= 400 &&
+            response.status < 500 &&
+            response.status !== 429
+          ) {
+            // client-side errors are usually non-retriable:
+            throw new FatalError();
+          } else {
+            throw new FatalError();
+          }
+        },
+        onmessage(msg) {
+          // if the server emits an error message, throw an exception
+          // so it gets handled by the onerror callback below:
+          if (msg.event === "FatalError") {
+            throw new FatalError(msg.data);
+          }
+
+          if (msg.data) {
+            try {
+              backstory.string += JSON.parse(msg.data) as string;
+              backstory.string.replace(/\n\n/g, "\n");
+            } catch (error) {
+              backstory.string += msg.data;
+            }
+          }
+
+          lastEventId = msg.id;
+        },
+        onclose() {
+          currentNpc.isStreamOpen = false;
+          return 200;
+        },
+        onerror(err) {
+          if (err instanceof FatalError) {
+            throw err; // rethrow to stop the operation
+          } else {
+            // do nothing to automatically retry. You can also
+            // return a specific retry interval here.
+          }
+        },
+      });
+      return 200;
+    } catch (error) {
+      return parseError(error).statusCode;
+    }
   }
 
+  function getCurrentNPCRating(): number {
+    if (currentCharacterIndex.value < 0) {
+      return 0;
+    }
+    return characters.value[currentCharacterIndex.value].rating || 0;
+  }
+
+  const setCurrentNPCRatingThrottle = throttle(setCurrentNPCRating, 2000);
+
+  async function setCurrentNPCRating(
+    rating: number,
+    sessionId: string | undefined
+  ): Promise<void> {
+    if (currentCharacterIndex.value < 0) {
+      return;
+    }
+    const character = characters.value[currentCharacterIndex.value];
+    character.rating = rating;
+    await $fetch(`${api}/npcs/rating`, {
+      method: "POST",
+      body: { rating, id: character.id, sessionid: sessionId },
+    });
+  }
   return {
     session,
     settings,
     characters,
     currentCharacter,
+    currentCharacterRating,
     currentCharacterIndex,
     currentCharacterFromBitsPreview,
     racesAndVariants,
@@ -322,10 +365,13 @@ export const useGeneratorStore = defineStore("generator", () => {
     options,
     promptOptions,
     keywords,
+    setCurrentNPCRatingThrottle,
     getRandomNpcs,
     // generateNpc,
     getGeneratorData,
     parseSettings,
     generateBackstory,
+    getCurrentNPCRating,
+    setCurrentNPCRating,
   };
 });

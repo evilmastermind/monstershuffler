@@ -1,5 +1,10 @@
 <template>
-  <div class="tools" @touchstart="handleTouch"  @touchmove="handleTouch" @touchend="handleTouch">
+  <div
+    class="tools"
+    @touchstart="handleTouch"
+    @touchmove="handleTouch"
+    @touchend="handleTouch"
+  >
     <MonsterImagesHelp />
     <MSIconButton
       class="tool"
@@ -28,7 +33,11 @@
       :class="currentEditorMode === 'layout' ? 'text-invert' : ''"
       icon="fa6-solid:check"
     /> -->
-    <label class="label-icon tool" :title="$t('editor.image.uploadImage')" @touchstart.stop="uploadImage">
+    <label
+      class="label-icon tool"
+      :title="$t('editor.image.uploadImage')"
+      @touchstart.stop="uploadImage"
+    >
       <input
         ref="imageUpload"
         class="image-upload"
@@ -60,7 +69,7 @@ const p = defineProps({
   image: {
     type: Object as PropType<Image>,
     required: true,
-  }
+  },
 });
 
 const { image } = toRefs(p);
@@ -72,7 +81,8 @@ function toggleMask() {
     image.value.mask = "0";
   }
   const currentMask = parseInt(image.value.mask);
-  const nextMask = currentMask === IMG_MASKS_COUNT ? "" : (currentMask + 1).toString();
+  const nextMask =
+    currentMask === IMG_MASKS_COUNT ? "" : (currentMask + 1).toString();
   image.value.mask = nextMask;
 }
 

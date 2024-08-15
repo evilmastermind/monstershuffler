@@ -8,11 +8,25 @@
       @keyup.enter="generateNpcsThrottle"
     />
     <MSIconButton
+      v-if="!isLoading"
       class="generate-button text-primary-700 px-2 text-2xl"
       :label="$t('generator.form.generate')"
       icon="fa6-solid:shuffle"
       @click="generateNpcsThrottle"
     />
+    <LoadingSpinner
+      v-else
+      color="primary"
+      :size="1.3"
+      class="generate-button mx-2 pr-2"
+    />
+    <MSAlert
+      v-if="tooManyRequests"
+      type="danger"
+      @close="tooManyRequests = false"
+    >
+      <p>{{ $t("error.tooManyRequests") }}</p>
+    </MSAlert>
   </div>
 </template>
 
@@ -22,12 +36,16 @@ import { getChallengeNumber } from "monstershuffler-shared";
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const prompt = ref("");
 const { promptOptions, keywords, settings } = storeToRefs(generator);
+const prompt = ref("");
+
+const isLoading = ref(false);
+const tooManyRequests = ref(false);
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 
-function generateNpcs() {
+async function generateNpcs() {
+  isLoading.value = true;
   promptOptions.value = {};
   const words = prompt.value.trim().toLowerCase().split(" ");
   let i = 0;
@@ -171,7 +189,15 @@ function generateNpcs() {
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 
-  generator.getRandomNpcs(promptOptions.value, user.sessionId);
+  const reply = await generator.getRandomNpcs(
+    promptOptions.value,
+    user.sessionId
+  );
+  if (reply === 429) {
+    tooManyRequests.value = true;
+    return;
+  }
+  isLoading.value = false;
 }
 </script>
 

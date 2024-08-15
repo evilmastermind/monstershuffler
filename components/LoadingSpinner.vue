@@ -39,7 +39,11 @@ const computedColor = computed(() => {
 });
 
 const containerSize = computed(() => {
-  return [`width: ${p.size}rem`, `height: ${p.size}rem`];
+  return [
+    `width: ${p.size}rem`,
+    `min-width: ${p.size}rem`,
+    `height: ${p.size}rem`,
+  ];
 });
 const innerSize = computed(() => {
   return [
@@ -55,8 +59,6 @@ const innerSize = computed(() => {
 // LOADING SPINNER
 .lds-ring {
   display: block;
-  position: relative;
-  margin: 0 auto;
 }
 .lds-ring div {
   box-sizing: border-box;

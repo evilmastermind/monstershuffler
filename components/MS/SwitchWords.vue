@@ -73,11 +73,11 @@ const p = defineProps({
   @apply text-text-inverse;
 }
 .slider-container .checkbox:checked ~ .unchecked {
-  @apply text-text-secondary;
+  @apply text-text;
 }
 .checked {
   text-align: center;
-  @apply text-text-secondary;
+  @apply text-text;
 }
 .slider-container .checkbox:checked ~ .checked {
   @apply text-text-inverse;

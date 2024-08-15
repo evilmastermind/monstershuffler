@@ -87,13 +87,20 @@
           </TransitionGroup>
         </div>
       </Transition>
-      <div v-show="isLoading" class="mt-12">
+      <!-- <div v-show="isLoading" class="mt-12">
         <LoadingSpinner />
-      </div>
+      </div> -->
     </div>
     <DiceHistory />
     <MSAlert v-if="isServerDown" type="danger" @close="isServerDown = false">
       <p>{{ $t("error.couldntRetrieveData") }}</p>
+    </MSAlert>
+    <MSAlert
+      v-if="tooManyRequests"
+      type="danger"
+      @close="tooManyRequests = false"
+    >
+      <p>{{ $t("error.tooManyRequests") }}</p>
     </MSAlert>
   </div>
 </template>
@@ -121,10 +128,12 @@ const {
 } = storeToRefs(generator);
 const { currentEditorMode } = storeToRefs(useMonsterEditorStore());
 const form = ref(null);
+
 const isIntroShown = ref(true);
 const isLoading = ref(true);
 const isButtonLoading = ref(false);
 const isServerDown = ref(false);
+const tooManyRequests = ref(false);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
@@ -137,6 +146,10 @@ const saveSettingsThrottle = throttle(() => saveSettings(), 1000);
 async function generateNpcs() {
   isButtonLoading.value = true;
   const reply = await generator.getRandomNpcs(options.value, user.sessionId);
+  if (reply === 429) {
+    tooManyRequests.value = true;
+    return;
+  }
   isButtonLoading.value = false;
   saveSettingsThrottle();
 }
@@ -209,9 +222,9 @@ onMounted(async () => {
     "npcgenerator"
   );
   isFormMode.value = settings?.isFormMode ?? true;
-  if (settings?.options) {
-    generator.parseSettings(settings.options);
-  }
+
+  generator.parseSettings(settings?.options);
+
   if (settings?.characters?.length && settings.characters[0].object) {
     characters.value = settings.characters;
     haveCharactersJustBeenRetrieved.value = true;

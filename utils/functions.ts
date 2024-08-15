@@ -80,20 +80,28 @@ type ParsedError = {
 /** parseError is used in catch() blocks to parse errors raised from $fetch API requests */
 export function parseError(error: unknown): ParsedError {
   if (error instanceof FetchError) {
+    const status = error.data?.status || error.status || 500;
+    console.error(
+      new Error(
+        `(type FetchError) ${error.name} ${error.message} ${error.status}`
+      )
+    );
     return {
       error: error.name,
       message: error.message,
-      statusCode: error.data?.status || 500,
+      statusCode: status,
     };
   } else if (error instanceof Error) {
+    console.error(new Error(`(type Error) ${error.name} ${error.message} `));
     return {
       error: error.name,
       message: error.message,
       statusCode: 500,
     };
   } else {
+    console.error(new Error(`(type Error)`));
     return {
-      error: "UnknownError",
+      error: "(UnknownError)",
       message: "An unknown error occurred",
       statusCode: 500,
     };

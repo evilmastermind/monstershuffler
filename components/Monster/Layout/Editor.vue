@@ -2,7 +2,14 @@
   <MSModal width="800" @close="emit('close')">
     <template #title>{{ $t("editor.layout.title") }}</template>
     <div class="mt-2" />
-    <MSAlert v-if="isMobileAlertOpen" inline type="warning" :title="$t('editor.layout.warningMobileTitle')" @close="closeAlert" persistent>
+    <MSAlert
+      v-if="isMobileAlertOpen"
+      inline
+      type="warning"
+      :title="$t('editor.layout.warningMobileTitle')"
+      persistent
+      @close="closeAlert"
+    >
       {{ $t("editor.layout.warningMobileDescription") }}
     </MSAlert>
     <h4 class="content mt-4">{{ $t("editor.layout.dynamic") }}</h4>
@@ -22,14 +29,16 @@
       </button>
       <button
         class="layout"
-        :class="currentLayout === 'MonsterLayoutDynamicNoImage' ? 'selected' : ''"
+        :class="
+          currentLayout === 'MonsterLayoutDynamicNoImage' ? 'selected' : ''
+        "
         @click="chooseLayout('MonsterLayoutDynamicNoImage')"
       >
         <MonsterLayoutExampleNoImage1Column class="example" />
         <MonsterLayoutExampleNoImage2Column class="example" />
         <span class="sr-only">
-          No image, description and stat block automatically
-          rearranged when the stat block becomes too big.
+          No image, description and stat block automatically rearranged when the
+          stat block becomes too big.
         </span>
       </button>
     </div>
@@ -123,7 +132,7 @@
       class="mt-4"
     />
     <div class="buttons mt-5 mb-4">
-      <MSButton @click="emit('close')" :text="$t('close')" />
+      <MSButton :text="$t('close')" @click="emit('close')" />
     </div>
   </MSModal>
 </template>
@@ -171,7 +180,6 @@ function closeAlert() {
   alertClicked.value.layoutsMobile = true;
 }
 
-
 watch(showRoleplayStats, () => {
   if (
     character.value.character.user?.sheet?.showRoleplayStats === true ||
@@ -183,7 +191,9 @@ watch(showRoleplayStats, () => {
 });
 
 watch(mdAndDown, () => {
-  isMobileAlertOpen.value = alertClicked.value?.layoutsMobile ? false : mdAndDown.value;
+  isMobileAlertOpen.value = alertClicked.value?.layoutsMobile
+    ? false
+    : mdAndDown.value;
 });
 
 onBeforeMount(() => {

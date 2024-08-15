@@ -36,6 +36,7 @@
   h3.content {
     font-family: MrsEavesSmallCaps;
     font-weight: bold !important;
+    letter-spacing: 1px;
     @apply text-6;
   }
 

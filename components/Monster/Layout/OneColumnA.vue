@@ -40,6 +40,7 @@ const rules: ImageRules = {
     "story"
     "stats";
   gap: 2rem;
+  clear: both;
   @apply px-4 pb-4;
 }
 .stats {
@@ -50,12 +51,12 @@ const rules: ImageRules = {
 }
 @media (min-width: 750px) {
   .layout {
-    display: block;
+    display: flow-root;
   }
   .stats {
     float: right;
     padding-left: 2rem;
-    min-width: 50%;
+    width: 50%;
   }
 }
 

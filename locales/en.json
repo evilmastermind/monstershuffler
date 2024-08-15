@@ -1,6 +1,7 @@
 {
   "error": {
-    "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later."
+    "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later.",
+    "tooManyRequests": "You've made too many requests to our server. Please wait a few seconds before trying again."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",
@@ -438,7 +439,9 @@
   },
   "closeLabel": "Close",
   "close": "Close",
+  "thanks": "Thank you!",
   "yes": "Yes",
+  "rate": "Rate",
   "no": "No",
   "home": {
     "pageTitle": "Home"
@@ -482,7 +485,10 @@
       "generate": "Generate NPC"
     },
     "prompt": {
-      "placeholder": "\"innkeeper\", \"human guard\", \"barbarian cr 5\""
+      "placeholder": "\"evil innkeeper\", \"human guard\", \"barbarian cr 5\""
+    }, 
+    "backstory": {
+      "ratingQuestion": "How likely are you to use this adventure idea?"
     }
   },
   "login": {

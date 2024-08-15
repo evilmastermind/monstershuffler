@@ -226,44 +226,64 @@ function setClass(index: number) {
 
 // TODO: 6) show user's own races, classes and professions at the top of the lists, and highlight them
 
-watch(primaryRaceIndex, (newValue) => {
-  // primary race
-  const race = races.value[newValue];
-  options.value.primaryRaceId = race.id;
-  if (race.variantId) {
-    options.value.primaryRacevariantId = race.variantId;
-  } else {
-    delete options.value.primaryRacevariantId;
-  }
-});
+watch(
+  primaryRaceIndex,
+  (newValue) => {
+    // primary race
+    const race = races.value[newValue];
+    options.value.primaryRaceId = race.id;
+    if (race.variantId) {
+      options.value.primaryRacevariantId = race.variantId;
+    } else {
+      delete options.value.primaryRacevariantId;
+    }
+  },
+  { immediate: true }
+);
 
-watch(secondaryRaceIndex, (newValue) => {
-  // secondary race
-  const race2 = races.value[newValue];
-  options.value.secondaryRaceId = race2.id;
-  if (race2.variantId) {
-    options.value.secondaryRacevariantId = race2.variantId;
-  } else {
-    delete options.value.secondaryRacevariantId;
-  }
-});
+watch(
+  secondaryRaceIndex,
+  (newValue) => {
+    // secondary race
+    const race2 = races.value[newValue];
+    options.value.secondaryRaceId = race2.id;
+    if (race2.variantId) {
+      options.value.secondaryRacevariantId = race2.variantId;
+    } else {
+      delete options.value.secondaryRacevariantId;
+    }
+  },
+  { immediate: true }
+);
 
-watch(classIndex, (newValue) => {
-  setClass(newValue);
-});
+watch(
+  classIndex,
+  (newValue) => {
+    setClass(newValue);
+  },
+  { immediate: true }
+);
 
-watch(backgroundIndex, (newValue) => {
-  options.value.backgroundId = backgrounds.value[newValue].id;
-});
+watch(
+  backgroundIndex,
+  (newValue) => {
+    options.value.backgroundId = backgrounds.value[newValue].id;
+  },
+  { immediate: true }
+);
 
-watch(options, (newValue) => {
-  if (newValue.backgroundType === "specific") {
-    options.value.backgroundId = backgrounds.value[backgroundIndex.value].id;
-  }
-  if (newValue.classType === "specific") {
-    setClass(classIndex.value);
-  }
-});
+watch(
+  options,
+  (newValue) => {
+    if (newValue.backgroundType === "specific") {
+      options.value.backgroundId = backgrounds.value[backgroundIndex.value].id;
+    }
+    if (newValue.classType === "specific") {
+      setClass(classIndex.value);
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped lang="scss">

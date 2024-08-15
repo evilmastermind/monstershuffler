@@ -52,10 +52,15 @@ export function useImageResize(
     const oldImageWidth =
       originalImageWidth.value *
       (image.value.imageHeightPx / originalImageHeight.value);
-    if (image.value.imageHeightPx - resizeStep < (container.value?.clientHeight || 0)) {
+    if (
+      image.value.imageHeightPx - resizeStep <
+      (container.value?.clientHeight || 0)
+    ) {
       return;
     }
+    const imageCopy = { ...image.value };
     image.value.imageHeightPx -= resizeStep;
+    const newHeight = image.value.imageHeightPx;
     image.value.imagePositionTopPx ??= 0;
     image.value.imagePositionTopPx += resizeStep / 2;
     const newImageWidth =
@@ -71,6 +76,12 @@ export function useImageResize(
       originalImageHeight.value,
       rules
     );
+    // if the image has been readjusted to fit the container,
+    // it means that it had been reduced beyond the container's size
+    // and we need to reset the image to its previous state
+    if (newHeight !== image.value.imageHeightPx) {
+      image.value = imageCopy;
+    }
     fixImagePosition(
       image.value,
       container.value?.clientWidth || 0,
