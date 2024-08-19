@@ -61,7 +61,10 @@ onMounted(async () => {
     if (result === 429) {
       tooManyRequests.value = true;
     }
-  } else if (backstory.value !== null) {
+  } else if (
+    backstory.value !== null &&
+    character.value.isStreamOpen === undefined
+  ) {
     character.value.isStreamOpen = false;
   }
 });

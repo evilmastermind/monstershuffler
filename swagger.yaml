@@ -761,7 +761,7 @@ components:
             - description
             - game
           additionalProperties: false
-        getBackgroundListResponseSchema:
+        sGetBackgroundListResponseSchema:
           type: object
           properties:
             list:
@@ -784,7 +784,7 @@ components:
           required:
             - list
           additionalProperties: false
-        getBackgroundResponseSchema:
+        sGetBackgroundResponseSchema:
           type: object
           properties:
             object:
@@ -811,8 +811,8 @@ components:
           additionalProperties: false
       required:
         - createBackgroundSchema
-        - getBackgroundListResponseSchema
-        - getBackgroundResponseSchema
+        - sGetBackgroundListResponseSchema
+        - sGetBackgroundResponseSchema
       additionalProperties: false
     classSchemas:
       type: object
@@ -1501,7 +1501,7 @@ components:
             - game
             - object
           additionalProperties: false
-        getClassWithVariantsListResponseSchema:
+        sGetClassWithVariantsListResponseSchema:
           type: object
           properties:
             list:
@@ -1544,7 +1544,7 @@ components:
           required:
             - list
           additionalProperties: false
-        getClassListResponseSchema:
+        sGetClassListResponseSchema:
           type: object
           properties:
             list:
@@ -1569,7 +1569,7 @@ components:
           required:
             - list
           additionalProperties: false
-        getClassResponseSchema:
+        sGetClassResponseSchema:
           type: object
           properties:
             object:
@@ -1585,9 +1585,9 @@ components:
       required:
         - updateClassSchema
         - createClassSchema
-        - getClassWithVariantsListResponseSchema
-        - getClassListResponseSchema
-        - getClassResponseSchema
+        - sGetClassWithVariantsListResponseSchema
+        - sGetClassListResponseSchema
+        - sGetClassResponseSchema
       additionalProperties: false
     npcSchemas:
       type: object
@@ -3636,7 +3636,7 @@ components:
           required:
             - npcs
           additionalProperties: false
-        getGeneratorDataResponseSchema:
+        sGetGeneratorDataResponseSchema:
           type: object
           properties:
             races:
@@ -3659,10 +3659,10 @@ components:
                         id:
                           type: number
                         name:
-                          $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                          $ref: "#/components/schemas/npcSchemas/properties/sGetGeneratorDataResponseSchem\
                             a/properties/races/items/properties/name"
                         userid:
-                          $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                          $ref: "#/components/schemas/npcSchemas/properties/sGetGeneratorDataResponseSchem\
                             a/properties/races/items/properties/userid"
                       required:
                         - id
@@ -3676,7 +3676,7 @@ components:
                   - other_objects
                 additionalProperties: false
             classes:
-              $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+              $ref: "#/components/schemas/npcSchemas/properties/sGetGeneratorDataResponseSchem\
                 a/properties/races"
             backgrounds:
               type: array
@@ -3686,10 +3686,10 @@ components:
                   id:
                     type: number
                   userid:
-                    $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                    $ref: "#/components/schemas/npcSchemas/properties/sGetGeneratorDataResponseSchem\
                       a/properties/races/items/properties/userid"
                   name:
-                    $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                    $ref: "#/components/schemas/npcSchemas/properties/sGetGeneratorDataResponseSchem\
                       a/properties/races/items/properties/name"
                 required:
                   - id
@@ -3705,7 +3705,7 @@ components:
         - createRandomNpcInputSchema
         - createRandomNpcResponseSchema
         - createFourRandomNpcsResponseSchema
-        - getGeneratorDataResponseSchema
+        - sGetGeneratorDataResponseSchema
       additionalProperties: false
     Schema:
       type: object
@@ -4458,7 +4458,7 @@ components:
             - object
             - game
           additionalProperties: false
-        getRaceWithVariantsListResponseSchema:
+        sGetRaceWithVariantsListResponseSchema:
           type: object
           properties:
             list:
@@ -4501,7 +4501,7 @@ components:
           required:
             - list
           additionalProperties: false
-        getRaceListResponseSchema:
+        sGetRaceListResponseSchema:
           type: object
           properties:
             list:
@@ -4526,7 +4526,7 @@ components:
           required:
             - list
           additionalProperties: false
-        getRaceResponseSchema:
+        sGetRaceResponseSchema:
           type: object
           properties:
             object:
@@ -4542,14 +4542,14 @@ components:
       required:
         - createRaceSchema
         - updateRaceSchema
-        - getRaceWithVariantsListResponseSchema
-        - getRaceListResponseSchema
-        - getRaceResponseSchema
+        - sGetRaceWithVariantsListResponseSchema
+        - sGetRaceListResponseSchema
+        - sGetRaceResponseSchema
       additionalProperties: false
     traitSchemas:
       type: object
       properties:
-        getRandomTraitSchema:
+        sGetRandomTraitBodySchema:
           type: object
           properties:
             type:
@@ -4562,23 +4562,23 @@ components:
             feeling:
               type: number
           additionalProperties: false
-        getRandomTraitResponseSchema:
+        sGetRandomTraitResponseSchema:
           type: object
           properties:
             name:
               type: string
               minLength: 2
             type:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitBodySchema/proper\
                 ties/type"
             subtitle:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitBodySchema/proper\
                 ties/subtitle"
             category:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitBodySchema/proper\
                 ties/category"
             feeling:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema/proper\
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitBodySchema/proper\
                 ties/feeling"
             description:
               type: string
@@ -4590,19 +4590,19 @@ components:
             - feeling
             - description
           additionalProperties: false
-        getTraitDescriptionResponseSchema:
+        sGetTraitDescriptionResponseSchema:
           type: object
           properties:
             description:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitResponseSchem\
                 a/properties/description"
           required:
             - description
           additionalProperties: false
       required:
-        - getRandomTraitSchema
-        - getRandomTraitResponseSchema
-        - getTraitDescriptionResponseSchema
+        - sGetRandomTraitBodySchema
+        - sGetRandomTraitResponseSchema
+        - sGetTraitDescriptionResponseSchema
       additionalProperties: false
     userSchemas:
       type: object
@@ -4641,7 +4641,7 @@ components:
             - username
             - id
           additionalProperties: false
-        activateUserSchema:
+        sActivateUserBodySchema:
           type: object
           properties:
             token:
@@ -4649,7 +4649,7 @@ components:
           required:
             - token
           additionalProperties: false
-        reactivateUserSchema:
+        sReactivateUserBodySchema:
           type: object
           properties:
             email:
@@ -4658,7 +4658,7 @@ components:
           required:
             - email
           additionalProperties: false
-        loginSchema:
+        sLoginBody:
           type: object
           properties:
             email:
@@ -4670,7 +4670,7 @@ components:
             - email
             - password
           additionalProperties: false
-        loginResponseSchema:
+        sLoginResponseSchema:
           type: object
           properties:
             accessToken:
@@ -4678,7 +4678,7 @@ components:
           required:
             - accessToken
           additionalProperties: false
-        getUserResponseSchema:
+        sGetUserResponseSchema:
           type: object
           properties:
             id:
@@ -4721,7 +4721,7 @@ components:
             - username
             - avatar
           additionalProperties: false
-        resetPasswordSchema:
+        sResetPasswordBodySchema:
           type: object
           properties:
             token:
@@ -4736,13 +4736,13 @@ components:
       required:
         - createUserSchema
         - createUserResponseSchema
-        - activateUserSchema
-        - reactivateUserSchema
-        - loginSchema
-        - loginResponseSchema
-        - getUserResponseSchema
+        - sActivateUserBodySchema
+        - sReactivateUserBodySchema
+        - sLoginBody
+        - sLoginResponseSchema
+        - sGetUserResponseSchema
         - updateUserSchema
-        - resetPasswordSchema
+        - sResetPasswordBodySchema
       additionalProperties: false
 paths:
   /api/backgrounds/:
@@ -4789,7 +4789,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundResponseS\
+                $ref: "#/components/schemas/backgroundSchemas/properties/sGetBackgroundResponseS\
                   chema"
   /api/backgrounds/random:
     get:
@@ -4810,7 +4810,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundResponseS\
+                $ref: "#/components/schemas/backgroundSchemas/properties/sGetBackgroundResponseS\
                   chema"
   /api/backgrounds/random/{age}:
     get:
@@ -4838,7 +4838,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/backgroundSchemas/properties/getBackgroundResponseS\
+                $ref: "#/components/schemas/backgroundSchemas/properties/sGetBackgroundResponseS\
                   chema"
   /api/classes/:
     get:
@@ -4859,7 +4859,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/classSchemas/properties/getClassListResponseSchema"
+                $ref: "#/components/schemas/classSchemas/properties/sGetClassListResponseSchema"
   /api/classes/random:
     get:
       summary: Returns the details of a random class in the database.
@@ -4879,7 +4879,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/classSchemas/properties/getClassResponseSchema"
+                $ref: "#/components/schemas/classSchemas/properties/sGetClassResponseSchema"
   /api/classes/with-variants:
     get:
       summary: Returns a list of all available combinations of classes and variants in
@@ -4926,7 +4926,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/classSchemas/properties/getClassResponseSchema"
+                $ref: "#/components/schemas/classSchemas/properties/sGetClassResponseSchema"
   /api/npcs/:
     post:
       summary: Creates a new random npc using the settings provided.
@@ -4971,7 +4971,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/npcSchemas/properties/getGeneratorDataResponseSchem\
+                $ref: "#/components/schemas/npcSchemas/properties/sGetGeneratorDataResponseSchem\
                   a"
   /api/page-settings/{page}:
     get:
@@ -5040,7 +5040,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/raceSchemas/properties/getRaceListResponseSchema"
+                $ref: "#/components/schemas/raceSchemas/properties/sGetRaceListResponseSchema"
   /api/races/with-variants:
     get:
       summary: Returns a list of all available combinations of races and variants in
@@ -5086,7 +5086,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/raceSchemas/properties/getRaceResponseSchema"
+                $ref: "#/components/schemas/raceSchemas/properties/sGetRaceResponseSchema"
   /api/races/random:
     get:
       summary: Returns the details of a random race from the database.
@@ -5106,7 +5106,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/raceSchemas/properties/getRaceResponseSchema"
+                $ref: "#/components/schemas/raceSchemas/properties/sGetRaceResponseSchema"
   /api/traits/random:
     post:
       summary: Returns a random trait.
@@ -5118,14 +5118,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema"
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitBodySchema"
       responses:
         "200":
           description: Default Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
+                $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitResponseSchem\
                   a"
   /api/traits/random/{age}:
     post:
@@ -5139,7 +5139,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitSchema"
+              $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitBodySchema"
       parameters:
         - schema:
             type: string
@@ -5152,7 +5152,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/traitSchemas/properties/getRandomTraitResponseSchem\
+                $ref: "#/components/schemas/traitSchemas/properties/sGetRandomTraitResponseSchem\
                   a"
   /api/traits/{name}:
     get:
@@ -5174,7 +5174,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/traitSchemas/properties/getTraitDescriptionResponse\
+                $ref: "#/components/schemas/traitSchemas/properties/sGetTraitDescriptionResponse\
                   Schema"
   /api/users/login:
     post:
@@ -5188,14 +5188,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/userSchemas/properties/loginSchema"
+              $ref: "#/components/schemas/userSchemas/properties/sLoginBody"
       responses:
         "200":
           description: Default Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/userSchemas/properties/loginResponseSchema"
+                $ref: "#/components/schemas/userSchemas/properties/sLoginResponseSchema"
 tags:
   - name: users
     description: "The users' account. "

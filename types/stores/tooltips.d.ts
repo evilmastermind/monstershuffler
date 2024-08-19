@@ -1,3 +1,3 @@
-export type getTraitDescriptionResponseSchema = {
+export type sGetTraitDescriptionResponseSchema = {
   description: string;
 };

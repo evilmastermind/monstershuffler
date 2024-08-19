@@ -552,7 +552,7 @@
     "failure": "Account verification failed. Check if the link you clicked is correct.",
     "backToLogin": "Back to Login"
   },
-  "resetPassword": {
+  "sResetPasswordBody": {
     "pageTitle": "Password Reset",
     "title": "Password Reset",
     "changePassword": "Change Password",

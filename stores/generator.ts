@@ -6,7 +6,7 @@ import type {
   ObjectOrVariant,
   ObjectList,
   PostFourRandomNpcsResponse,
-  PostRandomNpcInput,
+  PostRandomNpcBody,
   GetGeneratorDataResponse,
   Character,
   NpcDetails,
@@ -31,7 +31,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
   const characters = ref<(NpcDetails & NPCGeneratorData)[]>([]); // this is the list of npcs chosen by the user
-  const settings = ref<PostRandomNpcInput>();
+  const settings = ref<PostRandomNpcBody>();
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character>();
   const racesAndVariants = ref<ObjectOrVariant[]>([]);
@@ -42,7 +42,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   const secondaryRaceIndex = ref(0);
   const classIndex = ref(0);
   const backgroundIndex = ref(0);
-  const options = ref<PostRandomNpcInput>({
+  const options = ref<PostRandomNpcBody>({
     primaryRacePercentage: 50,
     secondaryRacePercentage: 40,
     classType: "randomSometimes",
@@ -52,7 +52,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     includeChildren: false,
     includeBodyType: false,
   });
-  const promptOptions = ref<PostRandomNpcInput>({});
+  const promptOptions = ref<PostRandomNpcBody>({});
   const keywords = ref<Keyword[]>([]);
 
   /**
@@ -80,7 +80,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   // const generateNpc = throttle(getRandomNpc, 1000);
 
   async function getRandomNpcs(
-    npcOptions: PostRandomNpcInput,
+    npcOptions: PostRandomNpcBody,
     sessionId: string | undefined
   ): Promise<number> {
     try {
@@ -179,7 +179,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     return objectOrVariantList;
   }
 
-  function parseSettings(settings: PostRandomNpcInput | undefined) {
+  function parseSettings(settings: PostRandomNpcBody | undefined) {
     if (settings) {
       options.value = { ...settings };
       let index = -1;

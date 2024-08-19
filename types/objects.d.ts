@@ -23,7 +23,7 @@ import {
   parsedActionObject,
   parsedDice,
   parsedExpression,
-  postRandomNpcResponse,
+  sPostRandomNpcResponse,
   raceObject,
   resourcePartObject,
   roll,

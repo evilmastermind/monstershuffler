@@ -1,5 +1,5 @@
 import type {
-  getTraitDescriptionResponseSchema,
+  sGetTraitDescriptionResponseSchema,
   GetSpellResponse,
 } from "@/types";
 
@@ -24,7 +24,7 @@ export const useTooltipsStore = defineStore("tooltips", () => {
     trait: string | number
   ): Promise<string | null> {
     try {
-      const data: getTraitDescriptionResponseSchema = await $fetch(
+      const data: sGetTraitDescriptionResponseSchema = await $fetch(
         `${api}/traits/${trait}`
       );
       return data.description;
@@ -35,7 +35,7 @@ export const useTooltipsStore = defineStore("tooltips", () => {
 
   async function getBackgroundDescription(id: string | number) {
     try {
-      const data: getTraitDescriptionResponseSchema = await $fetch(
+      const data: sGetTraitDescriptionResponseSchema = await $fetch(
         `${api}/backgrounds/${id}`
       );
       return data.description;

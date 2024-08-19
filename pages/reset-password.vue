@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1 class="content text-center mt-2">{{ $t("resetPassword.title") }}</h1>
+    <h1 class="content text-center mt-2">{{ $t("sResetPasswordBody.title") }}</h1>
     <div v-if="!isPasswordResetSuccessful">
-      <form class="centered" @submit.prevent="resetPassword">
+      <form class="centered" @submit.prevent="sResetPasswordBody">
         <label class="ms-label mt-2">
           {{ $t("password") }}
           <input
@@ -31,7 +31,7 @@
           class="mt-6"
           color="primary"
           icon="fa6-solid:key"
-          :text="$t('resetPassword.changePassword')"
+          :text="$t('sResetPasswordBody.changePassword')"
           :loading="isButtonLoading"
           :disabled="isButtonDisabled"
         />
@@ -39,7 +39,7 @@
     </div>
     <div v-else>
       <p class="content text-center mt-6">
-        {{ $t("resetPassword.success") }}
+        {{ $t("sResetPasswordBody.success") }}
       </p>
     </div>
     <AuthLogoFooter />
@@ -53,7 +53,7 @@ definePageMeta({
   layout: "auth",
 });
 useHead({
-  title: `${t("resetPassword.pageTitle")} - Monstershuffler.com`,
+  title: `${t("sResetPasswordBody.pageTitle")} - Monstershuffler.com`,
 });
 
 const user = useUserStore();
@@ -70,14 +70,14 @@ const isButtonDisabled = ref(false);
 const errorMessage = ref("");
 const isPasswordResetSuccessful = ref(false);
 
-async function resetPassword() {
+async function sResetPasswordBody() {
   isButtonLoading.value = true;
   if (credentials.value.password !== confirmPassword.value) {
     errorMessage.value = t("registration.passwordsDontMatch");
     isButtonLoading.value = false;
     return;
   }
-  const statusCode = await user.resetPassword(
+  const statusCode = await user.sResetPasswordBody(
     credentials.value.password,
     credentials.value.token
   );
@@ -92,10 +92,10 @@ async function resetPassword() {
       }, 5000);
       break;
     case 404:
-      errorMessage.value = t("resetPassword.tokenNotFound");
+      errorMessage.value = t("sResetPasswordBody.tokenNotFound");
       break;
     default:
-      errorMessage.value = t("resetPassword.unknownError");
+      errorMessage.value = t("sResetPasswordBody.unknownError");
       break;
   }
 }

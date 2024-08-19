@@ -106,12 +106,12 @@
 </template>
 
 <script setup lang="ts">
-import type { Character, PostRandomNpcInput, NpcDetails } from "@/types";
+import type { Character, PostRandomNpcBody, NpcDetails } from "@/types";
 import { throttle } from "@/utils";
 
 type NPCGeneratorSettings = {
   characters: NpcDetails[];
-  options: PostRandomNpcInput;
+  options: PostRandomNpcBody;
   isFormMode: boolean;
 };
 

@@ -69,7 +69,7 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  async function resetPassword(password: string, tokenpwd: string) {
+  async function sResetPasswordBody(password: string, tokenpwd: string) {
     try {
       const data: LoginResponse = await $fetch(`${api}/users/pwdreset`, {
         method: "PUT",
@@ -205,7 +205,7 @@ export const useUserStore = defineStore("user", () => {
     register,
     reactivate,
     verifyEmail,
-    resetPassword,
+    sResetPasswordBody,
     getDetails,
     getSettings,
     setSettings,

@@ -1,4 +1,4 @@
-import type { PostRandomNpcInput } from "@/types";
+import type { PostRandomNpcBody } from "@/types";
 
 export type ObjectOrVariant = {
   id: number;
@@ -11,12 +11,12 @@ export type ObjectOrVariant = {
 
 type VariantProps = {
   variantOf: number;
-  variantOfType: keyof PostRandomNpcInput;
+  variantOfType: keyof PostRandomNpcBody;
 };
 
 export type Keyword = {
   word: string;
-  type: keyof PostRandomNpcInput;
+  type: keyof PostRandomNpcBody;
   value: number;
 } & (VariantProps | {});
 
