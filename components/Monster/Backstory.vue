@@ -1,7 +1,11 @@
 <template>
-  <div class="backstory">
+  <div v-if="backstory" class="backstory">
     <!-- <h1 class="name mb-2" :class="moral">{{ statistics.fullName }}</h1> -->
-    <MSMarkdown v-model="backstory" class="backstory-text" />
+    <Markdown
+      v-if="backstory.string"
+      v-model="backstoryTest"
+      class="backstory-text"
+    />
     <LoadingDots v-if="!backstory && character.isStreamOpen === true" />
     <Transition name="fade">
       <div v-if="character.isStreamOpen === false">
@@ -38,12 +42,17 @@ const statistics = inject("statistics") as ComputedRef<Statistics>;
 const characterStats = inject("character") as ComputedRef<Character>;
 const moral = inject("moral") as ComputedRef<string>;
 const tooManyRequests = ref(false);
+const backstoryTest = ref(`
+“...the clatter of echoed through the workshop; a symphony of saw and plane, steady hands shaping the wild chestnut into a graceful curve. Clarity
+
+She breathed in the scent of sawdust and varnish, a simple reminder of creation amidst chaos. The outside world seemed a universe away, yet the tension brewed a storm behind her eyes. As the carved tendril unfurled, so did her thoughts, troubled by the call for change that wove through town...”
+`);
 
 const rating = ref<number>(0);
 const { characters, currentCharacterIndex } = storeToRefs(generatorStore);
 
 const backstory = computed(() => {
-  return characterStats.value?.character?.user?.backstory?.string;
+  return characterStats.value?.character?.user?.backstory;
 });
 const character = computed(() => {
   return characters.value[currentCharacterIndex.value];
