@@ -195,6 +195,7 @@ async function generateNpcs() {
   );
   if (reply === 429) {
     tooManyRequests.value = true;
+    isLoading.value = false;
     return;
   }
   isLoading.value = false;

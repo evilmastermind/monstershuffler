@@ -1,25 +1,26 @@
 <template>
-  <div>
-    <contenteditable
+  <div ref="test" contenteditable="true">
+    TEST DI QUALCOSA
+    <component
+      :is="getLineType(line.text)"
       v-for="(line, index) in lines"
       :key="index"
-      v-model="line.text"
-      :tag="getLineType(line.text)"
-    />
-    <!-- <div>
-    <component :is="getLineType(line)" v-for="line in lines" :key="line">
-      {{ line }}
+      @input="handleInput"
+      @keydown.enter="handleInput"
+    >
+      {{ line.text }}
     </component>
-  </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import contenteditable from "vue-contenteditable";
+import { useMutationObserver } from "@vueuse/core";
 
 const text = defineModel({ type: String });
 
 const lines = ref<{ text: string }[]>([]);
+const test = ref(null);
+console.log(test);
 
 function getLineType(line: string) {
   if (line.startsWith("#")) {
@@ -32,6 +33,11 @@ function getLineType(line: string) {
     return "p";
   }
   return "p";
+}
+
+function handleInput(event) {
+  const newText = event.target.innerText;
+  console.log("Content changed:", newText);
 }
 
 /**
@@ -86,6 +92,15 @@ function getLineType(line: string) {
  * => line => of two elements => p
  *
  */
+
+useMutationObserver(
+  test,
+  (mutations) => {
+    console.log("Mutations observed");
+    if (mutations[0]) console.log(mutations[0].attributeName);
+  },
+  { attributes: true, childList: true, subtree: true, characterData: true }
+);
 
 watch(
   text,

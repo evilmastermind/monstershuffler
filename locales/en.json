@@ -1,7 +1,7 @@
 {
   "error": {
     "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later.",
-    "tooManyRequests": "You've made too many requests to our server. Please wait a few seconds before trying again."
+    "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",

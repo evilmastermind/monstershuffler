@@ -36,13 +36,13 @@
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@pinia/nuxt": "^0.5.1",
+    "@vueuse/core": "^11.0.1",
     "jspath": "^0.4.0",
     "monstershuffler-shared": "git+https://github.com/evilmastermind/monstershuffler-shared#main",
     "nuxt": "^3.8.1",
     "pinia": "^2.1.7",
     "sass": "^1.69.5",
     "sass-loader": "^13.2.0",
-    "vue-contenteditable": "^4.1.0",
     "zod": "^3.22.4"
   },
   "overrides": {
