@@ -1,12 +1,30 @@
 <template>
-  <div class="background-color background-color-dark">
+  <div class="lg-max">
+    <NavbarPadding />
+    <div class="lexical-test">
+      <LazyHomeLexicalTest />
+    </div>
+    <!-- <div class="mx-4">
+      <Markdown v-model="text" />
+    </div> -->
+    <!-- <div class="background-color background-color-dark">
     <div class="bg-max">
       <div class="background-image" />
     </div>
+  </div> -->
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const text = ref(`
+# Welcome to Monster Shuffler!
+This is an example of a markdown file that can be displayed on the website.
+- This is a list item
+- This is another list item
+- This is a third list item
+And here is a [link to the website](https://monstershuffler.com).
+`);
+</script>
 
 <style scoped lang="scss">
 .background-color {
