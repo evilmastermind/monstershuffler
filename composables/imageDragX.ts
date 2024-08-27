@@ -34,7 +34,7 @@ export function useImageDragX(
     } else {
       currentX = event.clientX;
     }
-    
+
     image.value.canvasWidthPx = startWidth + (currentX - startX);
     image.value.sheetWidthPx = rules?.value?.maxWidth || IMG_MAX_CANVAS_WIDTH;
     fixCanvasSize(image, rules.value);
