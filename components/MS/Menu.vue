@@ -88,6 +88,7 @@ function toggle() {
   overflow: visible;
   border: 0px solid transparent;
   background-color: transparent;
+  z-index: 9990;
 }
 .dropdown-menu > * {
   display: block;

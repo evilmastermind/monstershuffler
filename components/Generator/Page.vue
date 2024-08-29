@@ -151,6 +151,10 @@ async function generateNpcs() {
     tooManyRequests.value = true;
     return;
   }
+  if (reply === 404) {
+    isServerDown.value = true;
+    return;
+  }
   saveSettingsThrottle();
 }
 

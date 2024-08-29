@@ -218,6 +218,9 @@ const {
 
 function setClass(index: number) {
   const classChosen = classes.value[index];
+  if (!classChosen) {
+    return;
+  }
   options.value.classId = classChosen.id;
   if (classes.value[index].variantId) {
     options.value.classvariantId = classes.value[index].variantId;
@@ -231,6 +234,9 @@ watch(
   (newValue) => {
     // primary race
     const race = races.value[newValue];
+    if (!race) {
+      return;
+    }
     options.value.primaryRaceId = race.id;
     if (race.variantId) {
       options.value.primaryRacevariantId = race.variantId;
@@ -246,6 +252,9 @@ watch(
   (newValue) => {
     // secondary race
     const race2 = races.value[newValue];
+    if (!race2) {
+      return;
+    }
     options.value.secondaryRaceId = race2.id;
     if (race2.variantId) {
       options.value.secondaryRacevariantId = race2.variantId;
@@ -267,7 +276,11 @@ watch(
 watch(
   backgroundIndex,
   (newValue) => {
-    options.value.backgroundId = backgrounds.value[newValue].id;
+    const background = backgrounds.value[newValue];
+    if (!background) {
+      return;
+    }
+    options.value.backgroundId = background.id;
   },
   { immediate: true }
 );
@@ -297,12 +310,13 @@ form-container {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: 100vw;
   max-width: 400px;
   z-index: 9900;
   @apply bg-background-100;
   @media (min-width: theme("screens.md")) {
     position: relative;
+    width: 100%;
     display: block;
     padding: 0;
     border-radius: 0;

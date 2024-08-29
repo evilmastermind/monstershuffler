@@ -35,7 +35,7 @@
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
     "@lexical/clipboard": "^0.17.0",
-    "@lexical/code": "^0.17.0",
+    "@lexical/code": "^0.17.1",
     "@lexical/history": "^0.17.0",
     "@lexical/link": "^0.17.0",
     "@lexical/list": "^0.17.0",
@@ -52,6 +52,7 @@
     "monstershuffler-shared": "git+https://github.com/evilmastermind/monstershuffler-shared#main",
     "nuxt": "^3.8.1",
     "pinia": "^2.1.7",
+    "prismjs": "^1.29.0",
     "sass": "^1.69.5",
     "sass-loader": "^13.2.0",
     "yjs": "^13.6.18",

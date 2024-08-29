@@ -27,6 +27,9 @@
     >
       <p>{{ $t("error.tooManyRequests") }}</p>
     </MSAlert>
+    <MSAlert v-if="isServerDown" type="danger" @close="isServerDown = false">
+      <p>{{ $t("error.couldntRetrieveData") }}</p>
+    </MSAlert>
   </div>
 </template>
 
@@ -41,6 +44,7 @@ const prompt = ref("");
 
 const isLoading = ref(false);
 const tooManyRequests = ref(false);
+const isServerDown = ref(false);
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 
@@ -195,6 +199,11 @@ async function generateNpcs() {
   );
   if (reply === 429) {
     tooManyRequests.value = true;
+    isLoading.value = false;
+    return;
+  }
+  if (reply === 404) {
+    isServerDown.value = true;
     isLoading.value = false;
     return;
   }

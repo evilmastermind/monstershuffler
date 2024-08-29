@@ -2,7 +2,9 @@
   <div class="lg-max">
     <NavbarPadding />
     <div class="lexical-test">
-      <LazyHomeLexicalTest />
+      <ClientOnly>
+        <LazyHomeLexicalTest />
+      </ClientOnly>
     </div>
     <!-- <div class="mx-4">
       <Markdown v-model="text" />

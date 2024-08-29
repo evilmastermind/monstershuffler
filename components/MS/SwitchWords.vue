@@ -30,25 +30,27 @@ const p = defineProps({
 }
 
 .slider-container {
-  cursor: pointer;
   position: relative;
   display: grid;
   grid-template-columns: 0px 1fr 1fr;
   border-radius: 1rem;
   line-height: 1rem;
   overflow: hidden;
+  cursor: pointer;
   background-color: theme("colors.background-inset.400");
   border-top: 1px solid theme("colors.background-inset.700");
   border-left: 1px solid theme("colors.background-inset.700");
   border-right: 1px solid theme("colors.background-inset.700");
   border-bottom: 1px solid theme("colors.background-inset.600");
   box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
+  z-index: 0;
   @apply gap-2  py-1;
 }
 .slider-container:hover .slider {
   @apply bg-primary-600;
 }
 .word {
+  position: relative;
   z-index: 1;
   letter-spacing: 0.05em;
   @apply text-sm;
