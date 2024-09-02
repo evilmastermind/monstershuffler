@@ -58,22 +58,41 @@ export function createMarkdownAppend(
     //  find the last text node
     if (lines[firstLine] !== "") {
       // TODO: verify if this is the correct way to find the last text node
-      const lastTextNode = root.getLastDescendant();
-      if ($isTextNode(lastTextNode)) {
-        lastTextNode.setTextContent(lastTextNode.getTextContent() + lines[0]);
-        firstLine = 1;
-      }
+      const lastTextNode = getLastTextNode();
+      lastTextNode.setTextContent(lastTextNode.getTextContent() + lines[0]);
+      firstLine = 1;
+      importTextFormatTransformers(
+        lastTextNode,
+        textFormatTransformersIndex,
+        byType.textMatch
+      );
     }
 
     for (let i = firstLine; i < linesLength; i++) {
       const lineText = lines[i];
       // Codeblocks are processed first as anything inside such block
       // is ignored for further processing
+      // TODO:
+      // Abstract it to be dynamic as other transformers (add multiline match option)
+      const [codeBlockNode, shiftedIndex] = importCodeBlock(lines, i, root);
+
+      if (codeBlockNode != null) {
+        i = shiftedIndex;
+        continue;
+      }
+
+      importBlocks(
+        lineText,
+        root,
+        byType.element,
+        textFormatTransformersIndex,
+        byType.textMatch
+      );
     }
   };
 }
 
-function appendToLastTextNode(appendString: string) {
+function getLastTextNode(): TextNode {
   const root = $getRoot();
   let lastDescendant = root.getLastDescendant();
 
@@ -88,11 +107,12 @@ function appendToLastTextNode(appendString: string) {
 
   if ($isTextNode(lastDescendant)) {
     // If the last descendant is a text node, append the string
-    lastDescendant.insertText(appendString);
+    return lastDescendant;
   } else {
     // If no text node is found, create a new one and append it
-    const newTextNode = $createTextNode(appendString);
+    const newTextNode = $createTextNode();
     root.append(newTextNode);
+    return newTextNode;
   }
 }
 
@@ -334,6 +354,7 @@ function importTextMatchTransformers(
 ) {
   let textNode = textNode_;
 
+  // eslint-disable-next-line no-labels
   mainLoop: while (textNode) {
     for (const transformer of textMatchTransformers) {
       const match = textNode.getTextContent().match(transformer.importRegExp);
@@ -361,6 +382,7 @@ function importTextMatchTransformers(
         textNode = rightTextNode;
       }
       transformer.replace(replaceNode, match);
+      // eslint-disable-next-line no-labels
       continue mainLoop;
     }
 
