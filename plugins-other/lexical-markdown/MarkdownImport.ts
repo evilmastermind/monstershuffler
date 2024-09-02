@@ -26,6 +26,7 @@ import {
   $getRoot,
   $isParagraphNode,
   $isTextNode,
+  $isElementNode,
   ElementNode,
 } from "lexical";
 import { IS_IOS, IS_SAFARI } from "./environment";
@@ -39,6 +40,61 @@ type TextFormatTransformersIndex = Readonly<{
   openTagsRegExp: RegExp;
   transformersByTag: Readonly<Record<string, TextFormatTransformer>>;
 }>;
+
+export function createMarkdownAppend(
+  transformers: Array<Transformer>
+): (markdownString: string, node?: ElementNode) => void {
+  const byType = transformersByType(transformers);
+  const textFormatTransformersIndex = createTextFormatTransformersIndex(
+    byType.textFormat
+  );
+
+  return (markdownString, node) => {
+    const lines = markdownString.split("\n");
+    const linesLength = lines.length;
+    const root = node || $getRoot();
+
+    let firstLine = 0;
+    //  find the last text node
+    if (lines[firstLine] !== "") {
+      // TODO: verify if this is the correct way to find the last text node
+      const lastTextNode = root.getLastDescendant();
+      if ($isTextNode(lastTextNode)) {
+        lastTextNode.setTextContent(lastTextNode.getTextContent() + lines[0]);
+        firstLine = 1;
+      }
+    }
+
+    for (let i = firstLine; i < linesLength; i++) {
+      const lineText = lines[i];
+      // Codeblocks are processed first as anything inside such block
+      // is ignored for further processing
+    }
+  };
+}
+
+function appendToLastTextNode(appendString: string) {
+  const root = $getRoot();
+  let lastDescendant = root.getLastDescendant();
+
+  // Navigate into the last element node to find the last text node
+  while (lastDescendant && !$isTextNode(lastDescendant)) {
+    if ($isElementNode(lastDescendant)) {
+      lastDescendant = lastDescendant.getLastDescendant();
+    } else {
+      break;
+    }
+  }
+
+  if ($isTextNode(lastDescendant)) {
+    // If the last descendant is a text node, append the string
+    lastDescendant.insertText(appendString);
+  } else {
+    // If no text node is found, create a new one and append it
+    const newTextNode = $createTextNode(appendString);
+    root.append(newTextNode);
+  }
+}
 
 export function createMarkdownImport(
   transformers: Array<Transformer>
