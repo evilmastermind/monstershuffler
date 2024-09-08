@@ -22,6 +22,7 @@ class FatalError extends Error {}
 type NPCGeneratorData = {
   rating?: number;
   isStreamOpen?: boolean;
+  streamChunks?: string[];
 };
 
 export const useGeneratorStore = defineStore("generator", () => {
@@ -65,11 +66,11 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
     return null;
   });
-  const currentCharacterRating = computed(() => {
+  const currentCharacterWithGeneratorData = computed(() => {
     if (currentCharacterIndex.value >= 0) {
-      return characters.value[currentCharacterIndex.value].rating;
+      return characters.value[currentCharacterIndex.value];
     }
-    return 0;
+    return null;
   });
 
   /**
@@ -253,7 +254,9 @@ export const useGeneratorStore = defineStore("generator", () => {
       c.user = {};
     }
     c.user.backstory = { string: "" };
+
     const backstory = c.user.backstory as { string: string };
+    currentNpc.streamChunks = [];
 
     let lastEventId = "";
 
@@ -296,8 +299,10 @@ export const useGeneratorStore = defineStore("generator", () => {
 
           if (msg.data) {
             try {
-              backstory.string += JSON.parse(msg.data) as string;
+              const newChunk = JSON.parse(msg.data) as string;
+              backstory.string += newChunk;
               backstory.string.replace(/\n\n/g, "\n");
+              currentNpc.streamChunks!.push(newChunk);
             } catch (error) {
               backstory.string += msg.data;
             }
@@ -352,7 +357,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     settings,
     characters,
     currentCharacter,
-    currentCharacterRating,
+    currentCharacterWithGeneratorData,
     currentCharacterIndex,
     currentCharacterFromBitsPreview,
     racesAndVariants,

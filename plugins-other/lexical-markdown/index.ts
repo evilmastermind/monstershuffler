@@ -16,7 +16,7 @@ import type {
 } from "./MarkdownTransformers";
 
 import { createMarkdownExport } from "./MarkdownExport";
-import { createMarkdownImport } from "./MarkdownImport";
+import { createMarkdownImport, createMarkdownAppend } from "./MarkdownImport";
 import { registerMarkdownShortcuts } from "./MarkdownShortcuts";
 import {
   BOLD_ITALIC_STAR,
@@ -78,6 +78,15 @@ function $convertFromMarkdownString(
   return importMarkdown(markdown, node);
 }
 
+function $appendMarkdownString(
+  markdown: string,
+  transformers: Array<Transformer> = TRANSFORMERS,
+  node?: ElementNode
+): void {
+  const importMarkdown = createMarkdownAppend(transformers);
+  return importMarkdown(markdown, node);
+}
+
 function $convertToMarkdownString(
   transformers: Array<Transformer> = TRANSFORMERS,
   node?: ElementNode
@@ -89,6 +98,7 @@ function $convertToMarkdownString(
 export {
   $convertFromMarkdownString,
   $convertToMarkdownString,
+  $appendMarkdownString,
   BOLD_ITALIC_STAR,
   BOLD_ITALIC_UNDERSCORE,
   BOLD_STAR,

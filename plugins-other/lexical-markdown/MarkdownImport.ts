@@ -50,7 +50,8 @@ export function createMarkdownAppend(
   );
 
   return (markdownString, node) => {
-    const lines = markdownString.split("\n");
+    const string = markdownString; // .replace(/\n+/g, "\n");
+    const lines = string.split("\n");
     const linesLength = lines.length;
     const root = node || $getRoot();
 
@@ -58,14 +59,33 @@ export function createMarkdownAppend(
     //  find the last text node
     if (lines[firstLine] !== "") {
       // TODO: verify if this is the correct way to find the last text node
-      const lastTextNode = getLastTextNode();
-      lastTextNode.setTextContent(lastTextNode.getTextContent() + lines[0]);
-      firstLine = 1;
-      importTextFormatTransformers(
-        lastTextNode,
-        textFormatTransformersIndex,
-        byType.textMatch
-      );
+      // TODO: maybe optimize this part, by saving the last text node
+      const lastTextNode = getLastTextNodeIfAvailable();
+      if (lastTextNode) {
+        const lineText = lastTextNode.getTextContent() + lines[0];
+        lastTextNode.setTextContent(lineText);
+        firstLine = 1;
+
+        // TODO: this part is run at every text append, and it should be optimized
+        for (const { regExp, replace } of byType.element) {
+          const match = lineText.match(regExp);
+
+          if (match) {
+            lastTextNode.setTextContent(lineText.slice(match[0].length));
+            const parent = lastTextNode.getParent();
+            if (parent) {
+              replace(parent, [lastTextNode], match, true);
+            }
+            break;
+          }
+        }
+
+        importTextFormatTransformers(
+          lastTextNode,
+          textFormatTransformersIndex,
+          byType.textMatch
+        );
+      }
     }
 
     for (let i = firstLine; i < linesLength; i++) {
@@ -89,10 +109,21 @@ export function createMarkdownAppend(
         byType.textMatch
       );
     }
+
+    // Removing empty paragraphs as md does not really
+    // allow empty lines and uses them as dilimiter
+    // TODO: this also should be optimized, and it should run only once
+    // after all the text is appended
+    const children = root.getChildren();
+    for (let i = 0; i < children.length - 1; i++) {
+      if (isEmptyParagraph(children[i])) {
+        children[i].remove();
+      }
+    }
   };
 }
 
-function getLastTextNode(): TextNode {
+function getLastTextNodeIfAvailable(): TextNode | null {
   const root = $getRoot();
   let lastDescendant = root.getLastDescendant();
 
@@ -106,13 +137,9 @@ function getLastTextNode(): TextNode {
   }
 
   if ($isTextNode(lastDescendant)) {
-    // If the last descendant is a text node, append the string
     return lastDescendant;
   } else {
-    // If no text node is found, create a new one and append it
-    const newTextNode = $createTextNode();
-    root.append(newTextNode);
-    return newTextNode;
+    return null;
   }
 }
 
@@ -228,6 +255,7 @@ function importBlocks(
       }
 
       if (targetNode != null && targetNode.getTextContentSize() > 0) {
+        // @ts-ignore
         targetNode.splice(targetNode.getChildrenSize(), 0, [
           $createLineBreakNode(),
           ...elementNode.getChildren(),

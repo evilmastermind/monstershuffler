@@ -1,6 +1,32 @@
 import { FetchError } from "ofetch";
 import type { NuxtError } from "@/types/nuxt";
 
+export async function wait(ms: number) {
+  return await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export class ThrottledFunctionLock {
+  private isLocked = false;
+  private needsReRun = false;
+
+  async run(fn: () => Promise<void>): Promise<void> {
+    if (this.isLocked) {
+      this.needsReRun = true;
+      return;
+    }
+
+    this.isLocked = true;
+    do {
+      this.needsReRun = false; // Reset before running to capture any subsequent calls
+      try {
+        await fn();
+      } finally {
+        this.isLocked = false;
+      }
+    } while (this.needsReRun); // Re-run if flagged
+  }
+}
+
 /** Handles multiple calls to the same function: only one is called after X seconds */
 export function debounce(cb: Function, delay = 1000): Function {
   let timeout: NodeJS.Timeout;
