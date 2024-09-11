@@ -85,7 +85,7 @@ const createBlockNode = (
     const node = createNode(match);
     node.append(...children);
     parentNode.replace(node);
-    node.select(0, 0);
+    // node.select(0, 0);
   };
 };
 
@@ -141,7 +141,7 @@ const listReplace = (listType: ListType): ElementTransformer["replace"] => {
       parentNode.replace(list);
     }
     listItem.append(...children);
-    listItem.select(0, 0);
+    // listItem.select(0, 0);
     const indent = getIndent(match[1]);
     if (indent) {
       listItem.setIndent(indent);
@@ -222,7 +222,7 @@ export const QUOTE: ElementTransformer = {
           $createLineBreakNode(),
           ...children,
         ]);
-        previousNode.select(0, 0);
+        // previousNode.select(0, 0);
         parentNode.remove();
         return;
       }
@@ -231,7 +231,7 @@ export const QUOTE: ElementTransformer = {
     const node = $createQuoteNode();
     node.append(...children);
     parentNode.replace(node);
-    node.select(0, 0);
+    // node.select(0, 0);
   },
   type: "element",
 };

@@ -74,6 +74,7 @@ const config = {
       superscript: "editor-textSuperscript",
       underline: "editor-textUnderline",
       underlineStrikethrough: "editor-textUnderlineStrikethrough",
+      highlight: "editor-textHighlight",
     },
     code: "editor-code",
     codeHighlight: {
@@ -116,6 +117,7 @@ const lock = new ThrottledFunctionLock();
 const editor = createEditor(config);
 const editorRef = ref<HTMLElement | null>(null);
 const generatorStore = useGeneratorStore();
+const isEditable = ref(false);
 
 const { currentCharacterWithGeneratorData } = storeToRefs(generatorStore);
 
@@ -131,9 +133,11 @@ async function appendChunks() {
       return;
     }
     const lastChunks = chunks.value.slice(currentChunk, chunksLength);
+    editor.setEditable(false);
     editor.update(() => {
       $appendMarkdownString(lastChunks.join(""), TRANSFORMERS);
     });
+    editor.setEditable(true);
     currentChunk = chunksLength;
   });
 }
@@ -160,15 +164,33 @@ onMounted(() => {
 </script>
 
 <style>
+/* default styles */
+.editor {
+  font-family: "LibreBaskerville", serif;
+  font-size: 1rem;
+  @apply text-text;
+}
 .editor:focus {
   outline: none;
 }
+
+/* paragraph */
+.editor-paragraph {
+  line-height: 1.6;
+  @apply mt-2 mb-4;
+}
+.editor-paragraph + .editor-paragraph {
+  text-indent: 1em;
+}
+
+/* heading */
 .editor-heading-h1 {
   font-size: 2.5rem;
   line-height: 1;
   letter-spacing: 0.05em;
   font-weight: 500;
   font-family: "MrsEavesSmallCaps", serif;
+  @apply mt-6 mb-4 text-text-evil;
 }
 .editor-heading-h2 {
   font-size: 2rem;
@@ -187,13 +209,64 @@ onMounted(() => {
   text-underline-offset: 0.2em;
   @apply mt-5 mb-2 text-text-evil decoration-text-evil/40;
 }
-.editor-paragraph {
-  line-height: 1.6;
-  font-size: 1rem;
-  font-family: "LibreBaskerville", serif;
-  @apply mt-2 mb-4;
+.editor-heading-h4 {
+  font-size: 1.5rem;
+  line-height: 1em;
+  font-family: "MrsEavesSmallCaps", serif;
+  @apply mt-4 mb-2 text-text-evil;
 }
-.editor-paragraph + .editor-paragraph {
-  text-indent: 1em;
+.editor-heading-h5 {
+  font-size: 1.3rem;
+  line-height: 1em;
+  font-family: "MrsEavesSmallCaps", serif;
+  @apply mt-3 mb-2 text-text-evil;
+}
+.editor-heading-h6 {
+  font-size: 1.1rem;
+  line-height: 1em;
+  font-family: "MrsEavesSmallCaps", serif;
+  @apply mt-2 mb-2 text-text-evil;
+}
+
+/* quote */
+.editor-quote {
+  font-style: italic;
+  quotes: "«" "»" "‹" "›";
+  text-align: center;
+  @apply mt-4 mb-4;
+}
+.editor-quote::before {
+  content: open-quote;
+}
+.editor-quote::after {
+  content: close-quote;
+}
+
+/* list */
+.editor-list-ol {
+  list-style-type: decimal;
+  @apply mt-4 mb-4;
+}
+.editor-list-ul {
+  list-style-type: disc;
+  @apply mt-4 mb-4;
+}
+.editor-nested-listitem {
+  margin-left: 1em;
+}
+.editor-listItem {
+  @apply ml-6;
+}
+
+/* link */
+.editor-link {
+  text-decoration: underline;
+  cursor: pointer;
+  @apply text-text-evil;
+}
+
+/* hightlight */
+.editor-textHighlight {
+  @apply text-text bg-primary-200;
 }
 </style>
