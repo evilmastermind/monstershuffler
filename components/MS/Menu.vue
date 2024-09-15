@@ -136,11 +136,11 @@ function toggle() {
 }
 .bottomleft {
   top: 100%;
-  right: 0;
+  right: -1em;
 }
 .bottomright {
   top: 100%;
-  left: 0;
+  left: -1em;
 }
 
 @keyframes rotateX {

@@ -14,7 +14,7 @@
         <path
           d="M26.0759 102.633C65.0739 394.916 218.42 415.701 275.872 415.785C334.97 415.872 490.976 410.883 511.611 101.892C514.593 57.2433 527.128 344.215 276.061 343.811C29.7435 343.415 26.0759 102.633 26.0759 102.633Z"
           :fill="white"
-          :stroke="blackOrTransparent"
+          :stroke="black"
           stroke-width="18"
         />
         <rect x="268" y="352" width="4" height="64" :fill="black" />
@@ -49,13 +49,13 @@
         <path
           d="M272 293.174C145 369.174 28.5 262.174 38 61.1743L272 293.174Z"
           :fill="white"
-          :stroke="blackOrTransparent"
+          :stroke="black"
           stroke-width="18"
         />
         <path
           d="M272 293.174C399 369.174 515.5 262.174 506 61.1743L272 293.174Z"
           :fill="white"
-          :stroke="blackOrTransparent"
+          :stroke="black"
           stroke-width="18"
         />
         <path
@@ -84,7 +84,7 @@ const black = computed(() => {
   return currentThemeType.value === "light" ? "black" : "black";
 });
 const blackOrTransparent = computed(() => {
-  return currentThemeType.value === "light" ? "black" : "#333333";
+  return currentThemeType.value === "light" ? "black" : "transparent";
 });
 </script>
 <style scoped lang="scss">
@@ -102,6 +102,6 @@ const blackOrTransparent = computed(() => {
 .ms-logo-icon {
   overflow: visible;
   min-width: theme("spacing.6");
-  width: 40px;
+  width: 43 px;
 }
 </style>

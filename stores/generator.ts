@@ -315,6 +315,8 @@ export const useGeneratorStore = defineStore("generator", () => {
           return 200;
         },
         onerror(err) {
+          backstory.string = `An error occurred while generating the backstory (${err}).`;
+          currentNpc.isStreamOpen = false;
           if (err instanceof FatalError) {
             throw err; // rethrow to stop the operation
           } else {

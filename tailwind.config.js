@@ -216,7 +216,7 @@ export default {
                 50: "hsl(0,0%,10%)",
                 100: "hsl(0,0%,20%)",
               },
-              "background-card": "hsla(0,0%,20%,0.7)",
+              "background-card": "hsla(0,0%,15%,0.7)",
               "background-inset": {
                 400: "hsla(0, 0%, 18%,0.7)",
                 500: "hsla(0, 0%, 15%,0.7)",
@@ -230,7 +230,7 @@ export default {
               "card-evil": "hsl(0,3%,16%)",
               "card-good": "hsl(240,3%,16%)",
               "card-neutral": "hsl(59,3%,16%)",
-              text: "hsl(240, 0%, 95%)",
+              text: "hsl(240, 0%, 80%)",
               "text-secondary": "hsl(240, 0%, 55%)",
               "text-icon": "hsl(240, 0%, 65%)",
               "text-inverse": "hsl(240, 0%, 3%)",

@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="background"
-    :class="
-      !selectable ? `background-${ui.currentThemeType}` : 'bg-background-card'
-    "
-  >
+  <div class="background" :class="`background-${ui.currentThemeType}`">
     <!-- <div class="background-before" :class="[`bg-${ethical}-100`]" /> -->
     <div class="content p-4" :class="selectable ? 'selectable' : ''">
       <MonsterRoleplayStats />
@@ -36,16 +31,15 @@ useProvideCharacter(refCharacter);
 <style scoped lang="scss">
 .background {
   position: relative;
-  @apply rounded-xl bg-background-card;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 55px rgba(0, 0, 0, 0.05);
+  @apply rounded-xl;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 50px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 .background-light {
-  background-image: url("@/assets/images/monster/paper.webp");
   @apply bg-background-card;
 }
 .background-dark {
-  background-image: url("@/assets/images/monster/paper-texture-dark.webp");
+  background-image: url("@/assets/images/monster/paper-dark.webp");
   @apply bg-background-card;
 }
 .content {
@@ -54,10 +48,14 @@ useProvideCharacter(refCharacter);
 }
 .selectable {
   @apply cursor-pointer rounded-xl;
-  transition: background-color 0.09s ease-in-out;
 }
-.selectable:hover {
-  @apply bg-background-100;
+.background-light .selectable:hover {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1),
+    inset 0 0 150px rgba(255, 255, 255, 0.5);
+}
+.background-dark .selectable:hover {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1),
+    inset 0 0 150px rgba(255, 255, 255, 0.07);
 }
 .ethical-symbol {
   position: absolute;

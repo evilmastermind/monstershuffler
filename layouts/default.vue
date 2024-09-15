@@ -23,6 +23,5 @@ useHead({
   z-index: -3;
   min-width: 100%;
   min-height: 100%;
-  background-color: theme("colors.background.100");
 }
 </style>

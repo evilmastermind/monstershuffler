@@ -1,5 +1,5 @@
 <template>
-  <button class="icon-button" :title="label">
+  <button v-tooltip.top="label" class="icon-button" :disabled>
     <Icon
       class="icon"
       aria-hidden
@@ -30,6 +30,10 @@ const p = defineProps({
   rotate: {
     type: Number,
     default: null,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

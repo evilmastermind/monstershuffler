@@ -63,6 +63,7 @@ export default defineNuxtConfig({
     "nuxt-purgecss",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
+    "floating-vue/nuxt",
   ],
 
   i18n: {

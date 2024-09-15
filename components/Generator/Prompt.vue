@@ -55,6 +55,7 @@ async function generateNpcs() {
   let i = 0;
   let word = "";
   let wordsCount = 1;
+  const wordsNotFound: string[] = [];
 
   while (i < words.length) {
     if (!word) {
@@ -162,8 +163,12 @@ async function generateNpcs() {
       // we tried to match a list of words, adding word after word until the end of the prompt, but failed,
       // so we discard the first word of that list and start again from the second word of the list
       // example: words were "abcdefg druid cr 5", we discard "abcdefg" and start again with "druid"
+      wordsNotFound.push(words[i - wordsCount + 1]);
       i = i - wordsCount + 1;
       wordsCount = 1;
+      word = "";
+    } else if (wordsCount === 1 && i === words.length - 1) {
+      wordsNotFound.push(word);
       word = "";
     }
     i++;
@@ -192,6 +197,8 @@ async function generateNpcs() {
     settings.value?.includeChildren || false;
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
+
+  promptOptions.value.wordsNotFound = [...new Set(wordsNotFound)];
 
   const reply = await generator.getRandomNpcs(
     promptOptions.value,

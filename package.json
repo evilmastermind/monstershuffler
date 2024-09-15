@@ -47,6 +47,7 @@
     "@microsoft/fetch-event-source": "^2.0.1",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/core": "^11.0.1",
+    "floating-vue": "^5.2.2",
     "jspath": "^0.4.0",
     "lexical": "^0.17.0",
     "monstershuffler-shared": "git+https://github.com/evilmastermind/monstershuffler-shared#main",

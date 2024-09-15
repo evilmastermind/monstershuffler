@@ -247,16 +247,12 @@ onMounted(async () => {
   background: linear-gradient(
       to bottom,
       theme("colors.background.0") 0,
-      theme("colors.background.100") 10em,
-      rgba(var(--colors-background-100), 0.6) 100%
+      theme("colors.background.100") 10em
     )
     /*,     url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover; */;
   z-index: -2;
 }
 
-.generator {
-  max-height: 100svh;
-}
 .form {
   float: left;
   @media (min-width: theme("screens.md")) {
