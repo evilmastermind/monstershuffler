@@ -35,7 +35,7 @@ onMounted(async () => {
   user.setSession();
 });
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .buttons-flex {
   display: flex;
   flex-flow: row nowrap;
@@ -54,7 +54,6 @@ onMounted(async () => {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  // border: 1px solid theme("colors.text-secondary");
   overflow: hidden;
   display: grid;
   place-items: center;

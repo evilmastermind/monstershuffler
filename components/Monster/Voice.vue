@@ -65,7 +65,7 @@ function toggleAudio() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .audio-icon {
   display: inline-grid;
   transform: translateY(0.2rem);

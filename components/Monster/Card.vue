@@ -28,7 +28,7 @@ const refCharacter = toRef(p, "character");
 useProvideCharacter(refCharacter);
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .background {
   position: relative;
   @apply rounded-xl;
@@ -71,23 +71,4 @@ useProvideCharacter(refCharacter);
 .neutral {
   filter: hue-rotate(60deg);
 }
-// .background {
-//   @apply relative;
-// }
-// .background-before,
-// .background-after {
-//   position: absolute;
-//   display: block;
-//   content: "";
-//   width: 100%;
-//   height: 6px;
-// }
-// .background::after {
-//   bottom: 0;
-// }
-// .content {
-//   height: 100%;
-//   width: calc(100% - 6px);
-//   @apply bg-background-card mx-auto;
-// }
 </style>

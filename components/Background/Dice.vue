@@ -108,7 +108,7 @@ function generateBackground() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .d20-bg {
   position: absolute;
 }
@@ -151,6 +151,5 @@ function generateBackground() {
   z-index: 0;
   width: calc(100vw - (100vw - 100%));
   min-height: 100vh;
-  // @include blurred();
 }
 </style>

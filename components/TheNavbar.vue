@@ -35,7 +35,7 @@
   </nav>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .nav-gradient {
   position: absolute;
   width: 100vw;

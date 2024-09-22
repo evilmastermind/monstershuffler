@@ -17,7 +17,7 @@ useHead({
   },
 });
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .background {
   position: absolute;
   z-index: -3;

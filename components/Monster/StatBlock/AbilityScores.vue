@@ -22,7 +22,7 @@ const statistics = inject("statistics") as ComputedRef<Statistics>;
 const moral = inject("moral") as string;
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .ability-scores-container {
   position: relative;
   container-type: inline-size;
@@ -31,7 +31,9 @@ const moral = inject("moral") as string;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  @container (min-width: 375px) {
+}
+@container (min-width: 375px) {
+  .ability-scores {
     display: flex;
     justify-content: space-evenly;
   }

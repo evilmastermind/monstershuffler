@@ -1,0 +1,12 @@
+.v-popper--theme-menu .v-popper__wrapper {
+  @apply overflow-visible;
+}
+.v-popper--theme-menu .v-popper__inner {
+  @apply rounded-lg shadow bg-background-50 text-text overflow-hidden py-2;
+}
+.v-popper--theme-menu .v-popper__arrow-inner {
+  @apply border-background-50;
+}
+.v-popper--theme-menu .v-popper__arrow-outer {
+  @apply border-background-50;
+}

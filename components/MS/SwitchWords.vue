@@ -21,7 +21,7 @@ const p = defineProps({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 /* Hide default HTML checkbox */
 .checkbox {
   opacity: 0;

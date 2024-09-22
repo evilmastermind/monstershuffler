@@ -76,6 +76,15 @@
     "mouseWheelDown": "Mousewheel down"
   },
   "statBlock": {
+    "export":{
+      "statBlockAs": "Export Stat Block as",
+      "gmBinder": "GM Binder (Markdown)",
+      "homebrewery": "Homebrewery V3 (Markdown)",
+      "improvedInitiative": "Improved Initiative (JSON)",
+      "vtt": "VTT Foundry (text)",
+      "exportModalTitle": "Export Stat Block",
+      "exportedAs": "Exported for {format}"
+    },
     "actions": "Actions",
     "bonusActions": "Bonus Actions",
     "reactions": "Reactions",
@@ -437,6 +446,8 @@
       "settings": "Settings"
     }
   },
+  "clickTwiceToDelete": "Click twice to delete",
+  "clickTwiceToClose": "Click twice to close",
   "closeLabel": "Close",
   "close": "Close",
   "thanks": "Thank you!",
@@ -482,7 +493,7 @@
       "voice": "Voice",
       "includeChildren": "Include children",
       "includeBodyType": "Body Type",
-      "generate": "Generate NPC"
+      "generate": "Generate NPCs"
     },
     "prompt": {
       "placeholder": "\"evil innkeeper\", \"human guard\", \"barbarian cr 5\""
@@ -571,5 +582,7 @@
     "clear": "Clear roll history",
     "diceRoll": "Roll",
     "d20Roll": "D20"
-  }
+  },
+  "copyToClipboard": "Copy to clipboard",
+  "copied": "Copied!"
 }

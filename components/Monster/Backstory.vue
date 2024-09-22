@@ -14,7 +14,7 @@
           {{ $t("generator.backstory.ratingQuestion") }}
         </h3>
         <MSStarRating
-          v-model="rating"
+          v-model="initialRating"
           :size="2"
           @rate="
             (rating) =>
@@ -44,7 +44,7 @@ const characterStats = inject("character") as ComputedRef<Character>;
 const moral = inject("moral") as ComputedRef<string>;
 const tooManyRequests = ref(false);
 
-const rating = ref<number>(0);
+const initialRating = ref<number>(0);
 const { characters, currentCharacterIndex } = storeToRefs(generatorStore);
 
 const backstory = computed(() => {
@@ -55,7 +55,7 @@ const character = computed(() => {
 });
 
 function getRating() {
-  rating.value = generatorStore.getCurrentNPCRating();
+  initialRating.value = generatorStore.getCurrentNPCRating();
 }
 
 onMounted(async () => {

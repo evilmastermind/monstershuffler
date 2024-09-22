@@ -60,7 +60,7 @@ onMounted(() => {
   }
 });
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .button-theme:hover {
   color: theme("colors.primary.700");
 }

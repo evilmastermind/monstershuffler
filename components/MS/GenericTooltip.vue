@@ -90,7 +90,7 @@ watch(
 );
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .tooltip-span {
   display: grid;
   place-items: center;

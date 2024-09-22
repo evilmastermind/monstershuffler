@@ -137,7 +137,7 @@ watch(
 );
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .description {
   @apply whitespace-normal break-normal;
 }

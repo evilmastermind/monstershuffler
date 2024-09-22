@@ -243,6 +243,8 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   async function generateBackstory() {
+    const controller = new AbortController();
+    const { signal } = controller;
     const currentNpc = characters.value[currentCharacterIndex.value];
     if (currentNpc.isStreamOpen) {
       return;
@@ -271,6 +273,7 @@ export const useGeneratorStore = defineStore("generator", () => {
           id: currentNpc.id,
         }),
         openWhenHidden: true,
+        signal,
         // eslint-disable-next-line
       async onopen(response) {
           currentNpc.isStreamOpen = true;
@@ -312,12 +315,14 @@ export const useGeneratorStore = defineStore("generator", () => {
         },
         onclose() {
           currentNpc.isStreamOpen = false;
+          controller.abort();
           return 200;
         },
         onerror(err) {
           backstory.string = `An error occurred while generating the backstory (${err}).`;
           currentNpc.isStreamOpen = false;
           if (err instanceof FatalError) {
+            controller.abort();
             throw err; // rethrow to stop the operation
           } else {
             // do nothing to automatically retry. You can also

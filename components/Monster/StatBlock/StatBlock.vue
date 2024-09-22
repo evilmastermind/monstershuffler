@@ -52,7 +52,7 @@ const columnsCount = computed(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .stat-block-container {
   display: block;
 }

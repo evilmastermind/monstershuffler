@@ -237,7 +237,7 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .background {
   position: fixed;
   top: 0;
@@ -255,10 +255,6 @@ onMounted(async () => {
 
 .form {
   float: left;
-  @media (min-width: theme("screens.md")) {
-    float: left;
-    max-width: 300px;
-  }
 }
 .mode-label {
   display: flex;
@@ -276,17 +272,11 @@ onMounted(async () => {
 }
 .button-show-settings {
   display: block;
-  @media (min-width: theme("screens.md")) {
-    display: none;
-  }
 }
 .generate-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  @media (min-width: theme("screens.md")) {
-    display: none;
-  }
   @apply gap-4;
 }
 .npcs {
@@ -299,12 +289,23 @@ onMounted(async () => {
 .character-name {
   display: none;
 }
+
 @media (min-width: theme("screens.md")) {
+  .button-show-settings {
+    display: none;
+  }
+  .generate-button {
+    display: none;
+  }
   .character-name {
     display: inline;
     font-weight: normal;
     letter-spacing: 0.03rem;
     @apply text-text;
+  }
+  .form {
+    float: left;
+    max-width: 300px;
   }
 }
 </style>

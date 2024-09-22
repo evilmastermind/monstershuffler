@@ -17,7 +17,7 @@
           <MSIconButton
             class="close ml-1"
             :class="hasBeenClickedOnce ? 'rainbow' : ''"
-            :label="$t('closeLabel')"
+            :label="$t('clickTwiceToDelete')"
             icon="fa6-solid:xmark"
             @click.stop="deleteThisCharacter()"
           />
@@ -112,7 +112,7 @@ function setBitPreview(bool: boolean) {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .bit {
   position: relative;
   height: 100%;
@@ -121,15 +121,15 @@ function setBitPreview(bool: boolean) {
   line-height: 1em;
   cursor: pointer;
   @apply text-text-inverse rounded;
-  p {
-    display: inline-block;
-    font-size: 0.87em;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 100px;
-    @apply text-text-inverse leading-tight m-0 p-0;
-  }
+}
+.bit p {
+  display: inline-block;
+  font-size: 0.87em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100px;
+  @apply text-text-inverse leading-tight m-0 p-0;
 }
 .name {
   font-family: MrsEavesSmallCaps;

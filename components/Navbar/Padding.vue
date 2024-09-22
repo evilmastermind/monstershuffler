@@ -4,7 +4,7 @@
 
 <script setup lang="ts"></script>
 
-<style scoped lang="scss">
+<style scoped>
 .navbar-padding {
   width: calc(100vw - (100vw - 100%));
   min-height: 4rem;

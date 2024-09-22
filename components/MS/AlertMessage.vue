@@ -38,7 +38,7 @@ const p = defineProps({
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .modal {
   position: fixed;
   top: 0;

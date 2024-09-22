@@ -3,7 +3,7 @@ export type Point = {
   y: number;
 };
 
-export type UIColors = "primary" | "complementary" | "light" | "dark" | "patreon" | "";
+export type UIColors = "primary" | "complementary" | "light" | "dark" | "patreon" | "success" | "warning" | "danger" | "";
 
 export type ImageRules = {
   width: "full" | "manual";

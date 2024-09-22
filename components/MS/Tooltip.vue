@@ -90,7 +90,7 @@ watch(isVisible, async (newValue) => {
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .tooltip-container {
   position: fixed;
   z-index: 9990;

@@ -44,18 +44,20 @@ function openCharacterSheet(index: number) {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .session {
   @apply flex flex-col-reverse gap-6 w-full;
 }
 .generation-4 {
   @apply grid grid-cols-1 gap-x-2 gap-y-2;
-  @media (min-width: 620px) {
-    @apply grid-cols-2;
-  }
 }
 .generation-1 {
   display: grid;
   place-content: center;
+}
+@media (min-width: 620px) {
+  .generation-4 {
+    @apply grid-cols-2;
+  }
 }
 </style>

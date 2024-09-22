@@ -9,14 +9,14 @@
         width: `${size}rem`,
         height: `${size}rem`,
       }"
-      @click="rating = i"
+      @click="setRating(i)"
       @mouseenter="hoverRating = i"
       @mouseleave="hoverRating = rating"
     >
       <span class="sr-only">{{ $t("rate") }} {{ i }}</span>
     </button>
     <div
-      v-if="rating > 0 && originalRating !== rating"
+      v-if="rating > 0 && initialRating !== rating"
       :key="rating"
       class="thanks"
     >
@@ -37,17 +37,18 @@ const p = defineProps({
     default: 5,
   },
 });
-const originalRating = ref<number>(0);
+const rating = ref<number>(0);
 
-const rating = defineModel({ type: Number, default: 0 });
+const initialRating = defineModel({ type: Number, default: 0 });
 const hoverRating = ref<number>(0);
 
-watch(rating, () => {
+function setRating(value: number) {
+  rating.value = value;
   e("rate", rating.value);
-});
+}
 
-onMounted(() => {
-  originalRating.value = rating.value;
+watch(initialRating, () => {
+  rating.value = initialRating.value;
 });
 </script>
 

@@ -1,29 +1,29 @@
 <template>
-  <MonsterStatBlockStat v-if="statistics?.vulnerabilities?.array?.length">
+  <MonsterStatBlockStat v-if="statistics?.vulnerabilities?.length">
     <template #title> {{ $t("statBlock.vulnerabilities") }} </template>
-    <MonsterDescription
-      :parts="statistics?.vulnerabilities?.array || []"
+    <MonsterJoinedDescription
+      :stats="statistics?.vulnerabilities || []"
       tag="span"
     />
   </MonsterStatBlockStat>
-  <MonsterStatBlockStat v-if="statistics?.resistances?.array?.length">
+  <MonsterStatBlockStat v-if="statistics?.resistances?.length">
     <template #title> {{ $t("statBlock.resistances") }} </template>
-    <MonsterDescription
-      :parts="statistics?.resistances?.array || []"
+    <MonsterJoinedDescription
+      :stats="statistics?.resistances || []"
       tag="span"
     />
   </MonsterStatBlockStat>
-  <MonsterStatBlockStat v-if="statistics?.immunities?.array?.length">
+  <MonsterStatBlockStat v-if="statistics?.immunities?.length">
     <template #title> {{ $t("statBlock.immunities") }} </template>
-    <MonsterDescription
-      :parts="statistics?.immunities?.array || []"
+    <MonsterJoinedDescription
+      :stats="statistics?.immunities || []"
       tag="span"
     />
   </MonsterStatBlockStat>
-  <MonsterStatBlockStat v-if="statistics?.conditionImmunities?.array?.length">
+  <MonsterStatBlockStat v-if="statistics?.conditionImmunities?.length">
     <template #title> {{ $t("statBlock.conditionImmunities") }} </template>
-    <MonsterDescription
-      :parts="statistics?.conditionImmunities?.array || []"
+    <MonsterJoinedDescription
+      :stats="statistics?.conditionImmunities || []"
       tag="span"
     />
   </MonsterStatBlockStat>

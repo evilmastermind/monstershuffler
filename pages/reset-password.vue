@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="content text-center mt-2">{{ $t("sResetPasswordBody.title") }}</h1>
+    <h1 class="content text-center mt-2">
+      {{ $t("sResetPasswordBody.title") }}
+    </h1>
     <div v-if="!isPasswordResetSuccessful">
       <form class="centered" @submit.prevent="sResetPasswordBody">
         <label class="ms-label mt-2">
@@ -109,4 +111,4 @@ watch(
 );
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped></style>

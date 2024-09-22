@@ -1,11 +1,14 @@
 <template>
-  <MonsterStatBlockStat v-if="statistics?.savingThrows?.array?.length">
+  <MonsterStatBlockStat v-if="statistics?.savingThrows?.length">
     <template #title> {{ $t("statBlock.savingThrows") }} </template>
-    <MonsterDescription :parts="statistics?.savingThrows?.array" tag="span" />
+    <MonsterJoinedDescription
+      :stats="statistics?.savingThrows || []"
+      tag="span"
+    />
   </MonsterStatBlockStat>
-  <MonsterStatBlockStat v-if="statistics?.skills?.array?.length">
+  <MonsterStatBlockStat v-if="statistics?.skills?.length">
     <template #title> {{ $t("statBlock.skills") }} </template>
-    <MonsterDescription :parts="statistics?.skills?.array" tag="span" />
+    <MonsterJoinedDescription :stats="statistics?.skills || []" tag="span" />
   </MonsterStatBlockStat>
 </template>
 

@@ -30,15 +30,15 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .loading-spinner {
   display: flex;
   gap: 1em;
   justify-content: center;
   align-items: center;
-  div {
-    width: 1em;
-    height: 1em;
-  }
+}
+.loading-spinner div {
+  width: 1em;
+  height: 1em;
 }
 </style>

@@ -5,9 +5,7 @@ export default defineNuxtConfig({
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
   },
-
   spaLoadingTemplate: "public/spa-loading-template.html",
-
   routeRules: {
     "/": { ssr: false },
     "/monsters/generator": { ssr: false },
@@ -20,16 +18,21 @@ export default defineNuxtConfig({
     "/reset-password": { ssr: false },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
-
   devServer: {
     port: 3001,
   },
-
   vite: {
     vue: {
       script: {
         defineModel: true,
         propsDestructure: true,
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler", // or "modern"
+        },
       },
     },
   },
@@ -78,30 +81,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
-  // css: ["@/assets/css-reset.css"],
-  // vite: {
-  //   css: {
-  //     preprocessorOptions: {
-  //       scss: {
-  //         additionalData: "@import '@/assets/main.scss';",
-  //       },
-  //     },
-  //   },
-  // },
-  // Defaults options
-  // tailwindcss: {
-  //   cssPath: "~/assets/css/tailwind.css",
-  //   configPath: "tailwind.config",
-  //   exposeConfig: false,
-  //   exposeLevel: 2,
-  //   injectPosition: "first",
-  //   viewer: true,
-  // },
   imports: {
     // Auto-import pinia stores defined in `~/stores`
     dirs: ["stores"],
   },
-
   compatibilityDate: "2024-07-16",
 });

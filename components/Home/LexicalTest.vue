@@ -247,7 +247,7 @@ onMounted(() => {
   // );
 });
 </script>
-<style scoped lang="scss">
+<style scoped>
 .test {
   background-color: #fff;
 }

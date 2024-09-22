@@ -198,7 +198,9 @@ async function generateNpcs() {
   promptOptions.value.levelType =
     settings.value?.levelType || "randomPeasantsMostly";
 
-  promptOptions.value.wordsNotFound = [...new Set(wordsNotFound)];
+  promptOptions.value.wordsNotFound = [...new Set(wordsNotFound)].filter(
+    (word) => word.length > 0
+  );
 
   const reply = await generator.getRandomNpcs(
     promptOptions.value,
@@ -218,7 +220,7 @@ async function generateNpcs() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .prompt-container {
   position: relative;
 }

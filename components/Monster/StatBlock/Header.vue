@@ -16,7 +16,7 @@ const statistics = inject("statistics") as Statistics;
 const moral = inject("moral") as string;
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .header__name {
   font-weight: 700;
   font-size: 34px;

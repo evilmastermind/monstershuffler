@@ -299,7 +299,7 @@ watch(
 );
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 form-container {
   position: relative;
 }
@@ -314,7 +314,22 @@ form-container {
   max-width: 400px;
   z-index: 9900;
   @apply bg-background-100;
-  @media (min-width: theme("screens.md")) {
+}
+.close-button {
+  position: absolute;
+  @apply top-4 right-4;
+}
+.generate-button {
+  display: none;
+}
+.misc-options {
+  display: inline-flex;
+  flex-wrap: wrap;
+  @apply gap-4;
+}
+
+@media (min-width: theme("screens.md")) {
+  .generator-form {
     position: relative;
     width: 100%;
     display: block;
@@ -322,24 +337,11 @@ form-container {
     border-radius: 0;
     background-color: transparent;
   }
-}
-
-.close-button {
-  position: absolute;
-  @apply top-4 right-4;
-  @media (min-width: theme("screens.md")) {
+  .close-button {
     display: none;
   }
-}
-.generate-button {
-  display: none;
-  @media (min-width: theme("screens.md")) {
+  .generate-button {
     display: block;
   }
-}
-.misc-options {
-  display: inline-flex;
-  flex-wrap: wrap;
-  @apply gap-4;
 }
 </style>

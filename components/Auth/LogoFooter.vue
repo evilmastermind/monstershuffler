@@ -12,7 +12,7 @@
 const localePath = useLocalePath();
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .logo {
   display: flex;
   align-items: flex-end;

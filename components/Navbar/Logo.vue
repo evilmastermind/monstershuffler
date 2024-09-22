@@ -87,7 +87,7 @@ const blackOrTransparent = computed(() => {
   return currentThemeType.value === "light" ? "black" : "transparent";
 });
 </script>
-<style scoped lang="scss">
+<style scoped>
 .ms-logo {
   display: flex;
   align-items: center;

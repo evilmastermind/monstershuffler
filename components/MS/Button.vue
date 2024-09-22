@@ -68,7 +68,7 @@ function goToURL() {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .button {
   position: relative;
   display: inline-block;
@@ -78,7 +78,6 @@ function goToURL() {
   text-align: center;
   font-size: 0.875rem;
   letter-spacing: 0.05em;
-  //@include shadow-1;
   transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
   @apply shadow-md;
 }
@@ -159,10 +158,15 @@ function goToURL() {
 .color-patreon:active {
   @apply bg-patreon-500;
 }
+
 .color-success {
-  background-color: theme("colors.success");
-  color: theme("colors.background.100");
   @apply bg-success text-background-100;
+}
+.color-success:hover {
+  @apply bg-success/90;
+}
+.color-success:active {
+  @apply bg-success/90;
 }
 
 .button:focus-visible {

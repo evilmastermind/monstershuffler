@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="fade-swift" appear>
-    <dialog class="modal" open @click="emit('close')">
+      <dialog class="modal" open @click="emit('close')">
         <div class="card" :style="{ maxWidth: `${p.width}px` }" @click.stop>
           <MSIconButton
             class="close ml-1 text-text-secondary"
@@ -39,7 +39,7 @@ const p = defineProps({
   width: 100%;
   height: 100%;
   overflow: auto;
-  @apply text-text bg-background-100;;
+  @apply text-text bg-background-100;
 }
 .card {
   position: relative;

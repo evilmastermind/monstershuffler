@@ -11,7 +11,7 @@
 
 <script setup lang="ts"></script>
 
-<style scoped lang="scss">
+<style scoped>
 .background-color {
   z-index: -2;
   width: 100%;

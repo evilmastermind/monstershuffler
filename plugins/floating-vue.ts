@@ -1,6 +1,30 @@
 import FloatingVue from "floating-vue";
 
+/**
+ * in order to fix the issue of the inner menu being hidden by the overflow of the parent element
+ * tweak these settings: https://floating-vue.starpad.dev/guide/config
+ */
+
 export default defineNuxtPlugin(() => {
-  FloatingVue.options.themes.tooltip.delay.show = 1000;
-  FloatingVue.options.themes.tooltip.delay.hide = 100;
+  /**
+   * TOOLTIP
+   */
+  const tooltipDefault = FloatingVue.options.themes.tooltip;
+  const tooltipCustom = {
+    delay: {
+      show: 1000,
+      hide: 100,
+    },
+    $resetCss: true,
+  };
+  FloatingVue.options.themes.tooltip = { ...tooltipDefault, ...tooltipCustom };
+
+  /**
+   * MENU
+   */
+  const menuDefault = FloatingVue.options.themes.menu;
+  const menuCustom = {
+    $resetCss: true,
+  };
+  FloatingVue.options.themes.menu = { ...menuDefault, ...menuCustom };
 });

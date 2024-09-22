@@ -55,8 +55,7 @@ const innerSize = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-// LOADING SPINNER
+<style scoped>
 .lds-ring {
   display: block;
 }

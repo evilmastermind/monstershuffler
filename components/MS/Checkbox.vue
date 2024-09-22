@@ -17,7 +17,7 @@ const p = defineProps({
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 /* Customize the label (the container) */
 .container {
   display: inline-block;
@@ -58,7 +58,6 @@ const p = defineProps({
 
 /* On mouse-over, add a grey background color */
 .container:hover input ~ .checkmark {
-  // background-color: theme("colors.primary.200");
 }
 
 /* When the checkbox is checked, add a blue background */

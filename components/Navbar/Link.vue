@@ -40,9 +40,8 @@ const currentRoute = computed(() => {
   return nuxtRoute.name;
 });
 </script>
-<style lang="scss">
+<style>
 .navbar-link-container {
-  overflow: hidden;
   flex-grow: 0;
   flex-shrink: 0;
 }
@@ -68,7 +67,6 @@ const currentRoute = computed(() => {
   font-weight: 400;
   letter-spacing: 0.05em;
   @apply text-sm;
-  // text-transform: uppercase;
 }
 @media (max-width: 700px) {
   .navbar-icon {

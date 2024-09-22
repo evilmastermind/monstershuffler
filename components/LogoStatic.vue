@@ -45,7 +45,7 @@ const p = defineProps({
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .ms-logo-fill {
   @apply fill-text;
 }

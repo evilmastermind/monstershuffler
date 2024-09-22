@@ -11,7 +11,7 @@
 const model = defineModel({ type: Boolean, required: true });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 /* The switch - the box around the slider */
 .switch {
   cursor: pointer;

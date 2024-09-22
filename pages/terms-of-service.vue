@@ -720,7 +720,7 @@ useHead({
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .background {
   background: linear-gradient(
     103deg,
