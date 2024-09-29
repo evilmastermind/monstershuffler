@@ -1,6 +1,6 @@
 <template>
   <MSIconButton
-    class="audio-icon pr-1"
+    class="audio-icon hide-from-exports pr-1"
     :icon="`fa6-solid:${audioIcon}`"
     :label="t('monsterCard.playVoice')"
     @click.stop="toggleAudio"

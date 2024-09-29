@@ -11,3 +11,9 @@ export type ImageRules = {
   maxWidth?: number;
   mask: "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
 };
+
+export type MonsterExport = {
+  type: "VTT Foundry" | "Improved Initiative" | "GM Binder" | "Homebrewery V3" | "HTML" | "markdown";
+  content: string;
+  isModalOpen?: boolean;
+}

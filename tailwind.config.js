@@ -51,6 +51,8 @@ export default {
             12: "72px",
           },
           colors: {
+            light: "hsl(0, 0%, 100%)",
+            dark: "hsl(0, 0%, 0%)",
             primary: {
               100: "hsl(355, 100%, 97%)",
               200: "hsl(355, 57%, 86%)",
@@ -175,6 +177,8 @@ export default {
           selectors: [".dark-mode", '[data-theme="dark"]'],
           extend: {
             colors: {
+              light: "hsl(0, 0%, 0%)",
+              dark: "hsl(0, 0%, 100%)",
               primary: {
                 900: "hsl(355, 100%, 97%)",
                 800: "hsl(355, 57%, 86%)",

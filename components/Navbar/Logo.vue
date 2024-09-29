@@ -11,6 +11,7 @@
         xmlns="http://www.w3.org/2000/svg"
         class="navbar-link-inactive ms-logo-icon"
       >
+        <rect x="194" y="297" width="164" height="55" :fill="black" />
         <path
           d="M26.0759 102.633C65.0739 394.916 218.42 415.701 275.872 415.785C334.97 415.872 490.976 410.883 511.611 101.892C514.593 57.2433 527.128 344.215 276.061 343.811C29.7435 343.415 26.0759 102.633 26.0759 102.633Z"
           :fill="white"
@@ -101,7 +102,6 @@ const blackOrTransparent = computed(() => {
 }
 .ms-logo-icon {
   overflow: visible;
-  min-width: theme("spacing.6");
-  width: 43 px;
+  min-width: 40px;
 }
 </style>

@@ -129,20 +129,20 @@ function goToURL() {
 }
 
 .color-light {
-  @apply bg-grey-100 text-text;
+  @apply bg-light text-text;
 }
 .color-light:hover {
-  @apply bg-grey-200;
+  @apply bg-grey-50;
 }
 .color-light:active {
   @apply bg-grey-100;
 }
 
 .color-dark {
-  @apply bg-grey-800 text-text-inverse;
+  @apply bg-dark text-text-inverse;
 }
 .color-dark:hover {
-  @apply bg-grey-700;
+  @apply bg-grey-900;
 }
 .color-dark:active {
   @apply bg-grey-800;

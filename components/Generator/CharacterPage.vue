@@ -4,8 +4,8 @@
       :character="currentCharacter"
       class="mt-5 sm:mt-0 px-0 sm:px-4"
     />
-    <div class="page mt-0 sm:mt-2">
-      <MonsterSheet
+    <div ref="sheet" class="page mt-0 sm:mt-2">
+      <LazyMonsterSheet
         :key="currentCharacterIndex"
         :character="currentCharacter"
         @close="close"
@@ -16,10 +16,20 @@
 
 <script setup lang="ts">
 const generator = useGeneratorStore();
-const { currentCharacterIndex, currentCharacter } = storeToRefs(generator);
+const { currentCharacterIndex, currentCharacter, currentSheetHTMLElement } =
+  storeToRefs(generator);
+
+const sheet = ref<HTMLElement | null>(null);
+
 function close() {
   currentCharacterIndex.value = -1;
 }
+
+onMounted(() => {
+  if (sheet.value) {
+    currentSheetHTMLElement.value = sheet.value;
+  }
+});
 </script>
 
 <style scoped>

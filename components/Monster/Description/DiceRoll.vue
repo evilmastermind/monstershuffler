@@ -1,6 +1,6 @@
 <template>
   <span
-    class="roll noselect"
+    class="roll roll-underline noselect"
     :class="moralDecoration"
     role="button"
     tabindex="0"
@@ -91,6 +91,8 @@ function removeRoll(id: Date) {
   position: relative;
   display: inline-block;
   line-height: inherit;
+}
+.roll-underline {
   text-decoration-line: underline;
   text-decoration-style: wavy;
   text-decoration-thickness: 1px;

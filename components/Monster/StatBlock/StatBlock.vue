@@ -1,24 +1,20 @@
 <template>
-  <div class="stat-block-container">
+  <div ref="statBlock" class="stat-block-container">
     <div class="border" :class="`border-${ui.currentThemeType}`" />
     <div class="stat-block" :class="`stat-block-${ui.currentThemeType}`">
       <div class="gradient" :class="`gradient-${ui.currentThemeType}`" />
       <div class="p-4 stat-block-content" :class="`columns-${columnsCount}`">
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
-        <!-- ----- -->
         <MonsterStatBlockACHPSpeed />
         <MonsterStatBlockSeparator />
-        <!-- ----- -->
         <MonsterStatBlockAbilityScores />
         <MonsterStatBlockSeparator />
-        <!-- ----- -->
         <MonsterStatBlockSavesSkills />
         <MonsterStatBlockResistancesImmunities />
         <MonsterStatBlockSensesLanguages />
         <MonsterStatBlockChallengeProficiency />
         <MonsterStatBlockSeparator v-if="wordsCount" />
-        <!-- ----- -->
         <MonsterStatBlockTraits />
         <MonsterStatBlockActions />
         <MonsterStatBlockBonusActions />
@@ -31,10 +27,6 @@
 </template>
 
 <script setup lang="ts">
-const ui = useUiStore();
-const columnsFromActions = inject("columns") as Ref<number>;
-const wordsCount = inject("wordsCount") as Ref<number>;
-
 type Columns = 1 | 2;
 
 const p = defineProps({
@@ -44,11 +36,26 @@ const p = defineProps({
   },
 });
 
+const columnsFromActions = inject("columns") as Ref<number>;
+const wordsCount = inject("wordsCount") as Ref<number>;
+
+const ui = useUiStore();
+const generator = useGeneratorStore();
+
+const { currentStatBlockHTMLElement } = storeToRefs(generator);
+const statBlock = ref<HTMLElement | null>(null);
+
 const columnsCount = computed(() => {
   if (p.columns) {
     return p.columns;
   }
   return columnsFromActions.value;
+});
+
+onMounted(() => {
+  if (statBlock.value) {
+    currentStatBlockHTMLElement.value = statBlock.value;
+  }
 });
 </script>
 

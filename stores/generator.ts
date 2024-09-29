@@ -33,6 +33,8 @@ export const useGeneratorStore = defineStore("generator", () => {
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
   const characters = ref<(NpcDetails & NPCGeneratorData)[]>([]); // this is the list of npcs chosen by the user
   const settings = ref<PostRandomNpcBody>();
+  const currentSheetHTMLElement = ref<HTMLElement | null>(null);
+  const currentStatBlockHTMLElement = ref<HTMLElement | null>(null);
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character>();
   const racesAndVariants = ref<ObjectOrVariant[]>([]);
@@ -364,6 +366,8 @@ export const useGeneratorStore = defineStore("generator", () => {
     settings,
     characters,
     currentCharacter,
+    currentSheetHTMLElement,
+    currentStatBlockHTMLElement,
     currentCharacterWithGeneratorData,
     currentCharacterIndex,
     currentCharacterFromBitsPreview,

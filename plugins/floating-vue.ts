@@ -25,6 +25,10 @@ export default defineNuxtPlugin(() => {
   const menuDefault = FloatingVue.options.themes.menu;
   const menuCustom = {
     $resetCss: true,
+    delay: {
+      show: 0,
+      hide: 100,
+    },
   };
   FloatingVue.options.themes.menu = { ...menuDefault, ...menuCustom };
 });

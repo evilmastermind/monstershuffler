@@ -1,5 +1,5 @@
 <template>
-  <button class="menu-item px-4 py-2">
+  <button class="menu-item px-4 py-2" :disabled>
     <span class="icon-label">
       <Icon
         v-if="p.icon"
@@ -45,6 +45,10 @@ const p = defineProps({
     type: Boolean,
     default: false,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
@@ -58,6 +62,9 @@ const p = defineProps({
   width: 100%;
   overflow: visible;
   @apply text-text leading-4 text-4;
+}
+.menu-item:disabled {
+  @apply cursor-auto opacity-50;
 }
 .menu-item:hover,
 .menu-item:active {

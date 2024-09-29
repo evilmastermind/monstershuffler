@@ -21,8 +21,15 @@
     "regenerateBackstory":"Regenerate backstory (coming soon)",
     "download": "Download",
     "export": "Export",
-    "save": "Save (coming soon)",
-    "closeSheet": "Close sheet"
+    "save": "Save to your files (coming soon)",
+    "closeSheet": "Close sheet",
+    "exportAdventureAs": "Export adventure as",
+    "downloadSheetAsImage": "Download Sheet as Image",
+    "downloadSheetAsPdf": "Download Sheet as PDF (coming soon)",
+    "downloadStatBlockAsImage": "Download Stat Block as Image",
+    "createToken": "Create Token (coming soon)",
+    "exportModalTitle": "Export Monster",
+    "exportedAs": "Export format: {format}"
   },
   "monsterCard": {
     "age": "Age",
@@ -81,9 +88,7 @@
       "gmBinder": "GM Binder (Markdown)",
       "homebrewery": "Homebrewery V3 (Markdown)",
       "improvedInitiative": "Improved Initiative (JSON)",
-      "vtt": "VTT Foundry (text)",
-      "exportModalTitle": "Export Stat Block",
-      "exportedAs": "Exported for {format}"
+      "vtt": "VTT Foundry (text)"
     },
     "actions": "Actions",
     "bonusActions": "Bonus Actions",
@@ -584,5 +589,7 @@
     "d20Roll": "D20"
   },
   "copyToClipboard": "Copy to clipboard",
-  "copied": "Copied!"
+  "copied": "Copied!",
+  "HTML": "HTML",
+  "markdown": "Markdown"
 }

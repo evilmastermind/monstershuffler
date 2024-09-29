@@ -12,7 +12,7 @@
           <h1 class="spell-name" :class="moral">{{ name }}</h1>
           <MonsterStatBlockStat v-if="spell.level !== undefined">
             <template #title> {{ $t("spell.level") }} </template>
-            <template v-if="spell.level === 0">
+            <template v-if="spell.level === '0'">
               {{ $t("spell.cantrip") }}
             </template>
             <template v-else>

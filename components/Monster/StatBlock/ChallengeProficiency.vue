@@ -6,13 +6,13 @@
       </template>
       <template #default>
         <button
-          class="triangleleft"
+          class="triangleleft hide-from-exports"
           :aria-label="$t('statBlock.lowerCR')"
           @click="lowerCR(character)"
         />
         <span class="cr">{{ statistics.CR.string }}</span>
         <button
-          class="triangleright"
+          class="triangleright hide-from-exports"
           :aria-label="$t('statBlock.raiseCR')"
           @click="raiseCR(character)"
         />

@@ -9,7 +9,10 @@
     <EditorText :backstory="backstory.string as string" />
     <LoadingDots v-if="!backstory && character?.isStreamOpen === true" />
     <Transition name="fade">
-      <div v-if="backstory && character?.isStreamOpen === false">
+      <div
+        v-if="backstory && character?.isStreamOpen === false"
+        class="hide-from-exports"
+      >
         <h3 class="content mt-6">
           {{ $t("generator.backstory.ratingQuestion") }}
         </h3>

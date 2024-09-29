@@ -28,11 +28,65 @@
         />
       </div>
       <div class="tools py-2 px-3">
-        <MonsterSheetToolsExport />
-        <MSIconButton
-          :label="$t('monsterSheet.download')"
-          icon="fa6-solid:download"
-        />
+        <VMenu
+          :triggers="['hover', 'click', 'focus', 'touch']"
+          placement="bottom"
+        >
+          <MSIconButton
+            :label="$t('monsterSheet.export')"
+            icon="fa6-solid:file-export"
+          />
+          <template #popper>
+            <MSMenuList>
+              <VMenu
+                :triggers="['hover', 'click', 'focus', 'touch']"
+                placement="right"
+              >
+                <MSMenuItem
+                  :label="$t('statBlock.export.statBlockAs')"
+                  icon="bi:file-text-fill"
+                  :is-sub-menu="true"
+                />
+                <template #popper="{ hide }">
+                  <LazyMonsterSheetToolsExportStatBlock
+                    v-model="statBlockExport"
+                    :hide
+                  />
+                </template>
+              </VMenu>
+              <VMenu
+                :triggers="['hover', 'click', 'focus', 'touch']"
+                placement="right"
+              >
+                <MSMenuItem
+                  :label="$t('monsterSheet.exportAdventureAs')"
+                  icon="humbleicons:align-text-left"
+                  :is-sub-menu="true"
+                />
+                <template #popper="{ hide }">
+                  <LazyMonsterSheetToolsExportBackstory
+                    v-model="statBlockExport"
+                    :hide
+                  />
+                </template>
+              </VMenu>
+            </MSMenuList>
+          </template>
+        </VMenu>
+        <VMenu
+          :triggers="['hover', 'click', 'focus', 'touch']"
+          placement="bottom"
+        >
+          <MSIconButton
+            :label="$t('monsterSheet.download')"
+            icon="fa6-solid:download"
+          />
+          <template #popper="{ hide }">
+            <MSMenuList>
+              <LazyMonsterSheetToolsDownload :hide />
+            </MSMenuList>
+          </template>
+        </VMenu>
         <MSIconButton
           :label="$t('monsterSheet.save')"
           icon="fa6-solid:floppy-disk"
@@ -50,6 +104,10 @@
       v-if="currentEditorMode === 'layout'"
       @close="currentEditorMode = ''"
     />
+    <LazyMonsterSheetToolsExportModal
+      v-if="statBlockExport.isModalOpen === true"
+      v-model="statBlockExport"
+    />
   </div>
 </template>
 
@@ -58,13 +116,20 @@
 // tool is currently enabled, so that you can set it to
 // null when the user changes character, disabling
 // the currently enabled tool
-import type { Character, MonsterEditors } from "@/types";
+
+import type { MonsterExport, Character, MonsterEditors } from "@/types";
 
 const p = defineProps({
   character: {
     type: Object as PropType<Character>,
     required: true,
   },
+});
+
+const statBlockExport = ref<MonsterExport>({
+  isModalOpen: false,
+  type: "Improved Initiative",
+  content: "",
 });
 
 const character = toRef(p, "character");

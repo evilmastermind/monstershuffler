@@ -3,29 +3,6 @@
 </template>
 
 <script setup lang="ts">
-// TODO: remove lexical-code dependency from lexical-markdown
-// @ts-expect-error something is seriously wrong with PrismJS and Lexical
-import Prism from "prismjs";
-import { CodeNode } from "@lexical/code";
-import { createEditor } from "lexical";
-import { LinkNode } from "@lexical/link";
-import { ListNode, ListItemNode } from "@lexical/list";
-import { HeadingNode, QuoteNode, registerRichText } from "@lexical/rich-text";
-import { mergeRegister } from "@lexical/utils";
-import { ThrottledFunctionLock } from "@/utils";
-import {
-  TRANSFORMERS,
-  registerMarkdownShortcuts,
-  $appendMarkdownString,
-  $convertFromMarkdownString,
-} from "@/plugins-other/lexical-markdown";
-
-// @ts-expect-error something is seriously wrong with PrismJS and Lexical
-if (typeof globalThis.Prism === "undefined") {
-  // @ts-expect-error something is seriously wrong with PrismJS and Lexical
-  globalThis.Prism = Prism;
-}
-
 const p = defineProps({
   backstory: {
     type: String,
@@ -34,90 +11,82 @@ const p = defineProps({
 });
 
 const moral = inject("moral") as ComputedRef<string>;
-const config = {
-  namespace: "text", // TODO: does this need to be unique if multiple editors are on the same page?
-  nodes: [HeadingNode, QuoteNode, CodeNode, LinkNode, ListNode, ListItemNode],
-  onError: (error: Error) => {
-    throw error;
+
+const lexicalTheme = {
+  ltr: "ltr",
+  rtl: "rtl",
+  paragraph: "editor-paragraph",
+  quote: "editor-quote",
+  heading: {
+    h1: `editor-heading-h1 ${moral.value || ""}`,
+    h2: `editor-heading-h2 ${moral.value || ""}`,
+    h3: `editor-heading-h3 ${moral.value || ""}`,
+    h4: `editor-heading-h4 ${moral.value || ""}`,
+    h5: `editor-heading-h5 ${moral.value || ""}`,
+    h6: `editor-heading-h6 ${moral.value || ""}`,
   },
-  theme: {
-    ltr: "ltr",
-    rtl: "rtl",
-    paragraph: "editor-paragraph",
-    quote: "editor-quote",
-    heading: {
-      h1: `editor-heading-h1 ${moral.value || ""}`,
-      h2: `editor-heading-h2 ${moral.value || ""}`,
-      h3: `editor-heading-h3 ${moral.value || ""}`,
-      h4: `editor-heading-h4 ${moral.value || ""}`,
-      h5: `editor-heading-h5 ${moral.value || ""}`,
-      h6: `editor-heading-h6 ${moral.value || ""}`,
+  list: {
+    nested: {
+      listitem: "editor-nested-listitem",
     },
-    list: {
-      nested: {
-        listitem: "editor-nested-listitem",
-      },
-      ol: "editor-list-ol",
-      ul: "editor-list-ul",
-      listitem: "editor-listItem",
-      listitemChecked: "editor-listItemChecked",
-      listitemUnchecked: "editor-listItemUnchecked",
-    },
-    hashtag: "editor-hashtag",
-    image: "editor-image",
-    link: "editor-link",
-    text: {
-      bold: "editor-textBold",
-      code: "editor-textCode",
-      italic: "editor-textItalic",
-      strikethrough: "editor-textStrikethrough",
-      subscript: "editor-textSubscript",
-      superscript: "editor-textSuperscript",
-      underline: "editor-textUnderline",
-      underlineStrikethrough: "editor-textUnderlineStrikethrough",
-      highlight: "editor-textHighlight",
-    },
-    code: "editor-code",
-    codeHighlight: {
-      atrule: "editor-tokenAttr",
-      attr: "editor-tokenAttr",
-      boolean: "editor-tokenProperty",
-      builtin: "editor-tokenSelector",
-      cdata: "editor-tokenComment",
-      char: "editor-tokenSelector",
-      class: "editor-tokenFunction",
-      "class-name": "editor-tokenFunction",
-      comment: "editor-tokenComment",
-      constant: "editor-tokenProperty",
-      deleted: "editor-tokenProperty",
-      doctype: "editor-tokenComment",
-      entity: "editor-tokenOperator",
-      function: "editor-tokenFunction",
-      important: "editor-tokenVariable",
-      inserted: "editor-tokenSelector",
-      keyword: "editor-tokenAttr",
-      namespace: "editor-tokenVariable",
-      number: "editor-tokenProperty",
-      operator: "editor-tokenOperator",
-      prolog: "editor-tokenComment",
-      property: "editor-tokenProperty",
-      punctuation: "editor-tokenPunctuation",
-      regex: "editor-tokenVariable",
-      selector: "editor-tokenSelector",
-      string: "editor-tokenSelector",
-      symbol: "editor-tokenProperty",
-      tag: "editor-tokenProperty",
-      url: "editor-tokenOperator",
-      variable: "editor-tokenVariable",
-    },
+    ol: "editor-list-ol",
+    ul: "editor-list-ul",
+    listitem: "editor-listItem",
+    listitemChecked: "editor-listItemChecked",
+    listitemUnchecked: "editor-listItemUnchecked",
+  },
+  hashtag: "editor-hashtag",
+  image: "editor-image",
+  link: "editor-link",
+  text: {
+    bold: "editor-textBold",
+    code: "editor-textCode",
+    italic: "editor-textItalic",
+    strikethrough: "editor-textStrikethrough",
+    subscript: "editor-textSubscript",
+    superscript: "editor-textSuperscript",
+    underline: "editor-textUnderline",
+    underlineStrikethrough: "editor-textUnderlineStrikethrough",
+    highlight: "editor-textHighlight",
+  },
+  code: "editor-code",
+  codeHighlight: {
+    atrule: "editor-tokenAttr",
+    attr: "editor-tokenAttr",
+    boolean: "editor-tokenProperty",
+    builtin: "editor-tokenSelector",
+    cdata: "editor-tokenComment",
+    char: "editor-tokenSelector",
+    class: "editor-tokenFunction",
+    "class-name": "editor-tokenFunction",
+    comment: "editor-tokenComment",
+    constant: "editor-tokenProperty",
+    deleted: "editor-tokenProperty",
+    doctype: "editor-tokenComment",
+    entity: "editor-tokenOperator",
+    function: "editor-tokenFunction",
+    important: "editor-tokenVariable",
+    inserted: "editor-tokenSelector",
+    keyword: "editor-tokenAttr",
+    namespace: "editor-tokenVariable",
+    number: "editor-tokenProperty",
+    operator: "editor-tokenOperator",
+    prolog: "editor-tokenComment",
+    property: "editor-tokenProperty",
+    punctuation: "editor-tokenPunctuation",
+    regex: "editor-tokenVariable",
+    selector: "editor-tokenSelector",
+    string: "editor-tokenSelector",
+    symbol: "editor-tokenProperty",
+    tag: "editor-tokenProperty",
+    url: "editor-tokenOperator",
+    variable: "editor-tokenVariable",
   },
 };
-let currentChunk = 0;
-const lock = new ThrottledFunctionLock();
 
-const editor = createEditor(config);
 const editorRef = ref<HTMLElement | null>(null);
 const generatorStore = useGeneratorStore();
+const lexical = useLexicalStore();
 const isEditable = ref(false);
 
 const { currentCharacterWithGeneratorData } = storeToRefs(generatorStore);
@@ -126,40 +95,22 @@ const chunks = computed(() => {
   return currentCharacterWithGeneratorData.value?.streamChunks || [];
 });
 
-async function appendChunks() {
-  // eslint-disable-next-line require-await -- lock.run is async but my function is not
-  await lock.run(async () => {
-    const chunksLength = chunks.value.length;
-    if (chunksLength <= currentChunk) {
-      return;
-    }
-    const lastChunks = chunks.value.slice(currentChunk, chunksLength);
-    editor.setEditable(false);
-    editor.update(() => {
-      $appendMarkdownString(lastChunks.join(""), TRANSFORMERS);
-    });
-    editor.setEditable(true);
-    currentChunk = chunksLength;
-  });
-}
-
 watch(
   () => chunks.value.length,
   () => {
-    appendChunks();
+    lexical.appendMarkdownChunks(chunks.value);
   }
 );
 
 onMounted(() => {
-  if (editorRef.value) {
-    editor.setRootElement(editorRef.value);
-    mergeRegister(registerRichText(editor));
-    mergeRegister(registerMarkdownShortcuts(editor, TRANSFORMERS));
+  if (!editorRef.value) {
+    return;
   }
+
+  lexical.createLexicalEditor(editorRef.value, lexicalTheme);
+
   if (p.backstory && !currentCharacterWithGeneratorData.value?.isStreamOpen) {
-    editor.update(() => {
-      $convertFromMarkdownString(p.backstory || "", TRANSFORMERS);
-    });
+    lexical.importMarkdown(p.backstory);
   }
 });
 </script>
