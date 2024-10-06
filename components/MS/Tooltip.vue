@@ -14,7 +14,9 @@
   >
     <div class="tooltip">
       <h4 class="text-left font-bold">{{ word }}:</h4>
-      <p v-if="description !== null" class="content">{{ description }}</p>
+      <p v-if="retrievedDescription !== null" class="content">
+        {{ retrievedDescription }}
+      </p>
       <LoadingDots v-else :size="6" />
       <MSIconButton
         v-if="hasCloseButton"
@@ -49,11 +51,15 @@ const p = defineProps({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    default: "",
+  },
 });
 
 const isVisible = ref(false);
 const hasCloseButton = ref(false);
-const description: Ref<string | null> = ref("");
+const retrievedDescription: Ref<string | null> = ref(null);
 
 const width = computed(() => {
   if (screenWidth.value < 400) {
@@ -81,11 +87,13 @@ function handleMouseOver() {
 }
 
 watch(isVisible, async (newValue) => {
-  if (newValue && description.value === "") {
-    description.value = await tooltips.getDescription(
+  if (newValue && !p.description && retrievedDescription.value === null) {
+    retrievedDescription.value = await tooltips.getDescription(
       p?.id?.toString() || p.word,
       p.source
     );
+  } else if (p.description) {
+    retrievedDescription.value = p.description;
   }
 });
 </script>

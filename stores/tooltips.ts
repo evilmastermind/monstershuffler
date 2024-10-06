@@ -10,10 +10,10 @@ export const useTooltipsStore = defineStore("tooltips", () => {
   async function getDescription(word: string | number, type: string) {
     switch (type) {
       case "traits":
-        return await getTraitDescription(word);
+        return (await getTraitDescription(word)) || "";
         break;
       case "backgrounds":
-        return await getBackgroundDescription(word);
+        return (await getBackgroundDescription(word)) || "";
         break;
       default:
         return "";

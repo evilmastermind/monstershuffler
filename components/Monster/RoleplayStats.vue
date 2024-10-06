@@ -36,7 +36,11 @@
             @mouseover.stop="showTraitDescription = true"
             @mouseleave.stop="showTraitDescription = false"
           >
-            <MSTooltip :word="character.character.trait" source="traits" />
+            <MSTooltip
+              :word="character.character.trait.name"
+              :description="character.character.trait.description"
+              source="traits"
+            />
           </span>
         </dd>
       </template>
@@ -56,6 +60,11 @@
           <MonsterVoice :voice="character.character.voice" />
         </dd>
       </template>
+      <template
+        v-if="character.character.physicalAppearance && !hidePhysicalAppearance"
+      >
+        <p class="mt-2">{{ character.character.physicalAppearance }}</p>
+      </template>
     </dl>
   </div>
 </template>
@@ -66,6 +75,13 @@ import {
   feetDecimalToMeters,
 } from "monstershuffler-shared";
 import type { Statistics, Character } from "@/types";
+
+const p = defineProps({
+  hidePhysicalAppearance: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const user = useUserStore();
 const unit = computed(() => user.me?.settings?.stats?.heightUnit || "feet");

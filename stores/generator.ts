@@ -35,6 +35,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   const settings = ref<PostRandomNpcBody>();
   const currentSheetHTMLElement = ref<HTMLElement | null>(null);
   const currentStatBlockHTMLElement = ref<HTMLElement | null>(null);
+  const currentRoleplayStatsHTMLElement = ref<HTMLElement | null>(null);
   const currentCharacterIndex = ref(-1);
   const currentCharacterFromBitsPreview = ref<Character>();
   const racesAndVariants = ref<ObjectOrVariant[]>([]);
@@ -262,6 +263,8 @@ export const useGeneratorStore = defineStore("generator", () => {
     const backstory = c.user.backstory as { string: string };
     currentNpc.streamChunks = [];
 
+    let contentBeingStreamed: "backstory" | "physicalAppearance" = "backstory";
+
     let lastEventId = "";
 
     try {
@@ -302,12 +305,24 @@ export const useGeneratorStore = defineStore("generator", () => {
             throw new FatalError(msg.data);
           }
 
+          if (msg.id === "appearance_incoming") {
+            contentBeingStreamed = "physicalAppearance";
+            c.physicalAppearance = "";
+          }
+
           if (msg.data) {
             try {
               const newChunk = JSON.parse(msg.data) as string;
-              backstory.string += newChunk;
-              backstory.string.replace(/\n\n/g, "\n");
-              currentNpc.streamChunks!.push(newChunk);
+              switch (contentBeingStreamed) {
+                case "backstory":
+                  backstory.string += newChunk;
+                  backstory.string.replace(/\n\n/g, "\n");
+                  currentNpc.streamChunks!.push(newChunk);
+                  break;
+                case "physicalAppearance":
+                  c.physicalAppearance += newChunk;
+                  break;
+              }
             } catch (error) {
               backstory.string += msg.data;
             }
@@ -368,6 +383,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     currentCharacter,
     currentSheetHTMLElement,
     currentStatBlockHTMLElement,
+    currentRoleplayStatsHTMLElement,
     currentCharacterWithGeneratorData,
     currentCharacterIndex,
     currentCharacterFromBitsPreview,

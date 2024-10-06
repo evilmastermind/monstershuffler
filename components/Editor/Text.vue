@@ -112,6 +112,8 @@ onMounted(() => {
   if (p.backstory && !currentCharacterWithGeneratorData.value?.isStreamOpen) {
     lexical.importMarkdown(p.backstory);
   }
+
+  // UNDO/REDO
 });
 </script>
 

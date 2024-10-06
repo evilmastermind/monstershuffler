@@ -16,6 +16,10 @@
       :label="$t('statBlock.export.homebrewery')"
       @click="exportCharacterAs('Homebrewery V3')"
     />
+    <MSMenuItem
+      :label="$t('statBlock.export.monstershuffler')"
+      @click="exportCharacterAs('Monstershuffler')"
+    />
   </MSMenuList>
 </template>
 
@@ -68,6 +72,9 @@ function exportCharacterAs(type: MonsterExport["type"]) {
       statBlockExport.value.content = exportCharacterToHomebreweryV3(
         character.value
       );
+      break;
+    case "Monstershuffler":
+      statBlockExport.value.content = JSON.stringify(character.value, null, 2);
       break;
   }
 }

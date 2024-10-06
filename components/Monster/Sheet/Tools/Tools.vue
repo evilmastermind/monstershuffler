@@ -36,7 +36,7 @@
             :label="$t('monsterSheet.export')"
             icon="fa6-solid:file-export"
           />
-          <template #popper>
+          <template #popper="{ hide }">
             <MSMenuList>
               <VMenu
                 :triggers="['hover', 'click', 'focus', 'touch']"
@@ -70,6 +70,11 @@
                   />
                 </template>
               </VMenu>
+              <MSMenuItem
+                :label="$t('monsterSheet.exportRoleplayStats')"
+                icon="fa-solid:theater-masks"
+                @click="copyRoleplayStats(hide)"
+              />
             </MSMenuList>
           </template>
         </VMenu>
@@ -112,6 +117,7 @@
 </template>
 
 <script setup lang="ts">
+import { exportRoleplayStats } from "monstershuffler-shared";
 // TODO: create a store variable that indicates which
 // tool is currently enabled, so that you can set it to
 // null when the user changes character, disabling
@@ -126,18 +132,19 @@ const p = defineProps({
   },
 });
 
+const generator = useGeneratorStore();
+const editor = useMonsterEditorStore();
+
+const { t } = useI18n();
+const { currentEditorMode } = storeToRefs(editor);
+const { currentCharacterIndex } = storeToRefs(generator);
+
 const statBlockExport = ref<MonsterExport>({
   isModalOpen: false,
   type: "Improved Initiative",
   content: "",
 });
-
 const character = toRef(p, "character");
-const generator = useGeneratorStore();
-const editor = useMonsterEditorStore();
-
-const { currentEditorMode } = storeToRefs(editor);
-const { currentCharacterIndex } = storeToRefs(generator);
 useProvideCharacter(character);
 
 function toggleEditorMode(mode: MonsterEditors) {
@@ -146,6 +153,15 @@ function toggleEditorMode(mode: MonsterEditors) {
   } else {
     currentEditorMode.value = mode;
   }
+}
+
+function copyRoleplayStats(hide: Function) {
+  hide();
+  statBlockExport.value = {
+    isModalOpen: true,
+    type: "Roleplay Stats",
+    content: exportRoleplayStats(character.value),
+  };
 }
 
 function closeMonster() {

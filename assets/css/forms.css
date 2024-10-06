@@ -5,8 +5,10 @@
 
 .ms-label {
   color: theme("colors.text");
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   width: 100%;
+  @apply text-sm;
 }
 
 .ms-select {
@@ -22,6 +24,8 @@
   box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
   color: theme("colors.text");
   cursor: pointer;
+  letter-spacing: 0.05em;
+  @apply text-sm;
 }
 .ms-select-75 {
   width: 72%;

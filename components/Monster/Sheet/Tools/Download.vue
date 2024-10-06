@@ -11,16 +11,19 @@
       @click="downloadSheet"
     />
     <MSMenuItem
+      :label="$t('monsterSheet.downloadRoleplayStatsAsImage')"
+      icon="fa6-solid:image"
+      @click="downloadRoleplayStats"
+    />
+    <MSMenuItem
       disabled
       :label="$t('monsterSheet.downloadSheetAsPdf')"
       icon="teenyicons:pdf-solid"
-      @click="downloadSheet"
     />
     <MSMenuItem
       disabled
       :label="$t('monsterSheet.createToken')"
       icon="f7:person-alt-circle-fill"
-      @click="downloadSheet"
     />
   </MSMenuList>
 </template>
@@ -48,6 +51,7 @@ const generator = useGeneratorStore();
 const {
   currentSheetHTMLElement,
   currentStatBlockHTMLElement,
+  currentRoleplayStatsHTMLElement,
   currentCharacter,
 } = storeToRefs(generator);
 
@@ -73,6 +77,24 @@ async function downloadStatBlock() {
     });
     saveAs(dataURL, `${characterName.value}_stat_block.png`);
     restoreUiStyles(currentStatBlockHTMLElement.value);
+  } catch (error) {
+    console.error(error);
+  }
+}
+async function downloadRoleplayStats() {
+  if (!currentRoleplayStatsHTMLElement.value) {
+    return;
+  }
+  try {
+    removeUiStyles(currentRoleplayStatsHTMLElement.value);
+    const dataURL = await htmlToImage.toPng(
+      currentRoleplayStatsHTMLElement.value,
+      {
+        pixelRatio: 2,
+      }
+    );
+    saveAs(dataURL, `${characterName.value}_roleplay_stats.png`);
+    restoreUiStyles(currentRoleplayStatsHTMLElement.value);
   } catch (error) {
     console.error(error);
   }

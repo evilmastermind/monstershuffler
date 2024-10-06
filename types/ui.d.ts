@@ -13,7 +13,7 @@ export type ImageRules = {
 };
 
 export type MonsterExport = {
-  type: "VTT Foundry" | "Improved Initiative" | "GM Binder" | "Homebrewery V3" | "HTML" | "markdown";
+  type: "VTT Foundry" | "Improved Initiative" | "GM Binder" | "Homebrewery V3" | "HTML" | "markdown" | "Roleplay Stats" | "Monstershuffler";
   content: string;
   isModalOpen?: boolean;
 }

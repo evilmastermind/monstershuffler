@@ -24,12 +24,14 @@
     "save": "Save to your files (coming soon)",
     "closeSheet": "Close sheet",
     "exportAdventureAs": "Export adventure as",
-    "downloadSheetAsImage": "Download Sheet as Image",
-    "downloadSheetAsPdf": "Download Sheet as PDF (coming soon)",
+    "downloadSheetAsImage": "Download Page as Image",
+    "downloadSheetAsPdf": "Download Page as PDF (coming soon)",
     "downloadStatBlockAsImage": "Download Stat Block as Image",
+    "downloadRoleplayStatsAsImage": "Download Roleplay Stats as Image",
     "createToken": "Create Token (coming soon)",
     "exportModalTitle": "Export Monster",
-    "exportedAs": "Export format: {format}"
+    "exportedAs": "Export format: {format}",
+    "exportRoleplayStats": "Export Roleplay Stats"
   },
   "monsterCard": {
     "age": "Age",
@@ -88,7 +90,8 @@
       "gmBinder": "GM Binder (Markdown)",
       "homebrewery": "Homebrewery V3 (Markdown)",
       "improvedInitiative": "Improved Initiative (JSON)",
-      "vtt": "VTT Foundry (text)"
+      "vtt": "VTT Foundry (text)",
+      "monstershuffler": "Monstershuffler (experimental)"
     },
     "actions": "Actions",
     "bonusActions": "Bonus Actions",

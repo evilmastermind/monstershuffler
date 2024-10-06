@@ -2,15 +2,13 @@
   <div class="background" :class="`background-${ui.currentThemeType}`">
     <!-- <div class="background-before" :class="[`bg-${ethical}-100`]" /> -->
     <div class="content p-4" :class="selectable ? 'selectable' : ''">
-      <MonsterRoleplayStats />
+      <MonsterRoleplayStats hide-physical-appearance />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Character } from "@/types";
-
-const ui = useUiStore();
 
 const p = defineProps({
   selectable: {
@@ -22,6 +20,8 @@ const p = defineProps({
     required: true,
   },
 });
+
+const ui = useUiStore();
 
 const refCharacter = toRef(p, "character");
 

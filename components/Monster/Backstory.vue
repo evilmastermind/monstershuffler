@@ -1,13 +1,11 @@
 <template>
   <div v-if="backstory" class="backstory">
-    <!-- <h1 class="name mb-2" :class="moral">{{ statistics.fullName }}</h1> -->
-    <!-- <Markdown
-      v-if="backstory.string"
-      v-model="backstory.string"
-      class="backstory-text"
-    /> -->
     <EditorText :backstory="backstory.string as string" />
-    <LoadingDots v-if="!backstory && character?.isStreamOpen === true" />
+    <LoadingDots
+      v-if="
+        !backstory.string && [true, undefined].includes(character?.isStreamOpen)
+      "
+    />
     <Transition name="fade">
       <div
         v-if="backstory && character?.isStreamOpen === false"

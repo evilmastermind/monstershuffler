@@ -7,6 +7,8 @@ import { mergeRegister } from "@lexical/utils";
 import { $generateHtmlFromNodes } from "@lexical/html";
 // @ts-expect-error something is seriously wrong with PrismJS and Lexical
 import Prism from "prismjs";
+import { UNDO_COMMAND, REDO_COMMAND } from "lexical";
+import { registerHistory } from "@lexical/history";
 import { ThrottledFunctionLock } from "@/utils";
 import {
   TRANSFORMERS,
@@ -53,6 +55,59 @@ export const useLexicalStore = defineStore("lexical", () => {
     editor.setRootElement(node);
     mergeRegister(registerRichText(editor));
     mergeRegister(registerMarkdownShortcuts(editor, TRANSFORMERS));
+
+    registerHistory(
+      editor,
+      { current: null, redoStack: [], undoStack: [] },
+      1000
+    );
+    addFocusListeners(node);
+  }
+
+  function addFocusListeners(node: HTMLElement) {
+    node.addEventListener("focusin", () => {
+      // CTRL + Z
+      node.addEventListener("keydown", (event) => {
+        if (editor === null) {
+          return;
+        }
+        if (event.ctrlKey && event.key === "z") {
+          event.preventDefault();
+          editor.dispatchCommand(UNDO_COMMAND, undefined);
+        }
+      });
+      // CTRL + SHIFT + Z
+      node.addEventListener("keydown", (event) => {
+        if (editor === null) {
+          return;
+        }
+        if (event.ctrlKey && event.shiftKey && event.key === "z") {
+          event.preventDefault();
+          editor.dispatchCommand(REDO_COMMAND, undefined);
+        }
+      });
+    });
+    node.addEventListener("focusout", () => {
+      // remove keydown event listeners
+      node.removeEventListener("keydown", (event) => {
+        if (editor === null) {
+          return;
+        }
+        if (event.ctrlKey && event.key === "z") {
+          event.preventDefault();
+          editor.dispatchCommand(UNDO_COMMAND, undefined);
+        }
+      });
+      node.removeEventListener("keydown", (event) => {
+        if (editor === null) {
+          return;
+        }
+        if (event.ctrlKey && event.shiftKey && event.key === "z") {
+          event.preventDefault();
+          editor.dispatchCommand(REDO_COMMAND, undefined);
+        }
+      });
+    });
   }
 
   function importMarkdown(markdown: string) {

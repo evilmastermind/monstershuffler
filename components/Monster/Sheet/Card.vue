@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div ref="container" class="container">
     <div :class="`border-top-${ui.currentThemeType}`">
       <div :class="`border-top-angle-left-${ui.currentThemeType}`" />
       <div :class="`border-top-center-${ui.currentThemeType}`" />
@@ -18,7 +18,19 @@
 
 <script setup lang="ts">
 const moralBackground = inject("moralBackground") as Ref<string>;
+
 const ui = useUiStore();
+const generator = useGeneratorStore();
+
+const { currentRoleplayStatsHTMLElement } = storeToRefs(generator);
+const container = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  if (!container.value) {
+    return;
+  }
+  currentRoleplayStatsHTMLElement.value = container.value;
+});
 </script>
 
 <style scoped>
