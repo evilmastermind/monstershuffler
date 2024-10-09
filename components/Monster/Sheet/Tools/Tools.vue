@@ -22,6 +22,11 @@
           @click="toggleEditorMode('backstory')"
         /> -->
         <MSIconButton
+          :label="$t('monsterSheet.editStatBlock')"
+          icon="bi:file-text-fill"
+          disabled
+        />
+        <MSIconButton
           :label="$t('monsterSheet.regenerateBackstory')"
           disabled
           icon="simple-icons:openai"
@@ -174,7 +179,7 @@ function closeMonster() {
 .tools-container {
   display: flex;
   justify-content: space-between;
-  @apply bg-background-inset-500;
+  @apply bg-background-300;
 }
 .tools {
   display: flex;
@@ -183,7 +188,7 @@ function closeMonster() {
   align-items: center;
   border-radius: 0;
   line-height: 1rem;
-  @apply bg-background-inset-500  text-text-icon  gap-4;
+  @apply bg-background-300  text-text-icon  gap-4;
 }
 @media (min-width: theme("screens.sm")) {
   .tools-container {
@@ -192,7 +197,7 @@ function closeMonster() {
   .tools {
     border-radius: 1rem;
     line-height: 1rem;
-    @apply bg-background-inset-500 text-text-icon  gap-4;
+    @apply bg-background-300 text-text-icon  gap-4;
   }
 }
 .tools button:not(:disabled):hover {

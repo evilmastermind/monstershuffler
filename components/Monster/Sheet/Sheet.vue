@@ -92,17 +92,17 @@ watch(isLoaded, () => {
 }
 .background-light {
   background-image: url("@/assets/images/monster/paper.webp");
-  @apply bg-background-card;
+  @apply bg-background-200;
 }
 .background-dark {
   background-image: url("@/assets/images/monster/paper-dark.webp");
-  @apply bg-background-card;
+  @apply bg-background-200;
 }
 .close {
   position: absolute;
   right: 0;
   z-index: 1;
-  @apply shadow-background-card;
+  @apply shadow-background-200;
 }
 .loading-container {
   transition: padding 0.3s ease-in-out;

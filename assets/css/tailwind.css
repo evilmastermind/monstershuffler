@@ -13,12 +13,16 @@
 @layer base {
   b {
     font-family: inherit;
-    font-weight: 500;
+    font-weight: 00;
   }
   i {
     font-family: inherit;
     font-style: italic;
   }
+
+  .bold, b.content {
+    font-weight: 700;
+  }  
 
   h1.content {
     font-weight: bold !important;
@@ -46,7 +50,8 @@
   }
 
   p.content {
-    @apply text-text my-2 mx-0 leading-5;
+    letter-spacing: 0.02em;
+    @apply leading-5;
   }
   p.subtitle {
     @apply text-text-secondary text-3 leading-3;

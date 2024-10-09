@@ -18,16 +18,16 @@
   align-items: center;
   gap: 1rem;
 }
-.options {
-  display: flex;
-  gap: 1rem;
-}
 .page-title {
-  font-family: "MrsEavesSmallCaps", serif;
-  font-weight: bold;
-  letter-spacing: 0.1rem;
+  font-family: "OpenSans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.05em;
   white-space: nowrap;
   text-overflow: ellipsis;
   @apply text-lg text-text-evil;
+}
+.options {
+  display: flex;
+  gap: 1rem;
 }
 </style>

@@ -16,12 +16,12 @@
   border-radius: theme("spacing.1");
   box-sizing: border-box;
   text-overflow: ellipsis;
-  background-color: theme("colors.background-inset.400");
-  border-top: 1px solid theme("colors.background-inset.700");
-  border-left: 1px solid theme("colors.background-inset.700");
-  border-right: 1px solid theme("colors.background-inset.700");
-  border-bottom: 1px solid theme("colors.background-inset.600");
-  box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
+  background-color: theme("colors.inset.200");
+  border-top: 1px solid theme("colors.inset.500");
+  border-left: 1px solid theme("colors.inset.500");
+  border-right: 1px solid theme("colors.inset.500");
+  border-bottom: 1px solid theme("colors.inset.400");
+  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
   color: theme("colors.text");
   cursor: pointer;
   letter-spacing: 0.05em;
@@ -43,12 +43,12 @@
   border-radius: theme("spacing.1");
   box-sizing: border-box;
   height: theme("spacing.6");
-  background-color: theme("colors.background-inset.400");
-  border-top: 1px solid theme("colors.background-inset.700");
-  border-left: 1px solid theme("colors.background-inset.700");
-  border-right: 1px solid theme("colors.background-inset.700");
-  border-bottom: 1px solid theme("colors.background-inset.600");
-  box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
+  background-color: theme("colors.inset.200");
+  border-top: 1px solid theme("colors.inset.500");
+  border-left: 1px solid theme("colors.inset.500");
+  border-right: 1px solid theme("colors.inset.500");
+  border-bottom: 1px solid theme("colors.inset.400");
+  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
   color: theme("colors.text");
   cursor: text;
 }
@@ -67,23 +67,28 @@
   box-shadow: 0 0 0 3px theme("colors.text-inverse");
 }
 
+.ms-input::placeholder {
+  @apply text-text-secondary;
+}
+
+
 /* 
 ::-webkit-input-placeholder {
-  color: theme("colors.background-inset.700");
+  color: theme("colors.background.500");
   opacity: 1;
 }
 
 ::-moz-placeholder {
-  color: theme("colors.background-inset.700");
+  color: theme("colors.background.500");
   opacity: 1;
 }
 
 ::-ms-placeholder {
-  color: theme("colors.background-inset.700");
+  color: theme("colors.background.500");
   opacity: 1;
 }
 
 ::placeholder {
-  color: theme("colors.background-inset.700");
+  color: theme("colors.background.500");
   opacity: 1;
 } */

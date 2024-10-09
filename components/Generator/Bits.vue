@@ -110,7 +110,7 @@ function showCharacterPage(index: number) {
   gap: 0;
   border-radius: 1rem;
   line-height: 1rem;
-  @apply bg-background-inset-500 text-text-icon;
+  @apply bg-background-300 text-text-icon;
 }
 .buttons button:hover {
   @apply text-primary-700;

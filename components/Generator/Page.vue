@@ -3,34 +3,22 @@
     <!-- <BackgroundDice /> -->
     <div class="background" />
     <NavbarPadding />
-    <div class="lg-max max-h-100">
-      <Breadcrumbs class="mx-4">
-        <template #default>
-          <button @click="closeMonster">
-            {{ $t("generator.pageTitle") }}
-          </button>
-          <span v-if="currentCharacter" class="character-name">
-            > {{ currentCharacter?.statistics?.fullName || "" }}
-          </span>
-        </template>
-        <template #options>
+
+    <div class="top-bar-container py-4 px-4">
+      <div class="top-bar lg-max">
+        <h1 class="top-bar-page-title">{{ $t("generator.title") }}</h1>
+        <GeneratorPrompt v-show="mode === 'prompt'" class="prompt" />
+        <div class="top-bar-options">
           <GeneratorPromptHelp v-if="mode === 'prompt'" />
           <MSSwitchWords
             v-model="isFormMode"
             checked="Form"
             unchecked="Prompt"
           />
-          <!-- <label class="mode-label cursor-pointer">
-            <MSSwitch
-              v-model="isFormMode"
-              :label="$t(`generator.${mode}ModeTitle`)"
-            />
-            <span class="bold inline whitespace-nowrap">
-              {{ $t(`generator.${mode}ModeTitle`) }}
-            </span>
-          </label> -->
-        </template>
-      </Breadcrumbs>
+        </div>
+      </div>
+    </div>
+    <div class="lg-max max-h-100">
       <Transition name="fade">
         <div v-if="!isLoading">
           <TransitionGroup name="fade-group">
@@ -45,10 +33,6 @@
               key="3"
               class="custom-transition"
             >
-              <div v-show="mode === 'prompt'" class="options mt-7 mb-6 mx-4">
-                <GeneratorPrompt class="prompt" />
-                <!-- <p class="content">{{ $t(`generator.${mode}ModeDescription`)  }}</p> -->
-              </div>
               <div class="mt-4 mx-4">
                 <GeneratorForm
                   v-show="mode === 'form' && isFormShownOnMobile"
@@ -252,7 +236,32 @@ onMounted(async () => {
     /*,     url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover; */;
   z-index: -2;
 }
-
+.top-bar-container {
+  @apply bg-background-100 border-b border-b-background-200;
+}
+.top-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  @apply gap-4;
+}
+@media (min-width: theme("screens.sm")) {
+  .top-bar {
+    grid-template-columns: 1fr 50% 1fr;
+  }
+}
+.top-bar-page-title {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.09em;
+  @apply text-text-evil;
+}
+.top-bar-options {
+  display: flex;
+  justify-content: flex-end;
+  @apply gap-2;
+}
 .form {
   float: left;
 }
@@ -282,11 +291,8 @@ onMounted(async () => {
 .npcs {
   max-height: 100%;
 }
-.prompt {
-  max-width: 500px;
-  width: 100%;
-}
 .character-name {
+  font-family: "MrsEavesSmallCaps", serif;
   display: none;
 }
 
@@ -299,7 +305,6 @@ onMounted(async () => {
   }
   .character-name {
     display: inline;
-    font-weight: normal;
     letter-spacing: 0.03rem;
     @apply text-text;
   }

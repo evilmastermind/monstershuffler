@@ -36,11 +36,10 @@ useProvideCharacter(refCharacter);
   overflow: hidden;
 }
 .background-light {
-  @apply bg-background-card;
+  @apply bg-background-200;
 }
 .background-dark {
-  background-image: url("@/assets/images/monster/paper-dark.webp");
-  @apply bg-background-card;
+  @apply bg-background-200;
 }
 .content {
   height: 100%;

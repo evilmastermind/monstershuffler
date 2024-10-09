@@ -9,11 +9,11 @@ html {
 ::-webkit-scrollbar {
 	width: var(--scrollbar-size);
 	height: var(--scrollbar-size);
-	background-color: theme("colors.background-card");
+	background-color: theme("colors.background.200");
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color:theme("colors.background-inset.700");
+	background-color:theme("colors.background.500");
 }
 
 ::-webkit-scrollbar-track {

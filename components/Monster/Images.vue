@@ -390,7 +390,7 @@ onBeforeMount(() => {
   overflow: hidden;
   background-repeat: no-repeat;
   mask-origin: stroke-box;
-  background: theme("colors.background-inset.500");
+  background: theme("colors.background.300");
 }
 .image-outline {
   position: absolute;

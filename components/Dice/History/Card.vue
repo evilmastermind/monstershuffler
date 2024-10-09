@@ -89,7 +89,7 @@ function rollName(roll: DiceRoll) {
   max-width: 250px;
 
   font-family: ScalaSansOffc;
-  @apply shadow-xl p-2 rounded bg-background-card;
+  @apply shadow-xl p-2 rounded bg-background-200;
 }
 .rolls {
   min-width: 100%;

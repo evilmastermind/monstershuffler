@@ -45,7 +45,7 @@
   background: linear-gradient(
     180deg,
     theme("colors.background.100") 0,
-    theme("colors.background-card") 100%
+    theme("colors.background.200") 100%
   );
 }
 .navbar {

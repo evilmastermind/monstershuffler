@@ -725,7 +725,7 @@ useHead({
   background: linear-gradient(
     103deg,
     theme("colors.background.100") 0,
-    theme("colors.background-inset.500") 100%
+    theme("colors.background.300") 100%
   );
 }
 p {

@@ -32,19 +32,18 @@ const p = defineProps({
 .slider-container {
   position: relative;
   display: grid;
-  grid-template-columns: 0px 1fr 1fr;
+  grid-template-columns: 0px auto auto;
   border-radius: 1rem;
   line-height: 1rem;
-  overflow: hidden;
   cursor: pointer;
-  background-color: theme("colors.background-inset.400");
-  border-top: 1px solid theme("colors.background-inset.700");
-  border-left: 1px solid theme("colors.background-inset.700");
-  border-right: 1px solid theme("colors.background-inset.700");
-  border-bottom: 1px solid theme("colors.background-inset.600");
-  box-shadow: inset 0px 6px 5px theme("colors.background-inset.500");
+  background-color: theme("colors.inset.200");
+  border-top: 1px solid theme("colors.inset.500");
+  border-left: 1px solid theme("colors.inset.500");
+  border-right: 1px solid theme("colors.inset.500");
+  border-bottom: 1px solid theme("colors.inset.400");
+  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
   z-index: 0;
-  @apply gap-2  py-1;
+  @apply gap-0  py-1;
 }
 .slider-container:hover .slider {
   @apply bg-primary-600;
@@ -53,7 +52,7 @@ const p = defineProps({
   position: relative;
   z-index: 1;
   letter-spacing: 0.05em;
-  @apply text-sm;
+  @apply text-sm mx-2;
 }
 .slider {
   position: absolute;

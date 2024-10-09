@@ -16,6 +16,7 @@
   },
   "monsterSheet": {
     "editImages": "Edit images",
+    "editStatBlock": "Edit stat block (coming soon)",
     "editLayout": "Edit layout",
     "editBackstory": "Edit backstory",
     "regenerateBackstory":"Regenerate backstory (coming soon)",
@@ -504,7 +505,7 @@
       "generate": "Generate NPCs"
     },
     "prompt": {
-      "placeholder": "\"evil innkeeper\", \"human guard\", \"barbarian cr 5\""
+      "placeholder": "evil innkeeper, human guard, barbarian cr 5"
     }, 
     "backstory": {
       "ratingQuestion": "How likely are you to use this adventure idea?"

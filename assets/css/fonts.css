@@ -6,6 +6,13 @@
 
 @font-face {
   font-family: OpenSans;
+  src: url("@/assets/fonts/OpenSans-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: OpenSans;
   src: url("@/assets/fonts/OpenSans-Bold.woff2") format("woff2");
   font-weight: bold;
   font-display: swap;
@@ -43,6 +50,7 @@
   font-weight: bold;
   font-display: swap;
 }
+
 
 @font-face {
   font-family: ScalaSansOffc;
@@ -83,11 +91,6 @@
   src: url("@/assets/fonts/AdLib.woff2") format("woff2");
   font-display: swap;
 } */
-
-
-.bold {
-  font-weight: 500;
-}
 
 .text-shadow {
   text-shadow: 0 0 10px theme("colors.background.100");
