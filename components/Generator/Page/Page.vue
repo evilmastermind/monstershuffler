@@ -1,23 +1,13 @@
 <template>
   <div class="generator">
-    <!-- <BackgroundDice /> -->
     <div class="background" />
     <NavbarPadding />
-
-    <div class="top-bar-container py-4 px-4">
-      <div class="top-bar lg-max">
-        <h1 class="top-bar-page-title">{{ $t("generator.title") }}</h1>
-        <GeneratorPrompt v-show="mode === 'prompt'" class="prompt" />
-        <div class="top-bar-options">
-          <GeneratorPromptHelp v-if="mode === 'prompt'" />
-          <MSSwitchWords
-            v-model="isFormMode"
-            checked="Form"
-            unchecked="Prompt"
-          />
-        </div>
-      </div>
-    </div>
+    <GeneratorPageBar
+      v-model:mode="isFormMode"
+      v-model:shown="isFormShownOnMobile"
+      :is-button-loading
+      :generate-npcs-throttle
+    />
     <div class="lg-max max-h-100">
       <Transition name="fade">
         <div v-if="!isLoading">
@@ -33,38 +23,23 @@
               key="3"
               class="custom-transition"
             >
-              <div class="mt-4 mx-4">
-                <GeneratorForm
-                  v-show="mode === 'form' && isFormShownOnMobile"
-                  ref="form"
-                  class="form md:mr-6"
-                  :is-button-loading
-                  @generate="generateNpcsThrottle"
-                  @close="isFormShownOnMobile = false"
-                />
-                <div
-                  v-show="mode !== 'prompt'"
-                  class="generate-button text-center my-6"
-                >
+              <div class="mx-4">
+                <div v-if="isFormMode" class="form md:mr-6 mt-4 mb-9">
+                  <GeneratorForm />
                   <MSButton
+                    block
+                    class="mt-5"
                     color="primary"
                     :text="$t('generator.form.generate')"
                     icon="fa6-solid:shuffle"
                     :loading="isButtonLoading"
                     :disabled="isButtonLoading"
-                    @click.prevent="generateNpcsThrottle"
-                  />
-                  <MSIconButton
-                    class="button-show-settings md:hidden text-text-secondary"
-                    :label="$t('generator.options')"
-                    size="24"
-                    icon="fa-solid:cog"
-                    @click="isFormShownOnMobile = !isFormShownOnMobile"
+                    @click="generateNpcsThrottle"
                   />
                 </div>
-                <div class="npcs centered pt-4">
-                  <GeneratorIntro v-if="isIntroShown" />
-                  <GeneratorSession v-else />
+                <div class="npcs centered">
+                  <GeneratorPageIntro v-if="isIntroShown" class="mt-9" />
+                  <GeneratorSession v-else class="mt-4" />
                 </div>
               </div>
             </div>
@@ -75,6 +50,7 @@
         <LoadingSpinner />
       </div> -->
     </div>
+    <GeneratorPageDescription class="mt-9" />
     <DiceHistory />
     <MSAlert v-if="isServerDown" type="danger" @close="isServerDown = false">
       <p>{{ $t("error.couldntRetrieveData") }}</p>
@@ -90,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Character, PostRandomNpcBody, NpcDetails } from "@/types";
+import type { PostRandomNpcBody, NpcDetails } from "@/types";
 import { throttle } from "@/utils";
 
 type NPCGeneratorSettings = {
@@ -102,16 +78,8 @@ type NPCGeneratorSettings = {
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const { width, medium } = useScreen();
-const {
-  session,
-  characters,
-  currentCharacter,
-  currentCharacterIndex,
-  options,
-} = storeToRefs(generator);
-const { currentEditorMode } = storeToRefs(useMonsterEditorStore());
-const form = ref(null);
+const { session, characters, currentCharacterIndex, options } =
+  storeToRefs(generator);
 
 const isIntroShown = ref(true);
 const isLoading = ref(true);
@@ -122,7 +90,6 @@ const tooManyRequests = ref(false);
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
 const isFormMode = ref(true);
-const mode = computed(() => (isFormMode.value ? "form" : "prompt"));
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 const saveSettingsThrottle = throttle(() => saveSettings(), 1000);
@@ -150,33 +117,6 @@ function saveSettings() {
   };
   user.setSettings("npcgenerator", settings);
 }
-
-function closeMonster() {
-  currentCharacterIndex.value = -1;
-  currentEditorMode.value = "";
-}
-
-watch(width, (newWidth, oldWidth) => {
-  if (newWidth >= medium.value && oldWidth < medium.value) {
-    isFormShownOnMobile.value = true;
-  } else if (newWidth < medium.value && oldWidth >= medium.value) {
-    isFormShownOnMobile.value = false;
-  }
-});
-
-watch(
-  medium,
-  (newMedium) => {
-    if (width.value) {
-      if (width.value >= newMedium) {
-        isFormShownOnMobile.value = true;
-      } else if (width.value < newMedium) {
-        isFormShownOnMobile.value = false;
-      }
-    }
-  },
-  { immediate: true }
-);
 
 watch(session, (newSession) => {
   if (newSession.length) {
@@ -236,34 +176,8 @@ onMounted(async () => {
     /*,     url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover; */;
   z-index: -2;
 }
-.top-bar-container {
-  @apply bg-background-100 border-b border-b-background-200;
-}
-.top-bar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  @apply gap-4;
-}
-@media (min-width: theme("screens.sm")) {
-  .top-bar {
-    grid-template-columns: 1fr 50% 1fr;
-  }
-}
-.top-bar-page-title {
-  font-family: "OpenSans", sans-serif;
-  font-weight: 800;
-  font-size: 1.2rem;
-  letter-spacing: -0.09em;
-  @apply text-text-evil;
-}
-.top-bar-options {
-  display: flex;
-  justify-content: flex-end;
-  @apply gap-2;
-}
 .form {
-  float: left;
+  display: none;
 }
 .mode-label {
   display: flex;
@@ -271,23 +185,7 @@ onMounted(async () => {
   align-items: center;
   gap: theme("spacing.2");
 }
-.options {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.overflow-hidden {
-  overflow: hidden;
-}
-.button-show-settings {
-  display: block;
-}
-.generate-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @apply gap-4;
-}
+
 .npcs {
   max-height: 100%;
 }
@@ -300,15 +198,13 @@ onMounted(async () => {
   .button-show-settings {
     display: none;
   }
-  .generate-button {
-    display: none;
-  }
   .character-name {
     display: inline;
     letter-spacing: 0.03rem;
     @apply text-text;
   }
   .form {
+    display: block;
     float: left;
     max-width: 300px;
   }

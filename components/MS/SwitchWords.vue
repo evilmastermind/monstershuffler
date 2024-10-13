@@ -33,7 +33,6 @@ const p = defineProps({
   position: relative;
   display: grid;
   grid-template-columns: 0px auto auto;
-  border-radius: 1rem;
   line-height: 1rem;
   cursor: pointer;
   background-color: theme("colors.inset.200");
@@ -43,7 +42,8 @@ const p = defineProps({
   border-bottom: 1px solid theme("colors.inset.400");
   box-shadow: inset 0px 6px 5px theme("colors.inset.300");
   z-index: 0;
-  @apply gap-0  py-1;
+  line-height: 1.25em;
+  @apply gap-0 rounded py-1;
 }
 .slider-container:hover .slider {
   @apply bg-primary-600;
@@ -59,9 +59,8 @@ const p = defineProps({
   height: 100%;
   width: 50%;
   left: 0;
-  border-radius: 1rem;
   transition: 0.1s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
-  @apply bg-primary-700;
+  @apply rounded bg-primary-700;
 }
 .checked {
   text-align: center;

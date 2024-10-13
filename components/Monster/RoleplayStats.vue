@@ -124,7 +124,11 @@ function convertHeight(height: number) {
 dt {
   float: left;
   clear: left;
+  letter-spacing: 0.02em;
   @apply font-bold mr-2;
+}
+dd {
+  @apply text-text-secondary;
 }
 
 .dotted {

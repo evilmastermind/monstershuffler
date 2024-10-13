@@ -1,7 +1,11 @@
 <template>
   <button
-    class="button rounded py-2 px-4 centered"
-    :class="[`color-${color}`, block ? 'is-block' : '']"
+    class="button rounded px-4 centered"
+    :class="[
+      `color-${color}`,
+      block ? 'is-block' : '',
+      size === 'small' ? 'small' : 'py-2',
+    ]"
     :disabled="isDisabled"
     @click="goToURL"
   >
@@ -57,6 +61,11 @@ const p = defineProps({
     required: false,
     default: false,
   },
+  size: {
+    type: String,
+    required: false,
+    default: "medium",
+  },
 });
 
 const isDisabled = computed(() => p.disabled || p.loading);
@@ -76,10 +85,13 @@ function goToURL() {
   cursor: pointer;
   text-transform: uppercase;
   text-align: center;
-  font-size: 0.875rem;
   letter-spacing: 0.05em;
   transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
-  @apply shadow-md;
+  @apply shadow-md text-sm;
+}
+.small {
+  padding-bottom: calc(0.8px + var(--spacing-1));
+  padding-top: calc(0.8px + var(--spacing-1));
 }
 .button:disabled {
   cursor: auto;
@@ -88,7 +100,7 @@ function goToURL() {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1em;
+  @apply gap-4;
 }
 .button:active {
   transform: translateY(2px) scale(0.99);

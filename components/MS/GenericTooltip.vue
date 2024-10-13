@@ -103,6 +103,7 @@ watch(
   position: absolute;
   bottom: 0%;
   width: 100%;
+  white-space: normal;
   @apply text-text shadow-xl rounded p-4 sm:p-5 bg-background-100 not-italic;
 }
 

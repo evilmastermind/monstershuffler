@@ -2,7 +2,7 @@
   <div>
     <Transition name="fade" appear mode="out-in">
       <div
-        class="bit shadow-md p-1 noselect"
+        class="bit p-1 noselect"
         :class="moral()"
         :style="{
           transitionDelay: `${0.02 * index}s`,
@@ -120,7 +120,7 @@ function setBitPreview(bool: boolean) {
   flex-direction: column;
   line-height: 1em;
   cursor: pointer;
-  @apply text-text-inverse rounded;
+  @apply text-text-inverse shadow rounded;
 }
 .bit p {
   display: inline-block;

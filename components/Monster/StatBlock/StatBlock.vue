@@ -79,9 +79,10 @@ onMounted(() => {
 .stat-block {
   position: relative;
   margin: 0 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   container-type: inline-size;
+  @apply border-l border-l-background-300 border-r border-r-background-300;
 }
 .stat-block:before {
   position: absolute;

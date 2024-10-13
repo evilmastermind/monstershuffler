@@ -6,66 +6,73 @@
     >
       <span class="sr-only">{{ $t("navbar.menu.home") }}</span>
       <svg
-        viewBox="0 0 549 501"
+        viewBox="0 0 574 519"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         class="navbar-link-inactive ms-logo-icon"
       >
-        <rect x="194" y="297" width="164" height="55" :fill="black" />
+        <rect x="209" y="315" width="164" height="55" :fill="black" />
         <path
-          d="M26.0759 102.633C65.0739 394.916 218.42 415.701 275.872 415.785C334.97 415.872 490.976 410.883 511.611 101.892C514.593 57.2433 527.128 344.215 276.061 343.811C29.7435 343.415 26.0759 102.633 26.0759 102.633Z"
+          d="M41.0759 120.633C80.0739 412.916 233.42 433.701 290.872 433.785C349.97 433.872 505.976 428.883 526.611 119.892C529.593 75.2433 542.128 362.215 291.061 361.811C44.7435 361.415 41.0759 120.633 41.0759 120.633Z"
           :fill="white"
           :stroke="black"
           stroke-width="18"
         />
-        <rect x="268" y="352" width="4" height="64" :fill="black" />
-        <rect x="238" y="349" width="4" height="64" :fill="black" />
-        <rect x="298" y="349" width="4" height="64" :fill="black" />
-        <rect x="328" y="344" width="4" height="64" :fill="black" />
-        <rect x="358" y="332" width="4" height="64" :fill="black" />
-        <rect x="178" y="332" width="4" height="64" :fill="black" />
-        <rect x="388" y="322" width="4" height="64" :fill="black" />
-        <rect x="418" y="296" width="4" height="64" :fill="black" />
-        <rect x="118" y="296" width="4" height="56" :fill="black" />
-        <rect x="448" y="270" width="4" height="64" :fill="black" />
-        <rect x="208" y="344" width="4" height="64" :fill="black" />
-        <rect x="148" y="322" width="4" height="59" :fill="black" />
-        <rect width="65" height="500" :fill="blackOrTransparent" />
-        <rect x="484" width="65" height="500" :fill="blackOrTransparent" />
-        <rect
-          x="19"
-          y="45.9619"
-          width="65"
-          height="339.307"
-          transform="rotate(-45 19 45.9619)"
-          :fill="blackOrTransparent"
-        />
-        <rect
-          x="484.154"
-          width="65"
-          height="362.257"
-          transform="rotate(45 484.154 0)"
+        <rect x="283" y="370" width="6" height="64" :fill="black" />
+        <rect x="253" y="367" width="6" height="64" :fill="black" />
+        <rect x="313" y="367" width="6" height="64" :fill="black" />
+        <rect x="343" y="362" width="6" height="64" :fill="black" />
+        <rect x="373" y="350" width="6" height="64" :fill="black" />
+        <rect x="193" y="350" width="6" height="64" :fill="black" />
+        <rect x="403" y="340" width="6" height="64" :fill="black" />
+        <rect x="433" y="314" width="6" height="64" :fill="black" />
+        <rect x="133" y="314" width="6" height="56" :fill="black" />
+        <rect x="463" y="288" width="6" height="64" :fill="black" />
+        <rect x="223" y="362" width="6" height="64" :fill="black" />
+        <rect x="163" y="340" width="6" height="59" :fill="black" />
+        <path
+          d="M0 -0.00012207H80V8.56842V518H0V-0.00012207Z"
           :fill="blackOrTransparent"
         />
         <path
-          d="M272 293.174C145 369.174 28.5 262.174 38 61.1743L272 293.174Z"
+          d="M32 56.5684L80 8.56842L88.5685 -0.000121117L343.127 254.558L286.558 311.127L32 56.5684Z"
+          :fill="blackOrTransparent"
+        />
+        <path
+          d="M88.5685 -0.000121117L80 -0.00012207V8.56842L88.5685 -0.000121117Z"
+          :fill="blackOrTransparent"
+        />
+        <path
+          d="M494 -0.00012207H574V518H494V8.84558V-0.00012207Z"
+          :fill="blackOrTransparent"
+        />
+        <path
+          d="M485.154 -0.00012207L494 8.84558L541.723 56.5684L287.164 311.127L230.596 254.558L485.154 -0.00012207Z"
+          :fill="blackOrTransparent"
+        />
+        <path
+          d="M494 -0.00012207H485.154L494 8.84558V-0.00012207Z"
+          :fill="blackOrTransparent"
+        />
+        <path
+          d="M287 311.174C160 387.174 43.5 280.174 53 79.1743L287 311.174Z"
           :fill="white"
           :stroke="black"
           stroke-width="18"
         />
         <path
-          d="M272 293.174C399 369.174 515.5 262.174 506 61.1743L272 293.174Z"
+          d="M287 311.174C414 387.174 530.5 280.174 521 79.1743L287 311.174Z"
           :fill="white"
           :stroke="black"
           stroke-width="18"
         />
         <path
-          d="M159.841 218.495C158.776 206.204 160.378 192.921 164.825 177.059L259.014 279.796C242.669 286.282 224.058 286.082 207.884 281.268C191.48 276.385 177.663 266.783 171.249 254.706C164.777 242.518 160.926 231.004 159.841 218.495Z"
+          d="M174.841 236.495C173.776 224.204 175.378 210.921 179.825 195.059L274.014 297.796C257.669 304.282 239.058 304.082 222.884 299.268C206.48 294.385 192.663 284.783 186.249 272.706C179.777 260.518 175.926 249.004 174.841 236.495Z"
           :fill="black"
           :stroke="black"
         />
         <path
-          d="M355 197.674C389 335.674 510 184.674 466 95.1743L355 197.674Z"
+          d="M370 215.674C404 353.674 525 202.674 481 113.174L370 215.674Z"
           :fill="black"
           :stroke="black"
         />

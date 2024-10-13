@@ -1,7 +1,7 @@
 <template>
   <div class="background" :class="`background-${ui.currentThemeType}`">
     <!-- <div class="background-before" :class="[`bg-${ethical}-100`]" /> -->
-    <div class="content p-4" :class="selectable ? 'selectable' : ''">
+    <div class="content p-3 md:p-5" :class="selectable ? 'selectable' : ''">
       <MonsterRoleplayStats hide-physical-appearance />
     </div>
   </div>
@@ -31,15 +31,18 @@ useProvideCharacter(refCharacter);
 <style scoped>
 .background {
   position: relative;
-  @apply rounded-xl;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 50px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  transition: border-color 0.3s;
+  @apply border border-background-300 rounded-xl;
+}
+.background:hover {
+  @apply border-background-500 shadow;
 }
 .background-light {
-  @apply bg-background-200;
+  @apply bg-background-150;
 }
 .background-dark {
-  @apply bg-background-200;
+  @apply bg-background-150;
 }
 .content {
   height: 100%;
@@ -48,14 +51,7 @@ useProvideCharacter(refCharacter);
 .selectable {
   @apply cursor-pointer rounded-xl;
 }
-.background-light .selectable:hover {
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1),
-    inset 0 0 150px rgba(255, 255, 255, 0.5);
-}
-.background-dark .selectable:hover {
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1),
-    inset 0 0 150px rgba(255, 255, 255, 0.07);
-}
+
 .ethical-symbol {
   position: absolute;
   bottom: -100px;

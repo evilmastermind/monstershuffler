@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form class="generator-form p-4 md:mr-4 rounded shadow-md md:shadow-none">
+    <form class="generator-form rounded shadow-md md:shadow-none">
       <fieldset>
         <MSIconButton
           type="button"
@@ -170,18 +170,6 @@
           />
         </div>
       </fieldset>
-      <!-- GENERATE -->
-      <div class="generate-button text-center mt-5">
-        <MSButton
-          block
-          color="primary"
-          :text="t('generator.form.generate')"
-          icon="fa6-solid:shuffle"
-          :loading="isButtonLoading"
-          :disabled="isButtonLoading"
-          @click.prevent="e('generate')"
-        />
-      </div>
     </form>
   </div>
 </template>
@@ -190,20 +178,7 @@
 import { capitalizeFirst } from "@/utils";
 
 const e = defineEmits(["close", "generate"]);
-const p = defineProps({
-  generate: {
-    type: Boolean,
-    default: false,
-  },
-  isButtonLoading: {
-    type: Boolean,
-    default: false,
-  },
-});
-
-const { t } = useI18n();
 const generator = useGeneratorStore();
-const user = useUserStore();
 
 const {
   racesAndVariants: races,
@@ -313,14 +288,11 @@ form-container {
   width: 100vw;
   max-width: 400px;
   z-index: 9900;
-  @apply bg-background-100;
+  @apply bg-background-100 shadow-2xl p-4;
 }
 .close-button {
   position: absolute;
   @apply top-4 right-4;
-}
-.generate-button {
-  display: none;
 }
 .misc-options {
   display: inline-flex;
@@ -336,12 +308,10 @@ form-container {
     padding: 0;
     border-radius: 0;
     background-color: transparent;
+    @apply shadow-none;
   }
   .close-button {
     display: none;
-  }
-  .generate-button {
-    display: block;
   }
 }
 </style>

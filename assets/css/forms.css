@@ -12,7 +12,6 @@
 }
 
 .ms-select {
-  padding: theme("spacing.1") theme("spacing.1");
   border-radius: theme("spacing.1");
   box-sizing: border-box;
   text-overflow: ellipsis;
@@ -25,7 +24,7 @@
   color: theme("colors.text");
   cursor: pointer;
   letter-spacing: 0.05em;
-  @apply text-sm;
+  @apply text-sm p-1;
 }
 .ms-select-75 {
   width: 72%;
@@ -42,7 +41,6 @@
   padding: 0 theme("spacing.1");
   border-radius: theme("spacing.1");
   box-sizing: border-box;
-  height: theme("spacing.6");
   background-color: theme("colors.inset.200");
   border-top: 1px solid theme("colors.inset.500");
   border-left: 1px solid theme("colors.inset.500");
@@ -51,6 +49,8 @@
   box-shadow: inset 0px 6px 5px theme("colors.inset.300");
   color: theme("colors.text");
   cursor: text;
+  letter-spacing: 0.05em;
+  @apply text-sm py-1;
 }
 
 .ms-select:invalid,
@@ -62,13 +62,22 @@
   color: theme("colors.danger");
 }
 
-.ms-input:focus-visible, .ms-select:focus-visible {
+.ms-input:focus-visible, .ms-select:focus-visible, button:focus-visible {
   outline: 2px solid theme("colors.text");
-  box-shadow: 0 0 0 3px theme("colors.text-inverse");
+  border: 1px solid theme("colors.background.700");
 }
 
+.ms-input:hover, .ms-select:hover {
+  border: 1px solid theme("colors.background.700");
+}
+
+
 .ms-input::placeholder {
-  @apply text-text-secondary;
+  text-overflow: ellipsis;
+  @apply text-text-placeholder;
+}
+.ms-input:placeholder-shown {
+  text-overflow: ellipsis;
 }
 
 

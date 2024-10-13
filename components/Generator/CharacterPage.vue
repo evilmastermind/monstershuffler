@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentCharacter" class="pb-16">
+  <div v-if="currentCharacter">
     <MonsterSheetTools
       :character="currentCharacter"
       class="mt-5 sm:mt-0 px-0 sm:px-4"
@@ -34,8 +34,8 @@ onMounted(() => {
 
 <style scoped>
 .page {
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), inset 0 0 55px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  @apply shadow;
 }
 
 @media (min-width: theme("screens.sm")) {

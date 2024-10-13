@@ -159,7 +159,7 @@ onMounted(() => {
   line-height: 1em;
   font-family: "MrsEavesSmallCaps", serif;
   text-decoration: underline;
-  text-decoration-thickness: 0.1em;
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 0.2em;
   @apply mt-5 mb-2;
 }
@@ -185,16 +185,17 @@ onMounted(() => {
 /* quote */
 .editor-quote {
   font-style: italic;
-  quotes: "«" "»" "‹" "›";
   text-align: center;
   @apply mt-4 mb-4;
 }
+/*
 .editor-quote::before {
   content: open-quote;
 }
 .editor-quote::after {
   content: close-quote;
 }
+*/
 
 /* list */
 .editor-list-ol {

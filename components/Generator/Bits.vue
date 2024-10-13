@@ -94,6 +94,7 @@ function showCharacterPage(index: number) {
   position: absolute;
   top: 100%;
   z-index: 9990;
+  @apply mt-1;
 }
 
 @media handheld {

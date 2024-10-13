@@ -3,7 +3,7 @@
     <input
       v-model="prompt"
       type="text"
-      class="ms-input w-full prompt pr-6"
+      class="ms-input w-full prompt pr-6 pl-2"
       :placeholder="$t('generator.prompt.placeholder')"
       @keyup.enter="generateNpcsThrottle"
     />
@@ -223,6 +223,7 @@ async function generateNpcs() {
 <style scoped>
 .prompt-container {
   position: relative;
+  width: 100%;
 }
 .generate-button {
   position: absolute;
