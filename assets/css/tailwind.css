@@ -54,7 +54,7 @@
     @apply leading-5;
   }
   p.subtitle {
-    @apply text-text-secondary text-3 leading-3;
+    @apply text-text-2 text-3 leading-3;
   }
 
   q.content {

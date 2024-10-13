@@ -1,8 +1,8 @@
 <template>
   <div class="loading-spinner" :style="{ fontSize: `${size}px` }">
-    <div :class="dotsCount > 0 ? 'bg-text-secondary' : ''" />
-    <div :class="dotsCount > 1 ? 'bg-text-secondary' : ''" />
-    <div :class="dotsCount > 2 ? 'bg-text-secondary' : ''" />
+    <div :class="dotsCount > 0 ? 'bg-text-2' : ''" />
+    <div :class="dotsCount > 1 ? 'bg-text-2' : ''" />
+    <div :class="dotsCount > 2 ? 'bg-text-2' : ''" />
   </div>
 </template>
 

@@ -39,7 +39,7 @@ b {
   @apply font-bold;
 }
 .example {
-  @apply text-text-secondary italic;
+  @apply text-text-2 italic;
 }
 .list {
   @apply list-disc list-inside;

@@ -59,7 +59,7 @@ dt::after {
   font-weight: 400;
 }
 .dotted {
-  border-bottom: 1px dotted theme("colors.text-secondary");
+  border-bottom: 1px dotted theme("colors.text-2");
   cursor: help;
 }
 .border-top-light {

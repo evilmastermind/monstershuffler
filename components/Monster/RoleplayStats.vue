@@ -2,14 +2,11 @@
   <div>
     <p>
       <span class="name" :class="moral"> {{ statistics.fullName }} </span>
-      <span v-if="about" class="title-about">{{ `, ${about}` }}</span>
+      <span v-if="about" class="about">{{ `, ${about}` }}</span>
     </p>
-    <MonsterDescription
-      v-if="statistics.characterHook?.length"
-      :parts="statistics.characterHook"
-      period
-      class="mt-1 italic"
-    />
+    <p v-if="statistics.characterHook?.length" class="hook mt-1">
+      <MonsterDescription :parts="statistics.characterHook" period />
+    </p>
     <dl class="mt-2">
       <template v-if="character.character.age">
         <dt :class="moral">{{ $t("monsterCard.age") }}</dt>
@@ -121,18 +118,18 @@ function convertHeight(height: number) {
   font-variant: small-caps;
   letter-spacing: 0.05em;
 }
+.hook {
+  @apply italic;
+}
 dt {
   float: left;
   clear: left;
   letter-spacing: 0.02em;
   @apply font-bold mr-2;
 }
-dd {
-  @apply text-text-secondary;
-}
 
 .dotted {
-  border-bottom: 1px dotted theme("colors.text-secondary");
+  border-bottom: 1px dotted theme("colors.text-2");
   cursor: help;
 }
 </style>

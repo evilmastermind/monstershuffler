@@ -23,7 +23,7 @@
               >:
               <DiceHistoryResult :roll />
               <br />
-              <span class="text-sm text-text-secondary">{{
+              <span class="text-sm text-text-2">{{
                 roll.rollDetails
               }}</span>
             </p>

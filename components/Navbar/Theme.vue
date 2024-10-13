@@ -65,7 +65,7 @@ onMounted(() => {
   color: theme("colors.primary.700");
 }
 .button-theme {
-  color: theme("colors.text-secondary");
+  color: theme("colors.text-2");
   font-size: theme("spacing.4");
 }
 </style>

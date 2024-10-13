@@ -4,7 +4,7 @@
       <div ref="card" class="spell">
         <MSCard class="m-2">
           <MSIconButton
-            class="close ml-1 text-text-secondary"
+            class="close ml-1 text-text-2"
             :label="$t('closeLabel')"
             icon="fa6-solid:xmark"
             @click="emit('close')"

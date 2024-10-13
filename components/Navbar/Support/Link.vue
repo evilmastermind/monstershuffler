@@ -37,7 +37,7 @@ const props = defineProps({
 }
 .link-support-icon {
   font-size: theme("spacing.4");
-  @apply text-text-secondary;
+  @apply text-text-2;
 }
 .link-support-icon:hover {
   color: theme("colors.primary.700");

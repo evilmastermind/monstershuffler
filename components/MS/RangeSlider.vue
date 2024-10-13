@@ -50,10 +50,10 @@ const p = defineProps({
   justify-content: space-between;
 }
 .range-value {
-  @apply text-xs text-text-secondary;
+  @apply text-xs text-text-2;
 }
 .range-unit {
-  @apply text-xs text-text-secondary;
+  @apply text-xs text-text-2;
 }
 .range-min {
   text-align: left;

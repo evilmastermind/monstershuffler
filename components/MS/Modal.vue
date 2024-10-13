@@ -4,7 +4,7 @@
       <dialog class="modal" open @click="emit('close')">
         <div class="card" :style="{ maxWidth: `${p.width}px` }" @click.stop>
           <MSIconButton
-            class="close ml-1 text-text-secondary"
+            class="close ml-1 text-text-2"
             :label="$t('closeLabel')"
             icon="fa6-solid:xmark"
             @click="emit('close')"

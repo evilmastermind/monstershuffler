@@ -33,6 +33,7 @@ useProvideCharacter(refCharacter);
   position: relative;
   overflow: hidden;
   transition: border-color 0.3s;
+  box-shadow: inset 0 0 10px theme("colors.background.200");
   @apply border border-background-300 rounded-xl;
 }
 .background:hover {

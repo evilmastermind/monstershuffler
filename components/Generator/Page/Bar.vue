@@ -24,7 +24,7 @@
           @click.prevent="generateNpcsThrottle"
         />
         <MSIconButton
-          class="button-show-settings md:hidden text-text-secondary"
+          class="button-show-settings md:hidden text-text-2"
           :label="$t('generator.options')"
           size="24"
           icon="fa-solid:cog"
