@@ -7,17 +7,20 @@
       {{ $t(`monsterSheet.exportModalTitle`) }}
     </template>
     <template #default>
-      <p class="content">
+      <p class="content mt-1">
         {{ $t("monsterSheet.exportedAs") }} {{ statBlockExport.type }}.
       </p>
-      <textarea v-model="statBlockExport.content" class="statblock-textarea" />
+      <textarea
+        v-model="statBlockExport.content"
+        class="statblock-textarea mt-2"
+      />
       <MSButton
         block
         class="mt-2"
-        :color="hasCopiedToClipboard ? 'light' : 'dark'"
+        :color="hasCopiedToClipboard ? 'success' : 'dark'"
         icon="fa6-solid:clipboard"
         :text="hasCopiedToClipboard ? $t('copied') : $t('copyToClipboard')"
-        @click="copyToClipboard()"
+        @click="copy"
       />
       <MSButton
         block
@@ -31,6 +34,7 @@
 
 <script setup lang="ts">
 import type { MonsterExport } from "@/types";
+import { copyToClipboard } from "@/utils";
 
 const statBlockExport = defineModel({
   type: Object as PropType<MonsterExport>,
@@ -38,8 +42,8 @@ const statBlockExport = defineModel({
 });
 const hasCopiedToClipboard = ref(false);
 
-function copyToClipboard() {
-  navigator.clipboard.writeText(statBlockExport.value.content);
+function copy() {
+  copyToClipboard(statBlockExport.value.content);
   hasCopiedToClipboard.value = true;
 }
 </script>
@@ -49,9 +53,16 @@ function copyToClipboard() {
   width: 100%;
   min-height: 300px;
   resize: none;
+  background-color: theme("colors.inset.200");
+  border-top: 1px solid theme("colors.inset.500");
+  border-left: 1px solid theme("colors.inset.500");
+  border-right: 1px solid theme("colors.inset.500");
+  border-bottom: 1px solid theme("colors.inset.400");
+  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
+  color: theme("colors.text");
   font-family: "Courier New", Courier, monospace;
   white-space: nowrap;
-  @apply h-full text-sm p-1 text-text bg-background-0 border-4 border-background-0 rounded shadow-sm;
+  @apply h-full text-sm p-1 text-text bg-background-0 rounded shadow-sm;
 }
 .statblock-textarea:focus {
   outline: none;

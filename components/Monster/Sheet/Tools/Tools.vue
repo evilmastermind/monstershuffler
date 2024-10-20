@@ -33,6 +33,11 @@
         />
       </div>
       <div class="tools py-2 px-3">
+        <MSIconButton
+          :label="$t('monsterSheet.share')"
+          icon="solar:share-bold"
+          @click="toggleShare"
+        />
         <VMenu
           :triggers="['hover', 'click', 'focus', 'touch']"
           placement="bottom"
@@ -118,6 +123,11 @@
       v-if="statBlockExport.isModalOpen === true"
       v-model="statBlockExport"
     />
+    <MSShareModal
+      v-model="isShareModalOpen"
+      :link
+      :text="character?.statistics?.fullName || 'Monstershuffler\'s NPC'"
+    />
   </div>
 </template>
 
@@ -137,12 +147,13 @@ const p = defineProps({
   },
 });
 
+const { t } = useI18n();
 const generator = useGeneratorStore();
 const editor = useMonsterEditorStore();
 
-const { t } = useI18n();
+const isShareModalOpen = ref(false);
 const { currentEditorMode } = storeToRefs(editor);
-const { currentCharacterIndex } = storeToRefs(generator);
+const { currentCharacterIndex, characters } = storeToRefs(generator);
 
 const statBlockExport = ref<MonsterExport>({
   isModalOpen: false,
@@ -151,6 +162,13 @@ const statBlockExport = ref<MonsterExport>({
 });
 const character = toRef(p, "character");
 useProvideCharacter(character);
+
+const link = computed(() => {
+  const characterUuid = characters.value[currentCharacterIndex.value]?.id;
+  return characterUuid
+    ? `${window.location.origin}/monsters/generator/${characterUuid}`
+    : "";
+});
 
 function toggleEditorMode(mode: MonsterEditors) {
   if (currentEditorMode.value === mode) {
@@ -172,6 +190,18 @@ function copyRoleplayStats(hide: Function) {
 function closeMonster() {
   currentCharacterIndex.value = -1;
   currentEditorMode.value = "";
+}
+
+function toggleShare() {
+  if (isUserOnMobile() && navigator.share) {
+    navigator.share({
+      title: character.value?.statistics?.fullName || "Monstershuffler's NPC",
+      text: character.value?.statistics?.fullName || "Monstershuffler's NPC",
+      url: link.value,
+    });
+  } else {
+    isShareModalOpen.value = true;
+  }
 }
 </script>
 

@@ -1,22 +1,22 @@
 <template>
   <Teleport to="body" :disabled="inline">
-    <Transition name="fade">
-      <div 
-        class="alert-container"         
-        :class="[
-          inline ? '' : 'alert-container-fixed px-4'
-        ]"
+    <Transition name="fade" appear>
+      <div
+        class="alert-container"
+        :class="[inline ? '' : 'alert-container-fixed px-4']"
       >
         <div
           class="alert p-4"
-          :class="[
-            type,
-            inline ? 'shadow-sm' : 'shadow-xl alert-fixed'
-            ]"
+          :class="[type, inline ? 'shadow-sm' : 'shadow-xl alert-fixed']"
           role="alert"
         >
           <div>
-            <Icon v-if="computedIcon" class="icon" :name="computedIcon" aria-hidden />
+            <Icon
+              v-if="computedIcon"
+              class="icon"
+              :name="computedIcon"
+              aria-hidden
+            />
           </div>
           <div class="alert-message">
             <h4 v-if="title" class="alert-title content">{{ title }}</h4>
@@ -37,8 +37,7 @@
 </template>
 
 <script setup lang="ts">
-
-type Alert = "info" | "success" | "warning" | "danger";
+import type { Alert } from "@/types";
 
 const e = defineEmits(["close"]);
 const p = defineProps({
@@ -123,7 +122,7 @@ onMounted(() => {
   bottom: 0.5rem;
   z-index: 9999;
 }
-.alert-fixed{
+.alert-fixed {
   width: theme("screens.md");
   max-width: 100%;
   margin: 0 auto;

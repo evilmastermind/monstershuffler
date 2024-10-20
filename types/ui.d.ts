@@ -3,7 +3,7 @@ export type Point = {
   y: number;
 };
 
-export type UIColors = "primary" | "complementary" | "light" | "dark" | "patreon" | "success" | "warning" | "danger" | "";
+export type UIColors = "monstershuffler" | "primary" | "complementary" | "light" | "dark" | "patreon" | "success" | "warning" | "danger" | "";
 
 export type ImageRules = {
   width: "full" | "manual";
@@ -16,4 +16,10 @@ export type MonsterExport = {
   type: "VTT Foundry" | "Improved Initiative" | "GM Binder" | "Homebrewery V3" | "HTML" | "markdown" | "Roleplay Stats" | "Monstershuffler";
   content: string;
   isModalOpen?: boolean;
-}
+};
+
+export type Alert = "info" | "success" | "warning" | "danger";
+export type AlertMessage = {
+  message: string;
+  type: Alert;
+};

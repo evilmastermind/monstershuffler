@@ -199,3 +199,15 @@ export function addUniqueItem<T>(anArray: Array<T>, anItem: T) {
   }
   return anArray;
 }
+
+export function copyToClipboard(text: string) {
+  navigator.clipboard.writeText(text);
+}
+
+export function isUserOnMobile(): boolean {
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) && window.innerWidth < 768
+  );
+}

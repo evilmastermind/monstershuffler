@@ -25,7 +25,7 @@ const emit = defineEmits(["close"]);
 const p = defineProps({
   width: {
     type: String,
-    default: "400",
+    default: "480",
   },
 });
 </script>

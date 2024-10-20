@@ -81,6 +81,10 @@ function showCharacterPage(index: number) {
   currentCharacterIndex.value = index;
   currentCharacterFromBitsPreview.value = undefined;
 }
+
+onMounted(() => {
+  currentCharacterFromBitsPreview.value = undefined;
+});
 </script>
 
 <style scoped>

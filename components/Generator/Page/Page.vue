@@ -8,65 +8,60 @@
       :is-button-loading
       :generate-npcs-throttle
     />
-    <div class="lg-max max-h-100">
-      <Transition name="fade">
-        <div v-if="!isLoading">
-          <TransitionGroup name="fade-group">
-            <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
-            <GeneratorCharacterPage
-              v-if="currentCharacterIndex > -1"
-              key="2"
-              class="mt-4"
-            />
-            <div
-              v-show="currentCharacterIndex === -1"
-              key="3"
-              class="custom-transition"
-            >
-              <div class="mx-4">
-                <div v-if="isFormMode" class="form md:mr-6 mt-4 mb-9">
-                  <GeneratorForm />
-                  <MSButton
-                    block
-                    class="mt-5"
-                    color="primary"
-                    :text="$t('generator.form.generate')"
-                    icon="fa6-solid:shuffle"
-                    :loading="isButtonLoading"
-                    :disabled="isButtonLoading"
-                    @click="generateNpcsThrottle"
-                  />
-                </div>
-                <div class="npcs centered">
-                  <GeneratorPageIntro v-if="isIntroShown" class="mt-9" />
-                  <GeneratorSession v-else class="mt-4" />
-                </div>
-              </div>
+    <div v-if="!isLoading">
+      <div class="lg-max max-h-100">
+        <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
+        <Transition name="fade-quick" appear>
+          <GeneratorCharacterPage
+            v-if="currentCharacterIndex > -1"
+            key="2"
+            class="mt-4"
+          />
+        </Transition>
+        <div
+          v-show="currentCharacterIndex === -1"
+          key="3"
+          class="session-container"
+          :style="{ minHeight: isIntroShown ? '0' : '60svh' }"
+        >
+          <div class="mx-4 mt-4 md:mt-7">
+            <div v-if="isFormMode" class="form md:mr-6 mb-9">
+              <GeneratorForm />
+              <MSButton
+                block
+                class="mt-5"
+                color="primary"
+                :text="$t('generator.form.generate')"
+                icon="fa6-solid:shuffle"
+                :loading="isButtonLoading"
+                :disabled="isButtonLoading"
+                @click="generateNpcsThrottle"
+              />
             </div>
-          </TransitionGroup>
+            <div class="npcs">
+              <GeneratorPageIntro v-if="isIntroShown" class="mt-6 md:mt-9" />
+              <GeneratorSession v-else />
+            </div>
+          </div>
         </div>
-      </Transition>
-      <!-- <div v-show="isLoading" class="mt-12">
+        <!-- <div v-show="isLoading" class="mt-12">
         <LoadingSpinner />
       </div> -->
+      </div>
+      <!-- <LazyGeneratorPageDescription class="mt-9" /> -->
     </div>
-    <GeneratorPageDescription class="mt-9" />
+    <div v-else class="centered">
+      <LoadingSpinner />
+    </div>
     <DiceHistory />
-    <MSAlert v-if="isServerDown" type="danger" @close="isServerDown = false">
-      <p>{{ $t("error.couldntRetrieveData") }}</p>
-    </MSAlert>
-    <MSAlert
-      v-if="tooManyRequests"
-      type="danger"
-      @close="tooManyRequests = false"
-    >
-      <p>{{ $t("error.tooManyRequests") }}</p>
+    <MSAlert v-if="alert" :type="alert.type" @close="alert = null">
+      <p>{{ alert.message }}</p>
     </MSAlert>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { PostRandomNpcBody, NpcDetails } from "@/types";
+import type { PostRandomNpcBody, NpcDetails, AlertMessage } from "@/types";
 import { throttle } from "@/utils";
 
 type NPCGeneratorSettings = {
@@ -75,6 +70,8 @@ type NPCGeneratorSettings = {
   isFormMode: boolean;
 };
 
+const { t } = useI18n();
+const route = useRoute();
 const generator = useGeneratorStore();
 const user = useUserStore();
 
@@ -84,8 +81,7 @@ const { session, characters, currentCharacterIndex, options } =
 const isIntroShown = ref(true);
 const isLoading = ref(true);
 const isButtonLoading = ref(false);
-const isServerDown = ref(false);
-const tooManyRequests = ref(false);
+const alert = ref<AlertMessage | null>(null);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
@@ -99,11 +95,17 @@ async function generateNpcs() {
   const reply = await generator.getRandomNpcs(options.value, user.sessionId);
   isButtonLoading.value = false;
   if (reply === 429) {
-    tooManyRequests.value = true;
+    alert.value = {
+      type: "danger",
+      message: t("error.tooManyRequests"),
+    };
     return;
   }
   if (reply === 404) {
-    isServerDown.value = true;
+    alert.value = {
+      type: "danger",
+      message: t("error.couldntRetrieveData"),
+    };
     return;
   }
   saveSettingsThrottle();
@@ -142,9 +144,24 @@ watch(isFormMode, () => {
 
 onMounted(async () => {
   isLoading.value = true;
+  // Check if we're viewing a specific NPC
+  const uuid = route.params.uuid as string | undefined;
+  if (uuid) {
+    const npcStatus = await generator.getNpc(uuid);
+    if (npcStatus !== 200) {
+      alert.value = {
+        type: "danger",
+        message: t("error.couldntRetrieveData"),
+      };
+    }
+  }
+  // Retrieve the generator data
   const status = await generator.getGeneratorData();
   if (status !== 200) {
-    isServerDown.value = true;
+    alert.value = {
+      type: "danger",
+      message: t("error.notFound"),
+    };
   }
   const settings: NPCGeneratorSettings | null = await user.getSettings(
     "npcgenerator"
@@ -187,11 +204,17 @@ onMounted(async () => {
 }
 
 .npcs {
-  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 .character-name {
   font-family: "MrsEavesSmallCaps", serif;
   display: none;
+}
+.session-container {
+  transition: min-height 0.5s;
 }
 
 @media (min-width: theme("screens.md")) {

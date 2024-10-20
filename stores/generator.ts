@@ -353,6 +353,31 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
+  function pushNewCharacter(character: NpcDetails, selected: boolean = false) {
+    const isCharacterAlreadyInList = characters.value.some(
+      (char) => char.id === character.id
+    );
+    if (!isCharacterAlreadyInList) {
+      characters.value.push(character);
+    }
+    if (selected) {
+      currentCharacterIndex.value = characters.value.length - 1;
+    }
+  }
+
+  async function getNpc(uuid: string) {
+    try {
+      const data: NpcDetails = await $fetch(`${api}/npcs/${uuid}`);
+      if (!data.object.statistics) {
+        createStats(data.object);
+      }
+      pushNewCharacter(data, true);
+      return 200;
+    } catch (error) {
+      return parseError(error).statusCode;
+    }
+  }
+
   function getCurrentNPCRating(): number {
     if (currentCharacterIndex.value < 0) {
       return 0;
@@ -399,11 +424,13 @@ export const useGeneratorStore = defineStore("generator", () => {
     keywords,
     setCurrentNPCRatingThrottle,
     getRandomNpcs,
+    getNpc,
     // generateNpc,
     getGeneratorData,
     parseSettings,
     generateBackstory,
     getCurrentNPCRating,
     setCurrentNPCRating,
+    pushNewCharacter,
   };
 });

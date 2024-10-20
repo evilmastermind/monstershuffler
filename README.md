@@ -1,3 +1,5 @@
+TODO: build a decent readme for all 3 repositories
+
 # Monstershuffler v2
 This project is still a work in progress.
 

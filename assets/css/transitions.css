@@ -183,9 +183,9 @@
 
 .title-enter-active,
 .title-leave-active {
-  transition: opacity var(--quick) cubic-bezier(0.55, 0, 0.1, 1), transform var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
+  transition: opacity var(--slow) cubic-bezier(0.55, 0, 0.1, 1), transform var(--slow) ease-out;
 }
 .title-enter-from {
   opacity: 0;
-  transform: translateY(-20%);
+  transform: translateX(-2%);
 }

@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import type { Character } from "@/types";
 
+const e = defineEmits(["loaded"]);
 const p = defineProps({
   character: {
     type: Object as PropType<Character>,
@@ -83,6 +84,10 @@ function getLayout(
 
 watch(isLoaded, () => {
   key.value += 1;
+});
+
+onMounted(() => {
+  e("loaded");
 });
 </script>
 

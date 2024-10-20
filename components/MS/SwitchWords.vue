@@ -1,5 +1,8 @@
 <template>
-  <label class="slider-container px-1">
+  <label
+    class="slider-container px-1"
+    :class="[size === 'small' ? 'small py-1' : 'medium py-2']"
+  >
     <input v-model="model" type="checkbox" class="checkbox" />
     <span class="word unchecked noselect pr-2">{{ unchecked }}</span>
     <span class="word checked noselect pl-2">{{ checked }}</span>
@@ -18,6 +21,10 @@ const p = defineProps({
     type: String,
     required: true,
   },
+  size: {
+    type: String,
+    default: "medium",
+  },
 });
 </script>
 
@@ -28,7 +35,14 @@ const p = defineProps({
   width: 0;
   height: 0;
 }
-
+.medium {
+  letter-spacing: 0.05em;
+  @apply text-sm;
+}
+.small {
+  letter-spacing: 0.05em;
+  @apply text-xs;
+}
 .slider-container {
   position: relative;
   display: grid;
@@ -51,8 +65,7 @@ const p = defineProps({
 .word {
   position: relative;
   z-index: 1;
-  letter-spacing: 0.05em;
-  @apply text-sm mx-2;
+  @apply mx-2;
 }
 .slider {
   position: absolute;

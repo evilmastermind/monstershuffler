@@ -3,33 +3,16 @@
   <nav class="navbar centered h-8">
     <div class="navbar-menu-container lg-max">
       <div class="navbar-menu">
-        <NavbarLogo name="Home" route="Home" class="mr-0 sm:mr-2" />
-        <NavbarLink
-          :name="$t('navbar.menu.npcGenerator')"
-          route="monsters-generator"
-          icon="fa6-solid:dice-d20"
-        />
-        <NavbarLink
-          :name="$t('navbar.menu.editor')"
-          route="monsters-editor"
-          icon="fa-solid:user-edit"
-        />
-        <NavbarLink
-          :name="$t('navbar.menu.dmScreen')"
-          route="monsters-your-creations"
-          icon="fa6-solid:book-open"
-        />
-        <NavbarLink
-          :name="$t('navbar.menu.monsters')"
-          route="monsters-community-creations"
-          icon="fa6-solid:dragon"
-        />
-        <NavbarSettings class="md:hidden" />
+        <NavbarLogo name="Home" route="Home" />
+        <span class="navbar-menu desktop-only">
+          <NavbarLinks />
+        </span>
       </div>
-      <div class="navbar-other hidden md:flex gap-5">
-        <NavbarTheme />
-        <NavbarSupport />
+      <div class="navbar-other">
+        <NavbarTheme class="desktop-only" />
+        <NavbarSupport class="desktop-only" />
         <NavbarUser />
+        <NavbarMobileMenu class="mobile-only" />
       </div>
     </div>
   </nav>
@@ -37,46 +20,41 @@
 
 <style scoped>
 .nav-gradient {
-  position: absolute;
+  position: fixed;
   width: 100vw;
-  z-index: 1;
+  z-index: 100;
   backdrop-filter: blur(5px);
-  opacity: 0.95;
-  background: linear-gradient(
-    180deg,
-    theme("colors.background.100") 0,
-    theme("colors.background.200") 100%
-  );
+  @apply border-b border-b-background-300 bg-gradient-to-b from-background-100/100 to-background-200/80;
 }
 .navbar {
-  position: absolute;
+  position: fixed;
   width: 100vw;
-  z-index: 1;
+  z-index: 100;
 }
 .navbar-menu-container {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   @apply px-4;
 }
 .navbar-menu {
   display: flex;
   justify-content: center;
   align-items: center;
-  @apply gap-5;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  @apply text-sm;
+  @apply gap-6;
 }
-@media (min-width: theme("screens.sm")) {
-  .navbar-menu-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .navbar-menu {
-    display: flex;
-    justify-items: start;
-    align-items: center;
-    @apply gap-6;
-  }
+.desktop-only {
+  display: none;
+}
+.mobile-only {
+  display: flex;
 }
 @media (min-width: theme("screens.md")) {
+  .desktop-only {
+    display: flex;
+  }
   .navbar-menu-container {
     display: flex;
     justify-content: space-between;
@@ -85,6 +63,12 @@
     display: flex;
     align-items: center;
     @apply gap-6;
+  }
+  .navbar-menu-links {
+    display: flex;
+  }
+  .mobile-only {
+    display: none;
   }
 }
 
@@ -96,6 +80,8 @@
 */
 
 .navbar-other {
+  display: flex;
   flex-direction: row;
+  @apply gap-5;
 }
 </style>

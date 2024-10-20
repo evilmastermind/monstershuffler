@@ -2,7 +2,11 @@
   <MSGenericTooltip :max-width="350">
     <template #default>
       <slot name="default">
-        <Icon class="text-text-icon text-xl" name="fa6-solid:circle-question" />
+        <Icon
+          class="text-text-icon"
+          size="20"
+          name="fa6-solid:circle-question"
+        />
       </slot>
     </template>
     <template #tooltip>

@@ -7,5 +7,5 @@ node_modules
 .env
 package-lock.json
 yarn.lock
-dist
+/dist
 .DS_Store

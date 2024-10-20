@@ -48,7 +48,9 @@
                   <b>Increase the NPC's Challenge Rating</b> to unlock new
                   powerful abilities
                 </li>
-                <li><s>Edit the Stat Block</s> (coming soon!)</li>
+                <li>
+                  <s class="strike">Edit the Stat Block</s> (coming soon!)
+                </li>
                 <li>
                   Modify the adventure using available Markdown shortcuts.
                 </li>
@@ -59,6 +61,14 @@
           <li class="card">
             <Icon aria-hidden class="card-icon" name="fa6-solid:file-export" />
             <div>
+              <h3 class="custom-title-h3">Save it or trash it</h3>
+              <p class="card-text">
+                <s class="strike"
+                  >Save the NPCs and adventures you like to your account.
+                  Convert them into Cards and add them to your campaign.</s
+                >
+                (coming soon!)
+              </p>
               <p class="card-text">
                 Export the adventure or Stat Block in various formats, with more
                 options coming soon.
@@ -105,6 +115,16 @@
   letter-spacing: -0.09em;
   text-align: center;
 }
+.strike {
+  text-decoration: line-through;
+  @apply decoration-text-2;
+}
+.custom-title-h3 {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.09em;
+}
 .custom-subtitle {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
@@ -114,7 +134,9 @@
 .card-list {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
   z-index: 1;
 }
@@ -137,6 +159,8 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
+  align-self: center;
+  max-width: 600px;
   gap: 20%;
   @apply bg-background-100 p-6 rounded-lg outline-transparent shadow-sm;
 }
@@ -168,7 +192,7 @@
   @apply text-sm;
 }
 .card ul li {
-  @apply mt-2;
+  @apply mt-1;
 }
 .card ul li::marker {
   @apply text-evil-700;
@@ -182,6 +206,7 @@
 }
 .card-list-background {
   position: absolute;
+  margin: 1px 0; /* removes the gap between background and the mask (browser bug?) */
   inset: 0;
   background-image: url("/images/backgrounds/druid.webp");
   background-position: center;

@@ -1,36 +1,78 @@
 <template>
-  <div class="bg-black mask">
+  <div class="background-container bg-black mask">
     <NavbarPadding />
-    <div class="background-color background-color-dark">
+    <div class="background">
+      <div class="background-image" />
       <div class="bg-max">
-        <div class="background-image" />
+        <div class="lg-max">
+          <div class="text mx-4">
+            <p class="custom-title-small">v2 preview:</p>
+            <h1 class="custom-title mt-2">The NPC Generator</h1>
+            <div>
+              <MSButton
+                to="monsters-generator"
+                color="monstershuffler"
+                class="mt-4"
+                text="Try it now"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const localePath = useLocalePath();
+</script>
 
 <style scoped>
-.background-color {
+.background {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 500px;
+  overflow: hidden;
   z-index: -2;
   width: 100%;
-}
-.background-color-dark {
   background-color: transparent;
 }
 .background-image {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 500px;
-  background-image: url("@/assets/images/background-test-1.png");
+  background-image: url("@/assets/images/fenner.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 0;
+}
+.text {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
 }
 .mask {
   mask-image: url("/images/masks/bottom-2.webp");
   mask-repeat: repeat-x;
   mask-position: bottom center;
+}
+.custom-title {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 3.5rem;
+  letter-spacing: -0.09em;
+  line-height: 0.7em;
+  color: white;
+  text-shadow: 0 0 10px black;
+}
+.custom-title-small {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  text-shadow: 0 0 10px black;
 }
 </style>

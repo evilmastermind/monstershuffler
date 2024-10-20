@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!token" class="buttons-flex">
+  <!-- <div v-if="!token" class="buttons-flex">
     <MSButton text="Login" color="dark" to="login" />
     <MSButton text="Register" color="primary" to="registration" />
   </div>
@@ -17,7 +17,10 @@
         backgroundImage: `url(${me.avatar || '/images/avatar.jpg'})`,
       }"
     ></div>
-  </NuxtLink>
+  </NuxtLink> -->
+  <MSButton color="primary" to="https://kickstarter.com">
+    <NavbarSupportKickstarter class="kickstarter" />
+  </MSButton>
 </template>
 <script setup lang="ts">
 const user = useUserStore();
@@ -58,5 +61,13 @@ onMounted(async () => {
   display: grid;
   place-items: center;
   background-size: cover;
+}
+.kickstarter {
+  font-size: 0.875rem;
+}
+@media (min-width: theme("screens.md")) {
+  .kickstarter {
+    font-size: 1rem;
+  }
 }
 </style>

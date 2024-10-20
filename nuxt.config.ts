@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { ssr: false },
     "/monsters/generator": { ssr: false },
+    "/monsters/generator/**": { ssr: false },
     "/login": { ssr: false },
     "/registration": { ssr: false },
     "/user-reactivation": { ssr: false },

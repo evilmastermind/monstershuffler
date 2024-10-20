@@ -25,21 +25,16 @@
 </template>
 
 <script setup lang="ts">
+import type { NpcDetails } from "monstershuffler-shared";
 import type { Character } from "@/types";
 
 const generator = useGeneratorStore();
 
-const { characters, currentCharacterIndex, session } = storeToRefs(generator);
+const { session } = storeToRefs(generator);
 
 function openCharacterSheet(index: number) {
   const npc = session.value[index];
-  const characterIndex = characters.value.findIndex((c) => c.id === npc.id);
-  if (characterIndex === -1) {
-    characters.value.push(npc);
-    currentCharacterIndex.value = characters.value.length - 1;
-  } else {
-    currentCharacterIndex.value = characterIndex;
-  }
+  generator.pushNewCharacter(npc as NpcDetails, true);
 }
 </script>
 

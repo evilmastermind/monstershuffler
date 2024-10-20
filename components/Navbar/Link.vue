@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-link-container">
     <NuxtLink
-      class="content navbar-link"
+      class="navbar-link"
       :class="
         currentRoute === `${route}___${locale}`
           ? 'navbar-link-active'
@@ -9,18 +9,12 @@
       "
       :to="localePath({ name: route })"
     >
-      <span class="navbar-icon mr-2">
-        <Icon :name="icon" aria-hidden />
-      </span>
       <span class="navbar-link-name">{{ name }}</span>
     </NuxtLink>
   </div>
 </template>
 
 <script setup>
-const localePath = useLocalePath();
-const { locale } = useI18n();
-const nuxtRoute = useRoute();
 const props = defineProps({
   name: {
     type: String,
@@ -30,11 +24,11 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  icon: {
-    type: String,
-    required: true,
-  },
 });
+
+const localePath = useLocalePath();
+const { locale } = useI18n();
+const nuxtRoute = useRoute();
 
 const currentRoute = computed(() => {
   return nuxtRoute.name;
@@ -50,7 +44,7 @@ const currentRoute = computed(() => {
 }
 .navbar-link-active,
 .navbar-link:hover {
-  color: theme("colors.primary.700");
+  color: theme("colors.text-evil");
 }
 .navbar-icon {
   font-size: theme("spacing.4");
@@ -64,32 +58,6 @@ const currentRoute = computed(() => {
   text-decoration: none;
 }
 .navbar-link-name {
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  @apply text-sm;
-}
-@media (max-width: 700px) {
-  .navbar-icon {
-    font-size: theme("spacing.6");
-    margin-right: 0;
-  }
-  .navbar-link {
-    flex-flow: column nowrap;
-  }
-}
-@media (max-width: theme("screens.nav")) {
-  .navbar-icon {
-    display: inline-grid;
-    place-items: center;
-  }
-  .navbar-link-name {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-  }
 }
 
 .navbar-link:focus-visible {

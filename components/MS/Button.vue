@@ -4,7 +4,7 @@
     :class="[
       `color-${color}`,
       block ? 'is-block' : '',
-      size === 'small' ? 'small' : 'py-2',
+      size === 'small' ? 'small py-1' : 'medium py-2',
     ]"
     :disabled="isDisabled"
     @click="goToURL"
@@ -16,7 +16,8 @@
     </Transition>
     <div class="button-content">
       <Icon v-if="icon" :name="icon" :style="{ color }" />
-      <span class="button-text">{{ text }}</span>
+      <span v-if="text" class="button-text">{{ text }}</span>
+      <slot v-else />
     </div>
   </button>
 </template>
@@ -30,7 +31,7 @@ const localePath = useLocalePath();
 const p = defineProps({
   text: {
     type: String,
-    default: "Click",
+    default: "",
   },
   color: {
     type: String as PropType<UIColors>,
@@ -85,13 +86,18 @@ function goToURL() {
   cursor: pointer;
   text-transform: uppercase;
   text-align: center;
-  letter-spacing: 0.05em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
-  @apply shadow-md text-sm;
+  @apply shadow-md;
+}
+.medium {
+  letter-spacing: 0.05em;
+  @apply text-sm;
 }
 .small {
-  padding-bottom: calc(0.8px + var(--spacing-1));
-  padding-top: calc(0.8px + var(--spacing-1));
+  letter-spacing: 0.05em;
+  @apply text-xs;
 }
 .button:disabled {
   cursor: auto;
@@ -101,6 +107,10 @@ function goToURL() {
   align-items: center;
   justify-content: center;
   @apply gap-4;
+}
+.button-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .button:active {
   transform: translateY(2px) scale(0.99);
@@ -129,6 +139,16 @@ function goToURL() {
 }
 .color-primary:active {
   @apply bg-primary-700;
+}
+.color-monstershuffler {
+  color: hsl(240, 0%, 93%);
+  @apply bg-monstershuffler;
+}
+.color-monstershuffler:hover {
+  @apply bg-monstershuffler;
+}
+.color-monstershuffler:active {
+  @apply bg-monstershuffler/95;
 }
 .color-complementary {
   @apply bg-complementary-700 text-background-100;

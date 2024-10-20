@@ -1,27 +1,26 @@
 <template>
   <div class="intro">
     <div class="intro-text text-center">
-      <Transiton name="title" appear>
+      <Transition name="title" appear>
         <h1 class="custom-title-h1">
           <span class="custom-title-small">the</span
           ><span class="custom-title npc"><span class="n">N</span>PC</span>
           <span class="custom-title-small ml-2">(& adventure)</span>
         </h1>
-      </Transiton>
-      <Transiton name="title" appear>
-        <h1 class="custom-title-h1">
+      </Transition>
+      <Transition name="title" appear>
+        <h1 class="custom-title-h1" :style="{ transitionDelay: '50ms' }">
           <span class="custom-title generator"
             >Gen<span class="e">e</span>rator</span
           >
         </h1>
-      </Transiton>
+      </Transition>
       <p class="custom-subtitle mt-7">
-        Create NPCs with unique personalities and appearances.
+        Create unforgettable NPCs with unique personalities and appearances.
       </p>
       <p class="custom-subtitle mt-2">
-        Be inspired by an AI-generated adventure built around each NPC,<br
-          class="br-subtitle"
-        />and adjust their Challenge Rating to fit your own stories.
+        Effortlessly improvise NPCs on the fly, or be inspired by AI-generated
+        adventures to add new side quests in your campaign.
       </p>
     </div>
   </div>
@@ -42,6 +41,7 @@ const boolean = ref(false);
   z-index: 1;
 }
 .custom-title-h1 {
+  display: block;
   background: linear-gradient(theme("colors.text"), theme("colors.text-evil"));
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -65,6 +65,7 @@ const boolean = ref(false);
   font-weight: 300;
   letter-spacing: 0.05em;
   font-size: 0.875rem;
+  max-width: 35rem;
 }
 .br-subtitle {
   display: none;
@@ -83,7 +84,7 @@ const boolean = ref(false);
   }
   .custom-subtitle {
     letter-spacing: 0;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
 .custom-title-h2 {

@@ -308,6 +308,7 @@ form-container {
     padding: 0;
     border-radius: 0;
     background-color: transparent;
+    z-index: 1;
     @apply shadow-none;
   }
   .close-button {

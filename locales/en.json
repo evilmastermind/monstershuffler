@@ -1,7 +1,8 @@
 {
   "error": {
     "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later.",
-    "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again."
+    "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again.",
+    "notFound": "The requested resource was not found."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",
@@ -19,9 +20,10 @@
     "editStatBlock": "Edit stat block (coming soon)",
     "editLayout": "Edit layout",
     "editBackstory": "Edit backstory",
-    "regenerateBackstory":"Regenerate backstory (coming soon)",
+    "regenerateBackstory":"Regenerate adventure (coming soon)",
     "download": "Download",
     "export": "Export",
+    "share": "Share",
     "save": "Save to your files (coming soon)",
     "closeSheet": "Close sheet",
     "exportAdventureAs": "Export adventure as",
@@ -592,9 +594,14 @@
     "diceRoll": "Roll",
     "d20Roll": "D20"
   },
+  "share": {
+    "title": "Share on...",
+    "copyLink": "Copy link"
+  },
   "copyToClipboard": "Copy to clipboard",
   "copied": "Copied!",
   "HTML": "HTML",
   "markdown": "Markdown",
-  "back": "Back"
+  "back": "Back",
+  "theme": "Theme"
 }

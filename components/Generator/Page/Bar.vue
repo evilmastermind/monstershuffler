@@ -26,7 +26,7 @@
         <MSIconButton
           class="button-show-settings md:hidden text-text-2"
           :label="$t('generator.options')"
-          size="24"
+          size="20"
           icon="fa-solid:cog"
           @click="isFormOpen = !isFormOpen"
         />
@@ -34,7 +34,12 @@
       <GeneratorPrompt v-show="!isFormMode && !isSheetOpen" class="prompt" />
       <div class="top-bar-options">
         <GeneratorPromptHelp v-if="!isFormMode" class="top-bar-input" />
-        <MSSwitchWords v-model="isFormMode" checked="Form" unchecked="Prompt" />
+        <MSSwitchWords
+          v-model="isFormMode"
+          checked="Form"
+          unchecked="Prompt"
+          :size="mdAndDown ? 'small' : 'medium'"
+        />
       </div>
     </div>
     <GeneratorForm v-if="isFormOpen" class="form" @close="isFormOpen = false" />
@@ -56,6 +61,7 @@ const p = defineProps({
   },
 });
 
+const { mdAndDown } = useScreen();
 const generator = useGeneratorStore();
 const editor = useMonsterEditorStore();
 
@@ -81,6 +87,7 @@ function closeSheet() {
   align-items: center;
   white-space: nowrap;
   overflow: hidden;
+  height: 3rem;
   @apply gap-4;
 }
 .top-bar-breadcrumbs {
