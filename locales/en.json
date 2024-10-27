@@ -2,7 +2,8 @@
   "error": {
     "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later.",
     "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again.",
-    "notFound": "The requested resource was not found."
+    "notFound": "The requested resource was not found.",
+    "notFoundExtended": "The requested resource was not found."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",
@@ -21,6 +22,10 @@
     "editLayout": "Edit layout",
     "editBackstory": "Edit backstory",
     "regenerateBackstory":"Regenerate adventure (coming soon)",
+    "renameCharacter": "Rename character",
+    "prename": "Prename",
+    "name": "Name",
+    "surname": "Surname",
     "download": "Download",
     "export": "Export",
     "share": "Share",
@@ -595,7 +600,8 @@
     "d20Roll": "D20"
   },
   "share": {
-    "title": "Share on...",
+    "title": "Share",
+    "subtitle": "Share the original (unmodified) version of this NPC.",
     "copyLink": "Copy link"
   },
   "copyToClipboard": "Copy to clipboard",
@@ -603,5 +609,7 @@
   "HTML": "HTML",
   "markdown": "Markdown",
   "back": "Back",
-  "theme": "Theme"
+  "theme": "Theme",
+  "rename": "Rename",
+  "pin": "Pin"
 }

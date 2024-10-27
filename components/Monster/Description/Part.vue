@@ -4,7 +4,12 @@
     class="dotted"
     :class="part?.format || []"
   >
-    <MSTooltip :id="part.id" :word="part.string" source="backgrounds" />
+    <MSTooltip
+      :id="part.id"
+      :word="part.string"
+      :description="character?.character?.background?.description"
+      source="backgrounds"
+    />
   </span>
   <span
     v-else-if="part.type === 'class'"
@@ -41,7 +46,9 @@
 </template>
 
 <script setup lang="ts">
-import type { DescriptionPart } from "@/types";
+import type { Character, DescriptionPart } from "@/types";
+
+const character = inject("character") as Ref<Character>;
 
 const p = defineProps({
   part: {

@@ -4,15 +4,17 @@
       <dialog class="modal" open @click="emit('close')">
         <div class="card" :style="{ maxWidth: `${p.width}px` }" @click.stop>
           <MSIconButton
-            class="close ml-1 text-text-2"
+            class="close p-1 m-4 text-text-2"
             :label="$t('closeLabel')"
             icon="fa6-solid:xmark"
             @click="emit('close')"
           />
-          <h3 class="content">
-            <slot name="title" />
-          </h3>
-          <slot />
+          <div class="p-4 sm:p-5">
+            <h3 class="content">
+              <slot name="title" />
+            </h3>
+            <slot />
+          </div>
         </div>
       </dialog>
     </Transition>
@@ -44,7 +46,7 @@ const p = defineProps({
 .card {
   position: relative;
   backdrop-filter: blur(4px);
-  @apply p-4 sm:p-5 bg-background-100;
+  @apply bg-background-100;
 }
 @media (min-width: theme("screens.sm")) {
   .modal {
@@ -55,7 +57,7 @@ const p = defineProps({
     height: auto;
     margin: 0.5rem auto;
     backdrop-filter: blur(4px);
-    @apply shadow-xl rounded p-4 sm:p-5 bg-background-100;
+    @apply shadow-xl rounded bg-background-100;
   }
 }
 .close {

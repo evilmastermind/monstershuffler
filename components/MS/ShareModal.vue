@@ -4,7 +4,8 @@
       {{ $t(`share.title`) }}
     </template>
     <template #default>
-      <div class="platforms my-4">
+      <p class="text-sm text-text-1">{{ $t("share.subtitle") }}</p>
+      <div class="platforms mt-5 mb-4">
         <MSIconButton
           v-for="(platform, index) in platforms"
           :key="platform.name"

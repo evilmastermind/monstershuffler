@@ -69,6 +69,9 @@ function toggleAudio() {
 .audio-icon {
   display: inline-grid;
   transform: translateY(0.2rem);
-  @apply text-text-2;
+  @apply text-text-icon/50;
+}
+.audio-icon:hover {
+  @apply text-text-icon;
 }
 </style>

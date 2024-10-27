@@ -1,35 +1,37 @@
 <template>
-  <span
-    class="tooltip-span cursor-help"
-    @mouseenter="handleMouseOver"
-    @mouseleave="isVisible = false"
-    @click.stop="handleClick"
-    @touchstart.stop="handleClick"
-  >
-    <slot name="default" />
-  </span>
-  <div
-    v-if="isVisible"
-    class="tooltip-container"
-    :style="{
-      top: topValue,
-      left: `${left}px`,
-      width: `${width}px`,
-    }"
-  >
-    <div ref="container" class="tooltip">
-      <slot name="tooltip" />
+  <span class="centered">
+    <span
+      class="tooltip-span cursor-help"
+      @mouseenter="handleMouseOver"
+      @mouseleave="isVisible = false"
+      @click.stop="handleClick"
+      @touchstart.stop="handleClick"
+    >
+      <slot name="default" />
+    </span>
+    <div
+      v-if="isVisible"
+      class="tooltip-container"
+      :style="{
+        top: topValue,
+        left: `${left}px`,
+        width: `${width}px`,
+      }"
+    >
+      <div ref="container" class="tooltip">
+        <slot name="tooltip" />
 
-      <MSIconButton
-        v-if="hasCloseButton"
-        class="close-button"
-        :label="$t('closeLabel')"
-        icon="fa6-solid:xmark"
-        @click.stop="isVisible = false"
-        @touchstart.stop="isVisible = false"
-      />
+        <MSIconButton
+          v-if="hasCloseButton"
+          class="close-button"
+          :label="$t('closeLabel')"
+          icon="fa6-solid:xmark"
+          @click.stop="isVisible = false"
+          @touchstart.stop="isVisible = false"
+        />
+      </div>
     </div>
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">

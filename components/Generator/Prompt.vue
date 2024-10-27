@@ -6,6 +6,7 @@
       class="ms-input w-full prompt pr-6 pl-2"
       :placeholder="$t('generator.prompt.placeholder')"
       @keyup.enter="generateNpcsThrottle"
+      @input="resetWordsNotFound"
     />
     <MSIconButton
       v-if="!isLoading"
@@ -20,6 +21,14 @@
       :size="1.3"
       class="generate-button mx-2 pr-2"
     />
+    <p v-if="promptOptions?.wordsNotFound?.length" class="wordsnotfound mt-1">
+      <span class="sr-only">
+        {{ $t("error.notFound") }}
+      </span>
+      <s v-for="word in promptOptions.wordsNotFound" :key="word" class="word">
+        {{ word }}
+      </s>
+    </p>
     <MSAlert
       v-if="tooManyRequests"
       type="danger"
@@ -39,7 +48,7 @@ import { getChallengeNumber } from "monstershuffler-shared";
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const { promptOptions, keywords, settings } = storeToRefs(generator);
+const { promptOptions, keywords, options } = storeToRefs(generator);
 const prompt = ref("");
 
 const isLoading = ref(false);
@@ -192,11 +201,11 @@ async function generateNpcs() {
   } else {
     promptOptions.value.backgroundType = "none";
   }
-  promptOptions.value.addVoice = settings.value?.addVoice || true;
-  promptOptions.value.includeChildren =
-    settings.value?.includeChildren || false;
+  promptOptions.value.addVoice = options.value?.addVoice || true;
+  promptOptions.value.includeChildren = options.value?.includeChildren || false;
   promptOptions.value.levelType =
-    settings.value?.levelType || "randomPeasantsMostly";
+    options.value?.levelType || "randomPeasantsMostly";
+  promptOptions.value.includeBodyType = options.value?.includeBodyType || false;
 
   promptOptions.value.wordsNotFound = [...new Set(wordsNotFound)].filter(
     (word) => word.length > 0
@@ -218,9 +227,52 @@ async function generateNpcs() {
   }
   isLoading.value = false;
 }
+
+function resetWordsNotFound() {
+  promptOptions.value.wordsNotFound = [];
+}
+
+onMounted(() => {
+  resetWordsNotFound();
+});
 </script>
 
 <style scoped>
+.wordsnotfound {
+  position: absolute;
+  z-index: 1;
+  letter-spacing: 0.05rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  @apply text-xs gap-1;
+}
+.wordsnotfound .word {
+  padding: 0.1rem 0.5rem;
+  opacity: 1;
+  animation: disappear 3s forwards;
+  @apply rounded-lg bg-danger text-text-inverse;
+}
+@keyframes disappear {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  95% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+}
 .prompt-container {
   position: relative;
   width: 100%;

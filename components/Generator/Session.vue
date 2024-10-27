@@ -16,6 +16,7 @@
               selectable
               tabindex="0"
               @click="openCharacterSheet(index)"
+              @pin="pinCharacter(index)"
             />
           </Transition>
         </template>
@@ -35,6 +36,11 @@ const { session } = storeToRefs(generator);
 function openCharacterSheet(index: number) {
   const npc = session.value[index];
   generator.pushNewCharacter(npc as NpcDetails, true);
+}
+
+function pinCharacter(index: number) {
+  const npc = session.value[index];
+  generator.pushNewCharacter(npc as NpcDetails, false);
 }
 </script>
 

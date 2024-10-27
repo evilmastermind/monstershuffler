@@ -1,14 +1,14 @@
 <template>
   <div class="form-container">
     <form class="generator-form rounded shadow-md md:shadow-none">
-      <fieldset>
-        <MSIconButton
-          type="button"
-          class="close-button"
-          :label="$t('closeLabel')"
-          icon="fa6-solid:xmark"
-          @click="e('close')"
-        />
+      <MSIconButton
+        type="button"
+        class="close-button p-1 m-2"
+        :label="$t('closeLabel')"
+        icon="fa6-solid:xmark"
+        @click="e('close')"
+      />
+      <fieldset class="ms-fieldset mt-2 md:mt-0">
         <!-- PRIMARY AND SECONDARY RACES -->
         <span class="form-line">
           <label class="ms-label" for="gen-prace"
@@ -155,7 +155,7 @@
           </select>
         </span>
         <!-- MISC OPTIONS -->
-        <div class="misc-options mt-4">
+        <div class="misc-options">
           <MSCheckbox
             v-model="options.addVoice"
             :label="$t('generator.form.voice')"
@@ -292,7 +292,8 @@ form-container {
 }
 .close-button {
   position: absolute;
-  @apply top-4 right-4;
+  top: 0;
+  right: 0;
 }
 .misc-options {
   display: inline-flex;

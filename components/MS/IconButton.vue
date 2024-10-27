@@ -43,4 +43,7 @@ const p = defineProps({
   display: grid;
   place-items: center;
 }
+.icon-button:active {
+  opacity: 0.8;
+}
 </style>

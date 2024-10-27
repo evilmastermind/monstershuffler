@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar-container">
-    <div class="top-bar lg-max max-h-100 px-4 py-3">
+    <div class="top-bar lg-max max-h-100 px-4">
       <div v-if="isSheetOpen" class="top-bar-breadcrumbs">
         <button class="mr-4 md:mr-6" @click="closeSheet">
           <Icon name="pajamas:arrow-left" size="24" class="text-text-icon" />
@@ -86,7 +86,6 @@ function closeSheet() {
   grid-template-areas: "input options";
   align-items: center;
   white-space: nowrap;
-  overflow: hidden;
   height: 3rem;
   @apply gap-4;
 }

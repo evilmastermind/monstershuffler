@@ -32,7 +32,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
   const characters = ref<(NpcDetails & NPCGeneratorData)[]>([]); // this is the list of npcs chosen by the user
-  const settings = ref<PostRandomNpcBody>();
+  // const settings = ref<PostRandomNpcBody>();
   const currentSheetHTMLElement = ref<HTMLElement | null>(null);
   const currentStatBlockHTMLElement = ref<HTMLElement | null>(null);
   const currentRoleplayStatsHTMLElement = ref<HTMLElement | null>(null);
@@ -183,9 +183,9 @@ export const useGeneratorStore = defineStore("generator", () => {
     return objectOrVariantList;
   }
 
-  function parseSettings(settings: PostRandomNpcBody | undefined) {
-    if (settings) {
-      options.value = { ...settings };
+  function parseSettings(newSettings: PostRandomNpcBody | undefined) {
+    if (newSettings) {
+      options.value = { ...newSettings };
       let index = -1;
       if (options.value.primaryRaceId) {
         index = racesAndVariants.value.findIndex((race) => {
@@ -403,7 +403,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
   return {
     session,
-    settings,
+    // settings,
     characters,
     currentCharacter,
     currentSheetHTMLElement,

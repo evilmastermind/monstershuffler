@@ -1,7 +1,14 @@
 <template>
   <div>
     <p>
-      <span class="name" :class="moral"> {{ statistics.fullName }} </span>
+      <button
+        v-tooltip="$t('rename')"
+        class="name"
+        :class="moral"
+        @click.stop="toggleRenameModal"
+      >
+        {{ statistics.fullName }}
+      </button>
       <span v-if="about" class="about">{{ `, ${about}` }}</span>
     </p>
     <p v-if="statistics.characterHook?.length" class="hook mt-1">
@@ -63,6 +70,11 @@
         <p class="mt-2">{{ character.character.physicalAppearance }}</p>
       </template>
     </dl>
+    <MonsterRenameModal
+      v-if="isRenameModalOpen"
+      v-model="character"
+      @close="isRenameModalOpen = false"
+    />
   </div>
 </template>
 
@@ -81,16 +93,16 @@ const p = defineProps({
 });
 
 const user = useUserStore();
-const unit = computed(() => user.me?.settings?.stats?.heightUnit || "feet");
 
 const statistics = inject("statistics") as Ref<Statistics>;
 const character = inject("character") as Ref<Character>;
 const moral = inject("moral") as Ref<string>;
 
 const showTraitDescription = ref(false);
+const isRenameModalOpen = ref(false);
 
 const tags = computed(() => character.value.tags);
-
+const unit = computed(() => user.me?.settings?.stats?.heightUnit || "feet");
 const about = computed(() => {
   let string = "";
   if (tags.value && statistics) {
@@ -108,6 +120,10 @@ function convertHeight(height: number) {
   }
   return feetDecimalToFeetInches(height);
 }
+
+function toggleRenameModal() {
+  isRenameModalOpen.value = !isRenameModalOpen.value;
+}
 </script>
 
 <style scoped>
@@ -117,6 +133,10 @@ function convertHeight(height: number) {
   font-size: 1.3rem;
   font-variant: small-caps;
   letter-spacing: 0.05em;
+  cursor: text;
+}
+.name:hover {
+  text-decoration: underline;
 }
 .hook {
   @apply italic;

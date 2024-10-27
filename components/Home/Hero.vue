@@ -43,7 +43,7 @@ const localePath = useLocalePath();
   position: absolute;
   width: 100%;
   height: 500px;
-  background-image: url("@/assets/images/fenner.jpg");
+  background-image: url("@/assets/images/background-paint.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -160,7 +160,7 @@ onMounted(async () => {
   if (status !== 200) {
     alert.value = {
       type: "danger",
-      message: t("error.notFound"),
+      message: t("error.notFoundExtended"),
     };
   }
   const settings: NPCGeneratorSettings | null = await user.getSettings(
