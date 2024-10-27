@@ -51,7 +51,6 @@ const localePath = useLocalePath();
 }
 .text {
   position: relative;
-  display: inline-block;
   z-index: 1;
 }
 .mask {

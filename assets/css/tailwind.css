@@ -6,6 +6,7 @@
 @import "@/assets/css/normalize.css";
 @import "@/assets/css/scrollbar.css";
 @import "@/assets/css/transitions.css";
+@import "@/assets/css/static.css";
 @import "@/assets/css/utility.css";
 
 @tailwind base;

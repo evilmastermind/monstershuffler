@@ -1,0 +1,77 @@
+h1.static   {
+  display: block;
+}
+.gradient-evil {
+  display: inline-block;
+  background: linear-gradient(theme("colors.text"), theme("colors.text-evil"));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 5px;
+}
+.accent {
+  @apply text-evil-700;
+}
+h2.static {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1em;
+  letter-spacing: -0.09em;
+  text-align: center;
+}
+p.static {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+.static + .max-width {
+  max-width: 700px;
+}
+
+
+.custom-title-h3 {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.09em;
+}
+.custom-title-small {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.09em;
+  font-size: 1rem;
+  @apply text-evil-700;
+}
+.custom-title {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 4rem;
+  letter-spacing: -0.09em;
+  line-height: 0.7em;
+}
+
+.br-subtitle {
+  display: none;
+}
+@media (min-width: theme("screens.sm")) {
+  .br-subtitle {
+    display: block;
+  }
+}
+@media (min-width: theme("screens.md")) {
+  .custom-title {
+    font-size: 6rem;
+  }
+  .custom-title-small {
+    font-size: 1.5rem;
+  }
+  p.static {
+    letter-spacing: 0;
+    font-size: 1rem;
+  }
+}
+.strike {
+  text-decoration: line-through;
+  @apply decoration-text-2;
+}

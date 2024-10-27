@@ -48,7 +48,7 @@
         <LoadingSpinner />
       </div> -->
       </div>
-      <!-- <LazyGeneratorPageDescription class="mt-9" /> -->
+      <LazyGeneratorPageDescription class="mt-9" />
     </div>
     <div v-else class="centered">
       <LoadingSpinner />
