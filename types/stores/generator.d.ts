@@ -25,3 +25,12 @@ export type CharacterChanges = {
   alignmentMoral?: "Neutral" | "Any" | "Good" | "Evil";
   alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
 };
+
+// export type TemporaryRenameManagement = {
+//     oldPrename: string;
+//     oldName: string;
+//     oldSurname: string;
+//     newPrename: string;
+//     newName: string;
+//     newSurname: string;
+// };

@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import { createStats } from "monstershuffler-shared";
-import type { Character } from "@/types";
+import type { Character, TemporaryRenameManagement } from "@/types";
 
 const e = defineEmits(["close"]);
 const character = defineModel({
@@ -76,55 +76,109 @@ const character = defineModel({
   required: true,
 });
 
+const generator = useGeneratorStore();
+const { currentCharacterIndex, characters } = storeToRefs(generator);
+
 const name = ref(character.value.character.name || "");
 const surname = ref(character.value.character.surname || "");
 const prename = ref(character.value.character.prename || "");
 const isLoading = ref(false);
 
+// TODO: fix this after rewriting Polygen
+/**
+ *
+ * The AI should generate the adventure with [Tags] instead of the actual name, and be parsed by our parser.
+ * Since:
+ * - Polygen is super bugged and I need to remove accents from names to make it work
+ * - I'm generating the adventure not from the object sent to the user, which could be tampered with, but from the object saved in the database
+ *
+ * ... I need to do this both here and when I retrieve the adventure chunks from the database, hoping that the chunks don't contain partial names.
+ * It's a terrible workaround, but it's the only way to make it work for now.
+ *
+ * UPDATE 2024/10/27: This just can't work since the chunks arriving from the AI have partial words, and it's not possible to parse them in real-time.
+ */
 function rename() {
-  // isLoading.value = true;
-  // const nameWithoutAccents = removeAccents(name.value);
-  // const prenameWithoutAccents = removeAccents(prename.value);
-  // const surnameWithoutAccents = removeAccents(surname.value);
-  // if (character.value.character.user?.backstory?.string) {
-  //   character.value.character.user.backstory.string =
-  //     character.value.character.user?.backstory?.string?.replaceAll(
-  //       character.value.character.name,
-  //       name.value
-  //     );
-  //   if (character.value.character.prename) {
-  //     character.value.character.user.backstory.string =
-  //       character.value.character.user?.backstory?.string?.replaceAll(
-  //         character.value.character.prename,
-  //         prename.value
-  //       );
-  //   }
-  //   if (character.value.character.surname) {
-  //     character.value.character.user.backstory.string =
-  //       character.value.character.user?.backstory?.string?.replaceAll(
-  //         character.value.character.surname,
-  //         surname.value
-  //       );
-  //   }
-  // }
-  /**
-   * THIS WON'T WORK WHEN YOU DO IT BEFORE THE ADVENTURE GENERATION:
-   * the backend generates the adventure based on the object saved in the database,
-   * so that the user can't tamper with it.
-   * Make the AI add tags to the adventure.
+  isLoading.value = true;
 
-    character.value.character.name = capitalizeFirst(name.value);
-  character.value.character.surname = capitalizeFirst(surname.value);
-  character.value.character.prename = capitalizeFirst(prename.value);
+  const c = character.value.character;
+
+  const oldPrenameWithoutAccents = replaceAccentCharacters(c.prename || "");
+  const oldNameWithoutAccents = replaceAccentCharacters(c.name);
+  const oldSurnameWithoutAccents = replaceAccentCharacters(c.surname || "");
+
+  prename.value = capitalizeFirst(prename.value);
+  name.value = capitalizeFirst(name.value);
+  surname.value = capitalizeFirst(surname.value);
+
+  if (c.user?.backstory?.string) {
+    if (c.prename) {
+      c.user.backstory.string =
+        // @ts-expect-error - backstory is still not typed
+        c.user?.backstory?.string?.replaceAll(
+          oldPrenameWithoutAccents,
+          prename.value
+        );
+    }
+    c.user.backstory.string =
+      // @ts-expect-error - backstory is still not typed
+      c.user?.backstory?.string?.replaceAll(oldNameWithoutAccents, name.value);
+    if (c.surname) {
+      c.user.backstory.string =
+        // @ts-expect-error - backstory is still not typed
+        c.user?.backstory?.string?.replaceAll(
+          oldSurnameWithoutAccents,
+          surname.value
+        );
+    }
+  }
+
+  if (c.user?.physicalAppearance) {
+    if (c.prename) {
+      c.user.physicalAppearance = c.user?.physicalAppearance?.replaceAll(
+        oldPrenameWithoutAccents,
+        prename.value
+      );
+    }
+    c.user.physicalAppearance = c.user?.physicalAppearance?.replaceAll(
+      oldNameWithoutAccents,
+      name.value
+    );
+    if (c.surname) {
+      c.user.physicalAppearance = c.user?.physicalAppearance?.replaceAll(
+        oldSurnameWithoutAccents,
+        surname.value
+      );
+    }
+  }
+
+  c.name = name.value;
+  c.surname = surname.value;
+  c.prename = prename.value;
+
+  if (!c.user) {
+    c.user = {};
+  }
+  if (!c.user.backstory) {
+    c.user.backstory = {};
+  }
+  c.user.backstory.temporaryRenameManagement = {
+    oldPrename: oldNameWithoutAccents,
+    oldName: oldNameWithoutAccents,
+    oldSurname: oldSurnameWithoutAccents,
+    newPrename: prename.value,
+    newName: name.value,
+    newSurname: surname.value,
+  } as TemporaryRenameManagement;
+
   createStats(character.value);
 
   isLoading.value = false;
   e("close");
-  **/
 }
 
-function removeAccents(str: string) {
-  return str.normalize("NFD").replace(/[\u0300-\u036F]/g, "");
+// TODO: you wrote the same function in the backend, it should be moved in monstershuffler-shared
+function replaceAccentCharacters(input: string) {
+  return input.normalize("NFD").replace(/[\u0300-\u036F]/g, "");
 }
 </script>
 

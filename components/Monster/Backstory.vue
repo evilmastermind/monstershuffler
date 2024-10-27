@@ -61,7 +61,7 @@ function getRating() {
 
 onMounted(async () => {
   getRating();
-  if (backstory.value === undefined) {
+  if (backstory.value?.string === undefined) {
     const result = await generatorStore.generateBackstory();
     if (result === 429) {
       tooManyRequests.value = true;

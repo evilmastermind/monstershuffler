@@ -258,9 +258,13 @@ export const useGeneratorStore = defineStore("generator", () => {
     if (!c.user) {
       c.user = {};
     }
-    c.user.backstory = { string: "" };
+    if (!c.user.backstory) {
+      c.user.backstory = { string: "" };
+    }
 
-    const backstory = c.user.backstory as { string: string };
+    const backstory = c.user.backstory as {
+      string: string;
+    };
     currentNpc.streamChunks = [];
 
     let contentBeingStreamed: "backstory" | "physicalAppearance" = "backstory";
@@ -353,16 +357,28 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  function pushNewCharacter(character: NpcDetails, selected: boolean = false) {
-    const isCharacterAlreadyInList = characters.value.some(
+  /**
+   * Adds a new character to the list of characters, if it doesn't already exist, and returns its index.
+   * Optionally, it can also select the character.
+   * @param character
+   * @param selected
+   * @returns
+   */
+  function pushNewCharacter(
+    character: NpcDetails,
+    selected: boolean = false
+  ): number {
+    let characterIndex = characters.value.findIndex(
       (char) => char.id === character.id
     );
-    if (!isCharacterAlreadyInList) {
+    if (characterIndex < 0) {
       characters.value.push(character);
+      characterIndex = characters.value.length - 1;
     }
     if (selected) {
-      currentCharacterIndex.value = characters.value.length - 1;
+      currentCharacterIndex.value = characterIndex;
     }
+    return characterIndex;
   }
 
   async function getNpc(uuid: string) {

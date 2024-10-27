@@ -1,14 +1,7 @@
 <template>
   <div>
     <p>
-      <button
-        v-tooltip="$t('rename')"
-        class="name"
-        :class="moral"
-        @click.stop="toggleRenameModal"
-      >
-        {{ statistics.fullName }}
-      </button>
+      <span class="name" :class="moral">{{ statistics.fullName }}</span>
       <span v-if="about" class="about">{{ `, ${about}` }}</span>
     </p>
     <p v-if="statistics.characterHook?.length" class="hook mt-1">
@@ -133,10 +126,6 @@ function toggleRenameModal() {
   font-size: 1.3rem;
   font-variant: small-caps;
   letter-spacing: 0.05em;
-  cursor: text;
-}
-.name:hover {
-  text-decoration: underline;
 }
 .hook {
   @apply italic;
