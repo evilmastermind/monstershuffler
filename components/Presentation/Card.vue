@@ -2,18 +2,12 @@
   <li class="card">
     <Icon aria-hidden class="card-icon" :name="icon" />
     <div>
-      <slot name="title"></slot>
-      <p class="card-text">Create the right NPC for your story:</p>
-      <ul>
-        <li>
-          <b class="content">Form mode</b> gives you more control over your NPC
-          creation, ideal for game session preparation
-        </li>
-        <li>
-          <b class="content">Prompt mode</b> lets you quickly type your needs
-          for an improvised NPC on the fly
-        </li>
-      </ul>
+      <h3 v-if="$slots.title" class="static">
+        <slot name="title" />
+      </h3>
+      <div v-if="$slots.default" class="card-text">
+        <slot />
+      </div>
     </div>
   </li>
 </template>
@@ -58,14 +52,6 @@ const p = defineProps({
 .card:hover .card-icon {
   transform: scale(1.1);
   @apply text-evil-500;
-}
-.card-text {
-  letter-spacing: 0.05em;
-  @apply text-sm;
-}
-/* make consecutive p elements have a margin-top */
-.card-text + .card-text {
-  @apply mt-2;
 }
 .card ul {
   list-style-type: disc;

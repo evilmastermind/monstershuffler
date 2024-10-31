@@ -9,9 +9,7 @@
       }"
     />
     <div class="lg-max">
-      <ul class="card-list py-8 mx-4">
-        <slot />
-      </ul>
+      <slot />
     </div>
   </div>
 </template>
@@ -30,21 +28,6 @@ const p = defineProps({
 </script>
 
 <style scoped>
-.card-list {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  z-index: 1;
-}
-@media (min-width: theme("screens.md")) {
-  .card-list {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 .card-list-container {
   position: relative;
 }
@@ -57,5 +40,22 @@ const p = defineProps({
   mask-composite: intersect;
   mask-repeat: repeat-x;
   mask-position: top, bottom;
+}
+</style>
+<style>
+.card-list {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  @apply py-9 mx-4 gap-6;
+}
+@media (min-width: theme("screens.md")) {
+  .card-list {
+    grid-template-columns: 1fr 1fr;
+    @apply mx-9;
+  }
 }
 </style>

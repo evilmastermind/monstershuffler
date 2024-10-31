@@ -1,53 +1,74 @@
 h1.static   {
   display: block;
 }
-.gradient-evil {
+
+/* .gradient-title {
   display: inline-block;
-  background: linear-gradient(theme("colors.text"), theme("colors.text-evil"));
+  background: linear-gradient(135deg, theme("colors.text") 60px, theme("colors.text-evil") 80px, theme("colors.text-neutral") 100px, theme("colors.text-good") 120px, theme("colors.text") 140px);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 5px;
-}
+} */
+
 .accent {
-  @apply text-evil-700;
+  @apply text-primary-700;
 }
 h2.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 800;
-  font-size: 2rem;
+  font-size: 1.8rem;
   line-height: 1em;
-  letter-spacing: -0.09em;
+  letter-spacing: -0.06em;
   text-align: center;
+}
+h3.static {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1em;
+  letter-spacing: -0.06em;
+  @apply py-2;
 }
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
-  letter-spacing: 0.05em;
-  font-size: 0.875rem;
+  font-size: 1rem;
+}
+b.static {;
+  font-weight: 700;
 }
 .static + .max-width {
   max-width: 700px;
 }
-
+.static-mono {
+  font-family: monospace;
+  font-weight: 400;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+.static-mono .symbol {
+  font-weight: 700;
+  @apply text-text-evil;
+}
 
 .custom-title-h3 {
   font-family: "OpenSans", sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
-  letter-spacing: -0.09em;
+  letter-spacing: -0.06em;
 }
 .custom-title-small {
   font-family: "OpenSans", sans-serif;
   font-weight: 700;
-  letter-spacing: -0.09em;
+  letter-spacing: -0.06em;
   font-size: 1rem;
-  @apply text-evil-700;
+  @apply text-primary-700;
 }
 .custom-title {
   font-family: "OpenSans", sans-serif;
   font-weight: 800;
   font-size: 4rem;
-  letter-spacing: -0.09em;
+  letter-spacing: -0.06em;
   line-height: 0.7em;
 }
 
@@ -65,6 +86,9 @@ p.static {
   }
   .custom-title-small {
     font-size: 1.5rem;
+  }
+  h2.static {
+    font-size: 2rem;
   }
   p.static {
     letter-spacing: 0;

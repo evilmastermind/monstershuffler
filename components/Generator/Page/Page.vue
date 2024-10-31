@@ -48,7 +48,7 @@
         <LoadingSpinner />
       </div> -->
       </div>
-      <LazyGeneratorPageDescription class="mt-9" />
+      <LazyGeneratorPageDescription class="mt-9 md:mt-11" />
     </div>
     <div v-else class="centered">
       <LoadingSpinner />
@@ -85,7 +85,7 @@ const alert = ref<AlertMessage | null>(null);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
-const isFormMode = ref(true);
+const isFormMode = ref(false);
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 const saveSettingsThrottle = throttle(() => saveSettings(), 1000);
@@ -166,7 +166,7 @@ onMounted(async () => {
   const settings: NPCGeneratorSettings | null = await user.getSettings(
     "npcgenerator"
   );
-  isFormMode.value = settings?.isFormMode ?? true;
+  isFormMode.value = settings?.isFormMode ?? false;
 
   generator.parseSettings(settings?.options);
 
