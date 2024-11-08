@@ -1,16 +1,16 @@
 <template>
-  <PresentationPage class="mb-16">
+  <PresentationPage>
     <PresentationText class="mx-4">
       <h2 class="static max-width">
         Made to <span class="accent">level up</span> your Dungeon Master skills
       </h2>
-      <p class="static max-width mt-7">
+      <p class="static max-width mt-6">
         Built with a purpose: to
         <b class="bold"
           >never let you run out of NPCs during your game sessions</b
         >.
       </p>
-      <p class="static max-width mt-2">
+      <p class="static max-width mt-1">
         Designed to generate NPCs as quickly and effortlessly as possible, while
         giving you the essential information to roleplay them
       </p>
@@ -61,7 +61,24 @@
       <h2 class="static max-width">A preview of things to come</h2>
       <PresentationTool class="mt-8">
         <template #image>
-          <MonsterLayoutExample1ColumnA class="sheet-example" />
+          <Transition name="slide-right" mode="out-in">
+            <MonsterLayoutExampleNoImage2Column
+              v-if="card === 1"
+              class="sheet-example"
+            />
+            <MonsterLayoutExample1ColumnA
+              v-else-if="card === 2"
+              class="sheet-example"
+            />
+            <MonsterLayoutExample2ColumnA
+              v-else-if="card === 3"
+              class="sheet-example"
+            />
+            <MonsterLayoutExample1ColumnC
+              v-else-if="card === 4"
+              class="sheet-example"
+            />
+          </Transition>
         </template>
         <template #title> Notes </template>
         Imagine OneNote or Obsidian, but designed specifically for Dungeon
@@ -77,7 +94,7 @@
               A (loyal | faithful | false) (priest | paladin | servant) of
               Deity.
             </div>
-            <Transition name="fade-quick" mode="out-in">
+            <Transition name="fade-slow" mode="out-in">
               <div :key="exampleResult" class="example-result">
                 {{ exampleResult }}
               </div>
@@ -101,7 +118,21 @@
       </PresentationTool>
       <PresentationTool class="mt-8">
         <template #image>
-          <MonsterLayoutExample1ColumnA class="sheet-example" />
+          <div class="cute-stat-block-container">
+            <Icon class="cute-stat-block-cog-o-1" name="lucide:cog" />
+            <Icon class="cute-stat-block-cog-o-2" name="heroicons:cog-solid" />
+            <Icon class="cute-stat-block-cog-o-3" name="game-icons:cog" />
+            <div class="cute-stat-block-border" />
+            <div class="cute-stat-block">
+              <div class="cute-stat-block-gradient" />
+              <p class="cute-stat-block-name">Dude</p>
+              <p class="cute-stat-block-meta">Humanoid</p>
+              <Icon class="cute-stat-block-cog-1" name="lucide:cog" />
+              <Icon class="cute-stat-block-cog-2" name="heroicons:cog-solid" />
+              <Icon class="cute-stat-block-cog-3" name="game-icons:cog" />
+            </div>
+            <div class="cute-stat-block-border" />
+          </div>
         </template>
         <template #title>Monster Editor, improved</template>
         The original Monster Editor can be found
@@ -126,12 +157,15 @@
     </PresentationText>
     <PresentationText class="mx-4 mt-10">
       <h2 class="static max-width">This isn't even my final form</h2>
-      <p class="static mt-7">The NPC Generator's roadmap:</p>
+      <p class="static mt-4">The NPC Generator's roadmap:</p>
     </PresentationText>
+    <GeneratorPageRoadmap class="mt-4" />
+    <GeneratorPageFooter class="mt-4" />
   </PresentationPage>
 </template>
 
 <script setup lang="ts">
+import { random } from "monstershuffler-shared";
 const exampleResult = ref("A faithful paladin of Mystra.");
 
 const exampleResults = [
@@ -142,13 +176,19 @@ const exampleResults = [
   "A faithful paladin of Mystra.",
 ];
 const exampleIndex = ref(0);
+const card = ref(1);
 
 onMounted(() => {
   setInterval(() => {
     exampleResult.value =
       exampleResults[exampleIndex.value++ % exampleResults.length];
+    changeCard();
   }, 3000);
 });
+
+function changeCard() {
+  card.value = random(1, 4);
+}
 </script>
 
 <style scoped>
@@ -160,7 +200,7 @@ onMounted(() => {
   position: relative;
   width: 100px;
   height: 160px;
-  @apply bg-yellow-100 rounded-lg p-2;
+  @apply bg-background-100 rounded-lg p-2;
 }
 .random-example .example-prompt {
   font-family: monospace;
@@ -180,5 +220,121 @@ onMounted(() => {
 }
 .list li + li {
   @apply mt-1;
+}
+.cute-stat-block-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 140px;
+  @apply bg-stone-200;
+}
+.cute-stat-block {
+  position: relative;
+  background-color: #fff8dc;
+  background-image: url("@/assets/images/monster/paper-texture.webp");
+  width: 66px;
+  height: 100px;
+  @apply shadow-xl px-1;
+}
+.cute-stat-block-border {
+  position: relative;
+  height: 4px;
+  width: 70px;
+  border: 1px solid #000;
+  background-position: top left;
+  background-repeat: repeat;
+  background-image: url("@/assets/images/monster/sticks2.webp");
+}
+.cute-stat-block-name {
+  position: relative;
+  text-align: left;
+  font-size: 1em;
+  line-height: 1;
+  font-family: "MrsEavesSmallCaps", serif;
+  @apply mt-1 text-red-950;
+}
+.cute-stat-block-meta {
+  position: relative;
+  text-align: left;
+  font-size: 0.7em;
+  font-family: "ScalaSansOffc", sans-serif;
+  font-style: italic;
+  line-height: 1;
+  @apply text-stone-600;
+}
+.cute-stat-block-cog-1 {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  font-size: 2.5em;
+  animation: rotate-left 2s infinite linear;
+  @apply text-red-950/20;
+}
+.cute-stat-block-cog-2 {
+  position: absolute;
+  bottom: 26px;
+  left: 2px;
+  font-size: 2em;
+  animation: rotate-right 2s infinite linear;
+  @apply text-red-950/20;
+}
+.cute-stat-block-cog-3 {
+  position: absolute;
+  bottom: 44px;
+  right: 20px;
+  font-size: 1.2em;
+  animation: rotate-left 2s infinite linear;
+  @apply text-yellow-800/25;
+}
+.cute-stat-block-cog-o-1 {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  font-size: 8em;
+  animation: rotate-left 10s infinite linear;
+  @apply text-stone-300;
+}
+.cute-stat-block-cog-o-2 {
+  position: absolute;
+  bottom: 20px;
+  left: -35px;
+  font-size: 7em;
+  animation: rotate-right 15s infinite linear;
+  @apply text-stone-300;
+}
+.cute-stat-block-cog-o-3 {
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  font-size: 5em;
+  animation: rotate-left 7s infinite linear;
+  @apply text-stone-300;
+}
+.cute-stat-block-gradient {
+  position: absolute;
+  inset: 0;
+  background: url("@/assets/images/monster/semitransparent.webp");
+  background-size: 150px auto;
+  background-repeat: repeat-x;
+}
+
+@keyframes rotate-left {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes rotate-right {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

@@ -39,7 +39,7 @@
               />
             </div>
             <div class="npcs">
-              <GeneratorPageIntro v-if="isIntroShown" class="mt-6 md:mt-9" />
+              <GeneratorPageIntro v-if="isIntroShown" class="mt-7 md:mt-9" />
               <GeneratorSession v-else />
             </div>
           </div>
@@ -51,7 +51,7 @@
       <LazyGeneratorPageDescription class="mt-9 md:mt-11" />
     </div>
     <div v-else class="centered">
-      <LoadingSpinner />
+      <LoadingSpinner class="mt-8" />
     </div>
     <DiceHistory />
     <MSAlert v-if="alert" :type="alert.type" @close="alert = null">

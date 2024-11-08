@@ -109,10 +109,9 @@ onMounted(() => {
 
   lexical.createLexicalEditor(editorRef.value, lexicalTheme);
 
-  if (p.backstory && !currentCharacterWithGeneratorData.value?.isStreamOpen) {
+  if (p.backstory && currentCharacterWithGeneratorData.value?.streamStatus) {
     lexical.importMarkdown(p.backstory);
   }
-
   // UNDO/REDO
 });
 </script>

@@ -18,9 +18,7 @@
       }"
     ></div>
   </NuxtLink> -->
-  <MSButton color="primary" to="https://kickstarter.com">
-    <NavbarSupportKickstarter class="kickstarter" />
-  </MSButton>
+  <NavbarSupportButtonKickstarter />
 </template>
 <script setup lang="ts">
 const user = useUserStore();
@@ -61,13 +59,5 @@ onMounted(async () => {
   display: grid;
   place-items: center;
   background-size: cover;
-}
-.kickstarter {
-  font-size: 0.875rem;
-}
-@media (min-width: theme("screens.md")) {
-  .kickstarter {
-    font-size: 1rem;
-  }
 }
 </style>

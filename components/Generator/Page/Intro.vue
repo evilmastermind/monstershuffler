@@ -17,10 +17,10 @@
           >
         </h1>
       </Transition>
-      <p class="static max-width mt-7">
+      <p class="static max-width mt-6">
         Create unforgettable NPCs with unique personalities and appearances.
       </p>
-      <p class="static max-width mt-2">
+      <p class="static max-width mt-1">
         Effortlessly improvise NPCs on the fly, or be inspired by AI-generated
         adventures to add new side quests in your campaign.
       </p>

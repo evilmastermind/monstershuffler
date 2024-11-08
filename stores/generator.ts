@@ -21,7 +21,7 @@ class FatalError extends Error {}
 
 type NPCGeneratorData = {
   rating?: number;
-  isStreamOpen?: boolean;
+  streamStatus?: "open" | "closed" | "error";
   streamChunks?: string[];
 };
 
@@ -249,7 +249,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     const controller = new AbortController();
     const { signal } = controller;
     const currentNpc = characters.value[currentCharacterIndex.value];
-    if (currentNpc.isStreamOpen) {
+    if (currentNpc.streamStatus) {
       return;
     }
 
@@ -285,7 +285,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         signal,
         // eslint-disable-next-line
       async onopen(response) {
-          currentNpc.isStreamOpen = true;
+          currentNpc.streamStatus = "open";
           if (
             response.ok
             // && response.headers.get("content-type") === EventStreamContentType
@@ -305,7 +305,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         onmessage(msg) {
           // if the server emits an error message, throw an exception
           // so it gets handled by the onerror callback below:
-          if (msg.event === "FatalError") {
+          if (msg.event === "FatalError" || msg.id === "error") {
             throw new FatalError(msg.data);
           }
 
@@ -335,13 +335,14 @@ export const useGeneratorStore = defineStore("generator", () => {
           lastEventId = msg.id;
         },
         onclose() {
-          currentNpc.isStreamOpen = false;
+          currentNpc.streamStatus = "closed";
           controller.abort();
           return 200;
         },
         onerror(err) {
           backstory.string = `An error occurred while generating the backstory (${err}).`;
-          currentNpc.isStreamOpen = false;
+          currentNpc.streamChunks?.push(backstory.string);
+          currentNpc.streamStatus = "error";
           if (err instanceof FatalError) {
             controller.abort();
             throw err; // rethrow to stop the operation

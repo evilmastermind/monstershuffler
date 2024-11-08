@@ -3,12 +3,13 @@
     <EditorText :backstory="backstory.string as string" />
     <LoadingDots
       v-if="
-        !backstory.string && [true, undefined].includes(character?.isStreamOpen)
+        !backstory.string &&
+        ['open', undefined].includes(character?.streamStatus)
       "
     />
     <Transition name="fade">
       <div
-        v-if="backstory && character?.isStreamOpen === false"
+        v-if="backstory.string && character?.streamStatus === 'closed'"
         class="hide-from-exports"
       >
         <h3 class="content mt-6">
@@ -68,9 +69,9 @@ onMounted(async () => {
     }
   } else if (
     backstory.value !== null &&
-    character.value.isStreamOpen === undefined
+    character.value.streamStatus === undefined
   ) {
-    character.value.isStreamOpen = false;
+    character.value.streamStatus = "closed";
   }
 });
 </script>

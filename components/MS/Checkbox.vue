@@ -1,7 +1,7 @@
 <template>
   <label class="container">
     <span class="label">{{ label }}</span>
-    <input v-model="modelValue" type="checkbox" />
+    <input v-model="modelValue" type="checkbox" :disabled />
     <span class="checkmark" />
   </label>
 </template>
@@ -14,6 +14,10 @@ const p = defineProps({
     type: String,
     required: true,
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
@@ -21,7 +25,8 @@ const p = defineProps({
 /* Customize the label (the container) */
 .container {
   display: inline-block;
-  width: min-content;
+  width: max-content;
+  max-width: 100%;
   position: relative;
   padding-left: 2em;
   cursor: pointer;
@@ -54,6 +59,9 @@ const p = defineProps({
   border-right: 1px solid theme("colors.inset.500");
   border-bottom: 1px solid theme("colors.inset.400");
   box-shadow: inset 0px 6px 5px theme("colors.inset.300");
+}
+.checkmark:disabled {
+  opacity: 0.5;
 }
 
 /* On mouse-over, add a grey background color */
@@ -95,7 +103,6 @@ input:focus-visible + .checkmark {
   box-shadow: 0 0 0 3px theme("colors.text");
 }
 .label {
-  white-space: nowrap;
   letter-spacing: 0.05em;
   text-shadow: 0 0 20px theme("colors.text-inverse");
   @apply text-sm;

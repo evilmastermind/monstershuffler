@@ -48,6 +48,16 @@
 }
 
 
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
+}
+.slide-right-enter-from,
+.slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+
 
 /* 1. declare transition */
 .fade-row-move,
@@ -138,7 +148,7 @@
 }
 .slidetransition-move {
   transition: transform var(--quick) ease-in;
-} */
+}
 
 
 /* .scroll-left-enter-active,
