@@ -24,6 +24,7 @@
     <PresentationTodo
       label="Rebuild all backgrounds with unique actions based on the NPC's ability scores and alignment (requires Monster Editor v2)"
     />
+    <PresentationTodo label="NPC's loot (requires Items Editor & Database)" />
     <PresentationTodo
       label="AI-generated adventure v2: NPCs, locations and items mentioned can be generated as well"
     />

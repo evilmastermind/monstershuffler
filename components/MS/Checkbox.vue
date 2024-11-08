@@ -2,7 +2,7 @@
   <label class="container">
     <span class="label">{{ label }}</span>
     <input v-model="modelValue" type="checkbox" :disabled />
-    <span class="checkmark" />
+    <span class="ms-input-style checkmark" />
   </label>
 </template>
 
@@ -52,13 +52,6 @@ const p = defineProps({
   left: 0;
   height: 1.5em;
   width: 1.5em;
-  border-radius: theme("spacing.1");
-  background-color: theme("colors.inset.200");
-  border-top: 1px solid theme("colors.inset.500");
-  border-left: 1px solid theme("colors.inset.500");
-  border-right: 1px solid theme("colors.inset.500");
-  border-bottom: 1px solid theme("colors.inset.400");
-  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
 }
 .checkmark:disabled {
   opacity: 0.5;

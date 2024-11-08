@@ -1,9 +1,10 @@
-import { userInfo } from "os";
 import type {
   Credentials,
   RegistrationFields,
   LoginResponse,
   GetUserResponse,
+  Answer,
+  PostAnswerBody,
 } from "@/types";
 import { parseError } from "@/utils";
 
@@ -181,6 +182,23 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  async function setFeedback(questionid: string, answer: Answer) {
+    try {
+      const body: PostAnswerBody = {
+        questionid,
+        answer,
+        sessionid: sessionId.value,
+        userid: me.value?.id,
+      };
+      await $fetch(`${api}/feedback/answers`, {
+        method: "POST",
+        body: { answer, questionid, sessionId: sessionId.value },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   function logout() {
     token.value = "";
     me.value = null;
@@ -210,5 +228,6 @@ export const useUserStore = defineStore("user", () => {
     getSettings,
     setSettings,
     setSession,
+    setFeedback,
   };
 });

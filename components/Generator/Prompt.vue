@@ -3,7 +3,7 @@
     <input
       v-model="prompt"
       type="text"
-      class="ms-input w-full prompt pr-6 pl-2"
+      class="ms-input-style ms-input w-full prompt pr-6 pl-2"
       :placeholder="$t('generator.prompt.placeholder')"
       @keyup.enter="generateNpcsThrottle"
       @input="resetWordsNotFound"

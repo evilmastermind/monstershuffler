@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px;
+  max-width: theme("screens.nav");
   @apply gap-2;
 }
 </style>

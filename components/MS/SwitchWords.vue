@@ -1,6 +1,6 @@
 <template>
   <label
-    class="slider-container px-1"
+    class="ms-input-style slider-container px-1"
     :class="[size === 'small' ? 'small py-1' : 'medium py-2']"
   >
     <input v-model="model" type="checkbox" class="checkbox" />
@@ -49,12 +49,6 @@ const p = defineProps({
   grid-template-columns: 0px auto auto;
   line-height: 1rem;
   cursor: pointer;
-  background-color: theme("colors.inset.200");
-  border-top: 1px solid theme("colors.inset.500");
-  border-left: 1px solid theme("colors.inset.500");
-  border-right: 1px solid theme("colors.inset.500");
-  border-bottom: 1px solid theme("colors.inset.400");
-  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
   z-index: 0;
   line-height: 1.25em;
   @apply gap-0 rounded py-1;

@@ -18,7 +18,7 @@
             <select
               id="gen-prace"
               v-model="primaryRaceIndex"
-              class="ms-select ms-select-75"
+              class="ms-input-style ms-select ms-select-75"
             >
               <option v-for="(race, i) in races" :key="i" :value="i">
                 {{ race.name }}
@@ -31,7 +31,7 @@
             <select
               id="gen-prace-perc"
               v-model="options.primaryRacePercentage"
-              class="ms-select ms-select-20"
+              class="ms-input-style ms-select ms-select-20"
             >
               <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
                 {{ `${(index - 1) * 5}%` }}
@@ -47,7 +47,7 @@
             <select
               id="gen-srace"
               v-model="secondaryRaceIndex"
-              class="ms-select ms-select-75"
+              class="ms-input-style ms-select ms-select-75"
             >
               <option v-for="(race, i) in races" :key="i" :value="i">
                 {{ race.name }}
@@ -60,7 +60,7 @@
             <select
               id="gen-srace-perc"
               v-model="options.secondaryRacePercentage"
-              class="ms-select ms-select-20"
+              class="ms-input-style ms-select ms-select-20"
             >
               <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
                 {{ `${(index - 1) * 5}%` }}
@@ -76,7 +76,7 @@
           <select
             id="gen-class"
             v-model="options.classType"
-            class="ms-select ms-select-100"
+            class="ms-input-style ms-select ms-select-100"
           >
             <option value="none">
               {{ $t("generator.form.none") }}
@@ -96,7 +96,7 @@
           <select
             id="gen-classes"
             v-model="classIndex"
-            class="ms-select ms-select-100 mt-1"
+            class="ms-input-style ms-select ms-select-100 mt-1"
           >
             <option v-for="(aClass, i) in classes" :key="i" :value="i">
               {{ aClass.name }}
@@ -112,7 +112,7 @@
           <select
             id="gen-background"
             v-model="options.backgroundType"
-            class="ms-select ms-select-100"
+            class="ms-input-style ms-select ms-select-100"
           >
             <option value="none">
               {{ $t("generator.form.none") }}
@@ -129,7 +129,7 @@
           <select
             id="gen-backgrounds"
             v-model="backgroundIndex"
-            class="ms-select ms-select-100 mt-1"
+            class="ms-input-style ms-select ms-select-100 mt-1"
           >
             <option v-for="(background, i) in backgrounds" :key="i" :value="i">
               {{ capitalizeFirst(background.name) }}
@@ -144,7 +144,7 @@
           <select
             id="gen-level"
             v-model="options.levelType"
-            class="ms-select ms-select-100"
+            class="ms-input-style ms-select ms-select-100"
           >
             <option value="random">
               {{ $t("generator.form.crRandom") }}

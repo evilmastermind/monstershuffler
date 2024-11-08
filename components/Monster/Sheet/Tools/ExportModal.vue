@@ -12,7 +12,7 @@
       </p>
       <textarea
         v-model="statBlockExport.content"
-        class="statblock-textarea mt-2"
+        class="ms-input-style statblock-textarea mt-2"
       />
       <MSButton
         block
@@ -53,13 +53,6 @@ function copy() {
   width: 100%;
   min-height: 300px;
   resize: none;
-  background-color: theme("colors.inset.200");
-  border-top: 1px solid theme("colors.inset.500");
-  border-left: 1px solid theme("colors.inset.500");
-  border-right: 1px solid theme("colors.inset.500");
-  border-bottom: 1px solid theme("colors.inset.400");
-  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
-  color: theme("colors.text");
   font-family: "Courier New", Courier, monospace;
   white-space: nowrap;
   @apply h-full text-sm p-1 text-text bg-background-0 rounded shadow-sm;
