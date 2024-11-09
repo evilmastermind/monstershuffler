@@ -51,8 +51,8 @@ export default {
             12: "72px",
           },
           colors: {
-            light: "hsl(0, 0%, 100%)",
-            dark: "hsl(0, 0%, 0%)",
+            light: "hsl(240, 0%, 85%)",
+            dark: "hsl(46, 30%, 7%)",
             monstershuffler: "hsl(355, 100%, 24%)",
             primary: {
               100: "hsl(355, 100%, 97%)",
@@ -188,8 +188,8 @@ export default {
           selectors: [".dark-mode", '[data-theme="dark"]'],
           extend: {
             colors: {
-              light: "hsl(0, 0%, 0%)",
-              dark: "hsl(0, 0%, 100%)",
+              light: "hsl(46, 30%, 7%)",
+              dark: "hsl(240, 0%, 85%)",
               monstershuffler: "hsl(355, 100%, 24%)",
               primary: {
                 900: "hsl(355, 100%, 97%)",

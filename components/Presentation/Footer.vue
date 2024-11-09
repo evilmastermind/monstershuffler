@@ -6,9 +6,9 @@
     <div class="footer-cta mt-10 mb-8">
       <div class="logo-container">
         <div class="logo-gradients">
-          <div class="gradient gradient-1" />
+          <!-- <div class="gradient gradient-1" />
           <div class="gradient gradient-2" />
-          <div class="gradient gradient-3" />
+          <div class="gradient gradient-3" /> -->
         </div>
         <MSLogo class="logo" />
       </div>
@@ -29,8 +29,11 @@
         <a href="http://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf"
           >D&D Open Gaming License (OGL)</a
         >. DUNGEONS & DRAGONS is a registered trademark owned by WIZARDS OF THE
-        COAST LLC. To know more about D&D visit
-        <a href="https://www.dndbeyond.com/">https://www.dndbeyond.com/</a>.
+        COAST LLC.
+      </p>
+      <p class="footer-text">
+        Contact:
+        <a href="mailto:info@monstershuffler.com">info@monstershuffler.com</a>
       </p>
     </footer>
   </div>
@@ -72,9 +75,9 @@
   width: 70px;
   aspect-ratio: 1;
   background-color: black;
+  box-shadow: 0 0 20px theme("colors.text / 10%");
   @apply rounded-xl;
 }
-
 .logo-gradients {
   position: absolute;
   inset: 0;
@@ -83,13 +86,13 @@
   position: absolute;
   width: 100%;
   opacity: 1;
-  mix-blend-mode: exclusion;
+  mix-blend-mode: difference;
   aspect-ratio: 1;
   @apply rounded-xl;
 }
 .gradient-1 {
   background: red;
-  animation: gradient-2 1s alternate infinite;
+  animation: gradient-2 1.3s alternate infinite;
 }
 .gradient-2 {
   background: blue;
@@ -98,7 +101,7 @@
 }
 .gradient-3 {
   background: rgb(0, 255, 0);
-  animation: gradient-2 1s linear infinite;
+  animation: gradient-2 1.1s linear infinite;
   animation-delay: 0.4s;
 }
 @keyframes rotate {
@@ -128,7 +131,7 @@
     left: 1.5px;
   }
   80% {
-    top: 0%;
+    top: 1.5%;
     left: 0%;
   }
   100% {
@@ -146,7 +149,7 @@
     left: -1.5px;
   }
   40% {
-    top: 0%;
+    top: 1.5%;
     left: 0%;
   }
   60% {
@@ -168,7 +171,7 @@
     right: -1.5px;
   }
   20% {
-    bottom: 0%;
+    bottom: 1.5%;
     right: 0%;
   }
   40% {

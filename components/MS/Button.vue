@@ -163,10 +163,10 @@ function goToURL() {
   @apply bg-light text-text;
 }
 .color-light:hover {
-  @apply bg-grey-50;
+  @apply bg-background-50;
 }
 .color-light:active {
-  @apply bg-grey-100;
+  @apply bg-background-100;
 }
 
 .color-dark {
