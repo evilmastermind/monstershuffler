@@ -1,7 +1,7 @@
 <template>
   <label class="container">
-    <span class="label">{{ label }}</span>
     <input v-model="modelValue" type="checkbox" :disabled />
+    <span class="label">{{ label }}</span>
     <span class="ms-input-style checkmark" />
   </label>
 </template>
@@ -29,7 +29,6 @@ const p = defineProps({
   max-width: 100%;
   position: relative;
   padding-left: 2em;
-  cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -65,6 +64,19 @@ const p = defineProps({
 .container input:checked ~ .checkmark {
 }
 
+.container input ~ .checkmark {
+  cursor: pointer;
+}
+.container input:disabled ~ .checkmark {
+  cursor: auto;
+}
+.container input ~ .label {
+  cursor: pointer;
+}
+.container input:disabled ~ .label {
+  cursor: auto;
+}
+
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
@@ -96,8 +108,10 @@ input:focus-visible + .checkmark {
   box-shadow: 0 0 0 3px theme("colors.text");
 }
 .label {
+  display: inline-block;
   letter-spacing: 0.05em;
+  line-height: 1.3em;
+  font-size: 0.875rem;
   text-shadow: 0 0 20px theme("colors.text-inverse");
-  @apply text-sm;
 }
 </style>

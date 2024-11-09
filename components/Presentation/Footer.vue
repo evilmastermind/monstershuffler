@@ -1,16 +1,16 @@
 <template>
   <div class="footer-container">
-    <div v-if="$slots.feedback" class="feedback">
+    <div v-if="$slots.feedback" class="feedback mt-6">
       <slot name="feedback" />
     </div>
-    <div class="footer-cta my-9">
+    <div class="footer-cta mt-10 mb-8">
       <div class="logo-container">
         <div class="logo-gradients">
           <div class="gradient gradient-1" />
           <div class="gradient gradient-2" />
           <div class="gradient gradient-3" />
         </div>
-        <NavbarLogo class="logo" />
+        <MSLogo class="logo" />
       </div>
       <h2 class="static mt-6">Help bring this vision to life</h2>
       <p class="static max-width mt-4">
@@ -72,13 +72,9 @@
   width: 70px;
   aspect-ratio: 1;
   background-color: black;
-  overflow: hidden;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), 0 10px 15px -3px rgb(100 90 90 / 0.3),
-    0 4px 6px -4px rgb(100 90 90 / 0.3);
   @apply rounded-xl;
 }
-/**
+
 .logo-gradients {
   position: absolute;
   inset: 0;
@@ -89,7 +85,7 @@
   opacity: 1;
   mix-blend-mode: exclusion;
   aspect-ratio: 1;
-  @apply rounded;
+  @apply rounded-xl;
 }
 .gradient-1 {
   background: red;
@@ -192,5 +188,4 @@
     right: -5;
   }
 }
-  **/
 </style>

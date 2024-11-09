@@ -15,7 +15,12 @@
           @click="share(index)"
         />
       </div>
-      <input type="text" class="ms-input w-full" disabled :value="p.link" />
+      <input
+        type="text"
+        class="ms-input-style ms-input w-full"
+        disabled
+        :value="p.link"
+      />
       <MSButton
         block
         :color="hasCopiedToClipboard ? 'success' : 'dark'"

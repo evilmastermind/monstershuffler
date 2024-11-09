@@ -23,9 +23,7 @@
               >:
               <DiceHistoryResult :roll />
               <br />
-              <span class="text-sm text-text-2">{{
-                roll.rollDetails
-              }}</span>
+              <span class="text-sm text-text-2">{{ roll.rollDetails }}</span>
             </p>
           </div>
         </div>
@@ -34,7 +32,7 @@
     <input
       v-model="rollAsString"
       type="text"
-      class="ms-input w-full prompt pr-6 mt-2"
+      class="ms-input-style ms-input w-full prompt pr-6 mt-2"
       placeholder="1d20 + 5"
       @keyup.enter="rolls.rollDiceAsString(rollAsString || '1d20')"
     />

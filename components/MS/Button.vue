@@ -63,8 +63,7 @@ const p = defineProps({
     default: false,
   },
   size: {
-    type: String,
-    required: false,
+    type: String as PropType<"small" | "medium">,
     default: "medium",
   },
 });

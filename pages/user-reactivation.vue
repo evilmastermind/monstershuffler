@@ -15,7 +15,7 @@
         <input
           v-model="credentials.email"
           type="email"
-          class="ms-input w-full"
+          class="ms-input-style ms-input w-full"
           required
         />
       </label>

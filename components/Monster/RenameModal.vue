@@ -16,7 +16,7 @@
               type="text"
               minlength="2"
               :required="false"
-              class="ms-input"
+              class="ms-input-style ms-input"
             />
           </span>
           <span class="form-line">
@@ -28,7 +28,7 @@
               v-model="name"
               type="text"
               minlength="2"
-              class="ms-input"
+              class="ms-input-style ms-input"
             />
           </span>
           <span class="form-line">
@@ -41,7 +41,7 @@
               minlength="2"
               :required="false"
               type="text"
-              class="ms-input"
+              class="ms-input-style ms-input"
             />
           </span>
           <div>

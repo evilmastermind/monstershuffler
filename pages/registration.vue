@@ -45,7 +45,7 @@
           <input
             v-model="credentials.username"
             type="text"
-            class="ms-input w-full"
+            class="ms-input-style ms-input w-full"
             minlength="2"
             maxlength="21"
             required
@@ -56,7 +56,7 @@
           <input
             v-model="credentials.email"
             type="email"
-            class="ms-input w-full"
+            class="ms-input-style ms-input w-full"
             required
           />
         </label>
@@ -65,7 +65,7 @@
           <input
             v-model="credentials.password"
             type="password"
-            class="ms-input w-full"
+            class="ms-input-style ms-input w-full"
             minlength="8"
             required
           />
@@ -75,7 +75,7 @@
           <input
             v-model="confirmPassword"
             type="password"
-            class="ms-input w-full"
+            class="ms-input-style ms-input w-full"
             minlength="8"
             required
           />

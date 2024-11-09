@@ -21,7 +21,7 @@ const questions = [
   {
     id: "019306e3-f9eb-7dba-a650-ace9b2ecb3f7",
     question:
-      "Are there any features you would like to see added to the NPC Generator?",
+      "Are there any other features you would like to see added to the NPC Generator?",
   },
   {
     id: "019306e4-1f06-7bd1-a875-df052189d19f",

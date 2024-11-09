@@ -192,10 +192,11 @@ export const useUserStore = defineStore("user", () => {
       };
       await $fetch(`${api}/feedback/answers`, {
         method: "POST",
-        body: { answer, questionid, sessionId: sessionId.value },
+        body,
       });
+      return 200;
     } catch (error) {
-      console.error(error);
+      return parseError(error).statusCode;
     }
   }
 

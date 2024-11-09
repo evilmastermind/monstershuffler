@@ -10,7 +10,7 @@
           <input
             v-model="credentials.password"
             type="password"
-            class="ms-input w-full"
+            class="ms-input-style ms-input w-full"
             minlength="8"
             required
           />
@@ -20,7 +20,7 @@
           <input
             v-model="confirmPassword"
             type="password"
-            class="ms-input w-full"
+            class="ms-input-style ms-input w-full"
             minlength="8"
             required
           />

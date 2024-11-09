@@ -1,12 +1,28 @@
 <template>
   <div class="feedback-container">
-    <div class="feedback">
+    <div class="feedback px-4">
       <p class="static question">{{ question }}</p>
-      <textarea
-        v-model="answer.answer"
-        class="ms-input-style answer mt-2"
-        :placeholder="$t('yourAnswerHere')"
-      />
+      <textarea v-model="answer.answer" class="ms-input-style answer mt-2" />
+      <MSButton
+        class="mt-1"
+        size="small"
+        block
+        color="dark"
+        :loading
+        @click="sendFeedback"
+      >
+        {{ $t("feedback.sendFeedback") }}
+      </MSButton>
+      <MSAlert
+        v-if="isThankYouShown"
+        type="success"
+        @close="isThankYouShown = false"
+      >
+        <p>{{ $t("feedback.thankYou") }}</p>
+      </MSAlert>
+      <MSAlert v-if="isErrorShown" type="danger" @close="isErrorShown = false">
+        <p>{{ $t("error.generic") }}</p>
+      </MSAlert>
     </div>
   </div>
 </template>
@@ -14,9 +30,14 @@
 <script setup lang="ts">
 import type { Answer } from "@/types";
 
+const user = useUserStore();
+
 const answer = ref<Answer>({
   answer: "",
 });
+const isThankYouShown = ref(false);
+const isErrorShown = ref(false);
+const loading = ref(false);
 
 const p = defineProps({
   questionId: {
@@ -28,6 +49,20 @@ const p = defineProps({
     required: true,
   },
 });
+
+async function sendFeedback() {
+  if (answer.value.answer && answer.value.answer.length > 0) {
+    loading.value = true;
+    const response = await user.setFeedback(p.questionId, answer.value);
+    loading.value = false;
+    if (response === 200) {
+      isThankYouShown.value = true;
+      answer.value.answer = "";
+    } else {
+      isErrorShown.value = true;
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -36,12 +71,14 @@ const p = defineProps({
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 0;
 }
 .feedback {
   max-width: theme("screens.nav");
 }
 .question {
-  font-weight: bold;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
 }
 .answer {
   width: 100%;

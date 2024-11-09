@@ -3,7 +3,8 @@
     "couldntRetrieveData": "Unable to retrieve data from the server. Please try again later.",
     "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again.",
     "notFound": "The requested resource was not found.",
-    "notFoundExtended": "The requested resource was not found."
+    "notFoundExtended": "The requested resource was not found.",
+    "generic": "An error occurred. Please try again later."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",
@@ -604,6 +605,11 @@
     "subtitle": "Share the original (unmodified) version of this NPC.",
     "copyLink": "Copy link"
   },
+  "feedback": {
+    "yourAnswerHere": "Write your suggestions here",
+    "sendFeedback": "Send feedback",
+    "thankYou": "Thank you for your help!"
+  },
   "copyToClipboard": "Copy to clipboard",
   "copied": "Copied!",
   "HTML": "HTML",
@@ -611,6 +617,5 @@
   "back": "Back",
   "theme": "Theme",
   "rename": "Rename",
-  "pin": "Pin",
-  "yourAnswerHere": "Write your suggestions here"
+  "pin": "Pin"
 }
