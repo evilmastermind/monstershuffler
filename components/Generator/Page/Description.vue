@@ -6,7 +6,7 @@
       </h2>
       <p class="static max-width mt-6">
         Built with a purpose: to
-        <b class="bold"
+        <b class="static"
           >never let you run out of NPCs during your game sessions</b
         >.
       </p>

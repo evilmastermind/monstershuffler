@@ -101,7 +101,7 @@ onUnmounted(() => {
   transform: rotate3d(0);
   overflow: hidden;
   min-width: 100px;
-  @apply shadow rounded-lg;
+  @apply shadow rounded;
 }
 .tool-representation:hover {
   transition-duration: 150ms;

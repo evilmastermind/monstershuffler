@@ -60,8 +60,7 @@ function copyToClipboard() {
   position: relative;
   overflow: hidden;
   transition: border-color 0.3s;
-  box-shadow: inset 0 0 10px theme("colors.background.200");
-  @apply border border-background-300 rounded-xl;
+  @apply border border-inset-400 rounded;
 }
 .icons {
   position: relative;
@@ -83,10 +82,10 @@ function copyToClipboard() {
   @apply border-background-500 shadow;
 }
 .background-light {
-  @apply bg-background-150;
+  @apply bg-inset-200;
 }
 .background-dark {
-  @apply bg-background-150;
+  @apply bg-inset-200;
 }
 .content {
   position: relative;

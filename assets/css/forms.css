@@ -20,13 +20,20 @@
 
 .ms-input-style {
   background-color: theme("colors.inset.200");
-  border-top: 1px solid theme("colors.inset.500");
-  border-left: 1px solid theme("colors.inset.500");
-  border-right: 1px solid theme("colors.inset.500");
+  border-top: 1px solid theme("colors.inset.400");
+  border-left: 1px solid theme("colors.inset.400");
+  border-right: 1px solid theme("colors.inset.400");
   border-bottom: 1px solid theme("colors.inset.400");
-  box-shadow: inset 0px 6px 5px theme("colors.inset.300");
+  /* box-shadow: inset 0px 6px 5px theme("colors.inset.300"); */
   color: theme("colors.text");
   border-radius: theme("spacing.1");
+}
+.ms-input-style::placeholder {
+  text-overflow: ellipsis;
+  @apply text-text-3;
+}
+.ms-input-style:placeholder-shown {
+  text-overflow: ellipsis;
 }
 
 .ms-select {
@@ -71,16 +78,6 @@
 .ms-input:hover, .ms-select:hover {
   border: 1px solid theme("colors.background.700");
 }
-
-
-.ms-input-style::placeholder {
-  text-overflow: ellipsis;
-  @apply text-text-placeholder;
-}
-.ms-input-style:placeholder-shown {
-  text-overflow: ellipsis;
-}
-
 
 /* 
 ::-webkit-input-placeholder {

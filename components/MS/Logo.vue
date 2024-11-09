@@ -83,7 +83,7 @@ const black = computed(() => {
   return currentThemeType.value === "light" ? "black" : "black";
 });
 const blackOrTransparent = computed(() => {
-  return currentThemeType.value === "light" ? "black" : "transparent";
+  return currentThemeType.value === "light" ? "black" : "black";
 });
 </script>
 

@@ -20,6 +20,6 @@
   flex-direction: column;
   width: 100%;
   max-width: theme("screens.nav");
-  @apply gap-1;
+  @apply gap-2;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <li class="card">
+  <li class="ms-input-style card">
     <Icon aria-hidden class="card-icon" :name="icon" />
     <div>
       <h3 v-if="$slots.title" class="static">
@@ -24,13 +24,6 @@ const p = defineProps({
 <style scoped>
 .card {
   min-height: 100%;
-  border-radius: theme("spacing.1");
-  background-color: theme("colors.background.200");
-  border-top: 1px solid theme("colors.background.500");
-  border-left: 1px solid theme("colors.background.500");
-  border-right: 1px solid theme("colors.background.500");
-  border-bottom: 1px solid theme("colors.background.400");
-  color: theme("colors.text");
   transition: outline 0.2s ease, border-color 0.2s ease;
   display: flex;
   flex-direction: row;
@@ -39,7 +32,7 @@ const p = defineProps({
   align-self: center;
   max-width: 600px;
   gap: 20%;
-  @apply bg-background-100 p-6 rounded-lg outline-transparent shadow-sm;
+  @apply p-6 rounded outline-transparent shadow-sm;
 }
 
 .card-icon {

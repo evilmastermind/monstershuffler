@@ -22,7 +22,7 @@
           v-show="currentCharacterIndex === -1"
           key="3"
           class="session-container"
-          :style="{ minHeight: isIntroShown ? '0' : '60svh' }"
+          :style="{ minHeight: isIntroShown ? '0' : '100svh' }"
         >
           <div class="mx-4 mt-4 md:mt-7">
             <div v-if="isFormMode" class="form md:mr-6 mb-9">
