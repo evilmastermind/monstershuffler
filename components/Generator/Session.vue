@@ -49,7 +49,7 @@ function pinCharacter(index: number) {
   @apply flex flex-col-reverse gap-6 w-full;
 }
 .generation-4 {
-  @apply grid grid-cols-1 gap-x-2 gap-y-2;
+  @apply grid grid-cols-1 gap-4;
 }
 .generation-1 {
   display: grid;

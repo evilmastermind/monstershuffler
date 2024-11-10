@@ -98,8 +98,8 @@ function closeSheet() {
 .top-bar-page-title {
   grid-area: title;
   display: none;
-  font-family: "MrsEavesSmallCaps", serif;
-  font-size: 1.2rem;
+  font-family: "LibreBaskerville", serif;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
   white-space: nowrap;
@@ -107,8 +107,8 @@ function closeSheet() {
   @apply text-text-evil;
 }
 .top-bar-character-name {
-  font-family: "MrsEavesSmallCaps", serif;
-  font-size: 1.2rem;
+  font-family: "LibreBaskerville", serif;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
   white-space: nowrap;

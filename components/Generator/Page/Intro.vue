@@ -2,20 +2,7 @@
   <div class="intro">
     <div class="intro-text text-center">
       <Transition name="title" appear>
-        <h1 class="static">
-          <span class="custom-title-small">the</span
-          ><span class="custom-title gradient-title npc"
-            ><span class="n">N</span>PC</span
-          >
-          <span class="custom-title-small ml-2">(& adventure)</span>
-        </h1>
-      </Transition>
-      <Transition name="title" appear>
-        <h1 class="static" :style="{ transitionDelay: '50ms' }">
-          <span class="custom-title gradient-title generator"
-            >Gen<span class="e">e</span>rator</span
-          >
-        </h1>
+        <h1 class="static custom-title gradient-title">The NPC Improvisator</h1>
       </Transition>
       <p class="static max-width mt-6">
         Create unforgettable NPCs with unique personalities and appearances.

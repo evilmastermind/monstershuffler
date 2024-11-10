@@ -2,40 +2,42 @@ h1.static   {
   display: block;
 }
 
-/* .gradient-title {
+.gradient-title {
   display: inline-block;
-  background: linear-gradient(135deg, theme("colors.text") 60px, theme("colors.text-evil") 80px, theme("colors.text-neutral") 100px, theme("colors.text-good") 120px, theme("colors.text") 140px);
+  background: linear-gradient(90deg, theme("colors.text") 0%, theme("colors.text-evil") 15%, theme("colors.text-neutral") 60%, theme("colors.text-good") 85%, theme("colors.text") 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 5px;
-} */
+}
 
 .accent {
   @apply text-primary-700;
 }
 h2.static {
-  font-family: "OpenSans", sans-serif;
+  font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
   font-size: 1.8rem;
-  line-height: 1em;
-  letter-spacing: -0.06em;
+  line-height: 1.2em;
+  letter-spacing: -0.04em;
   text-align: center;
 }
 h3.static {
-  font-family: "OpenSans", sans-serif;
+  font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
-  font-size: 1.25rem;
-  line-height: 1em;
-  letter-spacing: -0.06em;
+  font-size: 1.25rem; 
+  line-height: 1.2em;
+  letter-spacing: -0.04em;
   @apply py-2;
 }
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
+  @apply text-text-1;
 }
 b.static {;
   font-weight: 700;
+  @apply text-text;
 }
 .static + .max-width {
   max-width: 700px;
@@ -52,7 +54,7 @@ b.static {;
 }
 
 .custom-title-h3 {
-  font-family: "OpenSans", sans-serif;
+  font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: -0.06em;
@@ -65,11 +67,11 @@ b.static {;
   @apply text-primary-700;
 }
 .custom-title {
-  font-family: "OpenSans", sans-serif;
+  font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
-  font-size: 4rem;
-  letter-spacing: -0.09em;
-  line-height: 0.7em;
+  font-size: 3rem;
+  letter-spacing: -0.05em;
+  line-height: 1em;
 }
 
 .br-subtitle {
@@ -82,7 +84,7 @@ b.static {;
 }
 @media (min-width: theme("screens.md")) {
   .custom-title {
-    font-size: 6rem;
+    font-size: 4rem;
   }
   .custom-title-small {
     font-size: 1.5rem;

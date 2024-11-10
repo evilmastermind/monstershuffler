@@ -8,7 +8,7 @@
       <h3 v-if="$slots.title" class="static">
         <slot name="title" />
       </h3>
-      <p class="static">
+      <p class="static mt-1">
         <slot name="default" />
       </p>
     </div>

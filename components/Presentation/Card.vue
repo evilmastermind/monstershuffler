@@ -5,7 +5,7 @@
       <h3 v-if="$slots.title" class="static">
         <slot name="title" />
       </h3>
-      <div v-if="$slots.default" class="card-text">
+      <div v-if="$slots.default" class="card-text mt-1">
         <slot />
       </div>
     </div>

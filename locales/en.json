@@ -456,7 +456,7 @@
     "changeTheme": "Change Theme",
     "menu": {
       "home": "Homepage",
-      "npcGenerator": "NPC Generator",
+      "npcGenerator": "NPC Improvisator",
       "editor": "Editor",
       "dmScreen": "DM Screen",
       "monsters": "Monsters",
@@ -478,10 +478,10 @@
     "pageDescription": "Monstershuffler is a Monster Editor and NPC Generator for Dungeons & Dragons (D&D) 5th Edition."
   },
   "generator": {
-    "pageTitle": "NPC Generator",
+    "pageTitle": "NPC Improvisator",
     "pickOne": "Pick one, or generate 4 more",
     "pageDescription": "NPC Generator for Dungeons & Dragons (D&D) 5th Edition, complete with fully-editable stat blocks.",
-    "title": "NPC Generator",
+    "title": "NPC Improvisator",
     "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lectus ut sapien posuere consectetur for Dungeons & Dragons 5th Edition.",
     "description2": "Pellentesque malesuada varius ante, et egestas quam. Aliquam sit amet pellentesque arcu. Pellentesque sagittis aliquet quam, nec tempus lorem tincidunt non. In nec arcu condimentum, malesuada tellus et, malesuada justo. Vivamus porta viverra justo, in dapibus velit tincidunt id. Nulla luctus sit amet ante vitae lobortis.",
     "formModeTitle": "Form mode",

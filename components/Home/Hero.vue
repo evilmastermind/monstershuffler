@@ -7,7 +7,7 @@
         <div class="lg-max">
           <div class="text mx-4">
             <p class="custom-title-small">v2 preview:</p>
-            <h1 class="custom-title mt-2">The NPC Generator</h1>
+            <h1 class="custom-title mt-2">The NPC Improvisator</h1>
             <div>
               <MSButton
                 to="monsters-generator"
