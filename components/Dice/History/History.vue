@@ -19,7 +19,7 @@
         :title="$t('dice.open')"
         @click="isHistoryOpen = true"
       >
-        <DiceD20 :size="2" :stroke="3" shadow />
+        <DiceD20 :size="2" :stroke="3" />
         <span class="sr-only">{{ $t("dice.open") }}</span>
       </button>
     </Transition>
