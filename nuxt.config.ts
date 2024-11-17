@@ -49,9 +49,9 @@ export default defineNuxtConfig({
     },
   },
 
-  devtools: {
-    enabled: false,
-  },
+  // devtools: {
+  //   enabled: false,
+  // },
 
   runtimeConfig: {
     someServerSideVariable: "some value",

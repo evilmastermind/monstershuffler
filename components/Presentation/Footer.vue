@@ -3,7 +3,7 @@
     <div v-if="$slots.feedback" class="feedback mt-6">
       <slot name="feedback" />
     </div>
-    <div class="footer-cta mt-10 mb-8">
+    <div class="footer-cta mt-10 mb-8 mx-4">
       <div class="logo-container">
         <div class="logo-gradients">
           <!-- <div class="gradient gradient-1" />

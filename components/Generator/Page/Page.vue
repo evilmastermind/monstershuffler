@@ -2,57 +2,59 @@
   <div class="generator">
     <div class="background" />
     <NavbarPadding />
-    <GeneratorPageBar
-      v-model:mode="isFormMode"
-      v-model:shown="isFormShownOnMobile"
-      :is-button-loading
-      :generate-npcs-throttle
-    />
-    <div v-if="!isLoading">
-      <div class="lg-max max-h-100">
-        <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
-        <Transition name="fade-quick" appear>
-          <GeneratorCharacterPage
-            v-if="currentCharacterIndex > -1"
-            key="2"
-            class="mt-4"
-          />
-        </Transition>
-        <div
-          v-show="currentCharacterIndex === -1"
-          key="3"
-          class="session-container"
-          :style="{ minHeight: isIntroShown ? '0' : '100svh' }"
-        >
-          <div class="mx-4 mt-4 md:mt-7">
-            <div v-if="isFormMode" class="form md:mr-6 mb-9">
-              <GeneratorForm />
-              <MSButton
-                block
-                class="mt-5"
-                color="primary"
-                :text="$t('generator.form.generate')"
-                icon="fa6-solid:shuffle"
-                :loading="isButtonLoading"
-                :disabled="isButtonLoading"
-                @click="generateNpcsThrottle"
-              />
-            </div>
-            <div class="npcs">
-              <GeneratorPageIntro v-if="isIntroShown" class="mt-7 md:mt-9" />
-              <GeneratorSession v-else />
+    <Transition name="fade-quick" appear mode="out-in">
+      <div v-if="!isLoading">
+        <GeneratorPageBar
+          v-model:mode="isFormMode"
+          v-model:shown="isFormShownOnMobile"
+          :is-button-loading
+          :generate-npcs-throttle
+        />
+        <div class="lg-max max-h-100">
+          <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
+          <Transition name="fade-quick" appear>
+            <GeneratorCharacterPage
+              v-if="currentCharacterIndex > -1"
+              key="2"
+              class="mt-4"
+            />
+          </Transition>
+          <div
+            v-show="currentCharacterIndex === -1"
+            key="3"
+            class="session-container"
+            :style="{ minHeight: isIntroShown ? '0' : '100svh' }"
+          >
+            <div class="mx-4 mt-4 md:mt-7">
+              <div v-if="isFormMode" class="form md:mr-6 mb-9">
+                <GeneratorForm />
+                <MSButton
+                  block
+                  class="mt-5"
+                  color="primary"
+                  :text="$t('generator.form.generate')"
+                  icon="fa6-solid:shuffle"
+                  :loading="isButtonLoading"
+                  :disabled="isButtonLoading"
+                  @click="generateNpcsThrottle"
+                />
+              </div>
+              <div class="npcs">
+                <GeneratorPageIntro v-if="isIntroShown" class="mt-9" />
+                <GeneratorSession v-else />
+              </div>
             </div>
           </div>
-        </div>
-        <!-- <div v-show="isLoading" class="mt-12">
+          <!-- <div v-show="isLoading" class="mt-12">
         <LoadingSpinner />
       </div> -->
+        </div>
+        <GeneratorPageDescription class="mt-11" />
       </div>
-      <GeneratorPageDescription class="mt-9 md:mt-11" />
-    </div>
-    <div v-else class="centered">
-      <LoadingSpinner class="mt-8" />
-    </div>
+      <div v-else class="centered">
+        <LoadingSpinner class="mt-8" />
+      </div>
+    </Transition>
     <DiceHistory />
     <MSAlert v-if="alert" :type="alert.type" @close="alert = null">
       <p>{{ alert.message }}</p>

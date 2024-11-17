@@ -456,7 +456,7 @@
     "changeTheme": "Change Theme",
     "menu": {
       "home": "Homepage",
-      "npcGenerator": "NPC Improvisator",
+      "npcGenerator": "NPC Generator",
       "editor": "Editor",
       "dmScreen": "DM Screen",
       "monsters": "Monsters",
@@ -510,10 +510,11 @@
       "voice": "Voice",
       "includeChildren": "Include children",
       "includeBodyType": "Body Type",
-      "generate": "Generate NPCs"
+      "generate": "Generate NPC"
     },
     "prompt": {
-      "placeholder": "evil innkeeper, human guard, barbarian cr 5"
+      "placeholder": "evil innkeeper, human guard, barbarian cr 5",
+      "hint": "Describe your NPC here!"
     }, 
     "backstory": {
       "ratingQuestion": "How likely are you to use this adventure idea?"

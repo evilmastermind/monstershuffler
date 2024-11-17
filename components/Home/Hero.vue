@@ -7,7 +7,7 @@
         <div class="lg-max">
           <div class="text mx-4">
             <p class="custom-title-small">v2 preview:</p>
-            <h1 class="custom-title mt-2">The NPC Improvisator</h1>
+            <h1 class="custom-title mt-2">The NPC Generator</h1>
             <div>
               <MSButton
                 to="monsters-generator"
@@ -43,7 +43,7 @@ const localePath = useLocalePath();
   position: absolute;
   width: 100%;
   height: 500px;
-  background-image: url("@/assets/images/background-paint.png");
+  background-color: black;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -59,11 +59,11 @@ const localePath = useLocalePath();
   mask-position: bottom center;
 }
 .custom-title {
-  font-family: "OpenSans", sans-serif;
+  font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
-  font-size: 3.5rem;
-  letter-spacing: -0.09em;
-  line-height: 0.7em;
+  font-size: 2.8rem;
+  letter-spacing: -0.06em;
+  line-height: 0.9em;
   color: white;
   text-shadow: 0 0 10px black;
 }
@@ -73,5 +73,11 @@ const localePath = useLocalePath();
   font-size: 1rem;
   color: white;
   text-shadow: 0 0 10px black;
+}
+
+@media (min-width: theme("screens.md")) {
+  .custom-title {
+    font-size: 3.5rem;
+  }
 }
 </style>

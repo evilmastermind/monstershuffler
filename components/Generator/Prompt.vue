@@ -1,6 +1,8 @@
 <template>
   <div class="prompt-container">
+    <div class="prompt-highlighter rainbow-background" />
     <input
+      ref="promptElement"
       v-model="prompt"
       type="text"
       class="ms-input-style ms-input w-full prompt pr-6 pl-2"
@@ -8,6 +10,15 @@
       @keyup.enter="generateNpcsThrottle"
       @input="resetWordsNotFound"
     />
+    <div
+      v-if="!session.length && !characters.length && !hasGeneratedOnce"
+      class="prompt-hint"
+    >
+      <Icon class="prompt-hint-icon" name="heroicons:arrow-long-up-solid" />
+      <span class="prompt-hint-text">
+        {{ $t("generator.prompt.hint") }}
+      </span>
+    </div>
     <MSIconButton
       v-if="!isLoading"
       class="generate-button text-primary-700 px-2 text-2xl"
@@ -48,16 +59,21 @@ import { getChallengeNumber } from "monstershuffler-shared";
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const { promptOptions, keywords, options } = storeToRefs(generator);
+const { promptOptions, keywords, options, session, characters } =
+  storeToRefs(generator);
 const prompt = ref("");
+const promptElement = ref<HTMLInputElement | null>(null);
 
 const isLoading = ref(false);
 const tooManyRequests = ref(false);
 const isServerDown = ref(false);
+const hasGeneratedOnce =
+  localStorage.getItem("generator.prompt.hasGeneratedOnce") || false;
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 
 async function generateNpcs() {
+  localStorage.setItem("generator.prompt.hasGeneratedOnce", "true");
   isLoading.value = true;
   promptOptions.value = {};
   const words = prompt.value.trim().toLowerCase().split(" ");
@@ -234,10 +250,15 @@ function resetWordsNotFound() {
 
 onMounted(() => {
   resetWordsNotFound();
+  // promptElement.value?.focus();
 });
 </script>
 
 <style scoped>
+.prompt-container {
+  position: relative;
+  width: 100%;
+}
 .wordsnotfound {
   position: absolute;
   z-index: 1;
@@ -254,6 +275,18 @@ onMounted(() => {
   opacity: 1;
   animation: disappear 3s forwards;
   @apply rounded-lg bg-danger text-text-inverse;
+}
+.prompt {
+  position: relative;
+  z-index: 1;
+}
+.prompt-highlighter {
+  position: absolute;
+  inset: 0;
+  margin: 0px;
+  z-index: 0;
+  opacity: 1;
+  @apply rounded;
 }
 @keyframes disappear {
   0% {
@@ -273,15 +306,44 @@ onMounted(() => {
     transform: translateY(-50%);
   }
 }
-.prompt-container {
-  position: relative;
-  width: 100%;
-}
 .generate-button {
   position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
   z-index: 1;
+}
+.prompt-hint {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @apply mt-4;
+}
+.prompt-hint-icon {
+  font-size: 2rem;
+  animation: bounce;
+  animation-duration: 0.5s;
+  animation-iteration-count: 4;
+  @apply text-text-icon;
+}
+.prompt-hint-text {
+  font-size: 0.7rem;
+  @apply text-text-2 mt-1;
+}
+@keyframes bounce {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 5px);
+  }
+  100% {
+    transform: translate(0, 0px);
+  }
 }
 </style>

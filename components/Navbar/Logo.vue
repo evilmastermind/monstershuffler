@@ -5,7 +5,10 @@
       :to="localePath('/')"
     >
       <div class="ms-logo-gradient" />
-      <MSLogo class="logo" />
+      <MSLogo
+        class="logo"
+        :class="[ui.currentThemeType === 'dark' ? 'logo-shadow' : '']"
+      />
       <span class="sr-only">{{ $t("navbar.menu.home") }}</span>
     </NuxtLink>
   </div>
@@ -13,6 +16,7 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
+const ui = useUiStore();
 </script>
 <style scoped>
 .ms-logo {
@@ -25,5 +29,8 @@ const localePath = useLocalePath();
 .logo {
   position: relative;
   z-index: 1;
+}
+.logo-shadow {
+  filter: drop-shadow(0 0 0.3rem theme("colors.text-evil/10%"));
 }
 </style>
