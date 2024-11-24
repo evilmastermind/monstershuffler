@@ -1,7 +1,9 @@
 <template>
   <div class="layout">
     <div class="roleplay">
-      <MonsterBackstory class="story" />
+      <div class="story">
+        <slot name="backstory" />
+      </div>
       <div class="card class= mt-6">
         <MonsterSheetCard v-if="showRoleplayStats">
           <MonsterRoleplayStats />

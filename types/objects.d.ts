@@ -111,8 +111,8 @@ export type Parts = (PartsInHTMLTag | DescriptionPart)[];
 type NpcGeneratorData = {
   key: number;
   rating?: number;
-  streamStatus?: "open" | "closed" | "error";
-  streamChunks?: string[];
+  streamStatus?: "opening" | "open" | "closed" | "error";
+  streamChunks: string[];
 };
 
 export type GeneratorCharacter = NpcDetails & NpcGeneratorData;

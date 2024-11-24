@@ -1,6 +1,8 @@
 <template>
   <div class="layout">
-    <MonsterBackstory class="story" />
+    <div class="story">
+      <slot name="backstory" />
+    </div>
     <div class="stats">
       <MonsterStatBlock />
       <div v-if="showRoleplayStats" class="card my-4">

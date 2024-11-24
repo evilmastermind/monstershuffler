@@ -4,7 +4,9 @@
     <div class="layout">
       <MonsterStatBlock :columns="2" />
       <div class="roleplay mt-6">
-        <MonsterBackstory class="story" />
+        <div class="story">
+          <slot name="backstory" />
+        </div>
         <div class="card class= mt-6">
           <MonsterSheetCard v-if="showRoleplayStats">
             <MonsterRoleplayStats />

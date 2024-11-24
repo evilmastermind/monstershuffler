@@ -101,14 +101,13 @@ const character = computed(() => {
 });
 
 const chunks = computed(() => {
-  return character.value?.streamChunks || [];
+  return character.value?.streamChunks;
 });
 
 watch(
   () => chunks.value.length,
   () => {
     lexical.appendMarkdownChunks(chunks.value);
-    console.log("chunks", chunks.value.length);
   }
 );
 

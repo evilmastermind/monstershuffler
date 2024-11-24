@@ -10,6 +10,7 @@
       <Transition name="fade-quick" appear>
         <div v-show="isLoaded" ref="sheet" class="page mt-0 sm:mt-2">
           <LazyMonsterSheet
+            :key="currentCharacterIndex"
             :generator-character="characters[currentCharacterIndex] as GeneratorCharacter"
             @close="close"
             @loaded="isLoaded = true"

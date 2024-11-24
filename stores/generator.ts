@@ -9,6 +9,7 @@ import type {
   PostRandomNpcBody,
   GetGeneratorDataResponse,
   GeneratorCharacter,
+  Character,
   NpcDetails,
 } from "@/types";
 
@@ -246,15 +247,18 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
   }
 
-  async function generateBackstory() {
+  async function generateBackstory(
+    wrapper: Ref<GeneratorCharacter>
+  ): Promise<number> {
     const controller = new AbortController();
     const { signal } = controller;
-    const currentNpc = characters.value[currentCharacterIndex.value];
-    if (currentNpc.streamStatus) {
-      return;
+
+    if (wrapper.value.streamStatus) {
+      // a backstory is already being generated / has already been generated
+      return 200;
     }
 
-    const c = currentNpc.object.character;
+    const c = wrapper.value.object.character;
 
     if (!c.user) {
       c.user = {};
@@ -266,13 +270,14 @@ export const useGeneratorStore = defineStore("generator", () => {
     const backstory = c.user.backstory as {
       string: string;
     };
-    currentNpc.streamChunks = [];
+    wrapper.value.streamChunks = [];
 
     let contentBeingStreamed: "backstory" | "physicalAppearance" = "backstory";
 
     let lastEventId = "";
 
     try {
+      wrapper.value.streamStatus = "opening";
       await fetchEventSource(`${api}/npcs/backstory`, {
         method: "POST",
         headers: {
@@ -280,13 +285,13 @@ export const useGeneratorStore = defineStore("generator", () => {
           "Last-Event-ID": lastEventId,
         },
         body: JSON.stringify({
-          id: currentNpc.id,
+          id: wrapper.value.id,
         }),
         openWhenHidden: true,
         signal,
         // eslint-disable-next-line
       async onopen(response) {
-          currentNpc.streamStatus = "open";
+          wrapper.value.streamStatus = "open";
           if (
             response.ok
             // && response.headers.get("content-type") === EventStreamContentType
@@ -322,7 +327,7 @@ export const useGeneratorStore = defineStore("generator", () => {
                 case "backstory":
                   backstory.string += newChunk;
                   backstory.string.replace(/\n\n/g, "\n");
-                  currentNpc.streamChunks!.push(newChunk);
+                  wrapper.value.streamChunks!.push(newChunk);
                   break;
                 case "physicalAppearance":
                   c.physicalAppearance += newChunk;
@@ -337,14 +342,14 @@ export const useGeneratorStore = defineStore("generator", () => {
           // triggerUpdateCharacter(currentCharacterIndex.value);
         },
         onclose() {
-          currentNpc.streamStatus = "closed";
+          wrapper.value.streamStatus = "closed";
           controller.abort();
           return 200;
         },
         onerror(err) {
           backstory.string = `An error occurred while generating the backstory (${err}).`;
-          currentNpc.streamChunks?.push(backstory.string);
-          currentNpc.streamStatus = "error";
+          wrapper.value.streamChunks?.push(backstory.string);
+          wrapper.value.streamStatus = "error";
           if (err instanceof FatalError) {
             controller.abort();
             throw err; // rethrow to stop the operation
@@ -379,6 +384,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         object: markRaw(character.object),
         id: character.id,
         key: 1,
+        streamChunks: [],
       });
       characterIndex = characters.value.length - 1;
       triggerRef(characters);

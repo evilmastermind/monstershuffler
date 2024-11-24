@@ -2,7 +2,9 @@
   <div class="layout-container">
     <div class="layout">
       <div class="story-stats">
-        <MonsterBackstory class="story" />
+        <div class="story">
+          <slot name="backstory" />
+        </div>
         <div class="stats">
           <MonsterStatBlock />
           <div class="card my-4">

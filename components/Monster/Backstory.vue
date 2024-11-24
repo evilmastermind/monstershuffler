@@ -1,46 +1,54 @@
 <template>
-  <div v-if="backstory" class="backstory">
-    <EditorText :backstory="backstory as string" />
-    <LoadingDots
-      v-if="
-        !backstory && ['open', undefined].includes(generatorStats?.streamStatus)
-      "
-    />
-    <Transition name="fade">
-      <div
-        v-if="backstory && generatorStats?.streamStatus === 'closed'"
-        class="hide-from-exports"
+  <div>
+    <div v-if="backstory" class="backstory">
+      <EditorText :backstory="backstory as string" />
+      <LoadingDots
+        v-if="
+          !backstory &&
+          ['open', undefined].includes(generatorStats?.streamStatus)
+        "
+      />
+      <Transition name="fade">
+        <div
+          v-if="backstory && generatorStats?.streamStatus === 'closed'"
+          class="hide-from-exports"
+        >
+          <h3 class="content mt-6">
+            {{ $t("generator.backstory.ratingQuestion") }}
+          </h3>
+          <MSStarRating
+            v-model="initialRating"
+            :size="2"
+            @rate="
+              (rating) =>
+                generatorStore.setCurrentNPCRatingThrottle(
+                  rating,
+                  user.sessionId
+                )
+            "
+          />
+        </div>
+      </Transition>
+      <MSAlert
+        v-if="tooManyRequests"
+        type="danger"
+        @close="tooManyRequests = false"
       >
-        <h3 class="content mt-6">
-          {{ $t("generator.backstory.ratingQuestion") }}
-        </h3>
-        <MSStarRating
-          v-model="initialRating"
-          :size="2"
-          @rate="
-            (rating) =>
-              generatorStore.setCurrentNPCRatingThrottle(rating, user.sessionId)
-          "
-        />
-      </div>
-    </Transition>
-    <MSAlert
-      v-if="tooManyRequests"
-      type="danger"
-      @close="tooManyRequests = false"
-    >
-      <p>{{ $t("error.tooManyRequests") }}</p>
-    </MSAlert>
+        <p>{{ $t("error.tooManyRequests") }}</p>
+      </MSAlert>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Character } from "@/types";
+import type { Character, GeneratorCharacter } from "@/types";
 
 const generatorStore = useGeneratorStore();
 const user = useUserStore();
 
 const character = inject("character") as Ref<Character>;
+const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
+
 const backstory = ref<string>();
 const tooManyRequests = ref(false);
 
@@ -56,28 +64,33 @@ function getRating() {
 }
 
 watch(
-  character,
+  () => wrapper.value.streamChunks.length,
   () => {
-    backstory.value =
-      (character.value?.character?.user?.backstory?.string as string) ||
-      undefined;
-  },
-  { immediate: true }
+    backstory.value = character.value?.character?.user?.backstory
+      ?.string as string;
+  }
 );
 
-onMounted(() => {
+onMounted(async () => {
   getRating();
-  // if (backstory.value === undefined) {
-  //   const result = await generatorStore.generateBackstory();
-  //   if (result === 429) {
-  //     tooManyRequests.value = true;
-  //   }
-  // } else if (
-  //   backstory.value !== null &&
-  //   generatorStats.value.streamStatus === undefined
-  // ) {
-  //   generatorStats.value.streamStatus = "closed";
-  // }
+  backstory.value = character.value?.character?.user?.backstory
+    ?.string as string;
+
+  // also needs to check if there aren't chunks
+  console.log("backstory", backstory.value);
+  console.log("streamStatus", generatorStats.value.streamStatus);
+  if (backstory.value === undefined && !wrapper.value.streamStatus) {
+    const result = await generatorStore.generateBackstory(wrapper);
+    console.log("result", result);
+    if (result === 429) {
+      tooManyRequests.value = true;
+    }
+  } else if (
+    backstory.value !== null &&
+    generatorStats.value.streamStatus === undefined
+  ) {
+    generatorStats.value.streamStatus = "closed";
+  }
 });
 </script>
 

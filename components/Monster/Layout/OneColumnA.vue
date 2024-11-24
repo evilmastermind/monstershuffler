@@ -10,7 +10,9 @@
           </MonsterSheetCard>
         </div>
       </div>
-      <MonsterBackstory class="story" />
+      <div class="story">
+        <slot name="backstory" />
+      </div>
     </div>
   </div>
 </template>

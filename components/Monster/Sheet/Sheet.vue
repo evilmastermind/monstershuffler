@@ -3,10 +3,14 @@
     <component
       :is="layout"
       v-show="isLoaded"
-      :key
+      :key="key"
       :show-roleplay-stats
       @load="isLoaded = true"
-    />
+    >
+      <template #backstory>
+        <MonsterBackstory v-show="isLoaded" />
+      </template>
+    </component>
   </div>
 </template>
 
@@ -22,10 +26,12 @@ const p = defineProps({
 });
 
 const ui = useUiStore();
+
 const generatorCharacter = toRef(p, "generatorCharacter");
+const { columns } = useProvideCharacter(generatorCharacter);
 const isLoaded = ref(false);
+const layoutName = ref("MonsterLayoutOneColumnA");
 const key = ref(0);
-useProvideCharacter(generatorCharacter);
 
 const showRoleplayStats = computed(() => {
   const showRoleplayStats =
@@ -34,17 +40,15 @@ const showRoleplayStats = computed(() => {
 });
 
 const layout = computed(() => {
-  const layoutName = getLayout(generatorCharacter.value.object);
-  const hasImages =
-    !!generatorCharacter.value.object.character?.user?.sheet?.images?.length;
-  if (layoutName === "MonsterLayoutDynamicA" && hasImages) {
-    return resolveComponent("MonsterLayoutDynamicA");
-  }
-  switch (layoutName) {
+  switch (layoutName.value) {
     case "MonsterLayoutDynamicNoImage":
-      return resolveComponent("MonsterLayoutDynamicNoImage");
+      return columns.value === 1
+        ? resolveComponent("MonsterLayoutNoImageOneColumn")
+        : resolveComponent("MonsterLayoutNoImageTwoColumn");
     case "MonsterLayoutDynamicA":
-      return resolveComponent("MonsterLayoutDynamicA");
+      return columns.value === 1
+        ? resolveComponent("MonsterLayoutOneColumnA")
+        : resolveComponent("MonsterLayoutTwoColumnA");
     case "MonsterLayoutOneColumnA":
       return resolveComponent("MonsterLayoutOneColumnA");
     case "MonsterLayoutOneColumnB":
@@ -59,9 +63,10 @@ const layout = computed(() => {
       return resolveComponent("MonsterLayoutTwoColumnB");
     case "MonsterLayoutTwoColumnC":
       return resolveComponent("MonsterLayoutTwoColumnCResponsive");
-    default:
-      return resolveComponent("MonsterLayoutDynamicA");
   }
+  return columns.value === 1
+    ? resolveComponent("MonsterLayoutOneColumnA")
+    : resolveComponent("MonsterLayoutTwoColumnA");
 });
 
 function getLayout(
@@ -78,13 +83,25 @@ function getLayout(
       showRoleplayStats: true,
       images: [],
     };
-    return layout;
+    return defaultLayout;
   }
-  return c.user.sheet.layout;
+  return c.user.sheet.layout || defaultLayout;
 }
 
 watch(isLoaded, () => {
   key.value += 1;
+});
+
+watch(
+  () => generatorCharacter.value.key,
+  () => {
+    layoutName.value = getLayout(generatorCharacter.value.object);
+    e("loaded");
+  }
+);
+
+onBeforeMount(() => {
+  layoutName.value = getLayout(generatorCharacter.value.object);
 });
 
 onMounted(() => {

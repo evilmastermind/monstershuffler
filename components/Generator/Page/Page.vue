@@ -182,6 +182,7 @@ onMounted(async () => {
       characters.value.push({
         key: 0,
         id: character.id,
+        streamChunks: character.streamChunks || [],
         // TODO: implement testing (Vitest?) to make sure that the object's content is NEVER reactive
         object: markRaw(character.object),
       });

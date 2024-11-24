@@ -138,9 +138,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Character } from "@/types";
+import type { Character, GeneratorCharacter } from "@/types";
 const emit = defineEmits(["close"]);
+
 const character = inject("character") as Ref<Character>;
+const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
 const { mdAndDown } = useScreen();
 const { alertClicked } = storeToRefs(useUiStore());
@@ -172,6 +174,7 @@ function chooseLayout(layout: string) {
     c.user.sheet.layout = layout;
     c.user.sheet.showRoleplayStats = showRoleplayStats.value;
   }
+  wrapper.value.key++;
   emit("close");
 }
 

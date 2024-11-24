@@ -49,7 +49,13 @@ export function useProvideCharacter(
   });
 
   const wordsCount = computed(() => {
-    let wordsCount = 0;
+    /**
+     * (this is just a dumb way to force reactivity, since character object is marked
+     * as non-reactive with markRaw for performance reasons)
+     */
+    let wordsCount =
+      generatorCharacter.value.key - generatorCharacter.value.key;
+    // count words in actions
     wordsCount += getActionsWordsCount(
       generatorCharacter.value.object?.statistics?.traits || []
     );
@@ -99,4 +105,14 @@ export function useProvideCharacter(
   provide("moralBackground", moralBackground);
   provide("columns", columns);
   provide("wordsCount", wordsCount);
+
+  return {
+    character,
+    statistics,
+    moral,
+    moralDecoration,
+    moralBackground,
+    columns,
+    wordsCount,
+  };
 }

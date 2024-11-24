@@ -8,12 +8,14 @@
           @load="e('load')"
           @height="setHeight"
         />
-        <MonsterBackstory
+        <div
           class="story padding-left"
           :style="{
             paddingTop: `${imageHeight}`,
           }"
-        />
+        >
+          <slot name="backstory" />
+        </div>
       </div>
       <div class="stats">
         <MonsterStatBlock />
