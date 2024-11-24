@@ -8,13 +8,13 @@
         <button
           class="triangleleft hide-from-exports"
           :aria-label="$t('statBlock.lowerCR')"
-          @click="lowerCR(character)"
+          @click="callLowerCR"
         />
         <span class="cr">{{ statistics.CR.string }}</span>
         <button
           class="triangleright hide-from-exports"
           :aria-label="$t('statBlock.raiseCR')"
-          @click="raiseCR(character)"
+          @click="callRaiseCR"
         />
         ({{ statistics.XP }} {{ $t("statBlock.xp") }})
       </template>
@@ -28,10 +28,21 @@
 
 <script setup lang="ts">
 import { lowerCR, raiseCR, addPlusSign } from "monstershuffler-shared";
-import type { Character, Statistics } from "@/types";
+import type { GeneratorCharacter, Character, Statistics } from "@/types";
 
-const character = inject("character") as Character;
-const statistics = inject("statistics") as ComputedRef<Statistics>;
+const character = inject("character") as Ref<Character>;
+const statistics = inject("statistics") as Ref<Statistics>;
+const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
+
+function callRaiseCR() {
+  raiseCR(character.value);
+  wrapper.value.key++;
+}
+
+function callLowerCR() {
+  lowerCR(character.value);
+  wrapper.value.key++;
+}
 </script>
 
 <style scoped>

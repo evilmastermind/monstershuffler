@@ -1,17 +1,16 @@
 <template>
   <div class="page-container">
-    <div v-if="currentCharacter">
+    <div v-if="currentCharacterIndex > -1">
       <Transition name="fade-quick" appear>
         <LazyMonsterSheetTools
-          :character="currentCharacter"
+          :generator-character="characters[currentCharacterIndex] as GeneratorCharacter"
           class="mt-5 sm:mt-0 px-0 sm:px-4"
         />
       </Transition>
       <Transition name="fade-quick" appear>
         <div v-show="isLoaded" ref="sheet" class="page mt-0 sm:mt-2">
           <LazyMonsterSheet
-            :key="currentCharacterIndex"
-            :character="currentCharacter"
+            :generator-character="characters[currentCharacterIndex] as GeneratorCharacter"
             @close="close"
             @loaded="isLoaded = true"
           />
@@ -25,15 +24,17 @@
 </template>
 
 <script setup lang="ts">
+import type { GeneratorCharacter } from "@/types";
+
 const generator = useGeneratorStore();
-const { currentCharacterIndex, currentCharacter, currentSheetHTMLElement } =
+const { characters, currentCharacterIndex, currentSheetHTMLElement } =
   storeToRefs(generator);
 
 const sheet = ref<HTMLElement | null>(null);
 const isLoaded = ref(false);
 
 function close() {
-  currentCharacterIndex.value = -1;
+  generator.unsetCharacter();
 }
 
 onMounted(() => {

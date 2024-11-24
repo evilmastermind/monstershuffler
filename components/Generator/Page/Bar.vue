@@ -6,8 +6,8 @@
           <Icon name="pajamas:arrow-left" size="24" class="text-text-icon" />
           <span class="sr-only">{{ $t("back") }}</span>
         </button>
-        <span v-if="currentCharacter" class="top-bar-character-name">
-          {{ currentCharacter.statistics?.fullName }}
+        <span v-if="isSheetOpen" class="top-bar-character-name">
+          {{ characters[currentCharacterIndex].object.statistics?.fullName }}
         </span>
       </div>
       <h1 v-else class="top-bar-page-title">
@@ -66,7 +66,7 @@ const generator = useGeneratorStore();
 const editor = useMonsterEditorStore();
 
 const { currentEditorMode } = storeToRefs(editor);
-const { currentCharacterIndex, currentCharacter } = storeToRefs(generator);
+const { currentCharacterIndex, characters } = storeToRefs(generator);
 
 const isSheetOpen = computed(() => currentCharacterIndex.value > -1);
 

@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { exportRoleplayStats } from "monstershuffler-shared";
-import type { Character } from "@/types";
+import type { GeneratorCharacter } from "@/types";
 
 const e = defineEmits(["pin"]);
 const p = defineProps({
@@ -37,20 +37,20 @@ const p = defineProps({
     type: Boolean,
     default: false,
   },
-  character: {
-    type: Object as PropType<Character>,
+  generatorCharacter: {
+    type: Object as PropType<GeneratorCharacter>,
     required: true,
   },
 });
 
 const ui = useUiStore();
 
-const refCharacter = toRef(p, "character");
+const refGeneratorCharacter = toRef(p, "generatorCharacter");
 
-useProvideCharacter(refCharacter);
+useProvideCharacter(refGeneratorCharacter);
 
 function copyToClipboard() {
-  const content = exportRoleplayStats(refCharacter.value);
+  const content = exportRoleplayStats(refGeneratorCharacter.value.object);
   navigator.clipboard.writeText(content);
 }
 </script>

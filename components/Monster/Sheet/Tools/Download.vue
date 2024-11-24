@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import * as htmlToImage from "html-to-image";
+import type { Character } from "@/types";
 /** import html2canvas from "html2canvas";
  *
  * html2canvas sucks because it can't render images properly,
@@ -52,19 +53,19 @@ const {
   currentSheetHTMLElement,
   currentStatBlockHTMLElement,
   currentRoleplayStatsHTMLElement,
-  currentCharacter,
 } = storeToRefs(generator);
 
 const characterName = computed(() => {
-  if (currentCharacter.value) {
+  if (character.value) {
     return (
-      currentCharacter.value.statistics?.fullName
-        ?.replace(/ /g, "_")
-        .toLowerCase() || "character"
+      character.value.statistics?.fullName?.replace(/ /g, "_").toLowerCase() ||
+      "character"
     );
   }
   return "";
 });
+
+const character = inject("character") as Ref<Character>;
 
 async function downloadStatBlock() {
   if (!currentStatBlockHTMLElement.value) {

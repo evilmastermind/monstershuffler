@@ -17,7 +17,6 @@
       <GeneratorBit
         v-for="(npc, index) in characters"
         :key="index"
-        :character="npc.object as Character"
         :index="index"
         tabindex="0"
         @mousedown="showCharacterPage(index)"
@@ -25,8 +24,8 @@
       />
     </TransitionGroup>
     <MonsterCard
-      v-if="currentCharacterFromBitsPreview"
-      :character="currentCharacterFromBitsPreview as Character"
+      v-if="currentCharacterBitIndex > -1"
+      :generator-character="characters[currentCharacterBitIndex] as GeneratorCharacter"
       class="bits-preview drop-shadow-2xl"
       :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
     />
@@ -34,15 +33,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Character } from "@/types";
+import type { GeneratorCharacter } from "@/types";
 const { x } = useMouse();
 const { width: screenWidth } = useScreen();
 
 const generator = useGeneratorStore();
-const { characters, currentCharacterIndex, currentCharacterFromBitsPreview } =
+const { characters, currentCharacterIndex, currentCharacterBitIndex } =
   storeToRefs(generator);
-
-useProvideCharacter(currentCharacterFromBitsPreview as Ref<Character>);
 
 const hasDeleteButtonBeenClickedOnce = ref(false);
 const hasSaveButtonBeenClickedOnce = ref(false);
@@ -78,12 +75,12 @@ function deleteAllCharacters() {
 }
 
 function showCharacterPage(index: number) {
-  currentCharacterIndex.value = index;
-  currentCharacterFromBitsPreview.value = undefined;
+  generator.setCharacter(index);
+  currentCharacterBitIndex.value = -1;
 }
 
 onMounted(() => {
-  currentCharacterFromBitsPreview.value = undefined;
+  currentCharacterBitIndex.value = -1;
 });
 </script>
 

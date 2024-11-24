@@ -63,11 +63,15 @@
 </template>
 
 <script setup lang="ts">
-import type { PostRandomNpcBody, NpcDetails, AlertMessage } from "@/types";
+import type {
+  PostRandomNpcBody,
+  GeneratorCharacter,
+  AlertMessage,
+} from "@/types";
 import { throttle } from "@/utils";
 
 type NPCGeneratorSettings = {
-  characters: NpcDetails[];
+  characters: GeneratorCharacter[];
   options: PostRandomNpcBody;
   isFormMode: boolean;
 };
@@ -90,7 +94,7 @@ const haveCharactersJustBeenRetrieved = ref(false);
 const isFormMode = ref(false);
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
-const saveSettingsThrottle = throttle(() => saveSettings(), 1000);
+const saveSettingsThrottle = throttle(() => saveSettings(), 3000);
 
 async function generateNpcs() {
   isButtonLoading.value = true;
@@ -114,8 +118,9 @@ async function generateNpcs() {
 }
 
 function saveSettings() {
+  console.log("Saving settings");
   const settings: NPCGeneratorSettings = {
-    characters: characters.value as NpcDetails[],
+    characters: characters.value as GeneratorCharacter[],
     options: options.value,
     isFormMode: isFormMode.value,
   };
@@ -129,15 +134,14 @@ watch(session, (newSession) => {
 });
 
 watch(
-  characters,
+  () => characters.value.length,
   () => {
     if (haveCharactersJustBeenRetrieved.value) {
       haveCharactersJustBeenRetrieved.value = false;
       return;
     }
     saveSettingsThrottle();
-  },
-  { deep: true }
+  }
 );
 
 watch(isFormMode, () => {
@@ -173,7 +177,15 @@ onMounted(async () => {
   generator.parseSettings(settings?.options);
 
   if (settings?.characters?.length && settings.characters[0].object) {
-    characters.value = settings.characters;
+    characters.value = [];
+    settings.characters.forEach((character) => {
+      characters.value.push({
+        key: 0,
+        id: character.id,
+        // TODO: implement testing (Vitest?) to make sure that the object's content is NEVER reactive
+        object: markRaw(character.object),
+      });
+    });
     haveCharactersJustBeenRetrieved.value = true;
   }
   isLoading.value = false;

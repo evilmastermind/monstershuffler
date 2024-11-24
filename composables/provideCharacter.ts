@@ -1,8 +1,20 @@
-import type { Character, StatStringArrayWithName } from "@/types";
+import { stat } from "fs";
+import type {
+  GeneratorCharacter,
+  Character,
+  Statistics,
+  StatStringArrayWithName,
+} from "@/types";
 
-export function useProvideCharacter(character: Ref<Character>) {
+export function useProvideCharacter(
+  generatorCharacter: Ref<GeneratorCharacter>
+) {
+  const character = ref<Character>();
+  const statistics = ref<Statistics>();
+
   const moral = computed(() => {
-    const alignment = character.value?.statistics?.alignment?.string || "";
+    const alignment =
+      generatorCharacter.value.object?.statistics?.alignment?.string || "";
     if (alignment.includes("Good")) {
       return "text-text-good fill-background-good border-good decoration-good";
     } else if (alignment.includes("Evil")) {
@@ -13,7 +25,8 @@ export function useProvideCharacter(character: Ref<Character>) {
   });
 
   const moralDecoration = computed(() => {
-    const alignment = character.value?.statistics?.alignment?.string || "";
+    const alignment =
+      generatorCharacter.value.object?.statistics?.alignment?.string || "";
     if (alignment.includes("Good")) {
       return "decoration-text-good/30";
     } else if (alignment.includes("Evil")) {
@@ -24,7 +37,8 @@ export function useProvideCharacter(character: Ref<Character>) {
   });
 
   const moralBackground = computed(() => {
-    const alignment = character.value?.statistics?.alignment?.string || "";
+    const alignment =
+      generatorCharacter.value.object?.statistics?.alignment?.string || "";
     if (alignment.includes("Good")) {
       return "bg-card-good";
     } else if (alignment.includes("Evil")) {
@@ -37,19 +51,19 @@ export function useProvideCharacter(character: Ref<Character>) {
   const wordsCount = computed(() => {
     let wordsCount = 0;
     wordsCount += getActionsWordsCount(
-      character.value?.statistics?.traits || []
+      generatorCharacter.value.object?.statistics?.traits || []
     );
     wordsCount += getActionsWordsCount(
-      character.value?.statistics?.actions || []
+      generatorCharacter.value.object?.statistics?.actions || []
     );
     wordsCount += getActionsWordsCount(
-      character.value?.statistics?.bonusActions || []
+      generatorCharacter.value.object?.statistics?.bonusActions || []
     );
     wordsCount += getActionsWordsCount(
-      character.value?.statistics?.reactions || []
+      generatorCharacter.value.object?.statistics?.reactions || []
     );
     wordsCount += getActionsWordsCount(
-      character.value?.statistics?.legendaryActions || []
+      generatorCharacter.value.object?.statistics?.legendaryActions || []
     );
     return wordsCount;
   });
@@ -66,11 +80,20 @@ export function useProvideCharacter(character: Ref<Character>) {
     return wordsCount;
   }
 
-  provide("character", character);
-  provide(
-    "statistics",
-    computed(() => character.value.statistics)
+  watch(
+    character,
+    () => {
+      character.value = markRaw(generatorCharacter.value.object);
+      statistics.value = generatorCharacter.value.object.statistics
+        ? markRaw(generatorCharacter.value.object.statistics)
+        : undefined;
+    },
+    { immediate: true }
   );
+
+  provide("character", character);
+  provide("statistics", statistics);
+  provide("wrapper", generatorCharacter);
   provide("moral", moral);
   provide("moralDecoration", moralDecoration);
   provide("moralBackground", moralBackground);

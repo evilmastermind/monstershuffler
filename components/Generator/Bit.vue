@@ -33,14 +33,10 @@
 import type { Character } from "@/types";
 
 const generator = useGeneratorStore();
-const { characters, currentCharacterIndex, currentCharacterFromBitsPreview } =
+const { characters, currentCharacterIndex, currentCharacterBitIndex } =
   storeToRefs(generator);
 
 const p = defineProps({
-  character: {
-    type: Object as PropType<Character>,
-    required: true,
-  },
   index: {
     type: Number,
     required: true,
@@ -50,29 +46,30 @@ const p = defineProps({
 const hasBeenClickedOnce = ref(false);
 const isTouchScreen = ref(false);
 const deleteTimeout: Ref<NodeJS.Timeout | null> = ref(null);
+const character = ref(characters.value[p.index].object);
 
 const race = () => {
   let info = "";
-  if (p.character?.character?.racevariant?.name) {
-    info += p.character.character.racevariant.name;
-  } else if (p.character?.character?.race?.name) {
-    info += p.character.character.race.name;
+  if (character.value?.character?.racevariant?.name) {
+    info += character.value.character.racevariant.name;
+  } else if (character.value?.character?.race?.name) {
+    info += character.value.character.race.name;
   }
   return info;
 };
 const profession = () => {
   let info = "";
-  if (p.character?.character?.class?.name) {
-    info += ` ${p.character.character.class.name}`;
+  if (character.value?.character?.class?.name) {
+    info += ` ${character.value.character.class.name}`;
   }
-  if (p.character?.character?.background?.name) {
-    info += ` ${p.character.character.background.name}`;
+  if (character.value?.character?.background?.name) {
+    info += ` ${character.value.character.background.name}`;
   }
   return info;
 };
 
 const moral = () => {
-  const alignment = p.character?.statistics?.alignment?.string || "";
+  const alignment = character.value?.statistics?.alignment?.string || "";
   if (alignment.includes("Good")) {
     return "bg-good-800";
   } else if (alignment.includes("Evil")) {
@@ -105,9 +102,9 @@ function deleteThisCharacter() {
 
 function setBitPreview(bool: boolean) {
   if (!isTouchScreen.value && bool) {
-    currentCharacterFromBitsPreview.value = p.character;
+    currentCharacterBitIndex.value = p.index;
   } else {
-    currentCharacterFromBitsPreview.value = undefined;
+    currentCharacterBitIndex.value = -1;
   }
 }
 </script>

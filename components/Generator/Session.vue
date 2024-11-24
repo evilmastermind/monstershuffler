@@ -8,7 +8,11 @@
         <template v-for="(npc, index) in session" :key="`${index}${npc.id}`">
           <Transition name="fade-scroll-slow" appear>
             <MonsterCard
-              :character="(npc.object as Character)"
+              :generator-character="{
+                key: 1,
+                id: npc.id,
+                object: npc.object as Character
+              }"
               :style="{
                 transitionDelay: `${0.15 * index}s`,
                 transitionProperty: 'opacity, transform',

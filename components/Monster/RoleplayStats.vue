@@ -60,14 +60,11 @@
       <template
         v-if="character.character.physicalAppearance && !hidePhysicalAppearance"
       >
-        <p class="mt-2">{{ character.character.physicalAppearance }}</p>
+        <p :key="wrapper.key" class="mt-2">
+          {{ character.character.physicalAppearance }}
+        </p>
       </template>
     </dl>
-    <MonsterRenameModal
-      v-if="isRenameModalOpen"
-      v-model="character"
-      @close="isRenameModalOpen = false"
-    />
   </div>
 </template>
 
@@ -76,7 +73,7 @@ import {
   feetDecimalToFeetInches,
   feetDecimalToMeters,
 } from "monstershuffler-shared";
-import type { Statistics, Character } from "@/types";
+import type { Statistics, Character, GeneratorCharacter } from "@/types";
 
 const p = defineProps({
   hidePhysicalAppearance: {
@@ -89,10 +86,10 @@ const user = useUserStore();
 
 const statistics = inject("statistics") as Ref<Statistics>;
 const character = inject("character") as Ref<Character>;
+const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 const moral = inject("moral") as Ref<string>;
 
 const showTraitDescription = ref(false);
-const isRenameModalOpen = ref(false);
 
 const tags = computed(() => character.value.tags);
 const unit = computed(() => user.me?.settings?.stats?.heightUnit || "feet");
@@ -112,10 +109,6 @@ function convertHeight(height: number) {
     return feetDecimalToMeters(height);
   }
   return feetDecimalToFeetInches(height);
-}
-
-function toggleRenameModal() {
-  isRenameModalOpen.value = !isRenameModalOpen.value;
 }
 </script>
 

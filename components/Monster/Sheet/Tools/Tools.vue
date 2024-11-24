@@ -126,23 +126,26 @@
     <MSShareModal
       v-model="isShareModalOpen"
       :link
-      :text="character?.statistics?.fullName || 'Monstershuffler\'s NPC'"
+      :text="
+        generatorCharacter.object?.statistics?.fullName ||
+        'Monstershuffler\'s NPC'
+      "
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import { exportRoleplayStats } from "monstershuffler-shared";
-// TODO: create a store variable that indicates which
-// tool is currently enabled, so that you can set it to
-// null when the user changes character, disabling
-// the currently enabled tool
-
-import type { MonsterExport, Character, MonsterEditors } from "@/types";
+import type {
+  MonsterExport,
+  Character,
+  GeneratorCharacter,
+  MonsterEditors,
+} from "@/types";
 
 const p = defineProps({
-  character: {
-    type: Object as PropType<Character>,
+  generatorCharacter: {
+    type: Object as PropType<GeneratorCharacter>,
     required: true,
   },
 });
@@ -160,11 +163,11 @@ const statBlockExport = ref<MonsterExport>({
   type: "Improved Initiative",
   content: "",
 });
-const character = toRef(p, "character");
-useProvideCharacter(character);
+const generatorCharacter = toRef(p, "generatorCharacter");
+useProvideCharacter(generatorCharacter);
 
 const link = computed(() => {
-  const characterUuid = characters.value[currentCharacterIndex.value]?.id;
+  const characterUuid = generatorCharacter.value.id;
   return characterUuid
     ? `${window.location.origin}/monsters/generator/${characterUuid}`
     : "";
@@ -183,7 +186,7 @@ function copyRoleplayStats(hide: Function) {
   statBlockExport.value = {
     isModalOpen: true,
     type: "Roleplay Stats",
-    content: exportRoleplayStats(character.value),
+    content: exportRoleplayStats(generatorCharacter.value.object),
   };
 }
 
@@ -195,8 +198,12 @@ function closeMonster() {
 function toggleShare() {
   if (isUserOnMobile() && navigator.share) {
     navigator.share({
-      title: character.value?.statistics?.fullName || "Monstershuffler's NPC",
-      text: character.value?.statistics?.fullName || "Monstershuffler's NPC",
+      title:
+        generatorCharacter.value.object?.statistics?.fullName ||
+        "Monstershuffler's NPC",
+      text:
+        generatorCharacter.value.object?.statistics?.fullName ||
+        "Monstershuffler's NPC",
       url: link.value,
     });
   } else {

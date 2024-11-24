@@ -1,15 +1,14 @@
 <template>
   <div v-if="backstory" class="backstory">
-    <EditorText :backstory="backstory.string as string" />
+    <EditorText :backstory="backstory as string" />
     <LoadingDots
       v-if="
-        !backstory.string &&
-        ['open', undefined].includes(character?.streamStatus)
+        !backstory && ['open', undefined].includes(generatorStats?.streamStatus)
       "
     />
     <Transition name="fade">
       <div
-        v-if="backstory.string && character?.streamStatus === 'closed'"
+        v-if="backstory && generatorStats?.streamStatus === 'closed'"
         class="hide-from-exports"
       >
         <h3 class="content mt-6">
@@ -36,23 +35,19 @@
 </template>
 
 <script setup lang="ts">
-import type { Character, Statistics } from "@/types";
+import type { Character } from "@/types";
 
 const generatorStore = useGeneratorStore();
 const user = useUserStore();
 
-const statistics = inject("statistics") as ComputedRef<Statistics>;
-const characterStats = inject("character") as ComputedRef<Character>;
-const moral = inject("moral") as ComputedRef<string>;
+const character = inject("character") as Ref<Character>;
+const backstory = ref<string>();
 const tooManyRequests = ref(false);
 
 const initialRating = ref<number>(0);
 const { characters, currentCharacterIndex } = storeToRefs(generatorStore);
 
-const backstory = computed(() => {
-  return characterStats.value?.character?.user?.backstory;
-});
-const character = computed(() => {
+const generatorStats = computed(() => {
   return characters.value[currentCharacterIndex.value];
 });
 
@@ -60,19 +55,29 @@ function getRating() {
   initialRating.value = generatorStore.getCurrentNPCRating();
 }
 
-onMounted(async () => {
+watch(
+  character,
+  () => {
+    backstory.value =
+      (character.value?.character?.user?.backstory?.string as string) ||
+      undefined;
+  },
+  { immediate: true }
+);
+
+onMounted(() => {
   getRating();
-  if (backstory.value?.string === undefined) {
-    const result = await generatorStore.generateBackstory();
-    if (result === 429) {
-      tooManyRequests.value = true;
-    }
-  } else if (
-    backstory.value !== null &&
-    character.value.streamStatus === undefined
-  ) {
-    character.value.streamStatus = "closed";
-  }
+  // if (backstory.value === undefined) {
+  //   const result = await generatorStore.generateBackstory();
+  //   if (result === 429) {
+  //     tooManyRequests.value = true;
+  //   }
+  // } else if (
+  //   backstory.value !== null &&
+  //   generatorStats.value.streamStatus === undefined
+  // ) {
+  //   generatorStats.value.streamStatus = "closed";
+  // }
 });
 </script>
 

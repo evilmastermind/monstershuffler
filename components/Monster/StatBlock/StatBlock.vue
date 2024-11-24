@@ -3,7 +3,11 @@
     <div class="border" :class="`border-${ui.currentThemeType}`" />
     <div class="stat-block" :class="`stat-block-${ui.currentThemeType}`">
       <div class="gradient" :class="`gradient-${ui.currentThemeType}`" />
-      <div class="p-4 stat-block-content" :class="`columns-${columnsCount}`">
+      <div
+        :key="wrapper.key"
+        class="p-4 stat-block-content"
+        :class="`columns-${columnsCount}`"
+      >
         <MonsterStatBlockHeader />
         <MonsterStatBlockSeparator />
         <MonsterStatBlockACHPSpeed />
@@ -27,6 +31,8 @@
 </template>
 
 <script setup lang="ts">
+import type { GeneratorCharacter } from "@/types";
+
 type Columns = 1 | 2;
 
 const p = defineProps({
@@ -38,6 +44,7 @@ const p = defineProps({
 
 const columnsFromActions = inject("columns") as Ref<number>;
 const wordsCount = inject("wordsCount") as Ref<number>;
+const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
 const ui = useUiStore();
 const generator = useGeneratorStore();

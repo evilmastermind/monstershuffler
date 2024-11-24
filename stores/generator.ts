@@ -8,7 +8,7 @@ import type {
   PostFourRandomNpcsResponse,
   PostRandomNpcBody,
   GetGeneratorDataResponse,
-  Character,
+  GeneratorCharacter,
   NpcDetails,
 } from "@/types";
 
@@ -19,29 +19,28 @@ class FatalError extends Error {}
 
 /// /////////////////////////////////////
 
-type NPCGeneratorData = {
-  rating?: number;
-  streamStatus?: "open" | "closed" | "error";
-  streamChunks?: string[];
-};
-
 export const useGeneratorStore = defineStore("generator", () => {
   /**
    * State
    */
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
-  const characters = ref<(NpcDetails & NPCGeneratorData)[]>([]); // this is the list of npcs chosen by the user
-  // const settings = ref<PostRandomNpcBody>();
-  const currentSheetHTMLElement = ref<HTMLElement | null>(null);
-  const currentStatBlockHTMLElement = ref<HTMLElement | null>(null);
-  const currentRoleplayStatsHTMLElement = ref<HTMLElement | null>(null);
+  const characters = ref<GeneratorCharacter[]>([]); // this is the list of npcs chosen by the user
+
+  const currentCharacterBitIndex = ref(-1);
   const currentCharacterIndex = ref(-1);
-  const currentCharacterFromBitsPreview = ref<Character>();
-  const racesAndVariants = ref<ObjectOrVariant[]>([]);
-  const classesAndVariants = ref<ObjectOrVariant[]>([]);
-  const backgrounds = ref<ObjectList>([]);
-  //
+
+  // these are used to download the character sheet, stat block, and roleplay stats
+  const currentSheetHTMLElement = shallowRef<HTMLElement | null>(null);
+  const currentStatBlockHTMLElement = shallowRef<HTMLElement | null>(null);
+  const currentRoleplayStatsHTMLElement = shallowRef<HTMLElement | null>(null);
+
+  // npc generator data
+  const racesAndVariants = shallowRef<ObjectOrVariant[]>([]);
+  const classesAndVariants = shallowRef<ObjectOrVariant[]>([]);
+  const backgrounds = shallowRef<ObjectList>([]);
+
+  // npc generator options
   const primaryRaceIndex = ref(0);
   const secondaryRaceIndex = ref(0);
   const classIndex = ref(0);
@@ -63,18 +62,18 @@ export const useGeneratorStore = defineStore("generator", () => {
    * Computed properties
    */
 
-  const currentCharacter = computed(() => {
-    if (currentCharacterIndex.value >= 0) {
-      return characters.value[currentCharacterIndex.value].object as Character;
-    }
-    return null;
-  });
-  const currentCharacterWithGeneratorData = computed(() => {
-    if (currentCharacterIndex.value >= 0) {
-      return characters.value[currentCharacterIndex.value];
-    }
-    return null;
-  });
+  // const currentCharacter = computed(() => {
+  //   if (currentCharacterIndex.value >= 0) {
+  //     return characters.value[currentCharacterIndex.value].object as Character;
+  //   }
+  //   return null;
+  // });
+  // const currentCharacterWithGeneratorData = computed(() => {
+  //   if (currentCharacterIndex.value >= 0) {
+  //     return characters.value[currentCharacterIndex.value];
+  //   }
+  //   return null;
+  // });
 
   /**
    * Actions
@@ -103,7 +102,9 @@ export const useGeneratorStore = defineStore("generator", () => {
         }
       });
       session.value = [];
-      session.value = data.npcs;
+      data.npcs.forEach((npc) => {
+        session.value.push(markRaw(npc));
+      });
       return 200;
     } catch (error) {
       return parseError(error).statusCode;
@@ -333,6 +334,7 @@ export const useGeneratorStore = defineStore("generator", () => {
           }
 
           lastEventId = msg.id;
+          // triggerUpdateCharacter(currentCharacterIndex.value);
         },
         onclose() {
           currentNpc.streamStatus = "closed";
@@ -373,13 +375,28 @@ export const useGeneratorStore = defineStore("generator", () => {
       (char) => char.id === character.id
     );
     if (characterIndex < 0) {
-      characters.value.push(character);
+      characters.value.push({
+        object: markRaw(character.object),
+        id: character.id,
+        key: 1,
+      });
       characterIndex = characters.value.length - 1;
+      triggerRef(characters);
     }
     if (selected) {
       currentCharacterIndex.value = characterIndex;
     }
     return characterIndex;
+  }
+  function setCharacter(index: number) {
+    if (index < 0 || index >= characters.value.length) {
+      return;
+    }
+    currentCharacterIndex.value = index;
+  }
+
+  function unsetCharacter() {
+    currentCharacterIndex.value = -1;
   }
 
   async function getNpc(uuid: string) {
@@ -404,6 +421,13 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   const setCurrentNPCRatingThrottle = throttle(setCurrentNPCRating, 2000);
 
+  const triggerUpdateCharacter = throttle((index: number) => {
+    if (index < 0 || index >= characters.value.length) {
+      return;
+    }
+    characters.value[index].key += 1;
+  }, 200);
+
   async function setCurrentNPCRating(
     rating: number,
     sessionId: string | undefined
@@ -422,13 +446,11 @@ export const useGeneratorStore = defineStore("generator", () => {
     session,
     // settings,
     characters,
-    currentCharacter,
     currentSheetHTMLElement,
     currentStatBlockHTMLElement,
     currentRoleplayStatsHTMLElement,
-    currentCharacterWithGeneratorData,
     currentCharacterIndex,
-    currentCharacterFromBitsPreview,
+    currentCharacterBitIndex,
     racesAndVariants,
     classesAndVariants,
     backgrounds,
@@ -449,5 +471,8 @@ export const useGeneratorStore = defineStore("generator", () => {
     getCurrentNPCRating,
     setCurrentNPCRating,
     pushNewCharacter,
+    setCharacter,
+    triggerUpdateCharacter,
+    unsetCharacter,
   };
 });

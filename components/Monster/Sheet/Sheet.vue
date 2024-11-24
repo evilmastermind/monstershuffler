@@ -11,31 +11,32 @@
 </template>
 
 <script setup lang="ts">
-import type { Character } from "@/types";
+import type { GeneratorCharacter, Character } from "@/types";
 
 const e = defineEmits(["loaded"]);
 const p = defineProps({
-  character: {
-    type: Object as PropType<Character>,
+  generatorCharacter: {
+    type: Object as PropType<GeneratorCharacter>,
     required: true,
   },
 });
 
 const ui = useUiStore();
-const character = toRef(p, "character");
+const generatorCharacter = toRef(p, "generatorCharacter");
 const isLoaded = ref(false);
 const key = ref(0);
-useProvideCharacter(character);
+useProvideCharacter(generatorCharacter);
 
 const showRoleplayStats = computed(() => {
   const showRoleplayStats =
-    character.value.character.user?.sheet?.showRoleplayStats;
+    generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats;
   return showRoleplayStats !== undefined ? showRoleplayStats : true;
 });
 
 const layout = computed(() => {
-  const layoutName = getLayout(p.character);
-  const hasImages = !!p.character.character?.user?.sheet?.images?.length;
+  const layoutName = getLayout(generatorCharacter.value.object);
+  const hasImages =
+    !!generatorCharacter.value.object.character?.user?.sheet?.images?.length;
   if (layoutName === "MonsterLayoutDynamicA" && hasImages) {
     return resolveComponent("MonsterLayoutDynamicA");
   }

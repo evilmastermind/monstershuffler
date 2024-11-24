@@ -1,5 +1,10 @@
 <template>
-  <div ref="editorRef" contenteditable class="editor"></div>
+  <div
+    ref="editorRef"
+    :key="chunks.length"
+    contenteditable
+    class="editor"
+  ></div>
 </template>
 
 <script setup lang="ts">
@@ -89,16 +94,21 @@ const generatorStore = useGeneratorStore();
 const lexical = useLexicalStore();
 const isEditable = ref(false);
 
-const { currentCharacterWithGeneratorData } = storeToRefs(generatorStore);
+const { characters, currentCharacterIndex } = storeToRefs(generatorStore);
+
+const character = computed(() => {
+  return characters.value[currentCharacterIndex.value];
+});
 
 const chunks = computed(() => {
-  return currentCharacterWithGeneratorData.value?.streamChunks || [];
+  return character.value?.streamChunks || [];
 });
 
 watch(
   () => chunks.value.length,
   () => {
     lexical.appendMarkdownChunks(chunks.value);
+    console.log("chunks", chunks.value.length);
   }
 );
 
@@ -109,7 +119,7 @@ onMounted(() => {
 
   lexical.createLexicalEditor(editorRef.value, lexicalTheme);
 
-  if (p.backstory && currentCharacterWithGeneratorData.value?.streamStatus) {
+  if (p.backstory && character.value?.streamStatus) {
     lexical.importMarkdown(p.backstory);
   }
   // UNDO/REDO
