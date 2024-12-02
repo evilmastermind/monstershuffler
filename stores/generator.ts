@@ -27,6 +27,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
   const characters = ref<GeneratorCharacter[]>([]); // this is the list of npcs chosen by the user
+  const saveTrigger = ref(0);
 
   const currentCharacterBitIndex = ref(-1);
   const currentCharacterIndex = ref(-1);
@@ -273,11 +274,14 @@ export const useGeneratorStore = defineStore("generator", () => {
     wrapper.value.streamChunks = [];
 
     let contentBeingStreamed: "backstory" | "physicalAppearance" = "backstory";
-
     let lastEventId = "";
+    const updateKeyThrottle = throttle(() => {
+      wrapper.value.key++;
+    }, 500);
 
     try {
       wrapper.value.streamStatus = "opening";
+      console.log("-- STREAM: opening stream");
       await fetchEventSource(`${api}/npcs/backstory`, {
         method: "POST",
         headers: {
@@ -328,9 +332,11 @@ export const useGeneratorStore = defineStore("generator", () => {
                   backstory.string += newChunk;
                   backstory.string.replace(/\n\n/g, "\n");
                   wrapper.value.streamChunks!.push(newChunk);
+                  updateKeyThrottle();
                   break;
                 case "physicalAppearance":
                   c.physicalAppearance += newChunk;
+                  updateKeyThrottle();
                   break;
               }
             } catch (error) {
@@ -343,11 +349,15 @@ export const useGeneratorStore = defineStore("generator", () => {
         },
         onclose() {
           wrapper.value.streamStatus = "closed";
+          updateKeyThrottle();
+          triggerSaveThrottle();
           controller.abort();
           return 200;
         },
         onerror(err) {
-          backstory.string = `An error occurred while generating the backstory (${err}).`;
+          if (!backstory.string) {
+            backstory.string = `An error occurred while generating the backstory (${err}).`;
+          }
           wrapper.value.streamChunks?.push(backstory.string);
           wrapper.value.streamStatus = "error";
           if (err instanceof FatalError) {
@@ -426,6 +436,9 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   const setCurrentNPCRatingThrottle = throttle(setCurrentNPCRating, 2000);
+  const triggerSaveThrottle = throttle(() => {
+    saveTrigger.value += 1;
+  }, 3000);
 
   const triggerUpdateCharacter = throttle((index: number) => {
     if (index < 0 || index >= characters.value.length) {
@@ -452,6 +465,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     session,
     // settings,
     characters,
+    saveTrigger,
     currentSheetHTMLElement,
     currentStatBlockHTMLElement,
     currentRoleplayStatsHTMLElement,
@@ -479,6 +493,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     pushNewCharacter,
     setCharacter,
     triggerUpdateCharacter,
+    triggerSaveThrottle,
     unsetCharacter,
   };
 });

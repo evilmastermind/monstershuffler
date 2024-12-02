@@ -81,7 +81,7 @@ const route = useRoute();
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const { session, characters, currentCharacterIndex, options } =
+const { session, characters, currentCharacterIndex, options, saveTrigger } =
   storeToRefs(generator);
 
 const isIntroShown = ref(true);
@@ -133,16 +133,13 @@ watch(session, (newSession) => {
   }
 });
 
-watch(
-  () => characters.value.length,
-  () => {
-    if (haveCharactersJustBeenRetrieved.value) {
-      haveCharactersJustBeenRetrieved.value = false;
-      return;
-    }
-    saveSettingsThrottle();
+watch([() => characters.value.length, saveTrigger], () => {
+  if (haveCharactersJustBeenRetrieved.value) {
+    haveCharactersJustBeenRetrieved.value = false;
+    return;
   }
-);
+  saveSettingsThrottle();
+});
 
 watch(isFormMode, () => {
   saveSettingsThrottle();

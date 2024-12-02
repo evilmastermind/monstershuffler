@@ -108,10 +108,12 @@ export type PartsInHTMLTag = {
 
 export type Parts = (PartsInHTMLTag | DescriptionPart)[];
 
+export type StreamStatus = undefined | "opening" | "open" | "closed" | "error";
+
 type NpcGeneratorData = {
   key: number;
   rating?: number;
-  streamStatus?: "opening" | "open" | "closed" | "error";
+  streamStatus?: StreamStatus;
   streamChunks: string[];
 };
 

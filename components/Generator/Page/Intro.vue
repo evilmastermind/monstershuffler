@@ -21,7 +21,7 @@
     </div>
     <div class="intro-text text-center mt-6">
       <Transition name="title" appear>
-        <h1 class="static custom-title gradient-title">The NPC Improvisator</h1>
+        <h1 class="static custom-title gradient-title">The NPC Generator</h1>
       </Transition>
       <p class="static max-width mt-6">
         Create unforgettable NPCs with unique personalities and appearances.

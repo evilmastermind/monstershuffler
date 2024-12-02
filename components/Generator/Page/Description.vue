@@ -157,7 +157,7 @@
     </PresentationText>
     <PresentationText class="mx-4 mt-10">
       <h2 class="static max-width">This isn't even my final form</h2>
-      <p class="static mt-4">The NPC Improvisator's roadmap:</p>
+      <p class="static mt-4">The NPC Generator's roadmap:</p>
     </PresentationText>
     <GeneratorPageRoadmap class="mt-4" />
     <GeneratorPageFooter class="mt-4" />

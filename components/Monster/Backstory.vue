@@ -1,16 +1,21 @@
 <template>
   <div>
-    <div v-if="backstory" class="backstory">
-      <EditorText :backstory="backstory as string" />
+    <div class="backstory">
+      <EditorText
+        :backstory="backstory"
+        :stream-chunks="wrapper.streamChunks"
+        :stream-status="wrapper.streamStatus"
+      />
       <LoadingDots
         v-if="
-          !backstory &&
-          ['open', undefined].includes(generatorStats?.streamStatus)
+          !backstory && ['opening', undefined].includes(wrapper?.streamStatus)
         "
       />
       <Transition name="fade">
         <div
-          v-if="backstory && generatorStats?.streamStatus === 'closed'"
+          v-if="
+            backstory && ['closed', undefined].includes(wrapper?.streamStatus)
+          "
           class="hide-from-exports"
         >
           <h3 class="content mt-6">
@@ -49,48 +54,43 @@ const user = useUserStore();
 const character = inject("character") as Ref<Character>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
-const backstory = ref<string>();
+const backstory = ref<string | undefined>(
+  character.value?.character?.user?.backstory?.string as string | undefined
+);
 const tooManyRequests = ref(false);
 
 const initialRating = ref<number>(0);
-const { characters, currentCharacterIndex } = storeToRefs(generatorStore);
-
-const generatorStats = computed(() => {
-  return characters.value[currentCharacterIndex.value];
-});
 
 function getRating() {
   initialRating.value = generatorStore.getCurrentNPCRating();
 }
 
 watch(
-  () => wrapper.value.streamChunks.length,
+  () => wrapper.value.streamStatus,
   () => {
-    backstory.value = character.value?.character?.user?.backstory
-      ?.string as string;
+    backstory.value = character.value?.character?.user?.backstory?.string as
+      | string
+      | undefined;
   }
 );
 
 onMounted(async () => {
   getRating();
-  backstory.value = character.value?.character?.user?.backstory
-    ?.string as string;
 
-  // also needs to check if there aren't chunks
-  console.log("backstory", backstory.value);
-  console.log("streamStatus", generatorStats.value.streamStatus);
-  if (backstory.value === undefined && !wrapper.value.streamStatus) {
+  console.log(backstory.value);
+
+  if (!backstory.value && !wrapper.value.streamStatus) {
     const result = await generatorStore.generateBackstory(wrapper);
-    console.log("result", result);
     if (result === 429) {
       tooManyRequests.value = true;
     }
-  } else if (
-    backstory.value !== null &&
-    generatorStats.value.streamStatus === undefined
-  ) {
-    generatorStats.value.streamStatus = "closed";
   }
+  // } else if (
+  //   backstory.value !== null &&
+  //   generatorStats.value.streamStatus === undefined
+  // ) {
+  //   generatorStats.value.streamStatus = "closed";
+  // }
 });
 </script>
 

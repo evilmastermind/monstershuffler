@@ -1,21 +1,32 @@
 <template>
-  <div
-    ref="editorRef"
-    :key="chunks.length"
-    contenteditable
-    class="editor"
-  ></div>
+  <div ref="editorRef" contenteditable class="editor"></div>
 </template>
 
 <script setup lang="ts">
+import { throttle } from "monstershuffler-shared";
+import type { StreamStatus } from "@/types";
+
 const p = defineProps({
   backstory: {
     type: String,
+    default: "",
+  },
+  streamChunks: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+  },
+  streamStatus: {
+    type: String as PropType<StreamStatus>,
     default: undefined,
   },
 });
 
 const moral = inject("moral") as ComputedRef<string>;
+const key = ref(0);
+
+const updateKeyThrottle = throttle(() => {
+  key.value += 1;
+}, 500);
 
 const lexicalTheme = {
   ltr: "ltr",
@@ -89,26 +100,18 @@ const lexicalTheme = {
   },
 };
 
-const editorRef = ref<HTMLElement | null>(null);
-const generatorStore = useGeneratorStore();
 const lexical = useLexicalStore();
+
+const editorRef = ref<HTMLElement | null>(null);
 const isEditable = ref(false);
 
-const { characters, currentCharacterIndex } = storeToRefs(generatorStore);
-
-const character = computed(() => {
-  return characters.value[currentCharacterIndex.value];
-});
-
-const chunks = computed(() => {
-  return character.value?.streamChunks;
-});
-
 watch(
-  () => chunks.value.length,
+  () => p.streamChunks.length,
   () => {
-    lexical.appendMarkdownChunks(chunks.value);
+    lexical.appendMarkdownChunks(p.streamChunks);
+    updateKeyThrottle();
   }
+  // { deep: true }
 );
 
 onMounted(() => {
@@ -118,7 +121,7 @@ onMounted(() => {
 
   lexical.createLexicalEditor(editorRef.value, lexicalTheme);
 
-  if (p.backstory && character.value?.streamStatus) {
+  if (p.backstory && ["closed", undefined].includes(p.streamStatus)) {
     lexical.importMarkdown(p.backstory);
   }
   // UNDO/REDO

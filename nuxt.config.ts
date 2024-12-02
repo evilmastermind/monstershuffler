@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
   },
+  ssr: false,
   spaLoadingTemplate: "public/spa-loading-template.html",
   routeRules: {
     "/": { ssr: false },

@@ -29,11 +29,12 @@ const localePath = useLocalePath();
 
 <style scoped>
 .background {
+  --bg-height: 350px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 500px;
+  min-height: var(--bg-height);
   overflow: hidden;
   z-index: -2;
   width: 100%;
@@ -42,15 +43,16 @@ const localePath = useLocalePath();
 .background-image {
   position: absolute;
   width: 100%;
-  height: 500px;
-  background-color: black;
-  background-position: center;
+  height: var(--bg-height);
+  background-image: url("/assets/images/chinchillarte.jpg");
+  background-position: 85%;
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 0;
 }
 .text {
   position: relative;
+  margin-top: 5rem;
   z-index: 1;
 }
 .mask {
@@ -61,7 +63,7 @@ const localePath = useLocalePath();
 .custom-title {
   font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   letter-spacing: -0.06em;
   line-height: 0.9em;
   color: white;
@@ -76,8 +78,21 @@ const localePath = useLocalePath();
 }
 
 @media (min-width: theme("screens.md")) {
+  .background {
+    --bg-height: 500px;
+  }
   .custom-title {
     font-size: 3.5rem;
+  }
+}
+@media (min-width: 1500px) {
+  .background {
+    --bg-height: 600px;
+  }
+}
+@media (min-width: theme("screens.xl")) {
+  .background {
+    --bg-height: 700px;
   }
 }
 </style>

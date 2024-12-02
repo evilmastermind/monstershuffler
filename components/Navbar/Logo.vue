@@ -31,6 +31,6 @@ const ui = useUiStore();
   z-index: 1;
 }
 .logo-shadow {
-  filter: drop-shadow(0 0 0.3rem theme("colors.text-evil/10%"));
+  filter: drop-shadow(0 0 0.6rem theme("colors.text-evil/20%"));
 }
 </style>

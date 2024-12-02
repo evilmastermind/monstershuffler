@@ -57,13 +57,9 @@
           <MonsterVoice :voice="character.character.voice" />
         </dd>
       </template>
-      <template
-        v-if="character.character.physicalAppearance && !hidePhysicalAppearance"
-      >
-        <p :key="wrapper.key" class="mt-2">
-          {{ character.character.physicalAppearance }}
-        </p>
-      </template>
+      <p v-if="!hidePhysicalAppearance" :key="wrapper.key" class="mt-2">
+        {{ character.character.physicalAppearance }}
+      </p>
     </dl>
   </div>
 </template>
