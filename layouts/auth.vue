@@ -25,12 +25,8 @@ useHead({
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-      to bottom,
-      theme("colors.background.300") 0,
-      rgba(var(--colors-background-100), 0.2) 100%
-    ),
-    url("@/assets/images/login-bg-1.jpg") no-repeat center center/cover;
+  background: url("@/assets/images/backgrounds/login_20241203.webp") no-repeat
+    66% center/cover;
   z-index: -2;
 }
 .card-container {
