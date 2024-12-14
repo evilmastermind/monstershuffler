@@ -198,11 +198,10 @@ onMounted(async () => {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
-      to bottom,
-      theme("colors.background.0") 0,
-      theme("colors.background.100") 10em
-    )
-    /*,     url("@/assets/images/generator-bg-1.jpg") no-repeat center center/cover; */;
+    to bottom,
+    theme("colors.background.0") 0,
+    theme("colors.background.100") 10em
+  );
   z-index: -2;
 }
 .form {

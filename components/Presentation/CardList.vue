@@ -4,7 +4,7 @@
       class="card-list-background"
       :style="{
         backgroundImage: `url(${p.image})`,
-        maskImage: `url(/images/masks/top-${maskNumber}.png),
+        maskImage: `url(/images/masks/top-${maskNumber}.webp),
                     url(/images/masks/bottom-${maskNumber}.webp)`,
       }"
     />

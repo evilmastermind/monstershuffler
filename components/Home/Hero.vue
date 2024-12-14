@@ -1,6 +1,5 @@
 <template>
   <div class="background-container bg-black mask">
-    <NavbarPadding />
     <div class="background">
       <div class="background-image" />
       <div class="bg-max">
@@ -28,6 +27,9 @@ const localePath = useLocalePath();
 </script>
 
 <style scoped>
+.background-container {
+  position: relative;
+}
 .background {
   --bg-height: 350px;
   position: relative;

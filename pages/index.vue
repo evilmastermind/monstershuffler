@@ -1,5 +1,5 @@
 <template>
-  <HomeHero />
+  <HomePage />
 </template>
 
 <script setup>
