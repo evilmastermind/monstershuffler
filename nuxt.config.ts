@@ -69,7 +69,22 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "floating-vue/nuxt",
+    "@kgierke/nuxt-basic-auth",
   ],
+
+  basicAuth: {
+    enabled: true,
+    users: [
+      {
+        username: "test",
+        password: "me",
+      },
+    ],
+    // Optional: Delimiter for users string
+    // usersDelimiter: ",",
+    // Optional: Whitelist routes
+    // allowedRoutes: ["/api/.*"],
+  },
 
   i18n: {
     locales: ["en"], // used in URL path prefix
