@@ -2,7 +2,7 @@
   <button
     class="button rounded px-4 centered"
     :class="[
-      `color-${color}`,
+      colorClass,
       block ? 'is-block' : '',
       size === 'small' ? 'small py-1' : 'medium py-2',
     ]"
@@ -69,6 +69,26 @@ const p = defineProps({
 });
 
 const isDisabled = computed(() => p.disabled || p.loading);
+const colorClass = computed(() => {
+  switch (p.color) {
+    case "primary":
+      return "color-primary";
+    case "monstershuffler":
+      return "color-monstershuffler";
+    case "complementary":
+      return "color-complementary";
+    case "light":
+      return "color-light";
+    case "dark":
+      return "color-dark";
+    case "patreon":
+      return "color-patreon";
+    case "success":
+      return "color-success";
+    default:
+      return "color-primary";
+  }
+});
 
 function goToURL() {
   if (p.to) {
