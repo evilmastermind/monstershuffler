@@ -1,8 +1,8 @@
 <template>
   <div ref="statBlock" class="stat-block-container">
-    <div class="border" :class="`border-${ui.currentThemeType}`" />
-    <div class="stat-block" :class="`stat-block-${ui.currentThemeType}`">
-      <div class="gradient" :class="`gradient-${ui.currentThemeType}`" />
+    <div class="border" :class="[imageClasses.border]" />
+    <div class="stat-block" :class="[imageClasses.paper]">
+      <div class="gradient" :class="[imageClasses.gradient]" />
       <div
         :key="wrapper.key"
         class="p-4 stat-block-content"
@@ -26,7 +26,7 @@
         <MonsterStatBlockLegendaryActions />
       </div>
     </div>
-    <div class="border" :class="`border-${ui.currentThemeType}`" />
+    <div class="border" :class="[imageClasses.border]" />
   </div>
 </template>
 
@@ -58,6 +58,22 @@ const columnsCount = computed(() => {
   }
   return columnsFromActions.value;
 });
+const imageClasses = computed(() => {
+  switch (ui.currentThemeType) {
+    case "light":
+      return {
+        border: "border-light",
+        paper: "stat-block-light",
+        gradient: "gradient-light",
+      };
+    case "dark":
+      return {
+        border: "border-dark",
+        paper: "stat-block-dark",
+        gradient: "gradient-dark",
+      };
+  }
+});
 
 onMounted(() => {
   if (statBlock.value) {
@@ -78,10 +94,10 @@ onMounted(() => {
   background-repeat: repeat;
 }
 .border-light {
-  background-image: url("@/assets/images/monster/sticks2.webp");
+  background-image: url("@/public/images/monster/sticks2.webp");
 }
 .border-dark {
-  background-image: url("@/assets/images/monster/sticks2-dark.webp");
+  background-image: url("@/public/images/monster/sticks2-dark.webp");
 }
 .stat-block {
   position: relative;
@@ -99,11 +115,11 @@ onMounted(() => {
   background-repeat: repeat;
 }
 .stat-block-light:before {
-  background-image: url("@/assets/images/monster/paper-texture.webp");
+  background-image: url("@/public/images/monster/paper-texture.webp");
   background-color: #fff8dc;
 }
 .stat-block-dark:before {
-  background-image: url("@/assets/images/monster/paper-texture-dark.webp");
+  background-image: url("@/public/images/monster/paper-texture-dark.webp");
   background-color: #000723;
 }
 .gradient {
@@ -113,11 +129,11 @@ onMounted(() => {
   background-repeat: repeat-x;
 }
 .gradient-light {
-  background: url("@/assets/images/monster/semitransparent.webp");
+  background: url("@/public/images/monster/semitransparent.webp");
   background-repeat: repeat-x;
 }
 .gradient-dark {
-  background: url("@/assets/images/monster/semitransparent-dark.webp");
+  background: url("@/public/images/monster/semitransparent-dark.webp");
   background-repeat: repeat-x;
 }
 .stat-block-content {
