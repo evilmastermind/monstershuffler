@@ -234,7 +234,7 @@ function changeCard() {
 .cute-stat-block {
   position: relative;
   background-color: #fff8dc;
-  background-image: url("@/assets/images/monster/paper-texture.webp");
+  background-image: url("@/public/images/monster/paper-texture.webp");
   width: 66px;
   height: 100px;
   @apply shadow-xl px-1;
@@ -246,7 +246,7 @@ function changeCard() {
   border: 1px solid #000;
   background-position: top left;
   background-repeat: repeat;
-  background-image: url("@/assets/images/monster/sticks2.webp");
+  background-image: url("@/public/images/monster/sticks2.webp");
 }
 .cute-stat-block-name {
   position: relative;
@@ -316,7 +316,7 @@ function changeCard() {
 .cute-stat-block-gradient {
   position: absolute;
   inset: 0;
-  background: url("@/assets/images/monster/semitransparent.webp");
+  background: url("@/public/images/monster/semitransparent.webp");
   background-size: 150px auto;
   background-repeat: repeat-x;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="background" :class="`background-${ui.currentThemeType}`">
+  <div class="background" :class="[background]">
     <!-- <div class="background-before" :class="[`bg-${ethical}-100`]" /> -->
     <div class="icons p-1">
       <MSIconButton
@@ -48,6 +48,15 @@ const ui = useUiStore();
 const refGeneratorCharacter = toRef(p, "generatorCharacter");
 
 useProvideCharacter(refGeneratorCharacter);
+
+const background = computed(() => {
+  switch (ui.currentThemeType) {
+    case "light":
+      return "background-light";
+    case "dark":
+      return "background-dark";
+  }
+});
 
 function copyToClipboard() {
   const content = exportRoleplayStats(refGeneratorCharacter.value.object);
