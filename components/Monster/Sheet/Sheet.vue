@@ -1,5 +1,5 @@
 <template>
-  <div class="sheet background" :class="`background-${ui.currentThemeType}`">
+  <div class="sheet background" :class="[background]">
     <component
       :is="layout"
       v-show="isLoaded"
@@ -37,6 +37,14 @@ const showRoleplayStats = computed(() => {
   const showRoleplayStats =
     generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats;
   return showRoleplayStats !== undefined ? showRoleplayStats : true;
+});
+const background = computed(() => {
+  switch (ui.currentThemeType) {
+    case "light":
+      return "background-light";
+    case "dark":
+      return "background-dark";
+  }
 });
 
 const layout = computed(() => {
@@ -114,11 +122,11 @@ onMounted(() => {
   position: relative;
 }
 .background-light {
-  background-image: url("@/assets/images/monster/paper.webp");
+  background-image: url("@/public/images/monster/paper.webp");
   @apply bg-background-200;
 }
 .background-dark {
-  background-image: url("@/assets/images/monster/paper-dark.webp");
+  background-image: url("@/public/images/monster/paper-dark.webp");
   @apply bg-background-200;
 }
 .close {

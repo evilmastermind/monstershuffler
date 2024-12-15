@@ -1,17 +1,17 @@
 <template>
   <div ref="container" class="container">
-    <div :class="`border-top-${ui.currentThemeType}`">
-      <div :class="`border-top-angle-left-${ui.currentThemeType}`" />
-      <div :class="`border-top-center-${ui.currentThemeType}`" />
-      <div :class="`border-top-angle-right-${ui.currentThemeType}`" />
+    <div :class="[borders.top]">
+      <div :class="[borders.topAngleLeft]" />
+      <div :class="[borders.topCenter]" />
+      <div :class="[borders.topAngleRight]" />
     </div>
     <div class="content" :class="moralBackground">
       <slot />
     </div>
-    <div :class="`border-bottom-${ui.currentThemeType}`">
-      <div :class="`border-bottom-angle-left-${ui.currentThemeType}`" />
-      <div :class="`border-bottom-center-${ui.currentThemeType}`" />
-      <div :class="`border-bottom-angle-right-${ui.currentThemeType}`" />
+    <div :class="[borders.bottom]">
+      <div :class="[borders.bottomAngleLeft]" />
+      <div :class="[borders.bottomCenter]" />
+      <div :class="[borders.bottomAngleRight]" />
     </div>
   </div>
 </template>
@@ -24,6 +24,33 @@ const generator = useGeneratorStore();
 
 const { currentRoleplayStatsHTMLElement } = storeToRefs(generator);
 const container = ref<HTMLElement | null>(null);
+
+const borders = computed(() => {
+  switch (ui.currentThemeType) {
+    case "light":
+      return {
+        top: "border-top-light",
+        topAngleLeft: "border-top-angle-left-light",
+        topCenter: "border-top-center-light",
+        topAngleRight: "border-top-angle-right-light",
+        bottom: "border-bottom-light",
+        bottomAngleLeft: "border-bottom-angle-left-light",
+        bottomCenter: "border-bottom-center-light",
+        bottomAngleRight: "border-bottom-angle-right-light",
+      };
+    case "dark":
+      return {
+        top: "border-top-dark",
+        topAngleLeft: "border-top-angle-left-dark",
+        topCenter: "border-top-center-dark",
+        topAngleRight: "border-top-angle-right-dark",
+        bottom: "border-bottom-dark",
+        bottomAngleLeft: "border-bottom-angle-left-dark",
+        bottomCenter: "border-bottom-center-dark",
+        bottomAngleRight: "border-bottom-angle-right-dark",
+      };
+  }
+});
 
 onMounted(() => {
   if (!container.value) {
