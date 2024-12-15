@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const srcDir = ".";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,7 +7,21 @@ export default {
    * but it shouldn't be necessary to add them to a safelist.
    * Find out why TailwindCSS is removing them
    */
+  content: [
+    // all directories and extensions will correspond to your Nuxt config
+    "./components/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "./layouts/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "./pages/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "./plugins/**/*.{js,ts,mjs}",
+    "./composables/**/*.{js,ts,mjs}",
+    "./utils/**/*.{js,ts,mjs}",
+    "./{A,a}pp.{vue,js,jsx,mjs,ts,tsx}",
+    "./{E,e}rror.{vue,js,jsx,mjs,ts,tsx}",
+    "./app.config.{js,ts,mjs}",
+    "./app/spa-loading-template.html",
+  ],
   safelist: [
+    "dark-mode",
     "bg-card-good",
     "bg-card-evil",
     "bg-card-neutral",
@@ -331,18 +344,5 @@ export default {
         },
       ],
     }),
-  ],
-  content: [
-    // all directories and extensions will correspond to your Nuxt config
-    "{srcDir}/components/**/*.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/layouts/**/*.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/pages/**/*.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/plugins/**/*.{js,ts,mjs}",
-    "{srcDir}/composables/**/*.{js,ts,mjs}",
-    "{srcDir}/utils/**/*.{js,ts,mjs}",
-    "{srcDir}/{A,a}pp.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/{E,e}rror.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/app.config.{js,ts,mjs}",
-    "{srcDir}/app/spa-loading-template.html",
   ],
 };
