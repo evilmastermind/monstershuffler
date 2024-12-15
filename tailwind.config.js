@@ -3,6 +3,19 @@ const srcDir = ".";
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  /**
+   * TODO: These are used inside provideCharacter.ts (composable),
+   * but it shouldn't be necessary to add them to a safelist.
+   * Find out why TailwindCSS is removing them
+   */
+  safelist: [
+    "bg-card-good",
+    "bg-card-evil",
+    "bg-card-neutral",
+    "decoration-text-good/30",
+    "decoration-text-neutral/30",
+    "decoration-text-evil/30",
+  ],
   theme: {
     screens: {
       sm: "480px",
@@ -320,16 +333,16 @@ export default {
     }),
   ],
   content: [
-    `${srcDir}/components/**/*.{vue,js,ts}`,
-    `${srcDir}/layouts/**/*.vue`,
-    `${srcDir}/pages/**/*.vue`,
-    `${srcDir}/composables/**/*.{js,ts}`,
-    `${srcDir}/plugins/**/*.{js,ts}`,
-    `${srcDir}/utils/**/*.{js,ts}`,
-    `${srcDir}/App.{js,ts,vue}`,
-    `${srcDir}/app.{js,ts,vue}`,
-    `${srcDir}/Error.{js,ts,vue}`,
-    `${srcDir}/error.{js,ts,vue}`,
-    `${srcDir}/app.config.{js,ts}`,
+    // all directories and extensions will correspond to your Nuxt config
+    "{srcDir}/components/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "{srcDir}/layouts/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "{srcDir}/pages/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "{srcDir}/plugins/**/*.{js,ts,mjs}",
+    "{srcDir}/composables/**/*.{js,ts,mjs}",
+    "{srcDir}/utils/**/*.{js,ts,mjs}",
+    "{srcDir}/{A,a}pp.{vue,js,jsx,mjs,ts,tsx}",
+    "{srcDir}/{E,e}rror.{vue,js,jsx,mjs,ts,tsx}",
+    "{srcDir}/app.config.{js,ts,mjs}",
+    "{srcDir}/app/spa-loading-template.html",
   ],
 };
