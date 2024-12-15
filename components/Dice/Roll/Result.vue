@@ -2,7 +2,7 @@
   <div
     class="result"
     :class="[
-      fontSize,
+      p.roll.totalResult < 100 ? 'text-[2em]' : 'text-[1.5em]',
       roll?.d20Roll === 20 ? 'rainbow' : '',
       roll?.d20Roll === 1 ? 'poop' : '',
       currentThemeType === 'light' ? 'light-shadow' : 'dark-shadow',
@@ -15,7 +15,6 @@
 <script setup lang="ts">
 import type { DiceRoll } from "@/types";
 
-const rolls = useRollsStore();
 const ui = useUiStore();
 
 const { currentThemeType } = storeToRefs(ui);
@@ -25,13 +24,6 @@ const p = defineProps({
     type: Object as PropType<DiceRoll>,
     required: true,
   },
-});
-
-const fontSize = computed(() => {
-  if (p.roll.totalResult < 100) {
-    return "text-[2em]";
-  }
-  return "text-[1.5em]";
 });
 </script>
 
