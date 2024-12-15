@@ -92,12 +92,12 @@ export default defineNuxtConfig({
     vueI18n: "./plugins-other/i18n.config.ts",
   },
 
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {},
+  //     autoprefixer: {},
+  //   },
+  // },
   imports: {
     // Auto-import pinia stores defined in `~/stores`
     dirs: ["stores"],
