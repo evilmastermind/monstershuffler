@@ -65,7 +65,6 @@ export default defineNuxtConfig({
     "@vue-macros/nuxt",
     "@nuxtjs/i18n",
     "@pinia/nuxt",
-    "nuxt-purgecss",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "floating-vue/nuxt",
