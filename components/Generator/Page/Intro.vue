@@ -47,47 +47,47 @@ type Emoji = {
 const emojis: Emoji[] = [
   {
     name: "mdi:emoticon-excited",
-    color: "text-good-500",
+    color: "text-good-400",
     background: "bg-background-good",
   },
   {
     name: "mdi:emoticon-wink",
-    color: "text-good-500",
+    color: "text-good-400",
     background: "bg-background-good",
   },
   {
     name: "mdi:emoticon-happy",
-    color: "text-good-500",
+    color: "text-good-400",
     background: "bg-background-good",
   },
   {
     name: "mdi:emoticon-sad",
-    color: "text-neutral-500",
+    color: "text-neutral-400",
     background: "bg-background-neutral",
   },
   {
     name: "mdi:emoticon-neutral",
-    color: "text-neutral-500",
+    color: "text-neutral-400",
     background: "bg-background-neutral",
   },
   {
     name: "mdi:emoticon-cool",
-    color: "text-neutral-500",
+    color: "text-neutral-400",
     background: "bg-background-neutral",
   },
   {
     name: "mdi:emoticon-angry",
-    color: "text-evil-500",
+    color: "text-evil-400",
     background: "bg-background-evil",
   },
   {
     name: "mdi:emoticon-devil",
-    color: "text-evil-500",
+    color: "text-evil-400",
     background: "bg-background-evil",
   },
   {
     name: "mdi:emoticon",
-    color: "text-evil-500",
+    color: "text-evil-400",
     background: "bg-background-evil",
   },
 ];
@@ -95,25 +95,25 @@ const emojis: Emoji[] = [
 const currentEmojis = ref<Emoji[]>([
   {
     name: "mdi:emoticon-excited",
-    color: "text-good-500",
+    color: "text-good-400",
     background: "bg-background-good",
     id: 0,
   },
   {
     name: "mdi:emoticon-sad",
-    color: "text-neutral-500",
+    color: "text-neutral-400",
     background: "bg-background-neutral",
     id: 1,
   },
   {
     name: "mdi:emoticon-neutral",
-    color: "text-neutral-500",
+    color: "text-neutral-400",
     background: "bg-background-neutral",
     id: 2,
   },
   {
     name: "mdi:emoticon-angry",
-    color: "text-evil-500",
+    color: "text-evil-400",
     background: "bg-background-evil",
     id: 3,
   },
@@ -128,7 +128,7 @@ const randomizeEmojis = setInterval(() => {
     newEmojis.push(newEmoji);
   }
   currentEmojis.value = newEmojis;
-}, 3000);
+}, 10000);
 
 onUnmounted(() => {
   clearInterval(randomizeEmojis);

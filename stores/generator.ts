@@ -58,7 +58,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     includeBodyType: false,
   });
   const promptOptions = ref<PostRandomNpcBody>({});
-  const keywords = ref<Keyword[]>([]);
+  const keywords = shallowRef<Keyword[]>([]);
 
   /**
    * Computed properties
@@ -123,11 +123,13 @@ export const useGeneratorStore = defineStore("generator", () => {
         "primaryRaceId",
         "primaryRacevariantId"
       );
+      triggerRef(racesAndVariants);
       classesAndVariants.value = prepareObjectOrVariantList(
         data.classes || [],
         "classId",
         "classvariantId"
       );
+      triggerRef(classesAndVariants);
       backgrounds.value = data.backgrounds || [];
       data.backgrounds.forEach((background) => {
         keywords.value.push({
@@ -136,6 +138,8 @@ export const useGeneratorStore = defineStore("generator", () => {
           value: background.id,
         });
       });
+      triggerRef(backgrounds);
+      triggerRef(keywords);
       return 200;
     } catch (error) {
       return parseError(error).statusCode;

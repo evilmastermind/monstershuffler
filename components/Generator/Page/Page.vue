@@ -145,8 +145,8 @@ watch(isFormMode, () => {
   saveSettingsThrottle();
 });
 
-onMounted(async () => {
-  isLoading.value = true;
+onBeforeMount(async () => {
+  isLoading.value = generator.racesAndVariants.length === 0;
   // Check if we're viewing a specific NPC
   const uuid = route.params.uuid as string | undefined;
   if (uuid) {
@@ -172,7 +172,6 @@ onMounted(async () => {
   isFormMode.value = settings?.isFormMode ?? false;
 
   generator.parseSettings(settings?.options);
-
   if (settings?.characters?.length && settings.characters[0].object) {
     characters.value = [];
     settings.characters.forEach((character) => {

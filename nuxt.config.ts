@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
+    head: {
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+    },
   },
   // ssr: false,
   spaLoadingTemplate: "public/spa-loading-template.html",
