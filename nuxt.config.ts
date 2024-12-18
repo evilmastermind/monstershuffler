@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
+    head: {
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+    },
   },
   // ssr: false,
   spaLoadingTemplate: "public/spa-loading-template.html",
@@ -65,7 +68,6 @@ export default defineNuxtConfig({
     "@vue-macros/nuxt",
     "@nuxtjs/i18n",
     "@pinia/nuxt",
-    "nuxt-purgecss",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "floating-vue/nuxt",

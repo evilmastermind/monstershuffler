@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const srcDir = ".";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,7 +7,21 @@ export default {
    * but it shouldn't be necessary to add them to a safelist.
    * Find out why TailwindCSS is removing them
    */
+  content: [
+    // all directories and extensions will correspond to your Nuxt config
+    "./components/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "./layouts/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "./pages/**/*.{vue,js,jsx,mjs,ts,tsx}",
+    "./plugins/**/*.{js,ts,mjs}",
+    "./composables/**/*.{js,ts,mjs}",
+    "./utils/**/*.{js,ts,mjs}",
+    "./{A,a}pp.{vue,js,jsx,mjs,ts,tsx}",
+    "./{E,e}rror.{vue,js,jsx,mjs,ts,tsx}",
+    "./app.config.{js,ts,mjs}",
+    "./app/spa-loading-template.html",
+  ],
   safelist: [
+    "dark-mode",
     "bg-card-good",
     "bg-card-evil",
     "bg-card-neutral",
@@ -266,9 +279,9 @@ export default {
                 100: "hsl(0,0%,22%)",
                 50: "hsl(0,0%,27%)",
               },
-              "background-evil": "hsl(0, 70%, 89%)",
-              "background-good": "hsl(223, 100%, 89%)",
-              "background-neutral": "hsl(53, 56%, 80%)",
+              "background-evil": "hsl(0, 68%, 82%)",
+              "background-good": "hsl(226, 100%, 82%)",
+              "background-neutral": "hsl(55, 55%, 67%)",
               "card-evil": "hsl(0,3%,16%)",
               "card-good": "hsl(240,3%,16%)",
               "card-neutral": "hsl(59,3%,16%)",
@@ -279,9 +292,9 @@ export default {
               "text-placeholder": "hsl(240, 0%, 50%)",
               "text-icon": "hsl(0,0%,80%)",
               "text-inverse": "hsl(240, 0%, 3%)",
-              "text-evil": "hsl(0, 70%, 89%)",
-              "text-good": "hsl(223, 100%, 89%)",
-              "text-neutral": "hsl(53, 56%, 80%)",
+              "text-evil": "hsl(0, 68%, 82%)",
+              "text-good": "hsl(226, 100%, 82%)",
+              "text-neutral": "hsl(55, 55%, 67%)",
               danger: "hsl(0, 100%, 65%)",
               warning: "hsl(45, 70%, 60%)",
               success: "hsl(120, 50%, 70%)",
@@ -331,18 +344,5 @@ export default {
         },
       ],
     }),
-  ],
-  content: [
-    // all directories and extensions will correspond to your Nuxt config
-    "{srcDir}/components/**/*.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/layouts/**/*.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/pages/**/*.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/plugins/**/*.{js,ts,mjs}",
-    "{srcDir}/composables/**/*.{js,ts,mjs}",
-    "{srcDir}/utils/**/*.{js,ts,mjs}",
-    "{srcDir}/{A,a}pp.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/{E,e}rror.{vue,js,jsx,mjs,ts,tsx}",
-    "{srcDir}/app.config.{js,ts,mjs}",
-    "{srcDir}/app/spa-loading-template.html",
   ],
 };

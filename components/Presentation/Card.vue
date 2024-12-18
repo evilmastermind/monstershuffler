@@ -40,7 +40,7 @@ const p = defineProps({
   max-width: 2.5rem;
   font-size: 2.5rem;
   transition: transform 0.2s ease, color 0.2s ease;
-  @apply text-evil-700;
+  @apply text-background-evil;
 }
 .card:hover .card-icon {
   transform: scale(1.1);
