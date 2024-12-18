@@ -9,7 +9,7 @@ import type {
   PostRandomNpcBody,
   GetGeneratorDataResponse,
   GeneratorCharacter,
-  Character,
+  NPCGeneratorSettings,
   NpcDetails,
 } from "@/types";
 
@@ -24,6 +24,7 @@ export const useGeneratorStore = defineStore("generator", () => {
   /**
    * State
    */
+  const settings = ref<NPCGeneratorSettings | null>(null);
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
   const characters = ref<GeneratorCharacter[]>([]); // this is the list of npcs chosen by the user
@@ -466,8 +467,8 @@ export const useGeneratorStore = defineStore("generator", () => {
     });
   }
   return {
+    settings,
     session,
-    // settings,
     characters,
     saveTrigger,
     currentSheetHTMLElement,
