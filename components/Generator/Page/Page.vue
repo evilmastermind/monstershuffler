@@ -64,25 +64,25 @@
 
 <script setup lang="ts">
 import type {
-  PostRandomNpcBody,
+  NPCGeneratorSettings,
   GeneratorCharacter,
   AlertMessage,
 } from "@/types";
 import { throttle } from "@/utils";
-
-type NPCGeneratorSettings = {
-  characters: GeneratorCharacter[];
-  options: PostRandomNpcBody;
-  isFormMode: boolean;
-};
 
 const { t } = useI18n();
 const route = useRoute();
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const { session, characters, currentCharacterIndex, options, saveTrigger } =
-  storeToRefs(generator);
+const {
+  session,
+  characters,
+  currentCharacterIndex,
+  options,
+  saveTrigger,
+  settings,
+} = storeToRefs(generator);
 
 const isIntroShown = ref(true);
 const isLoading = ref(true);
@@ -118,7 +118,6 @@ async function generateNpcs() {
 }
 
 function saveSettings() {
-  console.log("Saving settings");
   const settings: NPCGeneratorSettings = {
     characters: characters.value as GeneratorCharacter[],
     options: options.value,
@@ -146,6 +145,7 @@ watch(isFormMode, () => {
 });
 
 onBeforeMount(async () => {
+  isFormMode.value = settings.value?.isFormMode ?? false;
   isLoading.value = generator.racesAndVariants.length === 0;
   // Check if we're viewing a specific NPC
   const uuid = route.params.uuid as string | undefined;
@@ -166,15 +166,16 @@ onBeforeMount(async () => {
       message: t("error.notFoundExtended"),
     };
   }
-  const settings: NPCGeneratorSettings | null = await user.getSettings(
-    "npcgenerator"
-  );
-  isFormMode.value = settings?.isFormMode ?? false;
+  settings.value = await user.getSettings("npcgenerator");
+  isFormMode.value = settings.value?.isFormMode ?? false;
 
-  generator.parseSettings(settings?.options);
-  if (settings?.characters?.length && settings.characters[0].object) {
+  generator.parseSettings(settings.value?.options);
+  if (
+    settings.value?.characters?.length &&
+    settings.value.characters[0].object
+  ) {
     characters.value = [];
-    settings.characters.forEach((character) => {
+    settings.value.characters.forEach((character) => {
       characters.value.push({
         key: 0,
         id: character.id,
