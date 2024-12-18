@@ -71,11 +71,11 @@ const profession = () => {
 const moral = () => {
   const alignment = character.value?.statistics?.alignment?.string || "";
   if (alignment.includes("Good")) {
-    return "bg-good-800";
+    return "bg-background-good";
   } else if (alignment.includes("Evil")) {
-    return "bg-evil-800";
+    return "bg-background-evil";
   } else {
-    return "bg-neutral-800";
+    return "bg-background-neutral";
   }
 };
 

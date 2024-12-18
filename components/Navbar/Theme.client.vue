@@ -21,16 +21,16 @@ const icon: Ref<string> = ref("sun");
 const setInitialTheme = () => {
   if (currentThemeName.value) {
     setTheme(currentThemeName.value);
-  } else if (
-    window?.matchMedia &&
-    window?.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
-    setTheme("dark");
+    // Show light theme as default
+    // } else if (
+    //   window?.matchMedia &&
+    //   window?.matchMedia("(prefers-color-scheme: dark)").matches
+    // ) {
+    //   setTheme("dark");
   } else {
     setTheme("light");
   }
 };
-setInitialTheme();
 
 function setTheme(themeName?: string) {
   if (themeName) {
@@ -57,6 +57,8 @@ onMounted(() => {
   if (appTheme) {
     currentThemeName.value = appTheme;
     setTheme(appTheme);
+  } else {
+    setInitialTheme();
   }
 });
 </script>
