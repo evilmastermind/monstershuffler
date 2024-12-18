@@ -1,4 +1,4 @@
-import type { PostRandomNpcBody } from "@/types";
+import type { PostRandomNpcBody, GeneratorCharacter, PostRandomNpcBody } from "@/types";
 
 export type ObjectOrVariant = {
   id: number;
@@ -25,6 +25,13 @@ export type CharacterChanges = {
   alignmentMoral?: "Neutral" | "Any" | "Good" | "Evil";
   alignmentEthical?: "Lawful" | "Neutral" | "Chaotic" | "Any" | "Unaligned";
 };
+
+export type NPCGeneratorSettings = {
+  characters: GeneratorCharacter[];
+  options: PostRandomNpcBody;
+  isFormMode: boolean;
+};
+
 
 // export type TemporaryRenameManagement = {
 //     oldPrename: string;
