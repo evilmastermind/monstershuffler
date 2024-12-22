@@ -286,7 +286,6 @@ export const useGeneratorStore = defineStore("generator", () => {
 
     try {
       wrapper.value.streamStatus = "opening";
-      console.log("-- STREAM: opening stream");
       await fetchEventSource(`${api}/npcs/backstory`, {
         method: "POST",
         headers: {

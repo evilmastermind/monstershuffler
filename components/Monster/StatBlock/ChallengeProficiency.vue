@@ -10,7 +10,7 @@
           :aria-label="$t('statBlock.lowerCR')"
           @click="callLowerCR"
         />
-        <span class="cr">{{ statistics.CR.string }}</span>
+        <span class="cr" ref="refCR">{{ statistics.CR.string }}</span>
         <button
           class="triangleright hide-from-exports"
           :aria-label="$t('statBlock.raiseCR')"
@@ -33,6 +33,9 @@ import type { GeneratorCharacter, Character, Statistics } from "@/types";
 const character = inject("character") as Ref<Character>;
 const statistics = inject("statistics") as Ref<Statistics>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
+const didLayoutShift = inject("didLayoutShift") as Ref<boolean>;
+
+const refCR = ref<HTMLElement | null>(null);
 
 function callRaiseCR() {
   raiseCR(character.value);
@@ -43,6 +46,14 @@ function callLowerCR() {
   lowerCR(character.value);
   wrapper.value.key++;
 }
+
+onMounted(async () => {
+  if (didLayoutShift.value && refCR.value) {
+    await wait(50);  
+    refCR.value.scrollIntoView({ behavior: "auto", block: "center" });
+    didLayoutShift.value = false;
+  }
+});
 </script>
 
 <style scoped>

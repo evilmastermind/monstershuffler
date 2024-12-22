@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div class="page-container" id="character-page-scroll">
     <div v-if="currentCharacterIndex > -1">
       <Transition name="fade-quick" appear>
         <LazyMonsterSheetTools
@@ -41,6 +41,10 @@ function close() {
 onMounted(() => {
   if (sheet.value) {
     currentSheetHTMLElement.value = sheet.value;
+    const element = document.querySelector('#character-page-scroll');
+    if (element) {
+      element.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
   }
 });
 </script>

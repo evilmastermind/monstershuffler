@@ -114,6 +114,13 @@ async function generateNpcs() {
     };
     return;
   }
+  if (reply === 500) {
+    alert.value = {
+      type: "danger",
+      message: t("error.serverError"),
+    };
+    return;
+  }
   saveSettingsThrottle();
 }
 
@@ -147,17 +154,6 @@ watch(isFormMode, () => {
 onBeforeMount(async () => {
   isFormMode.value = settings.value?.isFormMode ?? false;
   isLoading.value = generator.racesAndVariants.length === 0;
-  // Check if we're viewing a specific NPC
-  const uuid = route.params.uuid as string | undefined;
-  if (uuid) {
-    const npcStatus = await generator.getNpc(uuid);
-    if (npcStatus !== 200) {
-      alert.value = {
-        type: "danger",
-        message: t("error.couldntRetrieveData"),
-      };
-    }
-  }
   // Retrieve the generator data
   const status = await generator.getGeneratorData();
   if (status !== 200) {
@@ -185,6 +181,17 @@ onBeforeMount(async () => {
       });
     });
     haveCharactersJustBeenRetrieved.value = true;
+  }
+  // Check if we're viewing a specific NPC
+  const uuid = route.params.uuid as string | undefined;
+  if (uuid) {
+    const npcStatus = await generator.getNpc(uuid);
+    if (npcStatus !== 200) {
+      alert.value = {
+        type: "danger",
+        message: t("error.couldntRetrieveData"),
+      };
+    }
   }
   isLoading.value = false;
 });

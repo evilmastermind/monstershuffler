@@ -17,7 +17,6 @@ const key = ref(p.bigObject.nested.key);
 watch(
   () => p.bigObject.i,
   () => {
-    console.log("i changed", p.bigObject.i);
     key.value = p.bigObject.nested.key;
   },
   { immediate: true }

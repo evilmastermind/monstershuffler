@@ -4,7 +4,8 @@
     "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again.",
     "notFound": "The requested resource was not found.",
     "notFoundExtended": "The requested resource was not found.",
-    "generic": "An error occurred. Please try again later."
+    "generic": "An error occurred. Please try again later.",
+    "serverError": "An error occurred on the server, or the server is not available. Please try again later."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",

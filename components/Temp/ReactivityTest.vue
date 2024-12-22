@@ -16,7 +16,6 @@ const bigObject = shallowRef({
 
 function doSomeTriggerin() {
   bigObject.value.i++;
-  console.log("doSomeTriggerin", bigObject.value.i);
   triggerRef(bigObject);
 }
 

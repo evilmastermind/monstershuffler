@@ -1,5 +1,5 @@
 <template>
-  <div ref="statBlock" class="stat-block-container">
+  <div ref="statBlock" class="stat-block-container" :id="`monster-${character.id || 0}`">
     <div class="border" :class="[imageClasses.border]" />
     <div class="stat-block" :class="[imageClasses.paper]">
       <div class="gradient" :class="[imageClasses.gradient]" />
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { GeneratorCharacter } from "@/types";
+import type { GeneratorCharacter, Character } from "@/types";
 
 type Columns = 1 | 2;
 
@@ -42,6 +42,7 @@ const p = defineProps({
   },
 });
 
+const character = inject("character") as Ref<Character>;
 const columnsFromActions = inject("columns") as Ref<number>;
 const wordsCount = inject("wordsCount") as Ref<number>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
@@ -73,6 +74,17 @@ const imageClasses = computed(() => {
         gradient: "gradient-dark",
       };
   }
+});
+
+function scrollIntoView() {
+  if (statBlock.value) {
+    statBlock.value.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+watch([columnsCount,columnsFromActions, () => p.columns], () => {
+  console.log("columnsCount", columnsCount.value);
+  scrollIntoView();
 });
 
 onMounted(() => {

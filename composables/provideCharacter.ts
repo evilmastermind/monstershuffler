@@ -11,6 +11,7 @@ export function useProvideCharacter(
 ) {
   const character = ref<Character>();
   const statistics = ref<Statistics>();
+  const didLayoutShift = ref(false);
 
   const moral = computed(() => {
     const alignment =
@@ -74,8 +75,16 @@ export function useProvideCharacter(
     return wordsCount;
   });
 
-  const columns = computed(() => {
-    return wordsCount.value > 200 ? 2 : 1;
+  const columns = computed((previous: number | undefined) => {
+    const newColumns = wordsCount.value > 200 ? 2 : 1;
+    if (previous && previous !== newColumns) {
+      didLayoutShift.value = true;
+    } else {
+      didLayoutShift.value = false;
+    }
+    console.log("columns", newColumns);
+    console.log("Previous", previous);
+    return newColumns;
   });
 
   function getActionsWordsCount(actions: StatStringArrayWithName[]) {
@@ -105,6 +114,7 @@ export function useProvideCharacter(
   provide("moralBackground", moralBackground);
   provide("columns", columns);
   provide("wordsCount", wordsCount);
+  provide("didLayoutShift", didLayoutShift);
 
   return {
     character,
@@ -114,5 +124,6 @@ export function useProvideCharacter(
     moralBackground,
     columns,
     wordsCount,
+    didLayoutShift,
   };
 }

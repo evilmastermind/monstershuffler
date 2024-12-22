@@ -28,7 +28,7 @@ const p = defineProps({
 const ui = useUiStore();
 
 const generatorCharacter = toRef(p, "generatorCharacter");
-const { columns } = useProvideCharacter(generatorCharacter);
+const { columns, character } = useProvideCharacter(generatorCharacter);
 const isLoaded = ref(false);
 const layoutName = ref("MonsterLayoutOneColumnA");
 const key = ref(0);

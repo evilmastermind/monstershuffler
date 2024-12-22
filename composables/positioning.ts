@@ -14,7 +14,6 @@ export function usePositioning() {
       return true;
     }
     const rect = element.getBoundingClientRect();
-    console.log(rect);
     return rect.left >= window.innerWidth || rect.right < 0;
   }
   function moveElementIntoXView(element: HTMLElement) {

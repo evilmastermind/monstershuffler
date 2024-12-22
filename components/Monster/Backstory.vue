@@ -77,7 +77,6 @@ watch(
 onMounted(async () => {
   getRating();
 
-  console.log(backstory.value);
 
   if (!backstory.value && !wrapper.value.streamStatus) {
     const result = await generatorStore.generateBackstory(wrapper);
