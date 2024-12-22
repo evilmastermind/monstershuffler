@@ -10,7 +10,16 @@
           :aria-label="$t('statBlock.lowerCR')"
           @click="callLowerCR"
         />
-        <span class="cr" ref="refCR">{{ statistics.CR.string }}</span>
+        <!-- <span class="cr" ref="refCR">{{ statistics.CR.string }}</span> -->
+        <input
+          type="text"
+          v-model="CR"
+          class="cr"
+          ref="refCR"
+          @click="select"
+          @keydown.enter="callSetCR"
+          @blur="callSetCR"
+        />
         <button
           class="triangleright hide-from-exports"
           :aria-label="$t('statBlock.raiseCR')"
@@ -27,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { lowerCR, raiseCR, addPlusSign } from "monstershuffler-shared";
+import { lowerCR, raiseCR, setCR, addPlusSign } from "monstershuffler-shared";
 import type { GeneratorCharacter, Character, Statistics } from "@/types";
 
 const character = inject("character") as Ref<Character>;
@@ -36,6 +45,7 @@ const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 const didLayoutShift = inject("didLayoutShift") as Ref<boolean>;
 
 const refCR = ref<HTMLElement | null>(null);
+const CR = ref<string>(statistics.value.CR.string);
 
 function callRaiseCR() {
   raiseCR(character.value);
@@ -45,6 +55,16 @@ function callRaiseCR() {
 function callLowerCR() {
   lowerCR(character.value);
   wrapper.value.key++;
+}
+
+function callSetCR() {
+  setCR(character.value, CR.value);
+  wrapper.value.key++;
+}
+
+function select(event: MouseEvent) {
+  const target = event.target as HTMLInputElement;
+  target.select();
 }
 
 onMounted(async () => {
@@ -85,7 +105,10 @@ onMounted(async () => {
 .cr {
   display: inline-block;
   min-width: 1.5em;
+  width: 1.5em; 
   text-align: center;
+  background-color: transparent;
+  border: none;
 }
 .cr-buttons {
   display: inline-flex;

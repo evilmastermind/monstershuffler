@@ -35,7 +35,7 @@ const sheet = ref<HTMLElement | null>(null);
 const isLoaded = ref(false);
 
 function close() {
-  generator.unsetCharacter();
+  generator.unsetCharacter(); 
 }
 
 onMounted(() => {
@@ -43,7 +43,10 @@ onMounted(() => {
     currentSheetHTMLElement.value = sheet.value;
     const element = document.querySelector('#character-page-scroll');
     if (element) {
-      element.scrollIntoView({ behavior: 'auto', block: 'start' });
+      const rect = element.getBoundingClientRect();
+      if (rect.top < 0 || rect.top > window.innerHeight) {
+        element.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
     }
   }
 });
