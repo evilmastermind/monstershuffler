@@ -1,138 +1,76 @@
 <template>
   <div class="intro">
-    <div class="intro-logo-container">
-      <template v-for="(emoji, index) in currentEmojis" :key="emoji.id">
-        <div class="intro-card-placeholder">
-          <div v-for="n in 4" :key="n" class="intro-card-skeleton" />
-        </div>
-        <Transition name="fade-scroll-slow" appear>
-          <div
-            class="intro-card"
-            :class="emoji.background"
-            :style="{
-              transitionDelay: `${0.15 * index}s`,
-              transitionProperty: 'opacity, transform',
-            }"
-          >
-            <Icon class="intro-icon" :class="emoji.color" :name="emoji.name" />
-          </div>
-        </Transition>
-      </template>
-    </div>
     <div class="intro-text text-center mt-6">
       <Transition name="title" appear>
         <h1 class="static custom-title gradient-title">The NPC Generator</h1>
       </Transition>
       <p class="static max-width mt-6">
+        Type a prompt above or use the form to create the NPCs you need. You can only use words for the available classes, races, and backgrounds, like these examples:
+      </p>
+      <ul class="prompt-examples mt-6">
+        <li
+          v-for="example in examples"
+          :key="example"
+          class="prompt-example"
+          :class="getColors(example)"
+          @click="promptFromOtherSources = example"
+        >
+          {{ example }}
+        </li>
+      </ul>
+      <!-- <p class="static max-width mt-6">
         Create unforgettable NPCs with unique personalities and appearances.
       </p>
-      <p class="static max-width mt-1">
+      <p class="static max-width mt-2">
         Effortlessly improvise NPCs on the fly, or be inspired by AI-generated
         adventures to add new side quests in your campaign.
-      </p>
+      </p> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const boolean = ref(false);
 
-type Emoji = {
-  id?: number;
-  name: string;
-  color: string;
-  background: string;
-};
+const generator = useGeneratorStore();
 
-const emojis: Emoji[] = [
-  {
-    name: "mdi:emoticon-excited",
-    color: "text-good-400",
-    background: "bg-background-good",
-  },
-  {
-    name: "mdi:emoticon-wink",
-    color: "text-good-400",
-    background: "bg-background-good",
-  },
-  {
-    name: "mdi:emoticon-happy",
-    color: "text-good-400",
-    background: "bg-background-good",
-  },
-  {
-    name: "mdi:emoticon-sad",
-    color: "text-neutral-400",
-    background: "bg-background-neutral",
-  },
-  {
-    name: "mdi:emoticon-neutral",
-    color: "text-neutral-400",
-    background: "bg-background-neutral",
-  },
-  {
-    name: "mdi:emoticon-cool",
-    color: "text-neutral-400",
-    background: "bg-background-neutral",
-  },
-  {
-    name: "mdi:emoticon-angry",
-    color: "text-evil-400",
-    background: "bg-background-evil",
-  },
-  {
-    name: "mdi:emoticon-devil",
-    color: "text-evil-400",
-    background: "bg-background-evil",
-  },
-  {
-    name: "mdi:emoticon",
-    color: "text-evil-400",
-    background: "bg-background-evil",
-  },
+const { promptFromOtherSources } = storeToRefs(generator);
+const examples = ref<string[]>([]);
+const goodExampleStrings = [
+  "lawful good gnome wizard",
+  "good half-orc herbalist",
+  "good nonbinary druid",
+  "good tiefling archer",
+];
+const evilExampleStrings = [
+  "evil rogue cr 6",
+  "chaotic evil male innkeeper",
+  "evil priest",
+  "evil female tank",
+];
+const neutralEampleStrings = [
+  "female human fighter",
+  "nonbinary drow bard",
+  "cr 6 human guard",
+  "lawful dwarf blacksmith",
+  "neutral half-orc sorcerer",
 ];
 
-const currentEmojis = ref<Emoji[]>([
-  {
-    name: "mdi:emoticon-excited",
-    color: "text-good-400",
-    background: "bg-background-good",
-    id: 0,
-  },
-  {
-    name: "mdi:emoticon-sad",
-    color: "text-neutral-400",
-    background: "bg-background-neutral",
-    id: 1,
-  },
-  {
-    name: "mdi:emoticon-neutral",
-    color: "text-neutral-400",
-    background: "bg-background-neutral",
-    id: 2,
-  },
-  {
-    name: "mdi:emoticon-angry",
-    color: "text-evil-400",
-    background: "bg-background-evil",
-    id: 3,
-  },
-]);
-let id = 4;
 
-const randomizeEmojis = setInterval(() => {
-  const newEmojis: Emoji[] = [];
-  for (let i = 0; i < 4; i++) {
-    const newEmoji: Emoji = { ...emojis[random(0, 8)] };
-    newEmoji.id = ++id;
-    newEmojis.push(newEmoji);
-  }
-  currentEmojis.value = newEmojis;
-}, 10000);
 
-onUnmounted(() => {
-  clearInterval(randomizeEmojis);
-});
+function getColors(example: string) {
+  if (example.includes("evil")) return "text-text-evil border-text-evil bg-card-evil hover:border-evil-600 hover:bg-transparent";
+  if (example.includes("good")) return "text-text-good border-text-good bg-card-good hover:border-good-600 hover:bg-transparent";
+  if (example.includes("neutral")) return "text-text-neutral border-text-neutral bg-card-neutral hover:border-neutral-600 hover:bg-transparent";
+  return "text-text-neutral border-text-neutral bg-card-neutral hover:border-neutral-600 hover:bg-transparent";
+}
+
+onMounted(() => {
+  examples.value.push(goodExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
+  examples.value.push(neutralEampleStrings.sort(() => Math.random() - 0.5).pop() as string);
+  examples.value.push(neutralEampleStrings.sort(() => Math.random() - 0.5).pop() as string);
+  examples.value.push(evilExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
+})
+
 </script>
 
 <style scoped>
@@ -145,36 +83,23 @@ onUnmounted(() => {
   position: relative;
   z-index: 1;
 }
-.intro-logo-container {
-  position: relative;
+.prompt-examples {
   display: grid;
-  grid-template-columns: repeat(2, min-content);
+  grid-template-columns: repeat(1, min-content);
   justify-content: center;
-  align-content: center;
-  @apply gap-1;
+  align-items: center;
+  @apply gap-2;
 }
-.intro-card-placeholder {
-  position: absolute;
-  display: grid;
-  grid-template-columns: repeat(2, min-content);
-  justify-content: center;
-  align-content: center;
-  @apply gap-1;
+.prompt-example {
+  display: block;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  @apply py-1 px-4 border-2 rounded-lg;
 }
-.intro-card-skeleton {
-  width: 40px;
-  aspect-ratio: 1;
-  @apply rounded bg-inset-300;
-}
-.intro-card {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  aspect-ratio: 1;
-  z-index: 1;
-  @apply rounded;
-}
-.intro-icon {
-  font-size: 2em;
+@media (min-width: theme("screens.sm")) {
+  .prompt-examples {
+    grid-template-columns: repeat(2, min-content);
+  }
 }
 </style>

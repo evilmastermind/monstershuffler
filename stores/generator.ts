@@ -59,6 +59,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     includeBodyType: false,
   });
   const promptOptions = ref<PostRandomNpcBody>({});
+  const promptFromOtherSources = ref("");
   const keywords = shallowRef<Keyword[]>([]);
 
   /**
@@ -484,6 +485,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     backgroundIndex,
     options,
     promptOptions,
+    promptFromOtherSources,
     keywords,
     setCurrentNPCRatingThrottle,
     getRandomNpcs,

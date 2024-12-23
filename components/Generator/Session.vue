@@ -11,6 +11,7 @@
               :generator-character="{
                 key: 1,
                 id: npc.id,
+                streamChunks: [],
                 object: npc.object as Character
               }"
               :style="{
