@@ -10,7 +10,7 @@
       @keyup.enter="generateNpcsThrottle"
       @input="resetWordsNotFound"
     />
-    <div
+    <!-- <div
       v-if="!session.length && !characters.length && !hasGeneratedOnce"
       class="prompt-hint"
     >
@@ -18,7 +18,7 @@
       <span class="prompt-hint-text">
         {{ $t("generator.prompt.hint") }}
       </span>
-    </div>
+    </div> -->
     <MSIconButton
       v-if="!isLoading"
       class="generate-button text-primary-700 px-2 text-2xl"
