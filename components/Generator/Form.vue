@@ -30,7 +30,7 @@
             </label>
             <select
               id="gen-prace-perc"
-              v-model="options.primaryRacePercentage"
+              v-model="settings.options.primaryRacePercentage"
               class="ms-input-style ms-select ms-select-20"
             >
               <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
@@ -59,7 +59,7 @@
             </label>
             <select
               id="gen-srace-perc"
-              v-model="options.secondaryRacePercentage"
+              v-model="settings.options.secondaryRacePercentage"
               class="ms-input-style ms-select ms-select-20"
             >
               <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
@@ -75,7 +75,7 @@
           >
           <select
             id="gen-class"
-            v-model="options.classType"
+            v-model="settings.options.classType"
             class="ms-input-style ms-select ms-select-100"
           >
             <option value="none">
@@ -92,7 +92,7 @@
             </option>
           </select>
         </span>
-        <span v-if="options.classType === 'specific'" class="form-line">
+        <span v-if="settings.options.classType === 'specific'" class="form-line">
           <select
             id="gen-classes"
             v-model="classIndex"
@@ -111,7 +111,7 @@
           >
           <select
             id="gen-background"
-            v-model="options.backgroundType"
+            v-model="settings.options.backgroundType"
             class="ms-input-style ms-select ms-select-100"
           >
             <option value="none">
@@ -125,7 +125,7 @@
             </option>
           </select>
         </span>
-        <span v-if="options.backgroundType === 'specific'" class="form-line">
+        <span v-if="settings.options.backgroundType === 'specific'" class="form-line">
           <select
             id="gen-backgrounds"
             v-model="backgroundIndex"
@@ -143,7 +143,7 @@
           >
           <select
             id="gen-level"
-            v-model="options.levelType"
+            v-model="settings.options.levelType"
             class="ms-input-style ms-select ms-select-100"
           >
             <option value="random">
@@ -157,15 +157,15 @@
         <!-- MISC OPTIONS -->
         <div class="misc-options">
           <MSCheckbox
-            v-model="options.addVoice"
+            v-model="settings.options.addVoice"
             :label="$t('generator.form.voice')"
           />
           <MSCheckbox
-            v-model="options.includeChildren"
+            v-model="settings.options.includeChildren"
             :label="$t('generator.form.includeChildren')"
           />
           <MSCheckbox
-            v-model="options.includeBodyType"
+            v-model="settings.options.includeBodyType"
             :label="$t('generator.form.includeBodyType')"
           />
         </div>
@@ -188,7 +188,7 @@ const {
   secondaryRaceIndex,
   classIndex,
   backgroundIndex,
-  options,
+  settings,
 } = storeToRefs(generator);
 
 function setClass(index: number) {
@@ -196,9 +196,9 @@ function setClass(index: number) {
   if (!classChosen) {
     return;
   }
-  options.value.classId = classChosen.id;
+  settings.value.options.classId = classChosen.id;
   if (classes.value[index].variantId) {
-    options.value.classvariantId = classes.value[index].variantId;
+    settings.value.options.classvariantId = classes.value[index].variantId;
   }
 }
 
@@ -212,11 +212,11 @@ watch(
     if (!race) {
       return;
     }
-    options.value.primaryRaceId = race.id;
+    settings.value.options.primaryRaceId = race.id;
     if (race.variantId) {
-      options.value.primaryRacevariantId = race.variantId;
+      settings.value.options.primaryRacevariantId = race.variantId;
     } else {
-      delete options.value.primaryRacevariantId;
+      delete settings.value.options.primaryRacevariantId;
     }
   },
   { immediate: true }
@@ -230,11 +230,11 @@ watch(
     if (!race2) {
       return;
     }
-    options.value.secondaryRaceId = race2.id;
+    settings.value.options.secondaryRaceId = race2.id;
     if (race2.variantId) {
-      options.value.secondaryRacevariantId = race2.variantId;
+      settings.value.options.secondaryRacevariantId = race2.variantId;
     } else {
-      delete options.value.secondaryRacevariantId;
+      delete settings.value.options.secondaryRacevariantId;
     }
   },
   { immediate: true }
@@ -255,18 +255,18 @@ watch(
     if (!background) {
       return;
     }
-    options.value.backgroundId = background.id;
+    settings.value.options.backgroundId = background.id;
   },
   { immediate: true }
 );
 
 watch(
-  options,
+  settings,
   (newValue) => {
-    if (newValue.backgroundType === "specific") {
-      options.value.backgroundId = backgrounds.value[backgroundIndex.value].id;
+    if (newValue.options.backgroundType === "specific") {
+      settings.value.options.backgroundId = backgrounds.value[backgroundIndex.value].id;
     }
-    if (newValue.classType === "specific") {
+    if (newValue.options.classType === "specific") {
       setClass(classIndex.value);
     }
   },

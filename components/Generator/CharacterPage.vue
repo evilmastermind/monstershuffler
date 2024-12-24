@@ -42,12 +42,11 @@ onMounted(() => {
   if (sheet.value) {
     currentSheetHTMLElement.value = sheet.value;
     const element = document.querySelector('#character-page-scroll');
-    if (element) {
-      const rect = element.getBoundingClientRect();
-      if (rect.top < 0 || rect.top > window.innerHeight) {
-        element.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }
-    }
+    scrollIntoView(element, {
+      behavior: 'auto',
+      block: 'start',
+      scrollIfInView: false,
+    });
   }
 });
 </script>

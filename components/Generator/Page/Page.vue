@@ -5,7 +5,7 @@
     <Transition name="fade-quick" appear mode="out-in">
       <div v-if="!isLoading">
         <GeneratorPageBar
-          v-model:mode="isFormMode"
+          v-model:mode="settings.isFormMode"
           v-model:shown="isFormShownOnMobile"
           :is-button-loading
           :generate-npcs-throttle
@@ -26,7 +26,7 @@
             :style="{ minHeight: isIntroShown ? '0' : '100svh' }"
           >
             <div class="mx-4 mt-4 md:mt-7">
-              <div v-if="isFormMode" class="form md:mr-6 mb-9">
+              <div v-if="settings.isFormMode" class="form md:mr-6 mb-9">
                 <GeneratorForm />
                 <MSButton
                   block
@@ -79,7 +79,6 @@ const {
   session,
   characters,
   currentCharacterIndex,
-  options,
   saveTrigger,
   settings,
 } = storeToRefs(generator);
@@ -91,14 +90,13 @@ const alert = ref<AlertMessage | null>(null);
 
 const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
-const isFormMode = ref(false);
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 const saveSettingsThrottle = throttle(() => saveSettings(), 3000);
 
 async function generateNpcs() {
   isButtonLoading.value = true;
-  const reply = await generator.getRandomNpcs(options.value, user.sessionId);
+  const reply = await generator.getRandomNpcs(settings.value.options, user.sessionId);
   isButtonLoading.value = false;
   if (reply === 429) {
     alert.value = {
@@ -125,12 +123,10 @@ async function generateNpcs() {
 }
 
 function saveSettings() {
-  const settings: NPCGeneratorSettings = {
-    characters: characters.value as GeneratorCharacter[],
-    options: options.value,
-    isFormMode: isFormMode.value,
+  const newSettings: NPCGeneratorSettings = {
+    ...settings.value, characters: characters.value as GeneratorCharacter[]
   };
-  user.setSettings("npcgenerator", settings);
+  user.setSettings<NPCGeneratorSettings>("npcgenerator", newSettings);
 }
 
 watch(session, (newSession) => {
@@ -139,20 +135,16 @@ watch(session, (newSession) => {
   }
 });
 
-watch([() => characters.value.length, saveTrigger], () => {
+watch([() => characters.value.length, saveTrigger, settings.value], () => {
   if (haveCharactersJustBeenRetrieved.value) {
     haveCharactersJustBeenRetrieved.value = false;
     return;
   }
+  console.log("Saving settings");
   saveSettingsThrottle();
-});
-
-watch(isFormMode, () => {
-  saveSettingsThrottle();
-});
+}, { deep: true });
 
 onBeforeMount(async () => {
-  isFormMode.value = settings.value?.isFormMode ?? false;
   isLoading.value = generator.racesAndVariants.length === 0;
   // Retrieve the generator data
   const status = await generator.getGeneratorData();
@@ -162,8 +154,10 @@ onBeforeMount(async () => {
       message: t("error.notFoundExtended"),
     };
   }
-  settings.value = await user.getSettings("npcgenerator");
-  isFormMode.value = settings.value?.isFormMode ?? false;
+  const retrievedSettings = await user.getSettings<NPCGeneratorSettings>("npcgenerator");
+  if (retrievedSettings) {
+    settings.value = { ...retrievedSettings, characters: markRaw(retrievedSettings.characters)};
+  }
 
   generator.parseSettings(settings.value?.options);
   if (

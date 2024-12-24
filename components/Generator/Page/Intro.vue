@@ -1,6 +1,6 @@
 <template>
   <div class="intro">
-    <div class="intro-text text-center mt-6">
+    <div class="intro-text text-center">
       <Transition name="title" appear>
         <h1 class="static custom-title gradient-title">The NPC Generator</h1>
       </Transition>
@@ -36,23 +36,23 @@ const generator = useGeneratorStore();
 const { promptFromOtherSources } = storeToRefs(generator);
 const examples = ref<string[]>([]);
 const goodExampleStrings = [
-  "lawful good gnome wizard",
+  "lawful good gnome guard",
   "good half-orc herbalist",
-  "good nonbinary druid",
-  "good tiefling archer",
+  "good nonbinary innkeeper",
+  "good archer blacksmith",
 ];
 const evilExampleStrings = [
-  "evil rogue cr 6",
-  "chaotic evil male innkeeper",
+  "nonbinary evil rogue",
+  "chaotic evil male druid",
   "evil priest",
   "evil female tank",
 ];
 const neutralEampleStrings = [
-  "female human fighter",
-  "nonbinary drow bard",
-  "cr 6 human guard",
-  "lawful dwarf blacksmith",
-  "neutral half-orc sorcerer",
+  "cr 3 tiefling fighter",
+  "cr 1/2 drow bard",
+  "cr 6 halfling wizard",
+  "cr 10 lawful cleric",
+  "cr 5 sorcerer",
 ];
 
 
@@ -66,8 +66,7 @@ function getColors(example: string) {
 
 onMounted(() => {
   examples.value.push(goodExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
-  examples.value.push(neutralEampleStrings.sort(() => Math.random() - 0.5).pop() as string);
-  examples.value.push(neutralEampleStrings.sort(() => Math.random() - 0.5).pop() as string);
+  examples.value.push(...(neutralEampleStrings.sort(() => Math.random() - 0.5).slice(0,2)));
   examples.value.push(evilExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
 })
 

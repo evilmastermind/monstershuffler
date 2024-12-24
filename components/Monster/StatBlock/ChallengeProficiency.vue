@@ -70,7 +70,11 @@ function select(event: MouseEvent) {
 onMounted(async () => {
   if (didLayoutShift.value && refCR.value) {
     await wait(50);  
-    refCR.value.scrollIntoView({ behavior: "auto", block: "center" });
+    scrollIntoView(refCR.value, {
+      behavior: 'auto',
+      block: 'center',
+      scrollIfInView: false,
+    });
     didLayoutShift.value = false;
   }
 });

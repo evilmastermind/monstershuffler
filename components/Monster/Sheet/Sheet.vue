@@ -26,17 +26,19 @@ const p = defineProps({
 });
 
 const ui = useUiStore();
+const generator = useGeneratorStore();
 
+const { settings } = storeToRefs(generator);
 const generatorCharacter = toRef(p, "generatorCharacter");
 const { columns, character } = useProvideCharacter(generatorCharacter);
 const isLoaded = ref(false);
-const layoutName = ref("MonsterLayoutOneColumnA");
+const layoutName = ref(settings.value?.layout || "MonsterLayoutDynamicA");
 const key = ref(0);
 
 const showRoleplayStats = computed(() => {
-  const showRoleplayStats =
-    generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats;
-  return showRoleplayStats !== undefined ? showRoleplayStats : true;
+  return generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats 
+    ?? settings.value?.showRoleplayStats
+    ?? true;
 });
 const background = computed(() => {
   switch (ui.currentThemeType) {
@@ -79,7 +81,8 @@ const layout = computed(() => {
 
 function getLayout(
   character: Character,
-  defaultLayout = "MonsterLayoutDynamicA"
+  defaultLayout = settings.value?.layout || "MonsterLayoutDynamicA",
+  showRoleplayStats = settings.value?.showRoleplayStats ?? true
 ) {
   const c = character.character;
   if (!c?.user) {
@@ -88,7 +91,7 @@ function getLayout(
   if (!c?.user?.sheet) {
     c.user.sheet = {
       layout: defaultLayout,
-      showRoleplayStats: true,
+      showRoleplayStats,
       images: [],
     };
     return defaultLayout;

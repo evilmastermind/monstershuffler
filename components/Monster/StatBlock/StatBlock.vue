@@ -83,7 +83,6 @@ function scrollIntoView() {
 }
 
 watch([columnsCount,columnsFromActions, () => p.columns], () => {
-  console.log("columnsCount", columnsCount.value);
   scrollIntoView();
 });
 

@@ -24,7 +24,6 @@ export const useGeneratorStore = defineStore("generator", () => {
   /**
    * State
    */
-  const settings = ref<NPCGeneratorSettings | null>(null);
 
   const session = ref<NpcDetails[]>([]); // this is the list of npcs returned from the server
   const characters = ref<GeneratorCharacter[]>([]); // this is the list of npcs chosen by the user
@@ -48,20 +47,25 @@ export const useGeneratorStore = defineStore("generator", () => {
   const secondaryRaceIndex = ref(0);
   const classIndex = ref(0);
   const backgroundIndex = ref(0);
-  const options = ref<PostRandomNpcBody>({
-    primaryRacePercentage: 50,
-    secondaryRacePercentage: 40,
-    classType: "randomSometimes",
-    backgroundType: "random",
-    levelType: "randomPeasantsMostly",
-    addVoice: true,
-    includeChildren: false,
-    includeBodyType: false,
-  });
   const promptOptions = ref<PostRandomNpcBody>({});
   const promptFromOtherSources = ref("");
   const keywords = shallowRef<Keyword[]>([]);
-
+  const settings = ref<NPCGeneratorSettings>({
+    characters: [],
+    options: {
+      primaryRacePercentage: 50,
+      secondaryRacePercentage: 40,
+      classType: "randomSometimes",
+      backgroundType: "random",
+      levelType: "randomPeasantsMostly",
+      addVoice: true,
+      includeChildren: false,
+      includeBodyType: true,
+    },
+    isFormMode: false,
+    layout: "MonsterLayoutDynamicA",
+    showRoleplayStats: true,
+  });
   /**
    * Computed properties
    */
@@ -194,44 +198,44 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   function parseSettings(newSettings: PostRandomNpcBody | undefined) {
     if (newSettings) {
-      options.value = { ...newSettings };
+      settings.value.options = { ...newSettings };
       let index = -1;
-      if (options.value.primaryRaceId) {
+      if (settings.value.options.primaryRaceId) {
         index = racesAndVariants.value.findIndex((race) => {
           return (
-            race.id === options.value.primaryRaceId &&
-            race.variantId === options.value.primaryRacevariantId
+            race.id === settings.value.options.primaryRaceId &&
+            race.variantId === settings.value.options.primaryRacevariantId
           );
         });
         if (index !== -1) {
           primaryRaceIndex.value = index;
         }
       }
-      if (options.value.secondaryRaceId) {
+      if (settings.value.options.secondaryRaceId) {
         index = racesAndVariants.value.findIndex((race) => {
           return (
-            race.id === options.value.secondaryRaceId &&
-            race.variantId === options.value.secondaryRacevariantId
+            race.id === settings.value.options.secondaryRaceId &&
+            race.variantId === settings.value.options.secondaryRacevariantId
           );
         });
         if (index !== -1) {
           secondaryRaceIndex.value = index;
         }
       }
-      if (options.value.classId) {
+      if (settings.value.options.classId) {
         index = classesAndVariants.value.findIndex((aClass) => {
           return (
-            aClass.id === options.value.classId &&
-            aClass.variantId === options.value.classvariantId
+            aClass.id === settings.value.options.classId &&
+            aClass.variantId === settings.value.options.classvariantId
           );
         });
         if (index !== -1) {
           classIndex.value = index;
         }
       }
-      if (options.value.backgroundId) {
+      if (settings.value.options.backgroundId) {
         index = backgrounds.value.findIndex(
-          (background) => background.id === options.value.backgroundId
+          (background) => background.id === settings.value.options.backgroundId
         );
         if (index !== -1) {
           backgroundIndex.value = index;
@@ -483,7 +487,6 @@ export const useGeneratorStore = defineStore("generator", () => {
     secondaryRaceIndex,
     classIndex,
     backgroundIndex,
-    options,
     promptOptions,
     promptFromOtherSources,
     keywords,

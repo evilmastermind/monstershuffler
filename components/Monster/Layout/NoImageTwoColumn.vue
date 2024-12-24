@@ -15,12 +15,15 @@
 </template>
 
 <script setup lang="ts">
+const e = defineEmits(["load"]);
 const p = defineProps({
   showRoleplayStats: {
     type: Boolean,
     default: true,
   },
 });
+
+e("load");
 </script>
 
 <style scoped>

@@ -141,17 +141,21 @@
 import type { Character, GeneratorCharacter } from "@/types";
 const emit = defineEmits(["close"]);
 
+const UI = useUiStore();
+const generator = useGeneratorStore();
+
 const character = inject("character") as Ref<Character>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
 const { mdAndDown } = useScreen();
-const { alertClicked } = storeToRefs(useUiStore());
+const { alertClicked } = storeToRefs(UI);
+const { settings } = storeToRefs(generator);
 
-const showRoleplayStats = ref(true);
+const showRoleplayStats = ref(settings.value?.showRoleplayStats ?? true);
 const isMobileAlertOpen = ref(false);
 
 const currentLayout = computed(() => {
-  return character.value.character.user?.sheet?.layout;
+  return character.value.character.user?.sheet?.layout || settings.value?.layout || "MonsterLayoutDynamicA";
 });
 
 function chooseLayout(layout: string) {
@@ -175,6 +179,10 @@ function chooseLayout(layout: string) {
     c.user.sheet.showRoleplayStats = showRoleplayStats.value;
   }
   wrapper.value.key++;
+  if (settings.value) {
+    settings.value.layout = layout;
+    settings.value.showRoleplayStats = showRoleplayStats.value;
+  }
   emit("close");
 }
 

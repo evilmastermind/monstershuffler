@@ -30,6 +30,8 @@ export type NPCGeneratorSettings = {
   characters: GeneratorCharacter[];
   options: PostRandomNpcBody;
   isFormMode: boolean;
+  layout: string;
+  showRoleplayStats: boolean;
 };
 
 

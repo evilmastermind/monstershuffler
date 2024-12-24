@@ -26,6 +26,9 @@ export default defineNuxtConfig({
   devServer: {
     port: 3001,
   },
+  devtools: {
+    enabled: false,
+  },
   vite: {
     vue: {
       script: {

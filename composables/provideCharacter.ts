@@ -82,8 +82,6 @@ export function useProvideCharacter(
     } else {
       didLayoutShift.value = false;
     }
-    console.log("columns", newColumns);
-    console.log("Previous", previous);
     return newColumns;
   });
 
