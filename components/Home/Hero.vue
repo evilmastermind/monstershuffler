@@ -46,7 +46,7 @@ const localePath = useLocalePath();
   position: absolute;
   width: 100%;
   height: var(--bg-height);
-  background-image: url("/assets/images/hero/generator_20241213.webp");
+  background-image: url("/images/hero/generator_20241213.webp");
   background-position: 85%;
   background-repeat: no-repeat;
   background-size: cover;
