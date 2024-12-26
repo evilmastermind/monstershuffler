@@ -19,7 +19,7 @@
       label="Add your own custom classes, species, and backgrounds (requires Monster Editor v2)"
     />
     <PresentationTodo
-      label="Blacklist default classes, species, and backgrounds"
+      label="Blacklist default classes, species, and backgrounds, so you can replace them with your own"
     />
     <PresentationTodo
       label="Rebuild all backgrounds with unique actions based on the NPC's ability scores and alignment (requires Monster Editor v2)"
