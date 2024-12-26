@@ -1,39 +1,44 @@
 <template>
   <div class="top-bar-container">
     <div class="top-bar lg-max max-h-100 px-4">
-      <div v-if="isSheetOpen" class="top-bar-breadcrumbs">
-        <button class="mr-4 md:mr-6" @click="closeSheet">
-          <Icon name="pajamas:arrow-left" size="24" class="text-text-icon" />
-          <span class="sr-only">{{ $t("back") }}</span>
-        </button>
-        <span v-if="isSheetOpen" class="top-bar-character-name">
-          {{ characters[currentCharacterIndex].object.statistics?.fullName }}
-        </span>
-      </div>
-      <h1 v-else class="top-bar-page-title">
-        {{ $t("generator.title") }}
-      </h1>
-      <div v-show="isFormMode && !isSheetOpen" class="generate-button">
-        <MSButton
-          color="primary"
-          size="small"
-          :text="$t('generator.form.generate')"
-          icon="fa6-solid:shuffle"
-          :loading="isButtonLoading"
-          :disabled="isButtonLoading"
-          @click.prevent="generateNpcsThrottle"
-        />
+      <div class="top-bar-info">
+        <div v-if="isSheetOpen" class="top-bar-breadcrumbs">
+          <button class="mr-4 md:mr-6" @click="closeSheet">
+            <Icon name="pajamas:arrow-left" size="24" class="text-text-icon" />
+            <span class="sr-only">{{ $t("back") }}</span>
+          </button>
+          <span v-if="isSheetOpen" class="top-bar-character-name">
+            {{ characters[currentCharacterIndex].object.statistics?.fullName }}
+          </span>
+        </div>
+        <h1 v-else class="top-bar-page-title">
+          {{ $t("generator.title") }}
+        </h1>
         <MSIconButton
+          v-if="isFormMode && !isSheetOpen"
           class="button-show-settings md:hidden text-text-2"
           :label="$t('generator.options')"
           size="20"
           icon="fa-solid:cog"
           @click="isFormOpen = !isFormOpen"
         />
+        <GeneratorPromptHelp
+          v-else-if="!isFormMode && !isSheetOpen"
+          class="top-bar-input"
+        />
       </div>
-      <GeneratorPrompt v-show="!isFormMode && !isSheetOpen" class="prompt" />
+      <div v-if="isFormMode && !isSheetOpen" class="generate-button">
+        <MSButton
+          color="primary"
+          size="small"
+          :text="$t('generator.form.generate')"
+          :loading="isButtonLoading"
+          :disabled="isButtonLoading"
+          @click.prevent="generateNpcsThrottle"
+        />
+      </div>
+      <GeneratorPrompt v-else-if="!isFormMode && !isSheetOpen" class="prompt" />
       <div class="top-bar-options">
-        <GeneratorPromptHelp v-if="!isFormMode" class="top-bar-input" />
         <MSSwitchWords
           v-model="isFormMode"
           checked="Form"
@@ -82,12 +87,18 @@ function closeSheet() {
 }
 .top-bar {
   display: grid;
-  grid-template-columns: 1fr min-content;
-  grid-template-areas: "input options";
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-areas: "info input options";
   align-items: center;
   white-space: nowrap;
   height: 3rem;
   @apply gap-4;
+}
+.top-bar-info {
+  grid-area: info;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .top-bar-breadcrumbs {
   display: inline;
@@ -96,7 +107,6 @@ function closeSheet() {
   text-overflow: ellipsis;
 }
 .top-bar-page-title {
-  grid-area: title;
   display: none;
   font-family: "LibreBaskerville", serif;
   font-size: 0.9rem;
@@ -114,6 +124,9 @@ function closeSheet() {
   white-space: nowrap;
   text-overflow: ellipsis;
   @apply text-text-evil;
+}
+.button-show-settings {
+  display: block;
 }
 .top-bar-input {
   grid-area: input;
@@ -138,9 +151,12 @@ function closeSheet() {
   .generate-button {
     display: none;
   }
+  .button-show-settings {
+    display: none;
+  }
   .top-bar {
     grid-template-columns: 1fr 50% 1fr;
-    grid-template-areas: "title input options";
+    grid-template-areas: "info input options";
   }
   .top-bar-page-title {
     display: block;
@@ -151,5 +167,9 @@ function closeSheet() {
   .form {
     display: none;
   }
+}
+.prompt-container {
+  display: flex;
+  @apply gap-4;
 }
 </style>
