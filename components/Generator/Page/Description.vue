@@ -135,13 +135,13 @@
           </div>
         </template>
         <template #title>Monster Editor, improved</template>
-        The original Monster Editor can be found
+        The
         <a
           class="content"
           href="https://www.monstershuffler.com/monsters/editor.php"
-          >here</a
-        >.<br />
-        It's already a powerful tool, but the upcoming website upgrade will cut
+          >original monster editor</a
+        >
+        is already a powerful tool, but the upcoming website upgrade will cut
         monster creation time in half with:
         <ul class="list mt-2">
           <li>

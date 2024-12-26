@@ -47,7 +47,7 @@ const evilExampleStrings = [
   "evil priest",
   "evil female tank",
 ];
-const neutralEampleStrings = [
+const neutralExampleStrings = [
   "cr 3 tiefling fighter",
   "cr 1/2 drow bard",
   "cr 6 halfling wizard",
@@ -66,7 +66,7 @@ function getColors(example: string) {
 
 onMounted(() => {
   examples.value.push(goodExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
-  examples.value.push(...(neutralEampleStrings.sort(() => Math.random() - 0.5).slice(0,2)));
+  examples.value.push(...(neutralExampleStrings.sort(() => Math.random() - 0.5).slice(0,2)));
   examples.value.push(evilExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
 })
 
