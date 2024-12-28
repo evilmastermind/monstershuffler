@@ -1,5 +1,5 @@
 <template>
-  <div />
+  <CCPage />
 </template>
 
 <script setup></script>

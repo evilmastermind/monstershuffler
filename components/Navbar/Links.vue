@@ -5,18 +5,18 @@
     @click="isMenuOpen = false"
   />
   <NavbarLink
-    :name="$t('navbar.menu.editor')"
-    route="monsters-editor"
+    :name="$t('navbar.menu.editors')"
+    route="editors"
     @click="isMenuOpen = false"
   />
   <NavbarLink
     :name="$t('navbar.menu.dmScreen')"
-    route="monsters-your-creations"
+    route="dm-screen"
     @click="isMenuOpen = false"
   />
   <NavbarLink
-    :name="$t('navbar.menu.monsters')"
-    route="monsters-community-creations"
+    :name="$t('navbar.menu.communityCreations')"
+    route="community-creations"
     @click="isMenuOpen = false"
   />
 </template>
