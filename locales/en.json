@@ -458,9 +458,9 @@
     "menu": {
       "home": "Homepage",
       "npcGenerator": "NPC Generator",
-      "editor": "Editor",
+      "editors": "Editors",
       "dmScreen": "DM Screen",
-      "monsters": "Monsters",
+      "communityCreations": "Community Creations",
       "settings": "Settings"
     }
   },

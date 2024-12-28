@@ -75,13 +75,8 @@ const route = useRoute();
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const {
-  session,
-  characters,
-  currentCharacterIndex,
-  saveTrigger,
-  settings,
-} = storeToRefs(generator);
+const { session, characters, currentCharacterIndex, saveTrigger, settings } =
+  storeToRefs(generator);
 
 const isIntroShown = ref(true);
 const isLoading = ref(true);
@@ -96,7 +91,10 @@ const saveSettingsThrottle = throttle(() => saveSettings(), 3000);
 
 async function generateNpcs() {
   isButtonLoading.value = true;
-  const reply = await generator.getRandomNpcs(settings.value.options, user.sessionId);
+  const reply = await generator.getRandomNpcs(
+    settings.value.options,
+    user.sessionId
+  );
   isButtonLoading.value = false;
   if (reply === 429) {
     alert.value = {
@@ -124,7 +122,8 @@ async function generateNpcs() {
 
 function saveSettings() {
   const newSettings: NPCGeneratorSettings = {
-    ...settings.value, characters: characters.value as GeneratorCharacter[]
+    ...settings.value,
+    characters: characters.value as GeneratorCharacter[],
   };
   user.setSettings<NPCGeneratorSettings>("npcgenerator", newSettings);
 }
@@ -135,14 +134,18 @@ watch(session, (newSession) => {
   }
 });
 
-watch([() => characters.value.length, saveTrigger, settings.value], () => {
-  if (haveCharactersJustBeenRetrieved.value) {
-    haveCharactersJustBeenRetrieved.value = false;
-    return;
-  }
-  console.log("Saving settings");
-  saveSettingsThrottle();
-}, { deep: true });
+watch(
+  [() => characters.value.length, saveTrigger, settings.value],
+  () => {
+    if (haveCharactersJustBeenRetrieved.value) {
+      haveCharactersJustBeenRetrieved.value = false;
+      return;
+    }
+    console.log("Saving settings");
+    saveSettingsThrottle();
+  },
+  { deep: true }
+);
 
 onBeforeMount(async () => {
   isLoading.value = generator.racesAndVariants.length === 0;
@@ -154,9 +157,14 @@ onBeforeMount(async () => {
       message: t("error.notFoundExtended"),
     };
   }
-  const retrievedSettings = await user.getSettings<NPCGeneratorSettings>("npcgenerator");
+  const retrievedSettings = await user.getSettings<NPCGeneratorSettings>(
+    "npcgenerator"
+  );
   if (retrievedSettings) {
-    settings.value = { ...retrievedSettings, characters: markRaw(retrievedSettings.characters)};
+    settings.value = {
+      ...retrievedSettings,
+      characters: markRaw(retrievedSettings.characters),
+    };
   }
 
   generator.parseSettings(settings.value?.options);

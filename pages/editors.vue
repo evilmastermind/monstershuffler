@@ -1,5 +1,5 @@
 <template>
-  <div />
+  <EditorPage />
 </template>
 
 <script setup></script>
