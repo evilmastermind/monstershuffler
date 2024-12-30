@@ -37,48 +37,40 @@
       @hide="hide"
       @resize="onResize"
     >
-      <div
-        v-if="html"
-        v-html="finalContent"
-      />
-      <div
-        v-else
-        v-text="finalContent"
-      />
+      <div v-if="html" v-html="finalContent" />
+      <div v-else v-text="finalContent" />
     </PopperContent>
   </Popper>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import Popper from './Popper'
-import PopperContent from './PopperContent.vue'
-import { getDefaultConfig } from '../config'
-import PopperMethods from './PopperMethods'
+import { defineComponent } from "vue";
+import { getDefaultConfig } from "../config";
+import Popper from "./Popper";
+import PopperContent from "./PopperContent.vue";
+import PopperMethods from "./PopperMethods";
 
 export default defineComponent({
-  name: 'VTooltipDirective',
+  name: "VTooltipDirective",
 
   components: {
     Popper: Popper(),
     PopperContent,
   },
 
-  mixins: [
-    PopperMethods,
-  ],
+  mixins: [PopperMethods],
 
   inheritAttrs: false,
 
   props: {
     theme: {
       type: String,
-      default: 'tooltip',
+      default: "tooltip",
     },
 
     html: {
       type: Boolean,
-      default: props => getDefaultConfig(props.theme, 'html'),
+      default: (props) => getDefaultConfig(props.theme, "html"),
     },
 
     content: {
@@ -88,7 +80,7 @@ export default defineComponent({
 
     loadingContent: {
       type: String,
-      default: props => getDefaultConfig(props.theme, 'loadingContent'),
+      default: (props) => getDefaultConfig(props.theme, "loadingContent"),
     },
 
     targetNodes: {
@@ -97,77 +89,80 @@ export default defineComponent({
     },
   },
 
-  data () {
+  data() {
     return {
       asyncContent: null as string,
-    }
+    };
   },
 
   computed: {
-    isContentAsync (): boolean {
-      return typeof this.content === 'function'
+    isContentAsync(): boolean {
+      return typeof this.content === "function";
     },
 
-    loading (): boolean {
-      return this.isContentAsync && this.asyncContent == null
+    loading(): boolean {
+      return this.isContentAsync && this.asyncContent == null;
     },
 
-    finalContent (): string {
+    finalContent(): string {
       if (this.isContentAsync) {
-        return this.loading ? this.loadingContent : this.asyncContent
+        return this.loading ? this.loadingContent : this.asyncContent;
       }
-      return this.content
+      return this.content;
     },
   },
 
   watch: {
     content: {
-      handler () {
-        this.fetchContent(true)
+      handler() {
+        this.fetchContent(true);
       },
       immediate: true,
     },
 
-    async finalContent () {
-      await this.$nextTick()
-      this.$refs.popper.onResize()
+    async finalContent() {
+      await this.$nextTick();
+      this.$refs.popper.onResize();
     },
   },
 
-  created () {
-    this.$_fetchId = 0
+  created() {
+    this.$_fetchId = 0;
   },
 
   methods: {
-    fetchContent (force: boolean) {
-      if (typeof this.content === 'function' && this.$_isShown &&
-        (force || (!this.$_loading && this.asyncContent == null))) {
-        this.asyncContent = null
-        this.$_loading = true
-        const fetchId = ++this.$_fetchId
-        const result = this.content(this)
+    fetchContent(force: boolean) {
+      if (
+        typeof this.content === "function" &&
+        this.$_isShown &&
+        (force || (!this.$_loading && this.asyncContent == null))
+      ) {
+        this.asyncContent = null;
+        this.$_loading = true;
+        const fetchId = ++this.$_fetchId;
+        const result = this.content(this);
         if (result.then) {
-          result.then(res => this.onResult(fetchId, res))
+          result.then((res) => this.onResult(fetchId, res));
         } else {
-          this.onResult(fetchId, result)
+          this.onResult(fetchId, result);
         }
       }
     },
 
-    onResult (fetchId, result) {
-      if (fetchId !== this.$_fetchId) return
-      this.$_loading = false
-      this.asyncContent = result
+    onResult(fetchId, result) {
+      if (fetchId !== this.$_fetchId) return;
+      this.$_loading = false;
+      this.asyncContent = result;
     },
 
-    onShow () {
-      this.$_isShown = true
-      this.fetchContent()
+    onShow() {
+      this.$_isShown = true;
+      this.fetchContent();
     },
 
-    onHide () {
-      this.$_isShown = false
+    onHide() {
+      this.$_isShown = false;
     },
   },
-})
+});
 </script>

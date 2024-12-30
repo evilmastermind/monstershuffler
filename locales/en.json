@@ -66,6 +66,9 @@
     "monstersTraits": "{name}'s Traits",
     "playVoice": "Play voice"
   },
+  "search": {
+    "placeholder": "Search anything..."
+  },
   "editor": {
     "layout": {
       "title": "Choose a Layout",

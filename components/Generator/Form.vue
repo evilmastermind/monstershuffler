@@ -92,7 +92,10 @@
             </option>
           </select>
         </span>
-        <span v-if="settings.options.classType === 'specific'" class="form-line">
+        <span
+          v-if="settings.options.classType === 'specific'"
+          class="form-line"
+        >
           <select
             id="gen-classes"
             v-model="classIndex"
@@ -125,7 +128,10 @@
             </option>
           </select>
         </span>
-        <span v-if="settings.options.backgroundType === 'specific'" class="form-line">
+        <span
+          v-if="settings.options.backgroundType === 'specific'"
+          class="form-line"
+        >
           <select
             id="gen-backgrounds"
             v-model="backgroundIndex"
@@ -264,7 +270,8 @@ watch(
   settings,
   (newValue) => {
     if (newValue.options.backgroundType === "specific") {
-      settings.value.options.backgroundId = backgrounds.value[backgroundIndex.value].id;
+      settings.value.options.backgroundId =
+        backgrounds.value[backgroundIndex.value].id;
     }
     if (newValue.options.classType === "specific") {
       setClass(classIndex.value);

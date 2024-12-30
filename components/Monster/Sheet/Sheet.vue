@@ -1,5 +1,5 @@
 <template>
-  <div class="sheet background" :class="[background]">
+  <MSNote>
     <component
       :is="layout"
       v-show="isLoaded"
@@ -7,11 +7,22 @@
       :show-roleplay-stats
       @load="isLoaded = true"
     >
+      <template #images="{ rules }">
+        <MonsterImages :rules @load="isLoaded = true" />
+      </template>
       <template #backstory>
         <MonsterBackstory v-show="isLoaded" />
       </template>
+      <template #stats="{ columns: layoutColumns }">
+        <MonsterStatBlock :columns="layoutColumns" />
+      </template>
+      <template #card>
+        <MonsterSheetCard>
+          <MonsterRoleplayStats />
+        </MonsterSheetCard>
+      </template>
     </component>
-  </div>
+  </MSNote>
 </template>
 
 <script setup lang="ts">
@@ -25,8 +36,8 @@ const p = defineProps({
   },
 });
 
-const ui = useUiStore();
 const generator = useGeneratorStore();
+const { width } = useScreen();
 
 const { settings } = storeToRefs(generator);
 const generatorCharacter = toRef(p, "generatorCharacter");
@@ -36,17 +47,11 @@ const layoutName = ref(settings.value?.layout || "MonsterLayoutDynamicA");
 const key = ref(0);
 
 const showRoleplayStats = computed(() => {
-  return generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats 
-    ?? settings.value?.showRoleplayStats
-    ?? true;
-});
-const background = computed(() => {
-  switch (ui.currentThemeType) {
-    case "light":
-      return "background-light";
-    case "dark":
-      return "background-dark";
-  }
+  return (
+    generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats ??
+    settings.value?.showRoleplayStats ??
+    true
+  );
 });
 
 const layout = computed(() => {
@@ -64,15 +69,21 @@ const layout = computed(() => {
     case "MonsterLayoutOneColumnB":
       return resolveComponent("MonsterLayoutOneColumnB");
     case "MonsterLayoutOneColumnC":
-      return resolveComponent("MonsterLayoutOneColumnCResponsive");
+      return width.value >= 800
+        ? resolveComponent("MonsterLayoutOneColumnC")
+        : resolveComponent("MonsterLayoutOneColumnA");
     case "MonsterLayoutOneColumnD":
-      return resolveComponent("MonsterLayoutOneColumnDResponsive");
+      return width.value >= 800
+        ? resolveComponent("MonsterLayoutOneColumnD")
+        : resolveComponent("MonsterLayoutOneColumnA");
     case "MonsterLayoutTwoColumnA":
       return resolveComponent("MonsterLayoutTwoColumnA");
     case "MonsterLayoutTwoColumnB":
       return resolveComponent("MonsterLayoutTwoColumnB");
     case "MonsterLayoutTwoColumnC":
-      return resolveComponent("MonsterLayoutTwoColumnCResponsive");
+      return width.value >= 800
+        ? resolveComponent("MonsterLayoutTwoColumnC")
+        : resolveComponent("MonsterLayoutTwoColumnA");
   }
   return columns.value === 1
     ? resolveComponent("MonsterLayoutOneColumnA")
@@ -121,17 +132,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.background {
-  position: relative;
-}
-.background-light {
-  background-image: url("@/public/images/monster/paper.webp");
-  @apply bg-background-200;
-}
-.background-dark {
-  background-image: url("@/public/images/monster/paper-dark.webp");
-  @apply bg-background-200;
-}
 .close {
   position: absolute;
   right: 0;

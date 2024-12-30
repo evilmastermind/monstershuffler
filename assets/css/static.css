@@ -39,6 +39,22 @@ b.static {;
   font-weight: 700;
   @apply text-text;
 }
+ul.static {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  @apply text-text-1;
+  list-style-type: disc;
+  display: flex;
+  flex-direction: column;
+  @apply list-inside list-disc ml-4 gap-2;
+}
+ul.static li::marker {
+  color: theme("colors.text-evil");
+}
+ul.static li em {
+  font-weight: bold;
+}
 .static + .max-width {
   max-width: 700px;
 }
@@ -93,6 +109,10 @@ b.static {;
     font-size: 2rem;
   }
   p.static {
+    letter-spacing: 0;
+    font-size: 1rem;
+  }
+  ul.static {
     letter-spacing: 0;
     font-size: 1rem;
   }
