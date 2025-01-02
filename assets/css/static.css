@@ -55,6 +55,9 @@ ul.static li::marker {
 ul.static li em {
   font-weight: bold;
 }
+a.static {
+  @apply text-text-evil font-bold;
+}
 .static + .max-width {
   max-width: 700px;
 }

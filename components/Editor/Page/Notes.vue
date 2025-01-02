@@ -39,9 +39,6 @@
             distraction-free interface.
           </li>
           <li>
-            <em>Markdown Support:</em> Format your text quickly and efficiently.
-          </li>
-          <li>
             <em>Custom Layout Tools:</em> Use shortcuts to seamlessly integrate
             layout features inspired by official D&D books, like images,
             sidenotes, stat blocks, and more.

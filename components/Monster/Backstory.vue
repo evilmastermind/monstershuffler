@@ -14,6 +14,7 @@
       <Transition name="fade">
         <div
           v-if="
+            false &&
             backstory &&
             ['closed', undefined].includes(wrapper?.streamStatus) &&
             hasRating
