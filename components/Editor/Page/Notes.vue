@@ -3,7 +3,7 @@
     <h2 class="static">Notes</h2>
     <div class="notes mt-5">
       <ClientOnly fallback-tag="p">
-        <MSNote rounded has-shadow class="note mt-2">
+        <MSNote class="note mt-2">
           <MonsterLayoutOneColumnA>
             <template #images="{ rules }">
               <MonsterImages :rules />
@@ -32,7 +32,7 @@
           Use them to write the lore behind your campaign, to create a new set
           of combat rules, or to prepare your game session.
         </p>
-        <h3 class="static mt-6 mb-2">Key Features of Monstershuffler Notes:</h3>
+        <h3 class="static mt-4 mb-2">Key Features of Monstershuffler Notes:</h3>
         <ul class="static">
           <li>
             <em>Speed:</em> Prepare content quickly with a clean,
@@ -77,6 +77,7 @@ useProvideCharacter(character);
   .note {
     max-width: 400px;
     min-width: 300px;
+    @apply rounded-2xl border border-inset-300;
   }
   .notes {
     flex-direction: row;

@@ -1,5 +1,5 @@
 <template>
-  <MSNote>
+  <MSNote class="rounded shadow">
     <component
       :is="layout"
       v-show="isLoaded"

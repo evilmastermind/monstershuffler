@@ -21,6 +21,7 @@
         </p>
         <EditorPageNotes class="mt-8" />
         <EditorPageNoteGroups class="mt-8" />
+        <EditorPageStatBlocks class="mt-8" />
         <ul class="content mt-12">
           <li>the search bar</li>
           <li>Campaign selector</li>

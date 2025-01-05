@@ -41,12 +41,6 @@
             <span class="adventurer-name">{{ adventurer.name }}</span>
           </div>
         </div>
-        <div class="list">
-          <div class="list-header px-2">
-            <h3 class="list-name">Secrets</h3>
-          </div>
-          <p class="list-note"></p>
-        </div>
       </div>
     </div>
   </div>
@@ -137,19 +131,9 @@ const adventurers = [
   padding: 0 2px;
   @apply text-text-inverse;
 }
-/* LISTS */
-.list {
-  border: 1px solid theme("colors.inset.400");
-  background-color: theme("colors.inset.200");
-  @apply rounded;
-}
-.list-header {
-}
-.list-name {
-  font-family: "MrsEavesSmallCaps", serif;
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  @apply text-text;
+/* CONTENT */
+.content {
+  display: flex;
+  @apply gap-2;
 }
 </style>
