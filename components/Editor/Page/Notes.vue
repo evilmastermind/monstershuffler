@@ -54,17 +54,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import type { GeneratorCharacter } from "@/types";
-import characterObject from "@/assets/other/character-example.json";
-
-const character = ref<GeneratorCharacter>(
-  // @ts-expect-error this IS a GeneratorCharacter, dammit!
-  characterObject as GeneratorCharacter
-);
-
-useProvideCharacter(character);
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .notes {

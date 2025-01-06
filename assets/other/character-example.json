@@ -1,8 +1,8 @@
 {
   "object":{
     "character":{
-      "name":"Clarence",
-      "surname":"Porreca",
+      "name":"John",
+      "surname":"Frenzy",
       "pronouns":"male",
       "race":{
         "id":8195,
@@ -130,77 +130,7 @@
             "value":"Animal Handling"
           }
         ],
-        "actions":[
-          {
-            "tag":"trait00",
-            "priority":20,
-            "variants":[
-              {
-                "name":"Danger Sense",
-                "type":"trait",
-                "description":"[Name] has advantage on Initiative rolls and Dexterity saving throws against effects that [they] can see, such as traps and spells. Additionaly, [they] can't be surprised at the beginning of combat if [they] isn't incapacitated.",
-                "availableAt":7
-              }
-            ],
-            "availableUnit":"level"
-          },
-          {
-            "tag":"trait01",
-            "priority":20,
-            "variants":[
-              {
-                "name":"Reckless Attacks",
-                "type":"trait",
-                "description":"[Name] throws aside all concern for defense to attack with fierce desperation. [They] gains advantage on melee weapon attack rolls using [their] Strength during one turn, but attack rolls against [them] have advantage until the next turn.",
-                "availableAt":2
-              }
-            ],
-            "availableUnit":"level"
-          },
-          {
-            "tag":"legendary2",
-            "priority":20,
-            "variants":[
-              {
-                "name":"Reposition",
-                "type":"legendary",
-                "description":"[Name] moves 10 feet without provoking Opportunity Attacks.",
-                "availableAt":17,
-                "ability":"STR"
-              }
-            ],
-            "availableUnit":"level"
-          },
-          {
-            "tag":"legendary3",
-            "priority":1,
-            "variants":[
-              {
-                "name":"Legendary Resistance",
-                "type":"trait",
-                "charges":"LVL\\15",
-                "recharge":"day",
-                "description":"If [name] fails a saving throw, [they] can choose to succeed instead.",
-                "availableAt":17
-              }
-            ],
-            "availableUnit":"level"
-          },
-          {
-            "tag":"trait0",
-            "priority":20,
-            "variants":[
-              {
-                "name":"Danger Sense",
-                "type":"trait",
-                "description":"[Name] has advantage on Dexterity saving throws against effects that [he] can see, such as traps and spells.",
-                "availableAt":2
-              }
-            ],
-            "availableUnit":"level",
-            "availableUntil":6
-          }
-        ],
+        "actions":[],
         "bonuses":{
           "HPBonus":{
             "name":"",
@@ -341,87 +271,13 @@
             ]
           },
           {
-            "tag":"legendary0",
-            "priority":20,
-            "variants":[
-              {
-                "name":"Extra Attack",
-                "type":"legendary",
-                "description":"[Name] makes an additional attack with [their] [Berserker melee].",
-                "availableAt":17,
-                "ability":"STR"
-              }
-            ],
-            "availableUnit":"level"
-          },
-          {
-            "tag":"legendary1",
-            "priority":1,
-            "variants":[
-              {
-                "name":"Intimidating Presence",
-                "type":"legendary",
-                "description":"[Name] frightens a creature within 30 feet of [them] using [their] menacing presence. If the creature can see or hear [them], it must succeed on a {value1} saving throw or be frightened of [name] until the end of [their] next turn.",
-                "availableAt":17,
-                "ability":"STR",
-                "cost":"2"
-              }
-            ],
-            "availableUnit":"level",
-            "values":[
-              {
-                "name":"value1",
-                "type":"DC Wisdom",
-                "expression":"8+PROF+STR"
-              }
-            ]
-          },
-          {
-            "tag":"Berserker thrown",
-            "priority":25,
-            "variants":[
-              {
-                "name":"Trident",
-                "type":"attack",
-                "description":"{attack1}",
-                "ability":"STR"
-              }
-            ],
-            "availableUnit":"level",
-            "attacks":[
-              {
-                "name":"attack1",
-                "replaceName":true,
-                "attributes":{
-                  "name":"Trident",
-                  "cost":"500",
-                  "weight":"4",
-                  "damageType":"piercing damage",
-                  "dice":"1",
-                  "sides":"6",
-                  "diceV":"1",
-                  "sidesV":"8",
-                  "range":"20",
-                  "rangeMax":"60",
-                  "properties":[
-                    "one-handed",
-                    "melee",
-                    "martial",
-                    "versatile",
-                    "thrown"
-                  ]
-                }
-              }
-            ]
-          },
-          {
             "tag":"action0",
             "priority":20,
             "variants":[
               {
                 "name":"Multiattack",
                 "type":"multiattack",
-                "description":"[Name] makes {value2} with [their] [Berserker melee] or {value2} with their [Berserker thrown].",
+                "description":"[Name] makes {value2} with [their] [Berserker melee].",
                 "availableAt":5
               }
             ],
@@ -502,19 +358,19 @@
             "value":11
           },
           "DEX":{
-            "value":8
+            "value":10
           },
           "CON":{
-            "value":8
+            "value":15
           },
           "INT":{
-            "value":11
+            "value":12
           },
           "WIS":{
-            "value":11
+            "value":8
           },
           "CHA":{
-            "value":13
+            "value":10
           }
         },
         "skills":[
@@ -607,9 +463,9 @@
       },
       "pronouns":"male",
       "prename":"",
-      "name":"Clarence",
-      "surname":"Porreca",
-      "fullName":"Clarence Porreca",
+      "name":"John",
+      "surname":"Frenzy",
+      "fullName":"John Frenzy",
       "characterHook":[
         {
           "string":"The"
@@ -1420,13 +1276,13 @@
         {
           "tag":"bonus1",
           "priority":25,
-          "string":"Clarence enters a state of frenzy, gaining new abilities and the following benefits if he isn't wearing heavy armor:\n- he gains advantage on Strength checks and Strength saving throws;\n- he gains resistance to bludgeoning, piercing and slashing damage\n\nClarence's rage lasts for 1 minute or until he is knocked unconscious.",
+          "string":"John enters a state of frenzy, gaining new abilities and the following benefits if he isn't wearing heavy armor:\n- he gains advantage on Strength checks and Strength saving throws;\n- he gains resistance to bludgeoning, piercing and slashing damage\n\nJohn's rage lasts for 1 minute or until he is knocked unconscious.",
           "array":[
             {
               "string":""
             },
             {
-              "string":"Clarence",
+              "string":"John",
               "type":"tag"
             },
             {
@@ -1500,7 +1356,7 @@
               "string":""
             },
             {
-              "string":"Clarence",
+              "string":"John",
               "type":"tag"
             },
             {
@@ -1536,11 +1392,11 @@
         "string":"",
         "array":[
           {
-            "string":"Clarence can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. Clarence regains spent legendary actions at the start of his turn.",
+            "string":"John can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. John regains spent legendary actions at the start of his turn.",
             "type":"translatableText",
             "translationKey":"legendaryActionsIntro",
             "translationVariables":{
-              "name":"Clarence",
+              "name":"John",
               "his":"his",
               "number":"3"
             }
@@ -1550,11 +1406,11 @@
       "legendaryActionsMax":3,
       "spellcasting":[
         {
-          "string":"Clarence casts one of the following spells, using Charisma as the spellcasting ability (spell save DC 12, ",
+          "string":"John casts one of the following spells, using Charisma as the spellcasting ability (spell save DC 12, ",
           "type":"translatableText",
           "translationKey":"spellcastingDescription",
           "translationVariables":{
-            "name":"Clarence",
+            "name":"John",
             "ability":"Charisma",
             "dc":"12"
           }
@@ -1649,10 +1505,10 @@
       "TELEPATHY":0
     },
     "tags":{
-      "name":"Clarence",
-      "Name":"Clarence",
-      "fullname":"Clarence Porreca",
-      "Fullname":"Clarence porreca",
+      "name":"John",
+      "Name":"John",
+      "fullname":"John Frenzy",
+      "Fullname":"John porreca",
       "he":"he",
       "she":"he",
       "his":"his",

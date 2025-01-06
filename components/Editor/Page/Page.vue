@@ -22,6 +22,7 @@
         <EditorPageNotes class="mt-8" />
         <EditorPageNoteGroups class="mt-8" />
         <EditorPageStatBlocks class="mt-8" />
+        <EditorPageCombatManager class="mt-8" />
         <ul class="content mt-12">
           <li>the search bar</li>
           <li>Campaign selector</li>
@@ -60,7 +61,19 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { createStats } from "monstershuffler-shared";
+import type { GeneratorCharacter } from "@/types";
+import characterObject from "@/assets/other/character-example.json";
+const character = ref<GeneratorCharacter>(
+  // @ts-expect-error this IS a GeneratorCharacter, dammit!
+  characterObject as GeneratorCharacter
+);
+
+createStats(character.value.object);
+
+useProvideCharacter(character);
+</script>
 
 <style scoped>
 .background {

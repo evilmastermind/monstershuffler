@@ -29,6 +29,13 @@ h3.static {
   letter-spacing: -0.04em;
   @apply py-2;
 }
+h4.static {
+  font-family: "LibreBaskerville", sans-serif;
+  font-weight: 800;
+  font-size: 1rem; 
+  line-height: 1em;
+  @apply py-2;
+}
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
