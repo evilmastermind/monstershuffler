@@ -20,6 +20,7 @@ h2.static {
   line-height: 1.2em;
   letter-spacing: -0.04em;
   text-align: center;
+  @apply text-text
 }
 h3.static {
   font-family: "LibreBaskerville", sans-serif;
@@ -27,20 +28,20 @@ h3.static {
   font-size: 1.25rem; 
   line-height: 1.2em;
   letter-spacing: -0.04em;
-  @apply py-2;
+  @apply text-text py-2;
 }
 h4.static {
   font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
   font-size: 1rem; 
   line-height: 1em;
-  @apply py-2;
+  @apply text-text py-2;
 }
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
-  @apply text-text-1;
+  @apply text-text;
 }
 b.static {;
   font-weight: 700;
@@ -50,11 +51,10 @@ ul.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
-  @apply text-text-1;
   list-style-type: disc;
   display: flex;
   flex-direction: column;
-  @apply list-inside list-disc ml-4 gap-2;
+  @apply text-text list-inside list-disc ml-4 gap-2;
 }
 ul.static li::marker {
   color: theme("colors.text-evil");
