@@ -7,7 +7,10 @@
             <Icon name="pajamas:arrow-left" size="24" class="text-text-icon" />
             <span class="sr-only">{{ $t("back") }}</span>
           </button>
-          <span v-if="isSheetOpen" class="top-bar-character-name">
+          <span
+            v-if="isSheetOpen && characters[currentCharacterIndex]"
+            class="top-bar-character-name"
+          >
             {{ characters[currentCharacterIndex].object.statistics?.fullName }}
           </span>
         </div>

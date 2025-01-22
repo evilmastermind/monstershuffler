@@ -1,7 +1,7 @@
 {
   "object":{
     "character":{
-      "name":"John",
+      "name":"Johnny",
       "surname":"Frenzy",
       "pronouns":"male",
       "race":{
@@ -110,6 +110,18 @@
           "name":"Unarmored Defense",
           "minStr":"0"
         },
+        "resistances": [
+          {
+            "value": "bludgeoning, piercing and slashing",
+            "availableAt": 1
+          }
+        ],
+        "conditionImmunities": [
+          {
+            "value": "sleep",
+            "availableAt": 1
+          }
+        ],
         "savingThrows":[
           {
             "value":"STR",
@@ -463,9 +475,9 @@
       },
       "pronouns":"male",
       "prename":"",
-      "name":"John",
+      "name":"Johnny",
       "surname":"Frenzy",
-      "fullName":"John Frenzy",
+      "fullName":"Johnny Frenzy",
       "characterHook":[
         {
           "string":"The"
@@ -1276,13 +1288,13 @@
         {
           "tag":"bonus1",
           "priority":25,
-          "string":"John enters a state of frenzy, gaining new abilities and the following benefits if he isn't wearing heavy armor:\n- he gains advantage on Strength checks and Strength saving throws;\n- he gains resistance to bludgeoning, piercing and slashing damage\n\nJohn's rage lasts for 1 minute or until he is knocked unconscious.",
+          "string":"Johnny enters a state of frenzy, gaining new abilities and the following benefits if he isn't wearing heavy armor:\n- he gains advantage on Strength checks and Strength saving throws;\n- he gains resistance to bludgeoning, piercing and slashing damage\n\nJohnny's rage lasts for 1 minute or until he is knocked unconscious.",
           "array":[
             {
               "string":""
             },
             {
-              "string":"John",
+              "string":"Johnny",
               "type":"tag"
             },
             {
@@ -1356,7 +1368,7 @@
               "string":""
             },
             {
-              "string":"John",
+              "string":"Johnny",
               "type":"tag"
             },
             {
@@ -1392,11 +1404,11 @@
         "string":"",
         "array":[
           {
-            "string":"John can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. John regains spent legendary actions at the start of his turn.",
+            "string":"Johnny can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. Johnny regains spent legendary actions at the start of his turn.",
             "type":"translatableText",
             "translationKey":"legendaryActionsIntro",
             "translationVariables":{
-              "name":"John",
+              "name":"Johnny",
               "his":"his",
               "number":"3"
             }
@@ -1406,11 +1418,11 @@
       "legendaryActionsMax":3,
       "spellcasting":[
         {
-          "string":"John casts one of the following spells, using Charisma as the spellcasting ability (spell save DC 12, ",
+          "string":"Johnny casts one of the following spells, using Charisma as the spellcasting ability (spell save DC 12, ",
           "type":"translatableText",
           "translationKey":"spellcastingDescription",
           "translationVariables":{
-            "name":"John",
+            "name":"Johnny",
             "ability":"Charisma",
             "dc":"12"
           }
@@ -1505,10 +1517,10 @@
       "TELEPATHY":0
     },
     "tags":{
-      "name":"John",
-      "Name":"John",
-      "fullname":"John Frenzy",
-      "Fullname":"John porreca",
+      "name":"Johnny",
+      "Name":"Johnny",
+      "fullname":"Johnny Frenzy",
+      "Fullname":"Johnny porreca",
       "he":"he",
       "she":"he",
       "his":"his",

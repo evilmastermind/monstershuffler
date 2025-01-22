@@ -35,9 +35,9 @@
         <ul class="static mt-5">
           <li>
             <em>Archives:</em>
-            Think of these as OneNote Notebooks: lists of notes organized into
-            Notebooks and Sections (or folders). Perfect for managing lore-rich
-            campaigns and rulesets.
+            Think of these as OneNote Notebooks (or Obsidian valuts): lists of
+            notes organized into Notebooks and Sections (or folders). Perfect
+            for managing lore-rich campaigns and rulesets.
           </li>
           <li>
             <em>Maps:</em>

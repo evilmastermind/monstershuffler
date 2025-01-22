@@ -1,5 +1,6 @@
 h1.static   {
   display: block;
+  text-wrap: balance;
 }
 
 .gradient-title {
@@ -20,6 +21,7 @@ h2.static {
   line-height: 1.2em;
   letter-spacing: -0.04em;
   text-align: center;
+  text-wrap: balance;
   @apply text-text
 }
 h3.static {
@@ -28,6 +30,7 @@ h3.static {
   font-size: 1.25rem; 
   line-height: 1.2em;
   letter-spacing: -0.04em;
+  text-wrap: balance;
   @apply text-text py-2;
 }
 h4.static {
@@ -35,12 +38,14 @@ h4.static {
   font-weight: 800;
   font-size: 1rem; 
   line-height: 1em;
+  text-wrap: balance;
   @apply text-text py-2;
 }
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
+  text-wrap: balance;
   @apply text-text;
 }
 b.static {;

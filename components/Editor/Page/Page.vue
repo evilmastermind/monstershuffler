@@ -23,6 +23,8 @@
         <EditorPageNoteGroups class="mt-8" />
         <EditorPageStatBlocks class="mt-8" />
         <EditorPageCombatManager class="mt-8" />
+        <EditorPageGameSessionExample class="mt-8" />
+        <EditorPageMusicPlayer />
         <ul class="content mt-12">
           <li>the search bar</li>
           <li>Campaign selector</li>
@@ -58,6 +60,7 @@
         </ul>
       </div>
     </div>
+    <PresentationFooter />
   </div>
 </template>
 

@@ -1,6 +1,9 @@
 <template>
   <div id="character-page-scroll" class="page-container">
-    <div v-if="currentCharacterIndex > -1">
+    <div
+      v-if="currentCharacterIndex > -1"
+      :key="characters[currentCharacterIndex].id"
+    >
       <Transition name="fade-quick" appear>
         <LazyMonsterSheetTools
           :generator-character="characters[currentCharacterIndex] as GeneratorCharacter"

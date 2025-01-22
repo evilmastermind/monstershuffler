@@ -20,6 +20,7 @@
             :label="$t('clickTwiceToDelete')"
             icon="fa6-solid:xmark"
             @click.stop="deleteThisCharacter()"
+            @mousedown.stop
           />
         </div>
         <p class="content">{{ race() }}</p>
@@ -36,6 +37,7 @@ const generator = useGeneratorStore();
 const { characters, currentCharacterIndex, currentCharacterBitIndex } =
   storeToRefs(generator);
 
+const e = defineEmits(["deleted"]);
 const p = defineProps({
   index: {
     type: Number,
@@ -94,10 +96,7 @@ function deleteThisCharacter() {
   if (deleteTimeout.value) {
     clearTimeout(deleteTimeout.value);
   }
-  characters.value.splice(p.index, 1);
-  if (currentCharacterIndex.value > -1) {
-    currentCharacterIndex.value = characters.value.length - 1;
-  }
+  e("deleted");
 }
 
 function setBitPreview(bool: boolean) {
@@ -133,9 +132,14 @@ function setBitPreview(bool: boolean) {
   @apply text-text-inverse;
 }
 .name-container {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.close {
+  position: relative;
+  z-index: 1;
 }
 </style>
