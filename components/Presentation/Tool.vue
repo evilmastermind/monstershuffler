@@ -4,11 +4,11 @@
       <slot name="image" />
       <div class="glow" />
     </div>
-    <div class="tool-text">
+    <div v-if="$slots.default || $slots.title" class="tool-text">
       <h3 v-if="$slots.title" class="static">
         <slot name="title" />
       </h3>
-      <p class="static mt-1">
+      <p v-if="$slots.default" class="static mt-1">
         <slot name="default" />
       </p>
     </div>

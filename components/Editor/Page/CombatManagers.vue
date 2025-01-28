@@ -526,29 +526,6 @@ function getHealthBarCss(currentHealth: number, totalHealth: number) {
 </script>
 
 <style scoped>
-.combatmanagers-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  overflow: hidden;
-  @apply gap-2;
-}
-.combatmanagers {
-  max-width: 500px;
-  width: 100%;
-  overflow: hidden;
-}
-.combatmanager-container {
-  max-width: 500px;
-  width: 100%;
-  overflow: hidden;
-}
-.combatmanager-description {
-  max-width: 500px;
-  width: 100%;
-  @apply mt-6;
-}
 .combatmanager-2 {
   display: none;
 }
@@ -569,20 +546,7 @@ function getHealthBarCss(currentHealth: number, totalHealth: number) {
 }
 
 /* ---------------------------------- */
-.combatmanager-container {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  max-height: 350px;
-  overflow: hidden;
-  @apply gap-2;
-}
-.combatmanager {
-  display: flex;
-  flex-direction: column;
-  min-width: 90%;
-  @apply gap-2;
-}
+
 .combatmanager-gradient {
   position: absolute;
   top: 0;
@@ -596,9 +560,6 @@ function getHealthBarCss(currentHealth: number, totalHealth: number) {
     ),
     linear-gradient(to bottom, transparent 97%, theme("colors.background.100"));
   z-index: 2;
-}
-.statblock {
-  min-width: 450px;
 }
 .adventurer {
   display: grid;
@@ -830,10 +791,52 @@ function getHealthBarCss(currentHealth: number, totalHealth: number) {
 }
 */
 /* ---------------------------------- */
+/* ---------------------------------- */
+/* ---------------------------------- */
+/* ---------------------------------- */
+/* ---------------------------------- */
+.combatmanagers-container {
+  max-width: 500px;
+  width: 100%;
+}
+.combatmanagers {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  width: 100%;
+  overflow: hidden;
+}
+.combatmanager-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(90%, 400px) minmax(0, 400px);
+  width: 100%;
+  max-height: 350px;
+  overflow: hidden;
+  @apply gap-4;
+}
+.combatmanager {
+  display: flex;
+  flex-direction: column;
+  @apply gap-2;
+}
+.statblock {
+  flex-shrink: 0;
+  width: 400px;
+}
+.combatmanager-description {
+  @apply mt-6;
+}
+
 @media (min-width: theme("screens.md")) {
   .combatmanagers-container {
+    display: flex;
+    max-width: 100%;
     flex-direction: row;
     @apply gap-8;
+  }
+  .combatmanagers {
+    min-width: 450px;
   }
   .combatmanager-description {
     @apply mt-0;

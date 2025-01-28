@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2 class="static">Notes</h2>
-    <div class="notes mt-5">
+    <h2 class="static text-left">Notes</h2>
+    <div class="notes mt-6">
       <ClientOnly fallback-tag="p">
-        <MSNote class="note mt-2">
+        <MSNote class="note">
           <MonsterLayoutOneColumnA>
             <template #images="{ rules }">
               <MonsterImages :rules />
@@ -32,19 +32,19 @@
           Use them to write the lore behind your campaign, to create a new set
           of combat rules, or to prepare your game session.
         </p>
-        <h3 class="static mt-4 mb-2">Key Features of Monstershuffler Notes:</h3>
+        <h3 class="static mt-6 mb-2">Key Features of Monstershuffler Notes:</h3>
         <ul class="static">
-          <li>
+          <li class="item-speed">
             <em>Speed:</em> Prepare content quickly with a clean,
             distraction-free interface.
           </li>
-          <li>
+          <li class="item-custom">
             <em>Custom Layout Tools:</em> Use shortcuts to seamlessly integrate
             layout features inspired by official D&D books, like images,
             sidenotes, stat blocks, and more.
           </li>
 
-          <li>
+          <li class="item-linked">
             <em>Linked Notes</em>: Effortlessly create links between notes for
             quick navigation and better organization.
           </li>
@@ -63,15 +63,35 @@
   align-items: flex-start;
   @apply gap-2;
 }
+.note {
+  width: 100%;
+  max-width: 500px;
+  @apply mx-auto rounded border border-inset-300;
+}
+.notes-description {
+  max-width: 500px;
+  @apply mt-6;
+}
 @media (min-width: theme("screens.md")) {
-  .note {
-    max-width: 400px;
-    min-width: 300px;
-    @apply rounded-2xl border border-inset-300;
-  }
   .notes {
     flex-direction: row;
-    @apply gap-6;
+    @apply gap-8;
   }
+  .note {
+    max-width: 370px;
+    min-width: 370px;
+  }
+  .notes-description {
+    @apply mt-0;
+  }
+}
+.item-speed::before {
+  content: "⚡️";
+}
+.item-custom::before {
+  content: "📖";
+}
+.item-linked::before {
+  content: "🔗";
 }
 </style>

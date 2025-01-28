@@ -44,8 +44,7 @@ h4.static {
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
-  font-size: 0.9rem;
-  text-wrap: balance;
+  text-wrap: pretty;
   @apply text-text;
 }
 b.static {;
@@ -55,11 +54,12 @@ b.static {;
 ul.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
-  font-size: 0.9rem;
-  list-style-type: disc;
   display: flex;
   flex-direction: column;
-  @apply text-text list-inside list-disc ml-4 gap-2;
+  @apply text-text list-inside gap-4;
+}
+ul.static li::before {
+  @apply mr-1;
 }
 ul.static li::marker {
   color: theme("colors.text-evil");

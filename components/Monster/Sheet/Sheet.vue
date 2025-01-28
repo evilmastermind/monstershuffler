@@ -47,21 +47,11 @@ const layoutName = ref(settings.value?.layout || "MonsterLayoutDynamicA");
 const key = ref(0);
 
 const showRoleplayStats = computed(() => {
-  console.log(
-    "(computed) showRoleplayStats",
-    generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats ??
-      settings.value?.showRoleplayStats ??
-      true
-  );
   return (
     generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats ??
     settings.value?.showRoleplayStats ??
     true
   );
-});
-
-watch(generatorCharacter.value, () => {
-  console.log("generatorCharacter.value changed", generatorCharacter.value);
 });
 
 const layout = computed(() => {

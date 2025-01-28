@@ -200,7 +200,6 @@ watch(showRoleplayStats, () => {
     character.value.character.user?.sheet?.showRoleplayStats === true ||
     character.value.character.user?.sheet?.showRoleplayStats === false
   ) {
-    console.log("(watcher) showRoleplayStats changed");
     character.value.character.user.sheet.showRoleplayStats =
       showRoleplayStats.value;
     wrapper.value.key++;

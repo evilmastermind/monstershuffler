@@ -424,8 +424,6 @@ export const useGeneratorStore = defineStore("generator", () => {
     characters.value.splice(index, 1);
     currentCharacterIndex.value = newIndex;
     triggerRef(characters);
-    console.log("currentCharacterIndex.value", currentCharacterIndex.value);
-    console.log("characters.value.length", characters.value.length);
   }
   function clearAllCharacters() {
     characters.value = [];

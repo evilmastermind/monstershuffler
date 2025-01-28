@@ -79,10 +79,6 @@ function showCharacterPage(index: number) {
   currentCharacterBitIndex.value = -1;
 }
 
-watch(characters, () => {
-  console.log("characters.length", characters.value.length);
-});
-
 onMounted(() => {
   currentCharacterBitIndex.value = -1;
 });

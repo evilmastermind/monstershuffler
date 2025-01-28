@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="static">Note Groups</h2>
-    <div class="notegroups mt-5">
+    <div class="notegroups mt-6">
       <Carousel
         :items-to-show="1"
         wrap-around
@@ -33,25 +33,25 @@
           Note groups offer ways to structure and organize your notes:
         </p>
         <ul class="static mt-5">
-          <li>
+          <li class="list-archives">
             <em>Archives:</em>
             Think of these as OneNote Notebooks (or Obsidian valuts): lists of
             notes organized into Notebooks and Sections (or folders). Perfect
             for managing lore-rich campaigns and rulesets.
           </li>
-          <li>
+          <li class="list-maps">
             <em>Maps:</em>
             Interactive images where you can add markers and labels. Each marker
             or label links to a note or even another note group. Use maps to
             define worlds, locations, and dungeons with ease.
           </li>
-          <li>
+          <li class="list-timelines">
             <em>Timelines:</em>
             Plan the steps of a campaign or adventure with visual timelines. Add
             branching paths for multiple choices or track the inevitable chaos
             when your players derail your plans.
           </li>
-          <li>
+          <li class="list-sessions">
             <em>Game Sessions:</em>
             Inspired by
             <a
@@ -126,12 +126,14 @@ const images = [
 }
 .carousel {
   height: min-content;
+  width: 100%;
+  max-width: 500px;
   overflow: hidden;
-  max-width: 400px;
-  @apply rounded-2xl border border-inset-300;
+  @apply border border-inset-300 rounded;
 }
 .slide {
   font-family: "MrsEavesSmallCaps", serif;
+  font-size: 1.3rem;
   letter-spacing: 0.05em;
   @apply bg-text text-text-inverse;
 }
@@ -144,11 +146,30 @@ const images = [
   mask-repeat: repeat-x;
   mask-position: bottom center;
 }
+.notegroups-description {
+  max-width: 500px;
+  @apply mt-6;
+}
 @media (min-width: theme("screens.md")) {
   .notegroups {
     flex-direction: row;
-    @apply gap-6;
+    @apply gap-8;
   }
+  .notegroups-description {
+    @apply mt-0;
+  }
+}
+.list-archives::before {
+  content: "📚";
+}
+.list-maps::before {
+  content: "🌎";
+}
+.list-timelines::before {
+  content: "⏳️";
+}
+.list-sessions::before {
+  content: "🎲";
 }
 </style>
 <style>
