@@ -1,66 +1,143 @@
 <template>
-  <PresentationCardList image="/images/backgrounds/barracks2.webp">
-    <div class="share lg-max px-2">
-      <div class="share-example my-8" :class="[background]">
-        <MSNote>
-          <div class="share-image-container">
-            <img
-              class="share-image"
-              src="/images/presentation/yomammu.webp"
-              alt="Share Example"
-            />
-          </div>
-          <div class="share-example-text mx-4 mb-4">
-            <h3 class="share-example-title static">Demon Queen Yomammu</h3>
-            <p class="share-example-description">
-              “They say Yomammu is so fat she needs two portals to enter the
-              material plane.”
-            </p>
-            <div class="share-example-icons mt-4">
-              <div
-                v-for="icon in exampleIcons"
-                :key="icon.name"
-                class="share-icon-container"
-              >
-                <Icon :name="icon.name" class="share-icon" />
-                <span class="sr-only">{{ icon.alt }}:</span>
-                <span class="share-icon-text">{{ icon.number }}</span>
+  <Transition name="fade" mode="out-in" appear>
+    <PresentationCardList
+      :key="currentCreation.content.name"
+      :image="currentCreation.content.background"
+    >
+      <div class="share lg-max px-2">
+        <div class="share-example" :class="[background]">
+          <MSNote>
+            <div
+              class="share-image-container"
+              :style="{
+                backgroundImage: `url('${currentCreation.content.image}'`,
+              }"
+            ></div>
+            <div class="share-example-text mx-4 mb-4">
+              <h3 class="share-example-title static">
+                {{ currentCreation.content.name }}
+              </h3>
+              <p class="share-example-description">
+                “{{ currentCreation.content.description }}”
+              </p>
+              <div class="share-example-icons mt-4">
+                <div class="share-icon-container">
+                  <Icon name="mdi:comment-outline" class="share-icon" />
+                  <span class="sr-only">Comments:</span>
+                  <span class="share-icon-text">
+                    {{ currentCreation.social.comments }}
+                  </span>
+                </div>
+                <div class="share-icon-container">
+                  <Icon name="mdi:heart-outline" class="share-icon" />
+                  <span class="sr-only">Likes:</span>
+                  <span class="share-icon-text">
+                    {{ currentCreation.social.likes }}
+                  </span>
+                </div>
+                <div class="share-icon-container">
+                  <Icon name="tabler:copy" class="share-icon" />
+                  <span class="sr-only">Copied:</span>
+                  <span class="share-icon-text">
+                    {{ currentCreation.social.copied }}
+                  </span>
+                </div>
+              </div>
+              <div class="share-example-author mt-4">
+                <div
+                  class="share-author-avatar"
+                  :style="{
+                    backgroundImage: `url('${currentCreation.user.avatar}'`,
+                  }"
+                />
+                <div class="share-author-text">
+                  <span class="share-author">
+                    {{ currentCreation.user.name }}
+                  </span>
+                  <!-- <span class="share-author-id">#332</span> -->
+                </div>
               </div>
             </div>
-          </div>
-        </MSNote>
+          </MSNote>
+        </div>
+        <div class="share-description">
+          <h1 class="static custom-title text-center">Share your creations</h1>
+          <p class="share-description-text mt-4">
+            Publish monsters, notes, adventures and whole campaigns!
+          </p>
+          <p class="share-description-text mt-2">
+            Build your adventures with a library of premade content created by
+            your peers.
+          </p>
+        </div>
       </div>
-      <div class="share-description">
-        <h1 class="static custom-title text-white">Share your creations</h1>
-        <p class="share-description-text">
-          Publish monsters, notes, adventures and whole campaigns!
-        </p>
-        <p class="share-description-text">The more you share the</p>
-      </div>
-    </div>
-  </PresentationCardList>
+    </PresentationCardList>
+  </Transition>
 </template>
 
 <script setup lang="ts">
 const ui = useUiStore();
 
-const exampleIcons = [
+const creations = [
   {
-    name: "mdi:comment-outline",
-    alt: "Comments",
-    number: 12,
+    user: {
+      name: "Charles Pennington",
+      avatar: "/images/presentation/author3.webp",
+    },
+    social: {
+      comments: 32,
+      likes: 51,
+      copied: 187,
+    },
+    content: {
+      name: "Trouble at Io'Calioth",
+      description: "An adventure for 4-6 players set in the world of Iomandra.",
+      image: "/images/presentation/iomandra.webp",
+      background: "/images/presentation/docks.webp",
+    },
   },
   {
-    name: "mdi:heart-outline",
-    alt: "Likes",
-    number: 42,
+    user: {
+      name: "SamDM",
+      avatar: "/images/presentation/author.webp",
+    },
+    social: {
+      comments: 12,
+      likes: 42,
+      copied: 23,
+    },
+    content: {
+      name: "Hadal Tarrasque",
+      description:
+        "Lurking in the ocean's depths, the Hadal Tarrasque is a whispered myth.",
+      image: "/images/presentation/deep-tarrasque.webp",
+      background: "/images/presentation/deep-sea.webp",
+    },
   },
   {
-    name: "tabler:copy",
-    alt: "Copied",
-    number: 23,
+    user: {
+      name: "Tr0ll3r99",
+      avatar: "/images/presentation/author2.webp",
+    },
+    social: {
+      comments: 56,
+      likes: 12,
+      copied: 20,
+    },
+    content: {
+      name: "Demon Queen Yomammu",
+      description:
+        "They say Yomammu is so fat she needs two portals to enter the material plane.",
+      image: "/images/presentation/yomammu.webp",
+      background: "/images/backgrounds/barracks2.webp",
+    },
   },
 ];
+
+const currentCreationIndex = ref(0);
+const interval = ref<NodeJS.Timeout>();
+
+const currentCreation = computed(() => creations[currentCreationIndex.value]);
 
 const background = computed(() => {
   switch (ui.currentThemeType) {
@@ -70,20 +147,30 @@ const background = computed(() => {
       return "background-dark";
   }
 });
+
+onMounted(() => {
+  interval.value = setInterval(() => {
+    currentCreationIndex.value =
+      (currentCreationIndex.value + 1) % creations.length;
+  }, 10000);
+});
 </script>
 
 <style scoped>
 .share {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 2;
   @apply gap-8;
 }
 .share-example {
   max-width: 400px;
+  width: 100%;
   overflow: hidden;
-  @apply rounded-lg shadow-2xl;
+  @apply rounded-lg shadow-2xl mt-9;
 }
 .share-example-title {
   @apply text-center text-text-evil;
@@ -96,7 +183,8 @@ const background = computed(() => {
 .share-image-container {
   height: 350px;
   overflow: hidden;
-  mask-image: url("/images/masks/bottom-1.webp");
+  background-size: cover;
+  mask-image: url("/images/masks/bottom-2.webp");
   mask-repeat: repeat-x;
   mask-position: bottom;
 }
@@ -122,6 +210,28 @@ const background = computed(() => {
 .share-icon-text {
   font-size: 1em;
 }
+.share-example-author {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @apply gap-1 text-text-3;
+}
+.share-author-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  background-size: cover;
+  @apply border border-inset-600;
+}
+.share-author {
+}
+.share-author-id {
+  font-size: 0.8em;
+}
+.static-custom-title {
+  color: hsl(46, 47%, 97%);
+}
 /* Description */
 .share-description {
   display: flex;
@@ -129,6 +239,25 @@ const background = computed(() => {
   justify-content: center;
   align-items: center;
   width: 100%;
-  @apply text-white;
+  text-shadow: 0 0 20px black;
+  color: hsl(46, 47%, 97%);
+  @apply mb-9;
+}
+.share-description-text {
+  font-family: "OpenSans", sans-serif;
+  font-size: 1.1rem;
+  text-align: center;
+  text-wrap: balance;
+  max-width: 600px;
+}
+
+@media (min-width: theme("screens.md")) {
+  .share {
+    flex-direction: row;
+    @apply gap-8;
+  }
+  .share-example {
+    @apply mb-9;
+  }
 }
 </style>

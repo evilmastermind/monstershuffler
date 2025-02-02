@@ -622,5 +622,6 @@
   "back": "Back",
   "theme": "Theme",
   "rename": "Rename",
-  "pin": "Pin"
+  "pin": "Pin",
+  "loading": "Loading..."
 }

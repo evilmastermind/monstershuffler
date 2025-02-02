@@ -1,7 +1,11 @@
 <template>
   <div class="random-example">
-    <Transition name="fade-slow" mode="out-in">
-      <div :key="exampleResult" class="example-result">
+    <Transition name="fade-slow" mode="out-in" appear>
+      <div
+        v-if="exampleResult.length"
+        :key="exampleResult"
+        class="example-result"
+      >
         {{ exampleResult }}
       </div>
     </Transition>

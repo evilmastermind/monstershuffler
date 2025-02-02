@@ -162,7 +162,13 @@
             </div>
           </div>
           <div class="statblock">
-            <MonsterStatBlock :columns="1" />
+            <ClientOnly
+              fallback-tag="span"
+              :fallback="$t('loading')"
+              data-allow-mismatch
+            >
+              <MonsterStatBlock :columns="1" />
+            </ClientOnly>
           </div>
         </div>
         <div class="combatmanager-2">
@@ -187,7 +193,7 @@
                       <ClientOnly>
                         <div
                           class="adventurer-hp-bar"
-                          :style="getHealthBarCss(enemy.currentHP, enemy.HP)"
+                          :style="getHealthBarCss(93, 161)"
                         />
                         <template #fallback>
                           <div
@@ -334,7 +340,13 @@
               </div>
             </div>
             <div class="statblock">
-              <MonsterStatBlock :columns="1" />
+              <ClientOnly
+                fallback-tag="span"
+                :fallback="$t('loading')"
+                data-allow-mismatch
+              >
+                <MonsterStatBlock :columns="1" />
+              </ClientOnly>
             </div>
           </div>
         </div>

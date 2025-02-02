@@ -22,18 +22,18 @@
           -->
         </p>
         <div class="sections mt-9">
-          <EditorPageNotes class="section-max-w" />
-          <EditorPageNoteGroups class="section-max-w" />
-          <EditorPageStatBlocks class="section-max-w" />
-          <EditorPageCombatManagers class="section-max-w" />
-          <EditorPageTextGenerators class="section-max-w" />
-          <EditorPageMore class="section-max-w" />
+          <LazyEditorPageNotes class="section-max-w" />
+          <LazyEditorPageNoteGroups class="section-max-w" />
+          <LazyEditorPageStatBlocks class="section-max-w" />
+          <LazyEditorPageCombatManagers class="section-max-w" />
+          <LazyEditorPageTextGenerators class="section-max-w" />
+          <LazyEditorPageMore class="section-max-w" />
           <!-- <EditorPageBar />
           <EditorPageGameSessionExample /> -->
         </div>
       </div>
     </div>
-    <EditorPageShare class="mt-9" />
+    <LazyEditorPageShare class="mt-9" />
     <!-- <ul class="content mt-12">
           <li>the search bar</li>
           <li>Campaign selector</li>
@@ -67,8 +67,17 @@
           <li>Music Player</li>
           <li>All of this is Shareable</li>
         </ul> -->
+    <PresentationFooter>
+      <template #feedback>
+        <div class="feedback">
+          <MSOpenFeedback
+            :question-id="randomQuestion.id"
+            :question="randomQuestion.question"
+          />
+        </div>
+      </template>
+    </PresentationFooter>
   </div>
-  <PresentationFooter />
 </template>
 
 <script setup lang="ts">
@@ -81,8 +90,29 @@ const character = ref<GeneratorCharacter>(
 );
 
 createStats(character.value.object);
-
 useProvideCharacter(character);
+
+const openQuestion = {
+  id: "464a22a2-0896-4d61-8280-2c750b0d5c09",
+  question: {
+    question:
+      "Are there any other tools or features you would like to see added to the final version?",
+  },
+};
+const pollQuestion = {
+  id: "6d80c61a-00e2-4c36-83d0-1f870aad8295",
+  question: {
+    question: "Which tool are you looking forward to using the most?",
+    type: "poll",
+    options: [
+      "Notes",
+      "Note Groups",
+      "Stat Block Editor v2",
+      "Combat Manager",
+      "Random Text Generators",
+    ],
+  },
+};
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <div class="random-example">
     <div class="example-result">
-      <TransitionGroup name="fade-row">
+      <TransitionGroup name="fade-row" appear>
         <span v-for="word in generationPartial" :key="word">
           {{ `${word} ` }}
         </span>
