@@ -71,8 +71,8 @@
       <template #feedback>
         <div class="feedback">
           <MSOpenFeedback
-            :question-id="randomQuestion.id"
-            :question="randomQuestion.question"
+            :question-id="openQuestion.id"
+            :question="openQuestion.question.question"
           />
         </div>
       </template>
@@ -99,20 +99,20 @@ const openQuestion = {
       "Are there any other tools or features you would like to see added to the final version?",
   },
 };
-const pollQuestion = {
-  id: "6d80c61a-00e2-4c36-83d0-1f870aad8295",
-  question: {
-    question: "Which tool are you looking forward to using the most?",
-    type: "poll",
-    options: [
-      "Notes",
-      "Note Groups",
-      "Stat Block Editor v2",
-      "Combat Manager",
-      "Random Text Generators",
-    ],
-  },
-};
+// const pollQuestion = {
+//   id: "6d80c61a-00e2-4c36-83d0-1f870aad8295",
+//   question: {
+//     question: "Which tool are you looking forward to using the most?",
+//     type: "poll",
+//     options: [
+//       "Notes",
+//       "Note Groups",
+//       "Stat Block Editor v2",
+//       "Combat Manager",
+//       "Random Text Generators",
+//     ],
+//   },
+// };
 </script>
 
 <style scoped>

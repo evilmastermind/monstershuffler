@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
     head: {
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
 

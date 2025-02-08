@@ -366,7 +366,7 @@
           reactions, giving DMs the option to mitigate attacks. On the monster's
           turn, it displays all actions and abilities they can now use.
         </p>
-        <h3 class="static mt-4">Key Features of the Combat Manager:</h3>
+        <h3 class="static mt-5">Key Features of the Combat Manager:</h3>
         <ul class="static">
           <li class="item-minimalistic">
             <em>Minimalistic Interface</em>: Display only what the DM needs at

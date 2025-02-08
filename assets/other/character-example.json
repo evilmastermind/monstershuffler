@@ -395,14 +395,14 @@
           "showRoleplayStats":true,
           "images":[
             {
-              "url":"/images/backgrounds/rogue.webp",
+              "url":"/images/backgrounds/druid.webp",
               "artist":"",
               "artistUrl":"",
               "canvasHeightPx":200,
               "canvasWidthPx":1168,
-              "imageHeightPx":700,
-              "imagePositionLeftPx":-97.56521739130437,
-              "imagePositionTopPx":-175.63106796116506,
+              "imageHeightPx":200,
+              "imagePositionLeftPx":0,
+              "imagePositionTopPx":0,
               "mask":"2",
               "token":{
                 "topPx":64,
@@ -413,7 +413,7 @@
           ]
         },
         "backstory":{
-          "string":"\n\n#### 2) Crossing the Desert\n\n Hello, I am a simple, **editable** note with one image on top.\n\nYou can format text using [Markdown](https://www.markdownguide.org/basic-syntax), and in the future, I'll include an _optional_ toolbar to make formatting even easier."
+          "string":"\n\n#### Note Example\n\n Hello, I am a simple, **editable** note with one image on top.\n\nYou can format text using [Markdown](https://www.markdownguide.org/basic-syntax), and in the future, I'll include an _optional_ toolbar to make formatting even easier."
         }
       },
       "alignmentModifiers":[

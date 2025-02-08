@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2 class="static text-left">More!</h2>
-    <p class="static text-center mt-2">You need more? We got more!</p>
-    <div class="more-stuff mt-8">
+    <p class="text-center mt-2 italic text-sm">You need more? We got more!</p>
+    <div class="more-stuff">
       <div class="notes">
         <div class="examples">
           <EditorPageMusicPlayer />
@@ -98,7 +98,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  @apply gap-8;
+  @apply gap-8 mt-6;
 }
 @media (min-width: theme("screens.md")) {
   .notes {
@@ -111,6 +111,9 @@
   }
   .notes-description {
     @apply mt-0;
+  }
+  .more-stuff {
+    @apply gap-6 mt-2;
   }
 }
 .icon-notebook {
