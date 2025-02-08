@@ -89,17 +89,7 @@
       </PresentationTool>
       <PresentationTool class="mt-8">
         <template #image>
-          <div class="random-example">
-            <div class="example-prompt static-mono">
-              A (loyal | faithful | false) (priest | paladin | servant) of
-              Deity.
-            </div>
-            <Transition name="fade-slow" mode="out-in">
-              <div :key="exampleResult" class="example-result">
-                {{ exampleResult }}
-              </div>
-            </Transition>
-          </div>
+          <GeneratorPageRandomExample />
         </template>
         <template #title>Random Text Generators</template>
         Use a
@@ -112,7 +102,7 @@
           ></span
         >
         grammar to create random text generators.<br />
-        You can even feed the result to an AI as prompt, and get even more
+        You can even feed the result to an AI as a prompt, and get even more
         randomness. That's how the AI-generated adventures are created, and it's
         a tool that will be available to you.
       </PresentationTool>
@@ -143,7 +133,7 @@
         >
         is already a powerful tool, but the upcoming website upgrade will cut
         monster creation time in half with:
-        <ul class="list mt-2">
+        <ul class="static mt-2">
           <li>
             A streamlined user experience (automatic saves, simplified UI, and
             more)
@@ -166,22 +156,12 @@
 
 <script setup lang="ts">
 import { random } from "monstershuffler-shared";
-const exampleResult = ref("A faithful paladin of Mystra.");
 
-const exampleResults = [
-  "A faithful servant of Lathander.",
-  "A false priest of Bane.",
-  "A loyal paladin of Asmodeus.",
-  "A loyal servant of Torm.",
-  "A faithful paladin of Mystra.",
-];
-const exampleIndex = ref(0);
 const card = ref(1);
+let interval: NodeJS.Timeout | null = null;
 
 onMounted(() => {
-  setInterval(() => {
-    exampleResult.value =
-      exampleResults[exampleIndex.value++ % exampleResults.length];
+  interval = setInterval(() => {
     changeCard();
   }, 3000);
 });
@@ -189,37 +169,18 @@ onMounted(() => {
 function changeCard() {
   card.value = random(1, 4);
 }
+
+onUnmounted(() => {
+  if (interval) {
+    clearInterval(interval);
+  }
+});
 </script>
 
 <style scoped>
 .sheet-example {
   width: 100%;
   max-width: 100px;
-}
-.random-example {
-  position: relative;
-  width: 100px;
-  height: 160px;
-  @apply bg-background-100 rounded-lg p-2;
-}
-.random-example .example-prompt {
-  font-family: monospace;
-  font-size: 0.75rem;
-  text-align: left;
-  line-height: 1;
-  @apply text-text-good;
-}
-.random-example .example-result {
-  font-size: 0.875rem;
-  text-align: left;
-  line-height: 1.2;
-  @apply text-text-evil pt-2;
-}
-.list {
-  @apply list-disc list-inside;
-}
-.list li + li {
-  @apply mt-1;
 }
 .cute-stat-block-container {
   position: relative;

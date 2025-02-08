@@ -1,5 +1,5 @@
 <template>
-  <div class="dice-history mx-1 mb-2">
+  <div class="dice-history">
     <Transition name="fade-quick">
       <div v-if="!isHistoryOpen" class="dice-history-previews">
         <TransitionGroup name="list">
@@ -80,12 +80,8 @@ onMounted(() => {
 
 <style scoped>
 .dice-history {
-  position: fixed;
-  bottom: 0;
-  right: 0;
   display: flex;
   flex-direction: column;
-  z-index: 100;
   justify-content: flex-end;
   align-items: flex-end;
   @apply gap-1;

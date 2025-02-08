@@ -18,11 +18,9 @@
         </div>
       </div>
       <div class="stats">
-        <MonsterStatBlock />
+        <slot name="stats" :columns="1" />
         <div class="card my-4">
-          <MonsterSheetCard v-if="showRoleplayStats">
-            <MonsterRoleplayStats />
-          </MonsterSheetCard>
+          <slot v-if="showRoleplayStats" name="card" />
         </div>
       </div>
     </div>

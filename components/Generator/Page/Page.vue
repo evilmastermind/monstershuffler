@@ -55,7 +55,9 @@
         <LoadingSpinner class="mt-8" />
       </div>
     </Transition>
-    <DiceHistory />
+    <MSFixedTools>
+      <DiceHistory />
+    </MSFixedTools>
     <MSAlert v-if="alert" :type="alert.type" @close="alert = null">
       <p>{{ alert.message }}</p>
     </MSAlert>
@@ -141,7 +143,6 @@ watch(
       haveCharactersJustBeenRetrieved.value = false;
       return;
     }
-    console.log("Saving settings");
     saveSettingsThrottle();
   },
   { deep: true }

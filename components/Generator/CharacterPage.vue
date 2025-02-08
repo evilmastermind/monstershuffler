@@ -1,6 +1,9 @@
 <template>
-  <div class="page-container" id="character-page-scroll">
-    <div v-if="currentCharacterIndex > -1">
+  <div id="character-page-scroll" class="page-container">
+    <div
+      v-if="currentCharacterIndex > -1"
+      :key="characters[currentCharacterIndex].id"
+    >
       <Transition name="fade-quick" appear>
         <LazyMonsterSheetTools
           :generator-character="characters[currentCharacterIndex] as GeneratorCharacter"
@@ -35,16 +38,16 @@ const sheet = ref<HTMLElement | null>(null);
 const isLoaded = ref(false);
 
 function close() {
-  generator.unsetCharacter(); 
+  generator.unsetCharacter();
 }
 
 onMounted(() => {
   if (sheet.value) {
     currentSheetHTMLElement.value = sheet.value;
-    const element = document.querySelector('#character-page-scroll');
+    const element = document.querySelector("#character-page-scroll");
     scrollIntoView(element, {
-      behavior: 'auto',
-      block: 'start',
+      behavior: "auto",
+      block: "start",
       scrollIfInView: false,
     });
   }

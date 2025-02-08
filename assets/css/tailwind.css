@@ -68,6 +68,10 @@
     text-decoration: none;
     @apply text-text;
   }
+  ul.content {
+    list-style-type: disc;
+    @apply list-inside list-disc;
+  }
 }
 
 @tailwind components;

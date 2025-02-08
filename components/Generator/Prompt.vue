@@ -59,8 +59,14 @@ import { getChallengeNumber } from "monstershuffler-shared";
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const { promptOptions, keywords, settings, session, characters, promptFromOtherSources } =
-  storeToRefs(generator);
+const {
+  promptOptions,
+  keywords,
+  settings,
+  session,
+  characters,
+  promptFromOtherSources,
+} = storeToRefs(generator);
 const prompt = ref("");
 const promptElement = ref<HTMLInputElement | null>(null);
 
@@ -218,10 +224,12 @@ async function generateNpcs() {
     promptOptions.value.backgroundType = "none";
   }
   promptOptions.value.addVoice = settings.value.options?.addVoice || true;
-  promptOptions.value.includeChildren = settings.value.options?.includeChildren || false;
+  promptOptions.value.includeChildren =
+    settings.value.options?.includeChildren || false;
   promptOptions.value.levelType =
     settings.value.options?.levelType || "randomPeasantsMostly";
-  promptOptions.value.includeBodyType = settings.value.options?.includeBodyType || false;
+  promptOptions.value.includeBodyType =
+    settings.value.options?.includeBodyType || false;
 
   promptOptions.value.wordsNotFound = [...new Set(wordsNotFound)].filter(
     (word) => word.length > 0

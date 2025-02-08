@@ -4,18 +4,15 @@
       <slot name="backstory" />
     </div>
     <div class="stats">
-      <MonsterStatBlock />
+      <slot name="stats" :columns="1" />
       <div v-if="showRoleplayStats" class="card my-4">
-        <MonsterSheetCard>
-          <MonsterRoleplayStats />
-        </MonsterSheetCard>
+        <slot v-if="showRoleplayStats" name="card" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
 const e = defineEmits(["load"]);
 const p = defineProps({
   showRoleplayStats: {
