@@ -4,9 +4,14 @@
     <div class="background" />
     <HomeHero />
     <div class="lg-max">
-      <div class="mx-4 mt-8">
-        <div class="sections mt-9">
-          <HomeQuestions class="section-max-w" />
+      <div class="mx-4">
+        <ThumbnailNote class="mt-8" />
+        <ThumbnailNoteGroup class="mt-2" />
+        <ThumbnailStatBlock class="mt-2" />
+        <ThumbnailCombatManager class="mt-2" />
+        <ThumbnailRandomText class="mt-2" />
+        <div class="sections">
+          <HomeQuestions class="mt-4" />
           <LazyEditorPageNotes class="section-max-w" />
           <LazyEditorPageNoteGroups class="section-max-w" />
           <LazyEditorPageStatBlocks class="section-max-w" />

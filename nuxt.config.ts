@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   spaLoadingTemplate: "public/spa-loading-template.html",
 
   routeRules: {
-    "/": { swr: 600 },
+    "/": { ssr: true },
     "/monsters/generator": { ssr: false },
     "/monsters/generator/**": { ssr: false },
     "/editors": { swr: 600 },
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: false,
+    enabled: true,
   },
 
   vite: {

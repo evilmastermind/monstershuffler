@@ -40,8 +40,8 @@
           <li class="item-muscle">
             <em>Expanded Capabilities</em>: The editor now supports creating not
             only monsters, species (races), classes, templates, and backgrounds,
-            but also <em>items, traps and lair actions</em>, to better help DMs
-            in the creation of adventures and campaigns.
+            but also <em>spells, items, traps and lair actions</em>, to better
+            help DMs in the creation of adventures and campaigns.
           </li>
         </ul>
       </div>
