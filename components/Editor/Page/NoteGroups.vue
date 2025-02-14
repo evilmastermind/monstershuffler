@@ -11,11 +11,7 @@
       >
         <Slide v-for="image in images" :key="image.title">
           <div class="slide">
-            <img
-              class="image carousel__item"
-              :src="image.src"
-              alt="image.description"
-            />
+            <img class="image" :src="image.src" alt="image.description" />
             <div class="image-title pb-6">
               <p class="font-bold text-center">
                 {{ image.title }}
@@ -121,26 +117,33 @@ const images = [
 .notegroups {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   @apply gap-2;
 }
 .carousel {
-  height: min-content;
-  width: 100%;
-  max-width: 500px;
   overflow: hidden;
-  @apply border border-inset-300 rounded;
+  width: 100%;
+  max-width: 400px;
+  @apply border border-inset-300 rounded shadow;
 }
 .slide {
+  position: relative;
   font-family: "MrsEavesSmallCaps", serif;
   font-size: 1.3rem;
   letter-spacing: 0.05em;
+  overflow: hidden;
+  width: 100%;
   @apply bg-text text-text-inverse;
 }
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
 .image {
-  display: block;
-  width: 100%;
-  aspect-ratio: 10 / 11;
+  width: 100%; /* Dynamic width */
+  height: 440px; /* Fixed height */
+  object-fit: cover; /* Keeps aspect ratio and crops the image if needed */
+  overflow: hidden; /* Ensures excess content is not shown */
   mask-image: url("/images/masks/bottom-2.webp");
   mask-size: 200% auto;
   mask-repeat: repeat-x;
@@ -150,6 +153,7 @@ const images = [
   max-width: 500px;
   @apply mt-6;
 }
+
 @media (min-width: theme("screens.md")) {
   .notegroups {
     flex-direction: row;
@@ -157,6 +161,12 @@ const images = [
   }
   .notegroups-description {
     @apply mt-0;
+  }
+  .carousel {
+    max-width: 500px;
+  }
+  .image {
+    height: 550px;
   }
 }
 .list-archives::before {

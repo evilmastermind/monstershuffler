@@ -12,7 +12,7 @@
         different levels?
       </p>
     </div>
-    <div class="answer mt-5">
+    <div class="answer mt-6">
       <p>I'm building a set of tools that give you exactly that!</p>
     </div>
   </div>
@@ -29,10 +29,19 @@
 }
 .answer {
   text-align: center;
-  @apply text-xl;
 }
 .question {
+  text-align: center;
   text-wrap: pretty;
-  @apply text-xl;
+}
+.answer,
+.question {
+  @apply text-text;
+}
+@media (min-width: theme("screens.sm")) {
+  .answer,
+  .question {
+    @apply text-xl;
+  }
 }
 </style>

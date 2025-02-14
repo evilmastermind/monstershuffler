@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <h2 class="static">Combat Manager</h2>
+    <h2 id="combat-manager" class="static">Combat Manager</h2>
     <div class="combatmanagers-container mt-6">
       <div class="combatmanagers">
         <div class="combatmanager-container p-1">
@@ -24,7 +24,13 @@
                     <ClientOnly>
                       <div
                         class="adventurer-hp-bar"
-                        :style="getHealthBarCss(enemy.currentHP, enemy.HP)"
+                        :style="
+                          getHealthBarCss(
+                            enemy.currentHP,
+                            enemy.HP,
+                            ui.currentThemeType
+                          )
+                        "
                       />
                       <template #fallback>
                         <div
@@ -193,7 +199,7 @@
                       <ClientOnly>
                         <div
                           class="adventurer-hp-bar"
-                          :style="getHealthBarCss(93, 161)"
+                          :style="getHealthBarCss(93, 161, ui.currentThemeType)"
                         />
                         <template #fallback>
                           <div
@@ -468,36 +474,6 @@ const enemies = [
 
 const ui = useUiStore();
 
-function getHealthBarCss(currentHealth: number, totalHealth: number) {
-  let healthPercentage = currentHealth / totalHealth;
-  // Ensure health percentage is between 0 and 1
-  healthPercentage = Math.min(1, Math.max(0, healthPercentage));
-
-  // Define HSL colors
-  const darkGreen = { h: 120, s: 80, l: 21 }; // Dark green
-  const darkRed = { h: 0, s: 90, l: 35 }; // Light red
-  const lightGreen = { h: 120, s: 75, l: 66 }; // Light green
-  const lightRed = { h: 0, s: 100, l: 56 }; // Dark red
-
-  // Determine base colors based on mode
-  const startColor = ui.currentThemeType === "light" ? lightRed : darkRed;
-  const endColor = ui.currentThemeType === "light" ? lightGreen : darkGreen;
-
-  // Interpolate HSL values
-  const interpolate = (start: number, end: number, percentage: number) =>
-    Math.ceil(start + (end - start) * percentage);
-
-  const h = interpolate(startColor.h, endColor.h, healthPercentage);
-  const s = interpolate(startColor.s, endColor.s, healthPercentage);
-  const l = interpolate(startColor.l, endColor.l, healthPercentage);
-
-  // Convert HSL to a CSS string
-  const color = `hsl(${h}, ${s}%, ${l}%)`;
-
-  const healthWidth = `${Math.ceil(healthPercentage * 100)}%`;
-
-  return { width: healthWidth, backgroundColor: color };
-}
 /**
  * COMBAT MANAGER
  * ==============

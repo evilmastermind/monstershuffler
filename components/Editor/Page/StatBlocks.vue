@@ -17,7 +17,7 @@
         dynamically!
         <h3 class="static mt-5">New Version</h3>
         The new version retains the dynamic CR concept but does all the math for
-        you behind the scenes: input the value you feel is appropriate for the
+        you behind the scenes: input the stat you feel is appropriate for the
         base CR of the monster, and let the editor do the rest.
         <h3 class="static mt-5">New Features:</h3>
         <ul class="static">
@@ -40,8 +40,7 @@
           <li class="item-muscle">
             <em>Expanded Capabilities</em>: The editor now supports creating not
             only monsters, species (races), classes, templates, and backgrounds,
-            but also <em>spells, items, traps and lair actions</em>, to better
-            help DMs in the creation of adventures and campaigns.
+            but also <em>spells, items, traps and lair actions</em>!
           </li>
         </ul>
       </div>

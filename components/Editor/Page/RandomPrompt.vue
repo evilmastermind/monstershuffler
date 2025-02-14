@@ -4,6 +4,7 @@
       <div
         v-if="exampleResult.length"
         :key="exampleResult"
+        data-allow-mismatch
         class="example-result"
       >
         {{ exampleResult }}

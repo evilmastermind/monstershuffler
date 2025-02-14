@@ -61,24 +61,7 @@
       <h2 class="static max-width">A preview of things to come</h2>
       <PresentationTool class="mt-8">
         <template #image>
-          <Transition name="slide-right" mode="out-in">
-            <MonsterLayoutExampleNoImage2Column
-              v-if="card === 1"
-              class="sheet-example"
-            />
-            <MonsterLayoutExample1ColumnA
-              v-else-if="card === 2"
-              class="sheet-example"
-            />
-            <MonsterLayoutExample2ColumnA
-              v-else-if="card === 3"
-              class="sheet-example"
-            />
-            <MonsterLayoutExample1ColumnC
-              v-else-if="card === 4"
-              class="sheet-example"
-            />
-          </Transition>
+          <ThumbnailNote />
         </template>
         <template #title> Notes </template>
         Imagine OneNote or Obsidian, but designed specifically for Dungeon
@@ -89,7 +72,7 @@
       </PresentationTool>
       <PresentationTool class="mt-8">
         <template #image>
-          <GeneratorPageRandomExample />
+          <ThumbnailRandomText />
         </template>
         <template #title>Random Text Generators</template>
         Use a
@@ -108,21 +91,7 @@
       </PresentationTool>
       <PresentationTool class="mt-8">
         <template #image>
-          <div class="cute-stat-block-container">
-            <Icon class="cute-stat-block-cog-o-1" name="lucide:cog" />
-            <Icon class="cute-stat-block-cog-o-2" name="heroicons:cog-solid" />
-            <Icon class="cute-stat-block-cog-o-3" name="game-icons:cog" />
-            <div class="cute-stat-block-border" />
-            <div class="cute-stat-block">
-              <div class="cute-stat-block-gradient" />
-              <p class="cute-stat-block-name">Dude</p>
-              <p class="cute-stat-block-meta">Humanoid</p>
-              <Icon class="cute-stat-block-cog-1" name="lucide:cog" />
-              <Icon class="cute-stat-block-cog-2" name="heroicons:cog-solid" />
-              <Icon class="cute-stat-block-cog-3" name="game-icons:cog" />
-            </div>
-            <div class="cute-stat-block-border" />
-          </div>
+          <ThumbnailStatBlock />
         </template>
         <template #title>Monster Editor, improved</template>
         The
@@ -133,7 +102,7 @@
         >
         is already a powerful tool, but the upcoming website upgrade will cut
         monster creation time in half with:
-        <ul class="static mt-2">
+        <ul class="content mt-2">
           <li>
             A streamlined user experience (automatic saves, simplified UI, and
             more)

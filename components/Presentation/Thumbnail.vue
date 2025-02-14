@@ -79,7 +79,7 @@ onUnmounted(() => {
   transition-timing-function: ease-out;
   transform: rotate3d(0);
   overflow: hidden;
-  width: 100px;
+  min-width: 100px;
   height: 140px;
   @apply shadow rounded;
 }

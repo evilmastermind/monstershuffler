@@ -4,27 +4,26 @@
     <div class="background" />
     <HomeHero />
     <div class="lg-max">
-      <div class="mx-4">
-        <ThumbnailNote class="mt-8" />
-        <ThumbnailNoteGroup class="mt-2" />
-        <ThumbnailStatBlock class="mt-2" />
-        <ThumbnailCombatManager class="mt-2" />
-        <ThumbnailRandomText class="mt-2" />
+      <div class="mx-4 intro">
+        <HomeQuestions class="mt-4" />
+        <HomeTools class="mt-6" />
+      </div>
+      <div class="mx-4 mt-10">
         <div class="sections">
-          <HomeQuestions class="mt-4" />
-          <LazyEditorPageNotes class="section-max-w" />
-          <LazyEditorPageNoteGroups class="section-max-w" />
-          <LazyEditorPageStatBlocks class="section-max-w" />
+          <LazyEditorPageNotes id="notes" class="section-max-w" />
+          <LazyEditorPageNoteGroups id="note-groups" class="section-max-w" />
+          <LazyEditorPageStatBlocks id="stat-blocks" class="section-max-w" />
           <LazyEditorPageCombatManagers class="section-max-w" />
-          <LazyEditorPageTextGenerators class="section-max-w" />
-          <LazyEditorPageMore class="section-max-w" />
-          <!-- <EditorPageBar />
-      <EditorPageGameSessionExample /> -->
+          <LazyEditorPageTextGenerators
+            id="text-generators"
+            class="section-max-w"
+          />
+          <LazyEditorPageMore id="more" class="section-max-w" />
         </div>
       </div>
     </div>
-    <LazyEditorPageShare class="mt-9" />
-    <LazyPresentationFooter>
+    <!-- <LazyEditorPageShare class="mt-9" /> -->
+    <PresentationFooter>
       <template #feedback>
         <div class="feedback">
           <MSOpenFeedback
@@ -33,7 +32,7 @@
           />
         </div>
       </template>
-    </LazyPresentationFooter>
+    </PresentationFooter>
   </div>
 </template>
 
@@ -59,6 +58,13 @@ const openQuestion = {
 </script>
 
 <style scoped>
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @apply gap-6;
+}
 .background {
   position: fixed;
   top: 0;

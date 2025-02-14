@@ -2,10 +2,10 @@
   <PresentationThumbnail>
     <div class="random-example">
       <div class="example-prompt static-mono">
-        A (loyal | faithful | false) (priest | paladin | servant) of Deity.
+        A (faithful | loyal | false) (paladin | priest | servant) of Deity.
       </div>
       <Transition name="fade" mode="out-in">
-        <div :key="exampleResult" class="example-result">
+        <div :key="exampleResult" class="example-result" data-allow-mismatch>
           {{ exampleResult }}
         </div>
       </Transition>
@@ -45,19 +45,20 @@ onUnmounted(() => {
   position: relative;
   width: 100px;
   height: 160px;
-  @apply bg-background-100 rounded-lg p-1;
+  background-color: #e9e9e9;
+  @apply rounded-lg p-1;
 }
 .random-example .example-prompt {
   font-family: monospace;
   font-size: 0.73rem;
   text-align: left;
   line-height: 1;
-  @apply text-text-good;
+  @apply text-slate-900 px-1 pt-1;
 }
 .random-example .example-result {
   font-size: 0.8rem;
   text-align: left;
   line-height: 1.2;
-  @apply text-text-evil pt-1;
+  @apply text-red-950 pt-1 px-1;
 }
 </style>

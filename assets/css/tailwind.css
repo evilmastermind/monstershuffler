@@ -64,13 +64,16 @@
   }
 
   a.content {
-    font-weight: 800;
-    text-decoration: none;
+    font-weight: 700;
+    text-decoration: underline;
     @apply text-text;
   }
   ul.content {
     list-style-type: disc;
     @apply list-inside list-disc;
+  }
+  ul.content li {
+    @apply mt-2 ml-1;
   }
 }
 

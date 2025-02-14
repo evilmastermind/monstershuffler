@@ -13,7 +13,7 @@
         <MSLogo class="logo" />
       </div>
       <h2 class="static mt-6">Help bring this vision to life</h2>
-      <p class="static max-width mt-4">
+      <p class="static max-width mt-4 text-center sm:text-left">
         With your support, we can build this project in months, not years.
       </p>
       <NavbarSupportButtonKickstarter class="mt-6" />
