@@ -3,10 +3,10 @@ import type {
   GetSpellResponse,
 } from "@/types";
 
-const config = useRuntimeConfig();
-const api = config.public.apiUrl;
-
 export const useTooltipsStore = defineStore("tooltips", () => {
+  const config = useRuntimeConfig();
+  const api = config.public.apiUrl;
+
   async function getDescription(word: string | number, type: string) {
     switch (type) {
       case "traits":

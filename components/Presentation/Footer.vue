@@ -1,14 +1,16 @@
 <template>
   <div class="footer-container">
-    <div v-if="$slots.feedback" class="feedback mt-6">
-      <slot name="feedback" />
+    <div v-if="$slots.feedback" class="feedback-container mt-6 mx-4">
+      <div class="feedback">
+        <slot name="feedback" />
+      </div>
     </div>
     <div class="footer-cta mt-10 mb-8 mx-4">
       <div class="logo-container">
         <div class="logo-gradients">
-          <!-- <div class="gradient gradient-1" />
+          <div class="gradient gradient-1" />
           <div class="gradient gradient-2" />
-          <div class="gradient gradient-3" /> -->
+          <div class="gradient gradient-3" />
         </div>
         <MSLogo class="logo" />
       </div>
@@ -42,8 +44,6 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-.footer-container {
-}
 .footer-cta {
   display: flex;
   flex-direction: column;
@@ -57,6 +57,7 @@
   align-items: center;
   @apply border-t border-t-background-300 bg-gradient-to-b from-background-150 to-background-200 gap-2;
 }
+
 .footer-text {
   max-width: 600px;
   @apply text-xs text-center;
@@ -91,19 +92,35 @@
   @apply rounded-xl;
 }
 .gradient-1 {
-  background: red;
-  animation: gradient-2 1.3s alternate infinite;
+  opacity: 0.3;
+  background: rgb(255, 0, 0);
+  animation: gradient-2 2s alternate infinite;
 }
 .gradient-2 {
-  background: blue;
-  animation: gradient-2 1s linear infinite;
-  animation-delay: 0.2s;
+  opacity: 0.3;
+  background: rgb(0, 0, 255);
+  animation: gradient-1 3.2s linear infinite;
+  animation-delay: 0.33s;
 }
 .gradient-3 {
+  opacity: 0.3;
   background: rgb(0, 255, 0);
-  animation: gradient-2 1.1s linear infinite;
-  animation-delay: 0.4s;
+  animation: gradient-2 6s linear infinite;
+  animation-delay: 0.66s;
 }
+.feedback-container {
+  display: flex;
+  justify-content: center;
+}
+.feedback {
+  max-width: 500px;
+}
+@media (min-width: theme("screens.md")) {
+  .feedback {
+    max-width: 600px;
+  }
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -115,28 +132,36 @@
 
 @keyframes gradient-1 {
   0% {
-    top: 1.5px;
-    left: 1.5px;
+    top: -1.5px;
+    left: -1.5px;
   }
-  20% {
+  15% {
     top: -1.5px;
     left: 0%;
   }
-  40% {
+  30% {
+    top: -1.5px;
+    left: 1.5px;
+  }
+  45% {
     top: 0%;
-    left: -1.5px;
+    left: 1.5px;
   }
   60% {
     top: 1.5px;
     left: 1.5px;
   }
-  80% {
-    top: 1.5%;
+  75% {
+    top: 1.5px;
     left: 0%;
   }
+  90% {
+    top: 0%;
+    left: -1.5px;
+  }
   100% {
-    top: 1.5px;
-    left: 1.5px;
+    top: -1.5px;
+    left: -1.5px;
   }
 }
 @keyframes gradient-2 {
@@ -144,21 +169,29 @@
     top: -1.5px;
     left: -1.5px;
   }
-  20% {
+  15% {
     top: 0%;
     left: -1.5px;
   }
-  40% {
-    top: 1.5%;
+  30% {
+    top: 1.5px;
     left: 0%;
   }
-  60% {
+  45% {
     top: 1.5px;
     left: 1.5px;
   }
-  80% {
-    top: 1.5px;
-    left: -1.5px;
+  60% {
+    top: 0%;
+    left: 1.5px;
+  }
+  75% {
+    top: -1.5px;
+    left: 1.5px;
+  }
+  90% {
+    top: -1.5px;
+    left: 0%;
   }
   100% {
     top: -1.5px;

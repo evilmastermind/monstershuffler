@@ -76,10 +76,18 @@
   @apply gap-1;
 }
 .examples-arrow {
-  font-size: 30px;
-  width: 20px;
+  font-size: 15px;
+  width: 10px;
   @apply text-text-icon;
 }
+@media (min-width: 390px) {
+  .examples-arrow {
+    font-size: 30px;
+    width: 20px;
+    @apply text-text-icon;
+  }
+}
+
 @media (min-width: theme("screens.md")) {
   .notes {
     flex-direction: row;

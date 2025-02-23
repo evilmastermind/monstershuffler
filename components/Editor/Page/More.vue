@@ -2,11 +2,70 @@
   <div>
     <h2 class="static text-left">More!</h2>
     <p class="text-center mt-2 italic text-sm">You need more? We got more!</p>
+    <!-- <PresentationCardList image="/images/backgrounds/druid.webp">
+      <ul class="card-list">
+        <PresentationCard icon="mdi:music">
+          <template #title>Music player</template>
+          <template #default>
+            <p class="static">
+              Create playlists to set the mood for your game. Upload tracks and
+              add them to notes, monsters, combats, or player characters. A
+              playlist at the bottom of your screen will automatically populate
+              with the tracks found in your currently opened notes.
+            </p>
+          </template>
+        </PresentationCard>
+        <PresentationCard icon="game-icons:dice-twenty-faces-twenty">
+          <template #title>Dice roller</template>
+          <template #default>
+            <p class="static">
+              Roll dice using a simple interface and keep track of all your
+              rolls, including detailed damage types and modifiers.
+            </p>
+          </template>
+        </PresentationCard>
+        <PresentationCard icon="game-icons:notebook">
+          <template #title>Players' notebook</template>
+          <template #default>
+            <p class="static">
+              Share content with your players, allow them to write their own
+              notes and add details to their character.
+            </p>
+          </template>
+        </PresentationCard>
+        <PresentationCard icon="emojione-monotone:owl">
+          <template #title>VTT Support</template>
+          <template #default>
+            <p class="static">
+              Integrate the combat manager with your favourite VTT, to quickly
+              set up encounters and track initiative.
+            </p>
+          </template>
+        </PresentationCard>
+        <PresentationCard icon="material-symbols-light:cloud-download-rounded">
+          <template #title>Downloadable</template>
+          <template #default>
+            <p class="static">
+              Your content is yours. You can download it anytime and use it
+              locally with the software of your choice.
+            </p>
+          </template>
+        </PresentationCard>
+        <PresentationCard icon="ri:open-source-fill">
+          <template #title>Open Source</template>
+          <template #default>
+            <p class="static">
+              Many tools, including the engine behind dynamic stat blocks, will
+              be open source and freely available. APIs will also be provided to
+              retrieve or generate content.
+            </p>
+          </template>
+        </PresentationCard>
+      </ul>
+    </PresentationCardList> -->
     <div class="more-stuff">
       <div class="notes">
-        <div class="examples">
-          <EditorPageMusicPlayer />
-        </div>
+        <div class="example"></div>
         <div class="notes-description">
           <ul class="static mt-2">
             <li class="item-music">
@@ -20,9 +79,7 @@
         </div>
       </div>
       <div class="notes">
-        <div class="examples">
-          <DiceHistory />
-        </div>
+        <div class="example"></div>
         <div class="notes-description">
           <ul class="static mt-2">
             <li class="item-dice">
@@ -34,9 +91,7 @@
         </div>
       </div>
       <div class="notes">
-        <div class="examples">
-          <Icon name="twemoji:notebook" class="icon-notebook" />
-        </div>
+        <div class="example"></div>
         <div class="notes-description">
           <ul class="static mt-2">
             <li class="item-players">
@@ -47,14 +102,35 @@
         </div>
       </div>
       <div class="notes">
-        <div class="examples">
-          <Icon name="noto:crossed-swords" class="icon-notebook" />
-        </div>
+        <div class="example"></div>
         <div class="notes-description">
           <ul class="static mt-2">
             <li class="item-owl">
               <em>VTT Support</em>: integrate the combat manager with your
               favourite VTT, to quickly set up encounters and track initiative.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="notes">
+        <div class="example"></div>
+        <div class="notes-description">
+          <ul class="static mt-2">
+            <li class="item-floppy">
+              <em>Downloadable</em>: Your content is yours. You can download it
+              anytime and use it locally with the software of your choice.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="notes">
+        <div class="example"></div>
+        <div class="notes-description">
+          <ul class="static mt-2">
+            <li class="item-open">
+              <em>Open Source</em>: Many tools, including the engine behind
+              dynamic stat blocks, will be open source and freely available.
+              APIs will also be provided to retrieve or generate content.
             </li>
           </ul>
         </div>
@@ -80,25 +156,21 @@
 .notes-description {
   max-width: 500px;
 }
-.examples {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  height: 100%;
-  @apply gap-6;
+.example {
+  display: none;
+  place-items: center;
+  width: 3rem;
+  aspect-ratio: 1;
+  @apply rounded-xl border-2 border-text-icon text-text bg-inset-500 shadow;
 }
-.examples-arrow {
-  font-size: 30px;
-  width: 20px;
-  @apply text-text-icon;
+.example-icon {
+  font-size: 2rem;
 }
 .more-stuff {
   display: flex;
   flex-direction: column;
   align-items: center;
-  @apply gap-8 mt-6;
+  @apply gap-6 mt-6;
 }
 @media (min-width: theme("screens.md")) {
   .notes {
@@ -110,6 +182,7 @@
     min-width: 370px;
   }
   .notes-description {
+    max-width: 600px;
     @apply mt-0;
   }
   .more-stuff {
@@ -130,5 +203,11 @@
 }
 .item-owl::before {
   content: "🦉";
+}
+.item-floppy::before {
+  content: "💾";
+}
+.item-open::before {
+  content: "💚";
 }
 </style>

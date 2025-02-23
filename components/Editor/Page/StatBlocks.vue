@@ -64,7 +64,7 @@
   .statblocks {
     display: grid;
     grid-template-columns: min-content 1fr;
-    align-items: start;
+    align-items: flex-start;
     @apply gap-8;
   }
   .statblock {

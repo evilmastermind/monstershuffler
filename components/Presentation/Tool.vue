@@ -1,8 +1,10 @@
 <template>
   <div class="tool-container">
-    <PresentationThumbnail>
-      <slot name="image" />
-    </PresentationThumbnail>
+    <div class="tool">
+      <PresentationThumbnail>
+        <slot name="image" />
+      </PresentationThumbnail>
+    </div>
     <div v-if="$slots.default || $slots.title" class="tool-text">
       <h3 v-if="$slots.title" class="static">
         <slot name="title" />
@@ -21,8 +23,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  perspective: 1500px;
   @apply gap-6;
+}
+.tool {
+  perspective: 300px;
 }
 .tool-text {
   text-align: left;

@@ -1,11 +1,15 @@
 <template>
-  <Transition name="fade" mode="out-in" appear>
-    <PresentationCardList
-      :key="currentCreation.content.name"
-      :image="currentCreation.content.background"
-    >
-      <div class="share lg-max px-2">
-        <div class="share-example" :class="[background]">
+  <PresentationCardList
+    image="/images/backgrounds/underdarker.webp"
+    :mask-number="2"
+  >
+    <div class="share lg-max px-2">
+      <div
+        :key="currentCreation.content.name"
+        class="share-example"
+        :class="[background]"
+      >
+        <Transition name="fade" mode="out-in" appear>
           <MSNote>
             <div
               class="share-image-container"
@@ -59,20 +63,20 @@
               </div>
             </div>
           </MSNote>
-        </div>
-        <div class="share-description">
-          <h1 class="static custom-title text-center">Share your creations</h1>
-          <p class="share-description-text mt-4">
-            Publish monsters, notes, adventures and whole campaigns!
-          </p>
-          <p class="share-description-text mt-2">
-            Build your adventures with a library of premade content created by
-            your peers.
-          </p>
-        </div>
+        </Transition>
       </div>
-    </PresentationCardList>
-  </Transition>
+      <div class="share-description">
+        <h1 class="static custom-title text-center">Share your creations</h1>
+        <p class="share-description-text mt-4">
+          Publish monsters, notes, adventures and whole campaigns!
+        </p>
+        <p class="share-description-text mt-2">
+          Build your adventures with a library of premade content created by
+          your peers.
+        </p>
+      </div>
+    </div>
+  </PresentationCardList>
 </template>
 
 <script setup lang="ts">
@@ -93,7 +97,6 @@ const creations = [
       name: "Trouble at Io'Calioth",
       description: "An adventure for 4-6 players set in the world of Iomandra.",
       image: "/images/presentation/iomandra.webp",
-      background: "/images/presentation/docks.webp",
     },
   },
   {
@@ -111,7 +114,23 @@ const creations = [
       description:
         "Lurking in the ocean's depths, the Hadal Tarrasque is a whispered myth.",
       image: "/images/presentation/deep-tarrasque.webp",
-      background: "/images/presentation/deep-sea.webp",
+    },
+  },
+  {
+    user: {
+      name: "Moss",
+      avatar: "/images/presentation/author4.webp",
+    },
+    social: {
+      comments: 2,
+      likes: 6,
+      copied: 7,
+    },
+    content: {
+      name: "Operation B.R.",
+      description:
+        "The discovery of a painting thought to be lost for centuries leads to a deadly underground dungeon.",
+      image: "/images/presentation/dungeon.webp",
     },
   },
   {
@@ -129,7 +148,6 @@ const creations = [
       description:
         "They say Yomammu is so fat she needs two portals to enter the material plane.",
       image: "/images/presentation/yomammu.webp",
-      background: "/images/backgrounds/barracks2.webp",
     },
   },
 ];
@@ -152,7 +170,7 @@ onMounted(() => {
   interval.value = setInterval(() => {
     currentCreationIndex.value =
       (currentCreationIndex.value + 1) % creations.length;
-  }, 10000);
+  }, 7000);
 });
 </script>
 
@@ -239,7 +257,8 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   width: 100%;
-  text-shadow: 0 0 20px black;
+  text-shadow: 2px 2px 0px hsl(0, 0%, 0%), 1px 1px 0px hsl(0, 0%, 0%),
+    0px 0px 20px hsl(0, 0%, 0%);
   color: hsl(46, 47%, 97%);
   @apply mb-9;
 }
@@ -254,10 +273,14 @@ onMounted(() => {
 @media (min-width: theme("screens.md")) {
   .share {
     flex-direction: row;
+    align-items: center;
     @apply gap-8;
   }
   .share-example {
     @apply mb-9;
+  }
+  .share-description {
+    @apply mb-0;
   }
 }
 </style>

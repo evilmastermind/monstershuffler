@@ -60,13 +60,13 @@
 .notes {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   @apply gap-2;
 }
 .note {
   width: 100%;
-  max-width: 500px;
-  @apply mx-auto rounded border border-inset-300;
+  max-width: 400px;
+  @apply mx-auto border border-inset-500 rounded-xl shadow-lg;
 }
 .notes-description {
   max-width: 500px;
@@ -78,8 +78,8 @@
     @apply gap-8;
   }
   .note {
-    max-width: 370px;
-    min-width: 370px;
+    max-width: 400px;
+    min-width: 400px;
   }
   .notes-description {
     @apply mt-0;

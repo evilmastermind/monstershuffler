@@ -2,28 +2,26 @@
   <div>
     <h2 class="static">Note Groups</h2>
     <div class="notegroups mt-6">
-      <Carousel
-        :items-to-show="1"
-        wrap-around
-        :autoplay
-        pause-autoplay-on-hover
-        class="carousel"
-      >
-        <Slide v-for="image in images" :key="image.title">
-          <div class="slide">
-            <img class="image" :src="image.src" alt="image.description" />
-            <div class="image-title pb-6">
-              <p class="font-bold text-center">
-                {{ image.title }}
-              </p>
+      <div class="carousel">
+        <div
+          v-for="(image, index) in images"
+          :key="image.title"
+          class="relative"
+        >
+          <Transition name="auto-slide-right" mode="out-in">
+            <div v-if="index === currentImageIndex" class="slide">
+              <div class="image-container">
+                <img class="image" :src="image.src" alt="image.description" />
+              </div>
+              <div class="image-title">
+                <p class="font-bold text-center">
+                  {{ image.title }}
+                </p>
+              </div>
             </div>
-          </div>
-        </Slide>
-        <template #addons>
-          <Navigation />
-          <Pagination />
-        </template>
-      </Carousel>
+          </Transition>
+        </div>
+      </div>
       <div class="notegroups-description">
         <p class="static">
           Note groups offer ways to structure and organize your notes:
@@ -81,9 +79,10 @@
 </template>
 
 <script setup lang="ts">
-import { Carousel, Navigation, Slide, Pagination } from "vue3-carousel";
+const currentImageIndex = ref(0);
+let interval: NodeJS.Timeout | undefined;
 
-const autoplay = ref(5000);
+const currentImage = computed(() => images[currentImageIndex.value]);
 
 const images = [
   {
@@ -111,43 +110,61 @@ const images = [
       "An image of a game session note, with lists of notes on its sides.",
   },
 ];
+
+onMounted(() => {
+  interval = setInterval(() => {
+    currentImageIndex.value = (currentImageIndex.value + 1) % images.length;
+  }, 5000);
+});
+
+onUnmounted(() => {
+  clearInterval(interval);
+});
 </script>
 
 <style scoped>
 .notegroups {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
+  overflow: hidden;
   @apply gap-2;
 }
 .carousel {
-  overflow: hidden;
   width: 100%;
   max-width: 400px;
-  @apply border border-inset-300 rounded shadow;
+  height: 500px;
+  overflow: hidden;
+  @apply border border-inset-500 rounded-xl shadow-lg mx-4;
 }
 .slide {
-  position: relative;
-  font-family: "MrsEavesSmallCaps", serif;
-  font-size: 1.3rem;
-  letter-spacing: 0.05em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 500px;
+  font-family: "LibreBaskerville", sans-serif;
+  font-size: 1.1rem;
   overflow: hidden;
-  width: 100%;
-  @apply bg-text text-text-inverse;
+  background-image: url("/images/backgrounds/druid.webp");
+  @apply text-stone-50;
 }
 .image-container {
-  position: relative;
-  overflow: hidden;
+  height: 440px;
 }
 .image {
-  width: 100%; /* Dynamic width */
-  height: 440px; /* Fixed height */
-  object-fit: cover; /* Keeps aspect ratio and crops the image if needed */
-  overflow: hidden; /* Ensures excess content is not shown */
-  mask-image: url("/images/masks/bottom-2.webp");
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  mask-image: url("/images/masks/bottom-1.webp");
   mask-size: 200% auto;
   mask-repeat: repeat-x;
   mask-position: bottom center;
+}
+.image-title {
+  @apply pb-5;
 }
 .notegroups-description {
   max-width: 500px;
@@ -163,10 +180,10 @@ const images = [
     @apply mt-0;
   }
   .carousel {
-    max-width: 500px;
+    width: 400px;
   }
   .image {
-    height: 550px;
+    width: 400px;
   }
 }
 .list-archives::before {
@@ -181,7 +198,4 @@ const images = [
 .list-sessions::before {
   content: "🎲";
 }
-</style>
-<style>
-@import "@/assets/css/carousel.css";
 </style>

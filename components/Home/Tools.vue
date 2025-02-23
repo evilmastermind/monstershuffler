@@ -46,6 +46,7 @@
   cursor: pointer;
   width: 150px;
   flex-shrink: 0;
+  perspective: 300px;
   @apply gap-3;
 }
 .tool-title {

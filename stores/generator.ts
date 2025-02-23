@@ -13,14 +13,13 @@ import type {
   NpcDetails,
 } from "@/types";
 
-const config = useRuntimeConfig();
-const api = config.public.apiUrl;
-
 class FatalError extends Error {}
 
 /// /////////////////////////////////////
 
 export const useGeneratorStore = defineStore("generator", () => {
+  const config = useRuntimeConfig();
+  const api = config.public.apiUrl;
   /**
    * State
    */
