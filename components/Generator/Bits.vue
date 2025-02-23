@@ -16,11 +16,12 @@
       </div>
       <GeneratorBit
         v-for="(npc, index) in characters"
-        :key="index"
+        :key="npc.id"
         :index="index"
         tabindex="0"
         @mousedown="showCharacterPage(index)"
         @click="showCharacterPage(index)"
+        @deleted="generator.spliceCharacter(index)"
       />
     </TransitionGroup>
     <MonsterCard
@@ -70,8 +71,7 @@ function deleteAllCharacters() {
     return;
   }
   hasDeleteButtonBeenClickedOnce.value = false;
-  characters.value.length = 0;
-  currentCharacterIndex.value = -1;
+  generator.clearAllCharacters();
 }
 
 function showCharacterPage(index: number) {

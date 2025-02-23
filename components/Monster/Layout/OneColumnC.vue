@@ -6,15 +6,13 @@
           <slot name="backstory" />
         </div>
         <div class="stats">
-          <MonsterStatBlock />
+          <slot name="stats" :columns="1" />
           <div class="card my-4">
-            <MonsterSheetCard v-if="showRoleplayStats">
-              <MonsterRoleplayStats />
-            </MonsterSheetCard>
+            <slot v-if="showRoleplayStats" name="card" />
           </div>
         </div>
       </div>
-      <MonsterImages class="image" :rules @load="e('load')" />
+      <slot name="images" :rules />
     </div>
   </div>
 </template>

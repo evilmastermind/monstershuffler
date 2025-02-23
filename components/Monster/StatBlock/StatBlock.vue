@@ -1,5 +1,9 @@
 <template>
-  <div ref="statBlock" class="stat-block-container" :id="`monster-${character.id || 0}`">
+  <div
+    :id="`monster-${character.id || 0}`"
+    ref="statBlock"
+    class="stat-block-container"
+  >
     <div class="border" :class="[imageClasses.border]" />
     <div class="stat-block" :class="[imageClasses.paper]">
       <div class="gradient" :class="[imageClasses.gradient]" />
@@ -82,7 +86,7 @@ function scrollIntoView() {
   }
 }
 
-watch([columnsCount,columnsFromActions, () => p.columns], () => {
+watch([columnsCount, columnsFromActions, () => p.columns], () => {
   scrollIntoView();
 });
 

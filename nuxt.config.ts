@@ -5,15 +5,19 @@ export default defineNuxtConfig({
     pageTransition: { name: "fade-quick", mode: "out-in" },
     layoutTransition: { name: "fade-quick", mode: "out-in" },
     head: {
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
   },
-  // ssr: false,
+
   spaLoadingTemplate: "public/spa-loading-template.html",
+
   routeRules: {
-    "/": { swr: 600 },
+    "/": { ssr: true },
     "/monsters/generator": { ssr: false },
     "/monsters/generator/**": { ssr: false },
+    "/editors": { swr: 600 },
+    "/dm-screen": { swr: 600 },
+    "/community-creations": { swr: 600 },
     "/login": { swr: 600 },
     "/registration": { swr: 600 },
     "/user-reactivation": { swr: 600 },
@@ -23,12 +27,15 @@ export default defineNuxtConfig({
     "/reset-password": { swr: 600 },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
   },
+
   devServer: {
     port: 3001,
   },
+
   devtools: {
-    enabled: false,
+    enabled: true,
   },
+
   vite: {
     vue: {
       script: {
@@ -55,10 +62,6 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  // devtools: {
-  //   enabled: false,
-  // },
 
   runtimeConfig: {
     someServerSideVariable: "some value",
@@ -95,6 +98,10 @@ export default defineNuxtConfig({
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
     vueI18n: "./plugins-other/i18n.config.ts",
+  },
+
+  icon: {
+    provider: "server",
   },
 
   postcss: {

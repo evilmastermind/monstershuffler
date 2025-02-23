@@ -1,18 +1,18 @@
 <template>
   <div class="layout-container">
-    <MonsterImages :rules @load="e('load')" />
+    <slot name="images" :rules />
     <div class="layout">
       <div class="roleplay">
         <div class="story">
           <slot name="backstory" />
         </div>
         <div class="card class= mt-6">
-          <MonsterSheetCard v-if="showRoleplayStats">
-            <MonsterRoleplayStats />
-          </MonsterSheetCard>
+          <slot v-if="showRoleplayStats" name="card" />
         </div>
       </div>
-      <MonsterStatBlock :columns="2" class="mt-6" />
+      <div class="mt-6">
+        <slot name="stats" :columns="2" />
+      </div>
     </div>
   </div>
 </template>

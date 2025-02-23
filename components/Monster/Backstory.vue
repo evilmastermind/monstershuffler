@@ -14,7 +14,10 @@
       <Transition name="fade">
         <div
           v-if="
-            backstory && ['closed', undefined].includes(wrapper?.streamStatus)
+            false &&
+            backstory &&
+            ['closed', undefined].includes(wrapper?.streamStatus) &&
+            hasRating
           "
           class="hide-from-exports"
         >
@@ -48,6 +51,13 @@
 <script setup lang="ts">
 import type { Character, GeneratorCharacter } from "@/types";
 
+const p = defineProps({
+  hasRating: {
+    type: Boolean,
+    default: true,
+  },
+});
+
 const generatorStore = useGeneratorStore();
 const user = useUserStore();
 
@@ -76,7 +86,6 @@ watch(
 
 onMounted(async () => {
   getRating();
-
 
   if (!backstory.value && !wrapper.value.streamStatus) {
     const result = await generatorStore.generateBackstory(wrapper);

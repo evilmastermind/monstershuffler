@@ -18,9 +18,7 @@
     :theme="finalTheme"
     :target-nodes="getTargetNodes"
     :popper-node="() => ($refs as any).popperContent.$el"
-    :class="[
-      themeClass,
-    ]"
+    :class="[themeClass]"
     @show="() => $emit('show')"
     @hide="() => $emit('hide')"
     @update:shown="(shown) => $emit('update:shown', shown)"
@@ -31,11 +29,7 @@
     @auto-hide="() => $emit('auto-hide')"
     @resize="() => $emit('resize')"
   >
-    <slot
-      :shown="isShown"
-      :show="show"
-      :hide="hide"
-    />
+    <slot :shown="isShown" :show="show" :hide="hide" />
 
     <PopperContent
       ref="popperContent"
@@ -51,42 +45,35 @@
       @hide="hide"
       @resize="onResize"
     >
-      <slot
-        name="popper"
-        :shown="isShown"
-        :hide="hide"
-      />
+      <slot name="popper" :shown="isShown" :hide="hide" />
     </PopperContent>
   </Popper>
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
-import Popper from './Popper.vue'
-import PopperContent from './PopperContent.vue'
-import PopperMethods from './PopperMethods'
-import ThemeClass from './ThemeClass'
-import type { Placement } from '../util/popper.js'
+import { defineComponent, type PropType } from "vue";
+import type { Placement } from "../util/popper.js";
+import Popper from "./Popper.vue";
+import PopperContent from "./PopperContent.vue";
+import PopperMethods from "./PopperMethods";
+import ThemeClass from "./ThemeClass";
 
-export type TriggerEvent = 'hover' | 'click' | 'focus' | 'touch'
+export type TriggerEvent = "hover" | "click" | "focus" | "touch";
 
-let Element: any = function () {}
-if (typeof window !== 'undefined') {
-  Element = window.Element
+let Element: any = function () {};
+if (typeof window !== "undefined") {
+  Element = window.Element;
 }
 
 export default defineComponent({
-  name: 'VPopperWrapper',
+  name: "VPopperWrapper",
 
   components: {
     Popper,
     PopperContent,
   },
 
-  mixins: [
-    PopperMethods,
-    ThemeClass('finalTheme'),
-  ],
+  mixins: [PopperMethods, ThemeClass("finalTheme")],
 
   props: {
     theme: {
@@ -130,7 +117,9 @@ export default defineComponent({
     },
 
     delay: {
-      type: [String, Number, Object] as PropType<string | number | { show: number, hide: number }>,
+      type: [String, Number, Object] as PropType<
+        string | number | { show: number; hide: number }
+      >,
       default: undefined,
     },
 
@@ -150,12 +139,18 @@ export default defineComponent({
     },
 
     showTriggers: {
-      type: [Array, Function] as PropType<Array<TriggerEvent> | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)>,
+      type: [Array, Function] as PropType<
+        | Array<TriggerEvent>
+        | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)
+      >,
       default: undefined,
     },
 
     hideTriggers: {
-      type: [Array, Function] as PropType<Array<TriggerEvent> | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)>,
+      type: [Array, Function] as PropType<
+        | Array<TriggerEvent>
+        | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)
+      >,
       default: undefined,
     },
 
@@ -165,12 +160,18 @@ export default defineComponent({
     },
 
     popperShowTriggers: {
-      type: [Array, Function] as PropType<Array<TriggerEvent> | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)>,
+      type: [Array, Function] as PropType<
+        | Array<TriggerEvent>
+        | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)
+      >,
       default: undefined,
     },
 
     popperHideTriggers: {
-      type: [Array, Function] as PropType<Array<TriggerEvent> | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)>,
+      type: [Array, Function] as PropType<
+        | Array<TriggerEvent>
+        | ((triggers: Array<TriggerEvent>) => Array<TriggerEvent>)
+      >,
       default: undefined,
     },
 
@@ -185,12 +186,14 @@ export default defineComponent({
     },
 
     strategy: {
-      type: String as PropType<'absolute' | 'fixed'>,
+      type: String as PropType<"absolute" | "fixed">,
       default: undefined,
     },
 
     autoHide: {
-      type: [Boolean, Function] as PropType<boolean | ((event: Event) => boolean)>,
+      type: [Boolean, Function] as PropType<
+        boolean | ((event: Event) => boolean)
+      >,
       default: undefined,
     },
 
@@ -228,7 +231,7 @@ export default defineComponent({
     },
 
     autoSize: {
-      type: [Boolean, String] as PropType<boolean | 'min' | 'max'>,
+      type: [Boolean, String] as PropType<boolean | "min" | "max">,
       default: undefined,
     },
 
@@ -294,26 +297,27 @@ export default defineComponent({
   emits: {
     show: () => true,
     hide: () => true,
-    'update:shown': (shown: boolean) => true,
-    'apply-show': () => true,
-    'apply-hide': () => true,
-    'close-group': () => true,
-    'close-directive': () => true,
-    'auto-hide': () => true,
+    "update:shown": (shown: boolean) => true,
+    "apply-show": () => true,
+    "apply-hide": () => true,
+    "close-group": () => true,
+    "close-directive": () => true,
+    "auto-hide": () => true,
     resize: () => true,
   },
 
   computed: {
-    finalTheme (): string {
-      return this.theme ?? this.$options.vPopperTheme
+    finalTheme(): string {
+      return this.theme ?? this.$options.vPopperTheme;
     },
   },
 
   methods: {
-    getTargetNodes () {
-      return Array.from(this.$el.children)
-        .filter(node => node !== this.$refs.popperContent.$el)
+    getTargetNodes() {
+      return Array.from(this.$el.children).filter(
+        (node) => node !== this.$refs.popperContent.$el
+      );
     },
   },
-})
+});
 </script>

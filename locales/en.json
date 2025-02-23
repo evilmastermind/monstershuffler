@@ -66,6 +66,9 @@
     "monstersTraits": "{name}'s Traits",
     "playVoice": "Play voice"
   },
+  "search": {
+    "placeholder": "Search anything..."
+  },
   "editor": {
     "layout": {
       "title": "Choose a Layout",
@@ -458,9 +461,9 @@
     "menu": {
       "home": "Homepage",
       "npcGenerator": "NPC Generator",
-      "editor": "Editor",
-      "dmScreen": "DM Screen",
-      "monsters": "Monsters",
+      "editors": "Editors",
+      "dmScreen": "DM Screen Example",
+      "communityCreations": "Community Creations",
       "settings": "Settings"
     }
   },
@@ -619,5 +622,6 @@
   "back": "Back",
   "theme": "Theme",
   "rename": "Rename",
-  "pin": "Pin"
+  "pin": "Pin",
+  "loading": "Loading..."
 }

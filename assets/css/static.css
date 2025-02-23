@@ -1,5 +1,6 @@
 h1.static   {
   display: block;
+  text-wrap: balance;
 }
 
 .gradient-title {
@@ -17,27 +18,57 @@ h2.static {
   font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
   font-size: 1.6rem;
-  line-height: 1.2em;
+  line-height: 1.5em;
   letter-spacing: -0.04em;
   text-align: center;
+  text-wrap: balance;
+  @apply text-text
 }
 h3.static {
   font-family: "LibreBaskerville", sans-serif;
   font-weight: 800;
   font-size: 1.25rem; 
-  line-height: 1.2em;
+  line-height: 1.5em;
   letter-spacing: -0.04em;
-  @apply py-2;
+  text-wrap: balance;
+  @apply text-text py-2;
+}
+h4.static {
+  font-family: "LibreBaskerville", sans-serif;
+  font-weight: 800;
+  font-size: 1rem; 
+  line-height: 1.5em;
+  text-wrap: balance;
+  @apply text-text py-2;
 }
 p.static {
   font-family: "OpenSans", sans-serif;
   font-weight: 300;
-  font-size: 0.9rem;
-  @apply text-text-1;
+  text-wrap: pretty;
+  @apply text-text;
 }
 b.static {;
   font-weight: 700;
   @apply text-text;
+}
+ul.static {
+  font-family: "OpenSans", sans-serif;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  @apply text-text list-inside gap-4;
+}
+ul.static li::before {
+  @apply mr-1;
+}
+ul.static li::marker {
+  color: theme("colors.text-evil");
+}
+ul.static li em {
+  font-weight: bold;
+}
+a.static {
+  @apply text-text-evil font-bold;
 }
 .static + .max-width {
   max-width: 700px;
@@ -93,6 +124,10 @@ b.static {;
     font-size: 2rem;
   }
   p.static {
+    letter-spacing: 0;
+    font-size: 1rem;
+  }
+  ul.static {
     letter-spacing: 0;
     font-size: 1rem;
   }

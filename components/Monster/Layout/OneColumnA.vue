@@ -1,13 +1,11 @@
 <template>
   <div class="layout-container">
-    <MonsterImages :rules @load="e('load')" />
+    <slot name="images" :rules />
     <div class="layout">
-      <div class="stats">
-        <MonsterStatBlock />
+      <div v-if="$slots.stats || $slots.card" class="stats">
+        <slot name="stats" />
         <div class="card my-4">
-          <MonsterSheetCard v-if="showRoleplayStats">
-            <MonsterRoleplayStats />
-          </MonsterSheetCard>
+          <slot v-if="showRoleplayStats" name="card" />
         </div>
       </div>
       <div class="story">
@@ -41,12 +39,12 @@ const rules: ImageRules = {
   grid-template-areas:
     "story"
     "stats";
-  gap: 2rem;
   clear: both;
   @apply px-4 pb-4;
 }
 .stats {
   grid-area: stats;
+  @apply mt-6;
 }
 .story {
   grid-area: story;
@@ -59,6 +57,7 @@ const rules: ImageRules = {
     float: right;
     padding-left: 2rem;
     width: 50%;
+    @apply mt-0;
   }
 }
 

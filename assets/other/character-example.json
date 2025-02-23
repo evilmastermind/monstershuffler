@@ -1,0 +1,1578 @@
+{
+  "object":{
+    "character":{
+      "name":"Johnny",
+      "surname":"Frenzy",
+      "pronouns":"male",
+      "race":{
+        "id":8195,
+        "name":"Human",
+        "description":"",
+        "enableGenerator":true,
+        "ageAdult":18,
+        "ageMax":90,
+        "heightMin":5,
+        "heightMax":6,
+        "nameType":[
+          "human"
+        ],
+        "addSurname":70,
+        "subtypes":[
+          {
+            "value":"Human",
+            "availableAt":1
+          }
+        ],
+        "alignmentModifiers":[
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "abilityScoresLimit":20,
+        "speeds":{
+          "walk":"30"
+        },
+        "languages":[
+          {
+            "id":6,
+            "value":"Deep Speech"
+          },
+          {
+            "id":5,
+            "value":"Common"
+          }
+        ],
+        "bonuses":{
+          "STRBonus":{
+            "value":"1"
+          },
+          "DEXBonus":{
+            "value":"1"
+          },
+          "CONBonus":{
+            "value":"1"
+          },
+          "INTBonus":{
+            "value":"1"
+          },
+          "WISBonus":{
+            "value":"1"
+          },
+          "CHABonus":{
+            "value":"1"
+          }
+        },
+        "searchTags":[
+          "Realistic"
+        ],
+        "backstory":{
+          "time":1654025978502,
+          "blocks":[
+            {
+              "id":"rC_7De--Bo",
+              "data":{
+                "text":"Base race from the player's handbook."
+              },
+              "type":"paragraph"
+            },
+            {
+              "id":"B_JpU1Wwy9",
+              "data":{
+                "text":"Some variants use the same actions and abilities that player characters have, others were just inspired by them or were completely created by us."
+              },
+              "type":"paragraph"
+            },
+            {
+              "id":"k1GFULG-c3",
+              "data":{
+                "text":"-Ismael&nbsp;"
+              },
+              "type":"paragraph"
+            }
+          ],
+          "version":"2.23.2"
+        }
+      },
+      "class":{
+        "id":8703,
+        "name":"Barbarian",
+        "description":"",
+        "enableGenerator":true,
+        "armor":{
+          "AC":"10+CON",
+          "name":"Unarmored Defense",
+          "minStr":"0"
+        },
+        "resistances": [
+          {
+            "value": "bludgeoning, piercing and slashing",
+            "availableAt": 1
+          }
+        ],
+        "conditionImmunities": [
+          {
+            "value": "sleep",
+            "availableAt": 1
+          }
+        ],
+        "savingThrows":[
+          {
+            "value":"STR",
+            "availableAt":1
+          },
+          {
+            "value":"CON",
+            "availableAt":1
+          }
+        ],
+        "skills":[
+          {
+            "id":8,
+            "value":"Nature"
+          },
+          {
+            "id":10,
+            "value":"Animal Handling"
+          }
+        ],
+        "actions":[],
+        "bonuses":{
+          "HPBonus":{
+            "name":"",
+            "value":"LVL*2"
+          },
+          "STRBonus":{
+            "name":"",
+            "value":"(LVL>19)*4"
+          },
+          "CONBonus":{
+            "name":"",
+            "value":"(LVL>19)*4"
+          }
+        },
+        "searchTags":[
+          "Warlike",
+          "Brute"
+        ],
+        "backstory":{
+          "time":1654024229514,
+          "blocks":[
+            {
+              "id":"GSVux95N40",
+              "data":{
+                "text":"Base class from the player's handbook."
+              },
+              "type":"paragraph"
+            },
+            {
+              "id":"IwGVu1nFLk",
+              "data":{
+                "text":"Some variants use the same actions and abilities that player characters have, others were just inspired by them or were completely created by us."
+              },
+              "type":"paragraph"
+            },
+            {
+              "id":"6-82RLygAD",
+              "data":{
+                "text":"-Ismael"
+              },
+              "type":"paragraph"
+            }
+          ],
+          "version":"2.23.2"
+        }
+      },
+      "classvariant":{
+        "id":12393,
+        "name":"Berserker",
+        "description":"",
+        "armor":{
+          "AC":"12",
+          "name":"Studded leather",
+          "cost":"4500",
+          "type":"light",
+          "weight":"13",
+          "stealthDis":false
+        },
+        "actions":[
+          {
+            "tag":"bonus2",
+            "priority":25,
+            "variants":[
+              {
+                "name":"Rage",
+                "type":"bonus",
+                "description":"[Name] enters a state of frenzy, gaining new abilities and the following benefits if [they] isn't wearing any armor:\n- [they] gains advantage on Strength checks and Strength saving throws;\n- [they] gains resistance to bludgeoning, piercing and slashing damage;\n- [they] can't be charmed or frightened, and if [name] was under those effect they are suspended while [they] rages;\n- when [name] drops to 0 hit points, [they] can make a DC 10 Constitution saving throw. If [they] succeeds, [they] drops to 1 hit point instead. Each time [they] uses this feature before a short rest, the DC increases by 5.\n[Name]'s rage lasts until [they] is knocked unconscious or until [they] chooses to end it.",
+                "availableAt":15
+              }
+            ],
+            "availableUnit":"level"
+          },
+          {
+            "tag":"bonus3",
+            "priority":20,
+            "variants":[
+              {
+                "name":"Frenzy (While Raging)",
+                "type":"bonus",
+                "description":"[Name] makes an additional attack with [their] [Berserker melee]",
+                "availableAt":3
+              }
+            ],
+            "availableUnit":"level"
+          },
+          {
+            "tag":"reaction0",
+            "priority":20,
+            "variants":[
+              {
+                "name":"Retailation",
+                "type":"reaction",
+                "description":"When [name] takes damage from a creature that is within {value2} of [them], [they] can make an attack with [their] [Berserker melee] against that creature.",
+                "availableAt":14
+              }
+            ],
+            "availableUnit":"level",
+            "values":[
+              {
+                "name":"value2",
+                "type":"feet",
+                "expression":"5+(SIZE>3)*(SIZE-3)*5"
+              }
+            ]
+          },
+          {
+            "tag":"Berserker melee",
+            "priority":20,
+            "variants":[
+              {
+                "name":"Halberd",
+                "type":"attack",
+                "description":"{attack1}",
+                "ability":"STR"
+              }
+            ],
+            "availableUnit":"level",
+            "attacks":[
+              {
+                "name":"attack1",
+                "replaceName":true,
+                "attributes":{
+                  "name":"Halberd",
+                  "cost":"2000",
+                  "weight":"6",
+                  "damageType":"slashing damage",
+                  "dice":"1",
+                  "sides":"10",
+                  "properties":[
+                    "two-handed",
+                    "melee",
+                    "martial",
+                    "heavy",
+                    "reach"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "tag":"action0",
+            "priority":20,
+            "variants":[
+              {
+                "name":"Multiattack",
+                "type":"multiattack",
+                "description":"[Name] makes {value2} with [their] [Berserker melee].",
+                "availableAt":5
+              }
+            ],
+            "availableUnit":"level",
+            "values":[
+              {
+                "name":"value2",
+                "type":"attack",
+                "expression":"1 + (LVL>4)"
+              }
+            ]
+          },
+          {
+            "tag":"bonus4",
+            "priority":25,
+            "variants":[
+              {
+                "name":"Rage",
+                "type":"bonus",
+                "description":"[Name] enters a state of frenzy, gaining new abilities and the following benefits if [they] isn't wearing heavy armor:\n- [they] gains advantage on Strength checks and Strength saving throws;\n- [they] gains resistance to bludgeoning, piercing and slashing damage;\n- [they] can't be charmed or frightened, and if [name] was under those effect they are suspended while [they] rages.\n[Name]'s rage lasts for 1 minute or until [they] is knocked unconscious.",
+                "availableAt":6
+              }
+            ],
+            "availableUnit":"level",
+            "availableUntil":11
+          },
+          {
+            "tag":"bonus1",
+            "priority":25,
+            "variants":[
+              {
+                "name":"Rage",
+                "type":"bonus",
+                "description":"[Name] enters a state of frenzy, gaining new abilities and the following benefits if [they] isn't wearing heavy armor:\n- [they] gains advantage on Strength checks and Strength saving throws;\n- [they] gains resistance to bludgeoning, piercing and slashing damage\n[Name]'s rage lasts for 1 minute or until [they] is knocked unconscious.",
+                "availableAt":1
+              }
+            ],
+            "availableUnit":"level",
+            "availableUntil":5
+          },
+          {
+            "tag":"bonus0",
+            "priority":25,
+            "variants":[
+              {
+                "name":"Rage",
+                "type":"bonus",
+                "description":"[Name] enters a state of frenzy, gaining new abilities and the following benefits if [they] isn't wearing heavy armor:\n- [they] gains advantage on Strength checks and Strength saving throws;\n- [they] gains resistance to bludgeoning, piercing and slashing damage;\n- [they] can't be charmed or frightened, and if [name] was under those effect they are suspended while [they] rages;\n- when [name] drops to 0 hit points, [they] can make a DC 10 Constitution saving throw. If [they] succeeds, [they] drops to 1 hit point instead. Each time [they] uses this feature before a short rest, the DC increases by 5.\n[Name]'s rage lasts for 1 minute or until [they] is knocked unconscious.",
+                "availableAt":11
+              }
+            ],
+            "availableUnit":"level",
+            "availableUntil":14
+          }
+        ],
+        "bonuses":{
+          "walkBonus":{
+            "name":"",
+            "value":"(LVL>4)*10"
+          },
+          "STRBonus":{
+            "name":"",
+            "value":"(LVL/4)*2 + 2"
+          },
+          "CONBonus":{
+            "name":"",
+            "value":"(LVL/4)*1+ 2"
+          },
+          "meleeDamageBonus":{
+            "name":"",
+            "value":"1+(LVL\\6)"
+          }
+        }
+      },
+      "user":{
+        "abilityScores":{
+          "STR":{
+            "value":11
+          },
+          "DEX":{
+            "value":10
+          },
+          "CON":{
+            "value":15
+          },
+          "INT":{
+            "value":12
+          },
+          "WIS":{
+            "value":8
+          },
+          "CHA":{
+            "value":10
+          }
+        },
+        "skills":[
+          {
+            "value":"Survival"
+          }
+        ],
+        "sheet":{
+          "layout":"MonsterLayoutDynamicA",
+          "showRoleplayStats":true,
+          "images":[
+            {
+              "url":"/images/backgrounds/druid.webp",
+              "artist":"",
+              "artistUrl":"",
+              "canvasHeightPx":200,
+              "canvasWidthPx":1168,
+              "imageHeightPx":200,
+              "imagePositionLeftPx":0,
+              "imagePositionTopPx":0,
+              "mask":"2",
+              "token":{
+                "topPx":64,
+                "leftPx":541,
+                "widthPx":363
+              }
+            }
+          ]
+        },
+        "backstory":{
+          "string":"\n\n#### Note Example\n\n Hello, I am a simple, **editable** note with one image on top.\n\nYou can format text using [Markdown](https://www.markdownguide.org/basic-syntax), or you can enable an _optional_ toolbar to make formatting even easier."
+        }
+      },
+      "alignmentModifiers":[
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "alignmentEthical":"Lawful",
+      "alignmentMoral":"Evil",
+      "characterHook":"who's always trying to reduce stress in [their] life",
+      "trait":{
+        "name":"Cooperative",
+        "description":"involving mutual assistance in working towards a common goal"
+      },
+      "feeling":{
+        "name":"Uptight",
+        "description":"worried or nervous and not able to relax"
+      },
+      "age":{
+        "number":85,
+        "string":"elderly"
+      },
+      "voice":{
+        "person":"Mark Hamill",
+        "character":"Luke Skywalker",
+        "production":"Star Wars",
+        "filename":"luke_skywalker"
+      },
+      "CRCalculation":{
+        "name":"npcstandard"
+      },
+      "physicalAppearance":"Before you stands an elderly man with a sturdy frame, an average height of 5 feet 5 inches, softened by the passage of time. His dark, tousled hair, streaked with gray, dances about his head like storm clouds as he moves. His deep-set, dark eyes glimmer with a mix of charm and fierce determination, and a wry smile plays on his lips. Clad in weathered studded leather armor, he exudes a rugged strength. A heavy halberd rests against his shoulder, while a finely crafted trident hangs at his side, hinting at a man ready for both conversation and combat."
+    },
+    "statistics":{
+      "alignment":{
+        "name":"Alignment",
+        "number":31,
+        "string":"Lawful Evil",
+        "array":[
+          {
+            "string":"Lawful",
+            "type":"translatableText"
+          },
+          {
+            "string":" "
+          },
+          {
+            "string":"Evil",
+            "type":"translatableText"
+          }
+        ]
+      },
+      "pronouns":"male",
+      "prename":"",
+      "name":"Johnny",
+      "surname":"Frenzy",
+      "fullName":"Johnny Frenzy",
+      "characterHook":[
+        {
+          "string":"The"
+        },
+        {
+          "string":" "
+        },
+        {
+          "string":"Barbarian",
+          "type":"class",
+          "id":8703
+        },
+        {
+          "string":" "
+        },
+        {
+          "string":"who's always trying to reduce stress in "
+        },
+        {
+          "string":"his",
+          "type":"tag"
+        },
+        {
+          "string":" life"
+        }
+      ],
+      "level":1,
+      "CR":{
+        "name":"1/4",
+        "number":-1,
+        "string":"1/4"
+      },
+      "XP":"50",
+      "AC":{
+        "name":"Studded leather",
+        "number":11,
+        "string":"11 (studded leather)",
+        "array":[
+          {
+            "string":"11",
+            "type":"text"
+          },
+          {
+            "string":" ("
+          },
+          {
+            "string":"studded leather",
+            "type":"armor"
+          },
+          {
+            "string":")"
+          }
+        ]
+      },
+      "proficiency":2,
+      "size":{
+        "name":"Medium",
+        "number":3,
+        "string":"Medium"
+      },
+      "abilities":{
+        "STR":{
+          "name":"Strength",
+          "number":14,
+          "string":"14 (+2)",
+          "array":[
+            {
+              "string":"14 ("
+            },
+            {
+              "string":"+2",
+              "number":2,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":12,
+                    "bonus":2
+                  }
+                ],
+                "name":"Strength",
+                "translationKey":"Strength"
+              }
+            },
+            {
+              "string":")"
+            }
+          ]
+        },
+        "DEX":{
+          "name":"Dexterity",
+          "number":9,
+          "string":"9 (-1)",
+          "array":[
+            {
+              "string":"9 ("
+            },
+            {
+              "string":"-1",
+              "number":-1,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":9,
+                    "bonus":-1
+                  }
+                ],
+                "name":"Dexterity",
+                "translationKey":"Dexterity"
+              }
+            },
+            {
+              "string":")"
+            }
+          ]
+        },
+        "CON":{
+          "name":"Constitution",
+          "number":11,
+          "string":"11 (+0)",
+          "array":[
+            {
+              "string":"11 ("
+            },
+            {
+              "string":"+0",
+              "number":0,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":10,
+                    "bonus":0
+                  }
+                ],
+                "name":"Constitution",
+                "translationKey":"Constitution"
+              }
+            },
+            {
+              "string":")"
+            }
+          ]
+        },
+        "INT":{
+          "name":"Intelligence",
+          "number":12,
+          "string":"12 (+1)",
+          "array":[
+            {
+              "string":"12 ("
+            },
+            {
+              "string":"+1",
+              "number":1,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":11,
+                    "bonus":1
+                  }
+                ],
+                "name":"Intelligence",
+                "translationKey":"Intelligence"
+              }
+            },
+            {
+              "string":")"
+            }
+          ]
+        },
+        "WIS":{
+          "name":"Wisdom",
+          "number":12,
+          "string":"12 (+1)",
+          "array":[
+            {
+              "string":"12 ("
+            },
+            {
+              "string":"+1",
+              "number":1,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":11,
+                    "bonus":1
+                  }
+                ],
+                "name":"Wisdom",
+                "translationKey":"Wisdom"
+              }
+            },
+            {
+              "string":")"
+            }
+          ]
+        },
+        "CHA":{
+          "name":"Charisma",
+          "number":14,
+          "string":"14 (+2)",
+          "array":[
+            {
+              "string":"14 ("
+            },
+            {
+              "string":"+2",
+              "number":2,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":12,
+                    "bonus":2
+                  }
+                ],
+                "name":"Charisma",
+                "translationKey":"Charisma"
+              }
+            },
+            {
+              "string":")"
+            }
+          ]
+        }
+      },
+      "HP":{
+        "name":"1d8 + 2",
+        "number":6,
+        "string":"6 (1d8 + 2)"
+      },
+      "type":{
+        "name":"Humanoid",
+        "number":10,
+        "string":"Humanoid"
+      },
+      "subtypes":[
+        {
+          "string":"Human",
+          "type":"subtype"
+        }
+      ],
+      "meta":{
+        "string":"Medium Humanoid (male Human), Lawful Evil",
+        "array":[
+          {
+            "string":"Medium",
+            "type":"size"
+          },
+          {
+            "string":" "
+          },
+          {
+            "string":"Humanoid",
+            "type":"type"
+          },
+          {
+            "string":" ("
+          },
+          {
+            "string":"male",
+            "type":"pronouns"
+          },
+          {
+            "string":" "
+          },
+          {
+            "string":"Human",
+            "type":"subtype"
+          },
+          {
+            "string":")"
+          },
+          {
+            "string":", "
+          },
+          {
+            "string":"Lawful",
+            "type":"translatableText"
+          },
+          {
+            "string":" "
+          },
+          {
+            "string":"Evil",
+            "type":"translatableText"
+          }
+        ]
+      },
+      "speeds":[
+        {
+          "name":"walk",
+          "number":30,
+          "string":"30 ft",
+          "array":[
+            {
+              "string":"30 ft",
+              "number":30,
+              "type":"ft"
+            }
+          ]
+        }
+      ],
+      "savingThrows":[
+        {
+          "name":"STR",
+          "number":4,
+          "string":"Str +4",
+          "array":[
+            {
+              "string":"Str",
+              "type":"savingThrow"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+4",
+              "number":4,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":14,
+                    "bonus":4
+                  }
+                ],
+                "name":"Strength",
+                "translationKey":"Strength"
+              },
+              "translationKey":"Strength"
+            }
+          ]
+        },
+        {
+          "name":"CON",
+          "number":2,
+          "string":"Con +2",
+          "array":[
+            {
+              "string":"Con",
+              "type":"savingThrow"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+2",
+              "number":2,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":12,
+                    "bonus":2
+                  }
+                ],
+                "name":"Constitution",
+                "translationKey":"Constitution"
+              },
+              "translationKey":"Constitution"
+            }
+          ]
+        }
+      ],
+      "skills":[
+        {
+          "name":"Survival",
+          "number":3,
+          "string":"Survival +3",
+          "array":[
+            {
+              "string":"Survival",
+              "type":"skill"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+3",
+              "number":3,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":13,
+                    "bonus":3
+                  }
+                ],
+                "name":"Survival",
+                "translationKey":"skill.Survival"
+              },
+              "translationKey":"skill.Survival"
+            }
+          ]
+        },
+        {
+          "name":"Nature",
+          "number":3,
+          "string":"Nature +3",
+          "array":[
+            {
+              "string":"Nature",
+              "type":"skill"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+3",
+              "number":3,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":13,
+                    "bonus":3
+                  }
+                ],
+                "name":"Nature",
+                "translationKey":"skill.Nature"
+              },
+              "translationKey":"skill.Nature"
+            }
+          ]
+        },
+        {
+          "name":"Animal Handling",
+          "number":3,
+          "string":"Animal Handling +3",
+          "array":[
+            {
+              "string":"Animal Handling",
+              "type":"skill"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+3",
+              "number":3,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":13,
+                    "bonus":3
+                  }
+                ],
+                "name":"Animal Handling",
+                "translationKey":"skill.Animal Handling"
+              },
+              "translationKey":"skill.Animal Handling"
+            }
+          ]
+        }
+      ],
+      "resistances":[
+        
+      ],
+      "immunities":[
+        
+      ],
+      "vulnerabilities":[
+        
+      ],
+      "senses":[
+        {
+          "name":"passive Perception",
+          "number":11,
+          "string":"passive Perception 11",
+          "array":[
+            {
+              "string":"passive Perception",
+              "type":"sense"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"11"
+            }
+          ]
+        }
+      ],
+      "languages":[
+        {
+          "name":"Deep Speech",
+          "number":0,
+          "string":"Deep Speech",
+          "array":[
+            {
+              "string":"Deep Speech",
+              "type":"language",
+              "id":6
+            }
+          ]
+        },
+        {
+          "name":"Common",
+          "number":0,
+          "string":"Common",
+          "array":[
+            {
+              "string":"Common",
+              "type":"language",
+              "id":5
+            }
+          ]
+        }
+      ],
+      "traits":[
+        
+      ],
+      "actions":[
+        {
+          "tag":"Berserker melee",
+          "priority":20,
+          "string":"Melee Weapon Attack: +4 to hit, reach 10 ft, one target. Hit: 9 (1d10 + 4) slashing damage",
+          "array":[
+            {
+              "string":""
+            },
+            {
+              "string":"Melee Weapon Attack:",
+              "type":"translatableText",
+              "format":[
+                "italic"
+              ]
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+4 to hit",
+              "number":4,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":14,
+                    "bonus":4
+                  }
+                ],
+                "name":"Halberd"
+              },
+              "translationKey":"toHit",
+              "translationVariables":{
+                "toHit":"+4"
+              }
+            },
+            {
+              "string":", "
+            },
+            {
+              "string":"reach 10 ft",
+              "type":"reach",
+              "translationKey":"reach",
+              "translationVariables":{
+                "reach":"5"
+              }
+            },
+            {
+              "string":", "
+            },
+            {
+              "string":"one target",
+              "type":"valueAsWord",
+              "translationKey":"value.target",
+              "translationVariables":{
+                "n":"1"
+              }
+            },
+            {
+              "string":". "
+            },
+            {
+              "string":"Hit:",
+              "type":"translatableText",
+              "format":[
+                "italic"
+              ]
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"9 (1d10 + 4) slashing damage",
+              "type":"diceRoll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":10,
+                    "value":9,
+                    "string":"9 (1d10 + 4)",
+                    "bonus":4,
+                    "type":"slashing damage"
+                  }
+                ],
+                "name":"Halberd"
+              }
+            }
+          ],
+          "name":"Halberd",
+          "nameArray":[
+            {
+              "string":"Halberd",
+              "format":[
+                "font-bold",
+                "italic"
+              ]
+            }
+          ]
+        },
+        {
+          "tag":"Berserker thrown",
+          "priority":25,
+          "string":"Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft or range 20/60 ft, one target. Hit: 7 (1d6 + 4) piercing damage, or 8 (1d8 + 4) piercing damage if used with two hands to make a melee attack",
+          "array":[
+            {
+              "string":""
+            },
+            {
+              "string":"Melee or Ranged Weapon Attack:",
+              "type":"translatableText",
+              "format":[
+                "italic"
+              ]
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"+4 to hit",
+              "number":4,
+              "type":"d20Roll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":20,
+                    "value":14,
+                    "bonus":4
+                  }
+                ],
+                "name":"Trident"
+              },
+              "translationKey":"toHit",
+              "translationVariables":{
+                "toHit":"+4"
+              }
+            },
+            {
+              "string":", "
+            },
+            {
+              "string":"reach 5 ft",
+              "type":"reach",
+              "translationKey":"reach",
+              "translationVariables":{
+                "reach":"5"
+              }
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"or",
+              "type":"translatableText"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"range 20/60 ft",
+              "type":"range/rangeMax",
+              "translationKey":"range/rangeMax",
+              "translationVariables":{
+                "range":"20",
+                "rangeMax":"60"
+              }
+            },
+            {
+              "string":", "
+            },
+            {
+              "string":"one target",
+              "type":"valueAsWord",
+              "translationKey":"value.target",
+              "translationVariables":{
+                "n":"1"
+              }
+            },
+            {
+              "string":". "
+            },
+            {
+              "string":"Hit:",
+              "type":"translatableText",
+              "format":[
+                "italic"
+              ]
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"7 (1d6 + 4) piercing damage",
+              "type":"diceRoll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":6,
+                    "value":7,
+                    "string":"7 (1d6 + 4)",
+                    "bonus":4,
+                    "type":"piercing damage"
+                  }
+                ],
+                "name":"Trident"
+              }
+            },
+            {
+              "string":", "
+            },
+            {
+              "string":"or",
+              "type":"translatableText"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"8 (1d8 + 4) piercing damage",
+              "type":"diceRoll",
+              "roll":{
+                "dice":[
+                  {
+                    "dice":1,
+                    "sides":8,
+                    "value":8,
+                    "string":"8 (1d8 + 4)",
+                    "bonus":4,
+                    "type":"piercing damage"
+                  }
+                ],
+                "name":"Trident"
+              }
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"if used with two hands",
+              "type":"translatableText"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"to make a melee attack",
+              "type":"translatableText"
+            }
+          ],
+          "name":"Trident",
+          "nameArray":[
+            {
+              "string":"Trident",
+              "format":[
+                "font-bold",
+                "italic"
+              ]
+            }
+          ]
+        }
+      ],
+      "bonusActions":[
+        {
+          "tag":"bonus1",
+          "priority":25,
+          "string":"Johnny enters a state of frenzy, gaining new abilities and the following benefits if he isn't wearing heavy armor:\n- he gains advantage on Strength checks and Strength saving throws;\n- he gains resistance to bludgeoning, piercing and slashing damage\n\nJohnny's rage lasts for 1 minute or until he is knocked unconscious.",
+          "array":[
+            {
+              "string":""
+            },
+            {
+              "string":"Johnny",
+              "type":"tag"
+            },
+            {
+              "string":" enters a state of frenzy, gaining new abilities and the following benefits if "
+            },
+            {
+              "string":"he",
+              "type":"tag"
+            },
+            {
+              "string":" isn't wearing heavy armor:"
+            },
+            {
+              "string":"\n"
+            },
+            {
+              "string":"",
+              "type":"listStart"
+            },
+            {
+              "string":"-",
+              "type":"listItemStart"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"he",
+              "type":"tag"
+            },
+            {
+              "string":" gains advantage on Strength checks and Strength saving throws;"
+            },
+            {
+              "string":"\n"
+            },
+            {
+              "string":"",
+              "type":"listItemEnd"
+            },
+            {
+              "string":"-",
+              "type":"listItemStart"
+            },
+            {
+              "string":" "
+            },
+            {
+              "string":"he",
+              "type":"tag"
+            },
+            {
+              "string":" gains resistance to bludgeoning, piercing and slashing damage"
+            },
+            {
+              "string":"\n"
+            },
+            {
+              "string":"",
+              "type":"listItemEnd"
+            },
+            {
+              "string":"",
+              "type":"listEnd"
+            },
+            {
+              "string":"\n",
+              "type":"nextLine"
+            },
+            {
+              "string":""
+            },
+            {
+              "string":"Johnny",
+              "type":"tag"
+            },
+            {
+              "string":"'s rage lasts for 1 minute or until "
+            },
+            {
+              "string":"he",
+              "type":"tag"
+            },
+            {
+              "string":" is knocked unconscious."
+            }
+          ],
+          "name":"Rage",
+          "nameArray":[
+            {
+              "string":"Rage",
+              "format":[
+                "font-bold",
+                "italic"
+              ]
+            }
+          ]
+        }
+      ],
+      "reactions":[
+        
+      ],
+      "legendaryActions":[
+        
+      ],
+      "legendaryActionsIntro":{
+        "string":"",
+        "array":[
+          {
+            "string":"Johnny can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. Johnny regains spent legendary actions at the start of his turn.",
+            "type":"translatableText",
+            "translationKey":"legendaryActionsIntro",
+            "translationVariables":{
+              "name":"Johnny",
+              "his":"his",
+              "number":"3"
+            }
+          }
+        ]
+      },
+      "legendaryActionsMax":3,
+      "spellcasting":[
+        {
+          "string":"Johnny casts one of the following spells, using Charisma as the spellcasting ability (spell save DC 12, ",
+          "type":"translatableText",
+          "translationKey":"spellcastingDescription",
+          "translationVariables":{
+            "name":"Johnny",
+            "ability":"Charisma",
+            "dc":"12"
+          }
+        },
+        {
+          "string":"+4 to hit",
+          "type":"translatableText",
+          "translationKey":"toHit",
+          "translationVariables":{
+            "toHit":"+4"
+          }
+        },
+        {
+          "string":" with spell attacks):",
+          "type":"translatableText",
+          "translationKey":"spellcastingDescription2"
+        }
+      ],
+      "spells":[
+        
+      ],
+      "race":"Human",
+      "class":"Barbarian",
+      "age":{
+        "name":"elderly",
+        "number":85,
+        "string":"Elderly (85 years old)"
+      },
+      "personality":{
+        "name":"Cooperative",
+        "description":"involving mutual assistance in working towards a common goal"
+      },
+      "voice":"Luke Skywalker (Mark Hamill) in Star Wars",
+      "bodyType":"Average",
+      "height":"5'7\""
+    },
+    "variables":{
+      "LVL":1,
+      "CR":-1,
+      "PROF":2,
+      "SIZE":3,
+      "HD":8,
+      "HP":6,
+      "AC":11,
+      "STR":2,
+      "DEX":-1,
+      "CON":0,
+      "INT":1,
+      "WIS":1,
+      "CHA":2,
+      "STRVALUE":14,
+      "DEXVALUE":9,
+      "CONVALUE":11,
+      "INTVALUE":12,
+      "WISVALUE":12,
+      "CHAVALUE":14,
+      "STRSAVE":4,
+      "DEXSAVE":-1,
+      "CONSAVE":2,
+      "INTSAVE":1,
+      "WISSAVE":1,
+      "CHASAVE":2,
+      "SPEED":30,
+      "BURROW":0,
+      "CLIMB":0,
+      "FLY":0,
+      "HOVER":0,
+      "SWIM":0,
+      "ACROBATICS":-1,
+      "ANIMALHANDLING":3,
+      "ARCANA":1,
+      "ATHLETICS":2,
+      "DECEPTION":2,
+      "HISTORY":1,
+      "INSIGHT":1,
+      "INTIMIDATION":2,
+      "INVESTIGATION":1,
+      "MEDICINE":1,
+      "NATURE":3,
+      "PERCEPTION":1,
+      "PERFORMANCE":2,
+      "PERSUASION":2,
+      "RELIGION":1,
+      "SLEIGHTOFHAND":-1,
+      "STEALTH":-1,
+      "SURVIVAL":3,
+      "BLINDSIGHT":0,
+      "DARKVISION":0,
+      "TREMORSENSE":0,
+      "TRUESIGHT":0,
+      "PASSIVEPERCEPTION":11,
+      "TELEPATHY":0
+    },
+    "tags":{
+      "name":"Johnny",
+      "Name":"Johnny",
+      "fullname":"Johnny Frenzy",
+      "Fullname":"Johnny porreca",
+      "he":"he",
+      "she":"he",
+      "his":"his",
+      "her":"his",
+      "him":"him",
+      "hers":"his",
+      "He":"He",
+      "His":"His",
+      "Him":"Him",
+      "Hers":"His",
+      "they":"he",
+      "their":"his",
+      "them":"him",
+      "theirs":"his",
+      "They":"He",
+      "Their":"His",
+      "Them":"Him",
+      "Theirs":"His",
+      "it":"he",
+      "its":"his",
+      "It":"He",
+      "Its":"His",
+      "size":"Medium",
+      "sizegreater":"Large",
+      "sizesmaller":"Small",
+      "sizetwogreater":"Huge",
+      "sizetwosmaller":"Tiny",
+      "type":"Humanoid",
+      "race":"Human",
+      "bonus2":"Rage",
+      "bonus3":"Frenzy (While Raging)",
+      "reaction0":"Retailation",
+      "Berserker melee":"Halberd",
+      "legendary0":"Legendary Resistance",
+      "legendary1":"Reposition",
+      "Berserker thrown":"Trident",
+      "action0":"Multiattack",
+      "bonus4":"Rage",
+      "bonus1":"Rage",
+      "bonus0":"Rage",
+      "trait00":"Danger Sense",
+      "trait01":"Reckless Attacks",
+      "trait0":"Danger Sense"
+    },
+    "variations":{
+      "currentCR":-1,
+      "currentHD":1
+    }
+  },
+  "id":"4d8826d5-2cb1-4ea4-a743-864ab0e55f5f",
+  "key":1,
+  "streamChunks":[
+    
+  ]
+}

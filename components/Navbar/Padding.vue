@@ -10,3 +10,8 @@
   min-height: 4rem;
 }
 </style>
+<style>
+html {
+  scroll-padding-top: 5rem;
+}
+</style>

@@ -155,7 +155,11 @@ const showRoleplayStats = ref(settings.value?.showRoleplayStats ?? true);
 const isMobileAlertOpen = ref(false);
 
 const currentLayout = computed(() => {
-  return character.value.character.user?.sheet?.layout || settings.value?.layout || "MonsterLayoutDynamicA";
+  return (
+    character.value.character.user?.sheet?.layout ||
+    settings.value?.layout ||
+    "MonsterLayoutDynamicA"
+  );
 });
 
 function chooseLayout(layout: string) {
@@ -198,6 +202,7 @@ watch(showRoleplayStats, () => {
   ) {
     character.value.character.user.sheet.showRoleplayStats =
       showRoleplayStats.value;
+    wrapper.value.key++;
   }
 });
 

@@ -5,7 +5,9 @@
         <h1 class="static custom-title gradient-title">The NPC Generator</h1>
       </Transition>
       <p class="static max-width mt-6">
-        Type a prompt above or use the form to create the NPCs you need. You can only use words for the available classes, races, and backgrounds, like these examples:
+        Type a prompt above or use the form to create the NPCs you need. You can
+        only use words for the available classes, races, and backgrounds, like
+        these examples:
       </p>
       <ul class="prompt-examples mt-6">
         <li
@@ -30,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-
 const generator = useGeneratorStore();
 
 const { promptFromOtherSources } = storeToRefs(generator);
@@ -55,21 +56,27 @@ const neutralExampleStrings = [
   "cr 5 sorcerer",
 ];
 
-
-
 function getColors(example: string) {
-  if (example.includes("evil")) return "text-text-evil border-text-evil bg-card-evil hover:border-evil-600 hover:bg-transparent";
-  if (example.includes("good")) return "text-text-good border-text-good bg-card-good hover:border-good-600 hover:bg-transparent";
-  if (example.includes("neutral")) return "text-text-neutral border-text-neutral bg-card-neutral hover:border-neutral-600 hover:bg-transparent";
+  if (example.includes("evil"))
+    return "text-text-evil border-text-evil bg-card-evil hover:border-evil-600 hover:bg-transparent";
+  if (example.includes("good"))
+    return "text-text-good border-text-good bg-card-good hover:border-good-600 hover:bg-transparent";
+  if (example.includes("neutral"))
+    return "text-text-neutral border-text-neutral bg-card-neutral hover:border-neutral-600 hover:bg-transparent";
   return "text-text-neutral border-text-neutral bg-card-neutral hover:border-neutral-600 hover:bg-transparent";
 }
 
 onMounted(() => {
-  examples.value.push(goodExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
-  examples.value.push(...(neutralExampleStrings.sort(() => Math.random() - 0.5).slice(0,2)));
-  examples.value.push(evilExampleStrings.sort(() => Math.random() - 0.5).pop() as string);
-})
-
+  examples.value.push(
+    goodExampleStrings.sort(() => Math.random() - 0.5).pop() as string
+  );
+  examples.value.push(
+    ...neutralExampleStrings.sort(() => Math.random() - 0.5).slice(0, 2)
+  );
+  examples.value.push(
+    evilExampleStrings.sort(() => Math.random() - 0.5).pop() as string
+  );
+});
 </script>
 
 <style scoped>

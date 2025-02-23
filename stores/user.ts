@@ -8,12 +8,12 @@ import type {
 } from "@/types";
 import { parseError } from "@/utils";
 
-const config = useRuntimeConfig();
-const api = config.public.apiUrl;
-
 /// ////////////////////////////////////////////////
 
 export const useUserStore = defineStore("user", () => {
+  const config = useRuntimeConfig();
+  const api = config.public.apiUrl;
+
   const token = ref("");
   const sessionId = ref<string | undefined>();
   const me = ref<GetUserResponse | null>(null);

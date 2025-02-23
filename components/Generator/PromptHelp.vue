@@ -2,11 +2,7 @@
   <MSGenericTooltip :max-width="350">
     <template #default>
       <slot name="default">
-        <Icon
-          class="text-text-icon"
-          size="20"
-          name="fa6-solid:circle-question"
-        />
+        <Icon class="text-text-evil" size="18" name="fa6-solid:question" />
       </slot>
     </template>
     <template #tooltip>
@@ -19,15 +15,15 @@
           </p>
           <ul class="list">
             <li>
-              <b>any race</b> or variant:
+              <b>any* race</b> or variant:
               <span class="example">"drow"</span>
             </li>
             <li>
-              <b>any class</b> or variant:
+              <b>any* class</b> or variant:
               <span class="example">"rogue"</span>
             </li>
             <li>
-              <b>any background</b>:
+              <b>any* background</b>:
               <span class="example">"innkeeper"</span>
             </li>
             <li>
@@ -44,6 +40,10 @@
               <span class="example">"lawful evil"</span>
             </li>
           </ul>
+          <p class="mt-4">
+            <b>*</b>check the races, classes and backgrounds available in "form"
+            mode.
+          </p>
         </div>
       </slot>
     </template>

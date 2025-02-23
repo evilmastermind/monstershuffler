@@ -1,8 +1,12 @@
 <template>
   <div class="feedback-container">
-    <div class="feedback px-4">
+    <div class="feedback">
       <p class="static question">{{ question }}</p>
-      <textarea v-model="answer.answer" class="ms-input-style answer mt-2" />
+      <textarea
+        v-model="answer.answer"
+        class="ms-input-style answer mt-2"
+        placeholder="Write your feedback here."
+      />
       <MSButton
         class="mt-1"
         size="small"
@@ -73,12 +77,8 @@ async function sendFeedback() {
   align-items: center;
   gap: 0;
 }
-.feedback {
-  max-width: theme("screens.nav");
-}
 .question {
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
+  @apply text-text;
 }
 .answer {
   width: 100%;

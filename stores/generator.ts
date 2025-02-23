@@ -13,14 +13,13 @@ import type {
   NpcDetails,
 } from "@/types";
 
-const config = useRuntimeConfig();
-const api = config.public.apiUrl;
-
 class FatalError extends Error {}
 
 /// /////////////////////////////////////
 
 export const useGeneratorStore = defineStore("generator", () => {
+  const config = useRuntimeConfig();
+  const api = config.public.apiUrl;
   /**
    * State
    */
@@ -387,9 +386,6 @@ export const useGeneratorStore = defineStore("generator", () => {
   /**
    * Adds a new character to the list of characters, if it doesn't already exist, and returns its index.
    * Optionally, it can also select the character.
-   * @param character
-   * @param selected
-   * @returns
    */
   function pushNewCharacter(
     character: NpcDetails,
@@ -412,6 +408,26 @@ export const useGeneratorStore = defineStore("generator", () => {
       currentCharacterIndex.value = characterIndex;
     }
     return characterIndex;
+  }
+  function spliceCharacter(index: number) {
+    if (index < 0 || index >= characters.value.length) {
+      return;
+    }
+    let newIndex = currentCharacterIndex.value;
+    if (newIndex > characters.value.length - 2) {
+      newIndex = characters.value.length - 2;
+    }
+    if (newIndex < -1) {
+      newIndex = -1;
+    }
+    characters.value.splice(index, 1);
+    currentCharacterIndex.value = newIndex;
+    triggerRef(characters);
+  }
+  function clearAllCharacters() {
+    characters.value = [];
+    currentCharacterIndex.value = -1;
+    triggerRef(characters);
   }
   function setCharacter(index: number) {
     if (index < 0 || index >= characters.value.length) {
@@ -500,7 +516,9 @@ export const useGeneratorStore = defineStore("generator", () => {
     getCurrentNPCRating,
     setCurrentNPCRating,
     pushNewCharacter,
+    spliceCharacter,
     setCharacter,
+    clearAllCharacters,
     triggerUpdateCharacter,
     triggerSaveThrottle,
     unsetCharacter,

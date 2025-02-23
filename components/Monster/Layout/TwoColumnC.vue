@@ -12,13 +12,13 @@
           <slot name="backstory" />
         </div>
         <div class="card class= mt-6">
-          <MonsterSheetCard v-if="showRoleplayStats">
-            <MonsterRoleplayStats />
-          </MonsterSheetCard>
+          <slot v-if="showRoleplayStats" name="card" />
         </div>
       </div>
     </div>
-    <MonsterStatBlock :columns="2" class="stats mt-6" />
+    <div class="stats mt-6">
+      <slot name="stats" :columns="2" />
+    </div>
   </div>
 </template>
 
