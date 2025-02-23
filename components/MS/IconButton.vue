@@ -1,5 +1,12 @@
 <template>
-  <button v-tooltip.top="label" class="icon-button" :disabled>
+  <button
+    v-tooltip.top="label"
+    class="icon-button"
+    :disabled
+    :style="{
+      maxHeight: containerSize ? `${containerSize}px` : 'unset',
+    }"
+  >
     <Icon
       class="icon"
       aria-hidden
@@ -27,6 +34,10 @@ const p = defineProps({
     type: String,
     default: "16",
   },
+  containerSize: {
+    type: String,
+    default: "",
+  },
   rotate: {
     type: Number,
     default: null,
@@ -40,8 +51,8 @@ const p = defineProps({
 
 <style scoped>
 .icon-button {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
 }
 .icon-button:active {
   opacity: 0.8;

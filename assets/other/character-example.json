@@ -413,7 +413,7 @@
           ]
         },
         "backstory":{
-          "string":"\n\n#### Note Example\n\n Hello, I am a simple, **editable** note with one image on top.\n\nYou can format text using [Markdown](https://www.markdownguide.org/basic-syntax), or you can enable an _optional_ toolbar to make formatting even easier."
+          "string":"\n\n#### Try me!\n\n Hello, I am a simple, **editable** note with one image on top.\n\nYou can format text using [Markdown](https://www.markdownguide.org/basic-syntax), or you can enable an _optional_ toolbar to make formatting even easier."
         }
       },
       "alignmentModifiers":[

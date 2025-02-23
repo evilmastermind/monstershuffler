@@ -9,7 +9,7 @@
         class="share-example"
         :class="[background]"
       >
-        <Transition name="fade" mode="out-in" appear>
+        <Transition name="slide-right" mode="out-in" appear>
           <MSNote>
             <div
               class="share-image-container"
@@ -129,7 +129,7 @@ const creations = [
     content: {
       name: "Operation B.R.",
       description:
-        "The discovery of a painting thought to be lost for centuries leads to a deadly underground dungeon.",
+        "The discovery of a painting lost for centuries leads to a deadly underground dungeon.",
       image: "/images/presentation/dungeon.webp",
     },
   },
@@ -178,17 +178,17 @@ onMounted(() => {
 .share {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  @apply gap-8;
+  @apply gap-8 px-4;
 }
 .share-example {
   max-width: 400px;
   width: 100%;
   overflow: hidden;
-  @apply rounded-lg shadow-2xl mt-9;
+  @apply rounded-lg  shadow-2xl mb-9;
 }
 .share-example-title {
   @apply text-center text-text-evil;
@@ -200,6 +200,7 @@ onMounted(() => {
 }
 .share-image-container {
   height: 350px;
+  max-height: 350px;
   overflow: hidden;
   background-size: cover;
   mask-image: url("/images/masks/bottom-2.webp");
@@ -207,6 +208,7 @@ onMounted(() => {
   mask-position: bottom;
 }
 .share-image {
+  max-height: 350px;
   object-fit: cover;
 }
 .share-example-icons {
@@ -242,8 +244,6 @@ onMounted(() => {
   background-size: cover;
   @apply border border-inset-600;
 }
-.share-author {
-}
 .share-author-id {
   font-size: 0.8em;
 }
@@ -260,7 +260,7 @@ onMounted(() => {
   text-shadow: 2px 2px 0px hsl(0, 0%, 0%), 1px 1px 0px hsl(0, 0%, 0%),
     0px 0px 20px hsl(0, 0%, 0%);
   color: hsl(46, 47%, 97%);
-  @apply mb-9;
+  @apply mt-9;
 }
 .share-description-text {
   font-family: "OpenSans", sans-serif;
@@ -277,10 +277,10 @@ onMounted(() => {
     @apply gap-8;
   }
   .share-example {
-    @apply mb-9;
+    @apply mt-9;
   }
   .share-description {
-    @apply mb-0;
+    @apply mt-0;
   }
 }
 </style>

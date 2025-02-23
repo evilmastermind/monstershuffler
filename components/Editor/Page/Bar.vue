@@ -16,7 +16,7 @@
           </select> -->
           <div class="search-container">
             <input
-              class="ms-input-style ms-input pl-2 pr-6"
+              class="ms-input-style ms-input w-[400px] h-full pl-2 pr-6"
               :placeholder="$t('search.placeholder')"
             />
             <MSIconButton
@@ -25,55 +25,35 @@
               icon="fa6-solid:magnifying-glass"
             />
           </div>
+          <div class="tools py-2 px-3">
+            <MSIconButton
+              :label="$t('placeholder')"
+              icon="fa6-solid:arrow-rotate-left"
+            />
+            <MSIconButton
+              :label="$t('placeholder')"
+              icon="fa6-solid:arrow-rotate-right"
+            />
+            <MSIconButton
+              :label="$t('placeholder')"
+              size="18"
+              container-size="16"
+              icon="material-symbols:list-alt-add-rounded"
+            />
+          </div>
         </fieldset>
       </form>
-      <div class="content mt-2">
-        <div class="adventurers">
-          <div
-            v-for="adventurer in adventurers"
-            :key="adventurer.name"
-            class="adventurer"
-          >
-            <img
-              class="adventurer-image"
-              :src="`images/presentation/${adventurer.image}`"
-            />
-            <span class="adventurer-name">{{ adventurer.name }}</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-const adventurers = [
-  {
-    name: "Kalo",
-    image: "kalo.webp",
-  },
-  {
-    name: "Nyx",
-    image: "nyx.webp",
-  },
-  {
-    name: "Arkantos",
-    image: "arkantos.webp",
-  },
-  {
-    name: "Loretta",
-    image: "loretta.webp",
-  },
-  {
-    name: "Chrond",
-    image: "chrond.webp",
-  },
-];
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .fields {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   @apply gap-2;
 }
 .search-container {
@@ -135,5 +115,14 @@ const adventurers = [
 .content {
   display: flex;
   @apply gap-2;
+}
+.tools {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 1rem;
+  line-height: 1rem;
+  @apply bg-background-300 text-text-icon  gap-4;
 }
 </style>

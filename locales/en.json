@@ -493,6 +493,7 @@
     "promptModeTitle": "Prompt mode",
     "promptModeDescription": "Type keywords like \"human\", \"barbarian\" or \"cr 5\" to generate a random character of that type.",
     "options": "Options",
+    "generateStats": "Generate Stats",
     "deleteCharacter": "Click twice to delete this character.",
     "deleteAll": "Click twice to delete all characters.",
     "saveAll": "Click twice to save all characters.",

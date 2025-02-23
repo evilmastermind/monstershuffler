@@ -23,12 +23,12 @@
       </form> -->
       <div class="content mt-2">
         <div class="adventurers">
-          <div class="adventurers-button">
+          <!-- <div class="adventurers-button">
             <Icon
               class="text-text-icon text-xl"
               name="heroicons:user-group-solid"
             />
-          </div>
+          </div> -->
           <div
             v-for="adventurer in adventurers"
             :key="adventurer.name"
@@ -195,7 +195,9 @@
         </div>
         <div>
           <MSNote class="note rounded shadow">
-            <EditorText :backstory />
+            <ClientOnly>
+              <EditorText :backstory />
+            </ClientOnly>
           </MSNote>
         </div>
         <div>

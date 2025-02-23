@@ -23,6 +23,9 @@
     </div>
     <div class="content p-3 md:p-5" :class="selectable ? 'selectable' : ''">
       <MonsterRoleplayStats hide-physical-appearance />
+      <button v-if="selectable" class="generate-button mt-2">
+        {{ $t("generator.generateStats") }}
+      </button>
     </div>
   </div>
 </template>
@@ -95,6 +98,11 @@ function copyToClipboard() {
 }
 .background-dark {
   @apply bg-inset-200;
+}
+.generate-button {
+  width: 100%;
+  text-align: center;
+  @apply border border-inset-400 rounded px-2 p-1;
 }
 .content {
   position: relative;
