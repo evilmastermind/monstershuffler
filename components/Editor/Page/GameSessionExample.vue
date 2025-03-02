@@ -1,5 +1,5 @@
 <template>
-  <div class="lg-max mb-6">
+  <div class="lg-max mb-7">
     <div class="mx-4">
       <div class="content">
         <div class="adventurers">
@@ -188,8 +188,8 @@
           <div class="absolute top-full grid place-items-center w-full">
             <MSTour
               placement="top"
-              title="Add Note"
-              description="Create branching chains of notes to keep your content organized, or handle multiple storylines at once"
+              title="Add a Note"
+              description="Create branching chains of notes to keep your content organized, or handle multiple storylines at once."
             >
               <div
                 class="flex flex-col justify-center items-center opacity-20 hover:opacity-100"

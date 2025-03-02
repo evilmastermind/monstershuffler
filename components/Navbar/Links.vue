@@ -1,5 +1,10 @@
 <template>
   <NavbarLink
+    :name="$t('navbar.menu.home')"
+    route="index"
+    @click="isMenuOpen = false"
+  />
+  <NavbarLink
     :name="$t('navbar.menu.npcGenerator')"
     route="monsters-generator"
     @click="isMenuOpen = false"

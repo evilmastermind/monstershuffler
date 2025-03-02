@@ -6,8 +6,8 @@
           <div class="fields">
             <MSTour
               pacement="bottom"
-              title="Player Groups"
-              description="Great Dungeon Masters always prepare their sessions with their players in mind. This feature lets you create player groups and switch between them, giving you quick access to their notes, images, and soundtracks."
+              title="Character Groups"
+              description="Great Dungeon Masters always prepare their sessions with their player characters in mind. This feature lets you create character groups and switch between them, giving you quick access to their notes, images, and soundtracks."
             >
               <div class="adventurers-button cursor-pointer h-[28.8px]">
                 <Icon

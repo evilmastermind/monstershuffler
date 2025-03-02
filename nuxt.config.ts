@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     "/monsters/generator": { ssr: false },
     "/monsters/generator/**": { ssr: false },
     "/editors": { swr: 600 },
-    "/dm-screen": { ssr: false },
+    "/dm-screen": { swr: 600 },
     "/community-creations": { swr: 600 },
     "/login": { swr: 600 },
     "/registration": { swr: 600 },
