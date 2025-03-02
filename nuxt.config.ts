@@ -2,8 +2,8 @@
 
 export default defineNuxtConfig({
   app: {
-    pageTransition: { name: "fade-quick", mode: "out-in" },
-    layoutTransition: { name: "fade-quick", mode: "out-in" },
+    // pageTransition: { name: "fade-quick", mode: "out-in" },
+    // layoutTransition: { name: "fade-quick", mode: "out-in" },
     head: {
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     "/monsters/generator": { ssr: false },
     "/monsters/generator/**": { ssr: false },
     "/editors": { swr: 600 },
-    "/dm-screen": { swr: 600 },
+    "/dm-screen": { ssr: false },
     "/community-creations": { swr: 600 },
     "/login": { swr: 600 },
     "/registration": { swr: 600 },

@@ -1,29 +1,32 @@
 <template>
   <div class="background" :class="[background]">
     <!-- <div class="background-before" :class="[`bg-${ethical}-100`]" /> -->
-    <div class="icons p-1">
-      <MSIconButton
-        v-if="selectable"
-        class="pin p-1"
-        icon="fa6-solid:clipboard"
-        size="16"
-        color="text-icon"
-        :label="$t('copyToClipboard')"
-        @click.stop="copyToClipboard"
-      />
-      <MSIconButton
-        v-if="selectable"
-        class="pin p-1"
-        icon="fluent:pin-12-filled"
-        size="16"
-        color="text-icon"
-        :label="$t('pin')"
-        @click.stop="e('pin')"
-      />
-    </div>
+
     <div class="content p-3 md:p-5" :class="selectable ? 'selectable' : ''">
-      <MonsterRoleplayStats hide-physical-appearance />
-      <button v-if="selectable" class="generate-button mt-2">
+      <div>
+        <div class="icons pb-1">
+          <MSIconButton
+            v-if="selectable"
+            class="pin p-1"
+            icon="fa6-solid:clipboard"
+            size="16"
+            color="text-icon"
+            :label="$t('copyToClipboard')"
+            @click.stop="copyToClipboard"
+          />
+          <MSIconButton
+            v-if="selectable"
+            class="pin p-1"
+            icon="fluent:pin-12-filled"
+            size="16"
+            color="text-icon"
+            :label="$t('pin')"
+            @click.stop="pinCharacter"
+          />
+        </div>
+        <MonsterRoleplayStats hide-physical-appearance />
+      </div>
+      <button v-if="selectable" class="view-button" @click="openCharacterSheet">
         {{ $t("generator.generateStats") }}
       </button>
     </div>
@@ -32,9 +35,9 @@
 
 <script setup lang="ts">
 import { exportRoleplayStats } from "monstershuffler-shared";
+import type { NpcDetails } from "monstershuffler-shared";
 import type { GeneratorCharacter } from "@/types";
 
-const e = defineEmits(["pin"]);
 const p = defineProps({
   selectable: {
     type: Boolean,
@@ -44,13 +47,35 @@ const p = defineProps({
     type: Object as PropType<GeneratorCharacter>,
     required: true,
   },
+  index: {
+    type: Number,
+    default: undefined,
+  },
 });
 
 const ui = useUiStore();
+const generator = useGeneratorStore();
 
 const refGeneratorCharacter = toRef(p, "generatorCharacter");
+const { session } = storeToRefs(generator);
 
 useProvideCharacter(refGeneratorCharacter);
+
+function openCharacterSheet() {
+  if (p.index === undefined) {
+    return;
+  }
+  const npc = session.value[p.index];
+  generator.pushNewCharacter(npc as NpcDetails, true);
+}
+
+function pinCharacter() {
+  if (p.index === undefined) {
+    return;
+  }
+  const npc = session.value[p.index];
+  generator.pushNewCharacter(npc as NpcDetails, false);
+}
 
 const background = computed(() => {
   switch (ui.currentThemeType) {
@@ -75,8 +100,9 @@ function copyToClipboard() {
   @apply border border-inset-400 rounded;
 }
 .icons {
-  position: relative;
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
   z-index: 1;
   cursor: pointer;
   display: flex;
@@ -99,18 +125,25 @@ function copyToClipboard() {
 .background-dark {
   @apply bg-inset-200;
 }
-.generate-button {
+.view-button {
   width: 100%;
   text-align: center;
-  @apply border border-inset-400 rounded px-2 p-1;
+  @apply border border-background-500 border-solid rounded px-2 p-1;
+}
+.view-button:hover {
+  @apply border-background-600 bg-background-200;
 }
 .content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100%;
   font-family: "ScalaSansOffc", serif;
+  @apply gap-4;
 }
 .selectable {
-  @apply cursor-pointer rounded-xl;
+  @apply rounded-xl;
 }
 
 .ethical-symbol {

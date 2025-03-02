@@ -50,7 +50,7 @@ const h = {
       hideTriggers: (e) => [...e, "click"],
       // Delay (ms)
       delay: {
-        show: 200,
+        show: 1,
         hide: 0
       },
       // Update popper on content resize

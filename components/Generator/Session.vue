@@ -18,10 +18,9 @@
                 transitionDelay: `${0.15 * index}s`,
                 transitionProperty: 'opacity, transform',
               }"
+              :index
               selectable
               tabindex="0"
-              @click="openCharacterSheet(index)"
-              @pin="pinCharacter(index)"
             />
           </Transition>
         </template>
@@ -31,22 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import type { NpcDetails } from "monstershuffler-shared";
 import type { Character } from "@/types";
 
 const generator = useGeneratorStore();
 
 const { session } = storeToRefs(generator);
-
-function openCharacterSheet(index: number) {
-  const npc = session.value[index];
-  generator.pushNewCharacter(npc as NpcDetails, true);
-}
-
-function pinCharacter(index: number) {
-  const npc = session.value[index];
-  generator.pushNewCharacter(npc as NpcDetails, false);
-}
 </script>
 
 <style scoped>
