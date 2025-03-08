@@ -10,7 +10,7 @@
             @click="emit('close')"
           />
           <h1 class="spell-name" :class="moral">{{ name }}</h1>
-          <MonsterStatBlockStat v-if="spell.level !== undefined">
+          <StatBlockStat v-if="spell.level !== undefined">
             <template #title> {{ $t("spell.level") }} </template>
             <template v-if="spell.level === '0'">
               {{ $t("spell.cantrip") }}
@@ -18,34 +18,34 @@
             <template v-else>
               {{ spell.level }}{{ addOrdinal(spell.level, language) }}
             </template>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockStat v-if="spell.school !== undefined">
+          </StatBlockStat>
+          <StatBlockStat v-if="spell.school !== undefined">
             <template #title>{{ $t("spell.school") }}</template>
             <span>{{ spell.school.trim() }}</span>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockSeparator />
-          <MonsterStatBlockStat v-if="spell.castingTime !== undefined">
+          </StatBlockStat>
+          <StatBlockSeparator />
+          <StatBlockStat v-if="spell.castingTime !== undefined">
             <template #title>{{ $t("spell.castingTime") }}</template>
             <span>{{ spell.castingTime }}</span>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockStat v-if="spell.components !== undefined">
+          </StatBlockStat>
+          <StatBlockStat v-if="spell.components !== undefined">
             <template #title>{{ $t("spell.components") }}</template>
             <span>{{ spell.components }}</span>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockStat v-if="spell.ritual !== undefined">
+          </StatBlockStat>
+          <StatBlockStat v-if="spell.ritual !== undefined">
             <template #title>{{ $t("spell.ritual") }}</template>
             <span>{{ spell.ritual === true ? $t("yes") : $t("no") }}</span>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockSeparator />
-          <MonsterStatBlockStat v-if="spell.duration !== undefined">
+          </StatBlockStat>
+          <StatBlockSeparator />
+          <StatBlockStat v-if="spell.duration !== undefined">
             <template #title>{{ $t("spell.duration") }}</template>
             <span>{{ spell.duration }}</span>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockStat v-if="spell.range !== undefined">
+          </StatBlockStat>
+          <StatBlockStat v-if="spell.range !== undefined">
             <template #title>{{ $t("spell.rangeArea") }}</template>
             <span>{{ spell.range }}</span>
-          </MonsterStatBlockStat>
-          <MonsterStatBlockSeparator />
+          </StatBlockStat>
+          <StatBlockSeparator />
           <div class="spell-description">
             <p v-html="spell.description" />
           </div>

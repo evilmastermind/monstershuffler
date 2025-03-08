@@ -101,7 +101,12 @@ export default defineNuxtConfig({
   },
 
   icon: {
-    provider: "server",
+    customCollections: [
+      {
+        prefix: "custom",
+        dir: "app/assets/icons",
+      },
+    ],
   },
 
   postcss: {

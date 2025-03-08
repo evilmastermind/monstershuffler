@@ -19,7 +19,7 @@ export function useProvideCharacter(
     if (alignment.includes("Good")) {
       return "text-text-good fill-background-good border-good decoration-good";
     } else if (alignment.includes("Evil")) {
-      return "text-text-evil fill-background-evil border-complementary decoration-evil";
+      return "text-text-evil fill-background-evil border-text-evil decoration-evil";
     } else {
       return "text-text-neutral fill-background-neutral border-neutral decoration-neutral";
     }

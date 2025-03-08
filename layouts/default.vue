@@ -7,6 +7,7 @@
     </main>
   </div>
 </template>
+
 <script setup lang="ts">
 import { defaultHead } from "@/utils";
 const { locale } = useI18n();
@@ -16,7 +17,11 @@ useHead({
     lang: locale.value,
   },
 });
+
+const user = useUserStore();
+user.getGeneralSettings();
 </script>
+
 <style scoped>
 .background {
   position: absolute;

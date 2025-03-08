@@ -7,27 +7,28 @@
     <div class="border" :class="[imageClasses.border]" />
     <div class="stat-block" :class="[imageClasses.paper]">
       <div class="gradient" :class="[imageClasses.gradient]" />
-      <div
-        :key="wrapper.key"
-        class="p-4 stat-block-content"
-        :class="`columns-${columnsCount}`"
-      >
-        <MonsterStatBlockHeader />
-        <MonsterStatBlockSeparator />
-        <MonsterStatBlockACHPSpeed />
-        <MonsterStatBlockSeparator />
-        <MonsterStatBlockAbilityScores />
-        <MonsterStatBlockSeparator />
-        <MonsterStatBlockSavesSkills />
-        <MonsterStatBlockResistancesImmunities />
-        <MonsterStatBlockSensesLanguages />
-        <MonsterStatBlockChallengeProficiency />
-        <MonsterStatBlockSeparator v-if="wordsCount" />
-        <MonsterStatBlockTraits />
-        <MonsterStatBlockActions />
-        <MonsterStatBlockBonusActions />
-        <MonsterStatBlockReactions />
-        <MonsterStatBlockLegendaryActions />
+      <div :key="wrapper.key" class="stat-block-content p-4">
+        <StatBlockColumns :columns-count="p.columnsCount">
+          <StatBlock5eHeader />
+          <StatBlockSeparator />
+          <StatBlock5eAC />
+          <StatBlock5eHP />
+          <StatBlock5eSpeed />
+          <StatBlockSeparator />
+          <StatBlock5eAbilityScores />
+          <StatBlockSeparator />
+          <StatBlockSaves />
+          <StatBlockSkills />
+          <StatBlockResistancesImmunities />
+          <StatBlockSensesLanguages />
+          <StatBlock5eChallengeProficiency />
+          <StatBlockSeparator v-if="wordsCount" />
+          <StatBlockTraits />
+          <StatBlockActions />
+          <StatBlockBonusActions />
+          <StatBlockReactions />
+          <StatBlockLegendaryActions />
+        </StatBlockColumns>
       </div>
     </div>
     <div class="border" :class="[imageClasses.border]" />
@@ -35,34 +36,21 @@
 </template>
 
 <script setup lang="ts">
-import type { GeneratorCharacter, Character } from "@/types";
-
-type Columns = 1 | 2;
+import type { Character, GeneratorCharacter } from "@/types";
 
 const p = defineProps({
-  columns: {
-    type: Number as PropType<Columns>,
-    default: () => 2,
+  columnsCount: {
+    type: Number,
+    default: 1,
   },
 });
 
+const ui = useUiStore();
+
 const character = inject("character") as Ref<Character>;
-const columnsFromActions = inject("columns") as Ref<number>;
 const wordsCount = inject("wordsCount") as Ref<number>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
-const ui = useUiStore();
-const generator = useGeneratorStore();
-
-const { currentStatBlockHTMLElement } = storeToRefs(generator);
-const statBlock = ref<HTMLElement | null>(null);
-
-const columnsCount = computed(() => {
-  if (p.columns) {
-    return p.columns;
-  }
-  return columnsFromActions.value;
-});
 const imageClasses = computed(() => {
   switch (ui.currentThemeType) {
     case "light":
@@ -79,25 +67,13 @@ const imageClasses = computed(() => {
       };
   }
 });
-
-function scrollIntoView() {
-  if (statBlock.value) {
-    statBlock.value.scrollIntoView({ behavior: "smooth" });
-  }
-}
-
-watch([columnsCount, columnsFromActions, () => p.columns], () => {
-  scrollIntoView();
-});
-
-onMounted(() => {
-  if (statBlock.value) {
-    currentStatBlockHTMLElement.value = statBlock.value;
-  }
-});
 </script>
 
 <style scoped>
+.stat-block-content {
+  position: relative;
+  font-family: ScalaSansOffc, Roboto, Helvetica, sans-serif;
+}
 .stat-block-container {
   display: block;
 }
@@ -150,26 +126,5 @@ onMounted(() => {
 .gradient-dark {
   background: url("@/public/images/monster/semitransparent-dark.webp");
   background-repeat: repeat-x;
-}
-.stat-block-content {
-  position: relative;
-  font-family: ScalaSansOffc, Roboto, Helvetica, sans-serif;
-}
-.columns-2 {
-  columns: 2;
-  column-gap: 2rem;
-}
-@container (max-width: 500px) {
-  .columns-2 {
-    columns: 1;
-  }
-}
-</style>
-<style>
-.action {
-  margin: theme("spacing.2") 0;
-  line-height: theme("spacing.5");
-}
-.spell-group {
 }
 </style>

@@ -10,6 +10,24 @@ import { parseError } from "@/utils";
 
 /// ////////////////////////////////////////////////
 
+type GeneralSettings = {
+  language: "en";
+  stats: {
+    lengthUnit: "feet" | "meters" | "squares";
+    heightUnit: "feet" | "meters";
+  };
+  statBlocks: "5e" | "5.5e";
+};
+
+const defaultGeneralSettings: GeneralSettings = {
+  language: "en",
+  stats: {
+    lengthUnit: "feet",
+    heightUnit: "feet",
+  },
+  statBlocks: "5e",
+};
+
 export const useUserStore = defineStore("user", () => {
   const config = useRuntimeConfig();
   const api = config.public.apiUrl;
@@ -17,8 +35,11 @@ export const useUserStore = defineStore("user", () => {
   const token = ref("");
   const sessionId = ref<string | undefined>();
   const me = ref<GetUserResponse | null>(null);
-  const settings = computed(() => me.value?.settings || {});
+  // TODO: replace this with an actual ref, and a watcher that saves settings to the server
+  const settings = ref<GeneralSettings>({ ...defaultGeneralSettings });
   const language = computed(() => me.value?.settings?.language || "en");
+
+  const setSettingsThrottle = throttle(setSettings, 1000);
 
   async function login(credentials: Credentials) {
     try {
@@ -207,11 +228,29 @@ export const useUserStore = defineStore("user", () => {
     setSession();
   }
 
+  async function getGeneralSettings() {
+    const retrievedSettings = await getSettings<GeneralSettings>("general");
+    if (retrievedSettings) {
+      settings.value = {
+        ...defaultGeneralSettings,
+        ...retrievedSettings,
+      };
+    }
+  }
+
   watch(token, (newValue) => {
     if (newValue) {
       localStorage.setItem("token", newValue);
     }
   });
+
+  watch(
+    settings,
+    (newValue) => {
+      setSettingsThrottle("general", newValue);
+    },
+    { deep: true }
+  );
 
   return {
     token,
@@ -230,5 +269,6 @@ export const useUserStore = defineStore("user", () => {
     setSettings,
     setSession,
     setFeedback,
+    getGeneralSettings,
   };
 });

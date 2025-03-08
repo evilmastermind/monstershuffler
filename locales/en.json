@@ -106,11 +106,14 @@
       "vtt": "VTT Foundry (text)",
       "monstershuffler": "Monstershuffler (experimental)"
     },
+    "traits": "Traits",
     "actions": "Actions",
     "bonusActions": "Bonus Actions",
     "reactions": "Reactions",
     "legendaryActions": "Legendary Actions",
-    "AC": "Armor Class",
+    "armorClass": "Armor Class",
+    "AC": "AC",
+    "initiative": "Initiative",
     "crit": "Crit",
     "nat1": "Nat 1",
     "plus": "plus",
@@ -143,7 +146,8 @@
       "Stealth": "Stealth",
       "Survival": "Survival"
     },
-    "HP": "Hit Points",
+    "hitPoints": "Hit Points",
+    "HP": "HP",
     "savingThrows": "Saving Throws",
     "savingThrow": {
       "Str": "Str",
@@ -310,8 +314,10 @@
       "yugoloth": "yugoloth"
     },
     "challenge": "Challenge",
+    "cr": "CR",
     "xp": "XP",
     "proficiencyBonus": "Proficiency Bonus",
+    "pb": "PB",
     "raiseCR": "Raise Challenge Rating",
     "lowerCR": "Lower Challenge Rating",
     "blind beyond this radius": "blind beyond this radius",
@@ -466,6 +472,10 @@
       "communityCreations": "Community Creations",
       "settings": "Settings"
     }
+  },
+  "dmScreen": {
+    "pageTitle": "DM Screen",
+    "pageDescription": "Dungeon Master Screen for Dungeons & Dragons (D&D) 5th Edition."
   },
   "clickTwiceToDelete": "Click twice to delete",
   "clickTwiceToClose": "Click twice to close",

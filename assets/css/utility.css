@@ -41,3 +41,7 @@
 .neutral {
   @apply text-text-neutral border-text-neutral;
 }
+
+.small-caps {
+  font-variant: small-caps;
+}

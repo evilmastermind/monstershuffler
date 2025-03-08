@@ -1,12 +1,12 @@
 <template>
-  <MonsterStatBlockStat v-if="statistics?.senses?.length">
+  <StatBlockStat v-if="statistics?.senses?.length">
     <template #title> {{ $t("statBlock.senses") }} </template>
     <MonsterJoinedDescription :stats="statistics?.senses || []" tag="span" />
-  </MonsterStatBlockStat>
-  <MonsterStatBlockStat v-if="statistics?.languages?.length">
+  </StatBlockStat>
+  <StatBlockStat v-if="statistics?.languages?.length">
     <template #title> {{ $t("statBlock.languages") }} </template>
     <MonsterJoinedDescription :stats="statistics?.languages || []" tag="span" />
-  </MonsterStatBlockStat>
+  </StatBlockStat>
 </template>
 
 <script setup lang="ts">

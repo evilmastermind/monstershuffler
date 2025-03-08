@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <MonsterStatBlockStat class="mr-2">
+    <StatBlockStat class="mr-2">
       <template #title>
         {{ $t("statBlock.challenge") }}
       </template>
@@ -12,10 +12,10 @@
         />
         <!-- <span class="cr" ref="refCR">{{ statistics.CR.string }}</span> -->
         <input
-          type="text"
-          v-model="CR"
-          class="cr"
           ref="refCR"
+          v-model="CR"
+          type="text"
+          class="cr"
           @click="select"
           @keydown.enter="callSetCR"
           @blur="callSetCR"
@@ -27,11 +27,11 @@
         />
         ({{ statistics.XP }} {{ $t("statBlock.xp") }})
       </template>
-    </MonsterStatBlockStat>
-    <MonsterStatBlockStat>
+    </StatBlockStat>
+    <StatBlockStat>
       <template #title> {{ $t("statBlock.proficiencyBonus") }} </template>
       <template #default> {{ addPlusSign(statistics.proficiency) }} </template>
-    </MonsterStatBlockStat>
+    </StatBlockStat>
   </div>
 </template>
 
@@ -69,10 +69,10 @@ function select(event: MouseEvent) {
 
 onMounted(async () => {
   if (didLayoutShift.value && refCR.value) {
-    await wait(50);  
+    await wait(50);
     scrollIntoView(refCR.value, {
-      behavior: 'auto',
-      block: 'center',
+      behavior: "auto",
+      block: "center",
       scrollIfInView: false,
     });
     didLayoutShift.value = false;
@@ -109,7 +109,7 @@ onMounted(async () => {
 .cr {
   display: inline-block;
   min-width: 1.5em;
-  width: 1.5em; 
+  width: 1.5em;
   text-align: center;
   background-color: transparent;
   border: none;

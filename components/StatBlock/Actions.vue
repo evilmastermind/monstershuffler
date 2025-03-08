@@ -1,5 +1,5 @@
 <template>
-  <MonsterStatBlockActionType
+  <StatBlockActionType
     v-if="statistics?.actions?.length || statistics?.spells?.length"
     type="actions"
   />

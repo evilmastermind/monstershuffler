@@ -14,12 +14,7 @@
           <h4 class="content">Backstory Editor:</h4>
           <p class="content">Click the backstory to edit it.</p>
           <p class="content">
-            The new text editor, based on
-            <a class="content" href="https://playground.lexical.dev/"
-              >Lexical</a
-            >
-            by Meta, is still a work in progress. The following
-            <b>Markdown shortcuts</b> are supported:
+            The following <b>Markdown shortcuts</b> are supported:
           </p>
           <ul class="list">
             <li><b>#</b> Header1, <b>##</b> Header2, etc.</li>

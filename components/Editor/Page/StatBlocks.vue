@@ -1,10 +1,13 @@
 <template>
   <div>
     <h2 class="static">Stat Blocks</h2>
+    <div class="flex justify-center items-center mt-4">
+      <MSSwitchWords v-model="is55e" checked="5.5e" unchecked="5e" />
+    </div>
     <div class="statblocks mt-6">
       <div class="statblock">
         <ClientOnly fallback-tag="span" :fallback="$t('loading')">
-          <MonsterStatBlock :columns="1" />
+          <StatBlock :columns="1" />
         </ClientOnly>
       </div>
       <div class="statblocks-description">
@@ -48,7 +51,14 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const user = useUserStore();
+const is55e = ref(user.settings.statBlocks === "5.5e");
+
+watch(is55e, (newValue) => {
+  user.settings.statBlocks = newValue ? "5.5e" : "5e";
+});
+</script>
 
 <style scoped>
 .statblock {

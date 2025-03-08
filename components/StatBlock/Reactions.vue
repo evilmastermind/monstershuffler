@@ -1,10 +1,10 @@
 <template>
-  <MonsterStatBlockActionType
-    v-if="statistics?.bonusActions?.length"
-    type="bonusActions"
+  <StatBlockActionType
+    v-if="statistics?.reactions?.length"
+    type="reactions"
   />
   <MonsterDescription
-    v-for="(action, index) in statistics?.bonusActions"
+    v-for="(action, index) in statistics?.reactions"
     :key="index"
     class="action"
     :parts="action.array"

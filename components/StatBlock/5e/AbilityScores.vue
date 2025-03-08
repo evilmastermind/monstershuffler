@@ -2,14 +2,17 @@
   <div class="ability-scores-container">
     <p class="ability-scores">
       <span
-        v-for="(score, ability) in statistics.abilities"
-        :key="ability"
+        v-for="(ability, name) in statistics.abilities"
+        :key="name"
         class="score"
       >
         <span class="ability-name" :class="moral">
-          {{ $t(`statBlock.ability.${ability}`) }}
+          {{ $t(`statBlock.ability.${name}`) }}
         </span>
-        <MonsterDescription :parts="score.array" tag="span" />
+        <span>
+          <MonsterDescription tag="span" :parts="ability.score.array" />
+          (<MonsterDescription tag="span" :parts="ability.modifier.array" />)
+        </span>
       </span>
     </p>
   </div>

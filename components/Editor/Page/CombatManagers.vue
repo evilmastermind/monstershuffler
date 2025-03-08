@@ -173,7 +173,7 @@
               :fallback="$t('loading')"
               data-allow-mismatch
             >
-              <MonsterStatBlock :columns="1" />
+              <StatBlock :columns="1" />
             </ClientOnly>
           </div>
         </div>
@@ -351,7 +351,7 @@
                 :fallback="$t('loading')"
                 data-allow-mismatch
               >
-                <MonsterStatBlock :columns="1" />
+                <StatBlock :columns="1" />
               </ClientOnly>
             </div>
           </div>

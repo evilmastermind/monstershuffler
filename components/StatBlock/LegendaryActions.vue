@@ -1,10 +1,15 @@
 <template>
-  <MonsterStatBlockActionType
-    v-if="statistics?.reactions?.length"
-    type="reactions"
+  <StatBlockActionType
+    v-if="statistics?.legendaryActions?.length"
+    type="legendaryActions"
   />
   <MonsterDescription
-    v-for="(action, index) in statistics?.reactions"
+    v-if="statistics?.legendaryActions?.length"
+    :parts="statistics?.legendaryActionsIntro?.array || []"
+    period
+  />
+  <MonsterDescription
+    v-for="(action, index) in statistics?.legendaryActions"
     :key="index"
     class="action"
     :parts="action.array"

@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@iconify/json": "^2.2.313",
     "@kgierke/nuxt-basic-auth": "^1.7.0",
     "@lexical/clipboard": "^0.17.0",
     "@lexical/code": "^0.17.1",

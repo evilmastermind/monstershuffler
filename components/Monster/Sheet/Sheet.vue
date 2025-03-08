@@ -14,7 +14,7 @@
         <MonsterBackstory v-show="isLoaded" />
       </template>
       <template #stats="{ columns: layoutColumns }">
-        <MonsterStatBlock :columns="layoutColumns" />
+        <StatBlock :columns="layoutColumns" />
       </template>
       <template #card>
         <MonsterSheetCard>
