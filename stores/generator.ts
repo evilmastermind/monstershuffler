@@ -105,6 +105,9 @@ export const useGeneratorStore = defineStore("generator", () => {
       data?.npcs.forEach((npc) => {
         const character = npc.object;
         createStats(character);
+        console.log(
+          JSON.stringify(character.character.characterHooks, null, 2)
+        );
       });
       session.value = [];
       data.npcs.forEach((npc) => {

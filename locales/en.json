@@ -407,6 +407,7 @@
       "DC Charisma saving throw": "DC {n} Charisma saving throw",
       "hit point": "{n} hit points | {n} hit point | {n} hit points",
       "temporary hit point": "{n} temporary hit points | {n} temporary hit point | {n} temporary hit points",
+      "temporary hit points": "{n} temporary hit points | {n} temporary hit point | {n} temporary hit points",
       "+": "+{n}",
       "-": "-{n}",
       "time": "{n} times | {n} time | {n} times",

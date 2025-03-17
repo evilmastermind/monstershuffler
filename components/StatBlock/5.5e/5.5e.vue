@@ -35,7 +35,6 @@ const p = defineProps({
   },
 });
 
-console.log("StatBlock55e", p.columnsCount);
 
 const moral = inject("moral") as string;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;

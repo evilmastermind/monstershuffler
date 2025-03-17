@@ -12,8 +12,6 @@ const p = defineProps({
   },
 });
 
-console.log("StatBlock", p.columns);
-
 const columnsFromActions = inject("columns") as Ref<number>;
 
 const generator = useGeneratorStore();
