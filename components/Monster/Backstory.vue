@@ -11,6 +11,19 @@
           !backstory && ['opening', undefined].includes(wrapper?.streamStatus)
         "
       />
+      <div
+        v-if="hooks?.length"
+        class="p-4 bg-background-150 rounded w-fit break-inside-avoid mt-6"
+      >
+        <p class="font-[LibreBaskerville]">
+          Generate a mini-adventure based on:
+        </p>
+        <div class="flex gap-2 mt-2">
+          <MSButton v-for="(hook, index) in hooks" :key="index" color="dark">
+            {{ hook.type }}
+          </MSButton>
+        </div>
+      </div>
       <Transition name="fade">
         <div
           v-if="
@@ -64,6 +77,7 @@ const user = useUserStore();
 const character = inject("character") as Ref<Character>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
+const hooks = character.value.character?.characterHooks;
 const backstory = ref<string | undefined>(
   character.value?.character?.user?.backstory?.string as string | undefined
 );
@@ -86,12 +100,12 @@ watch(
 
 onMounted(async () => {
   getRating();
-
+  console.log("backstory", backstory.value);
   if (!backstory.value && !wrapper.value.streamStatus) {
-    const result = await generatorStore.generateBackstory(wrapper);
-    if (result === 429) {
-      tooManyRequests.value = true;
-    }
+    // const result = await generatorStore.generateBackstory(wrapper);
+    // if (result === 429) {
+    //   tooManyRequests.value = true;
+    // }
   }
   // } else if (
   //   backstory.value !== null &&
