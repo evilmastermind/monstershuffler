@@ -59,22 +59,13 @@ import { getChallengeNumber } from "monstershuffler-shared";
 const generator = useGeneratorStore();
 const user = useUserStore();
 
-const {
-  promptOptions,
-  keywords,
-  settings,
-  session,
-  characters,
-  promptFromOtherSources,
-} = storeToRefs(generator);
-const prompt = ref("");
+const { promptOptions, keywords, settings, prompt, promptFromOtherSources } =
+  storeToRefs(generator);
 const promptElement = ref<HTMLInputElement | null>(null);
 
 const isLoading = ref(false);
 const tooManyRequests = ref(false);
 const isServerDown = ref(false);
-const hasGeneratedOnce =
-  localStorage.getItem("generator.prompt.hasGeneratedOnce") || false;
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 

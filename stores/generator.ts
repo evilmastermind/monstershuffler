@@ -65,6 +65,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     layout: "MonsterLayoutDynamicA",
     showRoleplayStats: true,
   });
+  const prompt = ref("");
   /**
    * Computed properties
    */
@@ -303,7 +304,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         openWhenHidden: true,
         signal,
         // eslint-disable-next-line
-      async onopen(response) {
+        async onopen(response) {
           wrapper.value.streamStatus = "open";
           if (
             response.ok
@@ -507,6 +508,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     promptOptions,
     promptFromOtherSources,
     keywords,
+    prompt,
     setCurrentNPCRatingThrottle,
     getRandomNpcs,
     getNpc,
