@@ -106,9 +106,6 @@ export const useGeneratorStore = defineStore("generator", () => {
       data?.npcs.forEach((npc) => {
         const character = npc.object;
         createStats(character);
-        console.log(
-          JSON.stringify(character.character.characterHooks, null, 2)
-        );
       });
       session.value = [];
       data.npcs.forEach((npc) => {
@@ -260,7 +257,8 @@ export const useGeneratorStore = defineStore("generator", () => {
   }
 
   async function generateBackstory(
-    wrapper: Ref<GeneratorCharacter>
+    wrapper: Ref<GeneratorCharacter>,
+    hook?: number
   ): Promise<number> {
     const controller = new AbortController();
     const { signal } = controller;
@@ -300,6 +298,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         },
         body: JSON.stringify({
           id: wrapper.value.id,
+          hook,
         }),
         openWhenHidden: true,
         signal,

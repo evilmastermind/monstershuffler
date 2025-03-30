@@ -31,7 +31,11 @@ export const useLexicalStore = defineStore("lexical", () => {
   const lock = new ThrottledFunctionLock();
   let currentChunk = 0;
 
-  function createLexicalEditor(node: HTMLElement, theme: Object) {
+  function createLexicalEditor(
+    node: HTMLElement,
+    theme: Object,
+    onUpdate?: (markdown: string) => any
+  ) {
     const config = {
       namespace: "text", // TODO: does this need to be unique if multiple editors are on the same page?
       nodes: [
@@ -62,6 +66,13 @@ export const useLexicalStore = defineStore("lexical", () => {
       1000
     );
     addFocusListeners(node);
+
+    editor.registerUpdateListener(async () => {
+      if (!onUpdate) {
+        return;
+      }
+      onUpdate(await toMarkdown());
+    });
   }
 
   function addFocusListeners(node: HTMLElement) {
@@ -139,15 +150,18 @@ export const useLexicalStore = defineStore("lexical", () => {
     });
   }
 
-  function toMarkdown() {
-    if (editor === null) {
-      return "";
-    }
-    let markdown = "";
-    editor.update(() => {
-      markdown = $convertToMarkdownString(TRANSFORMERS);
+  function toMarkdown(): Promise<string> {
+    return new Promise((resolve) => {
+      if (!editor) {
+        resolve("");
+        return;
+      }
+
+      editor.update(() => {
+        const markdown = $convertToMarkdownString(TRANSFORMERS);
+        resolve(markdown);
+      });
     });
-    return markdown;
   }
 
   function toHTML() {

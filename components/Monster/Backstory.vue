@@ -2,9 +2,10 @@
   <div>
     <div class="backstory">
       <EditorText
-        :backstory="backstory"
+        :text="backstory"
         :stream-chunks="wrapper.streamChunks"
         :stream-status="wrapper.streamStatus"
+        @text-updated="saveBackstory"
       />
       <LoadingDots
         v-if="
@@ -12,14 +13,19 @@
         "
       />
       <div
-        v-if="hooks?.length"
+        v-if="hooks?.length && !wrapper?.streamChunks.length"
         class="p-4 bg-background-150 rounded w-fit break-inside-avoid mt-6"
       >
         <p class="font-[LibreBaskerville]">
           Generate a mini-adventure based on:
         </p>
         <div class="flex gap-2 mt-2">
-          <MSButton v-for="(hook, index) in hooks" :key="index" color="dark">
+          <MSButton
+            v-for="(hook, index) in hooks"
+            :key="index"
+            color="dark"
+            @click="generateAdventure(index)"
+          >
             {{ hook.type }}
           </MSButton>
         </div>
@@ -27,8 +33,8 @@
       <Transition name="fade">
         <div
           v-if="
-            false &&
             backstory &&
+            wrapper?.streamChunks.length &&
             ['closed', undefined].includes(wrapper?.streamStatus) &&
             hasRating
           "
@@ -42,10 +48,7 @@
             :size="2"
             @rate="
               (rating) =>
-                generatorStore.setCurrentNPCRatingThrottle(
-                  rating,
-                  user.sessionId
-                )
+                generator.setCurrentNPCRatingThrottle(rating, user.sessionId)
             "
           />
         </div>
@@ -71,7 +74,7 @@ const p = defineProps({
   },
 });
 
-const generatorStore = useGeneratorStore();
+const generator = useGeneratorStore();
 const user = useUserStore();
 
 const character = inject("character") as Ref<Character>;
@@ -86,7 +89,24 @@ const tooManyRequests = ref(false);
 const initialRating = ref<number>(0);
 
 function getRating() {
-  initialRating.value = generatorStore.getCurrentNPCRating();
+  initialRating.value = generator.getCurrentNPCRating();
+}
+
+function saveBackstory(backstory: string) {
+  if (!character.value.character.user) {
+    character.value.character.user = {};
+  }
+  if (!character.value.character.user.backstory) {
+    character.value.character.user!.backstory = {
+      string: "",
+      type: "backstory",
+    };
+  }
+  character.value.character.user.backstory.string = backstory;
+}
+
+function generateAdventure(hook?: number) {
+  generator.generateBackstory(wrapper, hook);
 }
 
 watch(
@@ -98,21 +118,8 @@ watch(
   }
 );
 
-onMounted(async () => {
+onMounted(() => {
   getRating();
-  console.log("backstory", backstory.value);
-  if (!backstory.value && !wrapper.value.streamStatus) {
-    // const result = await generatorStore.generateBackstory(wrapper);
-    // if (result === 429) {
-    //   tooManyRequests.value = true;
-    // }
-  }
-  // } else if (
-  //   backstory.value !== null &&
-  //   generatorStats.value.streamStatus === undefined
-  // ) {
-  //   generatorStats.value.streamStatus = "closed";
-  // }
 });
 </script>
 

@@ -6,8 +6,9 @@
 import { throttle } from "monstershuffler-shared";
 import type { StreamStatus } from "@/types";
 
+const e = defineEmits(["text-updated"]);
 const p = defineProps({
-  backstory: {
+  text: {
     type: String,
     default: "",
   },
@@ -105,6 +106,10 @@ const lexical = useLexicalStore();
 const editorRef = ref<HTMLElement | null>(null);
 const isEditable = ref(false);
 
+function onUpdated(markdown: string) {
+  e("text-updated", markdown);
+}
+
 watch(
   () => p.streamChunks.length,
   () => {
@@ -119,10 +124,10 @@ onMounted(() => {
     return;
   }
 
-  lexical.createLexicalEditor(editorRef.value, lexicalTheme);
+  lexical.createLexicalEditor(editorRef.value, lexicalTheme, onUpdated);
 
-  if (p.backstory && ["closed", undefined].includes(p.streamStatus)) {
-    lexical.importMarkdown(p.backstory);
+  if (p.text && ["closed", undefined].includes(p.streamStatus)) {
+    lexical.importMarkdown(p.text);
   }
   // UNDO/REDO
 });
@@ -197,7 +202,7 @@ onMounted(() => {
 .editor-quote {
   font-style: italic;
   text-align: center;
-  @apply mt-4 mb-4;
+  @apply mt-6 mb-4;
 }
 /*
 .editor-quote::before {

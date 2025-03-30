@@ -25,7 +25,7 @@ const backstoryExport = defineModel({
 });
 const hasCopiedToClipboard = ref(false);
 
-function exportAdventureAs(type: "HTML" | "markdown") {
+async function exportAdventureAs(type: "HTML" | "markdown") {
   p.hide();
   backstoryExport.value.isModalOpen = true;
   hasCopiedToClipboard.value = false;
@@ -35,7 +35,7 @@ function exportAdventureAs(type: "HTML" | "markdown") {
       backstoryExport.value.content = lexical.toHTML();
       break;
     case "markdown":
-      backstoryExport.value.content = lexical.toMarkdown();
+      backstoryExport.value.content = await lexical.toMarkdown();
       break;
   }
   // create a file and download it
