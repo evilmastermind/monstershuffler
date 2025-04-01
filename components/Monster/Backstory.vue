@@ -14,7 +14,7 @@
       />
       <div
         v-if="hooks?.length && !wrapper?.streamChunks.length"
-        class="p-4 bg-background-150 rounded w-fit break-inside-avoid mt-6"
+        class="p-4 border-background-200 bg-background-200/20 border rounded w-fit break-inside-avoid mt-6"
       >
         <p class="font-[LibreBaskerville]">
           Generate a mini-adventure based on:
@@ -23,7 +23,7 @@
           <MSButton
             v-for="(hook, index) in hooks"
             :key="index"
-            color="dark"
+            color="light"
             @click="generateAdventure(index)"
           >
             {{ hook.type }}

@@ -180,10 +180,10 @@ function goToURL() {
 }
 
 .color-light {
-  @apply bg-light text-text;
+  @apply bg-background-50 text-text;
 }
 .color-light:hover {
-  @apply bg-background-50;
+  @apply bg-background-100;
 }
 .color-light:active {
   @apply bg-background-100;
