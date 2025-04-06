@@ -44,22 +44,25 @@ const isHistoryOpen = ref(false);
 const { diceRolls } = storeToRefs(rolls);
 const areRollsLoaded = ref(false);
 
-watch(diceRolls, () => {
-  if (!diceRolls.value.length) {
-    return;
+watch(
+  () => rolls.diceRolls,
+  () => {
+    if (!diceRolls.value.length) {
+      return;
+    }
+    if (diceRollsWithId.value.length >= maxSize) {
+      diceRollsWithId.value.shift();
+    }
+    const newId = Math.random().toString(36).substring(7);
+    diceRollsWithId.value.push({
+      ...diceRolls.value[diceRolls.value.length - 1],
+      id: newId,
+      timeout: setTimeout(() => {
+        removeRoll(newId);
+      }, timeout),
+    });
   }
-  if (diceRollsWithId.value.length >= maxSize) {
-    diceRollsWithId.value.shift();
-  }
-  const newId = Math.random().toString(36).substring(7);
-  diceRollsWithId.value.push({
-    ...diceRolls.value[diceRolls.value.length - 1],
-    id: newId,
-    timeout: setTimeout(() => {
-      removeRoll(newId);
-    }, timeout),
-  });
-});
+);
 
 function removeRoll(id: string) {
   if (!diceRollsWithId.value.length) {

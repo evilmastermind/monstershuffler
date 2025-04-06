@@ -1,6 +1,6 @@
 <template>
   <div
-    class="shadow-lg rounded-lg border-4 border-double border-background-500 bg-background-150 p-4"
+    class="relative shadow-lg rounded-lg border-4 border-double border-background-500 bg-background-150 p-4"
   >
     <div :key="wrapper.key" class="stat-block font-[ScalaSansOffc]">
       <StatBlock55eHeader />
@@ -34,7 +34,6 @@ const p = defineProps({
     default: 1,
   },
 });
-
 
 const moral = inject("moral") as string;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;

@@ -5,26 +5,7 @@
         {{ $t("statBlock.challenge") }}
       </template>
       <template #default>
-        <button
-          class="triangleleft hide-from-exports"
-          :aria-label="$t('statBlock.lowerCR')"
-          @click="callLowerCR"
-        />
-        <!-- <span class="cr" ref="refCR">{{ statistics.CR.string }}</span> -->
-        <input
-          ref="refCR"
-          v-model="CR"
-          type="text"
-          class="cr"
-          @click="select"
-          @keydown.enter="callSetCR"
-          @blur="callSetCR"
-        />
-        <button
-          class="triangleright hide-from-exports"
-          :aria-label="$t('statBlock.raiseCR')"
-          @click="callRaiseCR"
-        />
+        <StatBlockCR />
         ({{ statistics.XP }} {{ $t("statBlock.xp") }})
       </template>
     </StatBlockStat>
@@ -36,48 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import { lowerCR, raiseCR, setCR, addPlusSign } from "monstershuffler-shared";
-import type { GeneratorCharacter, Character, Statistics } from "@/types";
+import { addPlusSign } from "monstershuffler-shared";
+import type { Statistics } from "@/types";
 
-const character = inject("character") as Ref<Character>;
 const statistics = inject("statistics") as Ref<Statistics>;
-const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
-const didLayoutShift = inject("didLayoutShift") as Ref<boolean>;
-
-const refCR = ref<HTMLElement | null>(null);
-const CR = ref<string>(statistics.value.CR.string);
-
-function callRaiseCR() {
-  raiseCR(character.value);
-  wrapper.value.key++;
-}
-
-function callLowerCR() {
-  lowerCR(character.value);
-  wrapper.value.key++;
-}
-
-function callSetCR() {
-  setCR(character.value, CR.value);
-  wrapper.value.key++;
-}
-
-function select(event: MouseEvent) {
-  const target = event.target as HTMLInputElement;
-  target.select();
-}
-
-onMounted(async () => {
-  if (didLayoutShift.value && refCR.value) {
-    await wait(50);
-    scrollIntoView(refCR.value, {
-      behavior: "auto",
-      block: "center",
-      scrollIfInView: false,
-    });
-    didLayoutShift.value = false;
-  }
-});
 </script>
 
 <style scoped>

@@ -7,13 +7,17 @@
 </template>
 
 <script setup lang="ts">
-import type { DiceRoll } from "@/stores/index";
+import type { DiceRoll } from "@/types";
 
 const p = defineProps({
   roll: {
     type: Object as PropType<DiceRoll>,
     required: true,
   },
+});
+
+onMounted(() => {
+  console.log("yo I be mounted");
 });
 </script>
 
