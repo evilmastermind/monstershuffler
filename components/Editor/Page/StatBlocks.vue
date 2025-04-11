@@ -46,6 +46,16 @@
             but also <em>spells, items, traps and lair actions</em>!
           </li>
         </ul>
+        <p class="static mt-6">
+          <b class="static">See it in action</b>: you can try the old version of
+          the stat block editor at
+          <a
+            class="static"
+            href="https://www.monstershuffler.com/monsters/editor.php"
+          >
+            Monstershuffler.com</a
+          >.
+        </p>
       </div>
     </div>
   </div>

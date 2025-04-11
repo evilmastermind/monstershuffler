@@ -27,6 +27,7 @@ const tabs = [
   { name: "Game Session Example", selected: true },
   { name: "Trouble at the Market", selected: false },
   { name: "5.5e Grappling rules", selected: false },
+  { name: "Spell: Dominate Monster", selected: false },
 ];
 </script>
 

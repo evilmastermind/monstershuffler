@@ -182,7 +182,7 @@
         <div class="relative">
           <MSNote class="note rounded shadow min-h-full">
             <ClientOnly>
-              <EditorText :backstory />
+              <EditorText :text />
             </ClientOnly>
           </MSNote>
           <div class="absolute top-full grid place-items-center w-full">
@@ -323,7 +323,7 @@ provide(
   "moral",
   computed(() => "evil")
 );
-const backstory = ref(
+const text = ref(
   `
 ## Game Session Example \n\n
 This is an example of a Game Session Note Group, as shown in the DM Screen Page.

@@ -72,6 +72,11 @@
           everywhere it's used, giving you complete freedom to organize your
           content however you like.
         </p>
+        <p class="static mt-6">
+          <b class="static">See it in action: </b>
+          a prototype "Game Session" note group is visible on the
+          <a class="static" href="/dm-screen">DM Screen example page</a>.
+        </p>
       </div>
     </div>
     <!-- <EditorPageGameSessionExample class="mt-12" /> -->

@@ -124,7 +124,11 @@ onMounted(() => {
     return;
   }
 
-  lexical.createLexicalEditor(editorRef.value, lexicalTheme, onUpdated);
+  lexical.createLexicalEditor(
+    editorRef.value as HTMLElement,
+    lexicalTheme,
+    onUpdated
+  );
 
   if (p.text && ["closed", undefined].includes(p.streamStatus)) {
     lexical.importMarkdown(p.text);
