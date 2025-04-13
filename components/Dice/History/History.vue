@@ -45,7 +45,7 @@ const { diceRolls } = storeToRefs(rolls);
 const areRollsLoaded = ref(false);
 
 watch(
-  () => rolls.diceRolls,
+  diceRolls,
   () => {
     if (!diceRolls.value.length) {
       return;
@@ -61,7 +61,8 @@ watch(
         removeRoll(newId);
       }, timeout),
     });
-  }
+  },
+  { deep: true }
 );
 
 function removeRoll(id: string) {

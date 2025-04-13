@@ -9,11 +9,11 @@
       />
       <LoadingDots
         v-if="
-          !backstory && ['opening', undefined].includes(wrapper?.streamStatus)
+          !wrapper.streamChunks.length && wrapper?.streamStatus === 'opening'
         "
       />
       <div
-        v-if="hooks?.length && !wrapper?.streamChunks.length"
+        v-if="hooks?.length && wrapper.hook === undefined"
         class="p-4 border-background-200 bg-background-200/20 border rounded w-fit break-inside-avoid mt-6"
       >
         <p class="font-[LibreBaskerville]">
@@ -34,7 +34,7 @@
         <div
           v-if="
             backstory &&
-            wrapper?.streamChunks.length &&
+            wrapper?.hook !== undefined &&
             ['closed', undefined].includes(wrapper?.streamStatus) &&
             hasRating
           "
@@ -103,6 +103,7 @@ function saveBackstory(backstory: string) {
     };
   }
   character.value.character.user.backstory.string = backstory;
+  generator.saveSettingsThrottle();
 }
 
 function generateAdventure(hook?: number) {

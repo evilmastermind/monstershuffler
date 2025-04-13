@@ -13,7 +13,11 @@
       <div class="statblocks-description">
         <h3 class="static">Old Version</h3>
         The original stat block editor on
-        <a href="monstershuffler.com" class="static">monstershuffler.com</a>
+        <a
+          href="https://www.monstershuffler.com/monsters/editor.php"
+          class="static"
+          >monstershuffler.com</a
+        >
         introduced a revolutionary way to lower or increase a monster's
         Challenge Rating (CR)... with a tiny minor inconvenience: it required
         users to write mathematical expressions to calculate the stats
@@ -47,14 +51,15 @@
           </li>
         </ul>
         <p class="static mt-6">
-          <b class="static">See it in action</b>: you can try the old version of
-          the stat block editor at
-          <a
-            class="static"
-            href="https://www.monstershuffler.com/monsters/editor.php"
-          >
-            Monstershuffler.com</a
-          >.
+          <EditorPageAction>
+            You can try the old version of the stat block editor on
+            <a
+              class="static"
+              href="https://www.monstershuffler.com/monsters/editor.php"
+            >
+              Monstershuffler.com</a
+            >. Consider it a clunky prototype of the new version.
+          </EditorPageAction>
         </p>
       </div>
     </div>

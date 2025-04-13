@@ -5,15 +5,12 @@
 <script setup lang="ts">
 const { t } = useI18n();
 
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: `${t("generator.pageTitle")} - Monstershuffler.com`,
-  meta: [
-    {
-      hid: "description",
-      name: "description",
-      content: t("generator.pageDescription"),
-    },
-  ],
+  ogTitle: `${t("generator.pageTitle")} - Monstershuffler.com`,
+  description: t("generator.pageDescription"),
+  ogDescription: t("generator.pageDescription"),
 });
 </script>
 

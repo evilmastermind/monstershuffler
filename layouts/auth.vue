@@ -9,13 +9,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defaultHead, defaultDescription } from "@/utils";
+import { defaultDescription } from "@/utils";
 const { locale } = useI18n();
-useHead({
-  meta: [...defaultHead, ...defaultDescription],
-  htmlAttrs: {
-    lang: locale.value,
-  },
+
+useSeoMeta({
+  description: defaultDescription,
 });
 </script>
 <style scoped>

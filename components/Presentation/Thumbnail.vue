@@ -79,9 +79,9 @@ onUnmounted(() => {
   transition-timing-function: ease-out;
   transform: rotate3d(0);
   overflow: hidden;
-  min-width: 100px;
+  width: 100px;
   height: 140px;
-  @apply shadow rounded;
+  @apply shadow-sm rounded;
 }
 .tool-representation:hover {
   transition-duration: 150ms;

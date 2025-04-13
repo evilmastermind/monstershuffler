@@ -59,6 +59,10 @@
     </PresentationCardList>
     <PresentationText class="mx-4 mt-9">
       <h2 class="static max-width">A preview of things to come</h2>
+      <p class="text-sm mt-6">
+        Visit the <a class="content" href="/">home page</a> to read the full
+        project description.
+      </p>
       <PresentationTool class="mt-8">
         <template #image>
           <ThumbnailNote />

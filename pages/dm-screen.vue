@@ -4,16 +4,12 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
-
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: `${t("dmScreen.pageTitle")} - Monstershuffler.com`,
-  meta: [
-    {
-      hid: "description",
-      name: "description",
-      content: t("dmScreen.pageDescription"),
-    },
-  ],
+  ogTitle: `${t("dmScreen.pageTitle")} - Monstershuffler.com`,
+  description: t("dmScreen.pageDescription"),
+  ogDescription: t("dmScreen.pageDescription"),
 });
 </script>
 

@@ -381,6 +381,7 @@ You can also edit this note using Markdown. For those who prefer a more visual e
   justify-content: flex-end;
   align-items: center;
   gap: 2px;
+  cursor: pointer;
 }
 .list-name {
   font-family: "MrsEavesSmallCaps", serif;
@@ -401,6 +402,11 @@ You can also edit this note using Markdown. For those who prefer a more visual e
   align-items: flex-start;
   border-top: 1px solid theme("colors.inset.400");
   @apply px-2 py-2 gap-2;
+}
+.list-note:hover {
+  text-decoration: underline;
+  text-decoration-color: theme("colors.text-3");
+  cursor: pointer;
 }
 .list-checkbox,
 .note-icon {

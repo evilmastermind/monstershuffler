@@ -78,8 +78,10 @@ const { t } = useI18n();
 definePageMeta({
   layout: "auth",
 });
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: `${t("login.pageTitle")} - Monstershuffler.com`,
+  ogTitle: `${t("login.pageTitle")} - Monstershuffler.com`,
 });
 
 const localePath = useLocalePath();

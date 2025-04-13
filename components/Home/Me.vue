@@ -6,8 +6,8 @@
       <div>
         Hi, I'm Ismael, a web developer and Dungeon Master for more than 10
         years. In 2022, I created
-        <a class="content" href="monstershuffler.com">Monstershuffler</a>, a
-        stat block editor for building D&D monsters with dynamic challenge
+        <a class="content" href="https://monstershuffler.com">Monstershuffler</a
+        >, a stat block editor for building D&D monsters with dynamic challenge
         ratings. Now, I'm expanding it into a full suite of tools to help
         Dungeon Masters create, organize, and share their worlds.
       </div>

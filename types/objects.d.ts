@@ -1,4 +1,4 @@
-import { enchantmentObject } from './../node_modules/monstershuffler-shared/schemas/objects/character/actions';
+import { enchantmentObject } from "./../node_modules/monstershuffler-shared/schemas/objects/character/actions";
 import { Variables } from "./objects.d";
 import { z } from "zod";
 import {
@@ -113,6 +113,7 @@ export type StreamStatus = undefined | "opening" | "open" | "closed" | "error";
 type NpcGeneratorData = {
   key: number;
   rating?: number;
+  hook?: number;
   streamStatus?: StreamStatus;
   streamChunks: string[];
 };

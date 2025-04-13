@@ -467,9 +467,10 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: "Privacy Policy - Monstershuffler.com",
-  meta: [...defaultHead, ...defaultDescription],
+  ogTitle: "Privacy Policy - Monstershuffler.com",
 });
 </script>
 

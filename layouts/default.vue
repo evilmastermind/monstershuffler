@@ -9,15 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { defaultHead } from "@/utils";
-const { locale } = useI18n();
-useHead({
-  meta: [...defaultHead],
-  htmlAttrs: {
-    lang: locale.value,
-  },
-});
-
 const user = useUserStore();
 user.getGeneralSettings();
 </script>

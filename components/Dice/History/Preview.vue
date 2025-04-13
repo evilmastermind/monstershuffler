@@ -15,10 +15,6 @@ const p = defineProps({
     required: true,
   },
 });
-
-onMounted(() => {
-  console.log("yo I be mounted");
-});
 </script>
 
 <style scoped>

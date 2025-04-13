@@ -89,7 +89,6 @@ const isFormShownOnMobile = ref(true);
 const haveCharactersJustBeenRetrieved = ref(false);
 
 const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
-const saveSettingsThrottle = throttle(() => saveSettings(), 3000);
 
 async function generateNpcs() {
   isButtonLoading.value = true;
@@ -119,15 +118,7 @@ async function generateNpcs() {
     };
     return;
   }
-  saveSettingsThrottle();
-}
-
-function saveSettings() {
-  const newSettings: NPCGeneratorSettings = {
-    ...settings.value,
-    characters: characters.value as GeneratorCharacter[],
-  };
-  user.setSettings<NPCGeneratorSettings>("npcgenerator", newSettings);
+  generator.saveSettingsThrottle();
 }
 
 watch(session, (newSession) => {
@@ -143,7 +134,7 @@ watch(
       haveCharactersJustBeenRetrieved.value = false;
       return;
     }
-    saveSettingsThrottle();
+    generator.saveSettingsThrottle();
   },
   { deep: true }
 );
@@ -162,9 +153,15 @@ onBeforeMount(async () => {
     "npcgenerator"
   );
   if (retrievedSettings) {
+    const characters = retrievedSettings.characters.map((character) => {
+      return {
+        ...character,
+        object: markRaw(character.object),
+      };
+    });
     settings.value = {
       ...retrievedSettings,
-      characters: markRaw(retrievedSettings.characters),
+      characters,
     };
   }
 
@@ -175,20 +172,19 @@ onBeforeMount(async () => {
   ) {
     characters.value = [];
     settings.value.characters.forEach((character) => {
-      characters.value.push({
-        key: 0,
-        id: character.id,
-        streamChunks: character.streamChunks || [],
-        // TODO: implement testing (Vitest?) to make sure that the object's content is NEVER reactive
-        object: markRaw(character.object),
-      });
+      characters.value.push(character);
     });
     haveCharactersJustBeenRetrieved.value = true;
   }
+
   // Check if we're viewing a specific NPC
   const uuid = route.params.uuid as string | undefined;
+  const hook = route.params.hook as string | undefined;
   if (uuid) {
-    const npcStatus = await generator.getNpc(uuid);
+    const npcStatus = await generator.getNpc(
+      uuid,
+      hook !== undefined ? parseInt(hook) : undefined
+    );
     if (npcStatus !== 200) {
       alert.value = {
         type: "danger",

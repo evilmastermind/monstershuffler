@@ -54,8 +54,10 @@ const { t } = useI18n();
 definePageMeta({
   layout: "auth",
 });
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: `${t("sResetPasswordBody.pageTitle")} - Monstershuffler.com`,
+  ogTitle: `${t("sResetPasswordBody.pageTitle")} - Monstershuffler.com`,
 });
 
 const user = useUserStore();

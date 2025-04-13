@@ -50,9 +50,10 @@
           </li>
         </ul>
         <p class="static mt-6">
-          <b class="static">See it in action</b>: the
-          <a class="static" href="/monsters/generator">NPC Generator</a>'s
-          backstory sheet is an editable note. Go ahead and try it out!
+          <EditorPageAction>
+            The <a class="static" href="/monsters/generator">NPC Generator</a>'s
+            backstory sheet is an editable note. Go ahead and try it out!
+          </EditorPageAction>
         </p>
       </div>
     </div>

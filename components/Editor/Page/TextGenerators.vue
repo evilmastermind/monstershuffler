@@ -51,9 +51,12 @@
           </li>
         </ul>
         <p class="static mt-6">
-          <b class="static">See it in action</b>: this tool is being used in the
-          <a class="static" href="/monsters/generator">NPC Generator page</a> to
-          generate mini adventures based on the NPC's backstory and profession.
+          <EditorPageAction>
+            This tool is being used in the
+            <a class="static" href="/monsters/generator">NPC Generator page</a>
+            to generate mini adventures based on the NPC's backstory and
+            profession.
+          </EditorPageAction>
         </p>
       </div>
     </div>

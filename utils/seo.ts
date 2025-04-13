@@ -1,13 +1,17 @@
-export const defaultHead = [
-  { charset: "utf-8" },
-  { name: "viewport", content: "width=device-width, initial-scale=1" },
-];
+export const defaultDescription =
+  "Monstershuffler is a toolkit for Dungeons & Dragons (D&D) 5th Edition.";
 
-export const defaultDescription = [
-  {
-    hid: "description",
-    name: "description",
-    content:
-      "Monstershuffler is a Monster Editor and NPC Generator for Dungeons & Dragons (D&D) 5th Edition.",
-  },
-];
+export const defaultSeoMeta = {
+  title: `Monstershuffler.com`,
+  ogTitle: `Monstershuffler.com`,
+  description: defaultDescription,
+  ogDescription: defaultDescription,
+  ogImage: "https://v2.monstershuffler.com/images/seo/og.webp",
+  twitterCard: "summary_large_image" as
+    | "summary_large_image"
+    | "summary"
+    | "app"
+    | "player"
+    | null
+    | undefined,
+};

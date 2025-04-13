@@ -6,6 +6,8 @@ export default defineNuxtConfig({
     // layoutTransition: { name: "fade-quick", mode: "out-in" },
     head: {
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
     },
   },
 
@@ -33,7 +35,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: true,
+    enabled: false,
   },
 
   vite: {

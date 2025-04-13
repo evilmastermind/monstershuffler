@@ -199,7 +199,7 @@
                       <ClientOnly>
                         <div
                           class="adventurer-hp-bar"
-                          :style="getHealthBarCss(93, 161, ui.currentThemeType)"
+                          :style="getHealthBarCss(70, 161, ui.currentThemeType)"
                         />
                         <template #fallback>
                           <div
@@ -219,7 +219,7 @@
                             name="fluent:heart-48-filled"
                           />
                           <span class="adventurer-value adventurer-hp-value">
-                            {{ enemy.currentHP }}
+                            {{ 70 }}
                           </span>
                         </div>
                       </div>
@@ -441,7 +441,7 @@ const enemies = [
     name: "Johnny Frenzy",
     AC: 15,
     HP: 161,
-    currentHP: 101,
+    currentHP: 161,
     image: "john_frenzy.webp",
     saves: [
       {

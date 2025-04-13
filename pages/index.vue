@@ -4,9 +4,10 @@
 
 <script setup>
 const { t } = useI18n();
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: `${t("home.pageTitle")} - Monstershuffler.com`,
-  meta: [...defaultHead, ...defaultDescription],
+  ogTitle: `${t("home.pageTitle")} - Monstershuffler.com`,
 });
 </script>
 

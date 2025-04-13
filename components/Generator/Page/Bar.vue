@@ -41,7 +41,7 @@
         />
       </div>
       <GeneratorPrompt v-else-if="!isFormMode && !isSheetOpen" class="prompt" />
-      <div class="top-bar-options">
+      <div v-if="!isSheetOpen" class="top-bar-options">
         <MSSwitchWords
           v-model="isFormMode"
           checked="Form"

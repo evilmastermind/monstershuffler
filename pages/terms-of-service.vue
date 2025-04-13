@@ -714,9 +714,10 @@
 </template>
 
 <script setup lang="ts">
-useHead({
+useSeoMeta({
+  ...defaultSeoMeta,
   title: "Terms of Service - Monstershuffler.com",
-  meta: [...defaultHead, ...defaultDescription],
+  ogTitle: "Terms of Service - Monstershuffler.com",
 });
 </script>
 

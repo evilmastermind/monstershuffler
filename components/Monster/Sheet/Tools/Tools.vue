@@ -168,8 +168,10 @@ useProvideCharacter(generatorCharacter);
 
 const link = computed(() => {
   const characterUuid = generatorCharacter.value.id;
+  const hook = generatorCharacter.value.hook;
+  const url = hook === undefined ? characterUuid : `${characterUuid}/${hook}`;
   return characterUuid
-    ? `${window.location.origin}/monsters/generator/${characterUuid}`
+    ? `${window.location.origin}/monsters/generator/${url}`
     : "";
 });
 

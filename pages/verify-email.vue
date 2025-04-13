@@ -29,8 +29,11 @@ const { t } = useI18n();
 definePageMeta({
   layout: "auth",
 });
-useHead({
+
+useSeoMeta({
+  ...defaultSeoMeta,
   title: `${t("verification.pageTitle")} - Monstershuffler.com`,
+  ogTitle: `${t("verification.pageTitle")} - Monstershuffler.com`,
 });
 
 const route = useRoute();

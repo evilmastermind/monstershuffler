@@ -20,6 +20,7 @@ class FatalError extends Error {}
 export const useGeneratorStore = defineStore("generator", () => {
   const config = useRuntimeConfig();
   const api = config.public.apiUrl;
+  const user = useUserStore();
   /**
    * State
    */
@@ -305,6 +306,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         // eslint-disable-next-line
         async onopen(response) {
           wrapper.value.streamStatus = "open";
+          wrapper.value.hook = hook;
           if (
             response.ok
             // && response.headers.get("content-type") === EventStreamContentType
@@ -390,7 +392,8 @@ export const useGeneratorStore = defineStore("generator", () => {
    */
   function pushNewCharacter(
     character: NpcDetails,
-    selected: boolean = false
+    selected: boolean = false,
+    hook: number | undefined = undefined
   ): number {
     let characterIndex = characters.value.findIndex(
       (char) => char.id === character.id
@@ -400,6 +403,7 @@ export const useGeneratorStore = defineStore("generator", () => {
         object: markRaw(character.object),
         id: character.id,
         key: 1,
+        hook,
         streamChunks: [],
       });
       characterIndex = characters.value.length - 1;
@@ -441,13 +445,20 @@ export const useGeneratorStore = defineStore("generator", () => {
     currentCharacterIndex.value = -1;
   }
 
-  async function getNpc(uuid: string) {
+  async function getNpc(
+    uuid: string,
+    hook: number | undefined
+  ): Promise<number> {
     try {
-      const data: NpcDetails = await $fetch(`${api}/npcs/${uuid}`);
+      const url =
+        hook === undefined
+          ? `${api}/npcs/${uuid}`
+          : `${api}/npcs/${uuid}/${hook}`;
+      const data: NpcDetails & { hasBackstory: boolean } = await $fetch(url);
       if (!data.object.statistics) {
         createStats(data.object);
       }
-      pushNewCharacter(data, true);
+      pushNewCharacter(data, true, data.hasBackstory ? hook : undefined);
       return 200;
     } catch (error) {
       return parseError(error).statusCode;
@@ -487,6 +498,16 @@ export const useGeneratorStore = defineStore("generator", () => {
       body: { rating, id: character.id, sessionid: sessionId },
     });
   }
+
+  const saveSettingsThrottle = throttle(() => saveSettings(), 3000);
+  function saveSettings() {
+    const newSettings: NPCGeneratorSettings = {
+      ...settings.value,
+      characters: characters.value as GeneratorCharacter[],
+    };
+    user.setSettings<NPCGeneratorSettings>("npcgenerator", newSettings);
+  }
+
   return {
     settings,
     session,
@@ -524,5 +545,6 @@ export const useGeneratorStore = defineStore("generator", () => {
     triggerUpdateCharacter,
     triggerSaveThrottle,
     unsetCharacter,
+    saveSettingsThrottle,
   };
 });

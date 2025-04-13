@@ -14,7 +14,8 @@
           <h4 class="content">Backstory Editor:</h4>
           <p class="content">Click the backstory to edit it.</p>
           <p class="content">
-            The following <b>Markdown shortcuts</b> are supported:
+            The following <b>Markdown shortcuts</b> are supported (more to
+            come):
           </p>
           <ul class="list">
             <li><b>#</b> Header1, <b>##</b> Header2, etc.</li>

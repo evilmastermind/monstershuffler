@@ -33,7 +33,6 @@ const p = defineProps({
 }
 .card-list-background {
   position: absolute;
-  margin: -3px 0; /* removes a gap between the mask and the border (Chromium browsers bug?) */
   inset: 0;
   background-position: center;
   background-size: cover;
