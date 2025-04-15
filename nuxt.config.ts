@@ -66,7 +66,6 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    someServerSideVariable: "some value",
     public: {
       apiUrl: process.env.API_URL,
     },
@@ -81,7 +80,7 @@ export default defineNuxtConfig({
     "floating-vue/nuxt",
     "@kgierke/nuxt-basic-auth",
   ],
-
+  /*
   basicAuth: {
     enabled: true,
     users: [
@@ -90,12 +89,8 @@ export default defineNuxtConfig({
         password: "me",
       },
     ],
-    // Optional: Delimiter for users string
-    // usersDelimiter: ",",
-    // Optional: Whitelist routes
-    // allowedRoutes: ["/api/.*"],
   },
-
+*/
   i18n: {
     locales: ["en"], // used in URL path prefix
     defaultLocale: "en",
