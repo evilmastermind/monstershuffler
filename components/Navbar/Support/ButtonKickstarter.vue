@@ -1,7 +1,11 @@
 <template>
-  <MSButton color="primary" to="https://kickstarter.com">
-    <NavbarSupportKickstarter class="kickstarter" />
-  </MSButton>
+  <a
+    href="https://www.kickstarter.com/projects/evilmastermind/masterminds-an-all-in-one-toolkit-for-5e-dungeon-masters"
+  >
+    <MSButton color="primary">
+      <NavbarSupportKickstarter class="kickstarter" />
+    </MSButton>
+  </a>
 </template>
 
 <script setup lang="ts"></script>
