@@ -35,7 +35,7 @@ const p = defineProps({
 .tour:hover {
   position: relative;
   /* outline: 10000px solid rgba(0, 0, 0, 0.05); */
-  z-index: 1000;
+  z-index: 100;
   height: 100%;
   @apply outline-[3px] outline outline-text-evil;
 }

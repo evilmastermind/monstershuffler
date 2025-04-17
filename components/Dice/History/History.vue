@@ -99,5 +99,13 @@ onMounted(() => {
 }
 .d20-button {
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  @apply bg-inset-300 border border-solid border-inset-500 text-text-evil shadow-lg;
 }
 </style>

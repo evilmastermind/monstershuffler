@@ -29,6 +29,13 @@
     </div>
     <MSFixedTools>
       <DiceHistory />
+      <MSTour
+        placement="top"
+        title="Music Player"
+        description="Playlists and music, automatically retrieved from your open notes, or manually added."
+      >
+        <EditorPageMusicPlayer class="z-" />
+      </MSTour>
     </MSFixedTools>
   </div>
 </template>

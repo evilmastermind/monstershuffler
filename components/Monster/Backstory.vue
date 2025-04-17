@@ -13,7 +13,9 @@
         "
       />
       <div
-        v-if="hooks?.length && wrapper.hook === undefined"
+        v-if="
+          hooks?.length && wrapper.hook === undefined && !isLoadingGeneration
+        "
         class="p-4 border-background-200 bg-background-200/20 border rounded w-fit break-inside-avoid mt-6"
       >
         <p class="font-[LibreBaskerville]">
@@ -24,6 +26,8 @@
             v-for="(hook, index) in hooks"
             :key="index"
             color="light"
+            :loading="isLoadingGeneration"
+            :disabled="isLoadingGeneration"
             @click="generateAdventure(index)"
           >
             {{ hook.type }}
@@ -85,6 +89,7 @@ const backstory = ref<string | undefined>(
   character.value?.character?.user?.backstory?.string as string | undefined
 );
 const tooManyRequests = ref(false);
+const isLoadingGeneration = ref(false);
 
 const initialRating = ref<number>(0);
 
@@ -106,8 +111,10 @@ function saveBackstory(backstory: string) {
   generator.saveSettingsThrottle();
 }
 
-function generateAdventure(hook?: number) {
-  generator.generateBackstory(wrapper, hook);
+async function generateAdventure(hook?: number) {
+  isLoadingGeneration.value = true;
+  await generator.generateBackstory(wrapper, hook);
+  isLoadingGeneration.value = false;
 }
 
 watch(

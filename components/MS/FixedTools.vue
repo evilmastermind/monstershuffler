@@ -15,7 +15,7 @@
   align-items: flex-end;
   right: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 1000;
   @apply gap-2 mx-1 mb-2;
 }
 </style>
