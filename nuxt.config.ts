@@ -78,7 +78,6 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "floating-vue/nuxt",
-    "@kgierke/nuxt-basic-auth",
   ],
   /*
   basicAuth: {
