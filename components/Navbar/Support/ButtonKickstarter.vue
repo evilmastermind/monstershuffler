@@ -5,6 +5,9 @@
   >
     <MSButton color="primary">
       <NavbarSupportKickstarter class="kickstarter" />
+      <span class="sr-only">
+        {{ $t("navbar.kickstarter") }}
+      </span>
     </MSButton>
   </a>
 </template>

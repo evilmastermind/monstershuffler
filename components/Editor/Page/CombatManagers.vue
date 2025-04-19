@@ -149,6 +149,8 @@
               <img
                 class="adventurer-image"
                 :src="`images/presentation/${adventurer.image}`"
+                alt=""
+                aria-hidden="true"
               />
               <span class="adventurer-name">{{ adventurer.name }}</span>
               <div class="adventurer-ac">

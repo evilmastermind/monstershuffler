@@ -89,41 +89,6 @@
   min-width: 50px;
   @apply rounded bg-inset-200 border border-inset-400;
 }
-.adventurers {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  @apply gap-2;
-}
-.adventurer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 50px;
-  border: 1px solid theme("colors.inset.400");
-  overflow: hidden;
-  gap: 2px;
-  padding-bottom: 2px;
-  @apply rounded bg-text;
-}
-.adventurer-image {
-  width: 50px;
-  aspect-ratio: 1 / 1;
-  background-color: theme("colors.inset.200");
-  overflow: hidden;
-}
-.adventurer-name {
-  max-width: 100%;
-  text-align: center;
-  font-size: 0.75rem;
-  line-height: 1em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0 2px;
-  @apply text-text-inverse;
-}
 /* CONTENT */
 .content {
   display: flex;

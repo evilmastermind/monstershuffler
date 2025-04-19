@@ -320,6 +320,7 @@
     "pb": "PB",
     "raiseCR": "Raise Challenge Rating",
     "lowerCR": "Lower Challenge Rating",
+    "setCR": "Set Challenge Rating",
     "blind beyond this radius": "blind beyond this radius",
     "Blind": "Blind",
     "Understands": "Understands",
@@ -472,7 +473,8 @@
       "dmScreen": "DM Screen Example",
       "communityCreations": "Community Creations",
       "settings": "Settings"
-    }
+    },
+    "kickstarter": "Support us on Kickstarter!"
   },
   "dmScreen": {
     "pageTitle": "DM Screen",

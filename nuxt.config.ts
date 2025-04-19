@@ -28,6 +28,12 @@ export default defineNuxtConfig({
     "/privacy-policy": { swr: 600 },
     "/reset-password": { swr: 600 },
     // "/api/**": { proxy:`${process.env.API_URL}/**` },
+    // Don’t cache HTML—always revalidate
+    "/**/*.html": {
+      headers: {
+        "cache-control": "no-cache, no-store, must-revalidate",
+      },
+    },
   },
 
   devServer: {

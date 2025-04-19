@@ -6,15 +6,19 @@
       @click="callLowerCR"
     />
     <!-- <span class="cr" ref="refCR">{{ statistics.CR.string }}</span> -->
-    <input
-      ref="refCR"
-      v-model="CR"
-      type="text"
-      class="cr"
-      @click="select"
-      @keydown.enter="callSetCR"
-      @blur="callSetCR"
-    />
+    <label>
+      <span class="sr-only">{{ $t("statBlock.setCR") }}</span>
+      <input
+        ref="refCR"
+        v-model="CR"
+        type="text"
+        class="cr"
+        :v-tooltip="$t('statBlock.setCR')"
+        @click="select"
+        @keydown.enter="callSetCR"
+        @blur="callSetCR"
+      />
+    </label>
     <button
       class="triangleright hide-from-exports"
       :aria-label="$t('statBlock.raiseCR')"
