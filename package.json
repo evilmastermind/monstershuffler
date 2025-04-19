@@ -45,7 +45,7 @@
     "@lexical/utils": "^0.17.0",
     "@lexical/yjs": "^0.17.0",
     "@microsoft/fetch-event-source": "^2.0.1",
-    "@nuxtjs/seo": "^3.0.2",
+    "@nuxtjs/seo": "^2.2.0",
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/core": "^11.0.1",
     "floating-vue": "file:./plugins-other/floating-vue",
