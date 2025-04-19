@@ -47,14 +47,22 @@
           <h3 class="content mt-6">
             {{ $t("generator.backstory.ratingQuestion") }}
           </h3>
-          <MSStarRating
-            v-model="initialRating"
-            :size="2"
-            @rate="
-              (rating) =>
-                generator.setCurrentNPCRatingThrottle(rating, user.sessionId)
-            "
-          />
+          <div class="flex justify-between items-center max-w-[500px] gap-4">
+            <MSStarRating
+              v-model="initialRating"
+              :size="2"
+              @rate="
+                (rating) =>
+                  generator.setCurrentNPCRatingThrottle(rating, user.sessionId)
+              "
+            />
+            <button @click="share?.toggle()">
+              <Icon class="text-text-icon mr-2" name="solar:share-bold" />
+              <span class="text-sm underline decoration-text-2">
+                {{ $t("share.action") }}
+              </span>
+            </button>
+          </div>
         </div>
       </Transition>
       <MSAlert
@@ -65,6 +73,7 @@
         <p>{{ $t("error.tooManyRequests") }}</p>
       </MSAlert>
     </div>
+    <MonsterShareModal ref="share" :generator-character="wrapper" />
   </div>
 </template>
 
@@ -84,6 +93,7 @@ const user = useUserStore();
 const character = inject("character") as Ref<Character>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
+const share = ref<{ toggle: Function } | null>(null);
 const hooks = character.value.character?.characterHooks;
 const backstory = ref<string | undefined>(
   character.value?.character?.user?.backstory?.string as string | undefined
@@ -147,6 +157,13 @@ onMounted(() => {
   @apply text-text-neutral;
 }
 */
+.share {
+  display: block;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  @apply py-1 px-4 border-2 border-solid border-text-neutral rounded-lg;
+}
 </style>
 <style>
 .backstory-text *:focus {

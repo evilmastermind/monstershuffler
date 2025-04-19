@@ -51,7 +51,9 @@
               Click an NPC to open a character sheet with a
               <b class="static">dynamic stat block</b>, a
               <b class="static">physical description</b>, and
-              <b class="static">an AI-generated adventure</b>.
+              <a href="/#faq-ai" class="content"
+                ><b class="static">an AI-generated adventure</b></a
+              >.
             </p>
           </template>
         </PresentationCard>
@@ -89,7 +91,8 @@
           ></span
         >
         grammar to create random text generators.<br />
-        You can even feed the result to an AI as a prompt, and get even more
+        You can even feed the result to an
+        <a href="/#faq-ai" class="content">AI</a> as a prompt, and get even more
         randomness. That's how the AI-generated adventures are created, and it's
         a tool that will be available to you.
       </PresentationTool>

@@ -531,7 +531,16 @@
       "hint": "Describe your NPC here!"
     },
     "backstory": {
-      "ratingQuestion": "How likely are you to use this adventure idea?"
+      "ratingQuestion": "How likely are you to use this adventure idea?",
+      "share": "Let them know how {rating} it is!",
+      "rating": {
+        "none": "cool",
+        "1": "awful",
+        "2": "bad",
+        "3": "meh",
+        "4": "good",
+        "5": "awesome"
+      }
     }
   },
   "login": {
@@ -617,6 +626,7 @@
   },
   "share": {
     "title": "Share",
+    "action": "Share this adventure",
     "subtitle": "Share the original (unmodified) version of this NPC.",
     "copyLink": "Copy link"
   },

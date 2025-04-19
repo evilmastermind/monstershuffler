@@ -27,6 +27,8 @@
           />
           <HomeSeparator icon="heroicons:squares-plus-20-solid" />
           <LazyEditorPageMore />
+          <HomeSeparator icon="wpf:faq" />
+          <LazyEditorPageFAQ />
         </div>
       </div>
     </div>

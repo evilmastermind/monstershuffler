@@ -10,11 +10,11 @@
       link="https://www.reddit.com/r/monstershuffler/"
       icon="fa6-brands:reddit-alien"
     />
-    <NavbarSupportLink
+    <!-- <NavbarSupportLink
       name="Github"
       link="https://github.com/evilmastermind/monstershuffler"
       icon="fa6-brands:github"
-    />
+    /> -->
   </div>
 </template>
 

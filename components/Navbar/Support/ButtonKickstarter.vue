@@ -1,5 +1,6 @@
 <template>
   <a
+    class="grid place-items-center"
     href="https://www.kickstarter.com/projects/evilmastermind/masterminds-an-all-in-one-toolkit-for-5e-dungeon-masters"
   >
     <MSButton color="primary">

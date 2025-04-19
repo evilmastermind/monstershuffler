@@ -36,7 +36,7 @@
         <MSIconButton
           :label="$t('monsterSheet.share')"
           icon="solar:share-bold"
-          @click="toggleShare"
+          @click="share?.toggle()"
         />
         <VMenu
           :triggers="['hover', 'click', 'focus', 'touch']"
@@ -123,14 +123,7 @@
       v-if="statBlockExport.isModalOpen === true"
       v-model="statBlockExport"
     />
-    <MSShareModal
-      v-model="isShareModalOpen"
-      :link
-      :text="
-        generatorCharacter.object?.statistics?.fullName ||
-        'Monstershuffler\'s NPC'
-      "
-    />
+    <MonsterShareModal ref="share" :generator-character="generatorCharacter" />
   </div>
 </template>
 
@@ -154,10 +147,10 @@ const { t } = useI18n();
 const generator = useGeneratorStore();
 const editor = useMonsterEditorStore();
 
-const isShareModalOpen = ref(false);
 const { currentEditorMode } = storeToRefs(editor);
 const { currentCharacterIndex, characters } = storeToRefs(generator);
 
+const share = ref<{ toggle: Function } | null>(null);
 const statBlockExport = ref<MonsterExport>({
   isModalOpen: false,
   type: "Improved Initiative",
@@ -165,15 +158,6 @@ const statBlockExport = ref<MonsterExport>({
 });
 const generatorCharacter = toRef(p, "generatorCharacter");
 useProvideCharacter(generatorCharacter);
-
-const link = computed(() => {
-  const characterUuid = generatorCharacter.value.id;
-  const hook = generatorCharacter.value.hook;
-  const url = hook === undefined ? characterUuid : `${characterUuid}/${hook}`;
-  return characterUuid
-    ? `${window.location.origin}/monsters/generator/${url}`
-    : "";
-});
 
 function toggleEditorMode(mode: MonsterEditors) {
   if (currentEditorMode.value === mode) {
@@ -195,22 +179,6 @@ function copyRoleplayStats(hide: Function) {
 function closeMonster() {
   currentCharacterIndex.value = -1;
   currentEditorMode.value = "";
-}
-
-function toggleShare() {
-  if (isUserOnMobile() && navigator.share) {
-    navigator.share({
-      title:
-        generatorCharacter.value.object?.statistics?.fullName ||
-        "Monstershuffler's NPC",
-      text:
-        generatorCharacter.value.object?.statistics?.fullName ||
-        "Monstershuffler's NPC",
-      url: link.value,
-    });
-  } else {
-    isShareModalOpen.value = true;
-  }
 }
 </script>
 

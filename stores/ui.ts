@@ -6,17 +6,17 @@ export const useUiStore = defineStore("ui", () => {
   const themes: Theme[] = [
     {
       name: "light",
-      icon: "sun",
+      icon: "fa6-solid:sun",
       type: "light",
     },
     {
       name: "dark",
-      icon: "moon",
+      icon: "fa6-solid:moon",
       type: "dark",
     },
     // {
     //   name: "solarized",
-    //   icon: "fa-cloud"
+    //   icon: "fa6-solid:cloud"
     // },
   ];
 

@@ -41,8 +41,9 @@
             grammar defines the structure of your output.
           </li>
           <li class="item-ai">
-            <em>AI Generation</em>: Use the output as is, or feed it to an AI as
-            a prompt to get even more randomness.
+            <em>AI Generation</em>: Use the output as is, or feed it to an
+            <a href="#faq-ai" class="content">AI</a> as a prompt to get even
+            more randomness.
           </li>
           <li class="item-ai">
             <em>Inline commands</em>: when you're typing your notes, type / to

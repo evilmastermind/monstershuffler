@@ -166,10 +166,10 @@
             v-model="settings.options.addVoice"
             :label="$t('generator.form.voice')"
           />
-          <MSCheckbox
+          <!-- <MSCheckbox
             v-model="settings.options.includeChildren"
             :label="$t('generator.form.includeChildren')"
-          />
+          /> -->
           <MSCheckbox
             v-model="settings.options.includeBodyType"
             :label="$t('generator.form.includeBodyType')"

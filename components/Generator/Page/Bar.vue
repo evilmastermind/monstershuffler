@@ -40,7 +40,7 @@
           @click.prevent="generateNpcsThrottle"
         />
       </div>
-      <GeneratorPrompt v-else-if="!isFormMode && !isSheetOpen" class="prompt" />
+      <GeneratorPrompt v-show="!isFormMode && !isSheetOpen" class="prompt" />
       <div v-if="!isSheetOpen" class="top-bar-options">
         <MSSwitchWords
           v-model="isFormMode"

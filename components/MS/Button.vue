@@ -99,6 +99,7 @@ function goToURL() {
 
 <style scoped>
 .button {
+  overflow: hidden;
   position: relative;
   display: inline-block;
   border: none;

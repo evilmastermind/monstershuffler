@@ -2,7 +2,7 @@
   <MSIconButton
     :label="$t('navbar.changeTheme')"
     class="button-theme p-1 noselect"
-    :icon="`fa6-solid:${icon}`"
+    :icon="icon"
     @click="setTheme()"
   />
 </template>

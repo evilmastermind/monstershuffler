@@ -1,6 +1,6 @@
 <template>
   <PresentationCardList
-    image="/images/backgrounds/underdarker.webp"
+    image="/images/presentation/campfire.webp"
     :mask-number="2"
   >
     <div class="share lg-max px-2">

@@ -797,7 +797,7 @@ const ui = useUiStore();
 .combatmanager-container {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(90%, 400px) minmax(0, 400px);
+  grid-template-columns: minmax(80%, 400px) minmax(0, 400px);
   width: 100%;
   max-height: 350px;
   overflow: hidden;
