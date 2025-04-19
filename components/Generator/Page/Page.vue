@@ -165,7 +165,7 @@ onBeforeMount(async () => {
     };
   }
 
-  generator.parseSettings(settings.value?.options);
+  generator.parseSettings();
   if (
     settings.value?.characters?.length &&
     settings.value.characters[0].object

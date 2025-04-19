@@ -195,64 +195,61 @@ export const useGeneratorStore = defineStore("generator", () => {
     return objectOrVariantList;
   }
 
-  function parseSettings(newSettings: PostRandomNpcBody | undefined) {
-    if (newSettings) {
-      settings.value.options = { ...newSettings };
-      let index = -1;
-      if (settings.value.options.primaryRaceId) {
-        index = racesAndVariants.value.findIndex((race) => {
-          return (
-            race.id === settings.value.options.primaryRaceId &&
-            race.variantId === settings.value.options.primaryRacevariantId
-          );
-        });
-        if (index !== -1) {
-          primaryRaceIndex.value = index;
-        }
-      }
-      if (settings.value.options.secondaryRaceId) {
-        index = racesAndVariants.value.findIndex((race) => {
-          return (
-            race.id === settings.value.options.secondaryRaceId &&
-            race.variantId === settings.value.options.secondaryRacevariantId
-          );
-        });
-        if (index !== -1) {
-          secondaryRaceIndex.value = index;
-        }
-      }
-      if (settings.value.options.classId) {
-        index = classesAndVariants.value.findIndex((aClass) => {
-          return (
-            aClass.id === settings.value.options.classId &&
-            aClass.variantId === settings.value.options.classvariantId
-          );
-        });
-        if (index !== -1) {
-          classIndex.value = index;
-        }
-      }
-      if (settings.value.options.backgroundId) {
-        index = backgrounds.value.findIndex(
-          (background) => background.id === settings.value.options.backgroundId
+  function parseSettings() {
+    let index = -1;
+    if (settings.value.options.primaryRaceId) {
+      index = racesAndVariants.value.findIndex((race) => {
+        return (
+          race.id === settings.value.options.primaryRaceId &&
+          race.variantId === settings.value.options.primaryRacevariantId
         );
-        if (index !== -1) {
-          backgroundIndex.value = index;
-        }
+      });
+      if (index !== -1) {
+        primaryRaceIndex.value = index;
       }
     } else {
-      // TODO: you will have to change this in the future, if you decide to support multiple languages
-      let index = racesAndVariants.value.findIndex((race) =>
+      index = racesAndVariants.value.findIndex((race) =>
         race.name.includes("Human")
       );
       if (index !== -1) {
         primaryRaceIndex.value = index;
       }
+    }
+    if (settings.value.options.secondaryRaceId) {
+      index = racesAndVariants.value.findIndex((race) => {
+        return (
+          race.id === settings.value.options.secondaryRaceId &&
+          race.variantId === settings.value.options.secondaryRacevariantId
+        );
+      });
+      if (index !== -1) {
+        secondaryRaceIndex.value = index;
+      }
+    } else {
       index = racesAndVariants.value.findIndex((race) =>
         race.variantName?.includes("Hill Dwarf")
       );
       if (index !== -1) {
         secondaryRaceIndex.value = index;
+      }
+    }
+    if (settings.value.options.classId) {
+      index = classesAndVariants.value.findIndex((aClass) => {
+        return (
+          aClass.id === settings.value.options.classId &&
+          aClass.variantId === settings.value.options.classvariantId
+        );
+      });
+      if (index !== -1) {
+        classIndex.value = index;
+      }
+    }
+    if (settings.value.options.backgroundId) {
+      index = backgrounds.value.findIndex(
+        (background) => background.id === settings.value.options.backgroundId
+      );
+      if (index !== -1) {
+        backgroundIndex.value = index;
       }
     }
   }
