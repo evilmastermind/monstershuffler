@@ -2,6 +2,9 @@
   "private": true,
   "type": "module",
   "license": "GPL-3.0-only",
+  "engines": {
+    "node": "22"
+  },
   "scripts": {
     "schemas": "yarn upgrade monstershuffler-shared",
     "build": "nuxt build",
