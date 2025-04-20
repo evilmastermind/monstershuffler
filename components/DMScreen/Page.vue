@@ -21,7 +21,9 @@
       <div class="min-w-[1000px]">
         <EditorPageBar class="mt-4" />
         <EditorPageTabs class="mt-4" />
-        <EditorPageGameSessionExample class="pt-4" />
+        <ClientOnly>
+          <EditorPageGameSessionExample class="pt-4" />
+        </ClientOnly>
       </div>
     </div>
     <div>
