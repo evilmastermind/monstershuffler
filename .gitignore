@@ -5,7 +5,5 @@ node_modules
 .cache
 .output
 .env
-package-lock.json
-yarn.lock
 /dist
 .DS_Store
