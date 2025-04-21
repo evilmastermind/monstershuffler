@@ -127,7 +127,7 @@
     </div>
     <h4 class="content mt-4">{{ $t("editor.layout.otherOptions") }}</h4>
     <MSCheckbox
-      v-model="showRoleplayStats"
+      v-model="settings.showRoleplayStats"
       :label="$t('editor.layout.showRoleplayStats')"
       class="mt-4"
     />
@@ -151,7 +151,6 @@ const { mdAndDown } = useScreen();
 const { alertClicked } = storeToRefs(UI);
 const { settings } = storeToRefs(generator);
 
-const showRoleplayStats = ref(settings.value?.showRoleplayStats ?? true);
 const isMobileAlertOpen = ref(false);
 
 const currentLayout = computed(() => {
@@ -163,30 +162,7 @@ const currentLayout = computed(() => {
 });
 
 function chooseLayout(layout: string) {
-  const c = character.value.character;
-  if (!c.user) {
-    c.user = {
-      sheet: {
-        images: [],
-        layout,
-        showRoleplayStats: showRoleplayStats.value,
-      },
-    };
-  } else if (!c.user.sheet) {
-    c.user.sheet = {
-      images: [],
-      layout,
-      showRoleplayStats: showRoleplayStats.value,
-    };
-  } else {
-    c.user.sheet.layout = layout;
-    c.user.sheet.showRoleplayStats = showRoleplayStats.value;
-  }
-  wrapper.value.key++;
-  if (settings.value) {
-    settings.value.layout = layout;
-    settings.value.showRoleplayStats = showRoleplayStats.value;
-  }
+  settings.value.layout = layout;
   emit("close");
 }
 
@@ -195,28 +171,10 @@ function closeAlert() {
   alertClicked.value.layoutsMobile = true;
 }
 
-watch(showRoleplayStats, () => {
-  if (
-    character.value.character.user?.sheet?.showRoleplayStats === true ||
-    character.value.character.user?.sheet?.showRoleplayStats === false
-  ) {
-    character.value.character.user.sheet.showRoleplayStats =
-      showRoleplayStats.value;
-    wrapper.value.key++;
-  }
-});
-
 watch(mdAndDown, () => {
   isMobileAlertOpen.value = alertClicked.value?.layoutsMobile
     ? false
     : mdAndDown.value;
-});
-
-onBeforeMount(() => {
-  if (character.value.character.user?.sheet?.showRoleplayStats !== undefined) {
-    showRoleplayStats.value =
-      character.value.character.user.sheet.showRoleplayStats;
-  }
 });
 </script>
 

@@ -48,6 +48,11 @@
             <em>Linked Notes</em>: Effortlessly create links between notes for
             quick navigation and better organization.
           </li>
+          <!-- <li class="item-cr">
+            <em>Special Variables</em>: Use variables to make values adjust
+            automatically based on the Challenge Rating of the adventure you're
+            writing.
+          </li> -->
         </ul>
         <p class="static mt-6">
           <EditorPageAction>
@@ -99,5 +104,8 @@
 }
 .item-linked::before {
   content: "🔗";
+}
+.item-cr::before {
+  content: "📈";
 }
 </style>

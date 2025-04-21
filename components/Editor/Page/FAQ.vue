@@ -14,9 +14,9 @@
             original or created with the help of AI.
           </p>
           <p class="static mt-2">
-            That said, AI is an extremely useful tool for generating random
-            content or single-use content for game sessions. Many of our tools
-            include options to generate such content:
+            That said, AI can be a useful tool for generating random content or
+            single-use content for game sessions. Many of our tools include
+            options to generate such content:
             <b class="static"
               >to inspire, support, but never replace human creators</b
             >.
