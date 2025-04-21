@@ -5,7 +5,7 @@
     <HomeHero />
     <div class="lg-max">
       <div class="mx-4 intro">
-        <HomeQuestions class="my-4 mb-6" />
+        <HomeQuestions class="mt-6 mb-6" />
         <HomeSeparator icon="mdi:tools" />
         <HomeTools class="my-6" />
         <HomeSeparator icon="bxs:user-pin" />

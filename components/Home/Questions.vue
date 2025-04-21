@@ -41,7 +41,7 @@
 @media (min-width: theme("screens.sm")) {
   .answer,
   .question {
-    @apply text-xl;
+    @apply text-lg;
   }
 }
 </style>
