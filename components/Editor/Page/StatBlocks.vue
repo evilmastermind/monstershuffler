@@ -30,8 +30,9 @@
         <ul class="static">
           <li class="item-speed">
             <em>Improved user experience</em>: Automatic saves, simplified UI,
-            and more. Creating a monster will be much
-            <em class="static">faster</em> and <em class="static">easier</em>.
+            automatic conversion of text into variables, and more. Creating a
+            monster will be much <em class="static">faster</em> and
+            <em class="static">easier</em>.
           </li>
           <li class="item-variants">
             <em>Action Variants</em>: Create actions that automatically adjust
