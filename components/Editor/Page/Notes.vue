@@ -32,7 +32,7 @@
           Use them to write the lore behind your campaign, to create a new set
           of combat rules, or to prepare your game session.
         </p>
-        <h3 class="static mt-6 mb-2">Key Features of Monstershuffler Notes:</h3>
+        <h3 class="static mt-6 mb-2">Key Features:</h3>
         <ul class="static">
           <li class="item-speed">
             <em>Speed:</em> Prepare content quickly with a clean,
