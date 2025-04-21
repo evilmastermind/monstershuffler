@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   spaLoadingTemplate: "public/spa-loading-template.html",
 
   routeRules: {
-    "/": { ssr: true },
+    "/": { swr: 600 },
     "/monsters/generator": { ssr: false },
     "/monsters/generator/**": { ssr: false },
     "/editors": { swr: 600 },

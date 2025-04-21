@@ -43,19 +43,15 @@ const { settings } = storeToRefs(generator);
 const generatorCharacter = toRef(p, "generatorCharacter");
 const { columns, character } = useProvideCharacter(generatorCharacter);
 const isLoaded = ref(false);
-const layoutName = ref(settings.value?.layout || "MonsterLayoutDynamicA");
 const key = ref(0);
 
 const showRoleplayStats = computed(() => {
-  return (
-    generatorCharacter.value.object.character.user?.sheet?.showRoleplayStats ??
-    settings.value?.showRoleplayStats ??
-    true
-  );
+  return settings.value?.showRoleplayStats ?? true;
 });
 
 const layout = computed(() => {
-  switch (layoutName.value) {
+  const layoutName = settings.value?.layout;
+  switch (layoutName) {
     case "MonsterLayoutDynamicNoImage":
       return columns.value === 1
         ? resolveComponent("MonsterLayoutNoImageOneColumn")
@@ -90,40 +86,28 @@ const layout = computed(() => {
     : resolveComponent("MonsterLayoutTwoColumnA");
 });
 
-function getLayout(
-  character: Character,
-  defaultLayout = settings.value?.layout || "MonsterLayoutDynamicA",
-  showRoleplayStats = settings.value?.showRoleplayStats ?? true
-) {
-  const c = character.character;
-  if (!c?.user) {
-    c.user = {};
-  }
-  if (!c?.user?.sheet) {
-    c.user.sheet = {
-      layout: defaultLayout,
-      showRoleplayStats,
-      images: [],
-    };
-    return defaultLayout;
-  }
-  return c.user.sheet.layout || defaultLayout;
-}
+// function getLayout(
+//   character: Character,
+//   defaultLayout = settings.value?.layout || "MonsterLayoutDynamicA",
+//   showRoleplayStats = settings.value?.showRoleplayStats ?? true
+// ) {
+//   const c = character.character;
+//   if (!c?.user) {
+//     c.user = {};
+//   }
+//   if (!c?.user?.sheet) {
+//     c.user.sheet = {
+//       layout: defaultLayout,
+//       showRoleplayStats,
+//       images: [],
+//     };
+//     return defaultLayout;
+//   }
+//   return c.user.sheet.layout || defaultLayout;
+// }
 
 watch(isLoaded, () => {
   key.value += 1;
-});
-
-watch(
-  () => generatorCharacter.value.key,
-  () => {
-    layoutName.value = getLayout(generatorCharacter.value.object);
-    e("loaded");
-  }
-);
-
-onBeforeMount(() => {
-  layoutName.value = getLayout(generatorCharacter.value.object);
 });
 
 onMounted(() => {
