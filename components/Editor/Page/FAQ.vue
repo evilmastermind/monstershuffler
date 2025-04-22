@@ -21,6 +21,13 @@
               >to inspire, support, but never replace human creators</b
             >.
           </p>
+          <p class="static mt-7">
+            📧 Send your questions to
+            <a class="content" href="mailto:ismael@monstershuffler.com"
+              >ismael@monstershuffler.com</a
+            >
+            or use the form below, and I'll gladly answer them.
+          </p>
         </div>
       </div>
     </div>
