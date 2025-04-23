@@ -12,7 +12,8 @@
           !wrapper.streamChunks.length && wrapper?.streamStatus === 'opening'
         "
       />
-      <div
+      <!-- DISABLING AI TEMPORARILY -->
+      <!-- <div
         v-if="
           hooks?.length && wrapper.hook === undefined && !isLoadingGeneration
         "
@@ -33,7 +34,7 @@
             {{ hook.type }}
           </MSButton>
         </div>
-      </div>
+      </div> -->
       <Transition name="fade">
         <div
           v-if="
