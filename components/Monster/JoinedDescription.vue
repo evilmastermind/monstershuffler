@@ -153,15 +153,4 @@ watch(
 );
 </script>
 
-<style scoped>
-.description {
-  @apply whitespace-normal break-normal;
-}
-
-ul {
-  @apply list-disc ml-4;
-}
-li {
-  @apply ml-4;
-}
-</style>
+<style scoped></style>

@@ -18,12 +18,7 @@
       <p class="static max-w-[5500px] mt-4 text-center">
         With your support, we can build this project in months, not years.
       </p>
-      <p class="static max-w-[550px] mt-4 text-center">
-        If you're excited about this, head over to the Kickstarter pre-launch
-        page and click “Notify me on launch” so you don't miss the early rewards
-        and campaign-only deals.
-      </p>
-      <NavbarSupportButtonKickstarter class="mt-6" />
+      <NavbarSupportButtonPatreon class="mt-6" />
     </div>
 
     <footer class="footer mt-4 p-4">

@@ -474,7 +474,8 @@
       "communityCreations": "Community Creations",
       "settings": "Settings"
     },
-    "kickstarter": "Support us on Kickstarter!"
+    "kickstarter": "Support us on Kickstarter!",
+    "patreon": "Support us on Patreon!"
   },
   "dmScreen": {
     "pageTitle": "DM Screen",

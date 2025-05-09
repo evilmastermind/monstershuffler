@@ -18,7 +18,7 @@
       }"
     ></div>
   </NuxtLink> -->
-  <NavbarSupportButtonKickstarter />
+  <NavbarSupportButtonPatreon />
 </template>
 <script setup lang="ts">
 const user = useUserStore();
