@@ -1,62 +1,39 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
 export default defineNuxtConfig({
-  app: {
-    // pageTransition: { name: "fade-quick", mode: "out-in" },
-    // layoutTransition: { name: "fade-quick", mode: "out-in" },
-    head: {
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-      charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
-    },
-  },
-
-  spaLoadingTemplate: "public/spa-loading-template.html",
-
-  routeRules: {
-    "/": { swr: 600 },
-    "/monsters/generator": { ssr: false },
-    "/monsters/generator/**": { ssr: false },
-    "/editors": { swr: 600 },
-    "/dm-screen": { swr: 600 },
-    "/community-creations": { swr: 600 },
-    "/login": { swr: 600 },
-    "/registration": { swr: 600 },
-    "/user-reactivation": { swr: 600 },
-    "/verify-email": { swr: 600 },
-    "/terms-of-service": { swr: 600 },
-    "/privacy-policy": { swr: 600 },
-    "/reset-password": { swr: 600 },
-    // "/api/**": { proxy:`${process.env.API_URL}/**` },
-    // Don’t cache HTML—always revalidate
-    "/**/*.html": {
-      headers: {
-        "cache-control": "no-cache, no-store, must-revalidate",
+  compatibilityDate: "2024-11-01",
+  devtools: { enabled: true },
+  ssr: false,
+  devServer: { port: 3001 },
+  modules: [
+    "@nuxt/eslint",
+    "@pinia/nuxt",
+    "@nuxtjs/i18n",
+    "@nuxtjs/seo",
+    "@nuxt/ui",
+    "@nuxt/content",
+  ],
+  css: ["~/assets/css/main.css"],
+  icon: {
+    customCollections: [
+      {
+        prefix: "xxx",
+        dir: "./assets/icons",
       },
-    },
+    ],
   },
-
-  devServer: {
-    port: 3001,
-  },
-
-  devtools: {
-    enabled: false,
-  },
-
-  vite: {
-    vue: {
-      script: {
-        defineModel: true,
-        propsDestructure: true,
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        file: "en.json",
       },
+    ],
+    defaultLocale: "en",
+    compilation: {
+      strictMessage: false,
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: "modern-compiler", // or "modern"
-        },
-      },
+    bundle: {
+      optimizeTranslationDirective: false,
     },
   },
 
@@ -77,48 +54,70 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    "@nuxtjs/i18n",
-    "@pinia/nuxt",
-    "@nuxtjs/tailwindcss",
-    "nuxt-icon",
-    "floating-vue/nuxt",
-  ],
-  /*
-  basicAuth: {
-    enabled: true,
-    users: [
-      {
-        username: "test",
-        password: "me",
+  routeRules: {
+    "/": { swr: 600 },
+    "/monsters/generator": { ssr: false },
+    "/monsters/generator/**": { ssr: false },
+    "/blog/**": { swr: 600 },
+    "/editors": { swr: 600 },
+    "/dm-screen": { swr: 600 },
+    "/community-creations": { swr: 600 },
+    "/login": { swr: 600 },
+    "/registration": { swr: 600 },
+    "/user-reactivation": { swr: 600 },
+    "/verify-email": { swr: 600 },
+    "/terms-of-service": { swr: 600 },
+    "/privacy-policy": { swr: 600 },
+    "/reset-password": { swr: 600 },
+    // "/api/**": { proxy:`${process.env.API_URL}/**` },
+    // Don’t cache HTML—always revalidate
+    "/**/*.html": {
+      headers: {
+        "cache-control": "no-cache, no-store, must-revalidate",
       },
-    ],
-  },
-*/
-  i18n: {
-    locales: ["en"], // used in URL path prefix
-    defaultLocale: "en",
-    vueI18n: "./plugins-other/i18n.config.ts",
-  },
-
-  icon: {
-    customCollections: [
-      {
-        prefix: "custom",
-        dir: "app/assets/icons",
-      },
-    ],
-  },
-
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
     },
   },
-  imports: {
-    // Auto-import pinia stores defined in `~/stores`
-    dirs: ["stores"],
+
+  ui: {
+    theme: {
+      colors: [
+        "primary",
+        "secondary",
+        "al-good",
+        "al-neutral",
+        "al-evil",
+        "block",
+        "info",
+        "success",
+        "warning",
+        "error",
+      ],
+    },
   },
-  compatibilityDate: "2024-07-16",
+
+  vite: {
+    vue: {
+      script: {
+        defineModel: true,
+        propsDestructure: true,
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler", // or "modern"
+        },
+      },
+    },
+  },
+
+  app: {
+    head: {
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+    },
+  },
+
+  spaLoadingTemplate: "public/spa-loading-template.html",
 });

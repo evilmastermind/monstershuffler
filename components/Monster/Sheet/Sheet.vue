@@ -1,5 +1,5 @@
 <template>
-  <MSNote class="rounded shadow">
+  <MSNote class="overflow-hidden">
     <component
       :is="layout"
       v-show="isLoaded"
@@ -18,7 +18,7 @@
       </template>
       <template #card>
         <MonsterSheetCard>
-          <MonsterRoleplayStats />
+          <MonsterRoleplay />
         </MonsterSheetCard>
       </template>
     </component>
@@ -115,14 +115,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.close {
-  position: absolute;
-  right: 0;
-  z-index: 1;
-  @apply shadow-background-200;
-}
-.loading-container {
-  transition: padding 0.3s ease-in-out;
-}
-</style>
+<style scoped></style>

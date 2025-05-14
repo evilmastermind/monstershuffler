@@ -28,7 +28,7 @@
         <p v-if="errorMessage" class="content text-danger text-center mt-6">
           {{ errorMessage }}
         </p>
-        <MSButton
+        <UButton
           block
           class="mt-6"
           color="primary"
@@ -83,7 +83,7 @@ async function sResetPasswordBody() {
   }
   const statusCode = await user.sResetPasswordBody(
     credentials.value.password,
-    credentials.value.token
+    credentials.value.token,
   );
   isButtonLoading.value = false;
   switch (statusCode) {
@@ -109,7 +109,7 @@ watch(
   () => {
     errorMessage.value = "";
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 

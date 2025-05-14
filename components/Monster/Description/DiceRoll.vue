@@ -1,11 +1,13 @@
 <template>
   <span
-    class="roll roll-underline noselect"
-    :class="moralDecoration"
     role="button"
     tabindex="0"
     @click.stop="rollDice"
     @keydown.stop="rollDice"
+    :class="[
+      moralDecoration,
+      'relative inline-block select-none leading-[inherit] hover:cursor-pointer',
+    ]"
   >
     {{ translatedDiceRoll }}
     <TransitionGroup name="roll">
@@ -54,7 +56,7 @@ const translatedDiceRoll = computed(() => {
         {
           n: "string" in diceGroup ? diceGroup.string : diceGroup.value,
         },
-        diceGroup.value
+        diceGroup.value,
       );
     });
     return translation;
@@ -85,20 +87,3 @@ function removeRoll(id: Date) {
   rolls.value.splice(index, 1);
 }
 </script>
-
-<style scoped>
-.roll {
-  position: relative;
-  display: inline-block;
-  line-height: inherit;
-}
-.roll-underline {
-  text-decoration-line: underline;
-  text-decoration-style: wavy;
-  text-decoration-thickness: 1px;
-  text-decoration-skip-ink: all;
-}
-.roll:hover {
-  cursor: pointer;
-}
-</style>

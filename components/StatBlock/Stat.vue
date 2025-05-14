@@ -1,6 +1,6 @@
 <template>
-  <p class="my-0 stat">
-    <em class="title" :class="moral">
+  <p class="my-0 leading-[1.5em]">
+    <em class="font-bold not-italic" :class="moral">
       <slot name="title" />
     </em>
     <span>&nbsp;</span>
@@ -12,12 +12,4 @@
 const moral = inject("moral") as string;
 </script>
 
-<style scoped>
-.stat {
-  line-height: 1.5em;
-}
-.title {
-  font-weight: bold;
-  font-style: normal;
-}
-</style>
+<style scoped></style>

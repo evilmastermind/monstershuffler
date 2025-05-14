@@ -1,21 +1,11 @@
 <template>
-  <div class="fixed-tools">
+  <div
+    class="fixed right-0 bottom-0 flex flex-col items-end gap-2 mx-1 mb-2 z-1000"
+  >
     <slot />
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
-<style scoped>
-.fixed-tools {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
-  @apply gap-2 mx-1 mb-2;
-}
-</style>
+<style scoped></style>

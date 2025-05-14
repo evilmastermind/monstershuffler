@@ -1,7 +1,10 @@
 <template>
-  <div class="dice-history">
+  <div class="flex flex-col justify-end items-end gap-1">
     <Transition name="fade-quick">
-      <div v-if="!isHistoryOpen" class="dice-history-previews">
+      <div
+        v-if="!isHistoryOpen"
+        class="flex flex-col justify-end items-end gap-1"
+      >
         <TransitionGroup name="list">
           <DiceHistoryPreview
             v-for="roll in diceRollsWithId"
@@ -11,11 +14,12 @@
         </TransitionGroup>
       </div>
     </Transition>
+
     <Transition name="fade-quick" mode="out-in">
       <DiceHistoryCard v-if="isHistoryOpen" @close="isHistoryOpen = false" />
       <button
         v-else
-        class="d20-button mt-1"
+        class="mt-1 cursor-pointer grid place-items-center text-xl w-8 h-8 rounded-full overflow-hidden bg-accented border border-solid border-accented text-al-evil shadow-lg"
         :title="$t('dice.open')"
         @click="isHistoryOpen = true"
       >
@@ -62,7 +66,7 @@ watch(
       }, timeout),
     });
   },
-  { deep: true }
+  { deep: true },
 );
 
 function removeRoll(id: string) {
@@ -81,31 +85,3 @@ onMounted(() => {
   rolls.loadFromLocalStorage();
 });
 </script>
-
-<style scoped>
-.dice-history {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  @apply gap-1;
-}
-.dice-history-previews {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 0.25rem;
-}
-.d20-button {
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  font-size: 1.3rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  overflow: hidden;
-  @apply bg-inset-300 border border-solid border-inset-500 text-text-evil shadow-lg;
-}
-</style>

@@ -6,24 +6,24 @@
         <a
           v-tooltip.left="'Illustration by Francisco Chinchilla'"
           href="https://www.artstation.com/chinchilla"
-          class="absolute right-0 bottom-0 text-white text-3xl opacity-40 hover:opacity-100 z-10 mb-8 mr-4"
+          class="absolute right-0 bottom-0 text-white text-3xl opacity-40 hover:opacity-100 z-10 mb-12 mr-4"
         >
           <Icon name="hugeicons:signature" class="text-white text-3xl"></Icon>
         </a>
-        <div class="lg-max">
+        <UContainer>
           <div class="text mx-4">
             <p class="custom-title-small">v2 preview:</p>
             <h1 class="custom-title mt-2">The NPC Generator</h1>
             <div>
-              <MSButton
+              <UButton
                 to="monsters-generator"
-                color="monstershuffler"
-                class="mt-4"
+                size="xl"
+                class="bg-red-900 mt-4"
                 text="Try it now"
               />
             </div>
           </div>
-        </div>
+        </UContainer>
       </div>
     </div>
   </div>

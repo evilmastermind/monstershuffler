@@ -1,0 +1,213 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "./animations.css";
+@import "./fonts.css";
+@import "./transitions.css";
+@import "./utility.css";
+
+@theme static {
+  --font-sans: "OpenSans", sans-serif;
+  --font-serif: "LibreBaskerville", serif;
+
+  --color-brand-50: hsl(355, 100%, 97%);
+  --color-brand-100: hsl(355, 100%, 94%);
+  --color-brand-200: hsl(355, 57%, 86%);
+  --color-brand-300: hsl(355, 49%, 76%);
+  --color-brand-400: hsl(355, 45%, 66%);
+  --color-brand-500: hsl(355, 43%, 56%);
+  --color-brand-600: hsl(355, 60%, 39%);
+  --color-brand-700: hsl(355, 100%, 24%);
+  --color-brand-800: hsl(355, 100%, 17%);
+  --color-brand-900: hsl(355, 100%, 10%);
+  --color-brand-950: hsl(355, 100%, 5%);
+
+  --color-al-evil-50: hsl(0, 57%, 97%);
+  --color-al-evil-100: hsl(0, 67%, 94%);
+  --color-al-evil-200: hsl(0, 70%, 89%);
+  --color-al-evil-300: hsl(0, 68%, 82%);
+  --color-al-evil-400: hsl(0, 65%, 71%);
+  --color-al-evil-500: hsl(0, 61%, 60%);
+  --color-al-evil-600: hsl(0, 52%, 51%);
+  --color-al-evil-700: hsl(0, 53%, 42%);
+  --color-al-evil-800: hsl(0, 50%, 35%);
+  --color-al-evil-900: hsl(0, 45%, 27%);
+  --color-al-evil-950: hsl(0, 54%, 15%);
+  --color-al-good-50: hsl(220, 100%, 96%);
+  --color-al-good-100: hsl(223, 100%, 94%);
+  --color-al-good-200: hsl(223, 100%, 89%);
+  --color-al-good-300: hsl(226, 100%, 82%);
+  --color-al-good-400: hsl(231, 95%, 74%);
+  --color-al-good-500: hsl(235, 89%, 67%);
+  --color-al-good-600: hsl(240, 81%, 59%);
+  --color-al-good-700: hsl(241, 62%, 51%);
+  --color-al-good-800: hsl(240, 58%, 41%);
+  --color-al-good-900: hsl(238, 51%, 34%);
+  --color-al-good-950: hsl(240, 50%, 27%);
+  --color-al-neutral-50: hsl(52, 60%, 95%);
+  --color-al-neutral-100: hsl(52, 56%, 89%);
+  --color-al-neutral-200: hsl(53, 56%, 80%);
+  --color-al-neutral-300: hsl(55, 55%, 67%);
+  --color-al-neutral-400: hsl(55, 50%, 55%);
+  --color-al-neutral-500: hsl(56, 51%, 44%);
+  --color-al-neutral-600: hsl(58, 55%, 35%);
+  --color-al-neutral-700: hsl(58, 50%, 27%);
+  --color-al-neutral-800: hsl(59, 45%, 23%);
+  --color-al-neutral-900: hsl(60, 39%, 20%);
+  --color-al-neutral-950: hsl(62, 53%, 10%);
+
+  /*
+  --color-brand-50: hsl(355, 0%, 97%);
+  --color-brand-100: hsl(355, 0%, 94%);
+  --color-brand-200: hsl(355, 0%, 86%);
+  --color-brand-300: hsl(355, 0%, 76%);
+  --color-brand-400: hsl(355, 0%, 66%);
+  --color-brand-500: hsl(355, 0%, 24%);
+  --color-brand-600: hsl(355, 0%, 39%);
+  --color-brand-700: hsl(355, 0%, 24%);
+  --color-brand-800: hsl(355, 0%, 17%);
+  --color-brand-900: hsl(355, 0%, 10%);
+  --color-brand-950: hsl(355, 0%, 5%);
+*/
+
+  /* --color-backgroudlight-0: hsl(0, 0%, 100%);
+  --color-backgroudlight-50: hsl(46, 47%, 97%);
+  --color-backgroudlight-100: hsl(46, 41%, 94%);
+  --color-backgroudlight-150: hsl(46, 36%, 92%);
+  --color-backgroudlight-200: hsl(46, 36%, 90%);
+  --color-backgroudlight-300: hsl(46, 30%, 85%);
+  --color-backgroudlight-400: hsl(46, 25%, 80%);
+  --color-backgroudlight-500: hsl(46, 22%, 75%);
+  --color-backgroudlight-600: hsl(46, 22%, 70%);
+  --color-backgroudlight-700: hsl(46, 22%, 65%);
+  --color-backgroudlight-800: hsl(46, 22%, 60%);
+  --color-backgroudlight-900: hsl(46, 22%, 55%);
+  --color-backgroudlight-1000: hsl(46, 22%, 50%); */
+
+  --color-satin-linen-50: hsl(46, 30%, 97%);
+  --color-satin-linen-100: hsl(46, 30%, 92%);
+  --color-satin-linen-200: hsl(46, 29%, 87%);
+  --color-satin-linen-300: hsl(46, 30%, 82%);
+  --color-satin-linen-400: hsl(46, 30%, 77%);
+  --color-satin-linen-500: hsl(46, 28%, 50%);
+  --color-satin-linen-600: hsl(46, 0%, 25%);
+  --color-satin-linen-700: hsl(46, 0%, 20%);
+  --color-satin-linen-800: hsl(46, 0%, 15%);
+  --color-satin-linen-900: hsl(46, 0%, 10%);
+  --color-satin-linen-950: hsl(46, 0%, 5%);
+
+  /* --color-merino-50: #faf8f2;
+  --color-merino-100: #f6f3e9;
+  --color-merino-200: #e6dcc2;
+  --color-merino-300: #d5c49c;
+  --color-merino-400: #c4a873;
+  --color-merino-500: #b79258;
+  --color-merino-600: #aa7f4c;
+  --color-merino-700: #8d6641;
+  --color-merino-800: #735339;
+  --color-merino-900: #5d4531;
+  --color-merino-950: #322318; */
+}
+
+:root {
+  --color-block-0: hsl(0, 0%, 100%);
+  --color-block-50: hsl(46, 47%, 97%);
+  --color-block-100: hsl(46, 41%, 94%);
+  --color-block-200: hsl(46, 36%, 92%);
+  --color-block-300: hsl(46, 30%, 85%);
+  --color-block-400: hsl(46, 25%, 80%);
+  --color-block-500: hsl(46, 22%, 75%);
+  --color-block-600: hsl(46, 22%, 75%);
+  --color-block-700: hsl(46, 22%, 70%);
+  --color-block-800: hsl(46, 22%, 65%);
+  --color-block-900: hsl(46, 22%, 60%);
+  --color-block-950: hsl(46, 22%, 55%);
+  --color-block-1000: hsl(46, 22%, 30%);
+
+  --ui-primary: var(--ui-color-primary-800);
+  --ui-bg: var(--ui-color-block-100);
+  --ui-bg-muted: var(--ui-color-block-200);
+  --ui-bg-elevated: var(--ui-color-block-300);
+  --ui-bg-accented: var(--ui-color-neutral-300);
+  --ui-bg-inverted: var(--ui-color-neutral-900);
+  --ui-al-good: var(--ui-color-al-good-800);
+  --ui-al-evil: var(--ui-color-al-evil-800);
+  --ui-al-neutral: var(--ui-color-al-neutral-800);
+  --ui-block: var(--ui-color-block-1000);
+  --ui-bg-al-good: hsl(240, 7%, 95%);
+  --ui-bg-al-evil: hsl(0, 20%, 93%);
+  --ui-bg-al-neutral: hsl(42, 75%, 94%);
+  --ui-bg-block: var(--ui-color-block-200);
+  --ui-text-primary: var(--ui-color-primary-900);
+  --ui-text-al-good: var(--ui-color-al-good-900);
+  --ui-text-al-evil: var(--ui-color-al-evil-900);
+  --ui-text-al-neutral: var(--ui-color-al-neutral-900);
+  --ui-text-block: var(--ui-color-block-1000);
+  --ui-border-block: var(--ui-color-block-700);
+
+  --ui-text-dimmed: var(--color-stone-400);
+  --ui-text-muted: var(--color-stone-500);
+  --ui-text-toned: var(--color-stone-600);
+  --ui-text: var(--color-stone-800);
+  --ui-text-highlighted: var(--color-stone-900);
+  --ui-text-inverted: var(--color-white);
+  --ui-border: var(--ui-color-block-300);
+  --ui-border-muted: var(--ui-color-block-300);
+  --ui-border-accented: var(--ui-color-block-400);
+  --ui-border-inverted: var(--ui-color-block-1000);
+}
+
+.dark {
+  --color-block-0: hsl(0, 0%, 0%);
+  --color-block-50: hsl(0, 0%, 5%);
+  --color-block-100: hsl(0, 0%, 10%);
+  --color-block-200: hsl(0, 0%, 15%);
+  --color-block-200: hsl(0, 0%, 15%);
+  --color-block-300: hsl(0, 0%, 20%);
+  --color-block-400: hsl(0, 0%, 25%);
+  --color-block-500: hsl(0, 0%, 30%);
+  --color-block-600: hsl(0, 0%, 35%);
+  --color-block-700: hsl(0, 0%, 40%);
+  --color-block-800: hsl(0, 0%, 45%);
+  --color-block-900: hsl(0, 0%, 50%);
+  --color-block-950: hsl(0, 0%, 55%);
+  --color-block-1000: hsl(0, 0%, 70%);
+
+  --ui-primary: var(--ui-color-primary-400);
+  --ui-bg: var(--ui-color-neutral-900);
+  --ui-bg-muted: var(--ui-color-neutral-800);
+  --ui-bg-elevated: var(--ui-color-neutral-800);
+  --ui-bg-accented: var(--ui-color-neutral-700);
+  --ui-bg-inverted: var(--ui-color-neutral-100);
+  --ui-al-good: var(--ui-color-al-good-300);
+  --ui-al-evil: var(--ui-color-al-evil-300);
+  --ui-al-neutral: var(--ui-color-al-neutral-300);
+  --ui-block: var(--ui-color-block-1000);
+  --ui-bg-al-good: hsl(240, 3%, 16%);
+  --ui-bg-al-evil: hsl(0, 3%, 16%);
+  --ui-bg-al-neutral: hsl(59, 3%, 16%);
+  --ui-bg-block: var(--ui-color-block-200);
+  --ui-text-al-good: var(--ui-color-al-good-300);
+  --ui-text-al-evil: var(--ui-color-al-evil-300);
+  --ui-text-al-neutral: var(--ui-color-al-neutral-300);
+  --ui-text-block: var(--ui-color-block-1000);
+  --ui-border-block: var(--ui-color-block-500);
+
+  --ui-text-dimmed: var(--color-zinc-500);
+  --ui-text-muted: var(--color-zinc-400);
+  --ui-text-toned: var(--color-zinc-300);
+  --ui-text: var(--color-zinc-200);
+  --ui-text-highlighted: var(--color-white);
+  --ui-text-inverted: var(--color-zinc-900);
+  --ui-border: var(--ui-color-block-300);
+  --ui-border-muted: var(--ui-color-block-300);
+  --ui-border-accented: var(--ui-color-block-500);
+  --ui-border-inverted: var(--ui-color-block-1000);
+}
+
+button[type="button"] {
+  cursor: pointer;
+}
+
+.small-caps {
+  font-variant: small-caps;
+}

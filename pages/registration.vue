@@ -17,21 +17,21 @@
           {{ $t("registration.termsAndConditions4") }}
         </NuxtLink>
       </p>
-      <MSButton
+      <UButton
         v-if="mode !== 'normalAccount'"
         block
         class="mt-5"
         type="button"
-        color="patreon"
+        color="primary"
         icon="fa6-brands:patreon"
         :text="$t('registration.signUpWithPatreon')"
       />
-      <MSButton
+      <UButton
         v-if="mode !== 'normalAccount'"
         block
         class="mt-4"
         type="button"
-        color="primary"
+        color="neutral"
         :text="$t('registration.orCreateAccount')"
         @click="mode = 'normalAccount'"
       />
@@ -83,7 +83,7 @@
         <p v-if="errorMessage" class="content text-danger text-center mt-6">
           {{ errorMessage }}
         </p>
-        <MSButton
+        <UButton
           block
           class="mt-6"
           color="primary"
@@ -114,14 +114,14 @@
       </div>
     </div>
     <div v-else class="centered text-center">
-      <h2 class="content text-primary-700">
+      <h2 class="content text-primary">
         <Icon name="fa-solid:check" aria-hidden />
         {{ $t("registration.successTitle") }}
       </h2>
       <p class="content mt-4 max-w-md">
         {{ $t("registration.successMessage", { email: credentials.email }) }}
       </p>
-      <MSButton
+      <UButton
         block
         class="mt-5 mb-4"
         color="primary"
@@ -191,7 +191,7 @@ watch(
   () => {
     errorMessage.value = "";
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 

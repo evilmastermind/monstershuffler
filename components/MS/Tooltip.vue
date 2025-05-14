@@ -1,30 +1,25 @@
 <template>
-  <span
-    class="dotted"
+  <TDotted
     @mouseover="handleMouseOver"
     @mouseleave="isVisible = false"
     @click.stop="handleClick"
   >
     {{ word }}
-  </span>
+  </TDotted>
   <div
     v-if="isVisible"
     class="tooltip-container"
     :style="{ top: `${y - 2}px`, left: `${left}px`, width: `${width}px` }"
   >
-    <div class="tooltip">
+    <div
+      class="absolute bottom-0 w-full ring ring-accented rounded-md p-4 sm:p-5 bg-default not-italic shadow-xl"
+    >
       <h4 class="text-left font-bold">{{ word }}:</h4>
       <p v-if="retrievedDescription !== null" class="content">
         {{ retrievedDescription }}
       </p>
-      <LoadingDots v-else :size="6" />
-      <MSIconButton
-        v-if="hasCloseButton"
-        class="close-button"
-        :label="$t('closeLabel')"
-        icon="fa6-solid:xmark"
-        @click.stop="isVisible = false"
-      />
+      <MSLoadingDots v-else :size="6" />
+      <MSClose v-if="hasCloseButton" @click.stop="isVisible = false" />
     </div>
   </div>
 </template>
@@ -90,7 +85,7 @@ watch(isVisible, async (newValue) => {
   if (newValue && !p.description && retrievedDescription.value === null) {
     retrievedDescription.value = await tooltips.getDescription(
       p?.id?.toString() || p.word,
-      p.source
+      p.source,
     );
   } else if (p.description) {
     retrievedDescription.value = p.description;
@@ -102,18 +97,5 @@ watch(isVisible, async (newValue) => {
 .tooltip-container {
   position: fixed;
   z-index: 9990;
-}
-.tooltip {
-  position: absolute;
-  bottom: 0%;
-  width: 100%;
-  @apply shadow-xl rounded p-4 sm:p-5 bg-background-100 not-italic;
-}
-.close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.5rem;
-  cursor: pointer;
 }
 </style>

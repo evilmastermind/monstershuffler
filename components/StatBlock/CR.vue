@@ -1,18 +1,17 @@
 <template>
   <span>
     <button
-      class="triangleleft hide-from-exports"
-      :aria-label="$t('statBlock.lowerCR')"
       @click="callLowerCR"
+      :aria-label="$t('statBlock.lowerCR')"
+      class="inline cursor-pointer border-r-[10px] border-r-al-evil-700 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent mx-[5px] -translate-y-[0.3em] transform hide-from-exports"
     />
-    <!-- <span class="cr" ref="refCR">{{ statistics.CR.string }}</span> -->
     <label>
       <span class="sr-only">{{ $t("statBlock.setCR") }}</span>
       <input
         ref="refCR"
         v-model="CR"
         type="text"
-        class="cr"
+        class="inline-block min-w-[1.5em] w-[1.5em] text-center bg-transparent border-none focus:outline-none"
         :v-tooltip="$t('statBlock.setCR')"
         @click="select"
         @keydown.enter="callSetCR"
@@ -20,15 +19,15 @@
       />
     </label>
     <button
-      class="triangleright hide-from-exports"
-      :aria-label="$t('statBlock.raiseCR')"
       @click="callRaiseCR"
+      :aria-label="$t('statBlock.raiseCR')"
+      class="inline cursor-pointer border-l-[10px] border-l-al-evil-700 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent mx-[5px] -translate-y-[0.3em] transform hide-from-exports"
     />
   </span>
 </template>
 
 <script setup lang="ts">
-import { lowerCR, raiseCR, setCR, addPlusSign } from "monstershuffler-shared";
+import { lowerCR, raiseCR, setCR } from "monstershuffler-shared";
 import type { GeneratorCharacter, Character, Statistics } from "@/types";
 
 const screen = useScreen();
@@ -38,7 +37,7 @@ const statistics = inject("statistics") as Ref<Statistics>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 const didLayoutShift = inject("didLayoutShift") as Ref<boolean>;
 
-const refCR = ref<HTMLElement | null>(null);
+const refCR = ref<HTMLInputElement | null>(null);
 const CR = ref<string>(statistics.value.CR.string);
 
 function callRaiseCR() {
@@ -73,39 +72,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.triangleleft {
-  display: inline;
-  width: 0;
-  height: 0;
-  border-right: 10px solid theme("colors.danger");
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  margin: 0 5px 0 5px;
-  transform: translateY(-0.3em);
-}
-.triangleright {
-  display: inline;
-  width: 0;
-  height: 0;
-  border-left: 10px solid theme("colors.danger");
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  margin: 0 5px 0 5px;
-  transform: translateY(-0.3em);
-}
-.cr {
-  display: inline-block;
-  min-width: 1.5em;
-  width: 1.5em;
-  text-align: center;
-  background-color: transparent;
-  border: none;
-}
-.cr-buttons {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-</style>

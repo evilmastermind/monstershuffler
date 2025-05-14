@@ -1,24 +1,75 @@
-TODO: build a decent readme for all 3 repositories
+# Nuxt Minimal Starter
 
-# Monstershuffler v2
-This project is still a work in progress.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-Languages/Tools used: TypeScript, Nuxt 3, Pinia, Tailwind
-## Other repositories
-[monstershuffler-backend](https://github.com/evilmastermind/monstershuffler-backend) (TypeScript, Fastify, Prisma, Zod) \
-[monstershuffler-shared](https://github.com/evilmastermind/monstershuffler-shared) (Zod)
+## Setup
 
+Make sure to install dependencies:
 
-## Suggested extensions for VSCode
-- TODO: add extensions
-- Iconify IntelliSense by Anthony Fu
+```bash
+# npm
+npm install
 
+# pnpm
+pnpm install
 
-## Style rules
-### CSS: z-index levels
-- -10000: transition makes element "disappear"
-- 1: navbar
-- 100: dice history
-- 9900: form
-- 9990: previews and tooltips
-- 9999: alerts and modals
+# yarn
+yarn install
+
+# bun
+bun install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

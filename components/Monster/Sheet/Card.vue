@@ -5,7 +5,7 @@
       <div :class="[borders.topCenter]" />
       <div :class="[borders.topAngleRight]" />
     </div>
-    <div class="content" :class="moralBackground">
+    <div class="content p-4" :class="moralBackground">
       <slot />
     </div>
     <div :class="[borders.bottom]">
@@ -26,29 +26,28 @@ const { currentRoleplayStatsHTMLElement } = storeToRefs(generator);
 const container = ref<HTMLElement | null>(null);
 
 const borders = computed(() => {
-  switch (ui.currentThemeType) {
-    case "light":
-      return {
-        top: "border-top-light",
-        topAngleLeft: "border-top-angle-left-light",
-        topCenter: "border-top-center-light",
-        topAngleRight: "border-top-angle-right-light",
-        bottom: "border-bottom-light",
-        bottomAngleLeft: "border-bottom-angle-left-light",
-        bottomCenter: "border-bottom-center-light",
-        bottomAngleRight: "border-bottom-angle-right-light",
-      };
-    case "dark":
-      return {
-        top: "border-top-dark",
-        topAngleLeft: "border-top-angle-left-dark",
-        topCenter: "border-top-center-dark",
-        topAngleRight: "border-top-angle-right-dark",
-        bottom: "border-bottom-dark",
-        bottomAngleLeft: "border-bottom-angle-left-dark",
-        bottomCenter: "border-bottom-center-dark",
-        bottomAngleRight: "border-bottom-angle-right-dark",
-      };
+  if (ui.isDark) {
+    return {
+      top: "border-top-dark",
+      topAngleLeft: "border-top-angle-left-dark",
+      topCenter: "border-top-center-dark",
+      topAngleRight: "border-top-angle-right-dark",
+      bottom: "border-bottom-dark",
+      bottomAngleLeft: "border-bottom-angle-left-dark",
+      bottomCenter: "border-bottom-center-dark",
+      bottomAngleRight: "border-bottom-angle-right-dark",
+    };
+  } else {
+    return {
+      top: "border-top-light",
+      topAngleLeft: "border-top-angle-left-light",
+      topCenter: "border-top-center-light",
+      topAngleRight: "border-top-angle-right-light",
+      bottom: "border-bottom-light",
+      bottomAngleLeft: "border-bottom-angle-left-light",
+      bottomCenter: "border-bottom-center-light",
+      bottomAngleRight: "border-bottom-angle-right-light",
+    };
   }
 });
 
@@ -68,26 +67,6 @@ onMounted(() => {
 }
 .content {
   font-family: "ScalaSansOffc";
-  @apply px-4 py-4;
-}
-.name {
-  font-weight: 600;
-  font-size: 1.3rem;
-  font-variant: small-caps;
-  letter-spacing: 0.05em;
-}
-dt {
-  float: left;
-  clear: left;
-  @apply font-bold mr-2;
-}
-dt::after {
-  content: ":";
-  font-weight: 400;
-}
-.dotted {
-  border-bottom: 1px dotted theme("colors.text-2");
-  cursor: help;
 }
 .border-top-light {
   width: 100%;

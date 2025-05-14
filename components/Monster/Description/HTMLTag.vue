@@ -1,5 +1,5 @@
 <template>
-  <component :is="parts.tag">
+  <component :is="parts.tag" :class="classes">
     <slot />
     <template v-for="(part, index) in parts.parts" :key="index">
       <MonsterDescriptionHTMLTag v-if="'tag' in part" :parts="part" />
@@ -17,6 +17,15 @@ const p = defineProps({
     required: true,
   },
 });
-</script>
 
-<style scoped></style>
+const classes = computed(() => {
+  switch (p.parts.tag) {
+    case "ul":
+      return "list-disc ml-4";
+    case "li":
+      return "ml-4";
+    default:
+      return "";
+  }
+});
+</script>

@@ -1,42 +1,45 @@
 <template>
-  <MSModal v-if="isModalOpen" @close="isModalOpen = false">
-    <template #title>
-      {{ $t(`share.title`) }}
-    </template>
-    <template #default>
-      <p class="text-sm text-text-1">{{ $t("share.subtitle") }}</p>
-      <div class="platforms mt-5 mb-4">
+  <UModal
+    v-model:open="isModalOpen"
+    @close="isModalOpen = false"
+    :title="$t(`share.title`)"
+    :description="$t('share.subtitle')"
+  >
+    <template #body>
+      <div class="flex justify-center flex-wrap items-center gap-1 mb-4">
         <MSIconButton
           v-for="(platform, index) in platforms"
           :key="platform.name"
-          size="32"
+          size="xl"
+          variant="outline"
           :icon="platform.icon"
           :label="platform.name"
           @click="share(index)"
         />
       </div>
-      <input
-        type="text"
-        class="ms-input-style ms-input w-full"
-        disabled
-        :value="p.link"
-      />
-      <MSButton
-        block
-        :color="hasCopiedToClipboard ? 'success' : 'dark'"
+      <UInput type="text" class="w-full" disabled :value="p.link" />
+    </template>
+    <template #footer>
+      <UButton
+        variant="outline"
+        color="neutral"
         class="mt-2"
-        icon="fa6-solid:clipboard"
-        :text="hasCopiedToClipboard ? $t('copied') : $t('copyToClipboard')"
-        @click="copy"
-      />
-      <MSButton
-        block
-        class="mt-2"
-        :text="$t('close')"
+        :label="$t('close')"
+        :aria-label="$t('close')"
         @click="isModalOpen = false"
       />
+      <UButton
+        :color="hasCopiedToClipboard ? 'success' : 'neutral'"
+        class="mt-2"
+        icon="i-xxx-clipboard"
+        :label="hasCopiedToClipboard ? $t('copied') : $t('copyToClipboard')"
+        :aria-label="
+          hasCopiedToClipboard ? $t('copied') : $t('copyToClipboard')
+        "
+        @click="copy"
+      />
     </template>
-  </MSModal>
+  </UModal>
 </template>
 
 <script setup lang="ts">
@@ -111,11 +114,4 @@ function share(index: number) {
 }
 </script>
 
-<style scoped>
-.platforms {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-</style>
+<style scoped></style>

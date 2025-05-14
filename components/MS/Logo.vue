@@ -74,16 +74,16 @@
 </template>
 
 <script setup lang="ts">
-const { currentThemeType } = storeToRefs(useUiStore());
+const { isDark } = storeToRefs(useUiStore());
 
 const white = computed(() => {
-  return currentThemeType.value === "light" ? "white" : "white";
+  return isDark ? "white" : "white";
 });
 const black = computed(() => {
-  return currentThemeType.value === "light" ? "black" : "black";
+  return isDark ? "black" : "black";
 });
 const blackOrTransparent = computed(() => {
-  return currentThemeType.value === "light" ? "black" : "black";
+  return isDark ? "black" : "black";
 });
 </script>
 

@@ -10,15 +10,12 @@
   >
     <path
       d="M414.5 6L6 210.5L24 677.5L414.5 910.5L806.5 677.5L824.5 210.5L414.5 6Z"
-      class="fill-grey-0 stroke-grey-1000"
-      :class="
-        currentThemeType === 'light' ? 'stroke-grey-1000' : 'stroke-grey-500'
-      "
+      class="fill-(--ui-text-inverted) stroke-(--ui-text-muted)"
       :stroke-width="stroke * 10"
     />
     <path
       d="M415.5 7.5V102M415.5 102L8 211L147.5 575.5M415.5 102L821.5 211L683.5 575.5M415.5 102L147.5 575.5M415.5 102L683.5 575.5M147.5 575.5H683.5M147.5 575.5L415.5 907.5L683.5 575.5M147.5 575.5L25.5 677M683.5 575.5L805 677"
-      class="stroke-grey-1000"
+      class="stroke-(--ui-text-muted)"
       :stroke-width="stroke * 5"
     />
   </svg>
@@ -26,8 +23,6 @@
 
 <script setup lang="ts">
 const ui = useUiStore();
-
-const { currentThemeType } = storeToRefs(ui);
 
 const p = defineProps({
   size: {

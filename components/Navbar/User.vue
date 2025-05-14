@@ -1,8 +1,20 @@
 <template>
-  <!-- <div v-if="!token" class="buttons-flex">
-    <MSButton text="Login" color="dark" to="login" />
-    <MSButton text="Register" color="primary" to="registration" />
-  </div>
+  <template v-if="!token" class="flex gap-2 h-min">
+    <!-- <UButton
+      :text="$t('navbar.login')"
+      size="sm"
+      variant="outline"
+      color="neutral"
+      to="/login"
+    />
+    <UButton
+      :text="$t('navbar.register')"
+      size="sm"
+      variant="solid"
+      color="neutral"
+      to="/registration"
+    /> -->
+  </template>
   <NuxtLink
     v-else-if="me"
     class="user-flex"
@@ -17,8 +29,7 @@
         backgroundImage: `url(${me.avatar || '/images/avatar.jpg'})`,
       }"
     ></div>
-  </NuxtLink> -->
-  <NavbarSupportButtonPatreon />
+  </NuxtLink>
 </template>
 <script setup lang="ts">
 const user = useUserStore();
@@ -37,6 +48,7 @@ onMounted(async () => {
 });
 </script>
 <style scoped>
+/*
 .buttons-flex {
   display: flex;
   flex-flow: row nowrap;
@@ -60,4 +72,5 @@ onMounted(async () => {
   place-items: center;
   background-size: cover;
 }
+*/
 </style>

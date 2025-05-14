@@ -1,15 +1,15 @@
 <template>
   <div class="navbar-link-container">
     <NuxtLink
-      class="navbar-link"
+      class="hover:text-primary text-sm leading-none"
       :class="
         currentRoute === `${route}___${locale}`
-          ? 'navbar-link-active'
-          : 'navbar-link-inactive'
+          ? 'current-route text-primary'
+          : 'text-toned'
       "
       :to="localePath({ name: route })"
     >
-      <span class="navbar-link-name">{{ name }}</span>
+      <TSmall>{{ name }}</TSmall>
     </NuxtLink>
   </div>
 </template>
@@ -39,29 +39,11 @@ const currentRoute = computed(() => {
   flex-grow: 0;
   flex-shrink: 0;
 }
-.navbar-link-inactive {
-  color: theme("colors.text");
-}
-.navbar-link-active,
-.navbar-link:hover {
-  color: theme("colors.text-evil");
-}
-.navbar-icon {
-  font-size: theme("spacing.4");
-  display: none;
-}
 .navbar-link {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-}
-.navbar-link-name {
-}
-
-.navbar-link:focus-visible {
-  outline: 2px solid theme("colors.text");
-  box-shadow: 0 0 0 3px theme("colors.text-inverse");
 }
 </style>

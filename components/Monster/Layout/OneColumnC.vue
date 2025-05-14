@@ -1,14 +1,19 @@
 <template>
-  <div class="layout-container">
-    <div class="layout">
-      <div class="story-stats">
+  <div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div
+        class="pt-4 px-4 sm:pt-[6%] sm:px-[6%] md:pt-[12%] md:pl-[12%] md:pr-0 md:pb-[12%]"
+      >
         <div class="story">
           <slot name="backstory" />
         </div>
-        <div class="stats">
+        <div class="mt-6">
           <slot name="stats" :columns="1" />
-          <div class="card my-4">
-            <slot v-if="showRoleplayStats" name="card" />
+          <div
+            v-if="showRoleplayStats"
+            class="grid place-items-center break-inside-avoid my-4"
+          >
+            <slot name="card" />
           </div>
         </div>
       </div>
@@ -33,46 +38,6 @@ const rules: ImageRules = {
   height: "full",
   mask: "left",
 };
+
+e("load");
 </script>
-
-<style scoped>
-.layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-.story-stats {
-  @apply pt-4 px-4;
-}
-.stats {
-  @apply mt-6;
-}
-
-@media (min-width: theme("screens.sm")) {
-  .story-stats {
-    padding-top: 6%;
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 0;
-  }
-}
-
-@media (min-width: 700px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .story-stats {
-    padding-top: 12%;
-    padding-left: 12%;
-    padding-right: 0;
-    padding-bottom: 12%;
-  }
-}
-.card {
-  display: grid;
-  place-items: center;
-  break-inside: avoid;
-}
-</style>

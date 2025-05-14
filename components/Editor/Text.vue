@@ -1,5 +1,11 @@
 <template>
-  <div ref="editorRef" contenteditable class="editor"></div>
+  <div
+    ref="editorRef"
+    contenteditable
+    class="text-default font-[LibreBaskerville] focus:outline-none"
+    @focus="isFocused = true"
+    @blur="isFocused = false"
+  ></div>
 </template>
 
 <script setup lang="ts">
@@ -8,106 +14,59 @@ import type { StreamStatus } from "@/types";
 
 const e = defineEmits(["text-updated"]);
 const p = defineProps({
-  text: {
-    type: String,
-    default: "",
-  },
-  streamChunks: {
-    type: Array as PropType<string[]>,
-    default: () => [],
-  },
-  streamStatus: {
-    type: String as PropType<StreamStatus>,
-    default: undefined,
-  },
+  text: { type: String, default: "" },
+  streamChunks: { type: Array as PropType<string[]>, default: () => [] },
+  streamStatus: { type: String as PropType<StreamStatus>, default: undefined },
 });
 
 const moral = inject("moral") as ComputedRef<string>;
 const key = ref(0);
+const isFocused = ref(false);
 
-const updateKeyThrottle = throttle(() => {
-  key.value += 1;
-}, 500);
+const updateKeyThrottle = throttle(() => key.value++, 500);
 
-const lexicalTheme = {
+// Dynamic class map, used when creating the Lexical editor:
+const lexicalTheme = reactive({
   ltr: "ltr",
   rtl: "rtl",
-  paragraph: "editor-paragraph",
-  quote: "editor-quote",
+  paragraph: "mt-1 mb-4 leading-6",
+  quote: "mt-6 mb-4 italic text-center",
   heading: {
-    h1: `editor-heading-h1 ${moral.value || ""}`,
-    h2: `editor-heading-h2 ${moral.value || ""}`,
-    h3: `editor-heading-h3 ${moral.value || ""}`,
-    h4: `editor-heading-h4 ${moral.value || ""}`,
-    h5: `editor-heading-h5 ${moral.value || ""}`,
-    h6: `editor-heading-h6 ${moral.value || ""}`,
+    h1: `mt-6 mb-4 text-5xl leading-none tracking-wide font-medium font-[MrsEavesSmallCaps]  ${moral.value || ""}`,
+    h2: `mt-6 text-4xl leading-none tracking-[0.02em] font-[MrsEavesSmallCaps]  ${moral.value || ""}`,
+    h3: `mt-5 text-3xl leading-[0.9] tracking-[0.05em] font-[MrsEavesSmallCaps] border-b-3 border-al-neutral-500 underline-offset-2 decoration-[1.5px]  ${moral.value || ""}`,
+    h4: `mt-4 mb-2 text-lg leading-tight font-[MrsEavesSmallCaps]  ${moral.value || ""}`,
+    h5: `mt-3 mb-2 text-base leading-tight font-[MrsEavesSmallCaps]  ${moral.value || ""}`,
+    h6: `mt-2 mb-2 text-sm leading-tight font-[MrsEavesSmallCaps] text-text-evil  ${moral.value || ""}`,
   },
   list: {
-    nested: {
-      listitem: "editor-nested-listitem",
-    },
-    ol: "editor-list-ol",
-    ul: "editor-list-ul",
-    listitem: "editor-listItem",
-    listitemChecked: "editor-listItemChecked",
-    listitemUnchecked: "editor-listItemUnchecked",
+    ol: "mt-4 mb-4 list-decimal pl-6",
+    ul: "mt-4 mb-4 list-disc pl-6",
+    nested: { listitem: "ml-4" },
+    listitem: "ml-6",
   },
-  hashtag: "editor-hashtag",
-  image: "editor-image",
-  link: "editor-link",
+  link: "underline text-text-evil cursor-pointer",
+  hashtag: "",
+  image: "",
+  code: "font-mono bg-muted p-1 rounded",
   text: {
-    bold: "editor-textBold",
-    code: "editor-textCode",
-    italic: "editor-textItalic",
-    strikethrough: "editor-textStrikethrough",
-    subscript: "editor-textSubscript",
-    superscript: "editor-textSuperscript",
-    underline: "editor-textUnderline",
-    underlineStrikethrough: "editor-textUnderlineStrikethrough",
-    highlight: "editor-textHighlight",
+    bold: "font-bold",
+    italic: "italic",
+    underline: "underline",
+    strikethrough: "line-through",
+    code: "font-mono bg-muted p-1 rounded",
+    highlight: "bg(--ui-bg-al-neutral)",
+    subscript: "align-sub",
+    superscript: "align-super",
   },
-  code: "editor-code",
-  codeHighlight: {
-    atrule: "editor-tokenAttr",
-    attr: "editor-tokenAttr",
-    boolean: "editor-tokenProperty",
-    builtin: "editor-tokenSelector",
-    cdata: "editor-tokenComment",
-    char: "editor-tokenSelector",
-    class: "editor-tokenFunction",
-    "class-name": "editor-tokenFunction",
-    comment: "editor-tokenComment",
-    constant: "editor-tokenProperty",
-    deleted: "editor-tokenProperty",
-    doctype: "editor-tokenComment",
-    entity: "editor-tokenOperator",
-    function: "editor-tokenFunction",
-    important: "editor-tokenVariable",
-    inserted: "editor-tokenSelector",
-    keyword: "editor-tokenAttr",
-    namespace: "editor-tokenVariable",
-    number: "editor-tokenProperty",
-    operator: "editor-tokenOperator",
-    prolog: "editor-tokenComment",
-    property: "editor-tokenProperty",
-    punctuation: "editor-tokenPunctuation",
-    regex: "editor-tokenVariable",
-    selector: "editor-tokenSelector",
-    string: "editor-tokenSelector",
-    symbol: "editor-tokenProperty",
-    tag: "editor-tokenProperty",
-    url: "editor-tokenOperator",
-    variable: "editor-tokenVariable",
-  },
-};
+  codeHighlight: {}, // leave prism defaults
+});
 
 const lexical = useLexicalStore();
-
 const editorRef = ref<HTMLElement | null>(null);
-const isEditable = ref(false);
 
-function onUpdated(markdown: string) {
-  e("text-updated", markdown);
+function onUpdated(md: string) {
+  e("text-updated", md);
 }
 
 watch(
@@ -115,133 +74,14 @@ watch(
   () => {
     lexical.appendMarkdownChunks(p.streamChunks);
     updateKeyThrottle();
-  }
-  // { deep: true }
+  },
 );
 
 onMounted(() => {
-  if (!editorRef.value) {
-    return;
-  }
-
-  lexical.createLexicalEditor(
-    editorRef.value as HTMLElement,
-    lexicalTheme,
-    onUpdated
-  );
-
+  if (!editorRef.value) return;
+  lexical.createLexicalEditor(editorRef.value, lexicalTheme, onUpdated);
   if (p.text && ["closed", undefined].includes(p.streamStatus)) {
     lexical.importMarkdown(p.text);
   }
-  // UNDO/REDO
 });
 </script>
-
-<style>
-/* default styles */
-.editor {
-  font-family: "LibreBaskerville", serif;
-  font-size: 1rem;
-  @apply text-text;
-}
-.editor:focus {
-  outline: none;
-}
-
-/* paragraph */
-.editor-paragraph {
-  line-height: 1.6;
-  @apply mt-2 mb-4;
-}
-.editor-paragraph + .editor-paragraph {
-  text-indent: 1em;
-}
-
-/* heading */
-.editor-heading-h1 {
-  font-size: 2.5rem;
-  line-height: 1;
-  letter-spacing: 0.05em;
-  font-weight: 500;
-  font-family: "MrsEavesSmallCaps", serif;
-  @apply mt-6 mb-4;
-}
-.editor-heading-h2 {
-  font-size: 2rem;
-  letter-spacing: 0.02em;
-  font-family: "MrsEavesSmallCaps", serif;
-  line-height: 1em;
-  @apply mt-6 mb-4;
-}
-.editor-heading-h3 {
-  font-size: 1.7rem;
-  letter-spacing: 0.05em;
-  line-height: 1em;
-  font-family: "MrsEavesSmallCaps", serif;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.2em;
-  @apply mt-5 mb-2;
-}
-.editor-heading-h4 {
-  font-size: 1.5rem;
-  line-height: 1em;
-  font-family: "MrsEavesSmallCaps", serif;
-  @apply mt-4 mb-2;
-}
-.editor-heading-h5 {
-  font-size: 1.3rem;
-  line-height: 1em;
-  font-family: "MrsEavesSmallCaps", serif;
-  @apply mt-3 mb-2;
-}
-.editor-heading-h6 {
-  font-size: 1.1rem;
-  line-height: 1em;
-  font-family: "MrsEavesSmallCaps", serif;
-  @apply mt-2 mb-2 text-text-evil;
-}
-
-/* quote */
-.editor-quote {
-  font-style: italic;
-  text-align: center;
-  @apply mt-6 mb-4;
-}
-/*
-.editor-quote::before {
-  content: open-quote;
-}
-.editor-quote::after {
-  content: close-quote;
-}
-*/
-
-/* list */
-.editor-list-ol {
-  list-style-type: decimal;
-  @apply mt-4 mb-4;
-}
-.editor-list-ul {
-  list-style-type: disc;
-  @apply mt-4 mb-4;
-}
-.editor-nested-listitem {
-  margin-left: 1em;
-}
-.editor-listItem {
-  @apply ml-6;
-}
-
-/* link */
-.editor-link {
-  text-decoration: underline;
-  cursor: pointer;
-  @apply text-text-evil;
-}
-
-/* hightlight */
-.editor-textHighlight {
-  @apply text-text bg-primary-200;
-}
-</style>

@@ -14,7 +14,7 @@
           $t(
             `statBlock.value.${result.type || "value"}`,
             { n: result.result },
-            result.result
+            result.result,
           )
         }}
       </template>

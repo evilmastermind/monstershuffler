@@ -1,6 +1,6 @@
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { createStats } from "monstershuffler-shared";
-import { parseError, throttle } from "@/utils";
+import { parseError, throttle, type ApiResponse } from "@/utils";
 import type {
   Keyword,
   ObjectOrVariant,
@@ -20,7 +20,10 @@ class FatalError extends Error {}
 export const useGeneratorStore = defineStore("generator", () => {
   const config = useRuntimeConfig();
   const api = config.public.apiUrl;
+  ///
   const user = useUserStore();
+  const toast = useToast();
+  const { t } = useI18n();
   /**
    * State
    */
@@ -93,50 +96,52 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   async function getRandomNpcs(
     npcOptions: PostRandomNpcBody,
-    sessionId: string | undefined
-  ): Promise<number> {
+    sessionId: string | undefined,
+  ): Promise<ApiResponse<PostFourRandomNpcsResponse>> {
     try {
-      const data: PostFourRandomNpcsResponse = await $fetch(
+      const response = await $fetch.raw<PostFourRandomNpcsResponse>(
         `${api}/npcs/four`,
         {
           method: "POST",
           body: { ...npcOptions, sessionId },
-        }
+        },
       );
 
-      data?.npcs.forEach((npc) => {
+      response._data?.npcs.forEach((npc) => {
         const character = npc.object;
         createStats(character);
       });
       session.value = [];
-      data.npcs.forEach((npc) => {
+      response._data?.npcs.forEach((npc) => {
         session.value.push(markRaw(npc));
       });
-      return 200;
+      return parseResponse<PostFourRandomNpcsResponse>(response);
     } catch (error) {
-      return parseError(error).statusCode;
+      return notifyCommonErrors(parseError<PostFourRandomNpcsResponse>(error));
     }
   }
 
-  async function getGeneratorData(): Promise<number> {
+  async function getGeneratorData(): Promise<
+    ApiResponse<GetGeneratorDataResponse>
+  > {
     try {
-      const data: GetGeneratorDataResponse = await $fetch(
-        `${api}/npcs/generator-data`
+      const response = await $fetch.raw<GetGeneratorDataResponse>(
+        `${api}/npcs/generator-data`,
       );
       racesAndVariants.value = prepareObjectOrVariantList(
-        data.races || [],
+        response._data?.races || [],
         "primaryRaceId",
-        "primaryRacevariantId"
+        "primaryRacevariantId",
       );
       triggerRef(racesAndVariants);
       classesAndVariants.value = prepareObjectOrVariantList(
-        data.classes || [],
+        response._data?.classes || [],
         "classId",
-        "classvariantId"
+        "classvariantId",
       );
       triggerRef(classesAndVariants);
-      backgrounds.value = data.backgrounds || [];
-      data.backgrounds.forEach((background) => {
+      backgrounds.value = response._data?.backgrounds || [];
+      response._data?.backgrounds.forEach((background) => {
         keywords.value.push({
           word: background.name.toLowerCase(),
           type: "backgroundId",
@@ -145,16 +150,16 @@ export const useGeneratorStore = defineStore("generator", () => {
       });
       triggerRef(backgrounds);
       triggerRef(keywords);
-      return 200;
+      return parseResponse<GetGeneratorDataResponse>(response);
     } catch (error) {
-      return parseError(error).statusCode;
+      return notifyCommonErrors(parseError<GetGeneratorDataResponse>(error));
     }
   }
 
   function prepareObjectOrVariantList(
     objectWithVariants: GetGeneratorDataResponse["races"],
     type: Keyword["type"],
-    typevariant: Keyword["type"]
+    typevariant: Keyword["type"],
   ) {
     const objectOrVariantList: ObjectOrVariant[] = [];
     objectWithVariants.forEach((object) => {
@@ -209,7 +214,7 @@ export const useGeneratorStore = defineStore("generator", () => {
       }
     } else {
       index = racesAndVariants.value.findIndex((race) =>
-        race.name.includes("Human")
+        race.name.includes("Human"),
       );
       if (index !== -1) {
         primaryRaceIndex.value = index;
@@ -227,7 +232,7 @@ export const useGeneratorStore = defineStore("generator", () => {
       }
     } else {
       index = racesAndVariants.value.findIndex((race) =>
-        race.variantName?.includes("Hill Dwarf")
+        race.variantName?.includes("Hill Dwarf"),
       );
       if (index !== -1) {
         secondaryRaceIndex.value = index;
@@ -246,7 +251,7 @@ export const useGeneratorStore = defineStore("generator", () => {
     }
     if (settings.value.options.backgroundId) {
       index = backgrounds.value.findIndex(
-        (background) => background.id === settings.value.options.backgroundId
+        (background) => background.id === settings.value.options.backgroundId,
       );
       if (index !== -1) {
         backgroundIndex.value = index;
@@ -256,7 +261,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   async function generateBackstory(
     wrapper: Ref<GeneratorCharacter>,
-    hook?: number
+    hook?: number,
   ): Promise<number> {
     const controller = new AbortController();
     const { signal } = controller;
@@ -379,7 +384,7 @@ export const useGeneratorStore = defineStore("generator", () => {
       });
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -390,10 +395,10 @@ export const useGeneratorStore = defineStore("generator", () => {
   function pushNewCharacter(
     character: NpcDetails,
     selected: boolean = false,
-    hook: number | undefined = undefined
+    hook: number | undefined = undefined,
   ): number {
     let characterIndex = characters.value.findIndex(
-      (char) => char.id === character.id
+      (char) => char.id === character.id,
     );
     if (characterIndex < 0) {
       characters.value.push({
@@ -442,23 +447,25 @@ export const useGeneratorStore = defineStore("generator", () => {
     currentCharacterIndex.value = -1;
   }
 
-  async function getNpc(
-    uuid: string,
-    hook: number | undefined
-  ): Promise<number> {
+  type GetNpcResponse = NpcDetails & { hasBackstory: boolean };
+  async function getNpc(uuid: string, hook: number | undefined) {
     try {
       const url =
         hook === undefined
           ? `${api}/npcs/${uuid}`
           : `${api}/npcs/${uuid}/${hook}`;
-      const data: NpcDetails & { hasBackstory: boolean } = await $fetch(url);
+      const response = await $fetch.raw<GetNpcResponse>(url);
+      const data = response._data;
+      if (!data) {
+        throw new Error("No data received");
+      }
       if (!data.object.statistics) {
         createStats(data.object);
       }
       pushNewCharacter(data, true, data.hasBackstory ? hook : undefined);
-      return 200;
+      return parseResponse<GetNpcResponse>(response);
     } catch (error) {
-      return parseError(error).statusCode;
+      return notifyCommonErrors(parseError<GetNpcResponse>(error));
     }
   }
 
@@ -483,7 +490,7 @@ export const useGeneratorStore = defineStore("generator", () => {
 
   async function setCurrentNPCRating(
     rating: number,
-    sessionId: string | undefined
+    sessionId: string | undefined,
   ): Promise<void> {
     if (currentCharacterIndex.value < 0) {
       return;
@@ -503,6 +510,72 @@ export const useGeneratorStore = defineStore("generator", () => {
       characters: characters.value as GeneratorCharacter[],
     };
     user.setSettings<NPCGeneratorSettings>("npcgenerator", newSettings);
+  }
+
+  function notifyCommonErrors<T>(error: ApiResponse<T>) {
+    const status = error.status;
+    switch (status) {
+      case 400:
+        toast.add({
+          description: t("error.badRequest"),
+          color: "error",
+        });
+        break;
+      case 401:
+        toast.add({
+          description: t("error.unauthorized"),
+          color: "error",
+        });
+        break;
+      case 403:
+        toast.add({
+          description: t("error.forbidden"),
+          color: "error",
+        });
+        break;
+      case 404:
+        toast.add({
+          description: t("error.notFound"),
+          color: "error",
+        });
+        break;
+      case 429:
+        toast.add({
+          description: t("error.tooManyRequests"),
+          color: "error",
+        });
+        break;
+      case 500:
+        toast.add({
+          description: t("error.internalServerError"),
+          color: "error",
+        });
+        break;
+      case 503:
+        toast.add({
+          description: t("error.serviceUnavailable"),
+          color: "error",
+        });
+        break;
+      default:
+        toast.add({
+          description: t("error.unknownError"),
+          color: "error",
+        });
+        break;
+    }
+    // if (error.status === 429) {
+    //   toast.add({
+    //     description: t("error.tooManyRequests"),
+    //     color: "error",
+    //   });
+    // } else {
+    //   toast.add({
+    //     description: t("error.couldntRetrieveData"),
+    //     color: "error",
+    //   });
+    // }
+    return error;
   }
 
   return {

@@ -6,7 +6,7 @@
   <MonsterDescription
     v-for="(action, index) in statistics?.traits"
     :key="index"
-    class="action"
+    class="my-2 leading-6"
     :parts="action.array"
     :name="action.nameArray"
     period

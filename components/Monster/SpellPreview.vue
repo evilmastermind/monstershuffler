@@ -1,17 +1,26 @@
 <template>
   <span>
     <Teleport v-if="spell" to="body">
-      <div ref="card" class="spell">
-        <MSCard class="m-2">
+      <div
+        ref="card"
+        class="absolute z-[9900] w-full max-w-[700px] top-[20%] font-[ScalaSansOffc] cursor-auto md:cursor-move"
+      >
+        <UCard>
           <MSIconButton
-            class="close ml-1 text-text-2"
+            class="absolute top-0 right-0 p-2 text-muted transition-colors duration-200 ease-in-out"
             :label="$t('closeLabel')"
             icon="fa6-solid:xmark"
             @click="emit('close')"
           />
-          <h1 class="spell-name" :class="moral">{{ name }}</h1>
+          <h1
+            class="text-xl font-semibold [font-variant:small-caps] mb-4"
+            :class="moral"
+          >
+            {{ name }}
+          </h1>
+
           <StatBlockStat v-if="spell.level !== undefined">
-            <template #title> {{ $t("spell.level") }} </template>
+            <template #title>{{ $t("spell.level") }}</template>
             <template v-if="spell.level === '0'">
               {{ $t("spell.cantrip") }}
             </template>
@@ -19,37 +28,47 @@
               {{ spell.level }}{{ addOrdinal(spell.level, language) }}
             </template>
           </StatBlockStat>
+
           <StatBlockStat v-if="spell.school !== undefined">
             <template #title>{{ $t("spell.school") }}</template>
             <span>{{ spell.school.trim() }}</span>
           </StatBlockStat>
+
           <StatBlockSeparator />
+
           <StatBlockStat v-if="spell.castingTime !== undefined">
             <template #title>{{ $t("spell.castingTime") }}</template>
             <span>{{ spell.castingTime }}</span>
           </StatBlockStat>
+
           <StatBlockStat v-if="spell.components !== undefined">
             <template #title>{{ $t("spell.components") }}</template>
             <span>{{ spell.components }}</span>
           </StatBlockStat>
+
           <StatBlockStat v-if="spell.ritual !== undefined">
             <template #title>{{ $t("spell.ritual") }}</template>
-            <span>{{ spell.ritual === true ? $t("yes") : $t("no") }}</span>
+            <span>{{ spell.ritual ? $t("yes") : $t("no") }}</span>
           </StatBlockStat>
+
           <StatBlockSeparator />
+
           <StatBlockStat v-if="spell.duration !== undefined">
             <template #title>{{ $t("spell.duration") }}</template>
             <span>{{ spell.duration }}</span>
           </StatBlockStat>
+
           <StatBlockStat v-if="spell.range !== undefined">
             <template #title>{{ $t("spell.rangeArea") }}</template>
             <span>{{ spell.range }}</span>
           </StatBlockStat>
+
           <StatBlockSeparator />
-          <div class="spell-description">
+
+          <div>
             <p v-html="spell.description" />
           </div>
-        </MSCard>
+        </UCard>
       </div>
     </Teleport>
   </span>
@@ -71,100 +90,38 @@ const spell = ref<Spell | null>(null);
 
 const emit = defineEmits(["close"]);
 const p = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  id: {
-    type: [Number, String],
-    default: undefined,
-  },
-  top: {
-    type: Number,
-    default: 0,
-  },
+  name: { type: String, required: true },
+  id: { type: [Number, String], default: undefined },
+  top: { type: Number, default: 0 },
 });
 
-// Position the card in the middle of the screen and enable dragging
 watch(card, () => {
-  if (!card.value) {
-    return;
-  }
+  if (!card.value) return;
   if (width.value >= 700) {
     card.value.style.left = `${(width.value - 700) / 2}px`;
     enableDrag(card.value);
   }
-  // Ensure the card is not off-screen
   const screenTop = window.scrollY;
   const screenBottom = screenTop + height.value;
-  const clientRect = card.value.getBoundingClientRect();
-  let newCardTop = p.top;
+  const rect = card.value.getBoundingClientRect();
+  let newTop = p.top;
   card.value.style.top = `${p.top}px`;
-  if (newCardTop + clientRect.height > screenBottom) {
-    newCardTop = screenBottom - clientRect.height;
-  }
-  if (newCardTop < screenTop) {
-    newCardTop = screenTop;
-  }
-  card.value.style.top = `${newCardTop}px`;
+  if (newTop + rect.height > screenBottom) newTop = screenBottom - rect.height;
+  if (newTop < screenTop) newTop = screenTop;
+  card.value.style.top = `${newTop}px`;
 });
 
-// Ensure the card stays within the screen when the window is resized
 watch(width, () => {
-  if (!card.value) {
-    return;
-  }
+  if (!card.value) return;
   const rect = card.value.getBoundingClientRect();
   if (rect.left + rect.width > width.value) {
     card.value.style.left = `${width.value - rect.width}px`;
   }
-  if (width.value >= 700) {
-    enableDrag(card.value);
-  } else {
-    disableDrag(card.value);
-  }
+  if (width.value >= 700) enableDrag(card.value);
+  else disableDrag(card.value);
 });
 
 onMounted(async () => {
-  if (p.id) {
-    spell.value = await tooltips.getSpellDescription(p.id);
-  }
+  if (p.id) spell.value = await tooltips.getSpellDescription(p.id);
 });
 </script>
-
-<style scoped>
-.spell {
-  z-index: 9900;
-  position: absolute;
-  top: 20%;
-  width: 100%;
-  max-width: 700px;
-  font-family: ScalaSansOffc;
-  cursor: move;
-}
-@media (max-width: 700px) {
-  .spell {
-    cursor: auto;
-  }
-}
-.close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
-  border: none;
-  padding: 0.5rem;
-  font-size: 1.5rem;
-  transition: color 0.2s ease-in-out;
-}
-.close-button {
-  opacity: 0.5;
-}
-.close-button:hover {
-  opacity: 1;
-}
-.spell-name {
-  font-size: 1.5rem;
-  font-variant: small-caps;
-}
-</style>
