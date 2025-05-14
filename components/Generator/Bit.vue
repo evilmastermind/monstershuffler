@@ -2,8 +2,8 @@
   <div>
     <Transition name="fade" appear mode="out-in">
       <div
-        class="bit p-1 noselect"
-        :class="moral()"
+        class="relative h-full flex flex-col leading-none cursor-pointer text-inverted shadow rounded select-none"
+        :class="[moral()]"
         :style="{
           transitionDelay: `${0.02 * index}s`,
           transitionProperty: 'opacity, transform',
@@ -12,19 +12,35 @@
         @mouseenter="setBitPreview(true)"
         @mouseleave="setBitPreview(false)"
       >
-        <div class="name-container">
-          <p class="content name">{{ character?.character?.name }}</p>
-          <MSIconButton
-            class="close ml-1"
-            :class="hasBeenClickedOnce ? 'rainbow' : ''"
-            :label="$t('clickTwiceToDelete')"
-            icon="fa6-solid:xmark"
-            @click.stop="deleteThisCharacter()"
-            @mousedown.stop
-          />
+        <div class="relative w-full flex justify-between items-center">
+          <p
+            class="inline-block text-inverted leading-tight whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] text-[0.87em] m-0 p-1 font-[MrsEavesSmallCaps]"
+          >
+            {{ character?.character?.name }}
+          </p>
+          <UTooltip :text="$t('clickTwiceToDelete')">
+            <UButton
+              class="relative text-inverted z-10 ml-1"
+              :class="hasBeenClickedOnce ? 'rainbow' : ''"
+              :aria-label="$t('clickTwiceToDelete')"
+              size="sm"
+              variant="ghost"
+              icon="i-xxx-close"
+              @click.stop="deleteThisCharacter()"
+              @mousedown.stop
+            />
+          </UTooltip>
         </div>
-        <p class="content">{{ race() }}</p>
-        <p class="content">{{ profession() }}</p>
+        <p
+          class="content inline-block text-text-inverse leading-tight whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] text-[0.87em] m-0 px-1"
+        >
+          {{ race() }}
+        </p>
+        <p
+          class="content inline-block text-text-inverse leading-tight whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px] text-[0.87em] px-1 pb-1"
+        >
+          {{ profession() }}
+        </p>
       </div>
     </Transition>
   </div>
@@ -73,11 +89,11 @@ const profession = () => {
 const moral = () => {
   const alignment = character.value?.statistics?.alignment?.string || "";
   if (alignment.includes("Good")) {
-    return "bg-background-good";
+    return "bg-al-good";
   } else if (alignment.includes("Evil")) {
-    return "bg-background-evil";
+    return "bg-al-evil";
   } else {
-    return "bg-background-neutral";
+    return "bg-al-neutral";
   }
 };
 
@@ -107,39 +123,3 @@ function setBitPreview(bool: boolean) {
   }
 }
 </script>
-
-<style scoped>
-.bit {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  line-height: 1em;
-  cursor: pointer;
-  @apply text-text-inverse shadow rounded;
-}
-.bit p {
-  display: inline-block;
-  font-size: 0.87em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 100px;
-  @apply text-text-inverse leading-tight m-0 p-0;
-}
-.name {
-  font-family: MrsEavesSmallCaps;
-  @apply text-text-inverse;
-}
-.name-container {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.close {
-  position: relative;
-  z-index: 1;
-}
-</style>

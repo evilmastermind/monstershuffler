@@ -1,13 +1,9 @@
 <template>
   <div class="navbar-link">
-    <NuxtLink
-      class="content ms-logo basis-9 max-[700px]:basis-7 max-[575px]:mr-0"
-      :to="localePath('/')"
-    >
-      <div class="ms-logo-gradient" />
+    <NuxtLink :to="localePath('/')">
       <MSLogo
-        class="logo"
-        :class="[ui.currentThemeType === 'dark' ? 'logo-shadow' : '']"
+        class="w-[40px]"
+        :class="[colorMode.value === 'dark' ? 'logo-shadow' : '']"
       />
       <span class="sr-only">{{ $t("navbar.menu.home") }}</span>
     </NuxtLink>
@@ -16,21 +12,10 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const ui = useUiStore();
+const colorMode = useColorMode();
 </script>
 <style scoped>
-.ms-logo {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-}
-.logo {
-  position: relative;
-  z-index: 1;
-}
 .logo-shadow {
-  filter: drop-shadow(0 0 0.6rem theme("colors.text-evil/15%"));
+  filter: drop-shadow(0 0 2px #ffffff22);
 }
 </style>

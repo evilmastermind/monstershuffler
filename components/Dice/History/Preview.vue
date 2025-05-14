@@ -1,5 +1,7 @@
 <template>
-  <div class="roll-preview">
+  <div
+    class="font-[ScalaSansOffc] backdrop-blur-sm shadow-xl p-1 ml-2 rounded bg-muted"
+  >
     <b class="font-bold">{{ roll.monster || $t("dice.you") }}</b>
     <span v-if="roll.rollName"> ({{ roll.rollName }})</span>:
     <DiceHistoryResult :roll />
@@ -17,10 +19,4 @@ const p = defineProps({
 });
 </script>
 
-<style scoped>
-.roll-preview {
-  backdrop-filter: blur(4px);
-  font-family: ScalaSansOffc;
-  @apply shadow-xl p-1 ml-2 rounded bg-background-50;
-}
-</style>
+<style scoped></style>

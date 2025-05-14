@@ -1,8 +1,8 @@
 <template>
   <div
-    class="relative shadow-lg rounded-lg border-4 border-double border-background-500 bg-background-150 p-4"
+    class="relative shadow-lg rounded-lg border-4 border-double border-(--ui-border-block) bg-(--ui-bg-block) p-4"
   >
-    <div :key="wrapper.key" class="stat-block font-[ScalaSansOffc]">
+    <div :key="wrapper.key" class="relative stat-block font-[ScalaSansOffc]">
       <StatBlock55eHeader />
       <StatBlockColumns :columns-count="p.columnsCount">
         <div class="flex justify-between mt-2">
@@ -41,7 +41,6 @@ const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
 <style scoped>
 .stat-block {
-  position: relative;
   container-type: inline-size;
 }
 </style>

@@ -1,16 +1,12 @@
 <template>
-  <span
-    v-if="part.type === 'background'"
-    class="dotted"
-    :class="part?.format || []"
-  >
+  <TDotted v-if="part.type === 'background'" :class="part?.format || []">
     <MSTooltip
       :id="part.id"
       :word="part.string"
       :description="character?.character?.background?.description"
       source="backgrounds"
     />
-  </span>
+  </TDotted>
   <span
     v-else-if="part.type === 'class'"
     class="text-textlight"

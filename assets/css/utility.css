@@ -19,29 +19,19 @@
   display: grid;
   place-items: center;
 }
-.sr-only {
-  position: absolute;
-  left: -10000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
 
 .blurred {
   backdrop-filter: blur(4px);
 }
 
-.evil {
-  @apply text-text-evil border-text-evil;
-}
-.good {
-  @apply text-text-good border-text-good;
-}
-.neutral {
-  @apply text-text-neutral border-text-neutral;
-}
-
 .small-caps {
   font-variant: small-caps;
+}
+
+.noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+.noscrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

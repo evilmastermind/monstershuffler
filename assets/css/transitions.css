@@ -39,14 +39,15 @@
 }
 .fade-scroll-slow-enter-active,
 .fade-scroll-slow-leave-active {
-  transition: opacity var(--medium) ease-in-out, transform var(--medium) ease-in-out;
+  transition:
+    opacity var(--medium) ease-in-out,
+    transform var(--medium) ease-in-out;
 }
 .fade-scroll-slow-enter-from,
 .fade-scroll-slow-leave-to {
   opacity: 0;
   transform: translateY(5%) scale(0.95);
 }
-
 
 .slide-right-enter-active,
 .slide-right-leave-active {
@@ -90,8 +91,6 @@
   opacity: 0;
 }
 
-
-
 /* 1. declare transition */
 .fade-row-move,
 .fade-row-enter-active,
@@ -113,11 +112,12 @@
   z-index: -10000;
 }
 
-
 .fade-row-move,
 .fade-group-enter-active,
 .fade-group-leave-active {
-  transition: opacity var(--quick) cubic-bezier(0.55, 0, 0.1, 1), transform var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
+  transition:
+    opacity var(--quick) cubic-bezier(0.55, 0, 0.1, 1),
+    transform var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 /* 2. declare enter from and leave to state */
@@ -155,7 +155,6 @@
   position: absolute;
 }
 
-
 .slidetransition-enter-active {
   transition: all 0.2s ease-out;
 }
@@ -183,7 +182,6 @@
   transition: transform var(--quick) ease-in;
 }
 
-
 /* .scroll-left-enter-active,
 .scroll-left-leave-active {
   transition: all var(--quick) ease;
@@ -205,7 +203,9 @@
 } */
 
 .roll-enter-active {
-  transition: opacity var(--quick) cubic-bezier(0.55, 0, 0.1, 1), scale var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
+  transition:
+    opacity var(--quick) cubic-bezier(0.55, 0, 0.1, 1),
+    scale var(--quick) cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 /* 2. declare enter from and leave to state */
@@ -221,12 +221,16 @@
 /* 3. ensure leaving items are taken out of layout flow so that moving
       animations can be calculated correctly. */
 .roll-leave-active {
-    transition: opacity var(--medium) cubic-bezier(0.55, 0, 0.1, 1), scale var(--medium) cubic-bezier(0.55, 0, 0.1, 1);
+  transition:
+    opacity var(--medium) cubic-bezier(0.55, 0, 0.1, 1),
+    scale var(--medium) cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .title-enter-active,
 .title-leave-active {
-  transition: opacity var(--slow) cubic-bezier(0.55, 0, 0.1, 1), transform var(--slow) ease-out;
+  transition:
+    opacity var(--slow) cubic-bezier(0.55, 0, 0.1, 1),
+    transform var(--slow) ease-out;
 }
 .title-enter-from {
   opacity: 0;

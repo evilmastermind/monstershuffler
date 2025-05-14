@@ -1,12 +1,9 @@
 <template>
-  <StatBlockActionType
-    v-if="statistics?.reactions?.length"
-    type="reactions"
-  />
+  <StatBlockActionType v-if="statistics?.reactions?.length" type="reactions" />
   <MonsterDescription
     v-for="(action, index) in statistics?.reactions"
     :key="index"
-    class="action"
+    class="my-2 leading-6"
     :parts="action.array"
     :name="action.nameArray"
     period

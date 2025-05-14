@@ -1,22 +1,25 @@
 <template>
-  <div class="layout-container">
-    <div class="layout">
+  <div>
+    <div ref="layout" class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
       <MonsterImages
-        :rules
-        class="image"
+        :rules="rules"
+        class="image w-min h-min"
         @load="e('load')"
         @height="setHeight"
       />
-      <div class="roleplay">
+      <div class="px-4 pt-0 sm:px-6 md:pt-[12%] md:pr-[12%]">
         <div class="story">
           <slot name="backstory" />
         </div>
-        <div class="card class= mt-6">
-          <slot v-if="showRoleplayStats" name="card" />
+        <div
+          v-if="showRoleplayStats"
+          class="grid place-items-center break-inside-avoid mt-6"
+        >
+          <slot name="card" />
         </div>
       </div>
     </div>
-    <div class="stats mt-6">
+    <div class="px-4 pb-6 sm:px-6 sm:pb-7 md:px-[6%] md:pb-[6%] mt-6">
       <slot name="stats" :columns="2" />
     </div>
   </div>
@@ -28,10 +31,7 @@ import { IMG_MAX_CANVAS_WIDTH } from "@/utils";
 
 const e = defineEmits(["load"]);
 const p = defineProps({
-  showRoleplayStats: {
-    type: Boolean,
-    default: true,
-  },
+  showRoleplayStats: { type: Boolean, default: true },
 });
 
 const imageHeight = ref(500);
@@ -40,83 +40,26 @@ const layout = ref<HTMLElement | null>(null);
 
 const observer = new ResizeObserver((entries) => {
   for (const entry of entries) {
-    const { clientWidth } = entry.target as HTMLElement;
-    width.value = clientWidth;
+    width.value = (entry.target as HTMLElement).clientWidth;
   }
 });
 
-const rules: ComputedRef<ImageRules> = computed(() => {
-  return {
-    width: "full",
-    height: "full",
-    maxWidth: width.value,
-    mask: "bottom-right",
-  };
-});
+const rules: ComputedRef<ImageRules> = computed(() => ({
+  width: "manual",
+  height: "manual",
+  maxWidth: width.value,
+  mask: "bottom-right",
+}));
 
 function setHeight(height: number) {
   imageHeight.value = height;
 }
 
 watch(layout, () => {
-  if (layout.value) {
-    observer.observe(layout.value);
-  }
+  if (layout.value) observer.observe(layout.value);
 });
 
 onUnmounted(() => {
-  if (layout.value) {
-    observer.unobserve(layout.value);
-  }
+  if (layout.value) observer.unobserve(layout.value);
 });
 </script>
-
-<style scoped>
-.layout {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.roleplay {
-  @apply px-4 pt-0;
-}
-.stats {
-  @apply px-4 pb-6;
-}
-
-@media (min-width: theme("screens.sm")) {
-  .roleplay {
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-top: 0;
-  }
-  .stats {
-    padding-left: 6%;
-    padding-right: 6%;
-    @apply pb-7;
-  }
-}
-
-@media (min-width: 750px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .roleplay {
-    padding-top: 12%;
-    padding-right: 12%;
-  }
-  .stats {
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 6%;
-  }
-}
-
-.card {
-  display: grid;
-  place-items: center;
-  break-inside: avoid;
-}
-</style>

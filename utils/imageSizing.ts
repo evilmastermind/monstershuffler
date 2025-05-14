@@ -15,7 +15,7 @@ export function fixImageSize(
   containerHeight: number,
   originalImageWidth: number,
   originalImageHeight: number,
-  rules: ImageRules
+  rules: ImageRules,
 ) {
   // check if the image is too small to cover the container
   image.imageHeightPx ??= originalImageHeight;
@@ -25,7 +25,7 @@ export function fixImageSize(
   const imageWidth = getImageWidth(
     originalImageWidth,
     image.imageHeightPx,
-    originalImageHeight
+    originalImageHeight,
   );
   if (imageWidth < containerWidth) {
     image.imageHeightPx =
@@ -43,7 +43,7 @@ export function shrinkImage(
   containerHeight: number,
   originalImageWidth: number,
   originalImageHeight: number,
-  smAndDown = false
+  smAndDown = false,
 ) {
   image.imageHeightPx ??= containerHeight;
   if (containerHeight > image.imageHeightPx && !smAndDown) {
@@ -52,7 +52,7 @@ export function shrinkImage(
   const imageWidth = getImageWidth(
     originalImageWidth,
     image.imageHeightPx,
-    originalImageHeight
+    originalImageHeight,
   );
   const heightProportions = image.imageHeightPx / containerHeight;
   const widthProportions = imageWidth / containerWidth;
@@ -77,7 +77,7 @@ export function fixImagePosition(
   containerHeight: number,
   originalImageWidth: number,
   originalImageHeight: number,
-  rules: ImageRules
+  rules: ImageRules,
 ) {
   image.imageHeightPx ??= originalImageHeight;
   image.imagePositionLeftPx ??= 0;
@@ -85,7 +85,7 @@ export function fixImagePosition(
   const imageWidth = getImageWidth(
     originalImageWidth,
     image.imageHeightPx,
-    originalImageHeight
+    originalImageHeight,
   );
   // image doesn't cover the container on the left or top
   if (image.imagePositionLeftPx > 0) {
@@ -109,7 +109,7 @@ export function fixImagePosition(
 export function fixTokenSize(
   token: Ref<Token>,
   containerWidth: number,
-  containerHeight: number
+  containerHeight: number,
 ) {
   // // token goes out of bounds (right or bottom)
   // if (token.value.widthPx + token.value.leftPx > containerWidth) {
@@ -136,7 +136,7 @@ export function fixTokenSize(
 export function fixTokenPosition(
   token: Ref<Token>,
   containerWidth: number,
-  containerHeight: number
+  containerHeight: number,
 ) {
   if (token.value.leftPx < 0) {
     token.value.leftPx = 0;
@@ -197,7 +197,7 @@ export function calculateComputedImage(
   originalImageWidth: Ref<number>,
   originalImageHeight: Ref<number>,
   width: number, // this is used to trigger computedImage's recalculation
-  rules: ImageRules
+  rules: ImageRules,
 ): Image {
   /**
    * PHASE 1
@@ -216,7 +216,7 @@ export function calculateComputedImage(
   const imageWidth = getImageWidth(
     originalImageWidth.value,
     image.value.imageHeightPx || originalImageWidth.value,
-    originalImageHeight.value
+    originalImageHeight.value,
   );
 
   // find the proportions of the token's position relative to the saved image size
@@ -252,7 +252,7 @@ export function calculateComputedImage(
     container.value.clientHeight,
     originalImageWidth.value,
     originalImageHeight.value,
-    rules
+    rules,
   );
   // if the container height is different than the original container's height that was
   // used to calculate the token's position, it means there's been a layout
@@ -269,7 +269,7 @@ export function calculateComputedImage(
       container.value.clientHeight,
       originalImageWidth.value,
       originalImageHeight.value,
-      smAndDown.value
+      smAndDown.value,
     );
   }
 
@@ -300,7 +300,7 @@ export function calculateComputedImage(
   const newImageWidth = getImageWidth(
     originalImageWidth.value,
     newImage.imageHeightPx || originalImageWidth.value,
-    originalImageHeight.value
+    originalImageHeight.value,
   );
 
   // find the new tokenX and tokenY for the image
@@ -316,7 +316,7 @@ export function calculateComputedImage(
     container.value.clientHeight,
     originalImageWidth.value,
     originalImageHeight.value,
-    rules
+    rules,
   );
 
   return newImage;
@@ -333,7 +333,7 @@ export function calculateComputedImage(
 export function getImageWidth(
   originalImageWidth: number,
   imageHeight: number,
-  originalImageHeight: number
+  originalImageHeight: number,
 ) {
   return originalImageWidth * (imageHeight / originalImageHeight);
 }
@@ -343,7 +343,7 @@ export function getImageWidth(
  */
 export function createToken(
   image: Ref<Image>,
-  container: Ref<HTMLElement | null>
+  container: Ref<HTMLElement | null>,
 ) {
   const containerWidth = container.value?.clientWidth || 0;
   const containerHeight = container.value?.clientHeight || 0;

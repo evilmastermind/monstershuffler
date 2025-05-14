@@ -7,7 +7,7 @@
         :stream-status="wrapper.streamStatus"
         @text-updated="saveBackstory"
       />
-      <LoadingDots
+      <MSLoadingDots
         v-if="
           !wrapper.streamChunks.length && wrapper?.streamStatus === 'opening'
         "
@@ -16,25 +16,28 @@
         v-if="
           hooks?.length && wrapper.hook === undefined && !isLoadingGeneration
         "
-        class="p-4 border-background-200 bg-background-200/20 border rounded w-fit break-inside-avoid mt-6"
+        class="w-fit break-inside-avoid my-4"
       >
         <p class="font-[LibreBaskerville]">
           Generate a mini-adventure based on:
         </p>
         <div class="flex gap-2 mt-2">
-          <MSButton
+          <UButton
             v-for="(hook, index) in hooks"
             :key="index"
-            color="light"
+            variant="soft"
+            size="xs"
+            color="neutral"
             :loading="isLoadingGeneration"
             :disabled="isLoadingGeneration"
             @click="generateAdventure(index)"
           >
             {{ hook.type }}
-          </MSButton>
+          </UButton>
         </div>
       </div>
-      <Transition name="fade">
+
+      <!-- <Transition name="fade">
         <div
           v-if="
             backstory &&
@@ -44,10 +47,12 @@
           "
           class="hide-from-exports"
         >
-          <h3 class="content mt-6">
+          <TH4 class="mt-6">
             {{ $t("generator.backstory.ratingQuestion") }}
-          </h3>
-          <div class="flex justify-between items-center max-w-[500px] gap-4">
+          </TH4>
+          <div
+            class="flex justify-between items-center max-w-[500px] gap-4 mt-2"
+          >
             <MSStarRating
               v-model="initialRating"
               :size="2"
@@ -56,24 +61,28 @@
                   generator.setCurrentNPCRatingThrottle(rating, user.sessionId)
               "
             />
-            <button @click="share?.toggle()">
-              <Icon class="text-text-icon mr-2" name="solar:share-bold" />
-              <span class="text-sm underline decoration-text-2">
-                {{ $t("share.action") }}
-              </span>
-            </button>
+            <UButton
+              @click="share?.toggle()"
+              color="neutral"
+              variant="ghost"
+              icon="i-xxx-share"
+              :label="$t('share.action')"
+            >
+            </UButton>
           </div>
         </div>
-      </Transition>
-      <MSAlert
+      </Transition> -->
+
+      <!-- <MSAlert
         v-if="tooManyRequests"
         type="danger"
         @close="tooManyRequests = false"
       >
         <p>{{ $t("error.tooManyRequests") }}</p>
-      </MSAlert>
+      </MSAlert> -->
     </div>
-    <MonsterShareModal ref="share" :generator-character="wrapper" />
+
+    <!-- <MonsterShareModal ref="share" :generator-character="wrapper" /> -->
   </div>
 </template>
 
@@ -96,9 +105,8 @@ const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 const share = ref<{ toggle: Function } | null>(null);
 const hooks = character.value.character?.characterHooks;
 const backstory = ref<string | undefined>(
-  character.value?.character?.user?.backstory?.string as string | undefined
+  character.value?.character?.user?.backstory?.string as string,
 );
-const tooManyRequests = ref(false);
 const isLoadingGeneration = ref(false);
 
 const initialRating = ref<number>(0);
@@ -107,17 +115,17 @@ function getRating() {
   initialRating.value = generator.getCurrentNPCRating();
 }
 
-function saveBackstory(backstory: string) {
+function saveBackstory(text: string) {
   if (!character.value.character.user) {
     character.value.character.user = {};
   }
   if (!character.value.character.user.backstory) {
-    character.value.character.user!.backstory = {
+    character.value.character.user.backstory = {
       string: "",
       type: "backstory",
     };
   }
-  character.value.character.user.backstory.string = backstory;
+  character.value.character.user.backstory.string = text;
   generator.saveSettingsThrottle();
 }
 
@@ -130,43 +138,13 @@ async function generateAdventure(hook?: number) {
 watch(
   () => wrapper.value.streamStatus,
   () => {
-    backstory.value = character.value?.character?.user?.backstory?.string as
-      | string
-      | undefined;
-  }
+    backstory.value =
+      (character.value.character.user?.backstory?.string as string) ||
+      undefined;
+  },
 );
 
 onMounted(() => {
   getRating();
 });
 </script>
-
-<style scoped>
-.name {
-  font-size: 2.5rem;
-  line-height: 1;
-  letter-spacing: 0.05em;
-  font-weight: 500;
-  font-family: "MrsEavesSmallCaps", serif;
-}
-/*
-.backstory-text:first-letter {
-  initial-letter: 5;
-  font-family: "AngloText";
-  font-weight: 400;
-  @apply text-text-neutral;
-}
-*/
-.share {
-  display: block;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: border-color 0.2s;
-  @apply py-1 px-4 border-2 border-solid border-text-neutral rounded-lg;
-}
-</style>
-<style>
-.backstory-text *:focus {
-  outline: none;
-}
-</style>

@@ -51,7 +51,7 @@ const HTMLTags = ref<PartsInHTMLTag[]>();
  */
 function groupParts(
   parts: DescriptionPart[],
-  partsInHTMLTag: PartsInHTMLTag[]
+  partsInHTMLTag: PartsInHTMLTag[],
 ) {
   let i = 0;
   if (!partsInHTMLTag.length) {
@@ -133,19 +133,8 @@ watch(
     ];
     groupParts(parts, HTMLTags.value);
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 
-<style scoped>
-.description {
-  @apply whitespace-normal break-normal;
-}
-
-ul {
-  @apply list-disc ml-4;
-}
-li {
-  @apply ml-4;
-}
-</style>
+<style scoped></style>

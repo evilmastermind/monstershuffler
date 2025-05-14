@@ -1,60 +1,71 @@
 <template>
-  <button
-    v-tooltip.top="label"
-    class="icon-button"
-    :disabled
-    :style="{
-      maxHeight: containerSize ? `${containerSize}px` : 'unset',
-    }"
-  >
-    <Icon
-      class="icon"
-      aria-hidden
-      :name="icon"
+  <UTooltip :text="label">
+    <UButton
+      :variant
+      :color
+      :aria-label="label"
+      :icon
       :size
-      :style="{
-        transform: rotate ? `rotate(${rotate}deg)` : 'none',
-      }"
+      :disabled
+      :loading
+      :class="`text-${color}-700`"
     />
-    <span class="sr-only">{{ label }}</span>
-  </button>
+  </UTooltip>
 </template>
 
 <script setup lang="ts">
+type Color =
+  | "neutral"
+  | "primary"
+  | "secondary"
+  | "al-good"
+  | "al-neutral"
+  | "al-evil"
+  | "info"
+  | "success"
+  | "warning"
+  | "error"
+  | undefined;
+type Variant =
+  | "ghost"
+  | "solid"
+  | "outline"
+  | "soft"
+  | "subtle"
+  | "link"
+  | undefined;
+type Size = "lg" | "sm" | "xs" | "md" | "xl" | undefined;
+
 const p = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
   icon: {
     type: String,
     required: true,
   },
+  label: {
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String as PropType<Color>,
+    default: "neutral",
+  },
   size: {
-    type: String,
-    default: "16",
+    type: String as PropType<Size>,
+    default: "sm",
   },
-  containerSize: {
-    type: String,
-    default: "",
-  },
-  rotate: {
-    type: Number,
-    default: null,
+  variant: {
+    type: String as PropType<Variant>,
+    default: "ghost",
   },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  loading: {
     type: Boolean,
     default: false,
   },
 });
 </script>
 
-<style scoped>
-.icon-button {
-  display: flex;
-  align-items: center;
-}
-.icon-button:active {
-  opacity: 0.8;
-}
-</style>
+<style scoped></style>
