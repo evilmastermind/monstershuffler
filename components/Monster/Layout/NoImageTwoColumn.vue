@@ -1,11 +1,14 @@
 <template>
-  <div class="layout">
-    <div class="roleplay">
+  <div class="px-2 sm:px-[6%]">
+    <div class="columns-1 md:columns-2 md:gap-8">
       <div class="story">
         <slot name="backstory" />
       </div>
-      <div class="card class= mt-6">
-        <slot v-if="showRoleplayStats" name="card" />
+      <div
+        v-if="showRoleplayStats"
+        class="grid place-items-center break-inside-avoid mt-6"
+      >
+        <slot name="card" />
       </div>
     </div>
     <div class="mt-6">
@@ -25,31 +28,3 @@ const p = defineProps({
 
 e("load");
 </script>
-
-<style scoped>
-.layout {
-  display: block;
-  @apply px-2;
-}
-.roleplay {
-  columns: 1;
-}
-@media (min-width: 750px) {
-  .roleplay {
-    columns: 2;
-    column-gap: 2rem;
-  }
-}
-
-@media (min-width: theme("screens.sm")) {
-  .layout {
-    padding: 6%;
-  }
-}
-
-.card {
-  display: grid;
-  place-items: center;
-  break-inside: avoid;
-}
-</style>

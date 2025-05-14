@@ -1,11 +1,19 @@
 <template>
-  <div class="layout-container">
+  <div>
     <slot name="images" :rules />
-    <div class="layout">
-      <div v-if="$slots.stats || $slots.card" class="stats">
+    <div
+      class="px-4 pb-4 gap-8 flex flex-col sm:px-[6%] sm:pb-[6%] md:flow-root"
+    >
+      <div
+        v-if="$slots.stats || $slots.card"
+        class="md:float-left md:pr-8 md:w-1/2"
+      >
         <slot name="stats" />
-        <div class="card my-4">
-          <slot v-if="showRoleplayStats" name="card" />
+        <div
+          v-if="showRoleplayStats"
+          class="grid place-items-center break-inside-avoid my-4"
+        >
+          <slot name="card" />
         </div>
       </div>
       <div class="story">
@@ -20,10 +28,7 @@ import type { ImageRules } from "@/types";
 
 const e = defineEmits(["load"]);
 const p = defineProps({
-  showRoleplayStats: {
-    type: Boolean,
-    default: true,
-  },
+  showRoleplayStats: { type: Boolean, default: true },
 });
 
 const rules: ImageRules = {
@@ -31,46 +36,6 @@ const rules: ImageRules = {
   height: "manual",
   mask: "bottom",
 };
+
+e("load");
 </script>
-
-<style scoped>
-.layout {
-  display: grid;
-  grid-template-areas:
-    "stats"
-    "story";
-  gap: 2rem;
-  clear: both;
-  @apply px-4 pb-4;
-}
-.stats {
-  grid-area: stats;
-}
-.story {
-  grid-area: story;
-}
-@media (min-width: 750px) {
-  .layout {
-    display: flow-root;
-  }
-  .stats {
-    float: left;
-    padding-right: 2rem;
-    width: 50%;
-  }
-}
-
-@media (min-width: theme("screens.sm")) {
-  .layout {
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 6%;
-  }
-}
-
-.card {
-  display: grid;
-  place-items: center;
-  break-inside: avoid;
-}
-</style>

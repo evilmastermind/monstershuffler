@@ -1,4 +1,4 @@
-import { FetchError } from "ofetch";
+import { FetchError, type FetchResponse } from "ofetch";
 import type { NuxtError } from "@/types/nuxt";
 
 export async function wait(ms: number) {
@@ -42,7 +42,7 @@ export function debounce(cb: Function, delay = 1000): Function {
 /** Handles multiple calls to the same function: one is called immmediately and others are called after X seconds */
 export function throttle<T extends any[]>(
   cb: (...args: T) => void,
-  delay = 1000
+  delay = 1000,
 ) {
   let shouldWait = false;
   let waitingArgs: T | null;
@@ -98,38 +98,43 @@ export function deleteKeyIfEmpty(object: any, key: string): void {
   }
 }
 
-type ParsedError = {
-  error: string;
-  message: string;
-  statusCode: number;
+export type ApiResponse<T> = {
+  ok: boolean;
+  status: number;
+  error?: string;
+  data?: T;
 };
-/** parseError is used in catch() blocks to parse errors raised from $fetch API requests */
-export function parseError(error: unknown): ParsedError {
-  if (error instanceof FetchError) {
-    const status = error.data?.status || error.status || 500;
-    console.error(
-      new Error(
-        `(type FetchError) ${error.name} ${error.message} ${error.status}`
-      )
-    );
+
+export function parseResponse<T>(
+  response: FetchResponse<T>,
+  error?: string,
+): ApiResponse<T> {
+  return {
+    ok: response.ok,
+    status: response.status,
+    error: error,
+    data: response._data,
+  };
+}
+
+export function parseError<T>(error: unknown): ApiResponse<T> {
+  if (error instanceof Error) {
     return {
-      error: error.name,
-      message: error.message,
-      statusCode: status,
+      ok: false,
+      status: error.message.includes("404") ? 404 : 503,
+      error: error.message,
     };
-  } else if (error instanceof Error) {
-    console.error(new Error(`(type Error) ${error.name} ${error.message} `));
+  } else if (error instanceof FetchError) {
     return {
-      error: error.name,
-      message: error.message,
-      statusCode: 500,
+      ok: false,
+      status: error.status || 503,
+      error: error.message,
     };
   } else {
-    console.error(new Error(`(type Error)`));
     return {
-      error: "(UnknownError)",
-      message: "An unknown error occurred",
-      statusCode: 500,
+      ok: false,
+      status: 503,
+      error: "Unknown error",
     };
   }
 }
@@ -140,7 +145,7 @@ export function random(min: number, max: number) {
 export function randomDecimal(
   min: number,
   max: number,
-  distribution?: "beginning" | "middle" | "end"
+  distribution?: "beginning" | "middle" | "end",
 ): number {
   let randomValue = Math.random();
 
@@ -207,7 +212,7 @@ export function copyToClipboard(text: string) {
 export function isUserOnMobile(): boolean {
   return (
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
+      navigator.userAgent,
     ) && window.innerWidth < 768
   );
 }

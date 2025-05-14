@@ -51,7 +51,7 @@ export const useUserStore = defineStore("user", () => {
       sessionId.value = undefined;
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -63,7 +63,7 @@ export const useUserStore = defineStore("user", () => {
       });
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -75,7 +75,7 @@ export const useUserStore = defineStore("user", () => {
       });
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -87,7 +87,7 @@ export const useUserStore = defineStore("user", () => {
       });
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -100,7 +100,7 @@ export const useUserStore = defineStore("user", () => {
       token.value = data.accessToken;
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -118,12 +118,12 @@ export const useUserStore = defineStore("user", () => {
       me.value = data;
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
   async function getSettings<T extends object>(
-    page: string
+    page: string,
   ): Promise<T | null> {
     if (token.value === "") {
       return getSettingsFromLocalStorage<T>(page);
@@ -133,19 +133,19 @@ export const useUserStore = defineStore("user", () => {
         `${api}/page-settings/${page}`,
         {
           method: "GET",
-        }
+        },
       );
       if (!data?.object) {
         return getSettingsFromLocalStorage<T>(page);
       }
       return data.object as T;
-    } catch (error) {
+    } catch (_) {
       return null;
     }
   }
 
   function getSettingsFromLocalStorage<T extends object>(
-    page: string
+    page: string,
   ): T | null {
     try {
       const settingsString = localStorage.getItem(`settings-${page}`);
@@ -160,7 +160,7 @@ export const useUserStore = defineStore("user", () => {
 
   async function setSettings<T extends object>(
     page: string,
-    settings: T
+    settings: T,
   ): Promise<T | false> {
     if (token.value === "") {
       return setSettingsInLocalStorage<T>(page, settings);
@@ -177,7 +177,7 @@ export const useUserStore = defineStore("user", () => {
 
   function setSettingsInLocalStorage<T extends object>(
     page: string,
-    settings: T
+    settings: T,
   ): T | false {
     try {
       localStorage.setItem(`settings-${page}`, JSON.stringify(settings));
@@ -217,7 +217,7 @@ export const useUserStore = defineStore("user", () => {
       });
       return 200;
     } catch (error) {
-      return parseError(error).statusCode;
+      return parseError(error).status;
     }
   }
 
@@ -249,7 +249,7 @@ export const useUserStore = defineStore("user", () => {
     (newValue) => {
       setSettingsThrottle("general", newValue);
     },
-    { deep: true }
+    { deep: true },
   );
 
   return {

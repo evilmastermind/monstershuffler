@@ -51,7 +51,6 @@
   font-display: swap;
 }
 
-
 @font-face {
   font-family: ScalaSansOffc;
   src: url("@/assets/fonts/ScalaSansOffc-BoldItalic.woff") format("woff");
@@ -92,16 +91,7 @@
   font-display: swap;
 } */
 
-.text-shadow {
-  text-shadow: 0 0 10px theme("colors.background.100");
-}
-
 .text-max {
   max-width: 700px;
   margin: 0 auto;
-}
-
-.dotted {
-  border-bottom: 1px dotted theme("colors.text-2");
-  cursor: help;
 }

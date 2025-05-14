@@ -1,36 +1,53 @@
 <template>
-  <div ref="bits" class="bits">
-    <TransitionGroup name="fade-row">
-      <div :key="-1" class="buttons px-2 mr-1">
-        <MSIconButton
-          :class="hasDeleteButtonBeenClickedOnce ? 'rainbow' : ''"
-          :label="$t('generator.deleteAll')"
-          icon="fa6-solid:trash"
-          @click="deleteAllCharacters"
+  <UContainer>
+    <div ref="bits" class="relative flex flex-wrap gap-1">
+      <TransitionGroup name="fade-row">
+        <div
+          :key="-1"
+          class="flex flex-col justify-evenly items-center rounded-full bg-elevated overflow-hidden mr-1"
+        >
+          <UTooltip :text="$t('generator.deleteAll')">
+            <UButton
+              :class="[hasDeleteButtonBeenClickedOnce ? 'rainbow' : '']"
+              :aria-label="$t('generator.deleteAll')"
+              icon="i-xxx-trash"
+              size="sm"
+              color="neutral"
+              variant="ghost"
+              @click="deleteAllCharacters"
+            />
+          </UTooltip>
+          <UTooltip :text="$t('generator.saveAll')">
+            <UButton
+              class="opacity-30"
+              :aria-label="$t('generator.saveAll')"
+              size="sm"
+              color="neutral"
+              variant="ghost"
+              icon="i-xxx-floppy"
+            />
+          </UTooltip>
+        </div>
+        <GeneratorBit
+          v-for="(npc, index) in characters"
+          :key="npc.id"
+          :index="index"
+          tabindex="0"
+          @mousedown="showCharacterPage(index)"
+          @click="showCharacterPage(index)"
+          @deleted="generator.spliceCharacter(index)"
         />
-        <MSIconButton
-          class="opacity-30"
-          :label="$t('generator.saveAll')"
-          icon="fa6-solid:floppy-disk"
-        />
-      </div>
-      <GeneratorBit
-        v-for="(npc, index) in characters"
-        :key="npc.id"
-        :index="index"
-        tabindex="0"
-        @mousedown="showCharacterPage(index)"
-        @click="showCharacterPage(index)"
-        @deleted="generator.spliceCharacter(index)"
+      </TransitionGroup>
+      <MonsterCard
+        v-if="currentCharacterBitIndex > -1"
+        :generator-character="
+          characters[currentCharacterBitIndex] as GeneratorCharacter
+        "
+        class="absolute top-full z-[9990] mt-1 drop-shadow-2xl font-[ScalaSansOffc]"
+        :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
       />
-    </TransitionGroup>
-    <MonsterCard
-      v-if="currentCharacterBitIndex > -1"
-      :generator-character="characters[currentCharacterBitIndex] as GeneratorCharacter"
-      class="bits-preview drop-shadow-2xl"
-      :style="{ top: `100%`, left: `${left}px`, width: `${width}px` }"
-    />
-  </div>
+    </div>
+  </UContainer>
 </template>
 
 <script setup lang="ts">
@@ -53,7 +70,7 @@ const width = computed(() => {
   return 400;
 });
 const left = computed(() => {
-  const bitsStartingPoint = bits.value?.getBoundingClientRect().left || 0;
+  const bitsStartingPoint = bits.value?.getBoundingClientRect()?.left || 0;
   if (x.value + width.value / 2 + bitsStartingPoint + 2 > screenWidth.value) {
     return screenWidth.value - width.value - bitsStartingPoint * 2 - 1;
   } else if (x.value - width.value / 2 < 0) {
@@ -83,38 +100,3 @@ onMounted(() => {
   currentCharacterBitIndex.value = -1;
 });
 </script>
-
-<style scoped>
-.bits {
-  position: relative;
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-}
-.bits-preview {
-  position: absolute;
-  top: 100%;
-  z-index: 9990;
-  @apply mt-1;
-}
-
-@media handheld {
-  .bits-preview {
-    display: none;
-  }
-}
-.buttons {
-  min-height: 3.75rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 0;
-  border-radius: 1rem;
-  line-height: 1rem;
-  @apply bg-background-300 text-text-icon;
-}
-.buttons button:hover {
-  @apply text-primary-700;
-}
-</style>

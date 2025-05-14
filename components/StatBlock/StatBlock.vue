@@ -51,13 +51,3 @@ onMounted(() => {
   }
 });
 </script>
-
-<style scoped></style>
-<style>
-.action {
-  margin: theme("spacing.2") 0;
-  line-height: theme("spacing.5");
-}
-.spell-group {
-}
-</style>

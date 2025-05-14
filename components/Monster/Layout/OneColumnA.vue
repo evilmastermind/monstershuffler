@@ -1,11 +1,19 @@
 <template>
-  <div class="layout-container">
+  <div>
     <slot name="images" :rules />
-    <div class="layout">
-      <div v-if="$slots.stats || $slots.card" class="stats">
+    <div
+      class="px-4 pb-4 sm:px-[6%] sm:pb-[6%] grid grid-rows-[auto_auto] md:flow-root"
+    >
+      <div
+        v-if="$slots.stats || $slots.card"
+        class="mt-6 md:mt-0 md:float-right md:pl-8 md:w-1/2"
+      >
         <slot name="stats" />
-        <div class="card my-4">
-          <slot v-if="showRoleplayStats" name="card" />
+        <div
+          v-if="showRoleplayStats"
+          class="grid place-items-center break-inside-avoid my-4"
+        >
+          <slot name="card" />
         </div>
       </div>
       <div class="story">
@@ -31,47 +39,6 @@ const rules: ImageRules = {
   height: "manual",
   mask: "bottom",
 };
+
+e("load");
 </script>
-
-<style scoped>
-.layout {
-  display: grid;
-  grid-template-areas:
-    "story"
-    "stats";
-  clear: both;
-  @apply px-4 pb-4;
-}
-.stats {
-  grid-area: stats;
-  @apply mt-6;
-}
-.story {
-  grid-area: story;
-}
-@media (min-width: 750px) {
-  .layout {
-    display: flow-root;
-  }
-  .stats {
-    float: right;
-    padding-left: 2rem;
-    width: 50%;
-    @apply mt-0;
-  }
-}
-
-@media (min-width: theme("screens.sm")) {
-  .layout {
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 6%;
-  }
-}
-
-.card {
-  display: grid;
-  place-items: center;
-  break-inside: avoid;
-}
-</style>

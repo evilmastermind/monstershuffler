@@ -2,14 +2,14 @@
   <div>
     <h1 class="content">{{ $t("verification.title") }}</h1>
     <div v-if="result === 'pending'">
-      <h4 class="text-primary-700 text-center my-4">
+      <h4 class="text-primary text-center my-4">
         <LoadingSpinner />
         {{ $t("verification.verifying") }}
       </h4>
       <LoadingSpinner :size="4" color="primary" class="mb-8" />
     </div>
     <div v-if="result === 'success'">
-      <h4 class="text-primary-700 text-center my-4">
+      <h4 class="text-primary text-center my-4">
         <Icon name="fa-solid:check" class="mr-2" aria-hidden />
         {{ $t("verification.success") }}
       </h4>

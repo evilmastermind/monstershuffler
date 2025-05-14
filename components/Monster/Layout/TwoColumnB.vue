@@ -1,14 +1,17 @@
 <template>
-  <div class="layout-container">
+  <div>
     <slot name="images" :rules />
-    <div class="layout">
+    <div class="px-4 pb-4 sm:px-[6%] sm:pb-[6%]">
       <slot name="stats" :columns="2" />
-      <div class="roleplay mt-6">
+      <div class="columns-1 md:columns-2 md:gap-8 mt-6">
         <div class="story">
           <slot name="backstory" />
         </div>
-        <div class="card class= mt-6">
-          <slot v-if="showRoleplayStats" name="card" />
+        <div
+          v-if="showRoleplayStats"
+          class="grid place-items-center break-inside-avoid mt-6"
+        >
+          <slot name="card" />
         </div>
       </div>
     </div>
@@ -31,34 +34,6 @@ const rules: ImageRules = {
   height: "manual",
   mask: "bottom",
 };
+
+e("load");
 </script>
-
-<style scoped>
-.layout {
-  display: block;
-  @apply px-4 pb-4;
-}
-.roleplay {
-  columns: 1;
-}
-@media (min-width: 750px) {
-  .roleplay {
-    columns: 2;
-    column-gap: 2rem;
-  }
-}
-
-@media (min-width: theme("screens.sm")) {
-  .layout {
-    padding-left: 6%;
-    padding-right: 6%;
-    padding-bottom: 6%;
-  }
-}
-
-.card {
-  display: grid;
-  place-items: center;
-  break-inside: avoid;
-}
-</style>

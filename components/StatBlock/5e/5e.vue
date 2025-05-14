@@ -5,7 +5,10 @@
     class="stat-block-container"
   >
     <div class="border" :class="[imageClasses.border]" />
-    <div class="stat-block" :class="[imageClasses.paper]">
+    <div
+      class="stat-block border-l border-l-(--ui-bg-elevated) border-r border-r-(--ui-bg-elevated)"
+      :class="[imageClasses.paper]"
+    >
       <div class="gradient" :class="[imageClasses.gradient]" />
       <div :key="wrapper.key" class="stat-block-content p-4">
         <StatBlockColumns :columns-count="p.columnsCount">
@@ -52,19 +55,18 @@ const wordsCount = inject("wordsCount") as Ref<number>;
 const wrapper = inject("wrapper") as Ref<GeneratorCharacter>;
 
 const imageClasses = computed(() => {
-  switch (ui.currentThemeType) {
-    case "light":
-      return {
-        border: "border-light",
-        paper: "stat-block-light",
-        gradient: "gradient-light",
-      };
-    case "dark":
-      return {
-        border: "border-dark",
-        paper: "stat-block-dark",
-        gradient: "gradient-dark",
-      };
+  if (ui.isDark) {
+    return {
+      border: "border-dark",
+      paper: "stat-block-dark",
+      gradient: "gradient-dark",
+    };
+  } else {
+    return {
+      border: "border-light",
+      paper: "stat-block-light",
+      gradient: "gradient-light",
+    };
   }
 });
 </script>
@@ -96,7 +98,6 @@ const imageClasses = computed(() => {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   container-type: inline-size;
-  @apply border-l border-l-background-300 border-r border-r-background-300;
 }
 .stat-block:before {
   position: absolute;

@@ -1,190 +1,108 @@
 <template>
-  <div class="form-container">
-    <form class="generator-form rounded shadow-md md:shadow-none">
-      <MSIconButton
-        type="button"
-        class="close-button p-1 m-2"
-        :label="$t('closeLabel')"
-        icon="fa6-solid:xmark"
-        @click="e('close')"
+  <form class="flex flex-col gap-4">
+    <UFormField :label="$t('generator.form.primaryRace')">
+      <div class="grid grid-cols-[70%_30%]">
+        <label class="mr-1">
+          <span class="sr-only"> {{ $t("generator.form.primaryRace") }} </span>
+          <USelect
+            class="w-full"
+            v-model="primaryRaceIndex"
+            :items="computedRaces"
+          />
+        </label>
+        <label>
+          <span class="sr-only">
+            {{ $t("generator.form.primaryRacePercentage") }}
+          </span>
+          <USelect
+            class="w-full"
+            v-model="settings.options.primaryRacePercentage"
+            :items="percentages"
+          />
+        </label>
+      </div>
+    </UFormField>
+    <UFormField :label="$t('generator.form.secondaryRace')">
+      <div class="grid grid-cols-[70%_30%]">
+        <label class="mr-1">
+          <span class="sr-only">
+            {{ $t("generator.form.secondaryRace") }}
+          </span>
+          <USelect
+            class="w-full"
+            v-model="secondaryRaceIndex"
+            :items="computedRaces"
+          />
+        </label>
+        <label>
+          <span class="sr-only">
+            {{ $t("generator.form.secondaryRacePercentage") }}
+          </span>
+          <USelect
+            class="w-full"
+            v-model="settings.options.secondaryRacePercentage"
+            :items="percentages"
+          />
+        </label>
+      </div>
+    </UFormField>
+    <UFormField :label="$t('generator.form.class')">
+      <USelect
+        v-model="settings.options.classType"
+        :items="classTypes"
+        class="w-full"
       />
-      <fieldset class="ms-fieldset mt-2 md:mt-0">
-        <!-- PRIMARY AND SECONDARY RACES -->
-        <span class="form-line">
-          <label class="ms-label" for="gen-prace"
-            >{{ $t("generator.form.primaryRace") }}:</label
-          >
-          <div class="flex items-center justify-between gap-1">
-            <select
-              id="gen-prace"
-              v-model="primaryRaceIndex"
-              class="ms-input-style ms-select ms-select-75"
-            >
-              <option v-for="(race, i) in races" :key="i" :value="i">
-                {{ race.name }}
-                {{ race.variantName ? ` (${race.variantName})` : "" }}
-              </option>
-            </select>
-            <label class="sr-only" for="gen-prace-perc">
-              {{ $t("generator.form.primaryRacePercentage") }}
-            </label>
-            <select
-              id="gen-prace-perc"
-              v-model="settings.options.primaryRacePercentage"
-              class="ms-input-style ms-select ms-select-20"
-            >
-              <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
-                {{ `${(index - 1) * 5}%` }}
-              </option>
-            </select>
-          </div>
-        </span>
-        <span class="form-line">
-          <label class="ms-label" for="gen-srace"
-            >{{ $t("generator.form.secondaryRace") }}:</label
-          >
-          <div class="flex items-center justify-between gap-1">
-            <select
-              id="gen-srace"
-              v-model="secondaryRaceIndex"
-              class="ms-input-style ms-select ms-select-75"
-            >
-              <option v-for="(race, i) in races" :key="i" :value="i">
-                {{ race.name }}
-                {{ race.variantName ? ` (${race.variantName})` : "" }}
-              </option>
-            </select>
-            <label class="sr-only" for="gen-srace-perc">
-              {{ $t("generator.form.secondaryRacePercentage") }}
-            </label>
-            <select
-              id="gen-srace-perc"
-              v-model="settings.options.secondaryRacePercentage"
-              class="ms-input-style ms-select ms-select-20"
-            >
-              <option v-for="index in 21" :key="index" :value="(index - 1) * 5">
-                {{ `${(index - 1) * 5}%` }}
-              </option>
-            </select>
-          </div>
-        </span>
-        <!-- CLASS -->
-        <span class="form-line">
-          <label class="ms-label" for="gen-class"
-            >{{ $t("generator.form.class") }}:</label
-          >
-          <select
-            id="gen-class"
-            v-model="settings.options.classType"
-            class="ms-input-style ms-select ms-select-100"
-          >
-            <option value="none">
-              {{ $t("generator.form.none") }}
-            </option>
-            <option value="randomSometimes" selected>
-              {{ $t("generator.form.randomSometimes") }}
-            </option>
-            <option value="randomAlways">
-              {{ $t("generator.form.randomAlways") }}
-            </option>
-            <option value="specific">
-              {{ $t("generator.form.specific") }}
-            </option>
-          </select>
-        </span>
-        <span
-          v-if="settings.options.classType === 'specific'"
-          class="form-line"
-        >
-          <select
-            id="gen-classes"
-            v-model="classIndex"
-            class="ms-input-style ms-select ms-select-100 mt-1"
-          >
-            <option v-for="(aClass, i) in classes" :key="i" :value="i">
-              {{ aClass.name }}
-              {{ aClass.variantName ? ` (${aClass.variantName})` : "" }}
-            </option>
-          </select>
-        </span>
-        <!-- BACKGROUND -->
-        <span class="form-line">
-          <label class="ms-label" for="gen-background"
-            >{{ $t("generator.form.background") }}:</label
-          >
-          <select
-            id="gen-background"
-            v-model="settings.options.backgroundType"
-            class="ms-input-style ms-select ms-select-100"
-          >
-            <option value="none">
-              {{ $t("generator.form.none") }}
-            </option>
-            <option value="random" selected>
-              {{ $t("generator.form.random") }}
-            </option>
-            <option value="specific">
-              {{ $t("generator.form.specific") }}
-            </option>
-          </select>
-        </span>
-        <span
-          v-if="settings.options.backgroundType === 'specific'"
-          class="form-line"
-        >
-          <select
-            id="gen-backgrounds"
-            v-model="backgroundIndex"
-            class="ms-input-style ms-select ms-select-100 mt-1"
-          >
-            <option v-for="(background, i) in backgrounds" :key="i" :value="i">
-              {{ capitalizeFirst(background.name) }}
-            </option>
-          </select>
-        </span>
-        <!-- LEVEL -->
-        <span class="form-line">
-          <label class="ms-label" for="gen-level"
-            >{{ $t("generator.form.cr") }}:</label
-          >
-          <select
-            id="gen-level"
-            v-model="settings.options.levelType"
-            class="ms-input-style ms-select ms-select-100"
-          >
-            <option value="random">
-              {{ $t("generator.form.crRandom") }}
-            </option>
-            <option value="randomPeasantsMostly" selected>
-              {{ $t("generator.form.crLowMostly") }}
-            </option>
-          </select>
-        </span>
-        <!-- MISC OPTIONS -->
-        <div class="misc-options">
-          <MSCheckbox
-            v-model="settings.options.addVoice"
-            :label="$t('generator.form.voice')"
-          />
-          <!-- <MSCheckbox
-            v-model="settings.options.includeChildren"
-            :label="$t('generator.form.includeChildren')"
-          /> -->
-          <MSCheckbox
-            v-model="settings.options.includeBodyType"
-            :label="$t('generator.form.includeBodyType')"
-          />
-        </div>
-      </fieldset>
-    </form>
-  </div>
+    </UFormField>
+    <UFormField v-if="settings.options.classType === 'specific'">
+      <USelect
+        v-model="classIndex"
+        :items="computedClasses"
+        class="w-full"
+        :aria-label="$t('generator.form.class')"
+      />
+    </UFormField>
+    <UFormField :label="$t('generator.form.background')">
+      <USelect
+        v-model="settings.options.backgroundType"
+        :items="backgroundTypes"
+        class="w-full"
+      />
+    </UFormField>
+    <UFormField v-if="settings.options.backgroundType === 'specific'">
+      <USelect
+        v-model="backgroundIndex"
+        :items="computedBackgrounds"
+        class="w-full"
+        :aria-label="$t('generator.form.class')"
+      />
+    </UFormField>
+    <div class="flex gap-4 flex-wrap">
+      <UCheckbox
+        color="neutral"
+        v-model="settings.options.addVoice"
+        :label="$t('generator.form.voice')"
+      />
+      <UCheckbox
+        color="neutral"
+        v-model="settings.options.includeBodyType"
+        :label="$t('generator.form.includeBodyType')"
+      />
+    </div>
+  </form>
 </template>
 
 <script setup lang="ts">
 import { capitalizeFirst } from "@/utils";
 
 const e = defineEmits(["close", "generate"]);
+
+const { t } = useI18n();
 const generator = useGeneratorStore();
+
+let percentages: {
+  value: number;
+  label: string;
+}[] = [];
 
 const {
   racesAndVariants: races,
@@ -196,6 +114,57 @@ const {
   backgroundIndex,
   settings,
 } = storeToRefs(generator);
+
+const computedRaces = computed(() => {
+  return races.value.map((race, index) => ({
+    value: index,
+    label: `${race.name}${race.variantName ? ` (${race.variantName})` : ""}`,
+  }));
+});
+const classTypes = computed(() => [
+  {
+    value: "none",
+    label: t("generator.form.none"),
+  },
+  {
+    value: "randomSometimes",
+    label: t("generator.form.randomSometimes"),
+  },
+  {
+    value: "randomAlways",
+    label: t("generator.form.randomAlways"),
+  },
+  {
+    value: "specific",
+    label: t("generator.form.specific"),
+  },
+]);
+const computedClasses = computed(() => {
+  return classes.value.map((classItem, index) => ({
+    value: index,
+    label: `${classItem.name}${classItem.variantName ? ` (${classItem.variantName})` : ""}`,
+  }));
+});
+const backgroundTypes = computed(() => [
+  {
+    value: "none",
+    label: t("generator.form.none"),
+  },
+  {
+    value: "random",
+    label: t("generator.form.random"),
+  },
+  {
+    value: "specific",
+    label: t("generator.form.specific"),
+  },
+]);
+const computedBackgrounds = computed(() => {
+  return backgrounds.value.map((background, index) => ({
+    value: index,
+    label: background.name,
+  }));
+});
 
 function setClass(index: number) {
   const classChosen = classes.value[index];
@@ -225,7 +194,7 @@ watch(
       delete settings.value.options.primaryRacevariantId;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
@@ -243,7 +212,7 @@ watch(
       delete settings.value.options.secondaryRacevariantId;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
@@ -251,7 +220,7 @@ watch(
   (newValue) => {
     setClass(newValue);
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
@@ -263,7 +232,7 @@ watch(
     }
     settings.value.options.backgroundId = background.id;
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
@@ -277,50 +246,19 @@ watch(
       setClass(classIndex.value);
     }
   },
-  { deep: true }
+  { deep: true },
 );
+
+onBeforeMount(() => {
+  percentages = [];
+  for (let i = 1; i < 21; i++) {
+    const increment = i * 5;
+    percentages.push({
+      value: increment,
+      label: `${increment}%`,
+    });
+  }
+});
 </script>
 
-<style scoped>
-form-container {
-  position: relative;
-}
-.button-settings {
-  position: fixed;
-}
-.generator-form {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  max-width: 400px;
-  z-index: 9900;
-  @apply bg-background-100 shadow-2xl p-4;
-}
-.close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.misc-options {
-  display: inline-flex;
-  flex-wrap: wrap;
-  @apply gap-4;
-}
-
-@media (min-width: theme("screens.md")) {
-  .generator-form {
-    position: relative;
-    width: 100%;
-    display: block;
-    padding: 0;
-    border-radius: 0;
-    background-color: transparent;
-    z-index: 1;
-    @apply shadow-none;
-  }
-  .close-button {
-    display: none;
-  }
-}
-</style>
+<style scoped></style>

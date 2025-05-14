@@ -1,21 +1,31 @@
 <template>
-  <MSIconButton
-    class="audio-icon hide-from-exports pr-1"
-    :icon="`fa6-solid:${audioIcon}`"
-    :label="t('monsterCard.playVoice')"
-    @click.stop="toggleAudio"
-  />
-  <audio
-    ref="audio"
-    :src="`/voices/${voice.filename}.mp3`"
-    type="audio/mpeg"
-    @ended="audioIcon = 'volume-off'"
-  />
+  <div class="relative inline-block w-6 h-4 pr-2">
+    <UTooltip :text="t('monsterCard.playVoice')">
+      <UButton
+        class="absolute text-muted bottom-[-45%] left-[-15%] cursor-pointer hide-from-exports"
+        variant="ghost"
+        color="neutral"
+        size="xs"
+        :aria-label="t('monsterCard.playVoice')"
+        :icon="audioIcon"
+        @click.stop="toggleAudio"
+      />
+    </UTooltip>
+    <audio
+      ref="audio"
+      :src="`/voices/${voice.filename}.mp3`"
+      type="audio/mpeg"
+      @ended="audioIcon = PAUSE"
+    />
+  </div>
   <span>{{ voiceString }}</span>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n();
+
+const PLAY = "i-xxx-volume-high";
+const PAUSE = "i-xxx-volume-off";
 
 type Voice = {
   person: string;
@@ -31,7 +41,7 @@ const p = defineProps({
   },
 });
 
-const audioIcon = ref("volume-off");
+const audioIcon = ref(PAUSE);
 const audio: Ref<HTMLAudioElement | null> = ref(null);
 
 const voiceString = computed(() => {
@@ -52,12 +62,12 @@ function toggleAudio() {
     return;
   }
   switch (audioIcon.value) {
-    case "volume-off":
-      audioIcon.value = "volume-high";
+    case PAUSE:
+      audioIcon.value = PLAY;
       audio.value.play();
       break;
     default:
-      audioIcon.value = "volume-off";
+      audioIcon.value = PAUSE;
       audio.value.pause();
       audio.value.currentTime = 0;
       break;
@@ -65,13 +75,4 @@ function toggleAudio() {
 }
 </script>
 
-<style scoped>
-.audio-icon {
-  display: inline-grid;
-  transform: translateY(0.2rem);
-  @apply text-text-icon/50;
-}
-.audio-icon:hover {
-  @apply text-text-icon;
-}
-</style>
+<style scoped></style>

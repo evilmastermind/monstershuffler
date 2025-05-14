@@ -19,7 +19,7 @@
           required
         />
       </label>
-      <MSButton
+      <UButton
         block
         class="mt-4 mb-4"
         color="primary"
@@ -71,7 +71,7 @@ watch(
   () => {
     errorMessage.value = "";
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 

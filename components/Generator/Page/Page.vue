@@ -1,66 +1,52 @@
 <template>
-  <div class="generator">
-    <div class="background" />
-    <NavbarPadding />
-    <Transition name="fade-quick" appear mode="out-in">
-      <div v-if="!isLoading">
-        <GeneratorPageBar
-          v-model:mode="settings.isFormMode"
-          v-model:shown="isFormShownOnMobile"
-          :is-button-loading
-          :generate-npcs-throttle
-        />
-        <div class="lg-max max-h-100">
-          <GeneratorBits v-if="characters.length" key="1" class="mt-4 mx-4" />
+  <div class="relative">
+    <Transition name="fade-quick" mode="out-in">
+      <UProgress v-show="isLoading" size="sm" class="absolute top-0 w-full" />
+    </Transition>
+    <Transition name="fade-quick" mode="out-in">
+      <div v-show="!isLoading" class="relative">
+        <GeneratorPageBar />
+        <GeneratorBits v-if="characters.length" class="mt-4" />
+        <UContainer>
           <Transition name="fade-quick" appear>
-            <GeneratorCharacterPage
+            <GeneratorNPC
               v-if="currentCharacterIndex > -1"
-              key="2"
               class="mt-4"
+              @loading="isLoading = true"
+              @loaded="isLoading = false"
             />
           </Transition>
-          <div
-            v-show="currentCharacterIndex === -1"
-            key="3"
-            class="session-container"
-            :style="{ minHeight: isIntroShown ? '0' : '100svh' }"
-          >
-            <div class="mx-4 mt-4 md:mt-7">
-              <div v-if="settings.isFormMode" class="form md:mr-6 mb-9">
-                <GeneratorForm />
-                <MSButton
-                  block
-                  class="mt-5"
-                  color="primary"
-                  :text="$t('generator.form.generate')"
-                  icon="fa6-solid:shuffle"
-                  :loading="isButtonLoading"
-                  :disabled="isButtonLoading"
-                  @click="generateNpcsThrottle"
-                />
-              </div>
-              <div class="npcs">
-                <GeneratorPageIntro v-if="isIntroShown" class="mt-9" />
-                <GeneratorSession v-else />
-              </div>
+        </UContainer>
+        <UContainer v-show="currentCharacterIndex === -1" key="3">
+          <div class="mt-4 md:mt-8">
+            <div
+              v-if="settings.isFormMode"
+              class="hidden md:block float-left w-[300px] md:mr-6 mb-9"
+            >
+              <GeneratorForm />
+              <UButton
+                block
+                variant="soft"
+                color="neutral"
+                class="mt-5"
+                :label="$t('generator.form.generate')"
+                trailing-icon="i-xxx-random"
+                :loading="isButtonLoading"
+                :disabled="isButtonLoading"
+                @click="generateNpcsThrottle"
+              />
+            </div>
+            <div class="">
+              <GeneratorPageIntro v-if="isIntroShown" class="pt-12 md:pt-12" />
+              <GeneratorCards v-else class="pt-4" />
             </div>
           </div>
-          <!-- <div v-show="isLoading" class="mt-12">
-        <LoadingSpinner />
-      </div> -->
-        </div>
-        <GeneratorPageDescription class="mt-11" />
-      </div>
-      <div v-else class="centered">
-        <LoadingSpinner class="mt-8" />
+        </UContainer>
       </div>
     </Transition>
     <MSFixedTools>
       <DiceHistory />
     </MSFixedTools>
-    <MSAlert v-if="alert" :type="alert.type" @close="alert = null">
-      <p>{{ alert.message }}</p>
-    </MSAlert>
   </div>
 </template>
 
@@ -81,7 +67,7 @@ const { session, characters, currentCharacterIndex, saveTrigger, settings } =
   storeToRefs(generator);
 
 const isIntroShown = ref(true);
-const isLoading = ref(true);
+const isLoading = ref(false);
 const isButtonLoading = ref(false);
 const alert = ref<AlertMessage | null>(null);
 
@@ -92,32 +78,8 @@ const generateNpcsThrottle = throttle(() => generateNpcs(), 1000);
 
 async function generateNpcs() {
   isButtonLoading.value = true;
-  const reply = await generator.getRandomNpcs(
-    settings.value.options,
-    user.sessionId
-  );
+  await generator.getRandomNpcs(settings.value.options, user.sessionId);
   isButtonLoading.value = false;
-  if (reply === 429) {
-    alert.value = {
-      type: "danger",
-      message: t("error.tooManyRequests"),
-    };
-    return;
-  }
-  if (reply === 404) {
-    alert.value = {
-      type: "danger",
-      message: t("error.couldntRetrieveData"),
-    };
-    return;
-  }
-  if (reply === 500) {
-    alert.value = {
-      type: "danger",
-      message: t("error.serverError"),
-    };
-    return;
-  }
   generator.saveSettingsThrottle();
 }
 
@@ -136,22 +98,15 @@ watch(
     }
     generator.saveSettingsThrottle();
   },
-  { deep: true }
+  { deep: true },
 );
 
 onBeforeMount(async () => {
   isLoading.value = generator.racesAndVariants.length === 0;
   // Retrieve the generator data
-  const status = await generator.getGeneratorData();
-  if (status !== 200) {
-    alert.value = {
-      type: "danger",
-      message: t("error.notFoundExtended"),
-    };
-  }
-  const retrievedSettings = await user.getSettings<NPCGeneratorSettings>(
-    "npcgenerator"
-  );
+  await generator.getGeneratorData();
+  const retrievedSettings =
+    await user.getSettings<NPCGeneratorSettings>("npcgenerator");
   if (retrievedSettings) {
     const characters = retrievedSettings.characters.map((character) => {
       return {
@@ -181,72 +136,13 @@ onBeforeMount(async () => {
   const uuid = route.params.uuid as string | undefined;
   const hook = route.params.hook as string | undefined;
   if (uuid) {
-    const npcStatus = await generator.getNpc(
+    await generator.getNpc(
       uuid,
-      hook !== undefined ? parseInt(hook) : undefined
+      hook !== undefined ? parseInt(hook) : undefined,
     );
-    if (npcStatus !== 200) {
-      alert.value = {
-        type: "danger",
-        message: t("error.couldntRetrieveData"),
-      };
-    }
   }
   isLoading.value = false;
 });
 </script>
 
-<style scoped>
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    theme("colors.background.0") 0,
-    theme("colors.background.100") 10em
-  );
-  z-index: -2;
-}
-.form {
-  display: none;
-}
-.mode-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: theme("spacing.2");
-}
-
-.npcs {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-.character-name {
-  font-family: "MrsEavesSmallCaps", serif;
-  display: none;
-}
-.session-container {
-  transition: min-height 0.5s;
-}
-
-@media (min-width: theme("screens.md")) {
-  .button-show-settings {
-    display: none;
-  }
-  .character-name {
-    display: inline;
-    letter-spacing: 0.03rem;
-    @apply text-text;
-  }
-  .form {
-    display: block;
-    float: left;
-    max-width: 300px;
-  }
-}
-</style>
+<style scoped></style>

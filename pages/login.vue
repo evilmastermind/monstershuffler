@@ -26,18 +26,18 @@
       <p v-if="errorMessage" class="content text-danger text-center mt-6">
         {{ errorMessage }}
       </p>
-      <MSButton
+      <UButton
         block
         class="mt-6"
-        color="primary"
+        color="neutral"
         :text="$t('login.login')"
         :loading="isButtonLoading"
       />
-      <MSButton
+      <UButton
         block
         class="mt-4 mb-4"
         type="button"
-        color="patreon"
+        color="primary"
         icon="fa6-brands:patreon"
         :text="$t('login.loginWithPatreon')"
       />

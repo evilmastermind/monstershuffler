@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="separator mt-3 mb-3"
+    class="max-w-full leading-[24px] mt-3 mb-3"
     :class="moral"
     preserveAspectRatio="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -14,9 +14,4 @@
 const moral = inject("moral") as string;
 </script>
 
-<style scoped>
-.separator {
-  max-width: 100%;
-  line-height: 24px;
-}
-</style>
+<style scoped></style>

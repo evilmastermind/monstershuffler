@@ -1,9 +1,17 @@
 import type { MonsterEditors } from "@/types";
 
 export const useMonsterEditorStore = defineStore("monster-editor", () => {
-  const currentEditorMode = ref<MonsterEditors>("");
+  const isLayoutEditorOpen = ref(false);
+  const isImageEditorOpen = ref(false);
+
+  function closeEditors() {
+    isLayoutEditorOpen.value = false;
+    isImageEditorOpen.value = false;
+  }
 
   return {
-    currentEditorMode,
+    isLayoutEditorOpen,
+    isImageEditorOpen,
+    closeEditors,
   };
 });
