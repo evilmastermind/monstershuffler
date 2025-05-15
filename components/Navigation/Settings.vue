@@ -8,10 +8,10 @@
     <template #content>
       <div class="flex flex-col gap-3 p-4">
         <UFormField :label="$t('navbar.settings.statBlockStyle')" size="xs">
-          <NavBarStatBlockTheme />
+          <NavigationStatBlockTheme />
         </UFormField>
         <UFormField :label="$t('navbar.settings.uiTheme')" size="xs">
-          <NavBarUITheme />
+          <NavigationUITheme />
         </UFormField>
       </div>
     </template>

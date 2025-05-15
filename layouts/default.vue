@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="min-h-svh">
-      <MSNavBar />
+      <Navigation />
       <main>
         <slot />
       </main>
