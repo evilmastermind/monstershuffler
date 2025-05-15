@@ -6,7 +6,7 @@
     @mouseup="endDrag"
     @mouseleave="endDrag"
     @mousemove="onDrag"
-    @touchstart.prevent="startDrag"
+    @touchstart="startDrag"
     @touchend="endDrag"
     @touchmove.prevent="onDrag"
   >
@@ -15,7 +15,7 @@
       v-for="post in posts"
       :key="post.id"
       class="noselect min-w-[200px] md:min-w-[250px] cursor-pointer rounded overflow-hidden border border-accented shadow-md hover:shadow-lg hover:border-primary/30 mr-4"
-      @click="() => navigateTo(`/news/${post.slug}`)"
+      @click="goTo(post.slug)"
     >
       <div
         class="relative aspect-square"
@@ -59,28 +59,48 @@ const scroller = ref<HTMLElement | null>(null);
 const isDown = ref(false);
 const startX = ref(0);
 const scrollLeft = ref(0);
+const isDragging = ref(false);
+const dragThreshold = 5;
+let dragStartY = 0;
 
 function startDrag(e: MouseEvent | TouchEvent) {
   isDown.value = true;
-  scroller.value!.classList.add("cursor-grabbing");
+  isDragging.value = false;
+
   const pageX = "touches" in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
+  const pageY = "touches" in e ? e.touches[0].pageY : (e as MouseEvent).pageY;
+
+  dragStartY = pageY;
   startX.value = pageX - scroller.value!.offsetLeft;
   scrollLeft.value = scroller.value!.scrollLeft;
+  scroller.value!.classList.add("cursor-grabbing");
 }
 
 function endDrag() {
   isDown.value = false;
+  setTimeout(() => {
+    isDragging.value = false;
+  }, 50); // let click happen if it was a tap
   scroller.value!.classList.remove("cursor-grabbing");
 }
 
 function onDrag(e: MouseEvent | TouchEvent) {
   if (!isDown.value) return;
+
   const pageX = "touches" in e ? e.touches[0].pageX : (e as MouseEvent).pageX;
+  const pageY = "touches" in e ? e.touches[0].pageY : (e as MouseEvent).pageY;
+
+  const deltaY = Math.abs(pageY - dragStartY);
+  const deltaX = Math.abs(pageX - startX.value - scroller.value!.offsetLeft);
+
+  if (deltaX > dragThreshold || deltaY > dragThreshold) {
+    isDragging.value = true;
+  }
+
   const x = pageX - scroller.value!.offsetLeft;
-  const walk = (x - startX.value) * 1; // scroll-fast factor
+  const walk = (x - startX.value) * 1;
   scroller.value!.scrollLeft = scrollLeft.value - walk;
 }
-
 function scrollBy(direction: -1 | 1) {
   scroller.value!.scrollBy({
     left: direction * scroller.value!.clientWidth * 0.8,
@@ -89,7 +109,9 @@ function scrollBy(direction: -1 | 1) {
 }
 
 function goTo(url: string) {
-  window.location.href = url;
+  if (!isDragging.value) {
+    navigateTo(`/news/${url}`);
+  }
 }
 </script>
 
