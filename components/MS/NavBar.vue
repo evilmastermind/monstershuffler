@@ -1,5 +1,5 @@
 <template>
-  <div
+  <nav
     class="w-full h-[60px] flex items-center border-b border-muted bg-linear-to-b from-(--ui-bg) to-(--ui-bg-muted) backdrop-blur-xs z-20"
   >
     <UContainer>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </UContainer>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts"></script>
