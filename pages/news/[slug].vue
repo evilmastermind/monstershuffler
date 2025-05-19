@@ -57,4 +57,11 @@ const items = ref<BreadcrumbItem[]>([
 .news img {
   border-radius: var(--radius-md);
 }
+
+.news ul {
+  margin-left: calc(var(--spacing) * 5);
+  margin-bottom: calc(var(--spacing) * 5);
+  list-style-type: disc;
+  list-style-position: inside;
+}
 </style>
