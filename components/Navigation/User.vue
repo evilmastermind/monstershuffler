@@ -1,6 +1,6 @@
 <template>
-  <template v-if="!token" class="flex gap-2 h-min">
-    <!-- <UButton
+  <div v-if="!token" class="flex gap-2 h-min">
+    <UButton
       :text="$t('navbar.login')"
       size="sm"
       variant="outline"
@@ -13,8 +13,8 @@
       variant="solid"
       color="neutral"
       to="/registration"
-    /> -->
-  </template>
+    />
+  </div>
   <NuxtLink
     v-else-if="me"
     class="user-flex"

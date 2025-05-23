@@ -31,7 +31,7 @@
           <NavigationSocialLinks class="hidden md:inline-flex" />
 
           <NavigationSettings />
-          <NavigationUser />
+          <NavigationUser class="hidden md:inline-flex" />
           <NavigationBurger class="inline-flex md:hidden" />
         </div>
       </div>

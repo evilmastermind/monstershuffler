@@ -57,6 +57,19 @@ const items = [
       target: "_blank",
     },
   ],
+  [
+    {
+      label: t("navbar.login"),
+      icon: "i-xxx-login",
+      to: localePath({ name: "login" }),
+    },
+    {
+      label: t("navbar.register"),
+      color: "primary",
+      icon: "i-xxx-user-plus",
+      to: localePath({ name: "registration" }),
+    },
+  ],
 ];
 </script>
 

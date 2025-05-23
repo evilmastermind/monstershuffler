@@ -466,8 +466,8 @@
   },
   "navbar": {
     "menuTitle": "Menu",
-    "login": "Login",
-    "register": "Register",
+    "login": "Log in",
+    "register": "Sign up",
     "logout": "Logout",
     "userSettings": "User Settings",
     "settings": {
