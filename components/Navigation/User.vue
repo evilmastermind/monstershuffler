@@ -20,15 +20,7 @@
     class="user-flex"
     :to="localePath({ name: 'user-settings' })"
   >
-    <p class="content">
-      {{ me.username }}
-    </p>
-    <div
-      class="avatar"
-      :style="{
-        backgroundImage: `url(${me.avatar || '/images/avatar.jpg'})`,
-      }"
-    ></div>
+    <UAvatar icon="i-xxx-person-circle" size="md" :alt="me.username" />
   </NuxtLink>
 </template>
 <script setup lang="ts">

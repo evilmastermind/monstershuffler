@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full h-screen">
+  <div class="relative min-w-screen w-full min-h-screen h-full">
     <!-- Background -->
     <div
       class="absolute inset-0 bg-no-repeat bg-center bg-cover -z-10"
@@ -10,7 +10,9 @@
     />
 
     <!-- Card container -->
-    <div class="w-screen h-screen grid place-items-center">
+    <div
+      class="min-w-screen w-full min-h-screen h-full grid place-items-center sm:p-4"
+    >
       <slot />
     </div>
   </div>

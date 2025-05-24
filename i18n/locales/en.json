@@ -572,7 +572,7 @@
     "pageTitle": "Login",
     "login": "Login",
     "loginWithPatreon": "Login with Patreon",
-    "failed": "Login failed. Check your credentials try again.",
+    "failed": "Login failed. Check your credentials and try again.",
     "notYetActivated": "Your account has not been activated yet. Check your email for the activation link, or click on the link below to resend it.",
     "notRegisteredYet": "Don't have an account yet?",
     "registerHere": "Register here!",

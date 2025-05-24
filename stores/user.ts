@@ -43,15 +43,19 @@ export const useUserStore = defineStore("user", () => {
 
   async function login(credentials: Credentials) {
     try {
-      const data: LoginResponse = await $fetch(`${api}/users/login`, {
+      const response = await $fetch.raw<LoginResponse>(`${api}/users/login`, {
         method: "POST",
         body: credentials,
       });
-      token.value = data.accessToken;
+      if (response._data?.accessToken) {
+        token.value = response._data?.accessToken;
+      } else {
+        throw new Error("No access token");
+      }
       sessionId.value = undefined;
-      return 200;
+      return parseResponse<LoginResponse>(response);
     } catch (error) {
-      return parseError(error).status;
+      return parseError<LoginResponse>(error);
     }
   }
 
