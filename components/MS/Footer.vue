@@ -35,9 +35,9 @@
       </p>
       <NavbarSupportButtonKickstarter class="mt-6" />
     </div> -->
-
+    <MSTestWarning class="mt-4" />
     <footer
-      class="mt-4 p-4 flex flex-col items-center border-t border-accented bg-linear-to-b from-(--ui-bg-muted)/50 to-(--ui-bg-muted) gap-2"
+      class="p-4 flex flex-col items-center border-t border-accented bg-linear-to-b from-(--ui-bg-muted)/50 to-(--ui-bg-muted) gap-2"
     >
       <p class="max-w-lg text-xs text-center">
         © 2022 Monstershuffler, created by

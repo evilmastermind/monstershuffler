@@ -1,7 +1,7 @@
 <template>
   <UCard
     v-if="!isRegistrationSuccessful"
-    class="w-screen h-screen rounded-none sm:w-[450px] sm:h-auto sm:rounded"
+    class="w-full h-full rounded-none sm:w-[450px] sm:h-auto sm:rounded"
   >
     <template #header>
       <TH3 class="text-center">{{ $t("registration.accountCreation") }}</TH3>
@@ -196,7 +196,7 @@ const schema = z
     confirmPassword: z.string().min(1, { message: t("error.fieldRequired") }),
   })
   .refine((dataUser) => dataUser.password === dataUser.confirmPassword, {
-    message: t("error.passwordsDoNotMatch"),
+    message: t("registration.passwordsDontMatch"),
     path: ["confirmPassword"],
   });
 

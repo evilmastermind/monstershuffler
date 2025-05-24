@@ -8,6 +8,7 @@
         'bg-[position:66%_center]': true,
       }"
     />
+    <MSTestWarning />
 
     <!-- Card container -->
     <div class="bg-muted-10 min-h-screen grid place-items-center sm:p-4">

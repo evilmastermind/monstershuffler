@@ -83,15 +83,15 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  async function reactivate(email: string) {
+  async function reactivate(body: { email: string }) {
     try {
-      await $fetch(`${api}/users/reactivation`, {
+      const response = await $fetch.raw(`${api}/users/reactivation`, {
         method: "POST",
-        body: { email },
+        body,
       });
-      return 200;
+      return parseResponse(response);
     } catch (error) {
-      return parseError(error).status;
+      return parseError(error);
     }
   }
 
