@@ -61,13 +61,13 @@ export const useUserStore = defineStore("user", () => {
 
   async function register(fields: RegistrationFields) {
     try {
-      await $fetch(`${api}/users`, {
+      const response = await $fetch.raw(`${api}/users`, {
         method: "POST",
         body: fields,
       });
-      return 200;
+      return parseResponse(response);
     } catch (error) {
-      return parseError(error).status;
+      return parseError(error);
     }
   }
 

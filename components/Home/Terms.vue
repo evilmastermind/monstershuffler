@@ -713,13 +713,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-useSeoMeta({
-  ...defaultSeoMeta,
-  title: "Terms of Service - Monstershuffler.com",
-  ogTitle: "Terms of Service - Monstershuffler.com",
-});
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .background {

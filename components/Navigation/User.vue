@@ -15,19 +15,40 @@
       to="/registration"
     />
   </div>
-  <NuxtLink
-    v-else-if="me"
-    class="user-flex"
-    :to="localePath({ name: 'user-settings' })"
-  >
-    <UAvatar icon="i-xxx-person-circle" size="md" :alt="me.username" />
-  </NuxtLink>
+  <UDropdownMenu :items="userMenu" v-else class="cursor-pointer">
+    <UAvatar
+      aria-role="button"
+      icon="i-xxx-user"
+      size="md"
+      :alt="me?.username || $t('navbar.userSettings')"
+    />
+  </UDropdownMenu>
 </template>
 <script setup lang="ts">
+const { t } = useI18n();
 const user = useUserStore();
+const router = useRouter();
 const localePath = useLocalePath();
 
 const { token, me } = storeToRefs(user);
+
+const userMenu = computed(() => {
+  return [
+    {
+      label: t("navbar.userSettings"),
+      icon: "i-xxx-cog",
+      to: localePath("/settings"),
+    },
+    {
+      label: t("navbar.logout"),
+      icon: "i-xxx-user-x",
+      onSelect: async () => {
+        user.logout();
+        router.push(localePath({ name: "index" }));
+      },
+    },
+  ];
+});
 
 onMounted(async () => {
   if (!user.token) {

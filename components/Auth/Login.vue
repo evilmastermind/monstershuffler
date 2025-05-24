@@ -1,6 +1,6 @@
 <template>
   <UCard
-    class="w-screen h-screen rounded-none sm:w-[450px] sm:h-auto sm:rounded sm:bg-muted/85 sm:backdrop-blur-xs"
+    class="w-screen h-screen rounded-none sm:w-[450px] sm:h-auto sm:rounded"
   >
     <template #header>
       <TH3 class="text-center">{{ $t("login.login") }}</TH3>
@@ -10,7 +10,7 @@
         </TQ>
       </div>
     </template>
-    <UForm :schema="schema" :state="state" @submit="login" class="space-y-4">
+    <UForm :schema="schema" :state="state" @submit="login" class="space-y-2">
       <UFormField :label="$t('email')" name="email">
         <UInput
           v-model="state.email"
@@ -36,6 +36,7 @@
         color="neutral"
         :label="$t('login.login')"
         :loading="isButtonLoading"
+        :disabled="isButtonLoading"
       />
       <UButton
         block
@@ -47,11 +48,11 @@
     </UForm>
     <template #footer>
       <div class="flex flex-col items-center gap-2">
-        <p class="text-center">
+        <p class="text-center text-sm">
           {{ $t("login.notRegisteredYet") }}
           <NuxtLink
             :to="localePath({ name: 'registration' })"
-            class="font-bold"
+            class="font-bold underline"
           >
             {{ $t("login.registerHere") }}
           </NuxtLink>
@@ -60,7 +61,7 @@
           {{ $t("login.forgotPassword") }}
           <NuxtLink
             :to="localePath({ name: 'user-reactivation' })"
-            class="font-bold"
+            class="font-bold underline"
           >
             {{ $t("login.clickHere") }}
           </NuxtLink>
@@ -69,7 +70,7 @@
           {{ $t("login.needActivation") }}
           <NuxtLink
             :to="localePath({ name: 'user-reactivation' })"
-            class="font-bold"
+            class="font-bold underline"
           >
             {{ $t("login.clickHere") }}
           </NuxtLink>

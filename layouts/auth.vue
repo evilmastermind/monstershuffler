@@ -1,18 +1,16 @@
 <template>
-  <div class="relative min-w-screen w-full min-h-screen h-full">
+  <div class="relative min-h-screen">
     <!-- Background -->
     <div
       class="absolute inset-0 bg-no-repeat bg-center bg-cover -z-10"
       :class="{
-        'bg-[url(@/assets/images/backgrounds/login.webp)]': true,
+        'bg-[url(@/assets/images/backgrounds/login-3-dark.jpg)]': true,
         'bg-[position:66%_center]': true,
       }"
     />
 
     <!-- Card container -->
-    <div
-      class="min-w-screen w-full min-h-screen h-full grid place-items-center sm:p-4"
-    >
+    <div class="bg-muted-10 min-h-screen grid place-items-center sm:p-4">
       <slot />
     </div>
   </div>

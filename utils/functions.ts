@@ -118,16 +118,16 @@ export function parseResponse<T>(
 }
 
 export function parseError<T>(error: unknown): ApiResponse<T> {
-  if (error instanceof Error) {
-    return {
-      ok: false,
-      status: error.message.includes("404") ? 404 : 503,
-      error: error.message,
-    };
-  } else if (error instanceof FetchError) {
+  if (error instanceof FetchError) {
     return {
       ok: false,
       status: error.status || 503,
+      error: error.message,
+    };
+  } else if (error instanceof Error) {
+    return {
+      ok: false,
+      status: error.message.includes("404") ? 404 : 503,
       error: error.message,
     };
   } else {

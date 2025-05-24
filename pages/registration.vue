@@ -1,5 +1,5 @@
 <template>
-  <AuthLogin />
+  <AuthRegistration />
 </template>
 
 <script setup lang="ts">
@@ -10,8 +10,8 @@ definePageMeta({
 });
 useSeoMeta({
   ...defaultSeoMeta,
-  title: `${t("registration.pageTitle")} - Monstershuffler.com`,
-  ogTitle: `${t("registration.pageTitle")} - Monstershuffler.com`,
+  title: `${t("login.pageTitle")} - Monstershuffler.com`,
+  ogTitle: `${t("login.pageTitle")} - Monstershuffler.com`,
 });
 </script>
 
