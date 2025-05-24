@@ -11,10 +11,7 @@
 
     <!-- Card container -->
     <div class="w-screen h-screen grid place-items-center">
-      <UCard>
-        class="w-screen h-screen sm:w-auto sm:max-w-[450px] sm:h-auto">
-        <slot />
-      </UCard>
+      <slot />
     </div>
   </div>
 </template>

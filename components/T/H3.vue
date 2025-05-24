@@ -1,7 +1,7 @@
 <template>
-  <h4 class="font-[LibreBaskerville] font-bold">
+  <h3 class="font-[LibreBaskerville] font-bold text-2xl">
     <slot />
-  </h4>
+  </h3>
 </template>
 
 <script setup lang="ts"></script>

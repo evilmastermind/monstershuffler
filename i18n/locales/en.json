@@ -10,7 +10,8 @@
     "serverError": "An error occurred on the server, or the server is not available. Please try again later.",
     "serviceUnavailable": "The service you requested is currently unavailable. Please try again later.",
     "tooManyRequests": "Hey, slow down! You've made too many requests to our server. Please wait a few seconds before trying again.",
-    "unauthorized": "You are not authorized to access this resource. Please log in and try again."
+    "unauthorized": "You are not authorized to access this resource. Please log in and try again.",
+    "fieldRequired": "This field is required."
   },
   "units": {
     "feet": "{n} feet | {n} foot | {n} feet",
@@ -565,6 +566,9 @@
     }
   },
   "login": {
+    "error": {
+      "emailInvalid": "Invalid email address."
+    },
     "pageTitle": "Login",
     "login": "Login",
     "loginWithPatreon": "Login with Patreon",

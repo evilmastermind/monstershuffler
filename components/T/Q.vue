@@ -1,7 +1,7 @@
 <template>
-  <h2 class="font-[LibreBaskerville] font-bold text-3xl">
+  <q class="text-muted text-center italic">
     <slot />
-  </h2>
+  </q>
 </template>
 
 <script setup lang="ts"></script>
